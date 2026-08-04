@@ -1,0 +1,7 @@
+---
+description: Pointer to root API coding rules. Source of truth is at the repo root.
+globs: api/**
+alwaysApply: false
+---
+
+Follow the API coding rules in `.cursor/rules/api-code-structure-and-best-practices.mdc` at the repository root when reading, writing, or refactoring code under `api/`.
