@@ -4018,7 +4018,7 @@ export namespace Prisma {
   export type PasswordResetTokenMinAggregateOutputType = {
     id: string | null
     token_hash: string | null
-    user_uuid: string | null
+    user_id: string | null
     expires_at: Date | null
     used_at: Date | null
     created_at: Date | null
@@ -4027,7 +4027,7 @@ export namespace Prisma {
   export type PasswordResetTokenMaxAggregateOutputType = {
     id: string | null
     token_hash: string | null
-    user_uuid: string | null
+    user_id: string | null
     expires_at: Date | null
     used_at: Date | null
     created_at: Date | null
@@ -4036,7 +4036,7 @@ export namespace Prisma {
   export type PasswordResetTokenCountAggregateOutputType = {
     id: number
     token_hash: number
-    user_uuid: number
+    user_id: number
     expires_at: number
     used_at: number
     created_at: number
@@ -4047,7 +4047,7 @@ export namespace Prisma {
   export type PasswordResetTokenMinAggregateInputType = {
     id?: true
     token_hash?: true
-    user_uuid?: true
+    user_id?: true
     expires_at?: true
     used_at?: true
     created_at?: true
@@ -4056,7 +4056,7 @@ export namespace Prisma {
   export type PasswordResetTokenMaxAggregateInputType = {
     id?: true
     token_hash?: true
-    user_uuid?: true
+    user_id?: true
     expires_at?: true
     used_at?: true
     created_at?: true
@@ -4065,7 +4065,7 @@ export namespace Prisma {
   export type PasswordResetTokenCountAggregateInputType = {
     id?: true
     token_hash?: true
-    user_uuid?: true
+    user_id?: true
     expires_at?: true
     used_at?: true
     created_at?: true
@@ -4147,7 +4147,7 @@ export namespace Prisma {
   export type PasswordResetTokenGroupByOutputType = {
     id: string
     token_hash: string
-    user_uuid: string
+    user_id: string
     expires_at: Date
     used_at: Date | null
     created_at: Date
@@ -4173,7 +4173,7 @@ export namespace Prisma {
   export type PasswordResetTokenSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     token_hash?: boolean
-    user_uuid?: boolean
+    user_id?: boolean
     expires_at?: boolean
     used_at?: boolean
     created_at?: boolean
@@ -4183,7 +4183,7 @@ export namespace Prisma {
   export type PasswordResetTokenSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     token_hash?: boolean
-    user_uuid?: boolean
+    user_id?: boolean
     expires_at?: boolean
     used_at?: boolean
     created_at?: boolean
@@ -4193,7 +4193,7 @@ export namespace Prisma {
   export type PasswordResetTokenSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     token_hash?: boolean
-    user_uuid?: boolean
+    user_id?: boolean
     expires_at?: boolean
     used_at?: boolean
     created_at?: boolean
@@ -4203,13 +4203,13 @@ export namespace Prisma {
   export type PasswordResetTokenSelectScalar = {
     id?: boolean
     token_hash?: boolean
-    user_uuid?: boolean
+    user_id?: boolean
     expires_at?: boolean
     used_at?: boolean
     created_at?: boolean
   }
 
-  export type PasswordResetTokenOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "token_hash" | "user_uuid" | "expires_at" | "used_at" | "created_at", ExtArgs["result"]["passwordResetToken"]>
+  export type PasswordResetTokenOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "token_hash" | "user_id" | "expires_at" | "used_at" | "created_at", ExtArgs["result"]["passwordResetToken"]>
   export type PasswordResetTokenInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -4228,7 +4228,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       token_hash: string
-      user_uuid: string
+      user_id: string
       expires_at: Date
       used_at: Date | null
       created_at: Date
@@ -4658,7 +4658,7 @@ export namespace Prisma {
   interface PasswordResetTokenFieldRefs {
     readonly id: FieldRef<"PasswordResetToken", 'String'>
     readonly token_hash: FieldRef<"PasswordResetToken", 'String'>
-    readonly user_uuid: FieldRef<"PasswordResetToken", 'String'>
+    readonly user_id: FieldRef<"PasswordResetToken", 'String'>
     readonly expires_at: FieldRef<"PasswordResetToken", 'DateTime'>
     readonly used_at: FieldRef<"PasswordResetToken", 'DateTime'>
     readonly created_at: FieldRef<"PasswordResetToken", 'DateTime'>
@@ -5098,7 +5098,7 @@ export namespace Prisma {
 
   export type DocumentMinAggregateOutputType = {
     id: string | null
-    user_uuid: string | null
+    user_id: string | null
     filename: string | null
     mimetype: string | null
     size: number | null
@@ -5110,7 +5110,7 @@ export namespace Prisma {
 
   export type DocumentMaxAggregateOutputType = {
     id: string | null
-    user_uuid: string | null
+    user_id: string | null
     filename: string | null
     mimetype: string | null
     size: number | null
@@ -5122,7 +5122,7 @@ export namespace Prisma {
 
   export type DocumentCountAggregateOutputType = {
     id: number
-    user_uuid: number
+    user_id: number
     filename: number
     mimetype: number
     size: number
@@ -5144,7 +5144,7 @@ export namespace Prisma {
 
   export type DocumentMinAggregateInputType = {
     id?: true
-    user_uuid?: true
+    user_id?: true
     filename?: true
     mimetype?: true
     size?: true
@@ -5156,7 +5156,7 @@ export namespace Prisma {
 
   export type DocumentMaxAggregateInputType = {
     id?: true
-    user_uuid?: true
+    user_id?: true
     filename?: true
     mimetype?: true
     size?: true
@@ -5168,7 +5168,7 @@ export namespace Prisma {
 
   export type DocumentCountAggregateInputType = {
     id?: true
-    user_uuid?: true
+    user_id?: true
     filename?: true
     mimetype?: true
     size?: true
@@ -5267,7 +5267,7 @@ export namespace Prisma {
 
   export type DocumentGroupByOutputType = {
     id: string
-    user_uuid: string
+    user_id: string
     filename: string
     mimetype: string
     size: number
@@ -5298,7 +5298,7 @@ export namespace Prisma {
 
   export type DocumentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    user_uuid?: boolean
+    user_id?: boolean
     filename?: boolean
     mimetype?: boolean
     size?: boolean
@@ -5313,7 +5313,7 @@ export namespace Prisma {
 
   export type DocumentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    user_uuid?: boolean
+    user_id?: boolean
     filename?: boolean
     mimetype?: boolean
     size?: boolean
@@ -5325,7 +5325,7 @@ export namespace Prisma {
 
   export type DocumentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    user_uuid?: boolean
+    user_id?: boolean
     filename?: boolean
     mimetype?: boolean
     size?: boolean
@@ -5337,7 +5337,7 @@ export namespace Prisma {
 
   export type DocumentSelectScalar = {
     id?: boolean
-    user_uuid?: boolean
+    user_id?: boolean
     filename?: boolean
     mimetype?: boolean
     size?: boolean
@@ -5347,7 +5347,7 @@ export namespace Prisma {
     created_at?: boolean
   }
 
-  export type DocumentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_uuid" | "filename" | "mimetype" | "size" | "url" | "path" | "type" | "created_at", ExtArgs["result"]["document"]>
+  export type DocumentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "filename" | "mimetype" | "size" | "url" | "path" | "type" | "created_at", ExtArgs["result"]["document"]>
   export type DocumentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     computer_use_steps_before?: boolean | Document$computer_use_steps_beforeArgs<ExtArgs>
     computer_use_steps_after?: boolean | Document$computer_use_steps_afterArgs<ExtArgs>
@@ -5364,7 +5364,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      user_uuid: string
+      user_id: string
       filename: string
       mimetype: string
       size: number
@@ -5798,7 +5798,7 @@ export namespace Prisma {
    */
   interface DocumentFieldRefs {
     readonly id: FieldRef<"Document", 'String'>
-    readonly user_uuid: FieldRef<"Document", 'String'>
+    readonly user_id: FieldRef<"Document", 'String'>
     readonly filename: FieldRef<"Document", 'String'>
     readonly mimetype: FieldRef<"Document", 'String'>
     readonly size: FieldRef<"Document", 'Int'>
@@ -23599,7 +23599,7 @@ export namespace Prisma {
   export const PasswordResetTokenScalarFieldEnum: {
     id: 'id',
     token_hash: 'token_hash',
-    user_uuid: 'user_uuid',
+    user_id: 'user_id',
     expires_at: 'expires_at',
     used_at: 'used_at',
     created_at: 'created_at'
@@ -23610,7 +23610,7 @@ export namespace Prisma {
 
   export const DocumentScalarFieldEnum: {
     id: 'id',
-    user_uuid: 'user_uuid',
+    user_id: 'user_id',
     filename: 'filename',
     mimetype: 'mimetype',
     size: 'size',
@@ -24316,7 +24316,7 @@ export namespace Prisma {
     NOT?: PasswordResetTokenWhereInput | PasswordResetTokenWhereInput[]
     id?: StringFilter<"PasswordResetToken"> | string
     token_hash?: StringFilter<"PasswordResetToken"> | string
-    user_uuid?: StringFilter<"PasswordResetToken"> | string
+    user_id?: StringFilter<"PasswordResetToken"> | string
     expires_at?: DateTimeFilter<"PasswordResetToken"> | Date | string
     used_at?: DateTimeNullableFilter<"PasswordResetToken"> | Date | string | null
     created_at?: DateTimeFilter<"PasswordResetToken"> | Date | string
@@ -24326,7 +24326,7 @@ export namespace Prisma {
   export type PasswordResetTokenOrderByWithRelationInput = {
     id?: SortOrder
     token_hash?: SortOrder
-    user_uuid?: SortOrder
+    user_id?: SortOrder
     expires_at?: SortOrder
     used_at?: SortOrderInput | SortOrder
     created_at?: SortOrder
@@ -24339,7 +24339,7 @@ export namespace Prisma {
     AND?: PasswordResetTokenWhereInput | PasswordResetTokenWhereInput[]
     OR?: PasswordResetTokenWhereInput[]
     NOT?: PasswordResetTokenWhereInput | PasswordResetTokenWhereInput[]
-    user_uuid?: StringFilter<"PasswordResetToken"> | string
+    user_id?: StringFilter<"PasswordResetToken"> | string
     expires_at?: DateTimeFilter<"PasswordResetToken"> | Date | string
     used_at?: DateTimeNullableFilter<"PasswordResetToken"> | Date | string | null
     created_at?: DateTimeFilter<"PasswordResetToken"> | Date | string
@@ -24349,7 +24349,7 @@ export namespace Prisma {
   export type PasswordResetTokenOrderByWithAggregationInput = {
     id?: SortOrder
     token_hash?: SortOrder
-    user_uuid?: SortOrder
+    user_id?: SortOrder
     expires_at?: SortOrder
     used_at?: SortOrderInput | SortOrder
     created_at?: SortOrder
@@ -24364,7 +24364,7 @@ export namespace Prisma {
     NOT?: PasswordResetTokenScalarWhereWithAggregatesInput | PasswordResetTokenScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"PasswordResetToken"> | string
     token_hash?: StringWithAggregatesFilter<"PasswordResetToken"> | string
-    user_uuid?: StringWithAggregatesFilter<"PasswordResetToken"> | string
+    user_id?: StringWithAggregatesFilter<"PasswordResetToken"> | string
     expires_at?: DateTimeWithAggregatesFilter<"PasswordResetToken"> | Date | string
     used_at?: DateTimeNullableWithAggregatesFilter<"PasswordResetToken"> | Date | string | null
     created_at?: DateTimeWithAggregatesFilter<"PasswordResetToken"> | Date | string
@@ -24375,7 +24375,7 @@ export namespace Prisma {
     OR?: DocumentWhereInput[]
     NOT?: DocumentWhereInput | DocumentWhereInput[]
     id?: StringFilter<"Document"> | string
-    user_uuid?: StringFilter<"Document"> | string
+    user_id?: StringFilter<"Document"> | string
     filename?: StringFilter<"Document"> | string
     mimetype?: StringFilter<"Document"> | string
     size?: IntFilter<"Document"> | number
@@ -24389,7 +24389,7 @@ export namespace Prisma {
 
   export type DocumentOrderByWithRelationInput = {
     id?: SortOrder
-    user_uuid?: SortOrder
+    user_id?: SortOrder
     filename?: SortOrder
     mimetype?: SortOrder
     size?: SortOrder
@@ -24406,7 +24406,7 @@ export namespace Prisma {
     AND?: DocumentWhereInput | DocumentWhereInput[]
     OR?: DocumentWhereInput[]
     NOT?: DocumentWhereInput | DocumentWhereInput[]
-    user_uuid?: StringFilter<"Document"> | string
+    user_id?: StringFilter<"Document"> | string
     filename?: StringFilter<"Document"> | string
     mimetype?: StringFilter<"Document"> | string
     size?: IntFilter<"Document"> | number
@@ -24420,7 +24420,7 @@ export namespace Prisma {
 
   export type DocumentOrderByWithAggregationInput = {
     id?: SortOrder
-    user_uuid?: SortOrder
+    user_id?: SortOrder
     filename?: SortOrder
     mimetype?: SortOrder
     size?: SortOrder
@@ -24440,7 +24440,7 @@ export namespace Prisma {
     OR?: DocumentScalarWhereWithAggregatesInput[]
     NOT?: DocumentScalarWhereWithAggregatesInput | DocumentScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Document"> | string
-    user_uuid?: StringWithAggregatesFilter<"Document"> | string
+    user_id?: StringWithAggregatesFilter<"Document"> | string
     filename?: StringWithAggregatesFilter<"Document"> | string
     mimetype?: StringWithAggregatesFilter<"Document"> | string
     size?: IntWithAggregatesFilter<"Document"> | number
@@ -25905,7 +25905,7 @@ export namespace Prisma {
   export type PasswordResetTokenUncheckedCreateInput = {
     id?: string
     token_hash: string
-    user_uuid: string
+    user_id: string
     expires_at: Date | string
     used_at?: Date | string | null
     created_at?: Date | string
@@ -25923,7 +25923,7 @@ export namespace Prisma {
   export type PasswordResetTokenUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     token_hash?: StringFieldUpdateOperationsInput | string
-    user_uuid?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
     expires_at?: DateTimeFieldUpdateOperationsInput | Date | string
     used_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25932,7 +25932,7 @@ export namespace Prisma {
   export type PasswordResetTokenCreateManyInput = {
     id?: string
     token_hash: string
-    user_uuid: string
+    user_id: string
     expires_at: Date | string
     used_at?: Date | string | null
     created_at?: Date | string
@@ -25949,7 +25949,7 @@ export namespace Prisma {
   export type PasswordResetTokenUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     token_hash?: StringFieldUpdateOperationsInput | string
-    user_uuid?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
     expires_at?: DateTimeFieldUpdateOperationsInput | Date | string
     used_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25957,7 +25957,7 @@ export namespace Prisma {
 
   export type DocumentCreateInput = {
     id?: string
-    user_uuid: string
+    user_id: string
     filename: string
     mimetype: string
     size: number
@@ -25971,7 +25971,7 @@ export namespace Prisma {
 
   export type DocumentUncheckedCreateInput = {
     id?: string
-    user_uuid: string
+    user_id: string
     filename: string
     mimetype: string
     size: number
@@ -25985,7 +25985,7 @@ export namespace Prisma {
 
   export type DocumentUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    user_uuid?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
     filename?: StringFieldUpdateOperationsInput | string
     mimetype?: StringFieldUpdateOperationsInput | string
     size?: IntFieldUpdateOperationsInput | number
@@ -25999,7 +25999,7 @@ export namespace Prisma {
 
   export type DocumentUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    user_uuid?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
     filename?: StringFieldUpdateOperationsInput | string
     mimetype?: StringFieldUpdateOperationsInput | string
     size?: IntFieldUpdateOperationsInput | number
@@ -26013,7 +26013,7 @@ export namespace Prisma {
 
   export type DocumentCreateManyInput = {
     id?: string
-    user_uuid: string
+    user_id: string
     filename: string
     mimetype: string
     size: number
@@ -26025,7 +26025,7 @@ export namespace Prisma {
 
   export type DocumentUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    user_uuid?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
     filename?: StringFieldUpdateOperationsInput | string
     mimetype?: StringFieldUpdateOperationsInput | string
     size?: IntFieldUpdateOperationsInput | number
@@ -26037,7 +26037,7 @@ export namespace Prisma {
 
   export type DocumentUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    user_uuid?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
     filename?: StringFieldUpdateOperationsInput | string
     mimetype?: StringFieldUpdateOperationsInput | string
     size?: IntFieldUpdateOperationsInput | number
@@ -27743,7 +27743,7 @@ export namespace Prisma {
   export type PasswordResetTokenCountOrderByAggregateInput = {
     id?: SortOrder
     token_hash?: SortOrder
-    user_uuid?: SortOrder
+    user_id?: SortOrder
     expires_at?: SortOrder
     used_at?: SortOrder
     created_at?: SortOrder
@@ -27752,7 +27752,7 @@ export namespace Prisma {
   export type PasswordResetTokenMaxOrderByAggregateInput = {
     id?: SortOrder
     token_hash?: SortOrder
-    user_uuid?: SortOrder
+    user_id?: SortOrder
     expires_at?: SortOrder
     used_at?: SortOrder
     created_at?: SortOrder
@@ -27761,7 +27761,7 @@ export namespace Prisma {
   export type PasswordResetTokenMinOrderByAggregateInput = {
     id?: SortOrder
     token_hash?: SortOrder
-    user_uuid?: SortOrder
+    user_id?: SortOrder
     expires_at?: SortOrder
     used_at?: SortOrder
     created_at?: SortOrder
@@ -27811,7 +27811,7 @@ export namespace Prisma {
 
   export type DocumentCountOrderByAggregateInput = {
     id?: SortOrder
-    user_uuid?: SortOrder
+    user_id?: SortOrder
     filename?: SortOrder
     mimetype?: SortOrder
     size?: SortOrder
@@ -27827,7 +27827,7 @@ export namespace Prisma {
 
   export type DocumentMaxOrderByAggregateInput = {
     id?: SortOrder
-    user_uuid?: SortOrder
+    user_id?: SortOrder
     filename?: SortOrder
     mimetype?: SortOrder
     size?: SortOrder
@@ -27839,7 +27839,7 @@ export namespace Prisma {
 
   export type DocumentMinOrderByAggregateInput = {
     id?: SortOrder
-    user_uuid?: SortOrder
+    user_id?: SortOrder
     filename?: SortOrder
     mimetype?: SortOrder
     size?: SortOrder
@@ -31239,7 +31239,7 @@ export namespace Prisma {
     NOT?: PasswordResetTokenScalarWhereInput | PasswordResetTokenScalarWhereInput[]
     id?: StringFilter<"PasswordResetToken"> | string
     token_hash?: StringFilter<"PasswordResetToken"> | string
-    user_uuid?: StringFilter<"PasswordResetToken"> | string
+    user_id?: StringFilter<"PasswordResetToken"> | string
     expires_at?: DateTimeFilter<"PasswordResetToken"> | Date | string
     used_at?: DateTimeNullableFilter<"PasswordResetToken"> | Date | string | null
     created_at?: DateTimeFilter<"PasswordResetToken"> | Date | string
@@ -32904,7 +32904,7 @@ export namespace Prisma {
 
   export type DocumentCreateWithoutComputer_use_steps_beforeInput = {
     id?: string
-    user_uuid: string
+    user_id: string
     filename: string
     mimetype: string
     size: number
@@ -32917,7 +32917,7 @@ export namespace Prisma {
 
   export type DocumentUncheckedCreateWithoutComputer_use_steps_beforeInput = {
     id?: string
-    user_uuid: string
+    user_id: string
     filename: string
     mimetype: string
     size: number
@@ -32935,7 +32935,7 @@ export namespace Prisma {
 
   export type DocumentCreateWithoutComputer_use_steps_afterInput = {
     id?: string
-    user_uuid: string
+    user_id: string
     filename: string
     mimetype: string
     size: number
@@ -32948,7 +32948,7 @@ export namespace Prisma {
 
   export type DocumentUncheckedCreateWithoutComputer_use_steps_afterInput = {
     id?: string
-    user_uuid: string
+    user_id: string
     filename: string
     mimetype: string
     size: number
@@ -33024,7 +33024,7 @@ export namespace Prisma {
 
   export type DocumentUpdateWithoutComputer_use_steps_beforeInput = {
     id?: StringFieldUpdateOperationsInput | string
-    user_uuid?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
     filename?: StringFieldUpdateOperationsInput | string
     mimetype?: StringFieldUpdateOperationsInput | string
     size?: IntFieldUpdateOperationsInput | number
@@ -33037,7 +33037,7 @@ export namespace Prisma {
 
   export type DocumentUncheckedUpdateWithoutComputer_use_steps_beforeInput = {
     id?: StringFieldUpdateOperationsInput | string
-    user_uuid?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
     filename?: StringFieldUpdateOperationsInput | string
     mimetype?: StringFieldUpdateOperationsInput | string
     size?: IntFieldUpdateOperationsInput | number
@@ -33061,7 +33061,7 @@ export namespace Prisma {
 
   export type DocumentUpdateWithoutComputer_use_steps_afterInput = {
     id?: StringFieldUpdateOperationsInput | string
-    user_uuid?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
     filename?: StringFieldUpdateOperationsInput | string
     mimetype?: StringFieldUpdateOperationsInput | string
     size?: IntFieldUpdateOperationsInput | number
@@ -33074,7 +33074,7 @@ export namespace Prisma {
 
   export type DocumentUncheckedUpdateWithoutComputer_use_steps_afterInput = {
     id?: StringFieldUpdateOperationsInput | string
-    user_uuid?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
     filename?: StringFieldUpdateOperationsInput | string
     mimetype?: StringFieldUpdateOperationsInput | string
     size?: IntFieldUpdateOperationsInput | number

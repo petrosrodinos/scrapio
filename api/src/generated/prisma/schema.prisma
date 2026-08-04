@@ -159,21 +159,21 @@ model User {
 model PasswordResetToken {
   id         String    @id @default(uuid())
   token_hash String    @unique
-  user_uuid  String
+  user_id    String
   expires_at DateTime
   used_at    DateTime?
   created_at DateTime  @default(now())
 
-  user User @relation(fields: [user_uuid], references: [id], onDelete: Cascade)
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
-  @@index([user_uuid])
+  @@index([user_id])
   @@index([expires_at])
   @@map("password_reset_tokens")
 }
 
 model Document {
   id         String       @id @default(uuid())
-  user_uuid  String
+  user_id    String
   filename   String
   mimetype   String
   size       Int
@@ -185,7 +185,7 @@ model Document {
   computer_use_steps_before ComputerUseStep[] @relation("ComputerUseStepScreenshotBefore")
   computer_use_steps_after  ComputerUseStep[] @relation("ComputerUseStepScreenshotAfter")
 
-  @@index([user_uuid])
+  @@index([user_id])
   @@index([id])
   @@map("documents")
 }

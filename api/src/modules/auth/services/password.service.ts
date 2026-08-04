@@ -29,7 +29,7 @@ export class PasswordService {
 
             await this.prisma.passwordResetToken.updateMany({
                 where: {
-                    user_uuid: user.id,
+                    user_id: user.id,
                     used_at: null,
                 },
                 data: {
@@ -40,7 +40,7 @@ export class PasswordService {
             await this.prisma.passwordResetToken.create({
                 data: {
                     token_hash: tokenHash,
-                    user_uuid: user.id,
+                    user_id: user.id,
                     expires_at: expiresAt,
                 },
             });
@@ -80,7 +80,7 @@ export class PasswordService {
 
         await this.prisma.$transaction([
             this.prisma.user.update({
-                where: { id: resetToken.user_uuid },
+                where: { id: resetToken.user_id },
                 data: { password: hashedPassword },
             }),
             this.prisma.passwordResetToken.update({
@@ -89,7 +89,7 @@ export class PasswordService {
             }),
             this.prisma.passwordResetToken.updateMany({
                 where: {
-                    user_uuid: resetToken.user_uuid,
+                    user_id: resetToken.user_id,
                     used_at: null,
                     id: { not: resetToken.id },
                 },

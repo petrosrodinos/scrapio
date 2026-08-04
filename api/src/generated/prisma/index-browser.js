@@ -133,7 +133,7 @@ exports.Prisma.UserScalarFieldEnum = {
 exports.Prisma.PasswordResetTokenScalarFieldEnum = {
   id: 'id',
   token_hash: 'token_hash',
-  user_uuid: 'user_uuid',
+  user_id: 'user_id',
   expires_at: 'expires_at',
   used_at: 'used_at',
   created_at: 'created_at'
@@ -141,7 +141,7 @@ exports.Prisma.PasswordResetTokenScalarFieldEnum = {
 
 exports.Prisma.DocumentScalarFieldEnum = {
   id: 'id',
-  user_uuid: 'user_uuid',
+  user_id: 'user_id',
   filename: 'filename',
   mimetype: 'mimetype',
   size: 'size',
