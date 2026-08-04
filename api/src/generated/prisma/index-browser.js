@@ -151,9 +151,227 @@ exports.Prisma.DocumentScalarFieldEnum = {
   created_at: 'created_at'
 };
 
+exports.Prisma.WebsiteTargetScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  base_url: 'base_url',
+  crawl_interval: 'crawl_interval',
+  notes: 'notes',
+  last_success_at: 'last_success_at',
+  last_failure_at: 'last_failure_at',
+  last_error_message: 'last_error_message',
+  metadata: 'metadata',
+  block_handling_wait_timeout_ms: 'block_handling_wait_timeout_ms',
+  block_handling_min_ready_body_length: 'block_handling_min_ready_body_length',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.BlockRuleScalarFieldEnum = {
+  id: 'id',
+  website_target_id: 'website_target_id',
+  label: 'label',
+  signal: 'signal',
+  source: 'source',
+  pattern: 'pattern',
+  is_regex: 'is_regex',
+  regex_flags: 'regex_flags',
+  position: 'position',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.ScraperScalarFieldEnum = {
+  id: 'id',
+  website_target_id: 'website_target_id',
+  name: 'name',
+  active_version_id: 'active_version_id',
+  version_count: 'version_count',
+  status: 'status',
+  self_healing_enabled: 'self_healing_enabled',
+  diagnostics_mode: 'diagnostics_mode',
+  health: 'health',
+  success_rate: 'success_rate',
+  avg_runtime_ms: 'avg_runtime_ms',
+  consecutive_failures: 'consecutive_failures',
+  last_success_at: 'last_success_at',
+  last_failure_at: 'last_failure_at',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.ScraperGenerationRunScalarFieldEnum = {
+  id: 'id',
+  website_target_id: 'website_target_id',
+  scraper_id: 'scraper_id',
+  trigger: 'trigger',
+  status: 'status',
+  prompt: 'prompt',
+  max_steps: 'max_steps',
+  staged_config: 'staged_config',
+  produced_version_id: 'produced_version_id',
+  error_message: 'error_message',
+  started_at: 'started_at',
+  finished_at: 'finished_at',
+  duration_ms: 'duration_ms',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.ComputerUseStepScalarFieldEnum = {
+  id: 'id',
+  scraper_generation_run_id: 'scraper_generation_run_id',
+  step_index: 'step_index',
+  action_type: 'action_type',
+  action_payload: 'action_payload',
+  screenshot_before_id: 'screenshot_before_id',
+  screenshot_after_id: 'screenshot_after_id',
+  model_reasoning: 'model_reasoning',
+  created_at: 'created_at'
+};
+
+exports.Prisma.ScraperVersionScalarFieldEnum = {
+  id: 'id',
+  scraper_id: 'scraper_id',
+  version: 'version',
+  config: 'config',
+  created_by: 'created_by',
+  notes: 'notes',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.ScraperExecutionTraceScalarFieldEnum = {
+  id: 'id',
+  scraper_id: 'scraper_id',
+  crawl_run_id: 'crawl_run_id',
+  steps: 'steps',
+  success: 'success',
+  error_summary: 'error_summary',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.CrawlRunScalarFieldEnum = {
+  id: 'id',
+  website_target_id: 'website_target_id',
+  scraper_id: 'scraper_id',
+  status: 'status',
+  started_at: 'started_at',
+  finished_at: 'finished_at',
+  duration_ms: 'duration_ms',
+  total_found: 'total_found',
+  total_new_listings: 'total_new_listings',
+  total_refreshed_listings: 'total_refreshed_listings',
+  error_message: 'error_message',
+  metadata: 'metadata',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.ExtractedItemScalarFieldEnum = {
+  id: 'id',
+  website_target_id: 'website_target_id',
+  crawl_run_id: 'crawl_run_id',
+  source_url: 'source_url',
+  external_id: 'external_id',
+  raw_data: 'raw_data',
+  content_hash: 'content_hash',
+  first_seen_at: 'first_seen_at',
+  last_seen_at: 'last_seen_at',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.DiagnosticsPackageScalarFieldEnum = {
+  id: 'id',
+  crawl_run_id: 'crawl_run_id',
+  scraper_id: 'scraper_id',
+  mode: 'mode',
+  url: 'url',
+  worker_id: 'worker_id',
+  browser_version: 'browser_version',
+  playwright_version: 'playwright_version',
+  scraper_version: 'scraper_version',
+  retry_number: 'retry_number',
+  started_at: 'started_at',
+  finished_at: 'finished_at',
+  duration_ms: 'duration_ms',
+  failure_reason: 'failure_reason',
+  exception: 'exception',
+  created_at: 'created_at'
+};
+
+exports.Prisma.DiagnosticsArtifactScalarFieldEnum = {
+  id: 'id',
+  diagnostics_package_id: 'diagnostics_package_id',
+  kind: 'kind',
+  path: 'path',
+  content_type: 'content_type',
+  size_bytes: 'size_bytes',
+  created_at: 'created_at'
+};
+
+exports.Prisma.JobLogScalarFieldEnum = {
+  id: 'id',
+  queue_name: 'queue_name',
+  job_id: 'job_id',
+  job_name: 'job_name',
+  status: 'status',
+  attempt: 'attempt',
+  max_attempts: 'max_attempts',
+  crawl_run_id: 'crawl_run_id',
+  payload: 'payload',
+  result: 'result',
+  error_message: 'error_message',
+  stack_trace: 'stack_trace',
+  started_at: 'started_at',
+  finished_at: 'finished_at',
+  duration_ms: 'duration_ms',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.NotificationScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  severity: 'severity',
+  title: 'title',
+  message: 'message',
+  website_target_id: 'website_target_id',
+  scraper_id: 'scraper_id',
+  crawl_run_id: 'crawl_run_id',
+  is_read: 'is_read',
+  created_at: 'created_at'
+};
+
+exports.Prisma.PlatformConfigScalarFieldEnum = {
+  id: 'id',
+  crawler_max_pages: 'crawler_max_pages',
+  crawler_page_timeout_ms: 'crawler_page_timeout_ms',
+  crawler_selector_timeout_ms: 'crawler_selector_timeout_ms',
+  crawler_scroll_pause_ms: 'crawler_scroll_pause_ms',
+  crawler_detail_concurrency: 'crawler_detail_concurrency',
+  crawler_detail_delay_ms: 'crawler_detail_delay_ms',
+  crawler_worker_concurrency: 'crawler_worker_concurrency',
+  crawler_job_timeout_ms: 'crawler_job_timeout_ms',
+  crawler_chromium_max_contexts_before_restart: 'crawler_chromium_max_contexts_before_restart',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
+};
+
+exports.Prisma.JsonNullValueInput = {
+  JsonNull: Prisma.JsonNull
 };
 
 exports.Prisma.QueryMode = {
@@ -164,6 +382,12 @@ exports.Prisma.QueryMode = {
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
+};
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
 };
 exports.AuthRole = exports.$Enums.AuthRole = {
   USER: 'USER',
@@ -183,10 +407,138 @@ exports.DocumentType = exports.$Enums.DocumentType = {
   OTHER: 'OTHER'
 };
 
+exports.BlockSignal = exports.$Enums.BlockSignal = {
+  BLOCKED: 'BLOCKED',
+  CHALLENGE: 'CHALLENGE'
+};
+
+exports.BlockRuleSource = exports.$Enums.BlockRuleSource = {
+  TITLE: 'TITLE',
+  TEXT: 'TEXT',
+  HTML: 'HTML',
+  PATH: 'PATH',
+  SCRIPT_CONTENT: 'SCRIPT_CONTENT',
+  SELECTOR: 'SELECTOR'
+};
+
+exports.ScraperStatus = exports.$Enums.ScraperStatus = {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE',
+  DEPRECATED: 'DEPRECATED',
+  TESTING: 'TESTING',
+  BROKEN: 'BROKEN'
+};
+
+exports.DiagnosticsMode = exports.$Enums.DiagnosticsMode = {
+  PRODUCTION: 'PRODUCTION',
+  TRACE: 'TRACE',
+  FULL_DEBUG: 'FULL_DEBUG'
+};
+
+exports.ScraperHealth = exports.$Enums.ScraperHealth = {
+  EXCELLENT: 'EXCELLENT',
+  GOOD: 'GOOD',
+  WARNING: 'WARNING',
+  CRITICAL: 'CRITICAL',
+  BROKEN: 'BROKEN'
+};
+
+exports.GenerationTrigger = exports.$Enums.GenerationTrigger = {
+  MANUAL: 'MANUAL',
+  SELF_HEAL: 'SELF_HEAL',
+  SCHEDULED: 'SCHEDULED'
+};
+
+exports.GenerationRunStatus = exports.$Enums.GenerationRunStatus = {
+  QUEUED: 'QUEUED',
+  RUNNING: 'RUNNING',
+  AWAITING_REVIEW: 'AWAITING_REVIEW',
+  SUCCESS: 'SUCCESS',
+  FAILED: 'FAILED',
+  CANCELLED: 'CANCELLED'
+};
+
+exports.ComputerActionType = exports.$Enums.ComputerActionType = {
+  CLICK: 'CLICK',
+  DOUBLE_CLICK: 'DOUBLE_CLICK',
+  TYPE: 'TYPE',
+  SCROLL: 'SCROLL',
+  SCROLL_UP: 'SCROLL_UP',
+  SCROLL_DOWN: 'SCROLL_DOWN',
+  NAVIGATE: 'NAVIGATE',
+  GO_BACK: 'GO_BACK',
+  CLOSE_TAB: 'CLOSE_TAB',
+  WAIT: 'WAIT',
+  KEYPRESS: 'KEYPRESS',
+  SCREENSHOT: 'SCREENSHOT',
+  DRAG: 'DRAG',
+  DONE: 'DONE'
+};
+
+exports.ScraperVersionCreatedBy = exports.$Enums.ScraperVersionCreatedBy = {
+  AI: 'AI',
+  USER: 'USER'
+};
+
+exports.CrawlRunStatus = exports.$Enums.CrawlRunStatus = {
+  QUEUED: 'QUEUED',
+  RUNNING: 'RUNNING',
+  SUCCESS: 'SUCCESS',
+  PARTIAL_SUCCESS: 'PARTIAL_SUCCESS',
+  FAILED: 'FAILED',
+  CANCELLED: 'CANCELLED'
+};
+
+exports.DiagnosticsArtifactKind = exports.$Enums.DiagnosticsArtifactKind = {
+  TRACE: 'TRACE',
+  SCREENSHOT: 'SCREENSHOT',
+  HTML_SNAPSHOT: 'HTML_SNAPSHOT',
+  CONSOLE_LOG: 'CONSOLE_LOG',
+  NETWORK_HAR: 'NETWORK_HAR',
+  VIDEO: 'VIDEO'
+};
+
+exports.JobStatus = exports.$Enums.JobStatus = {
+  WAITING: 'WAITING',
+  ACTIVE: 'ACTIVE',
+  COMPLETED: 'COMPLETED',
+  FAILED: 'FAILED',
+  DELAYED: 'DELAYED',
+  PAUSED: 'PAUSED',
+  STALLED: 'STALLED'
+};
+
+exports.NotificationType = exports.$Enums.NotificationType = {
+  QUEUE_FAILURE: 'QUEUE_FAILURE',
+  BROKEN_SCRAPER: 'BROKEN_SCRAPER',
+  WEBSITE_UNAVAILABLE: 'WEBSITE_UNAVAILABLE',
+  LARGE_CRAWL_FAILURE: 'LARGE_CRAWL_FAILURE'
+};
+
+exports.NotificationSeverity = exports.$Enums.NotificationSeverity = {
+  INFO: 'INFO',
+  WARNING: 'WARNING',
+  CRITICAL: 'CRITICAL'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   PasswordResetToken: 'PasswordResetToken',
-  Document: 'Document'
+  Document: 'Document',
+  WebsiteTarget: 'WebsiteTarget',
+  BlockRule: 'BlockRule',
+  Scraper: 'Scraper',
+  ScraperGenerationRun: 'ScraperGenerationRun',
+  ComputerUseStep: 'ComputerUseStep',
+  ScraperVersion: 'ScraperVersion',
+  ScraperExecutionTrace: 'ScraperExecutionTrace',
+  CrawlRun: 'CrawlRun',
+  ExtractedItem: 'ExtractedItem',
+  DiagnosticsPackage: 'DiagnosticsPackage',
+  DiagnosticsArtifact: 'DiagnosticsArtifact',
+  JobLog: 'JobLog',
+  Notification: 'Notification',
+  PlatformConfig: 'PlatformConfig'
 };
 
 /**

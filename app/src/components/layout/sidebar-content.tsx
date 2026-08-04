@@ -1,5 +1,14 @@
 import { NavLink } from 'react-router-dom';
-import { Activity, LayoutDashboard } from 'lucide-react';
+import {
+  Activity,
+  Bot,
+  Globe,
+  LayoutDashboard,
+  Play,
+  Settings2,
+  Sparkles,
+  Wrench,
+} from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Routes } from '@/routes/routes';
 import { RoleTypes } from '@/features/user/interfaces/user.interface';
@@ -15,6 +24,13 @@ const dashboardNavItems = [
 ];
 
 const adminNavItems = [
+  { label: 'Targets', icon: Globe, href: Routes.admin.websiteTargets.list, end: false },
+  { label: 'Scrapers', icon: Bot, href: Routes.admin.scrapers.list, end: false },
+  { label: 'Generation', icon: Sparkles, href: Routes.admin.generationRuns.list, end: false },
+  { label: 'Crawl Runs', icon: Play, href: Routes.admin.crawlRuns.list, end: false },
+  { label: 'Jobs', icon: Wrench, href: Routes.admin.jobs.list, end: false },
+  { label: 'Diagnostics', icon: Activity, href: Routes.admin.diagnostics.list, end: false },
+  { label: 'Crawler Config', icon: Settings2, href: Routes.admin.crawlerConfig, end: true },
   { label: 'Health', icon: Activity, href: Routes.admin.health, end: true },
 ];
 
@@ -83,7 +99,9 @@ function NavItem({
 export default function SidebarContent({ collapsed, onNavigate }: SidebarContentProps) {
   const { role } = useAuthStore();
   const canAccessAdmin =
-    role === RoleTypes.ADMIN || role === RoleTypes.SUPER_ADMIN;
+    role === RoleTypes.ADMIN ||
+    role === RoleTypes.SUPER_ADMIN ||
+    role === RoleTypes.SUPPORT;
 
   return (
     <div className="space-y-4">

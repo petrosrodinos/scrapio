@@ -159,6 +159,28 @@ export class GcsAdapter {
         }
     }
 
+    public async getSignedUrlForPath(
+        fullPath: string,
+        expiresInMinutes: number = 60,
+    ): Promise<string> {
+        try {
+            const storage = this.gcsConfig.getStorageClient();
+            const bucketName = this.gcsConfig.getBucketName();
+            const bucket = storage.bucket(bucketName);
+
+            const file = bucket.file(fullPath);
+            const [signedUrl] = await file.getSignedUrl({
+                action: 'read',
+                expires: Date.now() + expiresInMinutes * 60 * 1000,
+            });
+
+            return signedUrl;
+        } catch (error) {
+            this.logger.error('Get signed URL error:', error);
+            throw new Error(`Failed to get signed URL: ${error.message}`);
+        }
+    }
+
     public async downloadImage(request: DownloadImageRequest): Promise<DownloadImageResponse> {
         try {
             const storage = this.gcsConfig.getStorageClient();

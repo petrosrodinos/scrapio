@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
   output   = "../src/generated/prisma"
@@ -31,13 +25,126 @@ enum DocumentType {
   OTHER
 }
 
-model User {
-  id                  String  @id @default(uuid())
-  email     String   @unique
-  phone     String?   @unique
-  password  String
+enum ScraperStatus {
+  ACTIVE
+  INACTIVE
+  DEPRECATED
+  TESTING
+  BROKEN
+}
 
-  role      AuthRole
+enum ScraperHealth {
+  EXCELLENT
+  GOOD
+  WARNING
+  CRITICAL
+  BROKEN
+}
+
+enum CrawlRunStatus {
+  QUEUED
+  RUNNING
+  SUCCESS
+  PARTIAL_SUCCESS
+  FAILED
+  CANCELLED
+}
+
+enum DiagnosticsMode {
+  PRODUCTION
+  TRACE
+  FULL_DEBUG
+}
+
+enum DiagnosticsArtifactKind {
+  TRACE
+  SCREENSHOT
+  HTML_SNAPSHOT
+  CONSOLE_LOG
+  NETWORK_HAR
+  VIDEO
+}
+
+enum GenerationRunStatus {
+  QUEUED
+  RUNNING
+  AWAITING_REVIEW
+  SUCCESS
+  FAILED
+  CANCELLED
+}
+
+enum GenerationTrigger {
+  MANUAL
+  SELF_HEAL
+  SCHEDULED
+}
+
+enum ComputerActionType {
+  CLICK
+  DOUBLE_CLICK
+  TYPE
+  SCROLL
+  SCROLL_UP
+  SCROLL_DOWN
+  NAVIGATE
+  GO_BACK
+  CLOSE_TAB
+  WAIT
+  KEYPRESS
+  SCREENSHOT
+  DRAG
+  DONE
+}
+
+enum JobStatus {
+  WAITING
+  ACTIVE
+  COMPLETED
+  FAILED
+  DELAYED
+  PAUSED
+  STALLED
+}
+
+enum ScraperVersionCreatedBy {
+  AI
+  USER
+}
+
+enum BlockSignal {
+  BLOCKED
+  CHALLENGE
+}
+
+enum BlockRuleSource {
+  TITLE
+  TEXT
+  HTML
+  PATH
+  SCRIPT_CONTENT
+  SELECTOR
+}
+
+enum NotificationType {
+  QUEUE_FAILURE
+  BROKEN_SCRAPER
+  WEBSITE_UNAVAILABLE
+  LARGE_CRAWL_FAILURE
+}
+
+enum NotificationSeverity {
+  INFO
+  WARNING
+  CRITICAL
+}
+
+model User {
+  id         String   @id @default(uuid())
+  email      String   @unique
+  phone      String?  @unique
+  password   String
+  role       AuthRole
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
@@ -50,7 +157,7 @@ model User {
 }
 
 model PasswordResetToken {
-  id         String  @id @default(uuid())
+  id         String    @id @default(uuid())
   token_hash String    @unique
   user_uuid  String
   expires_at DateTime
@@ -65,20 +172,345 @@ model PasswordResetToken {
 }
 
 model Document {
-  id                 String  @id @default(uuid())
-  user_uuid          String
-  filename           String
-  mimetype           String
-  size               Int
-  url                String
-  path               String
-  type               DocumentType  @default(LOGO)
-  created_at         DateTime      @default(now())
+  id         String       @id @default(uuid())
+  user_uuid  String
+  filename   String
+  mimetype   String
+  size       Int
+  url        String
+  path       String
+  type       DocumentType @default(LOGO)
+  created_at DateTime     @default(now())
+
+  computer_use_steps_before ComputerUseStep[] @relation("ComputerUseStepScreenshotBefore")
+  computer_use_steps_after  ComputerUseStep[] @relation("ComputerUseStepScreenshotAfter")
 
   @@index([user_uuid])
   @@index([id])
   @@map("documents")
 }
 
+model WebsiteTarget {
+  id                                   String    @id @default(uuid())
+  name                                 String
+  base_url                             String    @unique
+  crawl_interval                       String    @default("0 */6 * * *")
+  notes                                String?
+  last_success_at                      DateTime?
+  last_failure_at                      DateTime?
+  last_error_message                   String?
+  metadata                             Json?
+  block_handling_wait_timeout_ms       Int?
+  block_handling_min_ready_body_length Int?
+  created_at                           DateTime  @default(now())
+  updated_at                           DateTime  @updatedAt
 
+  scrapers                Scraper[]
+  scraper_generation_runs ScraperGenerationRun[]
+  crawl_runs              CrawlRun[]
+  block_rules             BlockRule[]
+  notifications           Notification[]
+  extracted_items         ExtractedItem[]
 
+  @@map("website_targets")
+}
+
+model BlockRule {
+  id                String          @id @default(uuid())
+  website_target_id String
+  label             String?
+  signal            BlockSignal
+  source            BlockRuleSource
+  pattern           String
+  is_regex          Boolean         @default(false)
+  regex_flags       String?
+  position          Int             @default(0)
+  created_at        DateTime        @default(now())
+  updated_at        DateTime        @updatedAt
+
+  website_target WebsiteTarget @relation(fields: [website_target_id], references: [id], onDelete: Cascade)
+
+  @@index([website_target_id])
+  @@map("block_rules")
+}
+
+model Scraper {
+  id                   String          @id @default(uuid())
+  website_target_id    String
+  name                 String
+  active_version_id    String?         @unique
+  version_count        Int             @default(0)
+  status               ScraperStatus   @default(TESTING)
+  self_healing_enabled Boolean         @default(true)
+  diagnostics_mode     DiagnosticsMode @default(PRODUCTION)
+  health               ScraperHealth   @default(GOOD)
+  success_rate         Decimal?        @db.Decimal(5, 2)
+  avg_runtime_ms       Int?
+  consecutive_failures Int             @default(0)
+  last_success_at      DateTime?
+  last_failure_at      DateTime?
+  created_at           DateTime        @default(now())
+  updated_at           DateTime        @updatedAt
+
+  website_target WebsiteTarget @relation(fields: [website_target_id], references: [id], onDelete: Cascade)
+  active_version ScraperVersion? @relation("ActiveVersion", fields: [active_version_id], references: [id], onDelete: SetNull)
+
+  crawl_runs              CrawlRun[]
+  versions                ScraperVersion[]        @relation("ScraperVersions")
+  execution_traces        ScraperExecutionTrace[]
+  scraper_generation_runs ScraperGenerationRun[]
+  notifications           Notification[]
+  diagnostics_packages    DiagnosticsPackage[]
+
+  @@index([website_target_id])
+  @@index([status])
+  @@index([health])
+  @@map("scrapers")
+}
+
+model ScraperGenerationRun {
+  id                  String              @id @default(uuid())
+  website_target_id   String
+  scraper_id          String?
+  trigger             GenerationTrigger   @default(MANUAL)
+  status              GenerationRunStatus @default(QUEUED)
+  prompt              String?
+  max_steps           Int?
+  staged_config       Json?
+  produced_version_id String?             @unique
+  error_message       String?
+  started_at          DateTime?
+  finished_at         DateTime?
+  duration_ms         Int?
+  created_at          DateTime            @default(now())
+  updated_at          DateTime            @updatedAt
+
+  website_target   WebsiteTarget   @relation(fields: [website_target_id], references: [id], onDelete: Cascade)
+  scraper          Scraper?        @relation(fields: [scraper_id], references: [id], onDelete: SetNull)
+  produced_version ScraperVersion? @relation("ProducedVersion", fields: [produced_version_id], references: [id], onDelete: SetNull)
+
+  steps ComputerUseStep[]
+
+  @@index([website_target_id])
+  @@index([scraper_id])
+  @@index([status])
+  @@map("scraper_generation_runs")
+}
+
+model ComputerUseStep {
+  id                        String             @id @default(uuid())
+  scraper_generation_run_id String
+  step_index                Int
+  action_type               ComputerActionType
+  action_payload            Json
+  screenshot_before_id      String?
+  screenshot_after_id       String?
+  model_reasoning           String?
+  created_at                DateTime           @default(now())
+
+  scraper_generation_run ScraperGenerationRun @relation(fields: [scraper_generation_run_id], references: [id], onDelete: Cascade)
+  screenshot_before      Document?            @relation("ComputerUseStepScreenshotBefore", fields: [screenshot_before_id], references: [id], onDelete: SetNull)
+  screenshot_after       Document?            @relation("ComputerUseStepScreenshotAfter", fields: [screenshot_after_id], references: [id], onDelete: SetNull)
+
+  @@index([scraper_generation_run_id])
+  @@index([scraper_generation_run_id, step_index])
+  @@map("computer_use_steps")
+}
+
+model ScraperVersion {
+  id         String                  @id @default(uuid())
+  scraper_id String
+  version    Int
+  config     Json
+  created_by ScraperVersionCreatedBy
+  notes      String?
+  created_at DateTime                @default(now())
+  updated_at DateTime                @updatedAt
+
+  scraper Scraper @relation("ScraperVersions", fields: [scraper_id], references: [id], onDelete: Cascade)
+
+  active_for_scraper Scraper?              @relation("ActiveVersion")
+  produced_by_run    ScraperGenerationRun? @relation("ProducedVersion")
+
+  @@unique([scraper_id, version])
+  @@map("scraper_versions")
+}
+
+model ScraperExecutionTrace {
+  id            String   @id @default(uuid())
+  scraper_id    String
+  crawl_run_id  String?
+  steps         Json
+  success       Boolean
+  error_summary String?
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
+
+  scraper   Scraper   @relation(fields: [scraper_id], references: [id], onDelete: Cascade)
+  crawl_run CrawlRun? @relation(fields: [crawl_run_id], references: [id], onDelete: SetNull)
+
+  @@index([scraper_id])
+  @@map("scraper_execution_traces")
+}
+
+model CrawlRun {
+  id                       String         @id @default(uuid())
+  website_target_id        String
+  scraper_id               String?
+  status                   CrawlRunStatus @default(QUEUED)
+  started_at               DateTime?
+  finished_at              DateTime?
+  duration_ms              Int?
+  total_found              Int            @default(0)
+  total_new_listings       Int            @default(0)
+  total_refreshed_listings Int            @default(0)
+  error_message            String?
+  metadata                 Json?
+  created_at               DateTime       @default(now())
+  updated_at               DateTime       @updatedAt
+
+  website_target      WebsiteTarget           @relation(fields: [website_target_id], references: [id], onDelete: Cascade)
+  scraper             Scraper?                @relation(fields: [scraper_id], references: [id], onDelete: SetNull)
+  job_logs            JobLog[]
+  execution_traces    ScraperExecutionTrace[]
+  notifications       Notification[]
+  diagnostics_package DiagnosticsPackage?
+  extracted_items     ExtractedItem[]
+
+  @@index([website_target_id])
+  @@index([scraper_id])
+  @@index([status])
+  @@index([created_at])
+  @@map("crawl_runs")
+}
+
+model ExtractedItem {
+  id                String   @id @default(uuid())
+  website_target_id String
+  crawl_run_id      String?
+  source_url        String
+  external_id       String?
+  raw_data          Json
+  content_hash      String?
+  first_seen_at     DateTime @default(now())
+  last_seen_at      DateTime @default(now())
+  created_at        DateTime @default(now())
+  updated_at        DateTime @updatedAt
+
+  website_target WebsiteTarget @relation(fields: [website_target_id], references: [id], onDelete: Cascade)
+  crawl_run      CrawlRun?     @relation(fields: [crawl_run_id], references: [id], onDelete: SetNull)
+
+  @@unique([website_target_id, source_url])
+  @@index([crawl_run_id])
+  @@map("extracted_items")
+}
+
+model DiagnosticsPackage {
+  id                 String          @id @default(uuid())
+  crawl_run_id       String          @unique
+  scraper_id         String
+  mode               DiagnosticsMode
+  url                String
+  worker_id          String?
+  browser_version    String?
+  playwright_version String?
+  scraper_version    Int?
+  retry_number       Int?
+  started_at         DateTime
+  finished_at        DateTime
+  duration_ms        Int
+  failure_reason     String?
+  exception          String?
+  created_at         DateTime        @default(now())
+
+  crawl_run CrawlRun              @relation(fields: [crawl_run_id], references: [id], onDelete: Cascade)
+  scraper   Scraper               @relation(fields: [scraper_id], references: [id], onDelete: Cascade)
+  artifacts DiagnosticsArtifact[]
+
+  @@index([scraper_id])
+  @@map("diagnostics_packages")
+}
+
+model DiagnosticsArtifact {
+  id                     String                  @id @default(uuid())
+  diagnostics_package_id String
+  kind                   DiagnosticsArtifactKind
+  path                   String
+  content_type           String
+  size_bytes             Int
+  created_at             DateTime                @default(now())
+
+  diagnostics_package DiagnosticsPackage @relation(fields: [diagnostics_package_id], references: [id], onDelete: Cascade)
+
+  @@index([diagnostics_package_id])
+  @@map("diagnostics_artifacts")
+}
+
+model JobLog {
+  id            String    @id @default(uuid())
+  queue_name    String
+  job_id        String?
+  job_name      String?
+  status        JobStatus
+  attempt       Int       @default(0)
+  max_attempts  Int?
+  crawl_run_id  String?
+  payload       Json?
+  result        Json?
+  error_message String?
+  stack_trace   String?
+  started_at    DateTime?
+  finished_at   DateTime?
+  duration_ms   Int?
+  created_at    DateTime  @default(now())
+  updated_at    DateTime  @updatedAt
+
+  crawl_run CrawlRun? @relation(fields: [crawl_run_id], references: [id], onDelete: SetNull)
+
+  @@index([queue_name])
+  @@index([job_id])
+  @@index([status])
+  @@index([crawl_run_id])
+  @@index([created_at])
+  @@map("job_logs")
+}
+
+model Notification {
+  id               String               @id @default(uuid())
+  type             NotificationType
+  severity         NotificationSeverity @default(INFO)
+  title            String
+  message          String
+  website_target_id String?
+  scraper_id        String?
+  crawl_run_id      String?
+  is_read           Boolean              @default(false)
+  created_at        DateTime             @default(now())
+
+  website_target WebsiteTarget? @relation(fields: [website_target_id], references: [id], onDelete: SetNull)
+  scraper       Scraper?      @relation(fields: [scraper_id], references: [id], onDelete: SetNull)
+  crawl_run     CrawlRun?     @relation(fields: [crawl_run_id], references: [id], onDelete: SetNull)
+
+  @@index([type])
+  @@index([severity])
+  @@index([is_read])
+  @@index([created_at])
+  @@map("notifications")
+}
+
+model PlatformConfig {
+  id                                           String   @id @default("singleton")
+  crawler_max_pages                            Int?
+  crawler_page_timeout_ms                      Int?
+  crawler_selector_timeout_ms                  Int?
+  crawler_scroll_pause_ms                      Int?
+  crawler_detail_concurrency                   Int?
+  crawler_detail_delay_ms                      Int?
+  crawler_worker_concurrency                   Int?
+  crawler_job_timeout_ms                       Int?
+  crawler_chromium_max_contexts_before_restart Int?
+  created_at                                   DateTime @default(now())
+  updated_at                                   DateTime @updatedAt
+
+  @@map("platform_config")
+}

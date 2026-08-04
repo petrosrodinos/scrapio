@@ -55,6 +55,27 @@ export class GcsService {
         }
     }
 
+    public async getSignedUrlForPath(
+        fullPath: string,
+        expiresInMinutes: number = 60,
+    ): Promise<string> {
+        try {
+            return await this.gcsAdapter.getSignedUrlForPath(fullPath, expiresInMinutes);
+        } catch (error) {
+            this.logger.error('Get signed URL error:', error);
+            throw new Error(`Failed to get signed URL: ${error.message}`);
+        }
+    }
+
+    public async deleteImageByPath(path: string): Promise<void> {
+        try {
+            await this.gcsAdapter.deleteImage({ filename: path });
+        } catch (error) {
+            this.logger.error(`Delete image error for path ${path}:`, error);
+            throw new Error(`Failed to delete image: ${error.message}`);
+        }
+    }
+
     public async uploadImageFromBuffer(
         buffer: Buffer,
         filename: string,
