@@ -16,6 +16,12 @@ export const HealthServiceName = {
 export type HealthServiceNameType =
     (typeof HealthServiceName)[keyof typeof HealthServiceName];
 
+export interface HealthCheckResult {
+    status: HealthCheckStatusType;
+    ms?: number;
+    message?: string;
+}
+
 export interface ApiHealthResponse {
     service: typeof HealthServiceName.API;
     status: typeof HealthCheckStatus.OK;
