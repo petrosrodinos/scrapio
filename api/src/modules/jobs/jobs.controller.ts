@@ -18,6 +18,7 @@ import {
 import { JwtGuard } from '@/shared/guards/jwt.guard';
 import { RolesGuard } from '@/shared/guards/roles.guard';
 import { Roles } from '@/shared/decorators/roles.decorator';
+import { CurrentUser } from '@/shared/decorators/current-user.decorator';
 import { AuthRole, JobStatus } from 'generated/prisma';
 import { ZodValidationPipe } from '@/shared/pipes/zod.validation.pipe';
 import { JobsService } from './jobs.service';
@@ -43,9 +44,10 @@ export class JobsController {
   @ApiQuery({ name: 'date_from', required: false, type: String })
   @ApiQuery({ name: 'date_to', required: false, type: String })
   findAll(
+    @CurrentUser('id') userId: string,
     @Query(new ZodValidationPipe(JobLogQuerySchema)) query: JobLogQueryType,
   ) {
-    return this.jobsService.findAll(query);
+    return this.jobsService.findAll(userId, query);
   }
 
   @Post('bulk-delete')
@@ -54,16 +56,19 @@ export class JobsController {
   @ApiResponse({ status: 200, description: 'Job logs deleted' })
   @ApiResponse({ status: 400, description: 'One or more jobs are active' })
   @ApiResponse({ status: 404, description: 'One or more job logs not found' })
-  removeMany(@Body() dto: DeleteJobLogsDto) {
-    return this.jobsService.removeMany(dto.job_ids);
+  removeMany(
+    @CurrentUser('id') userId: string,
+    @Body() dto: DeleteJobLogsDto,
+  ) {
+    return this.jobsService.removeMany(userId, dto.job_ids);
   }
 
   @Get(':id')
   @ApiOperation({ summary: 'Get one job log' })
   @ApiResponse({ status: 200, type: JobLog })
   @ApiResponse({ status: 404, description: 'Job log not found' })
-  findOne(@Param('id') id: string) {
-    return this.jobsService.findOne(id);
+  findOne(@CurrentUser('id') userId: string, @Param('id') id: string) {
+    return this.jobsService.findOne(userId, id);
   }
 
   @Post(':id/retry')
@@ -71,8 +76,8 @@ export class JobsController {
   @ApiOperation({ summary: 'Retry a failed or completed job' })
   @ApiResponse({ status: 200, type: JobLog })
   @ApiResponse({ status: 404, description: 'Job log not found' })
-  retry(@Param('id') id: string) {
-    return this.jobsService.retry(id);
+  retry(@CurrentUser('id') userId: string, @Param('id') id: string) {
+    return this.jobsService.retry(userId, id);
   }
 
   @Post(':id/stop')
@@ -81,8 +86,8 @@ export class JobsController {
   @ApiResponse({ status: 200, type: JobLog })
   @ApiResponse({ status: 400, description: 'Job is not stoppable' })
   @ApiResponse({ status: 404, description: 'Job log not found' })
-  stop(@Param('id') id: string) {
-    return this.jobsService.stop(id);
+  stop(@CurrentUser('id') userId: string, @Param('id') id: string) {
+    return this.jobsService.stop(userId, id);
   }
 
   @Delete(':id')
@@ -91,7 +96,7 @@ export class JobsController {
   @ApiResponse({ status: 200, description: 'Deleted' })
   @ApiResponse({ status: 400, description: 'Job is still active' })
   @ApiResponse({ status: 404, description: 'Job log not found' })
-  remove(@Param('id') id: string) {
-    return this.jobsService.remove(id);
+  remove(@CurrentUser('id') userId: string, @Param('id') id: string) {
+    return this.jobsService.remove(userId, id);
   }
 }

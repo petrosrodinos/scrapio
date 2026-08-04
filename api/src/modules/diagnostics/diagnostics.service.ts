@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '@/core/databases/prisma/prisma.service';
 import { GcsService } from '@/integrations/storage/gcs/services/gcs.service';
 import { PaginatedResult } from '@/modules/crawl-runs/interfaces/crawl-run.interface';
+import { diagnosticsUserWhere } from '@/shared/utils/user/user-scope.utils';
 import { Prisma } from 'generated/prisma';
 import { DiagnosticsQueryType } from './dto/diagnostics-query.schema';
 
@@ -14,8 +15,12 @@ export class DiagnosticsService {
     private readonly gcsService: GcsService,
   ) {}
 
-  async findAll(query: DiagnosticsQueryType): Promise<PaginatedResult<any>> {
+  async findAll(
+    userId: string,
+    query: DiagnosticsQueryType,
+  ): Promise<PaginatedResult<any>> {
     const where: Prisma.DiagnosticsPackageWhereInput = {
+      ...diagnosticsUserWhere(userId),
       ...(query.scraper_id && { scraper_id: query.scraper_id }),
       ...(query.crawl_run_id && { crawl_run_id: query.crawl_run_id }),
       ...(query.date_from || query.date_to
@@ -56,9 +61,9 @@ export class DiagnosticsService {
     };
   }
 
-  async findOne(id: string) {
-    const pkg = await this.prisma.diagnosticsPackage.findUnique({
-      where: { id },
+  async findOne(userId: string, id: string) {
+    const pkg = await this.prisma.diagnosticsPackage.findFirst({
+      where: { id, ...diagnosticsUserWhere(userId) },
       include: {
         scraper: { select: { name: true } },
         crawl_run: { select: { website_target_id: true, status: true } },

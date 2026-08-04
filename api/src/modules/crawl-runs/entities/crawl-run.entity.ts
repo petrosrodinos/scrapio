@@ -6,6 +6,9 @@ export class CrawlRun {
   id: string;
 
   @ApiProperty()
+  user_id: string;
+
+  @ApiProperty()
   website_target_id: string;
 
   @ApiProperty({ nullable: true })

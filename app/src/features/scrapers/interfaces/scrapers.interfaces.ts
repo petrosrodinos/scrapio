@@ -47,6 +47,7 @@ export interface ScraperVersion {
 
 export interface Scraper {
   id: string;
+  user_id: string;
   website_target_id: string;
   name: string;
   active_version_id: string | null;

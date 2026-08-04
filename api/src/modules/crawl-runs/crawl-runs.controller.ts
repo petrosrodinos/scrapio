@@ -18,6 +18,7 @@ import {
 import { JwtGuard } from '@/shared/guards/jwt.guard';
 import { RolesGuard } from '@/shared/guards/roles.guard';
 import { Roles } from '@/shared/decorators/roles.decorator';
+import { CurrentUser } from '@/shared/decorators/current-user.decorator';
 import { AuthRole, CrawlRunStatus } from 'generated/prisma';
 import { ZodValidationPipe } from '@/shared/pipes/zod.validation.pipe';
 import { CrawlRunsService } from './crawl-runs.service';
@@ -49,9 +50,10 @@ export class CrawlRunsController {
   @ApiQuery({ name: 'date_from', required: false, type: String })
   @ApiQuery({ name: 'date_to', required: false, type: String })
   findAll(
+    @CurrentUser('id') userId: string,
     @Query(new ZodValidationPipe(CrawlRunQuerySchema)) query: CrawlRunQueryType,
   ) {
-    return this.crawlRunsService.findAll(query);
+    return this.crawlRunsService.findAll(userId, query);
   }
 
   @Post('bulk-delete')
@@ -60,8 +62,11 @@ export class CrawlRunsController {
   @ApiResponse({ status: 200, description: 'Crawl runs deleted' })
   @ApiResponse({ status: 400, description: 'One or more runs are active' })
   @ApiResponse({ status: 404, description: 'One or more crawl runs not found' })
-  removeMany(@Body() dto: DeleteCrawlRunsDto) {
-    return this.crawlRunsService.removeMany(dto.crawl_run_ids);
+  removeMany(
+    @CurrentUser('id') userId: string,
+    @Body() dto: DeleteCrawlRunsDto,
+  ) {
+    return this.crawlRunsService.removeMany(userId, dto.crawl_run_ids);
   }
 
   @Get(':id')
@@ -70,8 +75,8 @@ export class CrawlRunsController {
   })
   @ApiResponse({ status: 200, type: CrawlRun })
   @ApiResponse({ status: 404, description: 'Crawl run not found' })
-  findOne(@Param('id') id: string) {
-    return this.crawlRunsService.findOne(id);
+  findOne(@CurrentUser('id') userId: string, @Param('id') id: string) {
+    return this.crawlRunsService.findOne(userId, id);
   }
 
   @Post(':id/rerun')
@@ -79,8 +84,8 @@ export class CrawlRunsController {
   @ApiOperation({ summary: 'Re-enqueue a crawl run with the same attribution' })
   @ApiResponse({ status: 201, type: CrawlRun })
   @ApiResponse({ status: 404, description: 'Crawl run not found' })
-  rerun(@Param('id') id: string) {
-    return this.crawlRunsService.rerun(id);
+  rerun(@CurrentUser('id') userId: string, @Param('id') id: string) {
+    return this.crawlRunsService.rerun(userId, id);
   }
 
   @Post(':id/cancel')
@@ -89,8 +94,8 @@ export class CrawlRunsController {
   @ApiResponse({ status: 200, type: CrawlRun })
   @ApiResponse({ status: 400, description: 'Crawl run is not stoppable' })
   @ApiResponse({ status: 404, description: 'Crawl run not found' })
-  cancel(@Param('id') id: string) {
-    return this.crawlRunsService.cancel(id);
+  cancel(@CurrentUser('id') userId: string, @Param('id') id: string) {
+    return this.crawlRunsService.cancel(userId, id);
   }
 
   @Delete(':id')
@@ -99,7 +104,7 @@ export class CrawlRunsController {
   @ApiResponse({ status: 200, description: 'Deleted' })
   @ApiResponse({ status: 400, description: 'Crawl run is still active' })
   @ApiResponse({ status: 404, description: 'Crawl run not found' })
-  remove(@Param('id') id: string) {
-    return this.crawlRunsService.remove(id);
+  remove(@CurrentUser('id') userId: string, @Param('id') id: string) {
+    return this.crawlRunsService.remove(userId, id);
   }
 }

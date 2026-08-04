@@ -11,6 +11,9 @@ export class Scraper {
   id: string;
 
   @ApiProperty()
+  user_id: string;
+
+  @ApiProperty()
   website_target_id: string;
 
   @ApiProperty({ example: 'Acme listing scraper' })

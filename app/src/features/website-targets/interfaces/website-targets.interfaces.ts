@@ -27,6 +27,7 @@ export interface BlockRule {
 
 export interface WebsiteTarget {
   id: string;
+  user_id: string;
   name: string;
   base_url: string;
   crawl_interval: string;

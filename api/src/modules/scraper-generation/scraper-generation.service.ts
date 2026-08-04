@@ -10,6 +10,11 @@ import { PrismaService } from '@/core/databases/prisma/prisma.service';
 import { GcsService } from '@/integrations/storage/gcs/services/gcs.service';
 import { GENERATION_QUEUE } from '@/core/queues/queues.constants';
 import {
+  generationRunUserWhere,
+  scraperUserWhere,
+  websiteTargetUserWhere,
+} from '@/shared/utils/user/user-scope.utils';
+import {
   GenerationRunStatus,
   GenerationTrigger,
   Prisma,
@@ -48,8 +53,12 @@ export class ScraperGenerationService {
     @InjectQueue(GENERATION_QUEUE) private readonly generationQueue: Queue,
   ) {}
 
-  async findAll(query: GenerationRunQueryType): Promise<PaginatedResult<any>> {
+  async findAll(
+    userId: string,
+    query: GenerationRunQueryType,
+  ): Promise<PaginatedResult<any>> {
     const where = {
+      ...generationRunUserWhere(userId),
       ...(query.status && { status: query.status }),
       ...(query.trigger && { trigger: query.trigger }),
       ...(query.website_target_id && {
@@ -85,9 +94,9 @@ export class ScraperGenerationService {
     };
   }
 
-  async findOne(id: string) {
-    const run = await this.prisma.scraperGenerationRun.findUnique({
-      where: { id },
+  async findOne(userId: string, id: string) {
+    const run = await this.prisma.scraperGenerationRun.findFirst({
+      where: { id, ...generationRunUserWhere(userId) },
       include: {
         website_target: { select: { name: true } },
         scraper: { select: { name: true } },
@@ -125,7 +134,20 @@ export class ScraperGenerationService {
     };
   }
 
-  async create(dto: CreateGenerationRunDto, initiatedByUserId: string) {
+  async create(
+    userId: string,
+    dto: CreateGenerationRunDto,
+    initiatedByUserId: string,
+  ) {
+    await this.ensureWebsiteTargetBelongsToUser(
+      userId,
+      dto.website_target_id,
+    );
+
+    if (dto.scraper_id) {
+      await this.ensureScraperBelongsToUser(userId, dto.scraper_id);
+    }
+
     const run = await this.prisma.scraperGenerationRun.create({
       data: {
         website_target_id: dto.website_target_id,
@@ -165,8 +187,8 @@ export class ScraperGenerationService {
     return run;
   }
 
-  async approve(id: string) {
-    const run = await this.ensureExists(id);
+  async approve(userId: string, id: string) {
+    const run = await this.ensureExists(userId, id);
 
     if (
       run.status !== GenerationRunStatus.AWAITING_REVIEW ||
@@ -187,6 +209,7 @@ export class ScraperGenerationService {
 
         const scraper = await tx.scraper.create({
           data: {
+            user_id: websiteTarget.user_id,
             website_target_id: run.website_target_id,
             name: `${websiteTarget.name} scraper`,
             status: ScraperStatus.TESTING,
@@ -243,8 +266,8 @@ export class ScraperGenerationService {
     });
   }
 
-  async reject(id: string, dto: RejectGenerationRunDto) {
-    const run = await this.ensureExists(id);
+  async reject(userId: string, id: string, dto: RejectGenerationRunDto) {
+    const run = await this.ensureExists(userId, id);
 
     if (TERMINAL_STATUSES.includes(run.status)) {
       throw new BadRequestException('Run has already finished');
@@ -264,8 +287,8 @@ export class ScraperGenerationService {
     });
   }
 
-  async cancel(id: string) {
-    const run = await this.ensureExists(id);
+  async cancel(userId: string, id: string) {
+    const run = await this.ensureExists(userId, id);
 
     if (!ACTIVE_STATUSES.includes(run.status)) {
       throw new BadRequestException(
@@ -318,9 +341,9 @@ export class ScraperGenerationService {
     });
   }
 
-  async retry(id: string, dto: RetryGenerationRunDto) {
-    const run = await this.prisma.scraperGenerationRun.findUnique({
-      where: { id },
+  async retry(userId: string, id: string, dto: RetryGenerationRunDto) {
+    const run = await this.prisma.scraperGenerationRun.findFirst({
+      where: { id, ...generationRunUserWhere(userId) },
       include: {
         steps: { select: { id: true } },
         scraper: { select: { self_healing_enabled: true } },
@@ -395,12 +418,21 @@ export class ScraperGenerationService {
       return null;
     }
 
-    return this.retry(run.id, { error, prompt });
+    const websiteTarget = await this.prisma.websiteTarget.findUnique({
+      where: { id: run.website_target_id },
+      select: { user_id: true },
+    });
+
+    if (!websiteTarget) {
+      return null;
+    }
+
+    return this.retry(websiteTarget.user_id, run.id, { error, prompt });
   }
 
-  async remove(id: string) {
-    const run = await this.prisma.scraperGenerationRun.findUnique({
-      where: { id },
+  async remove(userId: string, id: string) {
+    const run = await this.prisma.scraperGenerationRun.findFirst({
+      where: { id, ...generationRunUserWhere(userId) },
       include: {
         steps: {
           select: {
@@ -498,9 +530,34 @@ export class ScraperGenerationService {
     });
   }
 
-  private async ensureExists(id: string) {
-    const run = await this.prisma.scraperGenerationRun.findUnique({
-      where: { id },
+  private async ensureWebsiteTargetBelongsToUser(
+    userId: string,
+    websiteTargetId: string,
+  ) {
+    const websiteTarget = await this.prisma.websiteTarget.findFirst({
+      where: { id: websiteTargetId, ...websiteTargetUserWhere(userId) },
+      select: { id: true },
+    });
+
+    if (!websiteTarget) {
+      throw new NotFoundException('Website target not found');
+    }
+  }
+
+  private async ensureScraperBelongsToUser(userId: string, scraperId: string) {
+    const scraper = await this.prisma.scraper.findFirst({
+      where: { id: scraperId, ...scraperUserWhere(userId) },
+      select: { id: true },
+    });
+
+    if (!scraper) {
+      throw new NotFoundException('Scraper not found');
+    }
+  }
+
+  private async ensureExists(userId: string, id: string) {
+    const run = await this.prisma.scraperGenerationRun.findFirst({
+      where: { id, ...generationRunUserWhere(userId) },
     });
 
     if (!run) {

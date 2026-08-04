@@ -9,6 +9,7 @@ import {
 import { JwtGuard } from '@/shared/guards/jwt.guard';
 import { RolesGuard } from '@/shared/guards/roles.guard';
 import { Roles } from '@/shared/decorators/roles.decorator';
+import { CurrentUser } from '@/shared/decorators/current-user.decorator';
 import { AuthRole } from 'generated/prisma';
 import { ZodValidationPipe } from '@/shared/pipes/zod.validation.pipe';
 import { DiagnosticsService } from './diagnostics.service';
@@ -40,10 +41,11 @@ export class DiagnosticsController {
   @ApiQuery({ name: 'date_from', required: false, type: String })
   @ApiQuery({ name: 'date_to', required: false, type: String })
   findAll(
+    @CurrentUser('id') userId: string,
     @Query(new ZodValidationPipe(DiagnosticsQuerySchema))
     query: DiagnosticsQueryType,
   ) {
-    return this.diagnosticsService.findAll(query);
+    return this.diagnosticsService.findAll(userId, query);
   }
 
   @Get(':id')
@@ -52,7 +54,7 @@ export class DiagnosticsController {
   })
   @ApiResponse({ status: 200, description: 'Diagnostics package' })
   @ApiResponse({ status: 404, description: 'Diagnostics package not found' })
-  findOne(@Param('id') id: string) {
-    return this.diagnosticsService.findOne(id);
+  findOne(@CurrentUser('id') userId: string, @Param('id') id: string) {
+    return this.diagnosticsService.findOne(userId, id);
   }
 }

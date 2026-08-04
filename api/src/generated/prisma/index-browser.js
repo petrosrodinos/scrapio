@@ -153,6 +153,7 @@ exports.Prisma.DocumentScalarFieldEnum = {
 
 exports.Prisma.WebsiteTargetScalarFieldEnum = {
   id: 'id',
+  user_id: 'user_id',
   name: 'name',
   base_url: 'base_url',
   crawl_interval: 'crawl_interval',
@@ -183,6 +184,7 @@ exports.Prisma.BlockRuleScalarFieldEnum = {
 
 exports.Prisma.ScraperScalarFieldEnum = {
   id: 'id',
+  user_id: 'user_id',
   website_target_id: 'website_target_id',
   name: 'name',
   active_version_id: 'active_version_id',
@@ -254,6 +256,7 @@ exports.Prisma.ScraperExecutionTraceScalarFieldEnum = {
 
 exports.Prisma.CrawlRunScalarFieldEnum = {
   id: 'id',
+  user_id: 'user_id',
   website_target_id: 'website_target_id',
   scraper_id: 'scraper_id',
   status: 'status',

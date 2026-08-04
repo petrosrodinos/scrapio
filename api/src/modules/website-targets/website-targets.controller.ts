@@ -19,6 +19,7 @@ import {
 import { JwtGuard } from '@/shared/guards/jwt.guard';
 import { RolesGuard } from '@/shared/guards/roles.guard';
 import { Roles } from '@/shared/decorators/roles.decorator';
+import { CurrentUser } from '@/shared/decorators/current-user.decorator';
 import { AuthRole } from 'generated/prisma';
 import { ZodValidationPipe } from '@/shared/pipes/zod.validation.pipe';
 import { WebsiteTargetsService } from './website-targets.service';
@@ -47,18 +48,19 @@ export class WebsiteTargetsController {
   @ApiQuery({ name: 'limit', required: false, type: Number })
   @ApiQuery({ name: 'search', required: false, type: String })
   findAll(
+    @CurrentUser('id') userId: string,
     @Query(new ZodValidationPipe(WebsiteTargetQuerySchema))
     query: WebsiteTargetQueryType,
   ) {
-    return this.websiteTargetsService.findAll(query);
+    return this.websiteTargetsService.findAll(userId, query);
   }
 
   @Get(':id')
   @ApiOperation({ summary: 'Get one website target with block rules' })
   @ApiResponse({ status: 200, type: WebsiteTarget })
   @ApiResponse({ status: 404, description: 'Website target not found' })
-  findOne(@Param('id') id: string) {
-    return this.websiteTargetsService.findOne(id);
+  findOne(@CurrentUser('id') userId: string, @Param('id') id: string) {
+    return this.websiteTargetsService.findOne(userId, id);
   }
 
   @Post()
@@ -66,8 +68,11 @@ export class WebsiteTargetsController {
   @ApiOperation({ summary: 'Create a website target' })
   @ApiResponse({ status: 201, type: WebsiteTarget })
   @ApiResponse({ status: 409, description: 'base_url already exists' })
-  create(@Body() dto: CreateWebsiteTargetDto) {
-    return this.websiteTargetsService.create(dto);
+  create(
+    @CurrentUser('id') userId: string,
+    @Body() dto: CreateWebsiteTargetDto,
+  ) {
+    return this.websiteTargetsService.create(userId, dto);
   }
 
   @Patch(':id')
@@ -75,8 +80,12 @@ export class WebsiteTargetsController {
   @ApiOperation({ summary: 'Update a website target' })
   @ApiResponse({ status: 200, type: WebsiteTarget })
   @ApiResponse({ status: 404, description: 'Website target not found' })
-  update(@Param('id') id: string, @Body() dto: UpdateWebsiteTargetDto) {
-    return this.websiteTargetsService.update(id, dto);
+  update(
+    @CurrentUser('id') userId: string,
+    @Param('id') id: string,
+    @Body() dto: UpdateWebsiteTargetDto,
+  ) {
+    return this.websiteTargetsService.update(userId, id, dto);
   }
 
   @Delete(':id')
@@ -89,7 +98,7 @@ export class WebsiteTargetsController {
     status: 409,
     description: 'Website target has dependent scrapers or crawl runs',
   })
-  remove(@Param('id') id: string) {
-    return this.websiteTargetsService.remove(id);
+  remove(@CurrentUser('id') userId: string, @Param('id') id: string) {
+    return this.websiteTargetsService.remove(userId, id);
   }
 }

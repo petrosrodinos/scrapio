@@ -35,6 +35,7 @@ export interface CrawlRunJobLogSummary {
 
 export interface CrawlRun {
   id: string;
+  user_id: string;
   website_target_id: string;
   scraper_id: string | null;
   status: CrawlRunStatus;

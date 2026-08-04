@@ -7,6 +7,7 @@ import { InjectQueue } from '@nestjs/bullmq';
 import { Queue } from 'bullmq';
 import { PrismaService } from '@/core/databases/prisma/prisma.service';
 import { CRAWL_QUEUE, GENERATION_QUEUE } from '@/core/queues/queues.constants';
+import { jobLogUserWhere } from '@/shared/utils/user/user-scope.utils';
 import {
   DEFAULT_CRAWL_JOB_ATTEMPTS,
   DEFAULT_CRAWL_JOB_BACKOFF_MS,
@@ -31,8 +32,12 @@ export class JobsService {
     @InjectQueue(CRAWL_QUEUE) private readonly crawlQueue: Queue,
   ) {}
 
-  async findAll(query: JobLogQueryType): Promise<PaginatedResult<any>> {
+  async findAll(
+    userId: string,
+    query: JobLogQueryType,
+  ): Promise<PaginatedResult<any>> {
     const where: Prisma.JobLogWhereInput = {
+      ...jobLogUserWhere(userId),
       ...(query.status && { status: query.status }),
       ...(query.queue_name && { queue_name: query.queue_name }),
       ...(query.date_from || query.date_to
@@ -68,8 +73,10 @@ export class JobsService {
     };
   }
 
-  async findOne(id: string) {
-    const job = await this.prisma.jobLog.findUnique({ where: { id } });
+  async findOne(userId: string, id: string) {
+    const job = await this.prisma.jobLog.findFirst({
+      where: { id, ...jobLogUserWhere(userId) },
+    });
 
     if (!job) {
       throw new NotFoundException('Job log not found');
@@ -78,8 +85,10 @@ export class JobsService {
     return job;
   }
 
-  async retry(id: string) {
-    const jobLog = await this.prisma.jobLog.findUnique({ where: { id } });
+  async retry(userId: string, id: string) {
+    const jobLog = await this.prisma.jobLog.findFirst({
+      where: { id, ...jobLogUserWhere(userId) },
+    });
 
     if (!jobLog) {
       throw new NotFoundException('Job log not found');
@@ -125,11 +134,13 @@ export class JobsService {
 
     await queue.add(jobLog.job_name ?? 'retry', enrichedPayload, jobOptions);
 
-    return this.findOne(id);
+    return this.findOne(userId, id);
   }
 
-  async stop(id: string) {
-    const jobLog = await this.prisma.jobLog.findUnique({ where: { id } });
+  async stop(userId: string, id: string) {
+    const jobLog = await this.prisma.jobLog.findFirst({
+      where: { id, ...jobLogUserWhere(userId) },
+    });
 
     if (!jobLog) {
       throw new NotFoundException('Job log not found');
@@ -163,9 +174,9 @@ export class JobsService {
     });
   }
 
-  async remove(id: string) {
-    const jobLog = await this.prisma.jobLog.findUnique({
-      where: { id },
+  async remove(userId: string, id: string) {
+    const jobLog = await this.prisma.jobLog.findFirst({
+      where: { id, ...jobLogUserWhere(userId) },
       select: { id: true, status: true },
     });
 
@@ -180,10 +191,10 @@ export class JobsService {
     await this.prisma.jobLog.delete({ where: { id } });
   }
 
-  async removeMany(jobIds: string[]) {
+  async removeMany(userId: string, jobIds: string[]) {
     const uniqueIds = [...new Set(jobIds)];
     const jobLogs = await this.prisma.jobLog.findMany({
-      where: { id: { in: uniqueIds } },
+      where: { id: { in: uniqueIds }, ...jobLogUserWhere(userId) },
       select: { id: true, status: true },
     });
 

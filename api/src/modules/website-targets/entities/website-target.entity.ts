@@ -4,6 +4,9 @@ export class WebsiteTarget {
   @ApiProperty({ example: '123e4567-e89b-12d3-a456-426614174000' })
   id: string;
 
+  @ApiProperty({ example: '123e4567-e89b-12d3-a456-426614174001' })
+  user_id: string;
+
   @ApiProperty({ example: 'Example Store' })
   name: string;
 

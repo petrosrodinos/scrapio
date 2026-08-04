@@ -55,18 +55,19 @@ export class ScraperGenerationController {
   @ApiQuery({ name: 'website_target_id', required: false, type: String })
   @ApiQuery({ name: 'scraper_id', required: false, type: String })
   findAll(
+    @CurrentUser('id') userId: string,
     @Query(new ZodValidationPipe(GenerationRunQuerySchema))
     query: GenerationRunQueryType,
   ) {
-    return this.scraperGenerationService.findAll(query);
+    return this.scraperGenerationService.findAll(userId, query);
   }
 
   @Get(':id')
   @ApiOperation({ summary: 'Get one generation run with its steps' })
   @ApiResponse({ status: 200, type: ScraperGenerationRun })
   @ApiResponse({ status: 404, description: 'Generation run not found' })
-  findOne(@Param('id') id: string) {
-    return this.scraperGenerationService.findOne(id);
+  findOne(@CurrentUser('id') userId: string, @Param('id') id: string) {
+    return this.scraperGenerationService.findOne(userId, id);
   }
 
   @Post()
@@ -80,10 +81,10 @@ export class ScraperGenerationController {
     description: 'No active Anthropic UserIntegration for this admin',
   })
   create(
-    @Body() dto: CreateGenerationRunDto,
     @CurrentUser('id') userId: string,
+    @Body() dto: CreateGenerationRunDto,
   ) {
-    return this.scraperGenerationService.create(dto, userId);
+    return this.scraperGenerationService.create(userId, dto, userId);
   }
 
   @Post(':id/approve')
@@ -96,8 +97,8 @@ export class ScraperGenerationController {
     status: 400,
     description: 'Run is not AWAITING_REVIEW with a staged config',
   })
-  approve(@Param('id') id: string) {
-    return this.scraperGenerationService.approve(id);
+  approve(@CurrentUser('id') userId: string, @Param('id') id: string) {
+    return this.scraperGenerationService.approve(userId, id);
   }
 
   @Post(':id/reject')
@@ -105,8 +106,12 @@ export class ScraperGenerationController {
   @ApiOperation({ summary: 'Reject a generation run' })
   @ApiResponse({ status: 200, type: ScraperGenerationRun })
   @ApiResponse({ status: 400, description: 'Run has already finished' })
-  reject(@Param('id') id: string, @Body() dto: RejectGenerationRunDto) {
-    return this.scraperGenerationService.reject(id, dto);
+  reject(
+    @CurrentUser('id') userId: string,
+    @Param('id') id: string,
+    @Body() dto: RejectGenerationRunDto,
+  ) {
+    return this.scraperGenerationService.reject(userId, id, dto);
   }
 
   @Post(':id/cancel')
@@ -117,8 +122,8 @@ export class ScraperGenerationController {
     status: 400,
     description: 'Only QUEUED or RUNNING runs can be cancelled',
   })
-  cancel(@Param('id') id: string) {
-    return this.scraperGenerationService.cancel(id);
+  cancel(@CurrentUser('id') userId: string, @Param('id') id: string) {
+    return this.scraperGenerationService.cancel(userId, id);
   }
 
   @Post(':id/retry')
@@ -132,8 +137,12 @@ export class ScraperGenerationController {
     status: 400,
     description: 'Run is not FAILED or CANCELLED, or self-healing is disabled',
   })
-  retry(@Param('id') id: string, @Body() dto: RetryGenerationRunDto) {
-    return this.scraperGenerationService.retry(id, dto);
+  retry(
+    @CurrentUser('id') userId: string,
+    @Param('id') id: string,
+    @Body() dto: RetryGenerationRunDto,
+  ) {
+    return this.scraperGenerationService.retry(userId, id, dto);
   }
 
   @Delete(':id')
@@ -147,7 +156,7 @@ export class ScraperGenerationController {
     description: 'Run is still QUEUED or RUNNING',
   })
   @ApiResponse({ status: 404, description: 'Generation run not found' })
-  remove(@Param('id') id: string) {
-    return this.scraperGenerationService.remove(id);
+  remove(@CurrentUser('id') userId: string, @Param('id') id: string) {
+    return this.scraperGenerationService.remove(userId, id);
   }
 }

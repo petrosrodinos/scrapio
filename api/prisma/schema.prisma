@@ -149,6 +149,9 @@ model User {
   updated_at DateTime @updatedAt
 
   password_reset_tokens PasswordResetToken[]
+  website_targets       WebsiteTarget[]
+  scrapers              Scraper[]
+  crawl_runs            CrawlRun[]
 
   @@index([email])
   @@index([phone])
@@ -192,8 +195,9 @@ model Document {
 
 model WebsiteTarget {
   id                                   String    @id @default(uuid())
+  user_id                              String
   name                                 String
-  base_url                             String    @unique
+  base_url                             String
   crawl_interval                       String    @default("0 */6 * * *")
   notes                                String?
   last_success_at                      DateTime?
@@ -212,6 +216,10 @@ model WebsiteTarget {
   notifications           Notification[]
   extracted_items         ExtractedItem[]
 
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@unique([user_id, base_url])
+  @@index([user_id])
   @@map("website_targets")
 }
 
@@ -236,6 +244,7 @@ model BlockRule {
 
 model Scraper {
   id                   String          @id @default(uuid())
+  user_id              String
   website_target_id    String
   name                 String
   active_version_id    String?         @unique
@@ -253,6 +262,7 @@ model Scraper {
   updated_at           DateTime        @updatedAt
 
   website_target WebsiteTarget @relation(fields: [website_target_id], references: [id], onDelete: Cascade)
+  user           User          @relation(fields: [user_id], references: [id], onDelete: Cascade)
   active_version ScraperVersion? @relation("ActiveVersion", fields: [active_version_id], references: [id], onDelete: SetNull)
 
   crawl_runs              CrawlRun[]
@@ -262,6 +272,7 @@ model Scraper {
   notifications           Notification[]
   diagnostics_packages    DiagnosticsPackage[]
 
+  @@index([user_id])
   @@index([website_target_id])
   @@index([status])
   @@index([health])
@@ -355,6 +366,7 @@ model ScraperExecutionTrace {
 
 model CrawlRun {
   id                       String         @id @default(uuid())
+  user_id                  String
   website_target_id        String
   scraper_id               String?
   status                   CrawlRunStatus @default(QUEUED)
@@ -370,6 +382,7 @@ model CrawlRun {
   updated_at               DateTime       @updatedAt
 
   website_target      WebsiteTarget           @relation(fields: [website_target_id], references: [id], onDelete: Cascade)
+  user                User                    @relation(fields: [user_id], references: [id], onDelete: Cascade)
   scraper             Scraper?                @relation(fields: [scraper_id], references: [id], onDelete: SetNull)
   job_logs            JobLog[]
   execution_traces    ScraperExecutionTrace[]
@@ -377,6 +390,7 @@ model CrawlRun {
   diagnostics_package DiagnosticsPackage?
   extracted_items     ExtractedItem[]
 
+  @@index([user_id])
   @@index([website_target_id])
   @@index([scraper_id])
   @@index([status])

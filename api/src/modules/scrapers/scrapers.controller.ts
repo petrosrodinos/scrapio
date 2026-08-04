@@ -19,6 +19,7 @@ import {
 import { JwtGuard } from '@/shared/guards/jwt.guard';
 import { RolesGuard } from '@/shared/guards/roles.guard';
 import { Roles } from '@/shared/decorators/roles.decorator';
+import { CurrentUser } from '@/shared/decorators/current-user.decorator';
 import { AuthRole, ScraperHealth, ScraperStatus } from 'generated/prisma';
 import { ZodValidationPipe } from '@/shared/pipes/zod.validation.pipe';
 import { ScrapersService } from './scrapers.service';
@@ -54,9 +55,10 @@ export class ScrapersController {
   @ApiQuery({ name: 'health', required: false, enum: ScraperHealth })
   @ApiQuery({ name: 'website_target_id', required: false, type: String })
   findAll(
+    @CurrentUser('id') userId: string,
     @Query(new ZodValidationPipe(ScraperQuerySchema)) query: ScraperQueryType,
   ) {
-    return this.scrapersService.findAll(query);
+    return this.scrapersService.findAll(userId, query);
   }
 
   @Post('bulk-delete')
@@ -68,16 +70,19 @@ export class ScrapersController {
     description: 'One or more scrapers have an active crawl run',
   })
   @ApiResponse({ status: 404, description: 'One or more scrapers not found' })
-  removeMany(@Body() dto: DeleteScrapersDto) {
-    return this.scrapersService.removeMany(dto.scraper_ids);
+  removeMany(
+    @CurrentUser('id') userId: string,
+    @Body() dto: DeleteScrapersDto,
+  ) {
+    return this.scrapersService.removeMany(userId, dto.scraper_ids);
   }
 
   @Get(':id')
   @ApiOperation({ summary: 'Get one scraper with its active version' })
   @ApiResponse({ status: 200, type: Scraper })
   @ApiResponse({ status: 404, description: 'Scraper not found' })
-  findOne(@Param('id') id: string) {
-    return this.scrapersService.findOne(id);
+  findOne(@CurrentUser('id') userId: string, @Param('id') id: string) {
+    return this.scrapersService.findOne(userId, id);
   }
 
   @Post()
@@ -86,15 +91,15 @@ export class ScrapersController {
     summary: 'Create a scraper with an initial active version (version 1)',
   })
   @ApiResponse({ status: 201, type: Scraper })
-  create(@Body() dto: CreateScraperDto) {
-    return this.scrapersService.create(dto);
+  create(@CurrentUser('id') userId: string, @Body() dto: CreateScraperDto) {
+    return this.scrapersService.create(userId, dto);
   }
 
   @Get(':id/versions')
   @ApiOperation({ summary: "List a scraper's versions (newest first)" })
   @ApiResponse({ status: 200, type: [ScraperVersion] })
-  listVersions(@Param('id') id: string) {
-    return this.scrapersService.listVersions(id);
+  listVersions(@CurrentUser('id') userId: string, @Param('id') id: string) {
+    return this.scrapersService.listVersions(userId, id);
   }
 
   @Post(':id/versions')
@@ -103,8 +108,12 @@ export class ScrapersController {
     summary: 'Create a new scraper version (does not activate it)',
   })
   @ApiResponse({ status: 201, type: ScraperVersion })
-  createVersion(@Param('id') id: string, @Body() dto: CreateScraperVersionDto) {
-    return this.scrapersService.createVersion(id, dto);
+  createVersion(
+    @CurrentUser('id') userId: string,
+    @Param('id') id: string,
+    @Body() dto: CreateScraperVersionDto,
+  ) {
+    return this.scrapersService.createVersion(userId, id, dto);
   }
 
   @Post(':id/versions/:versionId/activate')
@@ -119,10 +128,11 @@ export class ScrapersController {
     description: 'Version not found for this scraper',
   })
   activateVersion(
+    @CurrentUser('id') userId: string,
     @Param('id') id: string,
     @Param('versionId') versionId: string,
   ) {
-    return this.scrapersService.activateVersion(id, versionId);
+    return this.scrapersService.activateVersion(userId, id, versionId);
   }
 
   @Patch(':id')
@@ -132,8 +142,12 @@ export class ScrapersController {
       'Toggle self_healing_enabled and/or update validation_rules (creates a new version)',
   })
   @ApiResponse({ status: 200, type: Scraper })
-  update(@Param('id') id: string, @Body() dto: UpdateScraperDto) {
-    return this.scrapersService.update(id, dto);
+  update(
+    @CurrentUser('id') userId: string,
+    @Param('id') id: string,
+    @Body() dto: UpdateScraperDto,
+  ) {
+    return this.scrapersService.update(userId, id, dto);
   }
 
   @Post(':id/run-now')
@@ -141,8 +155,8 @@ export class ScrapersController {
   @ApiOperation({ summary: 'Manually trigger a crawl run' })
   @ApiResponse({ status: 201, type: CrawlRun })
   @ApiResponse({ status: 404, description: 'Scraper not found' })
-  runNow(@Param('id') id: string) {
-    return this.scrapersService.runNow(id);
+  runNow(@CurrentUser('id') userId: string, @Param('id') id: string) {
+    return this.scrapersService.runNow(userId, id);
   }
 
   @Delete(':id')
@@ -151,7 +165,7 @@ export class ScrapersController {
   @ApiResponse({ status: 200, description: 'Deleted' })
   @ApiResponse({ status: 400, description: 'Scraper has an active crawl run' })
   @ApiResponse({ status: 404, description: 'Scraper not found' })
-  remove(@Param('id') id: string) {
-    return this.scrapersService.remove(id);
+  remove(@CurrentUser('id') userId: string, @Param('id') id: string) {
+    return this.scrapersService.remove(userId, id);
   }
 }

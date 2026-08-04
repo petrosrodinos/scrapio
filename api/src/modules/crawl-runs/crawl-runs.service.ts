@@ -7,6 +7,7 @@ import { InjectQueue } from '@nestjs/bullmq';
 import { Queue } from 'bullmq';
 import { PrismaService } from '@/core/databases/prisma/prisma.service';
 import { CRAWL_QUEUE } from '@/core/queues/queues.constants';
+import { crawlRunUserWhere } from '@/shared/utils/user/user-scope.utils';
 import {
   DEFAULT_CRAWL_JOB_ATTEMPTS,
   DEFAULT_CRAWL_JOB_BACKOFF_MS,
@@ -39,8 +40,14 @@ export class CrawlRunsService {
   ) {}
 
   async enqueue(websiteTargetId: string, scraperId?: string) {
+    const websiteTarget = await this.prisma.websiteTarget.findUniqueOrThrow({
+      where: { id: websiteTargetId },
+      select: { user_id: true },
+    });
+
     const run = await this.prisma.crawlRun.create({
       data: {
+        user_id: websiteTarget.user_id,
         website_target_id: websiteTargetId,
         scraper_id: scraperId ?? null,
         status: CrawlRunStatus.QUEUED,
@@ -62,8 +69,12 @@ export class CrawlRunsService {
     return run;
   }
 
-  async findAll(query: CrawlRunQueryType): Promise<PaginatedResult<any>> {
+  async findAll(
+    userId: string,
+    query: CrawlRunQueryType,
+  ): Promise<PaginatedResult<any>> {
     const where: Prisma.CrawlRunWhereInput = {
+      ...crawlRunUserWhere(userId),
       ...(query.status && { status: query.status }),
       ...(query.website_target_id && { website_target_id: query.website_target_id }),
       ...(query.scraper_id && { scraper_id: query.scraper_id }),
@@ -104,9 +115,9 @@ export class CrawlRunsService {
     };
   }
 
-  async findOne(id: string) {
-    const run = await this.prisma.crawlRun.findUnique({
-      where: { id },
+  async findOne(userId: string, id: string) {
+    const run = await this.prisma.crawlRun.findFirst({
+      where: { id, ...crawlRunUserWhere(userId) },
       include: {
         website_target: { select: { name: true } },
         scraper: { select: { name: true } },
@@ -129,8 +140,10 @@ export class CrawlRunsService {
     return run;
   }
 
-  async rerun(id: string) {
-    const run = await this.prisma.crawlRun.findUnique({ where: { id } });
+  async rerun(userId: string, id: string) {
+    const run = await this.prisma.crawlRun.findFirst({
+      where: { id, ...crawlRunUserWhere(userId) },
+    });
 
     if (!run) {
       throw new NotFoundException('Crawl run not found');
@@ -139,8 +152,10 @@ export class CrawlRunsService {
     return this.enqueue(run.website_target_id, run.scraper_id ?? undefined);
   }
 
-  async cancel(id: string) {
-    const run = await this.prisma.crawlRun.findUnique({ where: { id } });
+  async cancel(userId: string, id: string) {
+    const run = await this.prisma.crawlRun.findFirst({
+      where: { id, ...crawlRunUserWhere(userId) },
+    });
 
     if (!run) {
       throw new NotFoundException('Crawl run not found');
@@ -211,12 +226,12 @@ export class CrawlRunsService {
       }
     }
 
-    return this.findOne(id);
+    return this.findOne(userId, id);
   }
 
-  async remove(id: string) {
-    const run = await this.prisma.crawlRun.findUnique({
-      where: { id },
+  async remove(userId: string, id: string) {
+    const run = await this.prisma.crawlRun.findFirst({
+      where: { id, ...crawlRunUserWhere(userId) },
       select: { id: true, status: true },
     });
 
@@ -231,10 +246,10 @@ export class CrawlRunsService {
     await this.prisma.crawlRun.delete({ where: { id } });
   }
 
-  async removeMany(crawlRunIds: string[]) {
+  async removeMany(userId: string, crawlRunIds: string[]) {
     const uniqueIds = [...new Set(crawlRunIds)];
     const runs = await this.prisma.crawlRun.findMany({
-      where: { id: { in: uniqueIds } },
+      where: { id: { in: uniqueIds }, ...crawlRunUserWhere(userId) },
       select: { id: true, status: true },
     });
 
