@@ -28,6 +28,9 @@ export const Routes = {
         list: "/diagnostics",
         detail: (id: string) => `/diagnostics/${id}`,
     },
+    integrations: {
+        list: "/integrations",
+    },
     admin: {
         jobs: {
             list: "/admin/jobs",

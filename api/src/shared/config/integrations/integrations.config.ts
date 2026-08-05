@@ -1,4 +1,5 @@
 import { IntegrationType } from 'generated/prisma';
+import { COMPUTER_USE_MODELS, ComputerUseModelDefinition } from './computer-use-models.config';
 
 export interface IntegrationFieldDefinition {
   key: string;
@@ -15,6 +16,7 @@ export interface IntegrationDefinition {
   config_schema: {
     fields: IntegrationFieldDefinition[];
   };
+  models: ComputerUseModelDefinition[];
 }
 
 export const INTEGRATIONS: IntegrationDefinition[] = [
@@ -28,6 +30,7 @@ export const INTEGRATIONS: IntegrationDefinition[] = [
         { key: 'api_key', label: 'API Key', type: 'password', required: true },
       ],
     },
+    models: COMPUTER_USE_MODELS.filter((model) => model.supports_computer_use),
   },
   {
     type: IntegrationType.OPENAI,
@@ -39,6 +42,7 @@ export const INTEGRATIONS: IntegrationDefinition[] = [
         { key: 'api_key', label: 'API Key', type: 'password', required: true },
       ],
     },
+    models: [],
   },
   {
     type: IntegrationType.GEMINI,
@@ -50,6 +54,7 @@ export const INTEGRATIONS: IntegrationDefinition[] = [
         { key: 'api_key', label: 'API Key', type: 'password', required: true },
       ],
     },
+    models: [],
   },
   {
     type: IntegrationType.DEEPSEEK,
@@ -61,9 +66,16 @@ export const INTEGRATIONS: IntegrationDefinition[] = [
         { key: 'api_key', label: 'API Key', type: 'password', required: true },
       ],
     },
+    models: [],
   },
 ];
 
 export const INTEGRATIONS_BY_TYPE = Object.fromEntries(
   INTEGRATIONS.map((integration) => [integration.type, integration]),
 ) as Record<IntegrationType, IntegrationDefinition>;
+
+export function integrationRequiresComputerUseModel(
+  integrationType: IntegrationType,
+): boolean {
+  return (INTEGRATIONS_BY_TYPE[integrationType]?.models.length ?? 0) > 0;
+}

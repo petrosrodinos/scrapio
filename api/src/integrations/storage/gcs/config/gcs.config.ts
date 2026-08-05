@@ -2,6 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Storage } from '@google-cloud/storage';
 import { GcsConfig as GcsConfigInterface } from '../interfaces/gcs.interfaces';
+import { GcsFolders } from './gcs-folders.config';
 
 @Injectable()
 export class GcsConfig {
@@ -35,7 +36,6 @@ export class GcsConfig {
             const bucketName = this.configService.get('GCS_BUCKET_NAME');
             const credentialsJsonBase64 = this.configService.get('GCS_CREDENTIALS_JSON_BASE64');
             const credentialsJson = this.configService.get('GCS_CREDENTIALS');
-            const folderName = this.configService.get('GCS_FOLDER_NAME');
 
             if (!projectId || !bucketName) {
                 this.logger.error('GCS_PROJECT_ID and GCS_BUCKET_NAME are required');
@@ -48,7 +48,6 @@ export class GcsConfig {
                 project_id: projectId,
                 bucket_name: bucketName,
                 credentials,
-                folder_name: folderName || 'documents',
             };
 
             const storageOptions: { projectId: string; credentials?: object } = {
@@ -82,8 +81,8 @@ export class GcsConfig {
         return this.config;
     }
 
-    getFolderName(): string {
-        return this.config?.folder_name ?? 'documents';
+    getFolders(): typeof GcsFolders {
+        return GcsFolders;
     }
 
     getBucketName(): string {

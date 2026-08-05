@@ -20,6 +20,7 @@ export const ApiRoutes = {
     users: {
         prefix: "/users",
         me: "/users/me",
+        crawlScheduleTimezones: "/users/crawl-schedule-timezones",
     },
     google_maps: {
         timezone: "/google-maps/timezone",
@@ -84,6 +85,14 @@ export const ApiRoutes = {
             bulkDelete: "/admin/notifications/bulk-delete",
             markRead: (id: string) => `/admin/notifications/${id}/read`,
             detail: (id: string) => `/admin/notifications/${id}`,
+        },
+        integrations: {
+            list: "/admin/integrations",
+            detail: (type: string) => `/admin/integrations/${type}`,
+        },
+        userIntegrations: {
+            list: "/admin/user-integrations",
+            detail: (id: string) => `/admin/user-integrations/${id}`,
         },
     },
 };

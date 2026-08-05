@@ -14,12 +14,17 @@ import { GcsConfig } from './config/gcs.config';
 @Injectable()
 export class GcsAdapter {
     private readonly logger = new Logger(GcsAdapter.name);
-    private folder: string;
 
     constructor(
         private gcsConfig: GcsConfig,
-    ) {
-        this.folder = this.gcsConfig.getFolderName();
+    ) {}
+
+    private resolveFolder(folder?: string): string {
+        if (!folder) {
+            throw new Error('GCS folder is required');
+        }
+
+        return folder;
     }
 
     public async uploadImage(request: UploadImageRequest): Promise<UploadImageResponse> {
@@ -29,7 +34,7 @@ export class GcsAdapter {
             const bucketName = request.bucket || this.gcsConfig.getBucketName();
             const bucket = storage.bucket(bucketName);
 
-            const folder = request.folder || this.folder;
+            const folder = this.resolveFolder(request.folder);
             const filename = `${folder}/${Date.now()}-${request.filename}`;
 
             const file = bucket.file(filename);
@@ -103,8 +108,8 @@ export class GcsAdapter {
             const bucketName = this.gcsConfig.getBucketName();
             const bucket = storage.bucket(bucketName);
 
-            const folder = request.folder || this.folder;
-            const prefix = request.prefix ? `${folder}/${request.prefix}` : `${folder}/`;
+            const folder = this.resolveFolder(request?.folder);
+            const prefix = request?.prefix ? `${folder}/${request.prefix}` : `${folder}/`;
             const maxResults = request.maxResults || 100;
 
             const [files] = await bucket.getFiles({
@@ -143,7 +148,7 @@ export class GcsAdapter {
             const bucketName = this.gcsConfig.getBucketName();
             const bucket = storage.bucket(bucketName);
 
-            const folderPath = folder || this.folder;
+            const folderPath = this.resolveFolder(folder);
             const fullPath = `${folderPath}/${filename}`;
 
             const file = bucket.file(fullPath);

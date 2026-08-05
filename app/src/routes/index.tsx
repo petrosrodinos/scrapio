@@ -24,6 +24,7 @@ import DiagnosticsListPage from "@/pages/admin/diagnostics";
 import DiagnosticsDetailPage from "@/pages/admin/diagnostics/detail";
 import CrawlerConfigPage from "@/pages/admin/crawler-config";
 import NotificationsListPage from "@/pages/admin/notifications";
+import IntegrationsPage from "@/pages/integrations";
 
 export default function AppRoutes() {
   return (
@@ -61,6 +62,7 @@ export default function AppRoutes() {
         <Route path={`${Routes.crawlRuns.list}/:id`} element={<CrawlRunDetailPage />} />
         <Route path={Routes.diagnostics.list} element={<DiagnosticsListPage />} />
         <Route path={`${Routes.diagnostics.list}/:id`} element={<DiagnosticsDetailPage />} />
+        <Route path={Routes.integrations.list} element={<IntegrationsPage />} />
       </Route>
 
       <Route

@@ -1,11 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IntegrationType } from 'generated/prisma';
+import { ComputerUseModel, IntegrationType } from 'generated/prisma';
 import {
   IsEnum,
   IsObject,
   IsOptional,
   IsString,
   MinLength,
+  ValidateIf,
 } from 'class-validator';
 
 export class ConnectUserIntegrationDto {
@@ -17,6 +18,13 @@ export class ConnectUserIntegrationDto {
   @IsString()
   @MinLength(1)
   api_key: string;
+
+  @ApiProperty({ enum: ComputerUseModel, required: false })
+  @ValidateIf((dto: ConnectUserIntegrationDto) =>
+    dto.integration_type === IntegrationType.ANTHROPIC,
+  )
+  @IsEnum(ComputerUseModel)
+  computer_use_model?: ComputerUseModel;
 
   @ApiProperty({ required: false })
   @IsOptional()

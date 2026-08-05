@@ -126,6 +126,7 @@ exports.Prisma.UserScalarFieldEnum = {
   phone: 'phone',
   password: 'password',
   role: 'role',
+  crawl_schedule_tz: 'crawl_schedule_tz',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
@@ -352,6 +353,7 @@ exports.Prisma.UserIntegrationScalarFieldEnum = {
   id: 'id',
   user_id: 'user_id',
   integration_type: 'integration_type',
+  computer_use_model: 'computer_use_model',
   credentials_encrypted: 'credentials_encrypted',
   is_active: 'is_active',
   metadata: 'metadata',
@@ -540,6 +542,11 @@ exports.IntegrationType = exports.$Enums.IntegrationType = {
   ANTHROPIC: 'ANTHROPIC',
   GEMINI: 'GEMINI',
   DEEPSEEK: 'DEEPSEEK'
+};
+
+exports.ComputerUseModel = exports.$Enums.ComputerUseModel = {
+  CLAUDE_OPUS_4_8: 'CLAUDE_OPUS_4_8',
+  CLAUDE_SONNET_4_6: 'CLAUDE_SONNET_4_6'
 };
 
 exports.Prisma.ModelName = {

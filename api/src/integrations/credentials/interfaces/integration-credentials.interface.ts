@@ -1,4 +1,4 @@
-import { IntegrationType } from 'generated/prisma';
+import { IntegrationType, ComputerUseModel } from 'generated/prisma';
 
 export interface ApiKeyCredentials {
   api_key: string;
@@ -6,9 +6,15 @@ export interface ApiKeyCredentials {
 
 export interface ResolvedIntegrationCredentials {
   apiKey: string;
-  source: 'user' | 'platform';
-  userIntegrationId?: string;
+  userIntegrationId: string;
   integrationType: IntegrationType;
+}
+
+export interface ResolvedComputerUseIntegration {
+  apiKey: string;
+  model: string;
+  computerUseModel: ComputerUseModel;
+  userIntegrationId: string;
 }
 
 export interface IntegrationCredentialContext {

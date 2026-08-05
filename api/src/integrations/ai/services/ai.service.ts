@@ -8,7 +8,7 @@ import {
 } from '../interfaces/ai.interface';
 import { AiConfig } from '../utils/ai.config';
 import { z } from 'zod';
-import { openai, createOpenAI } from '@ai-sdk/openai';
+import { createOpenAI } from '@ai-sdk/openai';
 import { calculateAiCost } from '../utils/ai-cost';
 
 @Injectable()
@@ -147,10 +147,10 @@ export class AiService {
         }
     }
 
-    async embedText(text: string, apiKey?: string): Promise<number[]> {
-        const embeddingModel = apiKey
-            ? createOpenAI({ apiKey }).embedding('text-embedding-3-small')
-            : openai.embedding('text-embedding-3-small');
+    async embedText(text: string, apiKey: string): Promise<number[]> {
+        const embeddingModel = createOpenAI({ apiKey }).embedding(
+            'text-embedding-3-small',
+        );
         const { embedding } = await embed({
             model: embeddingModel,
             value: text,

@@ -1,4 +1,4 @@
-import { IntegrationType } from 'generated/prisma';
+import { IntegrationType, ComputerUseModel } from 'generated/prisma';
 
 export interface PaginatedResult<T> {
   data: T[];
@@ -16,6 +16,7 @@ export interface UserIntegrationResponse {
   id: string;
   user_id: string;
   integration_type: IntegrationType;
+  computer_use_model: ComputerUseModel | null;
   api_key_masked: string;
   is_active: boolean;
   metadata: Record<string, unknown> | null;

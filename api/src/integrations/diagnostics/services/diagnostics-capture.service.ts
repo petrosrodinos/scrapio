@@ -6,7 +6,7 @@ import { ConsoleMessage, Page } from 'playwright';
 import { PrismaService } from '@/core/databases/prisma/prisma.service';
 import { StealthBrowserService } from '@/integrations/crawler/services/stealth-browser.service';
 import { GcsService } from '@/integrations/storage/gcs/services/gcs.service';
-import { GcsFolders } from '@/shared/config/gcs-folders';
+import { GcsFolders } from '@/integrations/storage/gcs/config/gcs-folders.config';
 import { DiagnosticsArtifactKind, DiagnosticsMode } from 'generated/prisma';
 import {
   DiagnosticsOutcome,

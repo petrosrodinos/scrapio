@@ -19,6 +19,7 @@ import { NotificationsModule } from './modules/notifications/notifications.modul
 import { DashboardModule } from './modules/dashboard/dashboard.module';
 import { IntegrationsModule } from './modules/integrations/integrations.module';
 import { UserIntegrationsModule } from './modules/user-integrations/user-integrations.module';
+import { UsersModule } from './modules/users/users.module';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { UserIntegrationsModule } from './modules/user-integrations/user-integra
     PlatformConfigModule,
     IntegrationsModule,
     UserIntegrationsModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -12,6 +12,7 @@ export interface SearchQuery {
     page?: number;
     limit?: number;
     filters?: SearchFilter[];
+    user_id?: string;
 }
 
 export interface SearchResult<T = Record<string, unknown>> {
@@ -20,8 +21,7 @@ export interface SearchResult<T = Record<string, unknown>> {
 }
 
 export interface IndexDocumentOptions {
-    /** Text used to generate the embedding vector. When omitted, no embedding is added. */
     embeddingSource?: string;
-    /** Field name for the embedding. Defaults to 'embedding'. */
     embeddingField?: string;
+    user_id?: string;
 }

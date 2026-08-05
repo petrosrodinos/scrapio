@@ -2,7 +2,7 @@ import { createHash } from 'crypto';
 import { Injectable, Logger } from '@nestjs/common';
 import { PlatformConfigService } from '@/modules/platform-config/platform-config.service';
 import { GcsService } from '@/integrations/storage/gcs/services/gcs.service';
-import { GcsFolders } from '@/shared/config/gcs-folders';
+import { GcsFolders } from '@/integrations/storage/gcs/config/gcs-folders.config';
 import {
   CONTEXT_CLOSE_TIMEOUT_MS,
   DETAIL_HTML_UPLOAD_TIMEOUT_MS,

@@ -4,6 +4,7 @@ import { Cron, CronExpression } from '@nestjs/schedule';
 import { parseExpression } from 'cron-parser';
 import { PrismaService } from '@/core/databases/prisma/prisma.service';
 import { CrawlRunsService } from '@/modules/crawl-runs/crawl-runs.service';
+import { DEFAULT_CRAWL_SCHEDULE_TZ } from '@/shared/config/crawl-schedule-timezones.config';
 import { ScraperStatus } from 'generated/prisma';
 import type { EnvConfig } from '@/shared/config/env/env.validation';
 
@@ -12,8 +13,6 @@ const MANUAL_ONLY_CRAWL_ENVS: ReadonlySet<EnvConfig['NODE_ENV']> = new Set([
   'development',
   'staging',
 ]);
-
-const DEFAULT_CRAWL_SCHEDULE_TZ = 'Europe/Athens';
 
 @Injectable()
 export class CrawlSchedulerCron {
@@ -33,15 +32,19 @@ export class CrawlSchedulerCron {
     }
 
     const now = new Date();
-    const scheduleTz =
-      this.configService.get<string>('CRAWL_SCHEDULE_TZ') ??
-      DEFAULT_CRAWL_SCHEDULE_TZ;
 
     const websiteTargets = await this.prisma.websiteTarget.findMany({
-      select: { id: true, crawl_interval: true },
+      select: {
+        id: true,
+        crawl_interval: true,
+        user: { select: { crawl_schedule_tz: true } },
+      },
     });
 
     for (const websiteTarget of websiteTargets) {
+      const scheduleTz =
+        websiteTarget.user.crawl_schedule_tz || DEFAULT_CRAWL_SCHEDULE_TZ;
+
       if (!this.isCronDue(websiteTarget.crawl_interval, now, scheduleTz)) {
         continue;
       }

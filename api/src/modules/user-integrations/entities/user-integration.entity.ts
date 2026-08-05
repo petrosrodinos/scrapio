@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IntegrationType } from 'generated/prisma';
+import { ComputerUseModel, IntegrationType } from 'generated/prisma';
 
 export class UserIntegration {
   @ApiProperty()
@@ -10,6 +10,9 @@ export class UserIntegration {
 
   @ApiProperty({ enum: IntegrationType })
   integration_type: IntegrationType;
+
+  @ApiProperty({ enum: ComputerUseModel, nullable: true })
+  computer_use_model: ComputerUseModel | null;
 
   @ApiProperty({ example: 'sk-...xxxx' })
   api_key_masked: string;

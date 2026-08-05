@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IntegrationType } from 'generated/prisma';
+import { ComputerUseModel, IntegrationType } from 'generated/prisma';
 
 export class IntegrationField {
   @ApiProperty()
@@ -13,6 +13,20 @@ export class IntegrationField {
 
   @ApiProperty()
   required: boolean;
+}
+
+export class IntegrationModel {
+  @ApiProperty({ enum: ComputerUseModel })
+  value: ComputerUseModel;
+
+  @ApiProperty()
+  label: string;
+
+  @ApiProperty()
+  api_model: string;
+
+  @ApiProperty()
+  supports_computer_use: boolean;
 }
 
 export class Integration {
@@ -32,4 +46,7 @@ export class Integration {
   config_schema: {
     fields: IntegrationField[];
   };
+
+  @ApiProperty({ type: [IntegrationModel] })
+  models: IntegrationModel[];
 }

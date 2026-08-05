@@ -5,6 +5,8 @@ import {
 } from '@nestjs/common';
 import { Client } from '@elastic/elasticsearch';
 import { AiService } from '@/integrations/ai/services/ai.service';
+import { IntegrationCredentialResolverService } from '@/integrations/credentials/services/integration-credential-resolver.service';
+import { IntegrationType } from 'generated/prisma';
 import { ELASTICSEARCH_CLIENT } from './elasticsearch.constants';
 import {
     IndexDocumentOptions,
@@ -21,6 +23,7 @@ export class ElasticsearchService {
     constructor(
         @Inject(ELASTICSEARCH_CLIENT) private readonly client: Client | null,
         private readonly aiService: AiService,
+        private readonly credentialResolver: IntegrationCredentialResolverService,
     ) { }
 
     get enabled(): boolean {
@@ -53,7 +56,13 @@ export class ElasticsearchService {
             const payload = { ...document };
 
             if (options?.embeddingSource !== undefined) {
-                payload[embeddingField] = await this.embed(options.embeddingSource);
+                if (!options.user_id) {
+                    throw new Error('user_id is required when embeddingSource is set');
+                }
+                payload[embeddingField] = await this.embed(
+                    options.embeddingSource,
+                    options.user_id,
+                );
             }
 
             await this.client.index({ index, id, document: payload });
@@ -107,7 +116,10 @@ export class ElasticsearchService {
         const from = (page - 1) * limit;
 
         if (query.q) {
-            const vector = await this.embed(query.q);
+            if (!query.user_id) {
+                throw new Error('user_id is required for semantic search');
+            }
+            const vector = await this.embed(query.q, query.user_id);
             const response = await this.client.search({
                 index,
                 from,
@@ -134,8 +146,15 @@ export class ElasticsearchService {
         return this.formatResponse<T>(response);
     }
 
-    private async embed(text: string): Promise<number[]> {
-        return this.aiService.embedText(text.trim() || ' ');
+    private async embed(text: string, userId: string): Promise<number[]> {
+        const credentials = await this.credentialResolver.resolveApiKey({
+            userId,
+            integrationType: IntegrationType.OPENAI,
+        });
+        return this.aiService.embedText(
+            text.trim() || ' ',
+            credentials.apiKey,
+        );
     }
 
     private formatResponse<T>(response: any): SearchResult<T> {

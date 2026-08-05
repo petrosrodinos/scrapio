@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { AIModelInfo, AiModels, AiProvider, AiProviders } from '../interfaces/ai.interface';
-import { createOpenAI, openai } from '@ai-sdk/openai';
+import { createOpenAI } from '@ai-sdk/openai';
 
 @Injectable()
 export class AiConfig {
@@ -25,16 +25,19 @@ export class AiConfig {
     ) {
         switch (provider) {
             case AiProviders.openai:
-                if (apiKey) {
-                    return createOpenAI({ apiKey })(model);
+                if (!apiKey) {
+                    throw new Error('OpenAI API key is required');
                 }
-                return openai(model);
+                return createOpenAI({ apiKey })(model);
             case AiProviders.grok:
                 throw new Error('Grok provider not yet implemented. SDK required.');
             case AiProviders.gemini:
                 throw new Error('Gemini provider not yet implemented. SDK required.');
             default:
-                return openai(model);
+                if (!apiKey) {
+                    throw new Error('OpenAI API key is required');
+                }
+                return createOpenAI({ apiKey })(model);
         }
     }
 

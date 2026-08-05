@@ -5,6 +5,7 @@ import {
   Bot,
   Globe,
   LayoutDashboard,
+  Plug,
   Play,
   Settings2,
   Sparkles,
@@ -30,6 +31,7 @@ const scraperNavItems = [
   { label: 'Generation', icon: Sparkles, href: Routes.generationRuns.list, end: false },
   { label: 'Crawl Runs', icon: Play, href: Routes.crawlRuns.list, end: false },
   { label: 'Diagnostics', icon: Activity, href: Routes.diagnostics.list, end: false },
+  { label: 'Integrations', icon: Plug, href: Routes.integrations.list, end: false },
 ];
 
 const adminNavItems = [

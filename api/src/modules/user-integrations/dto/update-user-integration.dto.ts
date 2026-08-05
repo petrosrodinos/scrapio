@@ -1,11 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
   IsBoolean,
+  IsEnum,
   IsObject,
   IsOptional,
   IsString,
   MinLength,
 } from 'class-validator';
+import { ComputerUseModel } from 'generated/prisma';
 
 export class UpdateUserIntegrationDto {
   @ApiProperty({ required: false })
@@ -13,6 +15,11 @@ export class UpdateUserIntegrationDto {
   @IsString()
   @MinLength(1)
   api_key?: string;
+
+  @ApiProperty({ enum: ComputerUseModel, required: false })
+  @IsOptional()
+  @IsEnum(ComputerUseModel)
+  computer_use_model?: ComputerUseModel;
 
   @ApiProperty({ required: false })
   @IsOptional()

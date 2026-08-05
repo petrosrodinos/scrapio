@@ -8,8 +8,10 @@ import { PrismaService } from '@/core/databases/prisma/prisma.service';
 import { CredentialEncryptionService } from '@/integrations/credentials/services/credential-encryption.service';
 import { maskApiKey } from '@/integrations/credentials/utils/mask-api-key.util';
 import { IntegrationsService } from '@/modules/integrations/integrations.service';
+import { integrationRequiresComputerUseModel } from '@/shared/config/integrations/integrations.config';
+import { isComputerUseModel } from '@/shared/config/integrations/computer-use-models.config';
 import { AuthUser } from '@/shared/interfaces/auth-user.interface';
-import { AuthRole, IntegrationType, Prisma } from 'generated/prisma';
+import { AuthRole, ComputerUseModel, IntegrationType, Prisma } from 'generated/prisma';
 import { ConnectUserIntegrationDto } from './dto/connect-user-integration.dto';
 import { UpdateUserIntegrationDto } from './dto/update-user-integration.dto';
 import { UserIntegrationQueryType } from './dto/user-integration-query.schema';
@@ -92,6 +94,8 @@ export class UserIntegrationsService {
       throw new BadRequestException('Integration is not available');
     }
 
+    this.validateComputerUseModel(dto.integration_type, dto.computer_use_model);
+
     const existing = await this.prisma.userIntegration.findUnique({
       where: {
         user_id_integration_type: {
@@ -111,6 +115,7 @@ export class UserIntegrationsService {
       data: {
         user_id: authUser.id,
         integration_type: dto.integration_type,
+        computer_use_model: dto.computer_use_model ?? null,
         credentials_encrypted: this.credentialEncryption.encrypt({
           api_key: dto.api_key,
         }),
@@ -128,12 +133,20 @@ export class UserIntegrationsService {
   ): Promise<UserIntegrationResponse> {
     const existing = await this.ensureOwned(authUser, id);
 
+    this.validateComputerUseModel(
+      existing.integration_type,
+      dto.computer_use_model ?? existing.computer_use_model ?? undefined,
+    );
+
     const updated = await this.prisma.userIntegration.update({
       where: { id: existing.id },
       data: {
         ...(dto.is_active !== undefined && { is_active: dto.is_active }),
         ...(dto.metadata !== undefined && {
           metadata: dto.metadata as Prisma.InputJsonValue,
+        }),
+        ...(dto.computer_use_model !== undefined && {
+          computer_use_model: dto.computer_use_model,
         }),
         ...(dto.api_key && {
           credentials_encrypted: this.credentialEncryption.encrypt({
@@ -168,6 +181,27 @@ export class UserIntegrationsService {
     return integration;
   }
 
+  private validateComputerUseModel(
+    integrationType: IntegrationType,
+    computerUseModel?: ComputerUseModel | null,
+  ) {
+    const requiresModel = integrationRequiresComputerUseModel(integrationType);
+
+    if (requiresModel && !computerUseModel) {
+      throw new BadRequestException('computer_use_model is required');
+    }
+
+    if (computerUseModel && !requiresModel) {
+      throw new BadRequestException(
+        'computer_use_model is not supported for this integration',
+      );
+    }
+
+    if (computerUseModel && !isComputerUseModel(computerUseModel)) {
+      throw new BadRequestException('Invalid computer_use_model');
+    }
+  }
+
   private canViewAllUsers(authUser: AuthUser): boolean {
     return (
       authUser.role === AuthRole.ADMIN ||
@@ -180,6 +214,7 @@ export class UserIntegrationsService {
     id: string;
     user_id: string;
     integration_type: IntegrationType;
+    computer_use_model: ComputerUseModel | null;
     credentials_encrypted: string;
     is_active: boolean;
     metadata: unknown;
@@ -194,6 +229,7 @@ export class UserIntegrationsService {
       id: integration.id,
       user_id: integration.user_id,
       integration_type: integration.integration_type,
+      computer_use_model: integration.computer_use_model,
       api_key_masked: maskApiKey(credentials.api_key),
       is_active: integration.is_active,
       metadata: (integration.metadata as Record<string, unknown> | null) ?? null,

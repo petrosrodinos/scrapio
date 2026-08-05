@@ -297,6 +297,14 @@ export const IntegrationType: {
 
 export type IntegrationType = (typeof IntegrationType)[keyof typeof IntegrationType]
 
+
+export const ComputerUseModel: {
+  CLAUDE_OPUS_4_8: 'CLAUDE_OPUS_4_8',
+  CLAUDE_SONNET_4_6: 'CLAUDE_SONNET_4_6'
+};
+
+export type ComputerUseModel = (typeof ComputerUseModel)[keyof typeof ComputerUseModel]
+
 }
 
 export type AuthRole = $Enums.AuthRole
@@ -366,6 +374,10 @@ export const NotificationSeverity: typeof $Enums.NotificationSeverity
 export type IntegrationType = $Enums.IntegrationType
 
 export const IntegrationType: typeof $Enums.IntegrationType
+
+export type ComputerUseModel = $Enums.ComputerUseModel
+
+export const ComputerUseModel: typeof $Enums.ComputerUseModel
 
 /**
  * ##  Prisma Client ʲˢ
@@ -3066,6 +3078,7 @@ export namespace Prisma {
     phone: string | null
     password: string | null
     role: $Enums.AuthRole | null
+    crawl_schedule_tz: string | null
     created_at: Date | null
     updated_at: Date | null
   }
@@ -3076,6 +3089,7 @@ export namespace Prisma {
     phone: string | null
     password: string | null
     role: $Enums.AuthRole | null
+    crawl_schedule_tz: string | null
     created_at: Date | null
     updated_at: Date | null
   }
@@ -3086,6 +3100,7 @@ export namespace Prisma {
     phone: number
     password: number
     role: number
+    crawl_schedule_tz: number
     created_at: number
     updated_at: number
     _all: number
@@ -3098,6 +3113,7 @@ export namespace Prisma {
     phone?: true
     password?: true
     role?: true
+    crawl_schedule_tz?: true
     created_at?: true
     updated_at?: true
   }
@@ -3108,6 +3124,7 @@ export namespace Prisma {
     phone?: true
     password?: true
     role?: true
+    crawl_schedule_tz?: true
     created_at?: true
     updated_at?: true
   }
@@ -3118,6 +3135,7 @@ export namespace Prisma {
     phone?: true
     password?: true
     role?: true
+    crawl_schedule_tz?: true
     created_at?: true
     updated_at?: true
     _all?: true
@@ -3201,6 +3219,7 @@ export namespace Prisma {
     phone: string | null
     password: string
     role: $Enums.AuthRole
+    crawl_schedule_tz: string
     created_at: Date
     updated_at: Date
     _count: UserCountAggregateOutputType | null
@@ -3228,6 +3247,7 @@ export namespace Prisma {
     phone?: boolean
     password?: boolean
     role?: boolean
+    crawl_schedule_tz?: boolean
     created_at?: boolean
     updated_at?: boolean
     password_reset_tokens?: boolean | User$password_reset_tokensArgs<ExtArgs>
@@ -3244,6 +3264,7 @@ export namespace Prisma {
     phone?: boolean
     password?: boolean
     role?: boolean
+    crawl_schedule_tz?: boolean
     created_at?: boolean
     updated_at?: boolean
   }, ExtArgs["result"]["user"]>
@@ -3254,6 +3275,7 @@ export namespace Prisma {
     phone?: boolean
     password?: boolean
     role?: boolean
+    crawl_schedule_tz?: boolean
     created_at?: boolean
     updated_at?: boolean
   }, ExtArgs["result"]["user"]>
@@ -3264,11 +3286,12 @@ export namespace Prisma {
     phone?: boolean
     password?: boolean
     role?: boolean
+    crawl_schedule_tz?: boolean
     created_at?: boolean
     updated_at?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "phone" | "password" | "role" | "created_at" | "updated_at", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "phone" | "password" | "role" | "crawl_schedule_tz" | "created_at" | "updated_at", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     password_reset_tokens?: boolean | User$password_reset_tokensArgs<ExtArgs>
     website_targets?: boolean | User$website_targetsArgs<ExtArgs>
@@ -3295,6 +3318,7 @@ export namespace Prisma {
       phone: string | null
       password: string
       role: $Enums.AuthRole
+      crawl_schedule_tz: string
       created_at: Date
       updated_at: Date
     }, ExtArgs["result"]["user"]>
@@ -3730,6 +3754,7 @@ export namespace Prisma {
     readonly phone: FieldRef<"User", 'String'>
     readonly password: FieldRef<"User", 'String'>
     readonly role: FieldRef<"User", 'AuthRole'>
+    readonly crawl_schedule_tz: FieldRef<"User", 'String'>
     readonly created_at: FieldRef<"User", 'DateTime'>
     readonly updated_at: FieldRef<"User", 'DateTime'>
   }
@@ -22757,6 +22782,7 @@ export namespace Prisma {
     id: string | null
     user_id: string | null
     integration_type: $Enums.IntegrationType | null
+    computer_use_model: $Enums.ComputerUseModel | null
     credentials_encrypted: string | null
     is_active: boolean | null
     created_at: Date | null
@@ -22767,6 +22793,7 @@ export namespace Prisma {
     id: string | null
     user_id: string | null
     integration_type: $Enums.IntegrationType | null
+    computer_use_model: $Enums.ComputerUseModel | null
     credentials_encrypted: string | null
     is_active: boolean | null
     created_at: Date | null
@@ -22777,6 +22804,7 @@ export namespace Prisma {
     id: number
     user_id: number
     integration_type: number
+    computer_use_model: number
     credentials_encrypted: number
     is_active: number
     metadata: number
@@ -22790,6 +22818,7 @@ export namespace Prisma {
     id?: true
     user_id?: true
     integration_type?: true
+    computer_use_model?: true
     credentials_encrypted?: true
     is_active?: true
     created_at?: true
@@ -22800,6 +22829,7 @@ export namespace Prisma {
     id?: true
     user_id?: true
     integration_type?: true
+    computer_use_model?: true
     credentials_encrypted?: true
     is_active?: true
     created_at?: true
@@ -22810,6 +22840,7 @@ export namespace Prisma {
     id?: true
     user_id?: true
     integration_type?: true
+    computer_use_model?: true
     credentials_encrypted?: true
     is_active?: true
     metadata?: true
@@ -22894,6 +22925,7 @@ export namespace Prisma {
     id: string
     user_id: string
     integration_type: $Enums.IntegrationType
+    computer_use_model: $Enums.ComputerUseModel | null
     credentials_encrypted: string
     is_active: boolean
     metadata: JsonValue | null
@@ -22922,6 +22954,7 @@ export namespace Prisma {
     id?: boolean
     user_id?: boolean
     integration_type?: boolean
+    computer_use_model?: boolean
     credentials_encrypted?: boolean
     is_active?: boolean
     metadata?: boolean
@@ -22934,6 +22967,7 @@ export namespace Prisma {
     id?: boolean
     user_id?: boolean
     integration_type?: boolean
+    computer_use_model?: boolean
     credentials_encrypted?: boolean
     is_active?: boolean
     metadata?: boolean
@@ -22946,6 +22980,7 @@ export namespace Prisma {
     id?: boolean
     user_id?: boolean
     integration_type?: boolean
+    computer_use_model?: boolean
     credentials_encrypted?: boolean
     is_active?: boolean
     metadata?: boolean
@@ -22958,6 +22993,7 @@ export namespace Prisma {
     id?: boolean
     user_id?: boolean
     integration_type?: boolean
+    computer_use_model?: boolean
     credentials_encrypted?: boolean
     is_active?: boolean
     metadata?: boolean
@@ -22965,7 +23001,7 @@ export namespace Prisma {
     updated_at?: boolean
   }
 
-  export type UserIntegrationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "integration_type" | "credentials_encrypted" | "is_active" | "metadata" | "created_at" | "updated_at", ExtArgs["result"]["userIntegration"]>
+  export type UserIntegrationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "integration_type" | "computer_use_model" | "credentials_encrypted" | "is_active" | "metadata" | "created_at" | "updated_at", ExtArgs["result"]["userIntegration"]>
   export type UserIntegrationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -22985,6 +23021,7 @@ export namespace Prisma {
       id: string
       user_id: string
       integration_type: $Enums.IntegrationType
+      computer_use_model: $Enums.ComputerUseModel | null
       credentials_encrypted: string
       is_active: boolean
       metadata: Prisma.JsonValue | null
@@ -23417,6 +23454,7 @@ export namespace Prisma {
     readonly id: FieldRef<"UserIntegration", 'String'>
     readonly user_id: FieldRef<"UserIntegration", 'String'>
     readonly integration_type: FieldRef<"UserIntegration", 'IntegrationType'>
+    readonly computer_use_model: FieldRef<"UserIntegration", 'ComputerUseModel'>
     readonly credentials_encrypted: FieldRef<"UserIntegration", 'String'>
     readonly is_active: FieldRef<"UserIntegration", 'Boolean'>
     readonly metadata: FieldRef<"UserIntegration", 'Json'>
@@ -25008,6 +25046,7 @@ export namespace Prisma {
     phone: 'phone',
     password: 'password',
     role: 'role',
+    crawl_schedule_tz: 'crawl_schedule_tz',
     created_at: 'created_at',
     updated_at: 'updated_at'
   };
@@ -25282,6 +25321,7 @@ export namespace Prisma {
     id: 'id',
     user_id: 'user_id',
     integration_type: 'integration_type',
+    computer_use_model: 'computer_use_model',
     credentials_encrypted: 'credentials_encrypted',
     is_active: 'is_active',
     metadata: 'metadata',
@@ -25679,6 +25719,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'ComputerUseModel'
+   */
+  export type EnumComputerUseModelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ComputerUseModel'>
+    
+
+
+  /**
+   * Reference to a field of type 'ComputerUseModel[]'
+   */
+  export type ListEnumComputerUseModelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ComputerUseModel[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -25704,6 +25758,7 @@ export namespace Prisma {
     phone?: StringNullableFilter<"User"> | string | null
     password?: StringFilter<"User"> | string
     role?: EnumAuthRoleFilter<"User"> | $Enums.AuthRole
+    crawl_schedule_tz?: StringFilter<"User"> | string
     created_at?: DateTimeFilter<"User"> | Date | string
     updated_at?: DateTimeFilter<"User"> | Date | string
     password_reset_tokens?: PasswordResetTokenListRelationFilter
@@ -25719,6 +25774,7 @@ export namespace Prisma {
     phone?: SortOrderInput | SortOrder
     password?: SortOrder
     role?: SortOrder
+    crawl_schedule_tz?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     password_reset_tokens?: PasswordResetTokenOrderByRelationAggregateInput
@@ -25737,6 +25793,7 @@ export namespace Prisma {
     NOT?: UserWhereInput | UserWhereInput[]
     password?: StringFilter<"User"> | string
     role?: EnumAuthRoleFilter<"User"> | $Enums.AuthRole
+    crawl_schedule_tz?: StringFilter<"User"> | string
     created_at?: DateTimeFilter<"User"> | Date | string
     updated_at?: DateTimeFilter<"User"> | Date | string
     password_reset_tokens?: PasswordResetTokenListRelationFilter
@@ -25752,6 +25809,7 @@ export namespace Prisma {
     phone?: SortOrderInput | SortOrder
     password?: SortOrder
     role?: SortOrder
+    crawl_schedule_tz?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     _count?: UserCountOrderByAggregateInput
@@ -25768,6 +25826,7 @@ export namespace Prisma {
     phone?: StringNullableWithAggregatesFilter<"User"> | string | null
     password?: StringWithAggregatesFilter<"User"> | string
     role?: EnumAuthRoleWithAggregatesFilter<"User"> | $Enums.AuthRole
+    crawl_schedule_tz?: StringWithAggregatesFilter<"User"> | string
     created_at?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
@@ -27224,6 +27283,7 @@ export namespace Prisma {
     id?: StringFilter<"UserIntegration"> | string
     user_id?: StringFilter<"UserIntegration"> | string
     integration_type?: EnumIntegrationTypeFilter<"UserIntegration"> | $Enums.IntegrationType
+    computer_use_model?: EnumComputerUseModelNullableFilter<"UserIntegration"> | $Enums.ComputerUseModel | null
     credentials_encrypted?: StringFilter<"UserIntegration"> | string
     is_active?: BoolFilter<"UserIntegration"> | boolean
     metadata?: JsonNullableFilter<"UserIntegration">
@@ -27236,6 +27296,7 @@ export namespace Prisma {
     id?: SortOrder
     user_id?: SortOrder
     integration_type?: SortOrder
+    computer_use_model?: SortOrderInput | SortOrder
     credentials_encrypted?: SortOrder
     is_active?: SortOrder
     metadata?: SortOrderInput | SortOrder
@@ -27252,6 +27313,7 @@ export namespace Prisma {
     NOT?: UserIntegrationWhereInput | UserIntegrationWhereInput[]
     user_id?: StringFilter<"UserIntegration"> | string
     integration_type?: EnumIntegrationTypeFilter<"UserIntegration"> | $Enums.IntegrationType
+    computer_use_model?: EnumComputerUseModelNullableFilter<"UserIntegration"> | $Enums.ComputerUseModel | null
     credentials_encrypted?: StringFilter<"UserIntegration"> | string
     is_active?: BoolFilter<"UserIntegration"> | boolean
     metadata?: JsonNullableFilter<"UserIntegration">
@@ -27264,6 +27326,7 @@ export namespace Prisma {
     id?: SortOrder
     user_id?: SortOrder
     integration_type?: SortOrder
+    computer_use_model?: SortOrderInput | SortOrder
     credentials_encrypted?: SortOrder
     is_active?: SortOrder
     metadata?: SortOrderInput | SortOrder
@@ -27281,6 +27344,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"UserIntegration"> | string
     user_id?: StringWithAggregatesFilter<"UserIntegration"> | string
     integration_type?: EnumIntegrationTypeWithAggregatesFilter<"UserIntegration"> | $Enums.IntegrationType
+    computer_use_model?: EnumComputerUseModelNullableWithAggregatesFilter<"UserIntegration"> | $Enums.ComputerUseModel | null
     credentials_encrypted?: StringWithAggregatesFilter<"UserIntegration"> | string
     is_active?: BoolWithAggregatesFilter<"UserIntegration"> | boolean
     metadata?: JsonNullableWithAggregatesFilter<"UserIntegration">
@@ -27383,6 +27447,7 @@ export namespace Prisma {
     phone?: string | null
     password: string
     role: $Enums.AuthRole
+    crawl_schedule_tz?: string
     created_at?: Date | string
     updated_at?: Date | string
     password_reset_tokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
@@ -27398,6 +27463,7 @@ export namespace Prisma {
     phone?: string | null
     password: string
     role: $Enums.AuthRole
+    crawl_schedule_tz?: string
     created_at?: Date | string
     updated_at?: Date | string
     password_reset_tokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
@@ -27413,6 +27479,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
+    crawl_schedule_tz?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     password_reset_tokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
@@ -27428,6 +27495,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
+    crawl_schedule_tz?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     password_reset_tokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -27443,6 +27511,7 @@ export namespace Prisma {
     phone?: string | null
     password: string
     role: $Enums.AuthRole
+    crawl_schedule_tz?: string
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -27453,6 +27522,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
+    crawl_schedule_tz?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -27463,6 +27533,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
+    crawl_schedule_tz?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -29061,6 +29132,7 @@ export namespace Prisma {
   export type UserIntegrationCreateInput = {
     id?: string
     integration_type: $Enums.IntegrationType
+    computer_use_model?: $Enums.ComputerUseModel | null
     credentials_encrypted: string
     is_active?: boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -29073,6 +29145,7 @@ export namespace Prisma {
     id?: string
     user_id: string
     integration_type: $Enums.IntegrationType
+    computer_use_model?: $Enums.ComputerUseModel | null
     credentials_encrypted: string
     is_active?: boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -29083,6 +29156,7 @@ export namespace Prisma {
   export type UserIntegrationUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     integration_type?: EnumIntegrationTypeFieldUpdateOperationsInput | $Enums.IntegrationType
+    computer_use_model?: NullableEnumComputerUseModelFieldUpdateOperationsInput | $Enums.ComputerUseModel | null
     credentials_encrypted?: StringFieldUpdateOperationsInput | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -29095,6 +29169,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     user_id?: StringFieldUpdateOperationsInput | string
     integration_type?: EnumIntegrationTypeFieldUpdateOperationsInput | $Enums.IntegrationType
+    computer_use_model?: NullableEnumComputerUseModelFieldUpdateOperationsInput | $Enums.ComputerUseModel | null
     credentials_encrypted?: StringFieldUpdateOperationsInput | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -29106,6 +29181,7 @@ export namespace Prisma {
     id?: string
     user_id: string
     integration_type: $Enums.IntegrationType
+    computer_use_model?: $Enums.ComputerUseModel | null
     credentials_encrypted: string
     is_active?: boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -29116,6 +29192,7 @@ export namespace Prisma {
   export type UserIntegrationUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     integration_type?: EnumIntegrationTypeFieldUpdateOperationsInput | $Enums.IntegrationType
+    computer_use_model?: NullableEnumComputerUseModelFieldUpdateOperationsInput | $Enums.ComputerUseModel | null
     credentials_encrypted?: StringFieldUpdateOperationsInput | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -29127,6 +29204,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     user_id?: StringFieldUpdateOperationsInput | string
     integration_type?: EnumIntegrationTypeFieldUpdateOperationsInput | $Enums.IntegrationType
+    computer_use_model?: NullableEnumComputerUseModelFieldUpdateOperationsInput | $Enums.ComputerUseModel | null
     credentials_encrypted?: StringFieldUpdateOperationsInput | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -29348,6 +29426,7 @@ export namespace Prisma {
     phone?: SortOrder
     password?: SortOrder
     role?: SortOrder
+    crawl_schedule_tz?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -29358,6 +29437,7 @@ export namespace Prisma {
     phone?: SortOrder
     password?: SortOrder
     role?: SortOrder
+    crawl_schedule_tz?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -29368,6 +29448,7 @@ export namespace Prisma {
     phone?: SortOrder
     password?: SortOrder
     role?: SortOrder
+    crawl_schedule_tz?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -30839,6 +30920,13 @@ export namespace Prisma {
     not?: NestedEnumIntegrationTypeFilter<$PrismaModel> | $Enums.IntegrationType
   }
 
+  export type EnumComputerUseModelNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.ComputerUseModel | EnumComputerUseModelFieldRefInput<$PrismaModel> | null
+    in?: $Enums.ComputerUseModel[] | ListEnumComputerUseModelFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.ComputerUseModel[] | ListEnumComputerUseModelFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumComputerUseModelNullableFilter<$PrismaModel> | $Enums.ComputerUseModel | null
+  }
+
   export type UserIntegrationUser_idIntegration_typeCompoundUniqueInput = {
     user_id: string
     integration_type: $Enums.IntegrationType
@@ -30848,6 +30936,7 @@ export namespace Prisma {
     id?: SortOrder
     user_id?: SortOrder
     integration_type?: SortOrder
+    computer_use_model?: SortOrder
     credentials_encrypted?: SortOrder
     is_active?: SortOrder
     metadata?: SortOrder
@@ -30859,6 +30948,7 @@ export namespace Prisma {
     id?: SortOrder
     user_id?: SortOrder
     integration_type?: SortOrder
+    computer_use_model?: SortOrder
     credentials_encrypted?: SortOrder
     is_active?: SortOrder
     created_at?: SortOrder
@@ -30869,6 +30959,7 @@ export namespace Prisma {
     id?: SortOrder
     user_id?: SortOrder
     integration_type?: SortOrder
+    computer_use_model?: SortOrder
     credentials_encrypted?: SortOrder
     is_active?: SortOrder
     created_at?: SortOrder
@@ -30883,6 +30974,16 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumIntegrationTypeFilter<$PrismaModel>
     _max?: NestedEnumIntegrationTypeFilter<$PrismaModel>
+  }
+
+  export type EnumComputerUseModelNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ComputerUseModel | EnumComputerUseModelFieldRefInput<$PrismaModel> | null
+    in?: $Enums.ComputerUseModel[] | ListEnumComputerUseModelFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.ComputerUseModel[] | ListEnumComputerUseModelFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumComputerUseModelNullableWithAggregatesFilter<$PrismaModel> | $Enums.ComputerUseModel | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumComputerUseModelNullableFilter<$PrismaModel>
+    _max?: NestedEnumComputerUseModelNullableFilter<$PrismaModel>
   }
 
   export type PlatformConfigCountOrderByAggregateInput = {
@@ -32620,6 +32721,10 @@ export namespace Prisma {
     set?: $Enums.IntegrationType
   }
 
+  export type NullableEnumComputerUseModelFieldUpdateOperationsInput = {
+    set?: $Enums.ComputerUseModel | null
+  }
+
   export type UserUpdateOneRequiredWithoutUser_integrationsNestedInput = {
     create?: XOR<UserCreateWithoutUser_integrationsInput, UserUncheckedCreateWithoutUser_integrationsInput>
     connectOrCreate?: UserCreateOrConnectWithoutUser_integrationsInput
@@ -33181,6 +33286,13 @@ export namespace Prisma {
     not?: NestedEnumIntegrationTypeFilter<$PrismaModel> | $Enums.IntegrationType
   }
 
+  export type NestedEnumComputerUseModelNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.ComputerUseModel | EnumComputerUseModelFieldRefInput<$PrismaModel> | null
+    in?: $Enums.ComputerUseModel[] | ListEnumComputerUseModelFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.ComputerUseModel[] | ListEnumComputerUseModelFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumComputerUseModelNullableFilter<$PrismaModel> | $Enums.ComputerUseModel | null
+  }
+
   export type NestedEnumIntegrationTypeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.IntegrationType | EnumIntegrationTypeFieldRefInput<$PrismaModel>
     in?: $Enums.IntegrationType[] | ListEnumIntegrationTypeFieldRefInput<$PrismaModel>
@@ -33189,6 +33301,16 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumIntegrationTypeFilter<$PrismaModel>
     _max?: NestedEnumIntegrationTypeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumComputerUseModelNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ComputerUseModel | EnumComputerUseModelFieldRefInput<$PrismaModel> | null
+    in?: $Enums.ComputerUseModel[] | ListEnumComputerUseModelFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.ComputerUseModel[] | ListEnumComputerUseModelFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumComputerUseModelNullableWithAggregatesFilter<$PrismaModel> | $Enums.ComputerUseModel | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumComputerUseModelNullableFilter<$PrismaModel>
+    _max?: NestedEnumComputerUseModelNullableFilter<$PrismaModel>
   }
 
   export type PasswordResetTokenCreateWithoutUserInput = {
@@ -33388,6 +33510,7 @@ export namespace Prisma {
   export type UserIntegrationCreateWithoutUserInput = {
     id?: string
     integration_type: $Enums.IntegrationType
+    computer_use_model?: $Enums.ComputerUseModel | null
     credentials_encrypted: string
     is_active?: boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -33398,6 +33521,7 @@ export namespace Prisma {
   export type UserIntegrationUncheckedCreateWithoutUserInput = {
     id?: string
     integration_type: $Enums.IntegrationType
+    computer_use_model?: $Enums.ComputerUseModel | null
     credentials_encrypted: string
     is_active?: boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -33578,6 +33702,7 @@ export namespace Prisma {
     id?: StringFilter<"UserIntegration"> | string
     user_id?: StringFilter<"UserIntegration"> | string
     integration_type?: EnumIntegrationTypeFilter<"UserIntegration"> | $Enums.IntegrationType
+    computer_use_model?: EnumComputerUseModelNullableFilter<"UserIntegration"> | $Enums.ComputerUseModel | null
     credentials_encrypted?: StringFilter<"UserIntegration"> | string
     is_active?: BoolFilter<"UserIntegration"> | boolean
     metadata?: JsonNullableFilter<"UserIntegration">
@@ -33591,6 +33716,7 @@ export namespace Prisma {
     phone?: string | null
     password: string
     role: $Enums.AuthRole
+    crawl_schedule_tz?: string
     created_at?: Date | string
     updated_at?: Date | string
     website_targets?: WebsiteTargetCreateNestedManyWithoutUserInput
@@ -33605,6 +33731,7 @@ export namespace Prisma {
     phone?: string | null
     password: string
     role: $Enums.AuthRole
+    crawl_schedule_tz?: string
     created_at?: Date | string
     updated_at?: Date | string
     website_targets?: WebsiteTargetUncheckedCreateNestedManyWithoutUserInput
@@ -33635,6 +33762,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
+    crawl_schedule_tz?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     website_targets?: WebsiteTargetUpdateManyWithoutUserNestedInput
@@ -33649,6 +33777,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
+    crawl_schedule_tz?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     website_targets?: WebsiteTargetUncheckedUpdateManyWithoutUserNestedInput
@@ -34040,6 +34169,7 @@ export namespace Prisma {
     phone?: string | null
     password: string
     role: $Enums.AuthRole
+    crawl_schedule_tz?: string
     created_at?: Date | string
     updated_at?: Date | string
     password_reset_tokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
@@ -34054,6 +34184,7 @@ export namespace Prisma {
     phone?: string | null
     password: string
     role: $Enums.AuthRole
+    crawl_schedule_tz?: string
     created_at?: Date | string
     updated_at?: Date | string
     password_reset_tokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
@@ -34251,6 +34382,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
+    crawl_schedule_tz?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     password_reset_tokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
@@ -34265,6 +34397,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
+    crawl_schedule_tz?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     password_reset_tokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -34432,6 +34565,7 @@ export namespace Prisma {
     phone?: string | null
     password: string
     role: $Enums.AuthRole
+    crawl_schedule_tz?: string
     created_at?: Date | string
     updated_at?: Date | string
     password_reset_tokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
@@ -34446,6 +34580,7 @@ export namespace Prisma {
     phone?: string | null
     password: string
     role: $Enums.AuthRole
+    crawl_schedule_tz?: string
     created_at?: Date | string
     updated_at?: Date | string
     password_reset_tokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
@@ -34806,6 +34941,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
+    crawl_schedule_tz?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     password_reset_tokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
@@ -34820,6 +34956,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
+    crawl_schedule_tz?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     password_reset_tokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -36160,6 +36297,7 @@ export namespace Prisma {
     phone?: string | null
     password: string
     role: $Enums.AuthRole
+    crawl_schedule_tz?: string
     created_at?: Date | string
     updated_at?: Date | string
     password_reset_tokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
@@ -36174,6 +36312,7 @@ export namespace Prisma {
     phone?: string | null
     password: string
     role: $Enums.AuthRole
+    crawl_schedule_tz?: string
     created_at?: Date | string
     updated_at?: Date | string
     password_reset_tokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
@@ -36505,6 +36644,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
+    crawl_schedule_tz?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     password_reset_tokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
@@ -36519,6 +36659,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
+    crawl_schedule_tz?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     password_reset_tokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -37735,6 +37876,7 @@ export namespace Prisma {
     phone?: string | null
     password: string
     role: $Enums.AuthRole
+    crawl_schedule_tz?: string
     created_at?: Date | string
     updated_at?: Date | string
     password_reset_tokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
@@ -37749,6 +37891,7 @@ export namespace Prisma {
     phone?: string | null
     password: string
     role: $Enums.AuthRole
+    crawl_schedule_tz?: string
     created_at?: Date | string
     updated_at?: Date | string
     password_reset_tokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
@@ -37779,6 +37922,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
+    crawl_schedule_tz?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     password_reset_tokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
@@ -37793,6 +37937,7 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
+    crawl_schedule_tz?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     password_reset_tokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -37864,6 +38009,7 @@ export namespace Prisma {
   export type UserIntegrationCreateManyUserInput = {
     id?: string
     integration_type: $Enums.IntegrationType
+    computer_use_model?: $Enums.ComputerUseModel | null
     credentials_encrypted: string
     is_active?: boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -38088,6 +38234,7 @@ export namespace Prisma {
   export type UserIntegrationUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     integration_type?: EnumIntegrationTypeFieldUpdateOperationsInput | $Enums.IntegrationType
+    computer_use_model?: NullableEnumComputerUseModelFieldUpdateOperationsInput | $Enums.ComputerUseModel | null
     credentials_encrypted?: StringFieldUpdateOperationsInput | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -38098,6 +38245,7 @@ export namespace Prisma {
   export type UserIntegrationUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     integration_type?: EnumIntegrationTypeFieldUpdateOperationsInput | $Enums.IntegrationType
+    computer_use_model?: NullableEnumComputerUseModelFieldUpdateOperationsInput | $Enums.ComputerUseModel | null
     credentials_encrypted?: StringFieldUpdateOperationsInput | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -38108,6 +38256,7 @@ export namespace Prisma {
   export type UserIntegrationUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     integration_type?: EnumIntegrationTypeFieldUpdateOperationsInput | $Enums.IntegrationType
+    computer_use_model?: NullableEnumComputerUseModelFieldUpdateOperationsInput | $Enums.ComputerUseModel | null
     credentials_encrypted?: StringFieldUpdateOperationsInput | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
