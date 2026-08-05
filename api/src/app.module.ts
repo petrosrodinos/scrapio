@@ -17,6 +17,8 @@ import { DiagnosticsModule } from './modules/diagnostics/diagnostics.module';
 import { PlatformConfigModule } from './modules/platform-config/platform-config.module';
 import { NotificationsModule } from './modules/notifications/notifications.module';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
+import { IntegrationsModule } from './modules/integrations/integrations.module';
+import { UserIntegrationsModule } from './modules/user-integrations/user-integrations.module';
 
 @Module({
   imports: [
@@ -36,6 +38,8 @@ import { DashboardModule } from './modules/dashboard/dashboard.module';
     JobsModule,
     DiagnosticsModule,
     PlatformConfigModule,
+    IntegrationsModule,
+    UserIntegrationsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

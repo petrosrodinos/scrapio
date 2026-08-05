@@ -8,7 +8,7 @@ import {
 } from '../interfaces/ai.interface';
 import { AiConfig } from '../utils/ai.config';
 import { z } from 'zod';
-import { openai } from '@ai-sdk/openai';
+import { openai, createOpenAI } from '@ai-sdk/openai';
 import { calculateAiCost } from '../utils/ai-cost';
 
 @Injectable()
@@ -23,7 +23,11 @@ export class AiService {
 
             // this.aiConfig.validateProviderAndModel(options.provider, options.model);
 
-            const modelAdapter = this.aiConfig.getModelAdapter(options.provider, options.model);
+            const modelAdapter = this.aiConfig.getModelAdapter(
+                options.provider,
+                options.model,
+                options.apiKey,
+            );
 
             const { text, usage } = await generateText({
                 prompt: options.prompt,
@@ -60,7 +64,11 @@ export class AiService {
 
         for (let attempt = 1; attempt <= maxRetries; attempt++) {
             try {
-                const modelAdapter = this.aiConfig.getModelAdapter(options.provider, options.model);
+                const modelAdapter = this.aiConfig.getModelAdapter(
+                options.provider,
+                options.model,
+                options.apiKey,
+            );
 
                 const { object, usage } = await generateObject({
                     model: modelAdapter,
@@ -103,7 +111,11 @@ export class AiService {
 
             this.aiConfig.validateProviderAndModel(options.provider, options.model);
 
-            const modelAdapter = this.aiConfig.getModelAdapter(options.provider, options.model);
+            const modelAdapter = this.aiConfig.getModelAdapter(
+                options.provider,
+                options.model,
+                options.apiKey,
+            );
 
             const stream = await streamText({
                 model: modelAdapter,
@@ -135,8 +147,10 @@ export class AiService {
         }
     }
 
-    async embedText(text: string): Promise<number[]> {
-        const embeddingModel = openai.embedding('text-embedding-3-small');
+    async embedText(text: string, apiKey?: string): Promise<number[]> {
+        const embeddingModel = apiKey
+            ? createOpenAI({ apiKey }).embedding('text-embedding-3-small')
+            : openai.embedding('text-embedding-3-small');
         const { embedding } = await embed({
             model: embeddingModel,
             value: text,

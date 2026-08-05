@@ -80,7 +80,7 @@ export class ScraperGenerationController {
   @ApiResponse({ status: 201, type: ScraperGenerationRun })
   @ApiResponse({
     status: 400,
-    description: 'No active Anthropic UserIntegration for this admin',
+    description: 'No active Anthropic integration configured for this user',
   })
   create(
     @CurrentUser() authUser: AuthUser,

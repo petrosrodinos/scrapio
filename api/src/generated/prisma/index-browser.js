@@ -348,6 +348,17 @@ exports.Prisma.NotificationScalarFieldEnum = {
   created_at: 'created_at'
 };
 
+exports.Prisma.UserIntegrationScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  integration_type: 'integration_type',
+  credentials_encrypted: 'credentials_encrypted',
+  is_active: 'is_active',
+  metadata: 'metadata',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
 exports.Prisma.PlatformConfigScalarFieldEnum = {
   id: 'id',
   crawler_max_pages: 'crawler_max_pages',
@@ -524,6 +535,13 @@ exports.NotificationSeverity = exports.$Enums.NotificationSeverity = {
   CRITICAL: 'CRITICAL'
 };
 
+exports.IntegrationType = exports.$Enums.IntegrationType = {
+  OPENAI: 'OPENAI',
+  ANTHROPIC: 'ANTHROPIC',
+  GEMINI: 'GEMINI',
+  DEEPSEEK: 'DEEPSEEK'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   PasswordResetToken: 'PasswordResetToken',
@@ -541,6 +559,7 @@ exports.Prisma.ModelName = {
   DiagnosticsArtifact: 'DiagnosticsArtifact',
   JobLog: 'JobLog',
   Notification: 'Notification',
+  UserIntegration: 'UserIntegration',
   PlatformConfig: 'PlatformConfig'
 };
 

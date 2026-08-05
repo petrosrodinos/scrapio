@@ -19,6 +19,7 @@ import {
   AuthRole,
   GenerationRunStatus,
   GenerationTrigger,
+  IntegrationType,
   Prisma,
   ScraperStatus,
   ScraperVersionCreatedBy,
@@ -28,6 +29,7 @@ import { RejectGenerationRunDto } from './dto/reject-generation-run.dto';
 import { RetryGenerationRunDto } from './dto/retry-generation-run.dto';
 import { GenerationRunQueryType } from './dto/generation-run-query.schema';
 import { PaginatedResult } from './interfaces/generation-run.interface';
+import { IntegrationCredentialResolverService } from '@/integrations/credentials/services/integration-credential-resolver.service';
 
 const TERMINAL_STATUSES: GenerationRunStatus[] = [
   GenerationRunStatus.SUCCESS,
@@ -52,6 +54,7 @@ export class ScraperGenerationService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly gcsService: GcsService,
+    private readonly credentialResolver: IntegrationCredentialResolverService,
     @InjectQueue(GENERATION_QUEUE) private readonly generationQueue: Queue,
   ) {}
 
@@ -137,10 +140,26 @@ export class ScraperGenerationService {
   }
 
   async create(authUser: AuthUser, dto: CreateGenerationRunDto) {
-    await this.ensureWebsiteTargetBelongsToUser(
-      authUser,
-      dto.website_target_id,
-    );
+    const websiteTarget = await this.prisma.websiteTarget.findFirst({
+      where: { id: dto.website_target_id, ...websiteTargetUserWhere(authUser) },
+      select: { id: true, user_id: true },
+    });
+
+    if (!websiteTarget) {
+      throw new NotFoundException('Website target not found');
+    }
+
+    const hasAnthropicCredentials =
+      await this.credentialResolver.hasResolvableCredentials({
+        userId: websiteTarget.user_id,
+        integrationType: IntegrationType.ANTHROPIC,
+      });
+
+    if (!hasAnthropicCredentials) {
+      throw new BadRequestException(
+        'No active Anthropic integration configured for this user',
+      );
+    }
 
     if (dto.scraper_id) {
       await this.ensureScraperBelongsToUser(authUser, dto.scraper_id);

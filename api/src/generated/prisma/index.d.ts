@@ -94,6 +94,11 @@ export type JobLog = $Result.DefaultSelection<Prisma.$JobLogPayload>
  */
 export type Notification = $Result.DefaultSelection<Prisma.$NotificationPayload>
 /**
+ * Model UserIntegration
+ * 
+ */
+export type UserIntegration = $Result.DefaultSelection<Prisma.$UserIntegrationPayload>
+/**
  * Model PlatformConfig
  * 
  */
@@ -282,6 +287,16 @@ export const NotificationSeverity: {
 
 export type NotificationSeverity = (typeof NotificationSeverity)[keyof typeof NotificationSeverity]
 
+
+export const IntegrationType: {
+  OPENAI: 'OPENAI',
+  ANTHROPIC: 'ANTHROPIC',
+  GEMINI: 'GEMINI',
+  DEEPSEEK: 'DEEPSEEK'
+};
+
+export type IntegrationType = (typeof IntegrationType)[keyof typeof IntegrationType]
+
 }
 
 export type AuthRole = $Enums.AuthRole
@@ -347,6 +362,10 @@ export const NotificationType: typeof $Enums.NotificationType
 export type NotificationSeverity = $Enums.NotificationSeverity
 
 export const NotificationSeverity: typeof $Enums.NotificationSeverity
+
+export type IntegrationType = $Enums.IntegrationType
+
+export const IntegrationType: typeof $Enums.IntegrationType
 
 /**
  * ##  Prisma Client ʲˢ
@@ -624,6 +643,16 @@ export class PrismaClient<
     * ```
     */
   get notification(): Prisma.NotificationDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.userIntegration`: Exposes CRUD operations for the **UserIntegration** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more UserIntegrations
+    * const userIntegrations = await prisma.userIntegration.findMany()
+    * ```
+    */
+  get userIntegration(): Prisma.UserIntegrationDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.platformConfig`: Exposes CRUD operations for the **PlatformConfig** model.
@@ -1084,6 +1113,7 @@ export namespace Prisma {
     DiagnosticsArtifact: 'DiagnosticsArtifact',
     JobLog: 'JobLog',
     Notification: 'Notification',
+    UserIntegration: 'UserIntegration',
     PlatformConfig: 'PlatformConfig'
   };
 
@@ -1100,7 +1130,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "passwordResetToken" | "document" | "websiteTarget" | "blockRule" | "scraper" | "scraperGenerationRun" | "computerUseStep" | "scraperVersion" | "scraperExecutionTrace" | "crawlRun" | "extractedItem" | "diagnosticsPackage" | "diagnosticsArtifact" | "jobLog" | "notification" | "platformConfig"
+      modelProps: "user" | "passwordResetToken" | "document" | "websiteTarget" | "blockRule" | "scraper" | "scraperGenerationRun" | "computerUseStep" | "scraperVersion" | "scraperExecutionTrace" | "crawlRun" | "extractedItem" | "diagnosticsPackage" | "diagnosticsArtifact" | "jobLog" | "notification" | "userIntegration" | "platformConfig"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2288,6 +2318,80 @@ export namespace Prisma {
           }
         }
       }
+      UserIntegration: {
+        payload: Prisma.$UserIntegrationPayload<ExtArgs>
+        fields: Prisma.UserIntegrationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UserIntegrationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserIntegrationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UserIntegrationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserIntegrationPayload>
+          }
+          findFirst: {
+            args: Prisma.UserIntegrationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserIntegrationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UserIntegrationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserIntegrationPayload>
+          }
+          findMany: {
+            args: Prisma.UserIntegrationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserIntegrationPayload>[]
+          }
+          create: {
+            args: Prisma.UserIntegrationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserIntegrationPayload>
+          }
+          createMany: {
+            args: Prisma.UserIntegrationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.UserIntegrationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserIntegrationPayload>[]
+          }
+          delete: {
+            args: Prisma.UserIntegrationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserIntegrationPayload>
+          }
+          update: {
+            args: Prisma.UserIntegrationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserIntegrationPayload>
+          }
+          deleteMany: {
+            args: Prisma.UserIntegrationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UserIntegrationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.UserIntegrationUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserIntegrationPayload>[]
+          }
+          upsert: {
+            args: Prisma.UserIntegrationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserIntegrationPayload>
+          }
+          aggregate: {
+            args: Prisma.UserIntegrationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUserIntegration>
+          }
+          groupBy: {
+            args: Prisma.UserIntegrationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UserIntegrationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.UserIntegrationCountArgs<ExtArgs>
+            result: $Utils.Optional<UserIntegrationCountAggregateOutputType> | number
+          }
+        }
+      }
       PlatformConfig: {
         payload: Prisma.$PlatformConfigPayload<ExtArgs>
         fields: Prisma.PlatformConfigFieldRefs
@@ -2486,6 +2590,7 @@ export namespace Prisma {
     diagnosticsArtifact?: DiagnosticsArtifactOmit
     jobLog?: JobLogOmit
     notification?: NotificationOmit
+    userIntegration?: UserIntegrationOmit
     platformConfig?: PlatformConfigOmit
   }
 
@@ -2571,6 +2676,7 @@ export namespace Prisma {
     website_targets: number
     scrapers: number
     crawl_runs: number
+    user_integrations: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2578,6 +2684,7 @@ export namespace Prisma {
     website_targets?: boolean | UserCountOutputTypeCountWebsite_targetsArgs
     scrapers?: boolean | UserCountOutputTypeCountScrapersArgs
     crawl_runs?: boolean | UserCountOutputTypeCountCrawl_runsArgs
+    user_integrations?: boolean | UserCountOutputTypeCountUser_integrationsArgs
   }
 
   // Custom InputTypes
@@ -2617,6 +2724,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountCrawl_runsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: CrawlRunWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountUser_integrationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserIntegrationWhereInput
   }
 
 
@@ -3120,6 +3234,7 @@ export namespace Prisma {
     website_targets?: boolean | User$website_targetsArgs<ExtArgs>
     scrapers?: boolean | User$scrapersArgs<ExtArgs>
     crawl_runs?: boolean | User$crawl_runsArgs<ExtArgs>
+    user_integrations?: boolean | User$user_integrationsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -3159,6 +3274,7 @@ export namespace Prisma {
     website_targets?: boolean | User$website_targetsArgs<ExtArgs>
     scrapers?: boolean | User$scrapersArgs<ExtArgs>
     crawl_runs?: boolean | User$crawl_runsArgs<ExtArgs>
+    user_integrations?: boolean | User$user_integrationsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -3171,6 +3287,7 @@ export namespace Prisma {
       website_targets: Prisma.$WebsiteTargetPayload<ExtArgs>[]
       scrapers: Prisma.$ScraperPayload<ExtArgs>[]
       crawl_runs: Prisma.$CrawlRunPayload<ExtArgs>[]
+      user_integrations: Prisma.$UserIntegrationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3578,6 +3695,7 @@ export namespace Prisma {
     website_targets<T extends User$website_targetsArgs<ExtArgs> = {}>(args?: Subset<T, User$website_targetsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WebsiteTargetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     scrapers<T extends User$scrapersArgs<ExtArgs> = {}>(args?: Subset<T, User$scrapersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ScraperPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     crawl_runs<T extends User$crawl_runsArgs<ExtArgs> = {}>(args?: Subset<T, User$crawl_runsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CrawlRunPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    user_integrations<T extends User$user_integrationsArgs<ExtArgs> = {}>(args?: Subset<T, User$user_integrationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserIntegrationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4095,6 +4213,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: CrawlRunScalarFieldEnum | CrawlRunScalarFieldEnum[]
+  }
+
+  /**
+   * User.user_integrations
+   */
+  export type User$user_integrationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserIntegration
+     */
+    select?: UserIntegrationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserIntegration
+     */
+    omit?: UserIntegrationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserIntegrationInclude<ExtArgs> | null
+    where?: UserIntegrationWhereInput
+    orderBy?: UserIntegrationOrderByWithRelationInput | UserIntegrationOrderByWithRelationInput[]
+    cursor?: UserIntegrationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserIntegrationScalarFieldEnum | UserIntegrationScalarFieldEnum[]
   }
 
   /**
@@ -22602,6 +22744,1099 @@ export namespace Prisma {
 
 
   /**
+   * Model UserIntegration
+   */
+
+  export type AggregateUserIntegration = {
+    _count: UserIntegrationCountAggregateOutputType | null
+    _min: UserIntegrationMinAggregateOutputType | null
+    _max: UserIntegrationMaxAggregateOutputType | null
+  }
+
+  export type UserIntegrationMinAggregateOutputType = {
+    id: string | null
+    user_id: string | null
+    integration_type: $Enums.IntegrationType | null
+    credentials_encrypted: string | null
+    is_active: boolean | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type UserIntegrationMaxAggregateOutputType = {
+    id: string | null
+    user_id: string | null
+    integration_type: $Enums.IntegrationType | null
+    credentials_encrypted: string | null
+    is_active: boolean | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type UserIntegrationCountAggregateOutputType = {
+    id: number
+    user_id: number
+    integration_type: number
+    credentials_encrypted: number
+    is_active: number
+    metadata: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type UserIntegrationMinAggregateInputType = {
+    id?: true
+    user_id?: true
+    integration_type?: true
+    credentials_encrypted?: true
+    is_active?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type UserIntegrationMaxAggregateInputType = {
+    id?: true
+    user_id?: true
+    integration_type?: true
+    credentials_encrypted?: true
+    is_active?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type UserIntegrationCountAggregateInputType = {
+    id?: true
+    user_id?: true
+    integration_type?: true
+    credentials_encrypted?: true
+    is_active?: true
+    metadata?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type UserIntegrationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserIntegration to aggregate.
+     */
+    where?: UserIntegrationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserIntegrations to fetch.
+     */
+    orderBy?: UserIntegrationOrderByWithRelationInput | UserIntegrationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: UserIntegrationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserIntegrations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserIntegrations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned UserIntegrations
+    **/
+    _count?: true | UserIntegrationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UserIntegrationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UserIntegrationMaxAggregateInputType
+  }
+
+  export type GetUserIntegrationAggregateType<T extends UserIntegrationAggregateArgs> = {
+        [P in keyof T & keyof AggregateUserIntegration]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUserIntegration[P]>
+      : GetScalarType<T[P], AggregateUserIntegration[P]>
+  }
+
+
+
+
+  export type UserIntegrationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserIntegrationWhereInput
+    orderBy?: UserIntegrationOrderByWithAggregationInput | UserIntegrationOrderByWithAggregationInput[]
+    by: UserIntegrationScalarFieldEnum[] | UserIntegrationScalarFieldEnum
+    having?: UserIntegrationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UserIntegrationCountAggregateInputType | true
+    _min?: UserIntegrationMinAggregateInputType
+    _max?: UserIntegrationMaxAggregateInputType
+  }
+
+  export type UserIntegrationGroupByOutputType = {
+    id: string
+    user_id: string
+    integration_type: $Enums.IntegrationType
+    credentials_encrypted: string
+    is_active: boolean
+    metadata: JsonValue | null
+    created_at: Date
+    updated_at: Date
+    _count: UserIntegrationCountAggregateOutputType | null
+    _min: UserIntegrationMinAggregateOutputType | null
+    _max: UserIntegrationMaxAggregateOutputType | null
+  }
+
+  type GetUserIntegrationGroupByPayload<T extends UserIntegrationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UserIntegrationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UserIntegrationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UserIntegrationGroupByOutputType[P]>
+            : GetScalarType<T[P], UserIntegrationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type UserIntegrationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    user_id?: boolean
+    integration_type?: boolean
+    credentials_encrypted?: boolean
+    is_active?: boolean
+    metadata?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userIntegration"]>
+
+  export type UserIntegrationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    user_id?: boolean
+    integration_type?: boolean
+    credentials_encrypted?: boolean
+    is_active?: boolean
+    metadata?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userIntegration"]>
+
+  export type UserIntegrationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    user_id?: boolean
+    integration_type?: boolean
+    credentials_encrypted?: boolean
+    is_active?: boolean
+    metadata?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userIntegration"]>
+
+  export type UserIntegrationSelectScalar = {
+    id?: boolean
+    user_id?: boolean
+    integration_type?: boolean
+    credentials_encrypted?: boolean
+    is_active?: boolean
+    metadata?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type UserIntegrationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "integration_type" | "credentials_encrypted" | "is_active" | "metadata" | "created_at" | "updated_at", ExtArgs["result"]["userIntegration"]>
+  export type UserIntegrationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type UserIntegrationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type UserIntegrationIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $UserIntegrationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "UserIntegration"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      user_id: string
+      integration_type: $Enums.IntegrationType
+      credentials_encrypted: string
+      is_active: boolean
+      metadata: Prisma.JsonValue | null
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["userIntegration"]>
+    composites: {}
+  }
+
+  type UserIntegrationGetPayload<S extends boolean | null | undefined | UserIntegrationDefaultArgs> = $Result.GetResult<Prisma.$UserIntegrationPayload, S>
+
+  type UserIntegrationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<UserIntegrationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: UserIntegrationCountAggregateInputType | true
+    }
+
+  export interface UserIntegrationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UserIntegration'], meta: { name: 'UserIntegration' } }
+    /**
+     * Find zero or one UserIntegration that matches the filter.
+     * @param {UserIntegrationFindUniqueArgs} args - Arguments to find a UserIntegration
+     * @example
+     * // Get one UserIntegration
+     * const userIntegration = await prisma.userIntegration.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UserIntegrationFindUniqueArgs>(args: SelectSubset<T, UserIntegrationFindUniqueArgs<ExtArgs>>): Prisma__UserIntegrationClient<$Result.GetResult<Prisma.$UserIntegrationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one UserIntegration that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {UserIntegrationFindUniqueOrThrowArgs} args - Arguments to find a UserIntegration
+     * @example
+     * // Get one UserIntegration
+     * const userIntegration = await prisma.userIntegration.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UserIntegrationFindUniqueOrThrowArgs>(args: SelectSubset<T, UserIntegrationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserIntegrationClient<$Result.GetResult<Prisma.$UserIntegrationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserIntegration that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserIntegrationFindFirstArgs} args - Arguments to find a UserIntegration
+     * @example
+     * // Get one UserIntegration
+     * const userIntegration = await prisma.userIntegration.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UserIntegrationFindFirstArgs>(args?: SelectSubset<T, UserIntegrationFindFirstArgs<ExtArgs>>): Prisma__UserIntegrationClient<$Result.GetResult<Prisma.$UserIntegrationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserIntegration that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserIntegrationFindFirstOrThrowArgs} args - Arguments to find a UserIntegration
+     * @example
+     * // Get one UserIntegration
+     * const userIntegration = await prisma.userIntegration.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UserIntegrationFindFirstOrThrowArgs>(args?: SelectSubset<T, UserIntegrationFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserIntegrationClient<$Result.GetResult<Prisma.$UserIntegrationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more UserIntegrations that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserIntegrationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all UserIntegrations
+     * const userIntegrations = await prisma.userIntegration.findMany()
+     * 
+     * // Get first 10 UserIntegrations
+     * const userIntegrations = await prisma.userIntegration.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const userIntegrationWithIdOnly = await prisma.userIntegration.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends UserIntegrationFindManyArgs>(args?: SelectSubset<T, UserIntegrationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserIntegrationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a UserIntegration.
+     * @param {UserIntegrationCreateArgs} args - Arguments to create a UserIntegration.
+     * @example
+     * // Create one UserIntegration
+     * const UserIntegration = await prisma.userIntegration.create({
+     *   data: {
+     *     // ... data to create a UserIntegration
+     *   }
+     * })
+     * 
+     */
+    create<T extends UserIntegrationCreateArgs>(args: SelectSubset<T, UserIntegrationCreateArgs<ExtArgs>>): Prisma__UserIntegrationClient<$Result.GetResult<Prisma.$UserIntegrationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many UserIntegrations.
+     * @param {UserIntegrationCreateManyArgs} args - Arguments to create many UserIntegrations.
+     * @example
+     * // Create many UserIntegrations
+     * const userIntegration = await prisma.userIntegration.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends UserIntegrationCreateManyArgs>(args?: SelectSubset<T, UserIntegrationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many UserIntegrations and returns the data saved in the database.
+     * @param {UserIntegrationCreateManyAndReturnArgs} args - Arguments to create many UserIntegrations.
+     * @example
+     * // Create many UserIntegrations
+     * const userIntegration = await prisma.userIntegration.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many UserIntegrations and only return the `id`
+     * const userIntegrationWithIdOnly = await prisma.userIntegration.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends UserIntegrationCreateManyAndReturnArgs>(args?: SelectSubset<T, UserIntegrationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserIntegrationPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a UserIntegration.
+     * @param {UserIntegrationDeleteArgs} args - Arguments to delete one UserIntegration.
+     * @example
+     * // Delete one UserIntegration
+     * const UserIntegration = await prisma.userIntegration.delete({
+     *   where: {
+     *     // ... filter to delete one UserIntegration
+     *   }
+     * })
+     * 
+     */
+    delete<T extends UserIntegrationDeleteArgs>(args: SelectSubset<T, UserIntegrationDeleteArgs<ExtArgs>>): Prisma__UserIntegrationClient<$Result.GetResult<Prisma.$UserIntegrationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one UserIntegration.
+     * @param {UserIntegrationUpdateArgs} args - Arguments to update one UserIntegration.
+     * @example
+     * // Update one UserIntegration
+     * const userIntegration = await prisma.userIntegration.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends UserIntegrationUpdateArgs>(args: SelectSubset<T, UserIntegrationUpdateArgs<ExtArgs>>): Prisma__UserIntegrationClient<$Result.GetResult<Prisma.$UserIntegrationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more UserIntegrations.
+     * @param {UserIntegrationDeleteManyArgs} args - Arguments to filter UserIntegrations to delete.
+     * @example
+     * // Delete a few UserIntegrations
+     * const { count } = await prisma.userIntegration.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends UserIntegrationDeleteManyArgs>(args?: SelectSubset<T, UserIntegrationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserIntegrations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserIntegrationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many UserIntegrations
+     * const userIntegration = await prisma.userIntegration.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends UserIntegrationUpdateManyArgs>(args: SelectSubset<T, UserIntegrationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserIntegrations and returns the data updated in the database.
+     * @param {UserIntegrationUpdateManyAndReturnArgs} args - Arguments to update many UserIntegrations.
+     * @example
+     * // Update many UserIntegrations
+     * const userIntegration = await prisma.userIntegration.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more UserIntegrations and only return the `id`
+     * const userIntegrationWithIdOnly = await prisma.userIntegration.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends UserIntegrationUpdateManyAndReturnArgs>(args: SelectSubset<T, UserIntegrationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserIntegrationPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one UserIntegration.
+     * @param {UserIntegrationUpsertArgs} args - Arguments to update or create a UserIntegration.
+     * @example
+     * // Update or create a UserIntegration
+     * const userIntegration = await prisma.userIntegration.upsert({
+     *   create: {
+     *     // ... data to create a UserIntegration
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the UserIntegration we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UserIntegrationUpsertArgs>(args: SelectSubset<T, UserIntegrationUpsertArgs<ExtArgs>>): Prisma__UserIntegrationClient<$Result.GetResult<Prisma.$UserIntegrationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of UserIntegrations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserIntegrationCountArgs} args - Arguments to filter UserIntegrations to count.
+     * @example
+     * // Count the number of UserIntegrations
+     * const count = await prisma.userIntegration.count({
+     *   where: {
+     *     // ... the filter for the UserIntegrations we want to count
+     *   }
+     * })
+    **/
+    count<T extends UserIntegrationCountArgs>(
+      args?: Subset<T, UserIntegrationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UserIntegrationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a UserIntegration.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserIntegrationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UserIntegrationAggregateArgs>(args: Subset<T, UserIntegrationAggregateArgs>): Prisma.PrismaPromise<GetUserIntegrationAggregateType<T>>
+
+    /**
+     * Group by UserIntegration.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserIntegrationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UserIntegrationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UserIntegrationGroupByArgs['orderBy'] }
+        : { orderBy?: UserIntegrationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UserIntegrationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserIntegrationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the UserIntegration model
+   */
+  readonly fields: UserIntegrationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for UserIntegration.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UserIntegrationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the UserIntegration model
+   */
+  interface UserIntegrationFieldRefs {
+    readonly id: FieldRef<"UserIntegration", 'String'>
+    readonly user_id: FieldRef<"UserIntegration", 'String'>
+    readonly integration_type: FieldRef<"UserIntegration", 'IntegrationType'>
+    readonly credentials_encrypted: FieldRef<"UserIntegration", 'String'>
+    readonly is_active: FieldRef<"UserIntegration", 'Boolean'>
+    readonly metadata: FieldRef<"UserIntegration", 'Json'>
+    readonly created_at: FieldRef<"UserIntegration", 'DateTime'>
+    readonly updated_at: FieldRef<"UserIntegration", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * UserIntegration findUnique
+   */
+  export type UserIntegrationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserIntegration
+     */
+    select?: UserIntegrationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserIntegration
+     */
+    omit?: UserIntegrationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserIntegrationInclude<ExtArgs> | null
+    /**
+     * Filter, which UserIntegration to fetch.
+     */
+    where: UserIntegrationWhereUniqueInput
+  }
+
+  /**
+   * UserIntegration findUniqueOrThrow
+   */
+  export type UserIntegrationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserIntegration
+     */
+    select?: UserIntegrationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserIntegration
+     */
+    omit?: UserIntegrationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserIntegrationInclude<ExtArgs> | null
+    /**
+     * Filter, which UserIntegration to fetch.
+     */
+    where: UserIntegrationWhereUniqueInput
+  }
+
+  /**
+   * UserIntegration findFirst
+   */
+  export type UserIntegrationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserIntegration
+     */
+    select?: UserIntegrationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserIntegration
+     */
+    omit?: UserIntegrationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserIntegrationInclude<ExtArgs> | null
+    /**
+     * Filter, which UserIntegration to fetch.
+     */
+    where?: UserIntegrationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserIntegrations to fetch.
+     */
+    orderBy?: UserIntegrationOrderByWithRelationInput | UserIntegrationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserIntegrations.
+     */
+    cursor?: UserIntegrationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserIntegrations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserIntegrations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserIntegrations.
+     */
+    distinct?: UserIntegrationScalarFieldEnum | UserIntegrationScalarFieldEnum[]
+  }
+
+  /**
+   * UserIntegration findFirstOrThrow
+   */
+  export type UserIntegrationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserIntegration
+     */
+    select?: UserIntegrationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserIntegration
+     */
+    omit?: UserIntegrationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserIntegrationInclude<ExtArgs> | null
+    /**
+     * Filter, which UserIntegration to fetch.
+     */
+    where?: UserIntegrationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserIntegrations to fetch.
+     */
+    orderBy?: UserIntegrationOrderByWithRelationInput | UserIntegrationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserIntegrations.
+     */
+    cursor?: UserIntegrationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserIntegrations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserIntegrations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserIntegrations.
+     */
+    distinct?: UserIntegrationScalarFieldEnum | UserIntegrationScalarFieldEnum[]
+  }
+
+  /**
+   * UserIntegration findMany
+   */
+  export type UserIntegrationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserIntegration
+     */
+    select?: UserIntegrationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserIntegration
+     */
+    omit?: UserIntegrationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserIntegrationInclude<ExtArgs> | null
+    /**
+     * Filter, which UserIntegrations to fetch.
+     */
+    where?: UserIntegrationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserIntegrations to fetch.
+     */
+    orderBy?: UserIntegrationOrderByWithRelationInput | UserIntegrationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing UserIntegrations.
+     */
+    cursor?: UserIntegrationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserIntegrations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserIntegrations.
+     */
+    skip?: number
+    distinct?: UserIntegrationScalarFieldEnum | UserIntegrationScalarFieldEnum[]
+  }
+
+  /**
+   * UserIntegration create
+   */
+  export type UserIntegrationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserIntegration
+     */
+    select?: UserIntegrationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserIntegration
+     */
+    omit?: UserIntegrationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserIntegrationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a UserIntegration.
+     */
+    data: XOR<UserIntegrationCreateInput, UserIntegrationUncheckedCreateInput>
+  }
+
+  /**
+   * UserIntegration createMany
+   */
+  export type UserIntegrationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many UserIntegrations.
+     */
+    data: UserIntegrationCreateManyInput | UserIntegrationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * UserIntegration createManyAndReturn
+   */
+  export type UserIntegrationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserIntegration
+     */
+    select?: UserIntegrationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserIntegration
+     */
+    omit?: UserIntegrationOmit<ExtArgs> | null
+    /**
+     * The data used to create many UserIntegrations.
+     */
+    data: UserIntegrationCreateManyInput | UserIntegrationCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserIntegrationIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserIntegration update
+   */
+  export type UserIntegrationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserIntegration
+     */
+    select?: UserIntegrationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserIntegration
+     */
+    omit?: UserIntegrationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserIntegrationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a UserIntegration.
+     */
+    data: XOR<UserIntegrationUpdateInput, UserIntegrationUncheckedUpdateInput>
+    /**
+     * Choose, which UserIntegration to update.
+     */
+    where: UserIntegrationWhereUniqueInput
+  }
+
+  /**
+   * UserIntegration updateMany
+   */
+  export type UserIntegrationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update UserIntegrations.
+     */
+    data: XOR<UserIntegrationUpdateManyMutationInput, UserIntegrationUncheckedUpdateManyInput>
+    /**
+     * Filter which UserIntegrations to update
+     */
+    where?: UserIntegrationWhereInput
+    /**
+     * Limit how many UserIntegrations to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserIntegration updateManyAndReturn
+   */
+  export type UserIntegrationUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserIntegration
+     */
+    select?: UserIntegrationSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserIntegration
+     */
+    omit?: UserIntegrationOmit<ExtArgs> | null
+    /**
+     * The data used to update UserIntegrations.
+     */
+    data: XOR<UserIntegrationUpdateManyMutationInput, UserIntegrationUncheckedUpdateManyInput>
+    /**
+     * Filter which UserIntegrations to update
+     */
+    where?: UserIntegrationWhereInput
+    /**
+     * Limit how many UserIntegrations to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserIntegrationIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserIntegration upsert
+   */
+  export type UserIntegrationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserIntegration
+     */
+    select?: UserIntegrationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserIntegration
+     */
+    omit?: UserIntegrationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserIntegrationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the UserIntegration to update in case it exists.
+     */
+    where: UserIntegrationWhereUniqueInput
+    /**
+     * In case the UserIntegration found by the `where` argument doesn't exist, create a new UserIntegration with this data.
+     */
+    create: XOR<UserIntegrationCreateInput, UserIntegrationUncheckedCreateInput>
+    /**
+     * In case the UserIntegration was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UserIntegrationUpdateInput, UserIntegrationUncheckedUpdateInput>
+  }
+
+  /**
+   * UserIntegration delete
+   */
+  export type UserIntegrationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserIntegration
+     */
+    select?: UserIntegrationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserIntegration
+     */
+    omit?: UserIntegrationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserIntegrationInclude<ExtArgs> | null
+    /**
+     * Filter which UserIntegration to delete.
+     */
+    where: UserIntegrationWhereUniqueInput
+  }
+
+  /**
+   * UserIntegration deleteMany
+   */
+  export type UserIntegrationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserIntegrations to delete
+     */
+    where?: UserIntegrationWhereInput
+    /**
+     * Limit how many UserIntegrations to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserIntegration without action
+   */
+  export type UserIntegrationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserIntegration
+     */
+    select?: UserIntegrationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserIntegration
+     */
+    omit?: UserIntegrationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserIntegrationInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model PlatformConfig
    */
 
@@ -24043,6 +25278,20 @@ export namespace Prisma {
   export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
 
 
+  export const UserIntegrationScalarFieldEnum: {
+    id: 'id',
+    user_id: 'user_id',
+    integration_type: 'integration_type',
+    credentials_encrypted: 'credentials_encrypted',
+    is_active: 'is_active',
+    metadata: 'metadata',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type UserIntegrationScalarFieldEnum = (typeof UserIntegrationScalarFieldEnum)[keyof typeof UserIntegrationScalarFieldEnum]
+
+
   export const PlatformConfigScalarFieldEnum: {
     id: 'id',
     crawler_max_pages: 'crawler_max_pages',
@@ -24416,6 +25665,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'IntegrationType'
+   */
+  export type EnumIntegrationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'IntegrationType'>
+    
+
+
+  /**
+   * Reference to a field of type 'IntegrationType[]'
+   */
+  export type ListEnumIntegrationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'IntegrationType[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -24447,6 +25710,7 @@ export namespace Prisma {
     website_targets?: WebsiteTargetListRelationFilter
     scrapers?: ScraperListRelationFilter
     crawl_runs?: CrawlRunListRelationFilter
+    user_integrations?: UserIntegrationListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -24461,6 +25725,7 @@ export namespace Prisma {
     website_targets?: WebsiteTargetOrderByRelationAggregateInput
     scrapers?: ScraperOrderByRelationAggregateInput
     crawl_runs?: CrawlRunOrderByRelationAggregateInput
+    user_integrations?: UserIntegrationOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -24478,6 +25743,7 @@ export namespace Prisma {
     website_targets?: WebsiteTargetListRelationFilter
     scrapers?: ScraperListRelationFilter
     crawl_runs?: CrawlRunListRelationFilter
+    user_integrations?: UserIntegrationListRelationFilter
   }, "id" | "email" | "phone">
 
   export type UserOrderByWithAggregationInput = {
@@ -25951,6 +27217,77 @@ export namespace Prisma {
     created_at?: DateTimeWithAggregatesFilter<"Notification"> | Date | string
   }
 
+  export type UserIntegrationWhereInput = {
+    AND?: UserIntegrationWhereInput | UserIntegrationWhereInput[]
+    OR?: UserIntegrationWhereInput[]
+    NOT?: UserIntegrationWhereInput | UserIntegrationWhereInput[]
+    id?: StringFilter<"UserIntegration"> | string
+    user_id?: StringFilter<"UserIntegration"> | string
+    integration_type?: EnumIntegrationTypeFilter<"UserIntegration"> | $Enums.IntegrationType
+    credentials_encrypted?: StringFilter<"UserIntegration"> | string
+    is_active?: BoolFilter<"UserIntegration"> | boolean
+    metadata?: JsonNullableFilter<"UserIntegration">
+    created_at?: DateTimeFilter<"UserIntegration"> | Date | string
+    updated_at?: DateTimeFilter<"UserIntegration"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type UserIntegrationOrderByWithRelationInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    integration_type?: SortOrder
+    credentials_encrypted?: SortOrder
+    is_active?: SortOrder
+    metadata?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type UserIntegrationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    user_id_integration_type?: UserIntegrationUser_idIntegration_typeCompoundUniqueInput
+    AND?: UserIntegrationWhereInput | UserIntegrationWhereInput[]
+    OR?: UserIntegrationWhereInput[]
+    NOT?: UserIntegrationWhereInput | UserIntegrationWhereInput[]
+    user_id?: StringFilter<"UserIntegration"> | string
+    integration_type?: EnumIntegrationTypeFilter<"UserIntegration"> | $Enums.IntegrationType
+    credentials_encrypted?: StringFilter<"UserIntegration"> | string
+    is_active?: BoolFilter<"UserIntegration"> | boolean
+    metadata?: JsonNullableFilter<"UserIntegration">
+    created_at?: DateTimeFilter<"UserIntegration"> | Date | string
+    updated_at?: DateTimeFilter<"UserIntegration"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "user_id_integration_type">
+
+  export type UserIntegrationOrderByWithAggregationInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    integration_type?: SortOrder
+    credentials_encrypted?: SortOrder
+    is_active?: SortOrder
+    metadata?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: UserIntegrationCountOrderByAggregateInput
+    _max?: UserIntegrationMaxOrderByAggregateInput
+    _min?: UserIntegrationMinOrderByAggregateInput
+  }
+
+  export type UserIntegrationScalarWhereWithAggregatesInput = {
+    AND?: UserIntegrationScalarWhereWithAggregatesInput | UserIntegrationScalarWhereWithAggregatesInput[]
+    OR?: UserIntegrationScalarWhereWithAggregatesInput[]
+    NOT?: UserIntegrationScalarWhereWithAggregatesInput | UserIntegrationScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"UserIntegration"> | string
+    user_id?: StringWithAggregatesFilter<"UserIntegration"> | string
+    integration_type?: EnumIntegrationTypeWithAggregatesFilter<"UserIntegration"> | $Enums.IntegrationType
+    credentials_encrypted?: StringWithAggregatesFilter<"UserIntegration"> | string
+    is_active?: BoolWithAggregatesFilter<"UserIntegration"> | boolean
+    metadata?: JsonNullableWithAggregatesFilter<"UserIntegration">
+    created_at?: DateTimeWithAggregatesFilter<"UserIntegration"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"UserIntegration"> | Date | string
+  }
+
   export type PlatformConfigWhereInput = {
     AND?: PlatformConfigWhereInput | PlatformConfigWhereInput[]
     OR?: PlatformConfigWhereInput[]
@@ -26052,6 +27389,7 @@ export namespace Prisma {
     website_targets?: WebsiteTargetCreateNestedManyWithoutUserInput
     scrapers?: ScraperCreateNestedManyWithoutUserInput
     crawl_runs?: CrawlRunCreateNestedManyWithoutUserInput
+    user_integrations?: UserIntegrationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -26066,6 +27404,7 @@ export namespace Prisma {
     website_targets?: WebsiteTargetUncheckedCreateNestedManyWithoutUserInput
     scrapers?: ScraperUncheckedCreateNestedManyWithoutUserInput
     crawl_runs?: CrawlRunUncheckedCreateNestedManyWithoutUserInput
+    user_integrations?: UserIntegrationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -26080,6 +27419,7 @@ export namespace Prisma {
     website_targets?: WebsiteTargetUpdateManyWithoutUserNestedInput
     scrapers?: ScraperUpdateManyWithoutUserNestedInput
     crawl_runs?: CrawlRunUpdateManyWithoutUserNestedInput
+    user_integrations?: UserIntegrationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -26094,6 +27434,7 @@ export namespace Prisma {
     website_targets?: WebsiteTargetUncheckedUpdateManyWithoutUserNestedInput
     scrapers?: ScraperUncheckedUpdateManyWithoutUserNestedInput
     crawl_runs?: CrawlRunUncheckedUpdateManyWithoutUserNestedInput
+    user_integrations?: UserIntegrationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -27717,6 +29058,82 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type UserIntegrationCreateInput = {
+    id?: string
+    integration_type: $Enums.IntegrationType
+    credentials_encrypted: string
+    is_active?: boolean
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    updated_at?: Date | string
+    user: UserCreateNestedOneWithoutUser_integrationsInput
+  }
+
+  export type UserIntegrationUncheckedCreateInput = {
+    id?: string
+    user_id: string
+    integration_type: $Enums.IntegrationType
+    credentials_encrypted: string
+    is_active?: boolean
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type UserIntegrationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    integration_type?: EnumIntegrationTypeFieldUpdateOperationsInput | $Enums.IntegrationType
+    credentials_encrypted?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutUser_integrationsNestedInput
+  }
+
+  export type UserIntegrationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    integration_type?: EnumIntegrationTypeFieldUpdateOperationsInput | $Enums.IntegrationType
+    credentials_encrypted?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserIntegrationCreateManyInput = {
+    id?: string
+    user_id: string
+    integration_type: $Enums.IntegrationType
+    credentials_encrypted: string
+    is_active?: boolean
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type UserIntegrationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    integration_type?: EnumIntegrationTypeFieldUpdateOperationsInput | $Enums.IntegrationType
+    credentials_encrypted?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserIntegrationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    integration_type?: EnumIntegrationTypeFieldUpdateOperationsInput | $Enums.IntegrationType
+    credentials_encrypted?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type PlatformConfigCreateInput = {
     id?: string
     crawler_max_pages?: number | null
@@ -27894,6 +29311,12 @@ export namespace Prisma {
     none?: CrawlRunWhereInput
   }
 
+  export type UserIntegrationListRelationFilter = {
+    every?: UserIntegrationWhereInput
+    some?: UserIntegrationWhereInput
+    none?: UserIntegrationWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -27912,6 +29335,10 @@ export namespace Prisma {
   }
 
   export type CrawlRunOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type UserIntegrationOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -29405,6 +30832,59 @@ export namespace Prisma {
     _max?: NestedEnumNotificationSeverityFilter<$PrismaModel>
   }
 
+  export type EnumIntegrationTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.IntegrationType | EnumIntegrationTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.IntegrationType[] | ListEnumIntegrationTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.IntegrationType[] | ListEnumIntegrationTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumIntegrationTypeFilter<$PrismaModel> | $Enums.IntegrationType
+  }
+
+  export type UserIntegrationUser_idIntegration_typeCompoundUniqueInput = {
+    user_id: string
+    integration_type: $Enums.IntegrationType
+  }
+
+  export type UserIntegrationCountOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    integration_type?: SortOrder
+    credentials_encrypted?: SortOrder
+    is_active?: SortOrder
+    metadata?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type UserIntegrationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    integration_type?: SortOrder
+    credentials_encrypted?: SortOrder
+    is_active?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type UserIntegrationMinOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    integration_type?: SortOrder
+    credentials_encrypted?: SortOrder
+    is_active?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type EnumIntegrationTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.IntegrationType | EnumIntegrationTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.IntegrationType[] | ListEnumIntegrationTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.IntegrationType[] | ListEnumIntegrationTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumIntegrationTypeWithAggregatesFilter<$PrismaModel> | $Enums.IntegrationType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumIntegrationTypeFilter<$PrismaModel>
+    _max?: NestedEnumIntegrationTypeFilter<$PrismaModel>
+  }
+
   export type PlatformConfigCountOrderByAggregateInput = {
     id?: SortOrder
     crawler_max_pages?: SortOrder
@@ -29502,6 +30982,13 @@ export namespace Prisma {
     connect?: CrawlRunWhereUniqueInput | CrawlRunWhereUniqueInput[]
   }
 
+  export type UserIntegrationCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserIntegrationCreateWithoutUserInput, UserIntegrationUncheckedCreateWithoutUserInput> | UserIntegrationCreateWithoutUserInput[] | UserIntegrationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserIntegrationCreateOrConnectWithoutUserInput | UserIntegrationCreateOrConnectWithoutUserInput[]
+    createMany?: UserIntegrationCreateManyUserInputEnvelope
+    connect?: UserIntegrationWhereUniqueInput | UserIntegrationWhereUniqueInput[]
+  }
+
   export type PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<PasswordResetTokenCreateWithoutUserInput, PasswordResetTokenUncheckedCreateWithoutUserInput> | PasswordResetTokenCreateWithoutUserInput[] | PasswordResetTokenUncheckedCreateWithoutUserInput[]
     connectOrCreate?: PasswordResetTokenCreateOrConnectWithoutUserInput | PasswordResetTokenCreateOrConnectWithoutUserInput[]
@@ -29528,6 +31015,13 @@ export namespace Prisma {
     connectOrCreate?: CrawlRunCreateOrConnectWithoutUserInput | CrawlRunCreateOrConnectWithoutUserInput[]
     createMany?: CrawlRunCreateManyUserInputEnvelope
     connect?: CrawlRunWhereUniqueInput | CrawlRunWhereUniqueInput[]
+  }
+
+  export type UserIntegrationUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserIntegrationCreateWithoutUserInput, UserIntegrationUncheckedCreateWithoutUserInput> | UserIntegrationCreateWithoutUserInput[] | UserIntegrationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserIntegrationCreateOrConnectWithoutUserInput | UserIntegrationCreateOrConnectWithoutUserInput[]
+    createMany?: UserIntegrationCreateManyUserInputEnvelope
+    connect?: UserIntegrationWhereUniqueInput | UserIntegrationWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -29602,6 +31096,20 @@ export namespace Prisma {
     deleteMany?: CrawlRunScalarWhereInput | CrawlRunScalarWhereInput[]
   }
 
+  export type UserIntegrationUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserIntegrationCreateWithoutUserInput, UserIntegrationUncheckedCreateWithoutUserInput> | UserIntegrationCreateWithoutUserInput[] | UserIntegrationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserIntegrationCreateOrConnectWithoutUserInput | UserIntegrationCreateOrConnectWithoutUserInput[]
+    upsert?: UserIntegrationUpsertWithWhereUniqueWithoutUserInput | UserIntegrationUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserIntegrationCreateManyUserInputEnvelope
+    set?: UserIntegrationWhereUniqueInput | UserIntegrationWhereUniqueInput[]
+    disconnect?: UserIntegrationWhereUniqueInput | UserIntegrationWhereUniqueInput[]
+    delete?: UserIntegrationWhereUniqueInput | UserIntegrationWhereUniqueInput[]
+    connect?: UserIntegrationWhereUniqueInput | UserIntegrationWhereUniqueInput[]
+    update?: UserIntegrationUpdateWithWhereUniqueWithoutUserInput | UserIntegrationUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserIntegrationUpdateManyWithWhereWithoutUserInput | UserIntegrationUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserIntegrationScalarWhereInput | UserIntegrationScalarWhereInput[]
+  }
+
   export type PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<PasswordResetTokenCreateWithoutUserInput, PasswordResetTokenUncheckedCreateWithoutUserInput> | PasswordResetTokenCreateWithoutUserInput[] | PasswordResetTokenUncheckedCreateWithoutUserInput[]
     connectOrCreate?: PasswordResetTokenCreateOrConnectWithoutUserInput | PasswordResetTokenCreateOrConnectWithoutUserInput[]
@@ -29656,6 +31164,20 @@ export namespace Prisma {
     update?: CrawlRunUpdateWithWhereUniqueWithoutUserInput | CrawlRunUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: CrawlRunUpdateManyWithWhereWithoutUserInput | CrawlRunUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: CrawlRunScalarWhereInput | CrawlRunScalarWhereInput[]
+  }
+
+  export type UserIntegrationUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserIntegrationCreateWithoutUserInput, UserIntegrationUncheckedCreateWithoutUserInput> | UserIntegrationCreateWithoutUserInput[] | UserIntegrationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserIntegrationCreateOrConnectWithoutUserInput | UserIntegrationCreateOrConnectWithoutUserInput[]
+    upsert?: UserIntegrationUpsertWithWhereUniqueWithoutUserInput | UserIntegrationUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserIntegrationCreateManyUserInputEnvelope
+    set?: UserIntegrationWhereUniqueInput | UserIntegrationWhereUniqueInput[]
+    disconnect?: UserIntegrationWhereUniqueInput | UserIntegrationWhereUniqueInput[]
+    delete?: UserIntegrationWhereUniqueInput | UserIntegrationWhereUniqueInput[]
+    connect?: UserIntegrationWhereUniqueInput | UserIntegrationWhereUniqueInput[]
+    update?: UserIntegrationUpdateWithWhereUniqueWithoutUserInput | UserIntegrationUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserIntegrationUpdateManyWithWhereWithoutUserInput | UserIntegrationUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserIntegrationScalarWhereInput | UserIntegrationScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutPassword_reset_tokensInput = {
@@ -31088,6 +32610,24 @@ export namespace Prisma {
     update?: XOR<XOR<CrawlRunUpdateToOneWithWhereWithoutNotificationsInput, CrawlRunUpdateWithoutNotificationsInput>, CrawlRunUncheckedUpdateWithoutNotificationsInput>
   }
 
+  export type UserCreateNestedOneWithoutUser_integrationsInput = {
+    create?: XOR<UserCreateWithoutUser_integrationsInput, UserUncheckedCreateWithoutUser_integrationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutUser_integrationsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type EnumIntegrationTypeFieldUpdateOperationsInput = {
+    set?: $Enums.IntegrationType
+  }
+
+  export type UserUpdateOneRequiredWithoutUser_integrationsNestedInput = {
+    create?: XOR<UserCreateWithoutUser_integrationsInput, UserUncheckedCreateWithoutUser_integrationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutUser_integrationsInput
+    upsert?: UserUpsertWithoutUser_integrationsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutUser_integrationsInput, UserUpdateWithoutUser_integrationsInput>, UserUncheckedUpdateWithoutUser_integrationsInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -31634,6 +33174,23 @@ export namespace Prisma {
     _max?: NestedEnumNotificationSeverityFilter<$PrismaModel>
   }
 
+  export type NestedEnumIntegrationTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.IntegrationType | EnumIntegrationTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.IntegrationType[] | ListEnumIntegrationTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.IntegrationType[] | ListEnumIntegrationTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumIntegrationTypeFilter<$PrismaModel> | $Enums.IntegrationType
+  }
+
+  export type NestedEnumIntegrationTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.IntegrationType | EnumIntegrationTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.IntegrationType[] | ListEnumIntegrationTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.IntegrationType[] | ListEnumIntegrationTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumIntegrationTypeWithAggregatesFilter<$PrismaModel> | $Enums.IntegrationType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumIntegrationTypeFilter<$PrismaModel>
+    _max?: NestedEnumIntegrationTypeFilter<$PrismaModel>
+  }
+
   export type PasswordResetTokenCreateWithoutUserInput = {
     id?: string
     token_hash: string
@@ -31828,6 +33385,36 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type UserIntegrationCreateWithoutUserInput = {
+    id?: string
+    integration_type: $Enums.IntegrationType
+    credentials_encrypted: string
+    is_active?: boolean
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type UserIntegrationUncheckedCreateWithoutUserInput = {
+    id?: string
+    integration_type: $Enums.IntegrationType
+    credentials_encrypted: string
+    is_active?: boolean
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type UserIntegrationCreateOrConnectWithoutUserInput = {
+    where: UserIntegrationWhereUniqueInput
+    create: XOR<UserIntegrationCreateWithoutUserInput, UserIntegrationUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserIntegrationCreateManyUserInputEnvelope = {
+    data: UserIntegrationCreateManyUserInput | UserIntegrationCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type PasswordResetTokenUpsertWithWhereUniqueWithoutUserInput = {
     where: PasswordResetTokenWhereUniqueInput
     update: XOR<PasswordResetTokenUpdateWithoutUserInput, PasswordResetTokenUncheckedUpdateWithoutUserInput>
@@ -31968,6 +33555,36 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"CrawlRun"> | Date | string
   }
 
+  export type UserIntegrationUpsertWithWhereUniqueWithoutUserInput = {
+    where: UserIntegrationWhereUniqueInput
+    update: XOR<UserIntegrationUpdateWithoutUserInput, UserIntegrationUncheckedUpdateWithoutUserInput>
+    create: XOR<UserIntegrationCreateWithoutUserInput, UserIntegrationUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserIntegrationUpdateWithWhereUniqueWithoutUserInput = {
+    where: UserIntegrationWhereUniqueInput
+    data: XOR<UserIntegrationUpdateWithoutUserInput, UserIntegrationUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UserIntegrationUpdateManyWithWhereWithoutUserInput = {
+    where: UserIntegrationScalarWhereInput
+    data: XOR<UserIntegrationUpdateManyMutationInput, UserIntegrationUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type UserIntegrationScalarWhereInput = {
+    AND?: UserIntegrationScalarWhereInput | UserIntegrationScalarWhereInput[]
+    OR?: UserIntegrationScalarWhereInput[]
+    NOT?: UserIntegrationScalarWhereInput | UserIntegrationScalarWhereInput[]
+    id?: StringFilter<"UserIntegration"> | string
+    user_id?: StringFilter<"UserIntegration"> | string
+    integration_type?: EnumIntegrationTypeFilter<"UserIntegration"> | $Enums.IntegrationType
+    credentials_encrypted?: StringFilter<"UserIntegration"> | string
+    is_active?: BoolFilter<"UserIntegration"> | boolean
+    metadata?: JsonNullableFilter<"UserIntegration">
+    created_at?: DateTimeFilter<"UserIntegration"> | Date | string
+    updated_at?: DateTimeFilter<"UserIntegration"> | Date | string
+  }
+
   export type UserCreateWithoutPassword_reset_tokensInput = {
     id?: string
     email: string
@@ -31979,6 +33596,7 @@ export namespace Prisma {
     website_targets?: WebsiteTargetCreateNestedManyWithoutUserInput
     scrapers?: ScraperCreateNestedManyWithoutUserInput
     crawl_runs?: CrawlRunCreateNestedManyWithoutUserInput
+    user_integrations?: UserIntegrationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPassword_reset_tokensInput = {
@@ -31992,6 +33610,7 @@ export namespace Prisma {
     website_targets?: WebsiteTargetUncheckedCreateNestedManyWithoutUserInput
     scrapers?: ScraperUncheckedCreateNestedManyWithoutUserInput
     crawl_runs?: CrawlRunUncheckedCreateNestedManyWithoutUserInput
+    user_integrations?: UserIntegrationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPassword_reset_tokensInput = {
@@ -32021,6 +33640,7 @@ export namespace Prisma {
     website_targets?: WebsiteTargetUpdateManyWithoutUserNestedInput
     scrapers?: ScraperUpdateManyWithoutUserNestedInput
     crawl_runs?: CrawlRunUpdateManyWithoutUserNestedInput
+    user_integrations?: UserIntegrationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPassword_reset_tokensInput = {
@@ -32034,6 +33654,7 @@ export namespace Prisma {
     website_targets?: WebsiteTargetUncheckedUpdateManyWithoutUserNestedInput
     scrapers?: ScraperUncheckedUpdateManyWithoutUserNestedInput
     crawl_runs?: CrawlRunUncheckedUpdateManyWithoutUserNestedInput
+    user_integrations?: UserIntegrationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ComputerUseStepCreateWithoutScreenshot_beforeInput = {
@@ -32424,6 +34045,7 @@ export namespace Prisma {
     password_reset_tokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     scrapers?: ScraperCreateNestedManyWithoutUserInput
     crawl_runs?: CrawlRunCreateNestedManyWithoutUserInput
+    user_integrations?: UserIntegrationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWebsite_targetsInput = {
@@ -32437,6 +34059,7 @@ export namespace Prisma {
     password_reset_tokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     scrapers?: ScraperUncheckedCreateNestedManyWithoutUserInput
     crawl_runs?: CrawlRunUncheckedCreateNestedManyWithoutUserInput
+    user_integrations?: UserIntegrationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWebsite_targetsInput = {
@@ -32633,6 +34256,7 @@ export namespace Prisma {
     password_reset_tokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     scrapers?: ScraperUpdateManyWithoutUserNestedInput
     crawl_runs?: CrawlRunUpdateManyWithoutUserNestedInput
+    user_integrations?: UserIntegrationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWebsite_targetsInput = {
@@ -32646,6 +34270,7 @@ export namespace Prisma {
     password_reset_tokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     scrapers?: ScraperUncheckedUpdateManyWithoutUserNestedInput
     crawl_runs?: CrawlRunUncheckedUpdateManyWithoutUserNestedInput
+    user_integrations?: UserIntegrationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WebsiteTargetCreateWithoutBlock_rulesInput = {
@@ -32812,6 +34437,7 @@ export namespace Prisma {
     password_reset_tokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     website_targets?: WebsiteTargetCreateNestedManyWithoutUserInput
     crawl_runs?: CrawlRunCreateNestedManyWithoutUserInput
+    user_integrations?: UserIntegrationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutScrapersInput = {
@@ -32825,6 +34451,7 @@ export namespace Prisma {
     password_reset_tokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     website_targets?: WebsiteTargetUncheckedCreateNestedManyWithoutUserInput
     crawl_runs?: CrawlRunUncheckedCreateNestedManyWithoutUserInput
+    user_integrations?: UserIntegrationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutScrapersInput = {
@@ -33184,6 +34811,7 @@ export namespace Prisma {
     password_reset_tokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     website_targets?: WebsiteTargetUpdateManyWithoutUserNestedInput
     crawl_runs?: CrawlRunUpdateManyWithoutUserNestedInput
+    user_integrations?: UserIntegrationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutScrapersInput = {
@@ -33197,6 +34825,7 @@ export namespace Prisma {
     password_reset_tokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     website_targets?: WebsiteTargetUncheckedUpdateManyWithoutUserNestedInput
     crawl_runs?: CrawlRunUncheckedUpdateManyWithoutUserNestedInput
+    user_integrations?: UserIntegrationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ScraperVersionUpsertWithoutActive_for_scraperInput = {
@@ -34536,6 +36165,7 @@ export namespace Prisma {
     password_reset_tokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     website_targets?: WebsiteTargetCreateNestedManyWithoutUserInput
     scrapers?: ScraperCreateNestedManyWithoutUserInput
+    user_integrations?: UserIntegrationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCrawl_runsInput = {
@@ -34549,6 +36179,7 @@ export namespace Prisma {
     password_reset_tokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     website_targets?: WebsiteTargetUncheckedCreateNestedManyWithoutUserInput
     scrapers?: ScraperUncheckedCreateNestedManyWithoutUserInput
+    user_integrations?: UserIntegrationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCrawl_runsInput = {
@@ -34879,6 +36510,7 @@ export namespace Prisma {
     password_reset_tokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     website_targets?: WebsiteTargetUpdateManyWithoutUserNestedInput
     scrapers?: ScraperUpdateManyWithoutUserNestedInput
+    user_integrations?: UserIntegrationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCrawl_runsInput = {
@@ -34892,6 +36524,7 @@ export namespace Prisma {
     password_reset_tokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     website_targets?: WebsiteTargetUncheckedUpdateManyWithoutUserNestedInput
     scrapers?: ScraperUncheckedUpdateManyWithoutUserNestedInput
+    user_integrations?: UserIntegrationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ScraperUpsertWithoutCrawl_runsInput = {
@@ -36096,6 +37729,78 @@ export namespace Prisma {
     extracted_items?: ExtractedItemUncheckedUpdateManyWithoutCrawl_runNestedInput
   }
 
+  export type UserCreateWithoutUser_integrationsInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    password: string
+    role: $Enums.AuthRole
+    created_at?: Date | string
+    updated_at?: Date | string
+    password_reset_tokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    website_targets?: WebsiteTargetCreateNestedManyWithoutUserInput
+    scrapers?: ScraperCreateNestedManyWithoutUserInput
+    crawl_runs?: CrawlRunCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutUser_integrationsInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    password: string
+    role: $Enums.AuthRole
+    created_at?: Date | string
+    updated_at?: Date | string
+    password_reset_tokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    website_targets?: WebsiteTargetUncheckedCreateNestedManyWithoutUserInput
+    scrapers?: ScraperUncheckedCreateNestedManyWithoutUserInput
+    crawl_runs?: CrawlRunUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutUser_integrationsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutUser_integrationsInput, UserUncheckedCreateWithoutUser_integrationsInput>
+  }
+
+  export type UserUpsertWithoutUser_integrationsInput = {
+    update: XOR<UserUpdateWithoutUser_integrationsInput, UserUncheckedUpdateWithoutUser_integrationsInput>
+    create: XOR<UserCreateWithoutUser_integrationsInput, UserUncheckedCreateWithoutUser_integrationsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutUser_integrationsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutUser_integrationsInput, UserUncheckedUpdateWithoutUser_integrationsInput>
+  }
+
+  export type UserUpdateWithoutUser_integrationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    password_reset_tokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    website_targets?: WebsiteTargetUpdateManyWithoutUserNestedInput
+    scrapers?: ScraperUpdateManyWithoutUserNestedInput
+    crawl_runs?: CrawlRunUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutUser_integrationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    password_reset_tokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    website_targets?: WebsiteTargetUncheckedUpdateManyWithoutUserNestedInput
+    scrapers?: ScraperUncheckedUpdateManyWithoutUserNestedInput
+    crawl_runs?: CrawlRunUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type PasswordResetTokenCreateManyUserInput = {
     id?: string
     token_hash: string
@@ -36151,6 +37856,16 @@ export namespace Prisma {
     total_new_listings?: number
     total_refreshed_listings?: number
     error_message?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type UserIntegrationCreateManyUserInput = {
+    id?: string
+    integration_type: $Enums.IntegrationType
+    credentials_encrypted: string
+    is_active?: boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
     updated_at?: Date | string
@@ -36365,6 +38080,36 @@ export namespace Prisma {
     total_new_listings?: IntFieldUpdateOperationsInput | number
     total_refreshed_listings?: IntFieldUpdateOperationsInput | number
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserIntegrationUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    integration_type?: EnumIntegrationTypeFieldUpdateOperationsInput | $Enums.IntegrationType
+    credentials_encrypted?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserIntegrationUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    integration_type?: EnumIntegrationTypeFieldUpdateOperationsInput | $Enums.IntegrationType
+    credentials_encrypted?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserIntegrationUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    integration_type?: EnumIntegrationTypeFieldUpdateOperationsInput | $Enums.IntegrationType
+    credentials_encrypted?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string

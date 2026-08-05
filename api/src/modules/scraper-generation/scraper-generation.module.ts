@@ -8,6 +8,7 @@ import { GENERATION_QUEUE } from '@/core/queues/queues.constants';
 import { GenerationProcessor } from '@/background/generation.processor';
 import { ScraperGenerationController } from './scraper-generation.controller';
 import { ScraperGenerationService } from './scraper-generation.service';
+import { CredentialsModule } from '@/integrations/credentials/credentials.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { ScraperGenerationService } from './scraper-generation.service';
     NotificationsModule,
     ComputerUseModule,
     GcsIntegrationModule,
+    CredentialsModule,
     BullModule.registerQueue({ name: GENERATION_QUEUE }),
   ],
   controllers: [ScraperGenerationController],

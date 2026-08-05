@@ -139,6 +139,13 @@ enum NotificationSeverity {
   CRITICAL
 }
 
+enum IntegrationType {
+  OPENAI
+  ANTHROPIC
+  GEMINI
+  DEEPSEEK
+}
+
 model User {
   id         String   @id @default(uuid())
   email      String   @unique
@@ -152,6 +159,7 @@ model User {
   website_targets       WebsiteTarget[]
   scrapers              Scraper[]
   crawl_runs            CrawlRun[]
+  user_integrations     UserIntegration[]
 
   @@index([email])
   @@index([phone])
@@ -510,6 +518,25 @@ model Notification {
   @@index([is_read])
   @@index([created_at])
   @@map("notifications")
+}
+
+model UserIntegration {
+  id                    String          @id @default(uuid())
+  user_id               String
+  integration_type      IntegrationType
+  credentials_encrypted String
+  is_active             Boolean         @default(true)
+  metadata              Json?
+  created_at            DateTime        @default(now())
+  updated_at            DateTime        @updatedAt
+
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@unique([user_id, integration_type])
+  @@index([user_id])
+  @@index([integration_type])
+  @@index([is_active])
+  @@map("user_integrations")
 }
 
 model PlatformConfig {

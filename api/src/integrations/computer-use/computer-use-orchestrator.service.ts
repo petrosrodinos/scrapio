@@ -2,7 +2,8 @@ import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import Anthropic from '@anthropic-ai/sdk';
 import { PrismaService } from '@/core/databases/prisma/prisma.service';
-import { GenerationRunStatus, Prisma } from 'generated/prisma';
+import { GenerationRunStatus, IntegrationType, Prisma } from 'generated/prisma';
+import { IntegrationCredentialResolverService } from '@/integrations/credentials/services/integration-credential-resolver.service';
 import { ComputerUseClientService } from './services/computer-use-client.service';
 import { PlaywrightDriverService } from './services/playwright-driver.service';
 import { ScraperConfigVerificationService } from './services/scraper-config-verification.service';
@@ -44,6 +45,7 @@ export class ComputerUseOrchestratorService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly configService: ConfigService,
+    private readonly credentialResolver: IntegrationCredentialResolverService,
     private readonly computerUseClient: ComputerUseClientService,
     private readonly verificationService: ScraperConfigVerificationService,
     private readonly screenshotStorage: ScreenshotStorageService,
@@ -84,6 +86,10 @@ export class ComputerUseOrchestratorService {
     const model =
       this.configService.get<string>('SCRAPER_GENERATION_MODEL') ??
       DEFAULT_GENERATION_MODEL;
+    const anthropicCredentials = await this.credentialResolver.resolveApiKey({
+      userId: run.website_target.user_id,
+      integrationType: IntegrationType.ANTHROPIC,
+    });
     const targetUrl = run.website_target.base_url;
     const systemPrompt = this.buildSystemPrompt(run.prompt);
     const blockHandlingConfig = buildBlockHandlingConfig(run.website_target);
@@ -230,6 +236,7 @@ export class ComputerUseOrchestratorService {
           requestMessages,
           systemPrompt,
           model,
+          anthropicCredentials.apiKey,
         );
         messages.push({ role: 'assistant', content: rawText });
 

@@ -12,6 +12,7 @@ export interface AIGenerateOptions {
     topP?: number;
     frequencyPenalty?: number;
     presencePenalty?: number;
+    apiKey?: string;
 }
 
 export interface AIGenerateTextResponse {
