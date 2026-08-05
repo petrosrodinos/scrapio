@@ -212,8 +212,8 @@ export class CrawlProcessor extends WorkerHost implements OnModuleInit {
         this.detailEnrichmentService.enrichDetailPages(
           crawlResult.items,
           config.detail_page,
-          run.website_target_id,
           {
+            targetId: run.website_target_id,
             deadlineAt:
               Date.now() +
               crawl_job_timeout_ms -

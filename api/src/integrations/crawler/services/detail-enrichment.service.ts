@@ -28,6 +28,7 @@ interface DetailEnrichmentResult {
 }
 
 export interface DetailEnrichmentOptions {
+  targetId?: string;
   deadlineAt?: number;
   onBatchComplete?: () => void | Promise<void>;
   blockHandlingConfig?: BlockHandlingConfig;
@@ -46,7 +47,6 @@ export class DetailEnrichmentService {
   async enrichDetailPages(
     items: CrawlItem[],
     detailConfig?: DetailPageConfig | null,
-    websiteTargetId?: string,
     options?: DetailEnrichmentOptions,
   ): Promise<void> {
     if (items.length === 0) return;
@@ -73,7 +73,7 @@ export class DetailEnrichmentService {
             item,
             detailConfig,
             page_timeout_ms,
-            websiteTargetId,
+            options?.targetId,
             options?.blockHandlingConfig,
           ),
         ),
@@ -121,7 +121,7 @@ export class DetailEnrichmentService {
     item: CrawlItem,
     detailConfig: DetailPageConfig | null | undefined,
     pageTimeoutMs: number,
-    websiteTargetId?: string,
+    targetId?: string,
     blockHandlingConfig?: BlockHandlingConfig,
   ): Promise<DetailEnrichmentResult> {
     const empty: DetailEnrichmentResult = {
@@ -475,10 +475,10 @@ export class DetailEnrichmentService {
       }, detailConfig ?? null);
 
       const html = await page.content();
-      const rawHtmlPath = await this.uploadDetailHtml(
+      const rawHtmlPath = await this.uploadPageHtml(
         html,
         item.source_url,
-        websiteTargetId,
+        targetId,
       );
 
       return {
@@ -496,10 +496,10 @@ export class DetailEnrichmentService {
     }
   }
 
-  private async uploadDetailHtml(
+  private async uploadPageHtml(
     html: string,
     sourceUrl: string,
-    websiteTargetId?: string,
+    targetId?: string,
   ): Promise<string | null> {
     if (!html) return null;
 
@@ -508,15 +508,15 @@ export class DetailEnrichmentService {
         .update(sourceUrl)
         .digest('hex')
         .slice(0, 16);
-      const websiteTargetSegment = websiteTargetId ?? 'unknown';
-      const filename = `${websiteTargetSegment}/${urlHash}.html`;
+      const scopeSegment = targetId ?? 'unknown';
+      const filename = `${scopeSegment}/${urlHash}.html`;
 
       const upload = await Promise.race([
         this.gcsService.uploadImageFromBuffer(
           Buffer.from(html, 'utf8'),
           filename,
           'text/html; charset=utf-8',
-          GcsFolders.sourcePropertyHtml,
+          GcsFolders.detailPageHtml,
         ),
         new Promise<null>((resolve) =>
           setTimeout(() => resolve(null), DETAIL_HTML_UPLOAD_TIMEOUT_MS),
@@ -526,7 +526,7 @@ export class DetailEnrichmentService {
       return upload?.path ?? null;
     } catch (error) {
       this.logger.warn(
-        `Failed to upload detail HTML for ${sourceUrl}: ${error instanceof Error ? error.message : error}`,
+        `Failed to upload page HTML for ${sourceUrl}: ${error instanceof Error ? error.message : error}`,
       );
       return null;
     }
