@@ -61,7 +61,7 @@ export default function GenerationRunDetailPage() {
   return (
     <div className="flex flex-col gap-6">
       <button
-        onClick={() => navigate(Routes.admin.generationRuns.list)}
+        onClick={() => navigate(Routes.generationRuns.list)}
         className="flex items-center gap-1.5 text-sm text-muted hover:text-foreground transition-colors"
       >
         <ArrowLeft className="h-4 w-4" />
@@ -120,7 +120,7 @@ export default function GenerationRunDetailPage() {
           {run.scraper_id ? (
             <button
               className="text-sm text-accent hover:underline text-left"
-              onClick={() => navigate(Routes.admin.scrapers.detail(run.scraper_id!))}
+              onClick={() => navigate(Routes.scrapers.detail(run.scraper_id!))}
             >
               {run.scraper?.name ?? run.scraper_id}
             </button>
@@ -167,7 +167,7 @@ export default function GenerationRunDetailPage() {
           <p className="text-sm text-foreground">Approved — a new scraper version is now active.</p>
           <ActionButtonWithPending
             variant="secondary"
-            onPress={() => navigate(Routes.admin.scrapers.detail(run.scraper_id!))}
+            onPress={() => navigate(Routes.scrapers.detail(run.scraper_id!))}
           >
             View scraper
           </ActionButtonWithPending>
@@ -433,7 +433,7 @@ export default function GenerationRunDetailPage() {
         confirmLabel="Delete"
         isPending={deleteRun.isPending}
         onConfirm={() =>
-          deleteRun.mutateAsync(run.id).then(() => navigate(Routes.admin.generationRuns.list))
+          deleteRun.mutateAsync(run.id).then(() => navigate(Routes.generationRuns.list))
         }
       />
     </div>

@@ -14,6 +14,7 @@ export const GenerationRunQuerySchema = z.object({
   trigger: z.nativeEnum(GenerationTrigger).optional(),
   website_target_id: z.string().uuid().optional(),
   scraper_id: z.string().uuid().optional(),
+  user_id: z.string().uuid().optional(),
 });
 
 export type GenerationRunQueryType = z.infer<typeof GenerationRunQuerySchema>;

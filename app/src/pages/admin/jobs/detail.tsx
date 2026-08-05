@@ -127,7 +127,7 @@ export default function JobDetailPage() {
           {job.crawl_run_id ? (
             <button
               className="text-sm text-accent hover:underline text-left"
-              onClick={() => navigate(Routes.admin.crawlRuns.detail(job.crawl_run_id!))}
+              onClick={() => navigate(Routes.crawlRuns.detail(job.crawl_run_id!))}
             >
               View crawl run
             </button>

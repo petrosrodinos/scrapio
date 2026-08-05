@@ -7,6 +7,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "build": "nest build",
+    "temp":"dotenv -e .env.staging -- npx prisma migrate resolve --rolled-back 20260804200000_rename_source_agency_to_website_target",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "migrate": "dotenv -e .env.staging -- npx prisma migrate dev --name new-migration && dotenv -e .env.staging -- npx prisma generate && dotenv -e .env.staging -- npx prisma migrate deploy && dotenv -e .env.staging -- nest start --watch",
     "migrate:local": "dotenv -e .env.local -- npx prisma migrate dev --name new-migration && npx prisma generate",

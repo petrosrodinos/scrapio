@@ -113,15 +113,18 @@ const HealthStatusCard = ({
                         </div>
                     </>
                 ) : (
-                    <div className="flex items-center justify-between gap-4">
-                        <span className="text-gray-500">Response time</span>
-                        <span className="font-medium text-gray-900">{formatDuration(data.ms)}</span>
-                    </div>
+                    <>
+                        <div className="flex items-center justify-between gap-4">
+                            <span className="text-gray-500">Response time</span>
+                            <span className="font-medium text-gray-900">{formatDuration(data.ms)}</span>
+                        </div>
+                        {data.message ? (
+                            <div className="rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-gray-600">
+                                {data.message}
+                            </div>
+                        ) : null}
+                    </>
                 )}
-
-                {"message" in data && data.message ? (
-                    <div className="rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-gray-600">{data.message}</div>
-                ) : null}
             </div>
         </Card>
     );

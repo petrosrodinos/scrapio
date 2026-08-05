@@ -45,7 +45,7 @@ export default function DiagnosticsDetailPage() {
   return (
     <div className="flex flex-col gap-6">
       <button
-        onClick={() => navigate(Routes.admin.diagnostics.list)}
+        onClick={() => navigate(Routes.diagnostics.list)}
         className="flex items-center gap-1.5 text-sm text-muted hover:text-foreground transition-colors"
       >
         <ArrowLeft className="h-4 w-4" />
@@ -59,7 +59,7 @@ export default function DiagnosticsDetailPage() {
         <DiagnosticsModeChip mode={pkg.mode} />
         <button
           className="text-sm text-accent hover:underline"
-          onClick={() => navigate(Routes.admin.crawlRuns.detail(pkg.crawl_run_id))}
+          onClick={() => navigate(Routes.crawlRuns.detail(pkg.crawl_run_id))}
         >
           View crawl run
         </button>

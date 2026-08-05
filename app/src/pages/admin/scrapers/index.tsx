@@ -28,7 +28,7 @@ import {
   useDeleteScrapers,
   useScrapers,
 } from "@/features/scrapers/hooks/use-scrapers";
-import { parseOptionalJsonConfig, parseOptionalNormalizeLimit } from "@/features/scrapers/validation-schemas/scrapers.schema";
+import { parseOptionalJsonConfig } from "@/features/scrapers/validation-schemas/scrapers.schema";
 import {
   type ScraperHealth,
   type ScraperListQuery,
@@ -113,7 +113,7 @@ export default function ScrapersListPage() {
       <div className="flex items-center justify-between">
         <div>
           <p className="text-2xl font-semibold tracking-tight text-foreground">Scrapers</p>
-          <p className="text-sm text-muted">Version-controlled listing scrapers per agency.</p>
+          <p className="text-sm text-muted">Version-controlled scrapers per website target.</p>
         </div>
         <div className="flex items-center gap-2">
           <Button
@@ -260,7 +260,7 @@ export default function ScrapersListPage() {
                     <Table.Row
                       key={scraper.id}
                       id={scraper.id}
-                      onAction={() => navigate(Routes.admin.scrapers.detail(scraper.id))}
+                      onAction={() => navigate(Routes.scrapers.detail(scraper.id))}
                       className="cursor-pointer"
                     >
                       <Table.Cell className="pr-0">
@@ -287,7 +287,7 @@ export default function ScrapersListPage() {
                           className="text-sm text-accent hover:underline"
                           onClick={(e) => {
                             e.stopPropagation();
-                            navigate(Routes.admin.websiteTargets.detail(scraper.website_target_id));
+                            navigate(Routes.websiteTargets.detail(scraper.website_target_id));
                           }}
                         >
                           {scraper.website_target?.name ?? "—"}
@@ -366,12 +366,10 @@ export default function ScrapersListPage() {
                   onCancel={createModal.close}
                   onSubmit={(values) => {
                     const config = parseOptionalJsonConfig(values.config);
-                    const normalizeLimit = parseOptionalNormalizeLimit(values.normalize_limit ?? "");
                     createScraper.mutate(
                       {
                         website_target_id: values.website_target_id,
                         name: values.name,
-                        ...(normalizeLimit !== undefined && { normalize_limit: normalizeLimit }),
                         ...(config && { config }),
                       },
                       { onSuccess: () => createModal.close() },

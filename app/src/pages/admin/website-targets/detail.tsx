@@ -46,7 +46,7 @@ export default function WebsiteTargetDetailPage() {
   return (
     <div className="flex flex-col gap-6">
       <button
-        onClick={() => navigate(Routes.admin.websiteTargets.list)}
+        onClick={() => navigate(Routes.websiteTargets.list)}
         className="flex items-center gap-1.5 text-sm text-muted hover:text-foreground transition-colors"
       >
         <ArrowLeft className="h-4 w-4" />
@@ -144,7 +144,7 @@ export default function WebsiteTargetDetailPage() {
               {scrapers.map((scraper) => (
                 <button
                   key={scraper.id}
-                  onClick={() => navigate(Routes.admin.scrapers.detail(scraper.id))}
+                  onClick={() => navigate(Routes.scrapers.detail(scraper.id))}
                   className="flex items-center justify-between gap-3 rounded-lg border border-border p-3 text-left hover:border-accent/50 transition-colors"
                 >
                   <span className="text-xs text-muted truncate">{scraper.name}</span>
@@ -166,7 +166,7 @@ export default function WebsiteTargetDetailPage() {
               {crawlRuns.map((run) => (
                 <button
                   key={run.id}
-                  onClick={() => navigate(Routes.admin.crawlRuns.detail(run.id))}
+                  onClick={() => navigate(Routes.crawlRuns.detail(run.id))}
                   className="flex items-center justify-between gap-3 rounded-lg border border-border p-3 text-left hover:border-accent/50 transition-colors"
                 >
                   <span className="text-xs text-muted truncate">
@@ -233,7 +233,7 @@ export default function WebsiteTargetDetailPage() {
         isPending={deleteWebsiteTarget.isPending}
         onConfirm={() =>
           deleteWebsiteTarget.mutate(websiteTarget.id, {
-            onSuccess: () => navigate(Routes.admin.websiteTargets.list),
+            onSuccess: () => navigate(Routes.websiteTargets.list),
           })
         }
       />

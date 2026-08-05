@@ -125,7 +125,7 @@ export default function DiagnosticsListPage() {
                     <Table.Row
                       key={pkg.id}
                       id={pkg.id}
-                      onAction={() => navigate(Routes.admin.diagnostics.detail(pkg.id))}
+                      onAction={() => navigate(Routes.diagnostics.detail(pkg.id))}
                       className="cursor-pointer"
                     >
                       <Table.Cell>

@@ -127,7 +127,7 @@ export default function WebsiteTargetsListPage() {
                       key={websiteTarget.id}
                       id={websiteTarget.id}
                       onAction={() =>
-                        navigate(Routes.admin.websiteTargets.detail(websiteTarget.id))
+                        navigate(Routes.websiteTargets.detail(websiteTarget.id))
                       }
                       className="cursor-pointer"
                     >

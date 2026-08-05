@@ -24,6 +24,7 @@ import {
   GenerationTrigger,
 } from 'generated/prisma';
 import { CurrentUser } from '@/shared/decorators/current-user.decorator';
+import { AuthUser } from '@/shared/interfaces/auth-user.interface';
 import { ZodValidationPipe } from '@/shared/pipes/zod.validation.pipe';
 import { ScraperGenerationService } from './scraper-generation.service';
 import { CreateGenerationRunDto } from './dto/create-generation-run.dto';
@@ -39,7 +40,7 @@ import { ScraperGenerationRun } from './entities/generation-run.entity';
 @ApiBearerAuth()
 @Controller('admin/generation-runs')
 @UseGuards(JwtGuard, RolesGuard)
-@Roles(AuthRole.ADMIN, AuthRole.SUPPORT)
+@Roles(AuthRole.USER, AuthRole.ADMIN, AuthRole.SUPPORT)
 export class ScraperGenerationController {
   constructor(
     private readonly scraperGenerationService: ScraperGenerationService,
@@ -54,24 +55,25 @@ export class ScraperGenerationController {
   @ApiQuery({ name: 'trigger', required: false, enum: GenerationTrigger })
   @ApiQuery({ name: 'website_target_id', required: false, type: String })
   @ApiQuery({ name: 'scraper_id', required: false, type: String })
+  @ApiQuery({ name: 'user_id', required: false, type: String })
   findAll(
-    @CurrentUser('id') userId: string,
+    @CurrentUser() authUser: AuthUser,
     @Query(new ZodValidationPipe(GenerationRunQuerySchema))
     query: GenerationRunQueryType,
   ) {
-    return this.scraperGenerationService.findAll(userId, query);
+    return this.scraperGenerationService.findAll(authUser, query);
   }
 
   @Get(':id')
   @ApiOperation({ summary: 'Get one generation run with its steps' })
   @ApiResponse({ status: 200, type: ScraperGenerationRun })
   @ApiResponse({ status: 404, description: 'Generation run not found' })
-  findOne(@CurrentUser('id') userId: string, @Param('id') id: string) {
-    return this.scraperGenerationService.findOne(userId, id);
+  findOne(@CurrentUser() authUser: AuthUser, @Param('id') id: string) {
+    return this.scraperGenerationService.findOne(authUser, id);
   }
 
   @Post()
-  @Roles(AuthRole.ADMIN)
+  @Roles(AuthRole.USER, AuthRole.ADMIN)
   @ApiOperation({
     summary: 'Trigger a manual AI computer-use generation run',
   })
@@ -81,14 +83,14 @@ export class ScraperGenerationController {
     description: 'No active Anthropic UserIntegration for this admin',
   })
   create(
-    @CurrentUser('id') userId: string,
+    @CurrentUser() authUser: AuthUser,
     @Body() dto: CreateGenerationRunDto,
   ) {
-    return this.scraperGenerationService.create(userId, dto, userId);
+    return this.scraperGenerationService.create(authUser, dto);
   }
 
   @Post(':id/approve')
-  @Roles(AuthRole.ADMIN)
+  @Roles(AuthRole.USER, AuthRole.ADMIN)
   @ApiOperation({
     summary: 'Approve a staged config, promoting it into a new ScraperVersion',
   })
@@ -97,37 +99,37 @@ export class ScraperGenerationController {
     status: 400,
     description: 'Run is not AWAITING_REVIEW with a staged config',
   })
-  approve(@CurrentUser('id') userId: string, @Param('id') id: string) {
-    return this.scraperGenerationService.approve(userId, id);
+  approve(@CurrentUser() authUser: AuthUser, @Param('id') id: string) {
+    return this.scraperGenerationService.approve(authUser, id);
   }
 
   @Post(':id/reject')
-  @Roles(AuthRole.ADMIN)
+  @Roles(AuthRole.USER, AuthRole.ADMIN)
   @ApiOperation({ summary: 'Reject a generation run' })
   @ApiResponse({ status: 200, type: ScraperGenerationRun })
   @ApiResponse({ status: 400, description: 'Run has already finished' })
   reject(
-    @CurrentUser('id') userId: string,
+    @CurrentUser() authUser: AuthUser,
     @Param('id') id: string,
     @Body() dto: RejectGenerationRunDto,
   ) {
-    return this.scraperGenerationService.reject(userId, id, dto);
+    return this.scraperGenerationService.reject(authUser, id, dto);
   }
 
   @Post(':id/cancel')
-  @Roles(AuthRole.ADMIN)
+  @Roles(AuthRole.USER, AuthRole.ADMIN)
   @ApiOperation({ summary: 'Cancel a QUEUED or RUNNING generation run' })
   @ApiResponse({ status: 200, type: ScraperGenerationRun })
   @ApiResponse({
     status: 400,
     description: 'Only QUEUED or RUNNING runs can be cancelled',
   })
-  cancel(@CurrentUser('id') userId: string, @Param('id') id: string) {
-    return this.scraperGenerationService.cancel(userId, id);
+  cancel(@CurrentUser() authUser: AuthUser, @Param('id') id: string) {
+    return this.scraperGenerationService.cancel(authUser, id);
   }
 
   @Post(':id/retry')
-  @Roles(AuthRole.ADMIN)
+  @Roles(AuthRole.USER, AuthRole.ADMIN)
   @ApiOperation({
     summary:
       'Retry a failed or cancelled generation run from its last recorded step',
@@ -138,15 +140,15 @@ export class ScraperGenerationController {
     description: 'Run is not FAILED or CANCELLED, or self-healing is disabled',
   })
   retry(
-    @CurrentUser('id') userId: string,
+    @CurrentUser() authUser: AuthUser,
     @Param('id') id: string,
     @Body() dto: RetryGenerationRunDto,
   ) {
-    return this.scraperGenerationService.retry(userId, id, dto);
+    return this.scraperGenerationService.retry(authUser, id, dto);
   }
 
   @Delete(':id')
-  @Roles(AuthRole.ADMIN)
+  @Roles(AuthRole.USER, AuthRole.ADMIN)
   @ApiOperation({
     summary: 'Delete a generation run and its screenshot files from storage',
   })
@@ -156,7 +158,7 @@ export class ScraperGenerationController {
     description: 'Run is still QUEUED or RUNNING',
   })
   @ApiResponse({ status: 404, description: 'Generation run not found' })
-  remove(@CurrentUser('id') userId: string, @Param('id') id: string) {
-    return this.scraperGenerationService.remove(userId, id);
+  remove(@CurrentUser() authUser: AuthUser, @Param('id') id: string) {
+    return this.scraperGenerationService.remove(authUser, id);
   }
 }

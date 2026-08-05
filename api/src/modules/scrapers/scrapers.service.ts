@@ -5,6 +5,7 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from '@/core/databases/prisma/prisma.service';
 import { CrawlRunsService } from '@/modules/crawl-runs/crawl-runs.service';
+import { AuthUser } from '@/shared/interfaces/auth-user.interface';
 import {
   scraperUserWhere,
   websiteTargetUserWhere,
@@ -34,11 +35,11 @@ export class ScrapersService {
   ) {}
 
   async findAll(
-    userId: string,
+    authUser: AuthUser,
     query: ScraperQueryType,
   ): Promise<PaginatedResult<any>> {
     const where: Prisma.ScraperWhereInput = {
-      ...scraperUserWhere(userId),
+      ...scraperUserWhere(authUser, query.user_id),
       ...(query.search && {
         name: { contains: query.search, mode: 'insensitive' as const },
       }),
@@ -73,9 +74,9 @@ export class ScrapersService {
     };
   }
 
-  async findOne(userId: string, id: string) {
+  async findOne(authUser: AuthUser, id: string) {
     const scraper = await this.prisma.scraper.findFirst({
-      where: { id, ...scraperUserWhere(userId) },
+      where: { id, ...scraperUserWhere(authUser) },
       include: {
         website_target: { select: { name: true } },
         active_version: true,
@@ -89,22 +90,19 @@ export class ScrapersService {
     return scraper;
   }
 
-  async create(userId: string, dto: CreateScraperDto) {
+  async create(authUser: AuthUser, dto: CreateScraperDto) {
     await this.ensureWebsiteTargetBelongsToUser(
-      userId,
+      authUser,
       dto.website_target_id,
     );
 
     if (dto.config === undefined) {
       return this.prisma.scraper.create({
         data: {
-          user_id: userId,
+          user_id: authUser.id,
           website_target_id: dto.website_target_id,
           name: dto.name,
           status: ScraperStatus.TESTING,
-          ...(dto.normalize_limit !== undefined && {
-            normalize_limit: dto.normalize_limit,
-          }),
         },
         include: {
           active_version: true,
@@ -116,13 +114,10 @@ export class ScrapersService {
     return this.prisma.$transaction(async (tx) => {
       const scraper = await tx.scraper.create({
         data: {
-          user_id: userId,
+          user_id: authUser.id,
           website_target_id: dto.website_target_id,
           name: dto.name,
           status: ScraperStatus.TESTING,
-          ...(dto.normalize_limit !== undefined && {
-            normalize_limit: dto.normalize_limit,
-          }),
         },
       });
 
@@ -146,8 +141,8 @@ export class ScrapersService {
     });
   }
 
-  async listVersions(userId: string, scraperId: string) {
-    await this.ensureExists(userId, scraperId);
+  async listVersions(authUser: AuthUser, scraperId: string) {
+    await this.ensureExists(authUser, scraperId);
 
     return this.prisma.scraperVersion.findMany({
       where: { scraper_id: scraperId },
@@ -156,11 +151,11 @@ export class ScrapersService {
   }
 
   async createVersion(
-    userId: string,
+    authUser: AuthUser,
     scraperId: string,
     dto: CreateScraperVersionDto,
   ) {
-    await this.ensureExists(userId, scraperId);
+    await this.ensureExists(authUser, scraperId);
 
     return this.prisma.$transaction(async (tx) => {
       const latest = await tx.scraperVersion.findFirst({
@@ -187,8 +182,12 @@ export class ScrapersService {
     });
   }
 
-  async activateVersion(userId: string, scraperId: string, versionId: string) {
-    const scraper = await this.ensureExists(userId, scraperId);
+  async activateVersion(
+    authUser: AuthUser,
+    scraperId: string,
+    versionId: string,
+  ) {
+    const scraper = await this.ensureExists(authUser, scraperId);
 
     const version = await this.prisma.scraperVersion.findUnique({
       where: { id: versionId },
@@ -213,8 +212,8 @@ export class ScrapersService {
     });
   }
 
-  async update(userId: string, id: string, dto: UpdateScraperDto) {
-    const scraper = await this.ensureExists(userId, id);
+  async update(authUser: AuthUser, id: string, dto: UpdateScraperDto) {
+    const scraper = await this.ensureExists(authUser, id);
 
     if (dto.validation_rules === undefined) {
       return this.prisma.scraper.update({
@@ -226,9 +225,6 @@ export class ScrapersService {
           }),
           ...(dto.diagnostics_mode !== undefined && {
             diagnostics_mode: dto.diagnostics_mode,
-          }),
-          ...(dto.normalize_limit !== undefined && {
-            normalize_limit: dto.normalize_limit,
           }),
         },
         include: {
@@ -275,9 +271,6 @@ export class ScrapersService {
           ...(dto.diagnostics_mode !== undefined && {
             diagnostics_mode: dto.diagnostics_mode,
           }),
-          ...(dto.normalize_limit !== undefined && {
-            normalize_limit: dto.normalize_limit,
-          }),
         },
         include: {
           active_version: true,
@@ -287,8 +280,8 @@ export class ScrapersService {
     });
   }
 
-  async runNow(userId: string, id: string) {
-    const scraper = await this.ensureExists(userId, id);
+  async runNow(authUser: AuthUser, id: string) {
+    const scraper = await this.ensureExists(authUser, id);
 
     return this.crawlRunsService.enqueue(
       scraper.website_target_id,
@@ -296,17 +289,17 @@ export class ScrapersService {
     );
   }
 
-  async remove(userId: string, id: string) {
-    await this.ensureExists(userId, id);
+  async remove(authUser: AuthUser, id: string) {
+    await this.ensureExists(authUser, id);
     await this.ensureNoActiveCrawlRuns([id]);
 
     await this.prisma.scraper.delete({ where: { id } });
   }
 
-  async removeMany(userId: string, scraperIds: string[]) {
+  async removeMany(authUser: AuthUser, scraperIds: string[]) {
     const uniqueIds = [...new Set(scraperIds)];
     const count = await this.prisma.scraper.count({
-      where: { id: { in: uniqueIds }, ...scraperUserWhere(userId) },
+      where: { id: { in: uniqueIds }, ...scraperUserWhere(authUser) },
     });
 
     if (count !== uniqueIds.length) {
@@ -323,11 +316,11 @@ export class ScrapersService {
   }
 
   private async ensureWebsiteTargetBelongsToUser(
-    userId: string,
+    authUser: AuthUser,
     websiteTargetId: string,
   ) {
     const websiteTarget = await this.prisma.websiteTarget.findFirst({
-      where: { id: websiteTargetId, ...websiteTargetUserWhere(userId) },
+      where: { id: websiteTargetId, ...websiteTargetUserWhere(authUser) },
       select: { id: true },
     });
 
@@ -352,9 +345,9 @@ export class ScrapersService {
     }
   }
 
-  private async ensureExists(userId: string, id: string) {
+  private async ensureExists(authUser: AuthUser, id: string) {
     const scraper = await this.prisma.scraper.findFirst({
-      where: { id, ...scraperUserWhere(userId) },
+      where: { id, ...scraperUserWhere(authUser) },
     });
 
     if (!scraper) {

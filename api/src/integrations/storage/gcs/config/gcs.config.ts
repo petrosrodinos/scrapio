@@ -66,15 +66,31 @@ export class GcsConfig {
         }
     }
 
+    isConfigured(): boolean {
+        return !!this.config;
+    }
+
     getStorageClient(): Storage {
+        if (!this.storageClient) {
+            throw new Error('Google Cloud Storage is not configured');
+        }
+
         return this.storageClient;
     }
 
-    getConfig(): GcsConfigInterface {
+    getConfig(): GcsConfigInterface | undefined {
         return this.config;
     }
 
+    getFolderName(): string {
+        return this.config?.folder_name ?? 'documents';
+    }
+
     getBucketName(): string {
+        if (!this.config) {
+            throw new Error('Google Cloud Storage is not configured');
+        }
+
         return this.config.bucket_name;
     }
 }

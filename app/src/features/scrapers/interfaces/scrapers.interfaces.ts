@@ -55,7 +55,6 @@ export interface Scraper {
   status: ScraperStatus;
   self_healing_enabled: boolean;
   diagnostics_mode: DiagnosticsMode;
-  normalize_limit: number | null;
   health: ScraperHealth;
   success_rate: number | null;
   avg_runtime_ms: number | null;
@@ -71,7 +70,6 @@ export interface Scraper {
 export interface CreateScraperPayload {
   website_target_id: string;
   name: string;
-  normalize_limit?: number | null;
   config?: Record<string, unknown>;
 }
 
@@ -84,7 +82,6 @@ export interface UpdateScraperPayload {
   status?: ScraperStatus;
   self_healing_enabled?: boolean;
   diagnostics_mode?: DiagnosticsMode;
-  normalize_limit?: number | null;
   validation_rules?: Record<string, unknown>;
 }
 

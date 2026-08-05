@@ -48,7 +48,7 @@ export default function CrawlRunDetailPage() {
   return (
     <div className="flex flex-col gap-6">
       <button
-        onClick={() => navigate(Routes.admin.crawlRuns.list)}
+        onClick={() => navigate(Routes.crawlRuns.list)}
         className="flex items-center gap-1.5 text-sm text-muted hover:text-foreground transition-colors"
       >
         <ArrowLeft className="h-4 w-4" />
@@ -80,7 +80,7 @@ export default function CrawlRunDetailPage() {
               isDisabled={rerun.isPending}
               onPress={() =>
                 rerun.mutate(run.id, {
-                  onSuccess: (newRun) => navigate(Routes.admin.crawlRuns.detail(newRun.id)),
+                  onSuccess: (newRun) => navigate(Routes.crawlRuns.detail(newRun.id)),
                 })
               }
             >
@@ -122,7 +122,7 @@ export default function CrawlRunDetailPage() {
           {run.scraper_id ? (
             <button
               className="text-sm text-accent hover:underline text-left"
-              onClick={() => navigate(Routes.admin.scrapers.detail(run.scraper_id!))}
+              onClick={() => navigate(Routes.scrapers.detail(run.scraper_id!))}
             >
               {run.scraper?.name ?? run.scraper_id}
             </button>
@@ -134,7 +134,7 @@ export default function CrawlRunDetailPage() {
           <span className="text-xs font-medium uppercase tracking-wide text-muted">Website target</span>
           <button
             className="text-sm text-accent hover:underline text-left"
-            onClick={() => navigate(Routes.admin.websiteTargets.detail(run.website_target_id))}
+            onClick={() => navigate(Routes.websiteTargets.detail(run.website_target_id))}
           >
             {run.website_target?.name ?? run.website_target_id}
           </button>
@@ -175,7 +175,7 @@ export default function CrawlRunDetailPage() {
                     <button
                       className="text-sm text-accent hover:underline self-start"
                       onClick={() =>
-                        navigate(Routes.admin.diagnostics.detail(run.diagnostics_package!.id))
+                        navigate(Routes.diagnostics.detail(run.diagnostics_package!.id))
                       }
                     >
                       View diagnostics
@@ -273,7 +273,7 @@ export default function CrawlRunDetailPage() {
         isPending={deleteRun.isPending}
         onConfirm={async () => {
           await deleteRun.mutateAsync(run.id);
-          navigate(Routes.admin.crawlRuns.list);
+          navigate(Routes.crawlRuns.list);
         }}
       />
     </div>

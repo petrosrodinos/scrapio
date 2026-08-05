@@ -166,7 +166,7 @@ export default function GenerationRunsListPage() {
                     <Table.Row
                       key={run.id}
                       id={run.id}
-                      onAction={() => navigate(Routes.admin.generationRuns.detail(run.id))}
+                      onAction={() => navigate(Routes.generationRuns.detail(run.id))}
                       className="cursor-pointer"
                     >
                       <Table.Cell>
@@ -244,7 +244,7 @@ export default function GenerationRunsListPage() {
                       {
                         onSuccess: (run) => {
                           createModal.close();
-                          navigate(Routes.admin.generationRuns.detail(run.id));
+                          navigate(Routes.generationRuns.detail(run.id));
                         },
                       },
                     )

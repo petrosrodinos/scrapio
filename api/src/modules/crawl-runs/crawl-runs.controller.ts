@@ -19,6 +19,7 @@ import { JwtGuard } from '@/shared/guards/jwt.guard';
 import { RolesGuard } from '@/shared/guards/roles.guard';
 import { Roles } from '@/shared/decorators/roles.decorator';
 import { CurrentUser } from '@/shared/decorators/current-user.decorator';
+import { AuthUser } from '@/shared/interfaces/auth-user.interface';
 import { AuthRole, CrawlRunStatus } from 'generated/prisma';
 import { ZodValidationPipe } from '@/shared/pipes/zod.validation.pipe';
 import { CrawlRunsService } from './crawl-runs.service';
@@ -33,7 +34,7 @@ import { CrawlRun } from './entities/crawl-run.entity';
 @ApiBearerAuth()
 @Controller('admin/crawl-runs')
 @UseGuards(JwtGuard, RolesGuard)
-@Roles(AuthRole.ADMIN, AuthRole.SUPPORT)
+@Roles(AuthRole.USER, AuthRole.ADMIN, AuthRole.SUPPORT)
 export class CrawlRunsController {
   constructor(private readonly crawlRunsService: CrawlRunsService) {}
 
@@ -45,28 +46,27 @@ export class CrawlRunsController {
   @ApiQuery({ name: 'status', required: false, enum: CrawlRunStatus })
   @ApiQuery({ name: 'website_target_id', required: false, type: String })
   @ApiQuery({ name: 'scraper_id', required: false, type: String })
-  @ApiQuery({ name: 'user_tracked_website_target_id', required: false, type: String })
   @ApiQuery({ name: 'user_id', required: false, type: String })
   @ApiQuery({ name: 'date_from', required: false, type: String })
   @ApiQuery({ name: 'date_to', required: false, type: String })
   findAll(
-    @CurrentUser('id') userId: string,
+    @CurrentUser() authUser: AuthUser,
     @Query(new ZodValidationPipe(CrawlRunQuerySchema)) query: CrawlRunQueryType,
   ) {
-    return this.crawlRunsService.findAll(userId, query);
+    return this.crawlRunsService.findAll(authUser, query);
   }
 
   @Post('bulk-delete')
-  @Roles(AuthRole.ADMIN)
+  @Roles(AuthRole.USER, AuthRole.ADMIN)
   @ApiOperation({ summary: 'Delete multiple crawl runs' })
   @ApiResponse({ status: 200, description: 'Crawl runs deleted' })
   @ApiResponse({ status: 400, description: 'One or more runs are active' })
   @ApiResponse({ status: 404, description: 'One or more crawl runs not found' })
   removeMany(
-    @CurrentUser('id') userId: string,
+    @CurrentUser() authUser: AuthUser,
     @Body() dto: DeleteCrawlRunsDto,
   ) {
-    return this.crawlRunsService.removeMany(userId, dto.crawl_run_ids);
+    return this.crawlRunsService.removeMany(authUser, dto.crawl_run_ids);
   }
 
   @Get(':id')
@@ -75,36 +75,36 @@ export class CrawlRunsController {
   })
   @ApiResponse({ status: 200, type: CrawlRun })
   @ApiResponse({ status: 404, description: 'Crawl run not found' })
-  findOne(@CurrentUser('id') userId: string, @Param('id') id: string) {
-    return this.crawlRunsService.findOne(userId, id);
+  findOne(@CurrentUser() authUser: AuthUser, @Param('id') id: string) {
+    return this.crawlRunsService.findOne(authUser, id);
   }
 
   @Post(':id/rerun')
-  @Roles(AuthRole.ADMIN)
+  @Roles(AuthRole.USER, AuthRole.ADMIN)
   @ApiOperation({ summary: 'Re-enqueue a crawl run with the same attribution' })
   @ApiResponse({ status: 201, type: CrawlRun })
   @ApiResponse({ status: 404, description: 'Crawl run not found' })
-  rerun(@CurrentUser('id') userId: string, @Param('id') id: string) {
-    return this.crawlRunsService.rerun(userId, id);
+  rerun(@CurrentUser() authUser: AuthUser, @Param('id') id: string) {
+    return this.crawlRunsService.rerun(authUser, id);
   }
 
   @Post(':id/cancel')
-  @Roles(AuthRole.ADMIN)
+  @Roles(AuthRole.USER, AuthRole.ADMIN)
   @ApiOperation({ summary: 'Stop a queued or running crawl run' })
   @ApiResponse({ status: 200, type: CrawlRun })
   @ApiResponse({ status: 400, description: 'Crawl run is not stoppable' })
   @ApiResponse({ status: 404, description: 'Crawl run not found' })
-  cancel(@CurrentUser('id') userId: string, @Param('id') id: string) {
-    return this.crawlRunsService.cancel(userId, id);
+  cancel(@CurrentUser() authUser: AuthUser, @Param('id') id: string) {
+    return this.crawlRunsService.cancel(authUser, id);
   }
 
   @Delete(':id')
-  @Roles(AuthRole.ADMIN)
+  @Roles(AuthRole.USER, AuthRole.ADMIN)
   @ApiOperation({ summary: 'Delete a crawl run' })
   @ApiResponse({ status: 200, description: 'Deleted' })
   @ApiResponse({ status: 400, description: 'Crawl run is still active' })
   @ApiResponse({ status: 404, description: 'Crawl run not found' })
-  remove(@CurrentUser('id') userId: string, @Param('id') id: string) {
-    return this.crawlRunsService.remove(userId, id);
+  remove(@CurrentUser() authUser: AuthUser, @Param('id') id: string) {
+    return this.crawlRunsService.remove(authUser, id);
   }
 }

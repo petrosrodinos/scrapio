@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '@/core/databases/prisma/prisma.service';
 import { GcsService } from '@/integrations/storage/gcs/services/gcs.service';
 import { PaginatedResult } from '@/modules/crawl-runs/interfaces/crawl-run.interface';
+import { AuthUser } from '@/shared/interfaces/auth-user.interface';
 import { diagnosticsUserWhere } from '@/shared/utils/user/user-scope.utils';
 import { Prisma } from 'generated/prisma';
 import { DiagnosticsQueryType } from './dto/diagnostics-query.schema';
@@ -16,11 +17,11 @@ export class DiagnosticsService {
   ) {}
 
   async findAll(
-    userId: string,
+    authUser: AuthUser,
     query: DiagnosticsQueryType,
   ): Promise<PaginatedResult<any>> {
     const where: Prisma.DiagnosticsPackageWhereInput = {
-      ...diagnosticsUserWhere(userId),
+      ...diagnosticsUserWhere(authUser),
       ...(query.scraper_id && { scraper_id: query.scraper_id }),
       ...(query.crawl_run_id && { crawl_run_id: query.crawl_run_id }),
       ...(query.date_from || query.date_to
@@ -61,9 +62,9 @@ export class DiagnosticsService {
     };
   }
 
-  async findOne(userId: string, id: string) {
+  async findOne(authUser: AuthUser, id: string) {
     const pkg = await this.prisma.diagnosticsPackage.findFirst({
-      where: { id, ...diagnosticsUserWhere(userId) },
+      where: { id, ...diagnosticsUserWhere(authUser) },
       include: {
         scraper: { select: { name: true } },
         crawl_run: { select: { website_target_id: true, status: true } },
@@ -75,7 +76,6 @@ export class DiagnosticsService {
       throw new NotFoundException('Diagnostics package not found');
     }
 
-    // Signed on read, not stored -- the bucket is private and a persisted URL would go stale.
     const artifacts = await Promise.all(
       pkg.artifacts.map(async (artifact) => ({
         ...artifact,

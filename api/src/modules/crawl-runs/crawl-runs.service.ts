@@ -7,6 +7,7 @@ import { InjectQueue } from '@nestjs/bullmq';
 import { Queue } from 'bullmq';
 import { PrismaService } from '@/core/databases/prisma/prisma.service';
 import { CRAWL_QUEUE } from '@/core/queues/queues.constants';
+import { AuthUser } from '@/shared/interfaces/auth-user.interface';
 import { crawlRunUserWhere } from '@/shared/utils/user/user-scope.utils';
 import {
   DEFAULT_CRAWL_JOB_ATTEMPTS,
@@ -70,11 +71,11 @@ export class CrawlRunsService {
   }
 
   async findAll(
-    userId: string,
+    authUser: AuthUser,
     query: CrawlRunQueryType,
   ): Promise<PaginatedResult<any>> {
     const where: Prisma.CrawlRunWhereInput = {
-      ...crawlRunUserWhere(userId),
+      ...crawlRunUserWhere(authUser, query.user_id),
       ...(query.status && { status: query.status }),
       ...(query.website_target_id && { website_target_id: query.website_target_id }),
       ...(query.scraper_id && { scraper_id: query.scraper_id }),
@@ -115,9 +116,9 @@ export class CrawlRunsService {
     };
   }
 
-  async findOne(userId: string, id: string) {
+  async findOne(authUser: AuthUser, id: string) {
     const run = await this.prisma.crawlRun.findFirst({
-      where: { id, ...crawlRunUserWhere(userId) },
+      where: { id, ...crawlRunUserWhere(authUser) },
       include: {
         website_target: { select: { name: true } },
         scraper: { select: { name: true } },
@@ -140,9 +141,9 @@ export class CrawlRunsService {
     return run;
   }
 
-  async rerun(userId: string, id: string) {
+  async rerun(authUser: AuthUser, id: string) {
     const run = await this.prisma.crawlRun.findFirst({
-      where: { id, ...crawlRunUserWhere(userId) },
+      where: { id, ...crawlRunUserWhere(authUser) },
     });
 
     if (!run) {
@@ -152,9 +153,9 @@ export class CrawlRunsService {
     return this.enqueue(run.website_target_id, run.scraper_id ?? undefined);
   }
 
-  async cancel(userId: string, id: string) {
+  async cancel(authUser: AuthUser, id: string) {
     const run = await this.prisma.crawlRun.findFirst({
-      where: { id, ...crawlRunUserWhere(userId) },
+      where: { id, ...crawlRunUserWhere(authUser) },
     });
 
     if (!run) {
@@ -226,12 +227,12 @@ export class CrawlRunsService {
       }
     }
 
-    return this.findOne(userId, id);
+    return this.findOne(authUser, id);
   }
 
-  async remove(userId: string, id: string) {
+  async remove(authUser: AuthUser, id: string) {
     const run = await this.prisma.crawlRun.findFirst({
-      where: { id, ...crawlRunUserWhere(userId) },
+      where: { id, ...crawlRunUserWhere(authUser) },
       select: { id: true, status: true },
     });
 
@@ -246,10 +247,10 @@ export class CrawlRunsService {
     await this.prisma.crawlRun.delete({ where: { id } });
   }
 
-  async removeMany(userId: string, crawlRunIds: string[]) {
+  async removeMany(authUser: AuthUser, crawlRunIds: string[]) {
     const uniqueIds = [...new Set(crawlRunIds)];
     const runs = await this.prisma.crawlRun.findMany({
-      where: { id: { in: uniqueIds }, ...crawlRunUserWhere(userId) },
+      where: { id: { in: uniqueIds }, ...crawlRunUserWhere(authUser) },
       select: { id: true, status: true },
     });
 

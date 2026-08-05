@@ -280,7 +280,7 @@ export default function JobsListPage() {
                           <button
                             className="text-sm text-accent hover:underline"
                             onClick={() =>
-                              navigate(Routes.admin.crawlRuns.detail(job.crawl_run_id!))
+                              navigate(Routes.crawlRuns.detail(job.crawl_run_id!))
                             }
                           >
                             View run

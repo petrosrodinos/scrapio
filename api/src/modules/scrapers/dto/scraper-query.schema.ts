@@ -14,6 +14,7 @@ export const ScraperQuerySchema = z.object({
   status: z.nativeEnum(ScraperStatus).optional(),
   health: z.nativeEnum(ScraperHealth).optional(),
   website_target_id: z.string().uuid().optional(),
+  user_id: z.string().uuid().optional(),
 });
 
 export type ScraperQueryType = z.infer<typeof ScraperQuerySchema>;

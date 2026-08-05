@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Modal, Switch, EmptyState, Select, ListBox, Label, Input, useOverlayState } from "@heroui/react";
+import { Modal, Switch, EmptyState, Select, ListBox, Label, useOverlayState } from "@heroui/react";
 import { ArrowLeft, Bot, Activity, History, Sparkles } from "lucide-react";
 import { Routes } from "@/routes/routes";
 import { DetailSkeleton } from "@/components/ui/detail-skeleton";
@@ -47,7 +47,6 @@ export default function ScraperDetailPage() {
 
   const [compareA, setCompareA] = useState<string | null>(null);
   const [compareB, setCompareB] = useState<string | null>(null);
-  const [normalizeLimitDraft, setNormalizeLimitDraft] = useState<string | null>(null);
 
   const { data: scraper, isPending } = useScraper(id!);
   const { data: versions } = useScraperVersions(id!);
@@ -79,7 +78,7 @@ export default function ScraperDetailPage() {
   return (
     <div className="flex flex-col gap-6">
       <button
-        onClick={() => navigate(Routes.admin.scrapers.list)}
+        onClick={() => navigate(Routes.scrapers.list)}
         className="flex items-center gap-1.5 text-sm text-muted hover:text-foreground transition-colors"
       >
         <ArrowLeft className="h-4 w-4" />
@@ -105,7 +104,7 @@ export default function ScraperDetailPage() {
             isDisabled={runNow.isPending}
             onPress={() =>
               runNow.mutate(scraper.id, {
-                onSuccess: (run) => navigate(Routes.admin.crawlRuns.detail(run.id)),
+                onSuccess: (run) => navigate(Routes.crawlRuns.detail(run.id)),
               })
             }
           >
@@ -127,7 +126,7 @@ export default function ScraperDetailPage() {
           <span className="text-xs font-medium uppercase tracking-wide text-muted">Website target</span>
           <button
             className="text-sm text-accent hover:underline text-left"
-            onClick={() => navigate(Routes.admin.websiteTargets.detail(scraper.website_target_id))}
+            onClick={() => navigate(Routes.websiteTargets.detail(scraper.website_target_id))}
           >
             {scraper.website_target?.name ?? scraper.website_target_id}
           </button>
@@ -178,40 +177,6 @@ export default function ScraperDetailPage() {
         <div className="flex flex-col gap-1">
           <span className="text-xs font-medium uppercase tracking-wide text-muted">Consecutive failures</span>
           <span className="text-sm text-foreground">{scraper.consecutive_failures}</span>
-        </div>
-        <div className="flex flex-col gap-1">
-          <Label htmlFor="scraper-normalize-limit">Normalize limit</Label>
-          <Input
-            id="scraper-normalize-limit"
-            type="number"
-            min={1}
-            step={1}
-            value={
-              normalizeLimitDraft ??
-              (scraper.normalize_limit !== null ? String(scraper.normalize_limit) : "")
-            }
-            onChange={(e) => setNormalizeLimitDraft(e.target.value)}
-            onBlur={() => {
-              if (normalizeLimitDraft === null) return;
-              const raw = normalizeLimitDraft.trim();
-              const next = raw === "" ? null : Number(raw);
-              setNormalizeLimitDraft(null);
-              if (raw !== "" && (!Number.isInteger(next) || (next as number) < 1)) {
-                return;
-              }
-              if (next === scraper.normalize_limit) return;
-              updateScraper.mutate({
-                id: scraper.id,
-                payload: { normalize_limit: next },
-              });
-            }}
-            placeholder="Unlimited"
-            disabled={updateScraper.isPending}
-            fullWidth
-          />
-          <span className="text-xs text-muted">
-            Max listings AI-normalized per crawl. Empty = unlimited.
-          </span>
         </div>
         <div className="flex flex-col gap-1">
           <span className="text-xs font-medium uppercase tracking-wide text-muted">Last success / failure</span>
@@ -393,7 +358,7 @@ export default function ScraperDetailPage() {
               {generationRuns.map((run) => (
                 <button
                   key={run.id}
-                  onClick={() => navigate(Routes.admin.generationRuns.detail(run.id))}
+                  onClick={() => navigate(Routes.generationRuns.detail(run.id))}
                   className="flex items-center justify-between gap-3 rounded-lg border border-border p-3 text-left hover:border-accent/50 transition-colors"
                 >
                   <div className="flex items-center gap-2">
@@ -418,7 +383,7 @@ export default function ScraperDetailPage() {
               {crawlRuns.map((run) => (
                 <button
                   key={run.id}
-                  onClick={() => navigate(Routes.admin.crawlRuns.detail(run.id))}
+                  onClick={() => navigate(Routes.crawlRuns.detail(run.id))}
                   className="flex items-center justify-between gap-3 rounded-lg border border-border p-3 text-left hover:border-accent/50 transition-colors"
                 >
                   <span className="text-xs text-muted">{formatDateTime(run.created_at)}</span>
@@ -503,7 +468,7 @@ export default function ScraperDetailPage() {
                       {
                         onSuccess: (run) => {
                           generateModal.close();
-                          navigate(Routes.admin.generationRuns.detail(run.id));
+                          navigate(Routes.generationRuns.detail(run.id));
                         },
                       },
                     )
@@ -523,7 +488,7 @@ export default function ScraperDetailPage() {
         isPending={deleteScraper.isPending}
         onConfirm={async () => {
           await deleteScraper.mutateAsync(scraper.id);
-          navigate(Routes.admin.scrapers.list);
+          navigate(Routes.scrapers.list);
         }}
       />
     </div>

@@ -16,6 +16,7 @@ import { JobsModule } from './modules/jobs/jobs.module';
 import { DiagnosticsModule } from './modules/diagnostics/diagnostics.module';
 import { PlatformConfigModule } from './modules/platform-config/platform-config.module';
 import { NotificationsModule } from './modules/notifications/notifications.module';
+import { DashboardModule } from './modules/dashboard/dashboard.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { NotificationsModule } from './modules/notifications/notifications.modul
     AuthModule,
     HealthModule,
     NotificationsModule,
+    DashboardModule,
     WebsiteTargetsModule,
     ScrapersModule,
     ScraperGenerationModule,

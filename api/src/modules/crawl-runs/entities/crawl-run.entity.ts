@@ -14,9 +14,6 @@ export class CrawlRun {
   @ApiProperty({ nullable: true })
   scraper_id: string | null;
 
-  @ApiProperty({ nullable: true })
-  user_tracked_website_target_id: string | null;
-
   @ApiProperty({ enum: CrawlRunStatus, example: CrawlRunStatus.QUEUED })
   status: CrawlRunStatus;
 
@@ -43,59 +40,8 @@ export class CrawlRun {
   })
   total_refreshed_listings: number;
 
-  @ApiProperty({
-    description:
-      'Sum of cms_sync_runs.total_created across every user for this run',
-  })
-  total_created: number;
-
-  @ApiProperty({
-    description:
-      'Sum of cms_sync_runs.total_updated across every user for this run',
-  })
-  total_updated: number;
-
-  @ApiProperty({
-    description:
-      'Sum of cms_sync_runs.total_removed across every user for this run',
-  })
-  total_removed: number;
-
-  @ApiProperty({
-    description:
-      'Sum of cms_sync_runs.total_linked across every user for this run',
-  })
-  total_linked: number;
-
-  @ApiProperty({
-    description:
-      'Sum of cms_sync_runs.total_failed across every user for this run',
-  })
-  total_failed: number;
-
   @ApiProperty({ nullable: true })
   error_message: string | null;
-
-  @ApiProperty({ nullable: true })
-  ai_model: string | null;
-
-  @ApiProperty({ nullable: true })
-  ai_input_tokens: number | null;
-
-  @ApiProperty({ nullable: true })
-  ai_output_tokens: number | null;
-
-  @ApiProperty({ nullable: true })
-  ai_input_cost: string | null;
-
-  @ApiProperty({ nullable: true })
-  ai_output_cost: string | null;
-
-  @ApiProperty({ nullable: true })
-  ai_total_cost: string | null;
-
-  @ApiProperty({ nullable: true })
-  ai_average_cost_per_property: string | null;
 
   @ApiProperty()
   created_at: Date;

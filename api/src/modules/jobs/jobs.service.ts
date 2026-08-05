@@ -7,6 +7,7 @@ import { InjectQueue } from '@nestjs/bullmq';
 import { Queue } from 'bullmq';
 import { PrismaService } from '@/core/databases/prisma/prisma.service';
 import { CRAWL_QUEUE, GENERATION_QUEUE } from '@/core/queues/queues.constants';
+import { AuthUser } from '@/shared/interfaces/auth-user.interface';
 import { jobLogUserWhere } from '@/shared/utils/user/user-scope.utils';
 import {
   DEFAULT_CRAWL_JOB_ATTEMPTS,
@@ -33,11 +34,11 @@ export class JobsService {
   ) {}
 
   async findAll(
-    userId: string,
+    authUser: AuthUser,
     query: JobLogQueryType,
   ): Promise<PaginatedResult<any>> {
     const where: Prisma.JobLogWhereInput = {
-      ...jobLogUserWhere(userId),
+      ...jobLogUserWhere(authUser),
       ...(query.status && { status: query.status }),
       ...(query.queue_name && { queue_name: query.queue_name }),
       ...(query.date_from || query.date_to
@@ -73,9 +74,9 @@ export class JobsService {
     };
   }
 
-  async findOne(userId: string, id: string) {
+  async findOne(authUser: AuthUser, id: string) {
     const job = await this.prisma.jobLog.findFirst({
-      where: { id, ...jobLogUserWhere(userId) },
+      where: { id, ...jobLogUserWhere(authUser) },
     });
 
     if (!job) {
@@ -85,9 +86,9 @@ export class JobsService {
     return job;
   }
 
-  async retry(userId: string, id: string) {
+  async retry(authUser: AuthUser, id: string) {
     const jobLog = await this.prisma.jobLog.findFirst({
-      where: { id, ...jobLogUserWhere(userId) },
+      where: { id, ...jobLogUserWhere(authUser) },
     });
 
     if (!jobLog) {
@@ -134,12 +135,12 @@ export class JobsService {
 
     await queue.add(jobLog.job_name ?? 'retry', enrichedPayload, jobOptions);
 
-    return this.findOne(userId, id);
+    return this.findOne(authUser, id);
   }
 
-  async stop(userId: string, id: string) {
+  async stop(authUser: AuthUser, id: string) {
     const jobLog = await this.prisma.jobLog.findFirst({
-      where: { id, ...jobLogUserWhere(userId) },
+      where: { id, ...jobLogUserWhere(authUser) },
     });
 
     if (!jobLog) {
@@ -174,9 +175,9 @@ export class JobsService {
     });
   }
 
-  async remove(userId: string, id: string) {
+  async remove(authUser: AuthUser, id: string) {
     const jobLog = await this.prisma.jobLog.findFirst({
-      where: { id, ...jobLogUserWhere(userId) },
+      where: { id, ...jobLogUserWhere(authUser) },
       select: { id: true, status: true },
     });
 
@@ -191,10 +192,10 @@ export class JobsService {
     await this.prisma.jobLog.delete({ where: { id } });
   }
 
-  async removeMany(userId: string, jobIds: string[]) {
+  async removeMany(authUser: AuthUser, jobIds: string[]) {
     const uniqueIds = [...new Set(jobIds)];
     const jobLogs = await this.prisma.jobLog.findMany({
-      where: { id: { in: uniqueIds }, ...jobLogUserWhere(userId) },
+      where: { id: { in: uniqueIds }, ...jobLogUserWhere(authUser) },
       select: { id: true, status: true },
     });
 

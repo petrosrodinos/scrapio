@@ -20,6 +20,7 @@ import { JwtGuard } from '@/shared/guards/jwt.guard';
 import { RolesGuard } from '@/shared/guards/roles.guard';
 import { Roles } from '@/shared/decorators/roles.decorator';
 import { CurrentUser } from '@/shared/decorators/current-user.decorator';
+import { AuthUser } from '@/shared/interfaces/auth-user.interface';
 import { AuthRole, ScraperHealth, ScraperStatus } from 'generated/prisma';
 import { ZodValidationPipe } from '@/shared/pipes/zod.validation.pipe';
 import { ScrapersService } from './scrapers.service';
@@ -39,7 +40,7 @@ import { CrawlRun } from '../crawl-runs/entities/crawl-run.entity';
 @ApiBearerAuth()
 @Controller('admin/scrapers')
 @UseGuards(JwtGuard, RolesGuard)
-@Roles(AuthRole.ADMIN, AuthRole.SUPPORT)
+@Roles(AuthRole.USER, AuthRole.ADMIN, AuthRole.SUPPORT)
 export class ScrapersController {
   constructor(private readonly scrapersService: ScrapersService) {}
 
@@ -54,15 +55,16 @@ export class ScrapersController {
   @ApiQuery({ name: 'status', required: false, enum: ScraperStatus })
   @ApiQuery({ name: 'health', required: false, enum: ScraperHealth })
   @ApiQuery({ name: 'website_target_id', required: false, type: String })
+  @ApiQuery({ name: 'user_id', required: false, type: String })
   findAll(
-    @CurrentUser('id') userId: string,
+    @CurrentUser() authUser: AuthUser,
     @Query(new ZodValidationPipe(ScraperQuerySchema)) query: ScraperQueryType,
   ) {
-    return this.scrapersService.findAll(userId, query);
+    return this.scrapersService.findAll(authUser, query);
   }
 
   @Post('bulk-delete')
-  @Roles(AuthRole.ADMIN)
+  @Roles(AuthRole.USER, AuthRole.ADMIN)
   @ApiOperation({ summary: 'Delete multiple scrapers' })
   @ApiResponse({ status: 200, description: 'Scrapers deleted' })
   @ApiResponse({
@@ -71,53 +73,53 @@ export class ScrapersController {
   })
   @ApiResponse({ status: 404, description: 'One or more scrapers not found' })
   removeMany(
-    @CurrentUser('id') userId: string,
+    @CurrentUser() authUser: AuthUser,
     @Body() dto: DeleteScrapersDto,
   ) {
-    return this.scrapersService.removeMany(userId, dto.scraper_ids);
+    return this.scrapersService.removeMany(authUser, dto.scraper_ids);
   }
 
   @Get(':id')
   @ApiOperation({ summary: 'Get one scraper with its active version' })
   @ApiResponse({ status: 200, type: Scraper })
   @ApiResponse({ status: 404, description: 'Scraper not found' })
-  findOne(@CurrentUser('id') userId: string, @Param('id') id: string) {
-    return this.scrapersService.findOne(userId, id);
+  findOne(@CurrentUser() authUser: AuthUser, @Param('id') id: string) {
+    return this.scrapersService.findOne(authUser, id);
   }
 
   @Post()
-  @Roles(AuthRole.ADMIN)
+  @Roles(AuthRole.USER, AuthRole.ADMIN)
   @ApiOperation({
     summary: 'Create a scraper with an initial active version (version 1)',
   })
   @ApiResponse({ status: 201, type: Scraper })
-  create(@CurrentUser('id') userId: string, @Body() dto: CreateScraperDto) {
-    return this.scrapersService.create(userId, dto);
+  create(@CurrentUser() authUser: AuthUser, @Body() dto: CreateScraperDto) {
+    return this.scrapersService.create(authUser, dto);
   }
 
   @Get(':id/versions')
   @ApiOperation({ summary: "List a scraper's versions (newest first)" })
   @ApiResponse({ status: 200, type: [ScraperVersion] })
-  listVersions(@CurrentUser('id') userId: string, @Param('id') id: string) {
-    return this.scrapersService.listVersions(userId, id);
+  listVersions(@CurrentUser() authUser: AuthUser, @Param('id') id: string) {
+    return this.scrapersService.listVersions(authUser, id);
   }
 
   @Post(':id/versions')
-  @Roles(AuthRole.ADMIN)
+  @Roles(AuthRole.USER, AuthRole.ADMIN)
   @ApiOperation({
     summary: 'Create a new scraper version (does not activate it)',
   })
   @ApiResponse({ status: 201, type: ScraperVersion })
   createVersion(
-    @CurrentUser('id') userId: string,
+    @CurrentUser() authUser: AuthUser,
     @Param('id') id: string,
     @Body() dto: CreateScraperVersionDto,
   ) {
-    return this.scrapersService.createVersion(userId, id, dto);
+    return this.scrapersService.createVersion(authUser, id, dto);
   }
 
   @Post(':id/versions/:versionId/activate')
-  @Roles(AuthRole.ADMIN)
+  @Roles(AuthRole.USER, AuthRole.ADMIN)
   @ApiOperation({
     summary:
       'Activate a version (rollback or promote); un-breaks a BROKEN scraper',
@@ -128,44 +130,44 @@ export class ScrapersController {
     description: 'Version not found for this scraper',
   })
   activateVersion(
-    @CurrentUser('id') userId: string,
+    @CurrentUser() authUser: AuthUser,
     @Param('id') id: string,
     @Param('versionId') versionId: string,
   ) {
-    return this.scrapersService.activateVersion(userId, id, versionId);
+    return this.scrapersService.activateVersion(authUser, id, versionId);
   }
 
   @Patch(':id')
-  @Roles(AuthRole.ADMIN)
+  @Roles(AuthRole.USER, AuthRole.ADMIN)
   @ApiOperation({
     summary:
       'Toggle self_healing_enabled and/or update validation_rules (creates a new version)',
   })
   @ApiResponse({ status: 200, type: Scraper })
   update(
-    @CurrentUser('id') userId: string,
+    @CurrentUser() authUser: AuthUser,
     @Param('id') id: string,
     @Body() dto: UpdateScraperDto,
   ) {
-    return this.scrapersService.update(userId, id, dto);
+    return this.scrapersService.update(authUser, id, dto);
   }
 
   @Post(':id/run-now')
-  @Roles(AuthRole.ADMIN)
+  @Roles(AuthRole.USER, AuthRole.ADMIN)
   @ApiOperation({ summary: 'Manually trigger a crawl run' })
   @ApiResponse({ status: 201, type: CrawlRun })
   @ApiResponse({ status: 404, description: 'Scraper not found' })
-  runNow(@CurrentUser('id') userId: string, @Param('id') id: string) {
-    return this.scrapersService.runNow(userId, id);
+  runNow(@CurrentUser() authUser: AuthUser, @Param('id') id: string) {
+    return this.scrapersService.runNow(authUser, id);
   }
 
   @Delete(':id')
-  @Roles(AuthRole.ADMIN)
+  @Roles(AuthRole.USER, AuthRole.ADMIN)
   @ApiOperation({ summary: 'Delete a scraper' })
   @ApiResponse({ status: 200, description: 'Deleted' })
   @ApiResponse({ status: 400, description: 'Scraper has an active crawl run' })
   @ApiResponse({ status: 404, description: 'Scraper not found' })
-  remove(@CurrentUser('id') userId: string, @Param('id') id: string) {
-    return this.scrapersService.remove(userId, id);
+  remove(@CurrentUser() authUser: AuthUser, @Param('id') id: string) {
+    return this.scrapersService.remove(authUser, id);
   }
 }

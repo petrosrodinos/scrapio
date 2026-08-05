@@ -1,4 +1,7 @@
 export const ApiRoutes = {
+    dashboard: {
+        root: "/dashboard",
+    },
     health: {
         prefix: "/health",
     },
@@ -74,6 +77,13 @@ export const ApiRoutes = {
         },
         queues: {
             bullBoard: "/admin/queues",
+        },
+        notifications: {
+            list: "/admin/notifications",
+            markAllRead: "/admin/notifications/read-all",
+            bulkDelete: "/admin/notifications/bulk-delete",
+            markRead: (id: string) => `/admin/notifications/${id}/read`,
+            detail: (id: string) => `/admin/notifications/${id}`,
         },
     },
 };

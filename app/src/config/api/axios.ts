@@ -10,6 +10,21 @@ const axiosInstance = axios.create({
     },
 });
 
+axiosInstance.interceptors.response.use((response) => {
+    const payload = response.data;
+
+    if (
+        typeof payload === "string" &&
+        payload.trimStart().toLowerCase().startsWith("<!doctype")
+    ) {
+        return Promise.reject(
+            new Error("API returned HTML instead of JSON. Check VITE_API_URL."),
+        );
+    }
+
+    return response;
+});
+
 axiosInstance.interceptors.request.use((config) => {
     const authState = getAuthStoreState();
 

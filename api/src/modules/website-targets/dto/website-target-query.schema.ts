@@ -10,6 +10,7 @@ export const WebsiteTargetQuerySchema = z.object({
     .optional()
     .transform((v) => (v ? Math.min(parseInt(v, 10), 100) : 20)),
   search: z.string().optional(),
+  user_id: z.string().uuid().optional(),
 });
 
 export type WebsiteTargetQueryType = z.infer<typeof WebsiteTargetQuerySchema>;

@@ -13,7 +13,6 @@ export const CrawlRunQuerySchema = z.object({
   status: z.nativeEnum(CrawlRunStatus).optional(),
   website_target_id: z.string().uuid().optional(),
   scraper_id: z.string().uuid().optional(),
-  user_tracked_website_target_id: z.string().uuid().optional(),
   user_id: z.string().uuid().optional(),
   date_from: z
     .string()

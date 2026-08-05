@@ -262,7 +262,7 @@ export default function CrawlRunsListPage() {
                     <Table.Row
                       key={run.id}
                       id={run.id}
-                      onAction={() => navigate(Routes.admin.crawlRuns.detail(run.id))}
+                      onAction={() => navigate(Routes.crawlRuns.detail(run.id))}
                       className="cursor-pointer"
                     >
                       <Table.Cell className="pr-0">
