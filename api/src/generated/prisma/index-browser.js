@@ -157,7 +157,6 @@ exports.Prisma.WebsiteTargetScalarFieldEnum = {
   user_id: 'user_id',
   name: 'name',
   base_url: 'base_url',
-  crawl_interval: 'crawl_interval',
   notes: 'notes',
   last_success_at: 'last_success_at',
   last_failure_at: 'last_failure_at',
@@ -199,6 +198,9 @@ exports.Prisma.ScraperScalarFieldEnum = {
   consecutive_failures: 'consecutive_failures',
   last_success_at: 'last_success_at',
   last_failure_at: 'last_failure_at',
+  schedule_cron: 'schedule_cron',
+  schedule_timezone: 'schedule_timezone',
+  schedule_enabled: 'schedule_enabled',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
@@ -224,6 +226,7 @@ exports.Prisma.ScraperGenerationRunScalarFieldEnum = {
 exports.Prisma.ComputerUseStepScalarFieldEnum = {
   id: 'id',
   scraper_generation_run_id: 'scraper_generation_run_id',
+  browser_agent_run_id: 'browser_agent_run_id',
   step_index: 'step_index',
   action_type: 'action_type',
   action_payload: 'action_payload',
@@ -240,6 +243,9 @@ exports.Prisma.ScraperVersionScalarFieldEnum = {
   config: 'config',
   created_by: 'created_by',
   notes: 'notes',
+  generation_prompt: 'generation_prompt',
+  output_formats: 'output_formats',
+  extraction_schema_version_id: 'extraction_schema_version_id',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
@@ -260,6 +266,8 @@ exports.Prisma.CrawlRunScalarFieldEnum = {
   user_id: 'user_id',
   website_target_id: 'website_target_id',
   scraper_id: 'scraper_id',
+  scraper_version_id: 'scraper_version_id',
+  trigger: 'trigger',
   status: 'status',
   started_at: 'started_at',
   finished_at: 'finished_at',
@@ -283,6 +291,129 @@ exports.Prisma.ExtractedItemScalarFieldEnum = {
   content_hash: 'content_hash',
   first_seen_at: 'first_seen_at',
   last_seen_at: 'last_seen_at',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.ExtractionSchemaScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  name: 'name',
+  description: 'description',
+  active_version_id: 'active_version_id',
+  version_count: 'version_count',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.ExtractionSchemaVersionScalarFieldEnum = {
+  id: 'id',
+  extraction_schema_id: 'extraction_schema_id',
+  version: 'version',
+  definition: 'definition',
+  created_at: 'created_at'
+};
+
+exports.Prisma.BrowserAgentConfigScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  name: 'name',
+  url: 'url',
+  output_formats: 'output_formats',
+  extraction_schema_version_id: 'extraction_schema_version_id',
+  schedule_cron: 'schedule_cron',
+  schedule_timezone: 'schedule_timezone',
+  schedule_enabled: 'schedule_enabled',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.BrowserAgentRunScalarFieldEnum = {
+  id: 'id',
+  browser_agent_config_id: 'browser_agent_config_id',
+  user_id: 'user_id',
+  trigger: 'trigger',
+  status: 'status',
+  url: 'url',
+  output_formats: 'output_formats',
+  extraction_schema_version_id: 'extraction_schema_version_id',
+  visited_urls: 'visited_urls',
+  browser_actions: 'browser_actions',
+  collected_data: 'collected_data',
+  ai_usage: 'ai_usage',
+  error_message: 'error_message',
+  started_at: 'started_at',
+  finished_at: 'finished_at',
+  duration_ms: 'duration_ms',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.PlainScrapeConfigScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  name: 'name',
+  urls: 'urls',
+  output_formats: 'output_formats',
+  extraction_schema_version_id: 'extraction_schema_version_id',
+  extraction_scope: 'extraction_scope',
+  schedule_cron: 'schedule_cron',
+  schedule_timezone: 'schedule_timezone',
+  schedule_enabled: 'schedule_enabled',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.PlainScrapeRunScalarFieldEnum = {
+  id: 'id',
+  plain_scrape_config_id: 'plain_scrape_config_id',
+  user_id: 'user_id',
+  trigger: 'trigger',
+  status: 'status',
+  urls: 'urls',
+  output_formats: 'output_formats',
+  extraction_schema_version_id: 'extraction_schema_version_id',
+  extraction_scope: 'extraction_scope',
+  error_message: 'error_message',
+  ai_usage: 'ai_usage',
+  started_at: 'started_at',
+  finished_at: 'finished_at',
+  duration_ms: 'duration_ms',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.PlainScrapedPageScalarFieldEnum = {
+  id: 'id',
+  plain_scrape_run_id: 'plain_scrape_run_id',
+  requested_url: 'requested_url',
+  final_url: 'final_url',
+  http_status: 'http_status',
+  success: 'success',
+  raw_html: 'raw_html',
+  cleaned_content: 'cleaned_content',
+  title: 'title',
+  metadata: 'metadata',
+  error_message: 'error_message',
+  created_at: 'created_at'
+};
+
+exports.Prisma.ExtractionResultScalarFieldEnum = {
+  id: 'id',
+  crawl_run_id: 'crawl_run_id',
+  browser_agent_run_id: 'browser_agent_run_id',
+  plain_scrape_run_id: 'plain_scrape_run_id',
+  plain_scraped_page_id: 'plain_scraped_page_id',
+  extraction_schema_version_id: 'extraction_schema_version_id',
+  structured_status: 'structured_status',
+  structured_data: 'structured_data',
+  structured_raw_ai_output: 'structured_raw_ai_output',
+  structured_validation_errors: 'structured_validation_errors',
+  structured_attempts: 'structured_attempts',
+  markdown_status: 'markdown_status',
+  markdown: 'markdown',
+  markdown_validation_errors: 'markdown_validation_errors',
+  ai_usage: 'ai_usage',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
@@ -496,13 +627,34 @@ exports.ScraperVersionCreatedBy = exports.$Enums.ScraperVersionCreatedBy = {
   USER: 'USER'
 };
 
-exports.CrawlRunStatus = exports.$Enums.CrawlRunStatus = {
+exports.OutputFormat = exports.$Enums.OutputFormat = {
+  STRUCTURED_JSON: 'STRUCTURED_JSON',
+  MARKDOWN: 'MARKDOWN'
+};
+
+exports.RunTrigger = exports.$Enums.RunTrigger = {
+  MANUAL: 'MANUAL',
+  SCHEDULED: 'SCHEDULED'
+};
+
+exports.RunStatus = exports.$Enums.RunStatus = {
   QUEUED: 'QUEUED',
   RUNNING: 'RUNNING',
   SUCCESS: 'SUCCESS',
   PARTIAL_SUCCESS: 'PARTIAL_SUCCESS',
   FAILED: 'FAILED',
   CANCELLED: 'CANCELLED'
+};
+
+exports.ExtractionScope = exports.$Enums.ExtractionScope = {
+  COMBINED: 'COMBINED',
+  PER_URL: 'PER_URL'
+};
+
+exports.ExtractionFormatStatus = exports.$Enums.ExtractionFormatStatus = {
+  VALID: 'VALID',
+  INVALID: 'INVALID',
+  FAILED: 'FAILED'
 };
 
 exports.DiagnosticsArtifactKind = exports.$Enums.DiagnosticsArtifactKind = {
@@ -562,6 +714,14 @@ exports.Prisma.ModelName = {
   ScraperExecutionTrace: 'ScraperExecutionTrace',
   CrawlRun: 'CrawlRun',
   ExtractedItem: 'ExtractedItem',
+  ExtractionSchema: 'ExtractionSchema',
+  ExtractionSchemaVersion: 'ExtractionSchemaVersion',
+  BrowserAgentConfig: 'BrowserAgentConfig',
+  BrowserAgentRun: 'BrowserAgentRun',
+  PlainScrapeConfig: 'PlainScrapeConfig',
+  PlainScrapeRun: 'PlainScrapeRun',
+  PlainScrapedPage: 'PlainScrapedPage',
+  ExtractionResult: 'ExtractionResult',
   DiagnosticsPackage: 'DiagnosticsPackage',
   DiagnosticsArtifact: 'DiagnosticsArtifact',
   JobLog: 'JobLog',
