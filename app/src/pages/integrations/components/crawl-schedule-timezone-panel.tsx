@@ -14,16 +14,16 @@ export function CrawlScheduleTimezonePanel() {
   const [selectedTimezone, setSelectedTimezone] = useState<string | null>(null);
 
   useEffect(() => {
-    if (profile?.crawl_schedule_tz) {
-      setSelectedTimezone(profile.crawl_schedule_tz);
+    if (profile?.default_schedule_tz) {
+      setSelectedTimezone(profile.default_schedule_tz);
     }
-  }, [profile?.crawl_schedule_tz]);
+  }, [profile?.default_schedule_tz]);
 
   const isPending = profilePending || timezonesPending;
   const hasChanges =
     !!profile &&
     !!selectedTimezone &&
-    selectedTimezone !== profile.crawl_schedule_tz;
+    selectedTimezone !== profile.default_schedule_tz;
 
   return (
     <section className="rounded-xl border border-border bg-surface p-5 flex flex-col gap-4">
@@ -63,7 +63,7 @@ export function CrawlScheduleTimezonePanel() {
           isDisabled={!hasChanges || !selectedTimezone}
           onPress={() => {
             if (!selectedTimezone) return;
-            updateProfile.mutate({ crawl_schedule_tz: selectedTimezone });
+            updateProfile.mutate({ default_schedule_tz: selectedTimezone });
           }}
         >
           Save timezone

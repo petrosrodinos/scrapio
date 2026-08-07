@@ -9,10 +9,6 @@ import {
   ScraperStatus,
 } from 'generated/prisma';
 
-// Shared between CrawlProcessor (a crawl that failed while its worker was alive)
-// and CrawlRunWatchdogCron (a crawl whose worker died mid-job, discovered later by
-// timestamp alone) so both paths roll up to the same scraper.consecutive_failures /
-// BROKEN / self-heal behavior.
 @Injectable()
 export class ScraperFailureHandlerService {
   constructor(
@@ -22,26 +18,26 @@ export class ScraperFailureHandlerService {
   ) {}
 
   async handle(params: {
-    scraper: {
+    workflowConfig: {
       id: string;
       self_healing_enabled: boolean;
       consecutive_failures: number;
     };
-    crawlRunId: string;
+    workflowRunId: string;
     websiteTargetId: string;
     zeroListingsPage0: boolean;
     networkError: boolean;
     errorMessage: string;
   }): Promise<void> {
-    const nextFailures = params.scraper.consecutive_failures + 1;
+    const nextFailures = params.workflowConfig.consecutive_failures + 1;
     const shouldMarkBroken =
       params.zeroListingsPage0 || params.networkError || nextFailures >= 3;
 
     const failedAt = new Date();
 
     await Promise.all([
-      this.prisma.scraper.update({
-        where: { id: params.scraper.id },
+      this.prisma.workflowConfig.update({
+        where: { id: params.workflowConfig.id },
         data: {
           consecutive_failures: nextFailures,
           last_failure_at: failedAt,
@@ -66,8 +62,8 @@ export class ScraperFailureHandlerService {
         title: 'Website unavailable',
         message: params.errorMessage,
         website_target_id: params.websiteTargetId,
-        scraper_id: params.scraper.id,
-        crawl_run_id: params.crawlRunId,
+        workflow_config_id: params.workflowConfig.id,
+        workflow_run_id: params.workflowRunId,
       });
     } else {
       this.notificationsService.create({
@@ -76,15 +72,15 @@ export class ScraperFailureHandlerService {
         title: 'Scraper marked as broken',
         message: params.errorMessage,
         website_target_id: params.websiteTargetId,
-        scraper_id: params.scraper.id,
-        crawl_run_id: params.crawlRunId,
+        workflow_config_id: params.workflowConfig.id,
+        workflow_run_id: params.workflowRunId,
       });
     }
 
-    if (params.scraper.self_healing_enabled) {
+    if (params.workflowConfig.self_healing_enabled) {
       const selfHealPrompt = `Self-heal triggered after crawl failure: ${params.errorMessage}`;
       const retried = await this.scraperGenerationService.retryLatestForScraper(
-        params.scraper.id,
+        params.workflowConfig.id,
         params.errorMessage,
         selfHealPrompt,
       );
@@ -92,7 +88,7 @@ export class ScraperFailureHandlerService {
       if (!retried) {
         await this.scraperGenerationService.trigger(
           params.websiteTargetId,
-          params.scraper.id,
+          params.workflowConfig.id,
           GenerationTrigger.SELF_HEAL,
           selfHealPrompt,
         );

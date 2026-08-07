@@ -15,7 +15,7 @@ export class UserProfile {
   role: AuthRole;
 
   @ApiProperty({ example: 'Europe/Athens' })
-  crawl_schedule_tz: string;
+  default_schedule_tz: string;
 
   @ApiProperty()
   created_at: Date;

@@ -1,4 +1,4 @@
-export const CrawlRunStatuses = {
+export const RunStatuses = {
   QUEUED: "QUEUED",
   RUNNING: "RUNNING",
   SUCCESS: "SUCCESS",
@@ -7,12 +7,20 @@ export const CrawlRunStatuses = {
   CANCELLED: "CANCELLED",
 } as const;
 
-export type CrawlRunStatus = (typeof CrawlRunStatuses)[keyof typeof CrawlRunStatuses];
+export type RunStatus = (typeof RunStatuses)[keyof typeof RunStatuses];
+
+export const WorkflowTypes = {
+  SCRAPER: "SCRAPER",
+  BROWSER_AGENT: "BROWSER_AGENT",
+  PLAIN_SCRAPE: "PLAIN_SCRAPE",
+} as const;
+
+export type WorkflowType = (typeof WorkflowTypes)[keyof typeof WorkflowTypes];
 
 export interface ScraperExecutionTrace {
   id: string;
-  scraper_id: string;
-  crawl_run_id: string | null;
+  workflow_config_id: string;
+  workflow_run_id: string | null;
   steps: unknown;
   success: boolean;
   error_summary: string | null;
@@ -20,7 +28,7 @@ export interface ScraperExecutionTrace {
   updated_at: string;
 }
 
-export interface CrawlRunJobLogSummary {
+export interface WorkflowRunJobLogSummary {
   id: string;
   queue_name: string;
   job_name: string | null;
@@ -33,12 +41,15 @@ export interface CrawlRunJobLogSummary {
   created_at: string;
 }
 
-export interface CrawlRun {
+export interface WorkflowRun {
   id: string;
   user_id: string;
-  website_target_id: string;
-  scraper_id: string | null;
-  status: CrawlRunStatus;
+  type: WorkflowType;
+  workflow_config_id: string;
+  website_target_id: string | null;
+  scraper_version_id: string | null;
+  url: string | null;
+  status: RunStatus;
   started_at: string | null;
   finished_at: string | null;
   duration_ms: number | null;
@@ -46,22 +57,23 @@ export interface CrawlRun {
   metadata: Record<string, unknown> | null;
   created_at: string;
   updated_at: string;
-  website_target?: { name: string };
-  scraper?: { name: string } | null;
+  website_target?: { name: string } | null;
+  workflow_config?: { name: string } | null;
 }
 
-export interface CrawlRunDetail extends CrawlRun {
+export interface WorkflowRunDetail extends WorkflowRun {
   execution_traces: ScraperExecutionTrace[];
-  job_logs: CrawlRunJobLogSummary[];
+  job_logs: WorkflowRunJobLogSummary[];
   diagnostics_package?: { id: string; mode: string } | null;
 }
 
-export interface CrawlRunListQuery {
+export interface WorkflowRunListQuery {
   page?: number;
   limit?: number;
-  status?: CrawlRunStatus;
+  status?: RunStatus;
+  type?: WorkflowType;
   website_target_id?: string;
-  scraper_id?: string;
+  workflow_config_id?: string;
   date_from?: string;
   date_to?: string;
 }
@@ -80,8 +92,16 @@ export interface PaginatedResponse<T> {
   pagination: PaginationMeta;
 }
 
-export interface CrawlRunListResponse extends PaginatedResponse<CrawlRun> {}
+export interface WorkflowRunListResponse extends PaginatedResponse<WorkflowRun> {}
 
-export interface DeleteCrawlRunsPayload {
-  crawl_run_ids: string[];
+export interface DeleteWorkflowRunsPayload {
+  workflow_run_ids: string[];
 }
+
+export type CrawlRunStatus = RunStatus;
+export type CrawlRun = WorkflowRun;
+export type CrawlRunDetail = WorkflowRunDetail;
+export type CrawlRunListQuery = WorkflowRunListQuery;
+export type CrawlRunListResponse = WorkflowRunListResponse;
+export type DeleteCrawlRunsPayload = DeleteWorkflowRunsPayload;
+export const CrawlRunStatuses = RunStatuses;

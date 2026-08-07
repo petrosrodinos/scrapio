@@ -13,7 +13,7 @@ export const GenerationRunQuerySchema = z.object({
   status: z.nativeEnum(GenerationRunStatus).optional(),
   trigger: z.nativeEnum(GenerationTrigger).optional(),
   website_target_id: z.string().uuid().optional(),
-  scraper_id: z.string().uuid().optional(),
+  workflow_config_id: z.string().uuid().optional(),
   user_id: z.string().uuid().optional(),
 });
 

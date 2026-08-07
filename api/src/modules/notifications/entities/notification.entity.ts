@@ -21,10 +21,10 @@ export class Notification {
   website_target_id: string | null;
 
   @ApiProperty({ nullable: true })
-  scraper_id: string | null;
+  workflow_config_id: string | null;
 
   @ApiProperty({ nullable: true })
-  crawl_run_id: string | null;
+  workflow_run_id: string | null;
 
   @ApiProperty()
   is_read: boolean;

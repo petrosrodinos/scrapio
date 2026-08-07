@@ -2,32 +2,26 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '@/core/databases/prisma/prisma.service';
 import { AuthUser } from '@/shared/interfaces/auth-user.interface';
 import {
-  crawlRunUserWhere,
   generationRunUserWhere,
   jobLogUserWhere,
   resolveScopeUserId,
-  scraperUserWhere,
   websiteTargetUserWhere,
+  workflowConfigUserWhere,
+  workflowRunUserWhere,
 } from '@/shared/utils/user/user-scope.utils';
 import {
-  CrawlRunStatus,
   GenerationRunStatus,
   JobStatus,
   Prisma,
+  RunStatus,
   ScraperStatus,
+  WorkflowType,
 } from 'generated/prisma';
 import { DashboardQueryType } from './dto/dashboard-query.schema';
 import { DashboardActivityItem } from './entities/dashboard.entity';
 
-const RUNNING_CRAWL_STATUSES: CrawlRunStatus[] = [
-  CrawlRunStatus.QUEUED,
-  CrawlRunStatus.RUNNING,
-];
-
-const SUCCESS_CRAWL_STATUSES: CrawlRunStatus[] = [
-  CrawlRunStatus.SUCCESS,
-  CrawlRunStatus.PARTIAL_SUCCESS,
-];
+const RUNNING_STATUSES: RunStatus[] = [RunStatus.QUEUED, RunStatus.RUNNING];
+const SUCCESS_STATUSES: RunStatus[] = [RunStatus.SUCCESS, RunStatus.PARTIAL_SUCCESS];
 
 const ACTIVE_GENERATION_STATUSES: GenerationRunStatus[] = [
   GenerationRunStatus.QUEUED,
@@ -43,9 +37,13 @@ export class DashboardService {
 
   async getDashboard(authUser: AuthUser, query: DashboardQueryType) {
     const queryUserId = query.user_id;
-    const scraperWhere = scraperUserWhere(authUser, queryUserId);
+    const configWhere = workflowConfigUserWhere(authUser, queryUserId);
+    const scraperConfigWhere: Prisma.WorkflowConfigWhereInput = {
+      ...configWhere,
+      type: WorkflowType.SCRAPER,
+    };
     const targetWhere = websiteTargetUserWhere(authUser, queryUserId);
-    const crawlWhere = crawlRunUserWhere(authUser, queryUserId);
+    const runWhere = workflowRunUserWhere(authUser, queryUserId);
     const generationWhere = generationRunUserWhere(authUser, queryUserId);
     const jobWhere = jobLogUserWhere(authUser, queryUserId);
     const extractedWhere = this.extractedItemUserWhere(authUser, queryUserId);
@@ -57,45 +55,39 @@ export class DashboardService {
       scrapersActive,
       scrapersBroken,
       targetsTotal,
-      runningCrawls,
-      failedCrawls24h,
-      lastCrawl,
+      runningRuns,
+      failedRuns24h,
+      lastRun,
       queueWaiting,
       queueActive,
       queueFailed,
       activeGenerationRuns,
       extractedItemsTotal,
-      recentSuccessfulCrawls,
-      recentFailedCrawls,
+      recentSuccessfulRuns,
+      recentFailedRuns,
       recentBrokenScrapers,
       recentGenerationRuns,
     ] = await Promise.all([
-      this.prisma.scraper.count({ where: scraperWhere }),
-      this.prisma.scraper.count({
-        where: { ...scraperWhere, status: ScraperStatus.ACTIVE },
+      this.prisma.workflowConfig.count({ where: scraperConfigWhere }),
+      this.prisma.workflowConfig.count({
+        where: { ...scraperConfigWhere, status: ScraperStatus.ACTIVE },
       }),
-      this.prisma.scraper.count({
-        where: { ...scraperWhere, status: ScraperStatus.BROKEN },
+      this.prisma.workflowConfig.count({
+        where: { ...scraperConfigWhere, status: ScraperStatus.BROKEN },
       }),
       this.prisma.websiteTarget.count({ where: targetWhere }),
-      this.prisma.crawlRun.count({
-        where: {
-          ...crawlWhere,
-          status: { in: RUNNING_CRAWL_STATUSES },
-        },
+      this.prisma.workflowRun.count({
+        where: { ...runWhere, status: { in: RUNNING_STATUSES } },
       }),
-      this.prisma.crawlRun.count({
+      this.prisma.workflowRun.count({
         where: {
-          ...crawlWhere,
-          status: CrawlRunStatus.FAILED,
+          ...runWhere,
+          status: RunStatus.FAILED,
           created_at: { gte: twentyFourHoursAgo },
         },
       }),
-      this.prisma.crawlRun.findFirst({
-        where: {
-          ...crawlWhere,
-          finished_at: { not: null },
-        },
+      this.prisma.workflowRun.findFirst({
+        where: { ...runWhere, finished_at: { not: null } },
         orderBy: { finished_at: 'desc' },
         select: { finished_at: true },
       }),
@@ -109,47 +101,38 @@ export class DashboardService {
         where: { ...jobWhere, status: JobStatus.FAILED },
       }),
       this.prisma.scraperGenerationRun.count({
-        where: {
-          ...generationWhere,
-          status: { in: ACTIVE_GENERATION_STATUSES },
-        },
+        where: { ...generationWhere, status: { in: ACTIVE_GENERATION_STATUSES } },
       }),
       this.prisma.extractedItem.count({ where: extractedWhere }),
-      this.prisma.crawlRun.findMany({
-        where: {
-          ...crawlWhere,
-          status: { in: SUCCESS_CRAWL_STATUSES },
-        },
+      this.prisma.workflowRun.findMany({
+        where: { ...runWhere, status: { in: SUCCESS_STATUSES } },
         orderBy: { finished_at: 'desc' },
         take: ACTIVITY_LIMIT,
         select: {
           id: true,
           website_target_id: true,
-          scraper_id: true,
+          workflow_config_id: true,
           finished_at: true,
           created_at: true,
           website_target: { select: { name: true } },
         },
       }),
-      this.prisma.crawlRun.findMany({
-        where: {
-          ...crawlWhere,
-          status: CrawlRunStatus.FAILED,
-        },
+      this.prisma.workflowRun.findMany({
+        where: { ...runWhere, status: RunStatus.FAILED },
         orderBy: { finished_at: 'desc' },
         take: ACTIVITY_LIMIT,
         select: {
           id: true,
           website_target_id: true,
-          scraper_id: true,
+          workflow_config_id: true,
           finished_at: true,
           created_at: true,
           error_message: true,
           website_target: { select: { name: true } },
         },
       }),
-      this.prisma.scraper.findMany({
-        where: { ...scraperWhere, status: ScraperStatus.BROKEN },
+      this.prisma.workflowConfig.findMany({
+        where: { ...scraperConfigWhere, status: ScraperStatus.BROKEN },
         orderBy: { last_failure_at: 'desc' },
         take: ACTIVITY_LIMIT,
         select: {
@@ -168,7 +151,7 @@ export class DashboardService {
         select: {
           id: true,
           website_target_id: true,
-          scraper_id: true,
+          workflow_config_id: true,
           status: true,
           trigger: true,
           created_at: true,
@@ -180,8 +163,8 @@ export class DashboardService {
     ]);
 
     const activityFeed = this.buildActivityFeed(
-      recentSuccessfulCrawls,
-      recentFailedCrawls,
+      recentSuccessfulRuns,
+      recentFailedRuns,
       recentBrokenScrapers,
       recentGenerationRuns,
     );
@@ -191,9 +174,9 @@ export class DashboardService {
       scrapers_active: scrapersActive,
       scrapers_broken: scrapersBroken,
       targets_total: targetsTotal,
-      running_crawls: runningCrawls,
-      failed_crawls_24h: failedCrawls24h,
-      last_crawl_at: lastCrawl?.finished_at ?? null,
+      running_crawls: runningRuns,
+      failed_crawls_24h: failedRuns24h,
+      last_crawl_at: lastRun?.finished_at ?? null,
       queue_waiting: queueWaiting,
       queue_active: queueActive,
       queue_failed: queueFailed,
@@ -212,35 +195,35 @@ export class DashboardService {
   }
 
   private buildActivityFeed(
-    successfulCrawls: {
+    successfulRuns: {
       id: string;
-      website_target_id: string;
-      scraper_id: string | null;
+      website_target_id: string | null;
+      workflow_config_id: string;
       finished_at: Date | null;
       created_at: Date;
-      website_target: { name: string };
+      website_target: { name: string } | null;
     }[],
-    failedCrawls: {
+    failedRuns: {
       id: string;
-      website_target_id: string;
-      scraper_id: string | null;
+      website_target_id: string | null;
+      workflow_config_id: string;
       finished_at: Date | null;
       created_at: Date;
       error_message: string | null;
-      website_target: { name: string };
+      website_target: { name: string } | null;
     }[],
-    brokenScrapers: {
+    brokenConfigs: {
       id: string;
-      website_target_id: string;
+      website_target_id: string | null;
       name: string;
       last_failure_at: Date | null;
       updated_at: Date;
-      website_target: { name: string };
+      website_target: { name: string } | null;
     }[],
     generationRuns: {
       id: string;
       website_target_id: string;
-      scraper_id: string | null;
+      workflow_config_id: string | null;
       status: GenerationRunStatus;
       trigger: string;
       created_at: Date;
@@ -250,41 +233,41 @@ export class DashboardService {
     }[],
   ): DashboardActivityItem[] {
     const items: DashboardActivityItem[] = [
-      ...successfulCrawls.map((run) => ({
+      ...successfulRuns.map((run) => ({
         type: 'crawl' as const,
         id: run.id,
         website_target_id: run.website_target_id,
-        website_target_name: run.website_target.name,
-        scraper_id: run.scraper_id,
-        crawl_run_id: run.id,
-        message: 'Crawl completed',
+        website_target_name: run.website_target?.name ?? '',
+        workflow_config_id: run.workflow_config_id,
+        workflow_run_id: run.id,
+        message: 'Run completed',
         occurred_at: run.finished_at ?? run.created_at,
       })),
-      ...failedCrawls.map((run) => ({
+      ...failedRuns.map((run) => ({
         type: 'crawl_failed' as const,
         id: run.id,
         website_target_id: run.website_target_id,
-        website_target_name: run.website_target.name,
-        scraper_id: run.scraper_id,
-        crawl_run_id: run.id,
+        website_target_name: run.website_target?.name ?? '',
+        workflow_config_id: run.workflow_config_id,
+        workflow_run_id: run.id,
         message: run.error_message,
         occurred_at: run.finished_at ?? run.created_at,
       })),
-      ...brokenScrapers.map((scraper) => ({
+      ...brokenConfigs.map((config) => ({
         type: 'scraper_broken' as const,
-        id: scraper.id,
-        website_target_id: scraper.website_target_id,
-        website_target_name: scraper.website_target.name,
-        scraper_id: scraper.id,
-        message: `Scraper "${scraper.name}" is broken`,
-        occurred_at: scraper.last_failure_at ?? scraper.updated_at,
+        id: config.id,
+        website_target_id: config.website_target_id,
+        website_target_name: config.website_target?.name ?? '',
+        workflow_config_id: config.id,
+        message: `Scraper "${config.name}" is broken`,
+        occurred_at: config.last_failure_at ?? config.updated_at,
       })),
       ...generationRuns.map((run) => ({
         type: 'generation' as const,
         id: run.id,
         website_target_id: run.website_target_id,
         website_target_name: run.website_target.name,
-        scraper_id: run.scraper_id,
+        workflow_config_id: run.workflow_config_id,
         generation_run_id: run.id,
         message:
           run.error_message ??

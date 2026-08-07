@@ -23,10 +23,10 @@ export function websiteTargetUserWhere(
   return scopeId ? { user_id: scopeId } : {};
 }
 
-export function scraperUserWhere(
+export function workflowConfigUserWhere(
   authUser: AuthUser,
   queryUserId?: string,
-): Prisma.ScraperWhereInput {
+): Prisma.WorkflowConfigWhereInput {
   const scopeId = resolveScopeUserId(authUser, queryUserId);
   return scopeId ? { user_id: scopeId } : {};
 }
@@ -42,10 +42,10 @@ export function generationRunUserWhere(
   return { website_target: { user_id: scopeId } };
 }
 
-export function crawlRunUserWhere(
+export function workflowRunUserWhere(
   authUser: AuthUser,
   queryUserId?: string,
-): Prisma.CrawlRunWhereInput {
+): Prisma.WorkflowRunWhereInput {
   const scopeId = resolveScopeUserId(authUser, queryUserId);
   return scopeId ? { user_id: scopeId } : {};
 }
@@ -58,7 +58,7 @@ export function diagnosticsUserWhere(
   if (!scopeId) {
     return {};
   }
-  return { scraper: { user_id: scopeId } };
+  return { workflow_config: { user_id: scopeId } };
 }
 
 export function jobLogUserWhere(
@@ -69,5 +69,5 @@ export function jobLogUserWhere(
   if (!scopeId) {
     return {};
   }
-  return { crawl_run: { user_id: scopeId } };
+  return { workflow_run: { user_id: scopeId } };
 }

@@ -1,7 +1,12 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { PrismaService } from '@/core/databases/prisma/prisma.service';
-import { CrawlRunStatus, ScraperHealth, ScraperStatus } from 'generated/prisma';
+import {
+  RunStatus,
+  ScraperHealth,
+  ScraperStatus,
+  WorkflowType,
+} from 'generated/prisma';
 
 @Injectable()
 export class ScraperHealthCron {
@@ -12,20 +17,22 @@ export class ScraperHealthCron {
   @Cron(CronExpression.EVERY_HOUR)
   async recomputeScraperHealth(): Promise<void> {
     const since = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
-    const scrapers = await this.prisma.scraper.findMany({
+    const scrapers = await this.prisma.workflowConfig.findMany({
+      where: { type: WorkflowType.SCRAPER },
       select: { id: true, status: true },
     });
 
     for (const scraper of scrapers) {
-      const runs = await this.prisma.crawlRun.findMany({
+      const runs = await this.prisma.workflowRun.findMany({
         where: {
-          scraper_id: scraper.id,
+          workflow_config_id: scraper.id,
+          type: WorkflowType.SCRAPER,
           created_at: { gte: since },
           status: {
             in: [
-              CrawlRunStatus.SUCCESS,
-              CrawlRunStatus.PARTIAL_SUCCESS,
-              CrawlRunStatus.FAILED,
+              RunStatus.SUCCESS,
+              RunStatus.PARTIAL_SUCCESS,
+              RunStatus.FAILED,
             ],
           },
         },
@@ -40,8 +47,8 @@ export class ScraperHealthCron {
 
       const successCount = runs.filter(
         (run) =>
-          run.status === CrawlRunStatus.SUCCESS ||
-          run.status === CrawlRunStatus.PARTIAL_SUCCESS,
+          run.status === RunStatus.SUCCESS ||
+          run.status === RunStatus.PARTIAL_SUCCESS,
       ).length;
       const successRate = Number(
         ((successCount / runs.length) * 100).toFixed(2),
@@ -71,7 +78,7 @@ export class ScraperHealthCron {
         health = ScraperHealth.CRITICAL;
       }
 
-      await this.prisma.scraper.update({
+      await this.prisma.workflowConfig.update({
         where: { id: scraper.id },
         data: {
           success_rate: successRate,

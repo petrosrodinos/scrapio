@@ -8,17 +8,17 @@ import { Queue } from 'bullmq';
 import { PrismaService } from '@/core/databases/prisma/prisma.service';
 import { CRAWL_QUEUE } from '@/core/queues/queues.constants';
 import { AuthUser } from '@/shared/interfaces/auth-user.interface';
-import { crawlRunUserWhere } from '@/shared/utils/user/user-scope.utils';
+import { workflowRunUserWhere } from '@/shared/utils/user/user-scope.utils';
 import {
   DEFAULT_CRAWL_JOB_ATTEMPTS,
   DEFAULT_CRAWL_JOB_BACKOFF_MS,
 } from '@/integrations/crawler/constants/crawler.constants';
-import { CrawlRunStatus, JobStatus, Prisma } from 'generated/prisma';
+import { JobStatus, Prisma, RunStatus, WorkflowType } from 'generated/prisma';
 import { CrawlRunQueryType } from './dto/crawl-run-query.schema';
 import { PaginatedResult } from './interfaces/crawl-run.interface';
 
 interface CrawlJobData {
-  crawlRunId: string;
+  workflowRunId: string;
 }
 
 const STOPPABLE_JOB_STATUSES: JobStatus[] = [
@@ -28,9 +28,9 @@ const STOPPABLE_JOB_STATUSES: JobStatus[] = [
   JobStatus.PAUSED,
 ];
 
-const ACTIVE_CRAWL_RUN_STATUSES: CrawlRunStatus[] = [
-  CrawlRunStatus.QUEUED,
-  CrawlRunStatus.RUNNING,
+const ACTIVE_RUN_STATUSES: RunStatus[] = [
+  RunStatus.QUEUED,
+  RunStatus.RUNNING,
 ];
 
 @Injectable()
@@ -40,24 +40,25 @@ export class CrawlRunsService {
     @InjectQueue(CRAWL_QUEUE) private readonly crawlQueue: Queue<CrawlJobData>,
   ) {}
 
-  async enqueue(websiteTargetId: string, scraperId?: string) {
+  async enqueue(websiteTargetId: string, workflowConfigId?: string) {
     const websiteTarget = await this.prisma.websiteTarget.findUniqueOrThrow({
       where: { id: websiteTargetId },
       select: { user_id: true },
     });
 
-    const run = await this.prisma.crawlRun.create({
+    const run = await this.prisma.workflowRun.create({
       data: {
         user_id: websiteTarget.user_id,
+        type: WorkflowType.SCRAPER,
+        workflow_config_id: workflowConfigId!,
         website_target_id: websiteTargetId,
-        scraper_id: scraperId ?? null,
-        status: CrawlRunStatus.QUEUED,
+        status: RunStatus.QUEUED,
       },
     });
 
     await this.crawlQueue.add(
       'crawl',
-      { crawlRunId: run.id },
+      { workflowRunId: run.id },
       {
         attempts: DEFAULT_CRAWL_JOB_ATTEMPTS,
         backoff: {
@@ -74,11 +75,12 @@ export class CrawlRunsService {
     authUser: AuthUser,
     query: CrawlRunQueryType,
   ): Promise<PaginatedResult<any>> {
-    const where: Prisma.CrawlRunWhereInput = {
-      ...crawlRunUserWhere(authUser, query.user_id),
+    const where: Prisma.WorkflowRunWhereInput = {
+      ...workflowRunUserWhere(authUser, query.user_id),
+      type: query.type ?? WorkflowType.SCRAPER,
       ...(query.status && { status: query.status }),
       ...(query.website_target_id && { website_target_id: query.website_target_id }),
-      ...(query.scraper_id && { scraper_id: query.scraper_id }),
+      ...(query.workflow_config_id && { workflow_config_id: query.workflow_config_id }),
       ...(query.date_from || query.date_to
         ? {
             created_at: {
@@ -90,17 +92,17 @@ export class CrawlRunsService {
     };
 
     const [items, total] = await Promise.all([
-      this.prisma.crawlRun.findMany({
+      this.prisma.workflowRun.findMany({
         where,
         include: {
           website_target: { select: { name: true } },
-          scraper: { select: { name: true } },
+          workflow_config: { select: { name: true } },
         },
         skip: (query.page - 1) * query.limit,
         take: query.limit,
         orderBy: { created_at: 'desc' },
       }),
-      this.prisma.crawlRun.count({ where }),
+      this.prisma.workflowRun.count({ where }),
     ]);
 
     return {
@@ -117,11 +119,11 @@ export class CrawlRunsService {
   }
 
   async findOne(authUser: AuthUser, id: string) {
-    const run = await this.prisma.crawlRun.findFirst({
-      where: { id, ...crawlRunUserWhere(authUser) },
+    const run = await this.prisma.workflowRun.findFirst({
+      where: { id, ...workflowRunUserWhere(authUser) },
       include: {
         website_target: { select: { name: true } },
-        scraper: { select: { name: true } },
+        workflow_config: { select: { name: true } },
         execution_traces: {
           orderBy: { created_at: 'asc' },
         },
@@ -135,42 +137,42 @@ export class CrawlRunsService {
     });
 
     if (!run) {
-      throw new NotFoundException('Crawl run not found');
+      throw new NotFoundException('Workflow run not found');
     }
 
     return run;
   }
 
   async rerun(authUser: AuthUser, id: string) {
-    const run = await this.prisma.crawlRun.findFirst({
-      where: { id, ...crawlRunUserWhere(authUser) },
+    const run = await this.prisma.workflowRun.findFirst({
+      where: { id, ...workflowRunUserWhere(authUser) },
     });
 
     if (!run) {
-      throw new NotFoundException('Crawl run not found');
+      throw new NotFoundException('Workflow run not found');
     }
 
-    return this.enqueue(run.website_target_id, run.scraper_id ?? undefined);
+    return this.enqueue(run.website_target_id!, run.workflow_config_id);
   }
 
   async cancel(authUser: AuthUser, id: string) {
-    const run = await this.prisma.crawlRun.findFirst({
-      where: { id, ...crawlRunUserWhere(authUser) },
+    const run = await this.prisma.workflowRun.findFirst({
+      where: { id, ...workflowRunUserWhere(authUser) },
     });
 
     if (!run) {
-      throw new NotFoundException('Crawl run not found');
+      throw new NotFoundException('Workflow run not found');
     }
 
-    if (!ACTIVE_CRAWL_RUN_STATUSES.includes(run.status)) {
+    if (!ACTIVE_RUN_STATUSES.includes(run.status)) {
       throw new BadRequestException(
-        'Only QUEUED or RUNNING crawl runs can be stopped',
+        'Only QUEUED or RUNNING runs can be stopped',
       );
     }
 
     const jobLogs = await this.prisma.jobLog.findMany({
       where: {
-        crawl_run_id: id,
+        workflow_run_id: id,
         status: { in: STOPPABLE_JOB_STATUSES },
       },
     });
@@ -187,13 +189,13 @@ export class CrawlRunsService {
       ? finishedAt.getTime() - run.started_at.getTime()
       : null;
 
-    const cancelled = await this.prisma.crawlRun.updateMany({
+    const cancelled = await this.prisma.workflowRun.updateMany({
       where: {
         id,
-        status: { in: ACTIVE_CRAWL_RUN_STATUSES },
+        status: { in: ACTIVE_RUN_STATUSES },
       },
       data: {
-        status: CrawlRunStatus.CANCELLED,
+        status: RunStatus.CANCELLED,
         finished_at: finishedAt,
         duration_ms: durationMs,
         error_message: 'Cancelled by admin',
@@ -202,7 +204,7 @@ export class CrawlRunsService {
 
     if (cancelled.count === 0) {
       throw new BadRequestException(
-        'Only QUEUED or RUNNING crawl runs can be stopped',
+        'Only QUEUED or RUNNING runs can be stopped',
       );
     }
 
@@ -231,40 +233,40 @@ export class CrawlRunsService {
   }
 
   async remove(authUser: AuthUser, id: string) {
-    const run = await this.prisma.crawlRun.findFirst({
-      where: { id, ...crawlRunUserWhere(authUser) },
+    const run = await this.prisma.workflowRun.findFirst({
+      where: { id, ...workflowRunUserWhere(authUser) },
       select: { id: true, status: true },
     });
 
     if (!run) {
-      throw new NotFoundException('Crawl run not found');
+      throw new NotFoundException('Workflow run not found');
     }
 
-    if (ACTIVE_CRAWL_RUN_STATUSES.includes(run.status)) {
-      throw new BadRequestException('Cancel the crawl run before deleting it');
+    if (ACTIVE_RUN_STATUSES.includes(run.status)) {
+      throw new BadRequestException('Cancel the run before deleting it');
     }
 
-    await this.prisma.crawlRun.delete({ where: { id } });
+    await this.prisma.workflowRun.delete({ where: { id } });
   }
 
-  async removeMany(authUser: AuthUser, crawlRunIds: string[]) {
-    const uniqueIds = [...new Set(crawlRunIds)];
-    const runs = await this.prisma.crawlRun.findMany({
-      where: { id: { in: uniqueIds }, ...crawlRunUserWhere(authUser) },
+  async removeMany(authUser: AuthUser, runIds: string[]) {
+    const uniqueIds = [...new Set(runIds)];
+    const runs = await this.prisma.workflowRun.findMany({
+      where: { id: { in: uniqueIds }, ...workflowRunUserWhere(authUser) },
       select: { id: true, status: true },
     });
 
     if (runs.length !== uniqueIds.length) {
-      throw new NotFoundException('One or more crawl runs not found');
+      throw new NotFoundException('One or more workflow runs not found');
     }
 
-    if (runs.some((run) => ACTIVE_CRAWL_RUN_STATUSES.includes(run.status))) {
+    if (runs.some((run) => ACTIVE_RUN_STATUSES.includes(run.status))) {
       throw new BadRequestException(
-        'Cancel active crawl runs before deleting them',
+        'Cancel active runs before deleting them',
       );
     }
 
-    await this.prisma.crawlRun.deleteMany({
+    await this.prisma.workflowRun.deleteMany({
       where: { id: { in: uniqueIds } },
     });
 
@@ -272,10 +274,10 @@ export class CrawlRunsService {
   }
 
   async hasActiveRunForWebsiteTarget(websiteTargetId: string): Promise<boolean> {
-    const active = await this.prisma.crawlRun.findFirst({
+    const active = await this.prisma.workflowRun.findFirst({
       where: {
         website_target_id: websiteTargetId,
-        status: { in: ACTIVE_CRAWL_RUN_STATUSES },
+        status: { in: ACTIVE_RUN_STATUSES },
       },
       select: { id: true },
     });

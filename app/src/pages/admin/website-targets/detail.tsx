@@ -170,7 +170,7 @@ export default function WebsiteTargetDetailPage() {
                   className="flex items-center justify-between gap-3 rounded-lg border border-border p-3 text-left hover:border-accent/50 transition-colors"
                 >
                   <span className="text-xs text-muted truncate">
-                    {run.scraper?.name ?? formatDateTime(run.created_at)}
+                    {run.workflow_config?.name ?? formatDateTime(run.created_at)}
                   </span>
                   <CrawlRunStatusChip status={run.status} />
                 </button>

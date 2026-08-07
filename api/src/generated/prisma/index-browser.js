@@ -126,7 +126,7 @@ exports.Prisma.UserScalarFieldEnum = {
   phone: 'phone',
   password: 'password',
   role: 'role',
-  crawl_schedule_tz: 'crawl_schedule_tz',
+  default_schedule_tz: 'default_schedule_tz',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
@@ -182,11 +182,13 @@ exports.Prisma.BlockRuleScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
-exports.Prisma.ScraperScalarFieldEnum = {
+exports.Prisma.WorkflowConfigScalarFieldEnum = {
   id: 'id',
   user_id: 'user_id',
-  website_target_id: 'website_target_id',
+  type: 'type',
   name: 'name',
+  description: 'description',
+  website_target_id: 'website_target_id',
   active_version_id: 'active_version_id',
   version_count: 'version_count',
   status: 'status',
@@ -198,6 +200,11 @@ exports.Prisma.ScraperScalarFieldEnum = {
   consecutive_failures: 'consecutive_failures',
   last_success_at: 'last_success_at',
   last_failure_at: 'last_failure_at',
+  url: 'url',
+  urls: 'urls',
+  extraction_scope: 'extraction_scope',
+  output_formats: 'output_formats',
+  extraction_schema_version_id: 'extraction_schema_version_id',
   schedule_cron: 'schedule_cron',
   schedule_timezone: 'schedule_timezone',
   schedule_enabled: 'schedule_enabled',
@@ -208,7 +215,7 @@ exports.Prisma.ScraperScalarFieldEnum = {
 exports.Prisma.ScraperGenerationRunScalarFieldEnum = {
   id: 'id',
   website_target_id: 'website_target_id',
-  scraper_id: 'scraper_id',
+  workflow_config_id: 'workflow_config_id',
   trigger: 'trigger',
   status: 'status',
   prompt: 'prompt',
@@ -226,7 +233,7 @@ exports.Prisma.ScraperGenerationRunScalarFieldEnum = {
 exports.Prisma.ComputerUseStepScalarFieldEnum = {
   id: 'id',
   scraper_generation_run_id: 'scraper_generation_run_id',
-  browser_agent_run_id: 'browser_agent_run_id',
+  workflow_run_id: 'workflow_run_id',
   step_index: 'step_index',
   action_type: 'action_type',
   action_payload: 'action_payload',
@@ -238,7 +245,7 @@ exports.Prisma.ComputerUseStepScalarFieldEnum = {
 
 exports.Prisma.ScraperVersionScalarFieldEnum = {
   id: 'id',
-  scraper_id: 'scraper_id',
+  workflow_config_id: 'workflow_config_id',
   version: 'version',
   config: 'config',
   created_by: 'created_by',
@@ -252,8 +259,8 @@ exports.Prisma.ScraperVersionScalarFieldEnum = {
 
 exports.Prisma.ScraperExecutionTraceScalarFieldEnum = {
   id: 'id',
-  scraper_id: 'scraper_id',
-  crawl_run_id: 'crawl_run_id',
+  workflow_config_id: 'workflow_config_id',
+  workflow_run_id: 'workflow_run_id',
   steps: 'steps',
   success: 'success',
   error_summary: 'error_summary',
@@ -261,19 +268,29 @@ exports.Prisma.ScraperExecutionTraceScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
-exports.Prisma.CrawlRunScalarFieldEnum = {
+exports.Prisma.WorkflowRunScalarFieldEnum = {
   id: 'id',
+  workflow_config_id: 'workflow_config_id',
   user_id: 'user_id',
-  website_target_id: 'website_target_id',
-  scraper_id: 'scraper_id',
-  scraper_version_id: 'scraper_version_id',
+  type: 'type',
   trigger: 'trigger',
   status: 'status',
+  website_target_id: 'website_target_id',
+  scraper_version_id: 'scraper_version_id',
+  url: 'url',
+  visited_urls: 'visited_urls',
+  browser_actions: 'browser_actions',
+  collected_data: 'collected_data',
+  urls: 'urls',
+  extraction_scope: 'extraction_scope',
+  output_formats: 'output_formats',
+  extraction_schema_version_id: 'extraction_schema_version_id',
+  ai_usage: 'ai_usage',
+  error_message: 'error_message',
+  metadata: 'metadata',
   started_at: 'started_at',
   finished_at: 'finished_at',
   duration_ms: 'duration_ms',
-  error_message: 'error_message',
-  metadata: 'metadata',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
@@ -281,7 +298,7 @@ exports.Prisma.CrawlRunScalarFieldEnum = {
 exports.Prisma.ExtractedItemScalarFieldEnum = {
   id: 'id',
   website_target_id: 'website_target_id',
-  crawl_run_id: 'crawl_run_id',
+  workflow_run_id: 'workflow_run_id',
   source_url: 'source_url',
   external_id: 'external_id',
   raw_data: 'raw_data',
@@ -311,78 +328,9 @@ exports.Prisma.ExtractionSchemaVersionScalarFieldEnum = {
   created_at: 'created_at'
 };
 
-exports.Prisma.BrowserAgentConfigScalarFieldEnum = {
-  id: 'id',
-  user_id: 'user_id',
-  name: 'name',
-  url: 'url',
-  output_formats: 'output_formats',
-  extraction_schema_version_id: 'extraction_schema_version_id',
-  schedule_cron: 'schedule_cron',
-  schedule_timezone: 'schedule_timezone',
-  schedule_enabled: 'schedule_enabled',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
-};
-
-exports.Prisma.BrowserAgentRunScalarFieldEnum = {
-  id: 'id',
-  browser_agent_config_id: 'browser_agent_config_id',
-  user_id: 'user_id',
-  trigger: 'trigger',
-  status: 'status',
-  url: 'url',
-  output_formats: 'output_formats',
-  extraction_schema_version_id: 'extraction_schema_version_id',
-  visited_urls: 'visited_urls',
-  browser_actions: 'browser_actions',
-  collected_data: 'collected_data',
-  ai_usage: 'ai_usage',
-  error_message: 'error_message',
-  started_at: 'started_at',
-  finished_at: 'finished_at',
-  duration_ms: 'duration_ms',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
-};
-
-exports.Prisma.PlainScrapeConfigScalarFieldEnum = {
-  id: 'id',
-  user_id: 'user_id',
-  name: 'name',
-  urls: 'urls',
-  output_formats: 'output_formats',
-  extraction_schema_version_id: 'extraction_schema_version_id',
-  extraction_scope: 'extraction_scope',
-  schedule_cron: 'schedule_cron',
-  schedule_timezone: 'schedule_timezone',
-  schedule_enabled: 'schedule_enabled',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
-};
-
-exports.Prisma.PlainScrapeRunScalarFieldEnum = {
-  id: 'id',
-  plain_scrape_config_id: 'plain_scrape_config_id',
-  user_id: 'user_id',
-  trigger: 'trigger',
-  status: 'status',
-  urls: 'urls',
-  output_formats: 'output_formats',
-  extraction_schema_version_id: 'extraction_schema_version_id',
-  extraction_scope: 'extraction_scope',
-  error_message: 'error_message',
-  ai_usage: 'ai_usage',
-  started_at: 'started_at',
-  finished_at: 'finished_at',
-  duration_ms: 'duration_ms',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
-};
-
 exports.Prisma.PlainScrapedPageScalarFieldEnum = {
   id: 'id',
-  plain_scrape_run_id: 'plain_scrape_run_id',
+  workflow_run_id: 'workflow_run_id',
   requested_url: 'requested_url',
   final_url: 'final_url',
   http_status: 'http_status',
@@ -397,9 +345,7 @@ exports.Prisma.PlainScrapedPageScalarFieldEnum = {
 
 exports.Prisma.ExtractionResultScalarFieldEnum = {
   id: 'id',
-  crawl_run_id: 'crawl_run_id',
-  browser_agent_run_id: 'browser_agent_run_id',
-  plain_scrape_run_id: 'plain_scrape_run_id',
+  workflow_run_id: 'workflow_run_id',
   plain_scraped_page_id: 'plain_scraped_page_id',
   extraction_schema_version_id: 'extraction_schema_version_id',
   structured_status: 'structured_status',
@@ -417,8 +363,8 @@ exports.Prisma.ExtractionResultScalarFieldEnum = {
 
 exports.Prisma.DiagnosticsPackageScalarFieldEnum = {
   id: 'id',
-  crawl_run_id: 'crawl_run_id',
-  scraper_id: 'scraper_id',
+  workflow_run_id: 'workflow_run_id',
+  workflow_config_id: 'workflow_config_id',
   mode: 'mode',
   url: 'url',
   worker_id: 'worker_id',
@@ -452,7 +398,7 @@ exports.Prisma.JobLogScalarFieldEnum = {
   status: 'status',
   attempt: 'attempt',
   max_attempts: 'max_attempts',
-  crawl_run_id: 'crawl_run_id',
+  workflow_run_id: 'workflow_run_id',
   payload: 'payload',
   result: 'result',
   error_message: 'error_message',
@@ -471,8 +417,8 @@ exports.Prisma.NotificationScalarFieldEnum = {
   title: 'title',
   message: 'message',
   website_target_id: 'website_target_id',
-  scraper_id: 'scraper_id',
-  crawl_run_id: 'crawl_run_id',
+  workflow_config_id: 'workflow_config_id',
+  workflow_run_id: 'workflow_run_id',
   is_read: 'is_read',
   created_at: 'created_at'
 };
@@ -565,6 +511,12 @@ exports.BlockRuleSource = exports.$Enums.BlockRuleSource = {
   SELECTOR: 'SELECTOR'
 };
 
+exports.WorkflowType = exports.$Enums.WorkflowType = {
+  SCRAPER: 'SCRAPER',
+  BROWSER_AGENT: 'BROWSER_AGENT',
+  PLAIN_SCRAPE: 'PLAIN_SCRAPE'
+};
+
 exports.ScraperStatus = exports.$Enums.ScraperStatus = {
   ACTIVE: 'ACTIVE',
   INACTIVE: 'INACTIVE',
@@ -585,6 +537,16 @@ exports.ScraperHealth = exports.$Enums.ScraperHealth = {
   WARNING: 'WARNING',
   CRITICAL: 'CRITICAL',
   BROKEN: 'BROKEN'
+};
+
+exports.ExtractionScope = exports.$Enums.ExtractionScope = {
+  COMBINED: 'COMBINED',
+  PER_URL: 'PER_URL'
+};
+
+exports.OutputFormat = exports.$Enums.OutputFormat = {
+  STRUCTURED_JSON: 'STRUCTURED_JSON',
+  MARKDOWN: 'MARKDOWN'
 };
 
 exports.GenerationTrigger = exports.$Enums.GenerationTrigger = {
@@ -624,11 +586,6 @@ exports.ScraperVersionCreatedBy = exports.$Enums.ScraperVersionCreatedBy = {
   USER: 'USER'
 };
 
-exports.OutputFormat = exports.$Enums.OutputFormat = {
-  STRUCTURED_JSON: 'STRUCTURED_JSON',
-  MARKDOWN: 'MARKDOWN'
-};
-
 exports.RunTrigger = exports.$Enums.RunTrigger = {
   MANUAL: 'MANUAL',
   SCHEDULED: 'SCHEDULED'
@@ -641,11 +598,6 @@ exports.RunStatus = exports.$Enums.RunStatus = {
   PARTIAL_SUCCESS: 'PARTIAL_SUCCESS',
   FAILED: 'FAILED',
   CANCELLED: 'CANCELLED'
-};
-
-exports.ExtractionScope = exports.$Enums.ExtractionScope = {
-  COMBINED: 'COMBINED',
-  PER_URL: 'PER_URL'
 };
 
 exports.ExtractionFormatStatus = exports.$Enums.ExtractionFormatStatus = {
@@ -677,7 +629,9 @@ exports.NotificationType = exports.$Enums.NotificationType = {
   QUEUE_FAILURE: 'QUEUE_FAILURE',
   BROKEN_SCRAPER: 'BROKEN_SCRAPER',
   WEBSITE_UNAVAILABLE: 'WEBSITE_UNAVAILABLE',
-  LARGE_CRAWL_FAILURE: 'LARGE_CRAWL_FAILURE'
+  LARGE_CRAWL_FAILURE: 'LARGE_CRAWL_FAILURE',
+  BROWSER_AGENT_FAILURE: 'BROWSER_AGENT_FAILURE',
+  PLAIN_SCRAPE_FAILURE: 'PLAIN_SCRAPE_FAILURE'
 };
 
 exports.NotificationSeverity = exports.$Enums.NotificationSeverity = {
@@ -704,19 +658,15 @@ exports.Prisma.ModelName = {
   Document: 'Document',
   WebsiteTarget: 'WebsiteTarget',
   BlockRule: 'BlockRule',
-  Scraper: 'Scraper',
+  WorkflowConfig: 'WorkflowConfig',
   ScraperGenerationRun: 'ScraperGenerationRun',
   ComputerUseStep: 'ComputerUseStep',
   ScraperVersion: 'ScraperVersion',
   ScraperExecutionTrace: 'ScraperExecutionTrace',
-  CrawlRun: 'CrawlRun',
+  WorkflowRun: 'WorkflowRun',
   ExtractedItem: 'ExtractedItem',
   ExtractionSchema: 'ExtractionSchema',
   ExtractionSchemaVersion: 'ExtractionSchemaVersion',
-  BrowserAgentConfig: 'BrowserAgentConfig',
-  BrowserAgentRun: 'BrowserAgentRun',
-  PlainScrapeConfig: 'PlainScrapeConfig',
-  PlainScrapeRun: 'PlainScrapeRun',
   PlainScrapedPage: 'PlainScrapedPage',
   ExtractionResult: 'ExtractionResult',
   DiagnosticsPackage: 'DiagnosticsPackage',

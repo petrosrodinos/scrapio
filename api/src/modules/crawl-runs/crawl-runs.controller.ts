@@ -20,7 +20,7 @@ import { RolesGuard } from '@/shared/guards/roles.guard';
 import { Roles } from '@/shared/decorators/roles.decorator';
 import { CurrentUser } from '@/shared/decorators/current-user.decorator';
 import { AuthUser } from '@/shared/interfaces/auth-user.interface';
-import { AuthRole, CrawlRunStatus } from 'generated/prisma';
+import { AuthRole, RunStatus } from 'generated/prisma';
 import { ZodValidationPipe } from '@/shared/pipes/zod.validation.pipe';
 import { CrawlRunsService } from './crawl-runs.service';
 import {
@@ -43,9 +43,9 @@ export class CrawlRunsController {
   @ApiResponse({ status: 200, description: 'Paginated crawl run list' })
   @ApiQuery({ name: 'page', required: false, type: Number })
   @ApiQuery({ name: 'limit', required: false, type: Number })
-  @ApiQuery({ name: 'status', required: false, enum: CrawlRunStatus })
+  @ApiQuery({ name: 'status', required: false, enum: RunStatus })
   @ApiQuery({ name: 'website_target_id', required: false, type: String })
-  @ApiQuery({ name: 'scraper_id', required: false, type: String })
+  @ApiQuery({ name: 'workflow_config_id', required: false, type: String })
   @ApiQuery({ name: 'user_id', required: false, type: String })
   @ApiQuery({ name: 'date_from', required: false, type: String })
   @ApiQuery({ name: 'date_to', required: false, type: String })
@@ -66,7 +66,7 @@ export class CrawlRunsController {
     @CurrentUser() authUser: AuthUser,
     @Body() dto: DeleteCrawlRunsDto,
   ) {
-    return this.crawlRunsService.removeMany(authUser, dto.crawl_run_ids);
+    return this.crawlRunsService.removeMany(authUser, dto.workflow_run_ids);
   }
 
   @Get(':id')

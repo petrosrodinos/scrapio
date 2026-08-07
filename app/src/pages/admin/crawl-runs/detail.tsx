@@ -101,12 +101,12 @@ export default function CrawlRunDetailPage() {
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 rounded-xl border border-border bg-surface p-6">
         <div className="flex flex-col gap-1">
           <span className="text-xs font-medium uppercase tracking-wide text-muted">Scraper</span>
-          {run.scraper_id ? (
+          {run.workflow_config_id ? (
             <button
               className="text-sm text-accent hover:underline text-left"
-              onClick={() => navigate(Routes.scrapers.detail(run.scraper_id!))}
+              onClick={() => navigate(Routes.scrapers.detail(run.workflow_config_id!))}
             >
-              {run.scraper?.name ?? run.scraper_id}
+              {run.workflow_config?.name ?? run.workflow_config_id}
             </button>
           ) : (
             <span className="text-sm text-foreground">—</span>
@@ -116,7 +116,7 @@ export default function CrawlRunDetailPage() {
           <span className="text-xs font-medium uppercase tracking-wide text-muted">Website target</span>
           <button
             className="text-sm text-accent hover:underline text-left"
-            onClick={() => navigate(Routes.websiteTargets.detail(run.website_target_id))}
+            onClick={() => navigate(Routes.websiteTargets.detail(run.website_target_id!))}
           >
             {run.website_target?.name ?? run.website_target_id}
           </button>

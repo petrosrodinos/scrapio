@@ -5,7 +5,7 @@ import { parseExpression } from 'cron-parser';
 import { PrismaService } from '@/core/databases/prisma/prisma.service';
 import { CrawlRunsService } from '@/modules/crawl-runs/crawl-runs.service';
 import { DEFAULT_CRAWL_SCHEDULE_TZ } from '@/shared/config/crawl-schedule-timezones.config';
-import { ScraperStatus } from 'generated/prisma';
+import { ScraperStatus, WorkflowType } from 'generated/prisma';
 import type { EnvConfig } from '@/shared/config/env/env.validation';
 
 const MANUAL_ONLY_CRAWL_ENVS: ReadonlySet<EnvConfig['NODE_ENV']> = new Set([
@@ -33,55 +33,53 @@ export class CrawlSchedulerCron {
 
     const now = new Date();
 
-    const websiteTargets = await this.prisma.websiteTarget.findMany({
+    const configs = await this.prisma.workflowConfig.findMany({
+      where: {
+        type: WorkflowType.SCRAPER,
+        schedule_enabled: true,
+        schedule_cron: { not: null },
+        status: { in: [ScraperStatus.ACTIVE, ScraperStatus.TESTING] },
+        website_target_id: { not: null },
+      },
       select: {
         id: true,
-        crawl_interval: true,
-        user: { select: { crawl_schedule_tz: true } },
+        website_target_id: true,
+        schedule_cron: true,
+        schedule_timezone: true,
+        user: { select: { default_schedule_tz: true } },
       },
     });
 
-    for (const websiteTarget of websiteTargets) {
+    for (const config of configs) {
       const scheduleTz =
-        websiteTarget.user.crawl_schedule_tz || DEFAULT_CRAWL_SCHEDULE_TZ;
+        config.schedule_timezone ||
+        config.user.default_schedule_tz ||
+        DEFAULT_CRAWL_SCHEDULE_TZ;
 
-      if (!this.isCronDue(websiteTarget.crawl_interval, now, scheduleTz)) {
+      if (!this.isCronDue(config.schedule_cron!, now, scheduleTz)) {
         continue;
       }
 
       const hasActiveRun =
         await this.crawlRunsService.hasActiveRunForWebsiteTarget(
-          websiteTarget.id,
+          config.website_target_id!,
         );
       if (hasActiveRun) {
         continue;
       }
 
-      const scraper = await this.prisma.scraper.findFirst({
-        where: {
-          website_target_id: websiteTarget.id,
-          status: { in: [ScraperStatus.ACTIVE, ScraperStatus.TESTING] },
-        },
-        orderBy: { updated_at: 'desc' },
-        select: { id: true },
-      });
-
-      if (!scraper) {
-        this.logger.warn(
-          `website target ${websiteTarget.id}: no scraper — skipping`,
-        );
-        continue;
-      }
-
       try {
-        await this.crawlRunsService.enqueue(websiteTarget.id, scraper.id);
+        await this.crawlRunsService.enqueue(
+          config.website_target_id!,
+          config.id,
+        );
         this.logger.log(
-          `scheduled crawl enqueued for website target ${websiteTarget.id}`,
+          `scheduled crawl enqueued for workflow config ${config.id}`,
         );
       } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
         this.logger.error(
-          `failed to enqueue scheduled crawl for website target ${websiteTarget.id}: ${message}`,
+          `failed to enqueue scheduled crawl for workflow config ${config.id}: ${message}`,
         );
       }
     }
@@ -103,7 +101,7 @@ export class CrawlSchedulerCron {
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
       this.logger.warn(
-        `invalid crawl_interval "${cronExpression}": ${message}`,
+        `invalid schedule_cron "${cronExpression}": ${message}`,
       );
       return false;
     }

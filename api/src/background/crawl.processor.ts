@@ -17,15 +17,15 @@ import { buildBlockHandlingConfig } from '@/integrations/crawler/block-handling/
 import { NotificationsService } from '@/modules/notifications/notifications.service';
 import { ScraperFailureHandlerService } from '@/background/scraper-failure-handler.service';
 import {
-  CrawlRunStatus,
   JobStatus,
   NotificationSeverity,
   NotificationType,
   Prisma,
+  RunStatus,
 } from 'generated/prisma';
 
 interface CrawlJobData {
-  crawlRunId: string;
+  workflowRunId: string;
   jobLogId?: string;
 }
 
@@ -72,29 +72,29 @@ export class CrawlProcessor extends WorkerHost implements OnModuleInit {
         type: NotificationType.QUEUE_FAILURE,
         severity: NotificationSeverity.CRITICAL,
         title: 'Crawl queue job failed',
-        message: `Crawl job ${job.data.crawlRunId} failed: ${message}`,
-        crawl_run_id: job.data.crawlRunId,
+        message: `Crawl job ${job.data.workflowRunId} failed: ${message}`,
+        workflow_run_id: job.data.workflowRunId,
       });
       throw error;
     }
   }
 
   private async processCrawlJob(job: Job<CrawlJobData>): Promise<void> {
-    const { crawlRunId, jobLogId } = job.data;
+    const { workflowRunId, jobLogId } = job.data;
     const { crawl_job_timeout_ms } =
       await this.platformConfigService.getCrawlerConfig();
-    this.logger.log(`crawl job received: ${crawlRunId}`);
+    this.logger.log(`crawl job received: ${workflowRunId}`);
 
-    if (!crawlRunId) {
+    if (!workflowRunId) {
       throw new Error(
-        `crawl job ${job.id ?? '(no id)'} has no crawlRunId in its payload: ${JSON.stringify(job.data)}`,
+        `crawl job ${job.id ?? '(no id)'} has no workflowRunId in its payload: ${JSON.stringify(job.data)}`,
       );
     }
 
-    const run = await this.prisma.crawlRun.findUnique({
-      where: { id: crawlRunId },
+    const run = await this.prisma.workflowRun.findUnique({
+      where: { id: workflowRunId },
       include: {
-        scraper: {
+        workflow_config: {
           include: { active_version: true },
         },
         website_target: {
@@ -108,7 +108,7 @@ export class CrawlProcessor extends WorkerHost implements OnModuleInit {
     });
 
     if (!run) {
-      this.logger.error(`crawl job ${crawlRunId}: run not found`);
+      this.logger.error(`crawl job ${workflowRunId}: run not found`);
       return;
     }
 
@@ -116,13 +116,13 @@ export class CrawlProcessor extends WorkerHost implements OnModuleInit {
     const maxAttempts = job.opts.attempts ?? 1;
     const isRetry = job.attemptsMade > 0;
 
-    const reclaimableStatuses: CrawlRunStatus[] = isRetry
-      ? [CrawlRunStatus.QUEUED, CrawlRunStatus.RUNNING, CrawlRunStatus.FAILED]
-      : [CrawlRunStatus.QUEUED];
+    const reclaimableStatuses: RunStatus[] = isRetry
+      ? [RunStatus.QUEUED, RunStatus.RUNNING, RunStatus.FAILED]
+      : [RunStatus.QUEUED];
 
     if (!reclaimableStatuses.includes(run.status)) {
       this.logger.warn(
-        `crawl job ${crawlRunId}: run is ${run.status}, not reclaimable on attempt ${attempt} — skipping`,
+        `crawl job ${workflowRunId}: run is ${run.status}, not reclaimable on attempt ${attempt} — skipping`,
       );
       return;
     }
@@ -130,16 +130,16 @@ export class CrawlProcessor extends WorkerHost implements OnModuleInit {
     const startedAt = new Date();
     const logId = await this.markJobActive(
       job,
-      crawlRunId,
+      workflowRunId,
       jobLogId,
       attempt,
       startedAt,
     );
 
-    const claimed = await this.prisma.crawlRun.updateMany({
-      where: { id: crawlRunId, status: { in: reclaimableStatuses } },
+    const claimed = await this.prisma.workflowRun.updateMany({
+      where: { id: workflowRunId, status: { in: reclaimableStatuses } },
       data: {
-        status: CrawlRunStatus.RUNNING,
+        status: RunStatus.RUNNING,
         started_at: startedAt,
         finished_at: null,
         error_message: null,
@@ -148,26 +148,26 @@ export class CrawlProcessor extends WorkerHost implements OnModuleInit {
 
     if (claimed.count === 0) {
       this.logger.warn(
-        `crawl job ${crawlRunId}: could not claim run — skipping`,
+        `crawl job ${workflowRunId}: could not claim run — skipping`,
       );
       await this.prisma.jobLog.update({
         where: { id: logId },
         data: {
           status: JobStatus.FAILED,
           finished_at: new Date(),
-          error_message: 'Crawl run was cancelled before start',
+          error_message: 'Workflow run was cancelled before start',
         },
       });
       return;
     }
 
     try {
-      const scraper = run.scraper;
-      const activeVersion = scraper?.active_version;
+      const workflowConfig = run.workflow_config;
+      const activeVersion = workflowConfig?.active_version;
 
-      if (!scraper || !activeVersion?.config) {
+      if (!workflowConfig || !activeVersion?.config) {
         throw new Error(
-          'Crawl run has no scraper with an active version config',
+          'Workflow run has no config with an active version',
         );
       }
 
@@ -179,18 +179,18 @@ export class CrawlProcessor extends WorkerHost implements OnModuleInit {
       }
 
       const diagnosticsCtx: DiagnosticsRunContext = {
-        crawlRunId,
-        scraperId: scraper.id,
+        workflowRunId,
+        workflowConfigId: workflowConfig.id,
         scraperVersion: activeVersion.version,
         url: config.start_url,
-        mode: scraper.diagnostics_mode,
+        mode: workflowConfig.diagnostics_mode ?? 'PRODUCTION',
         retryNumber: attempt - 1,
         workerId: job.id ? String(job.id) : undefined,
       };
 
       const heartbeat = async () => {
-        await this.prisma.crawlRun.update({
-          where: { id: crawlRunId },
+        await this.prisma.workflowRun.update({
+          where: { id: workflowRunId },
           data: { updated_at: new Date() },
         });
       };
@@ -213,7 +213,7 @@ export class CrawlProcessor extends WorkerHost implements OnModuleInit {
           crawlResult.items,
           config.detail_page,
           {
-            targetId: run.website_target_id,
+            targetId: run.website_target_id!,
             deadlineAt:
               Date.now() +
               crawl_job_timeout_ms -
@@ -245,7 +245,7 @@ export class CrawlProcessor extends WorkerHost implements OnModuleInit {
         const existing = await this.prisma.extractedItem.findUnique({
           where: {
             website_target_id_source_url: {
-              website_target_id: run.website_target_id,
+              website_target_id: run.website_target_id!,
               source_url: item.source_url,
             },
           },
@@ -255,13 +255,13 @@ export class CrawlProcessor extends WorkerHost implements OnModuleInit {
         await this.prisma.extractedItem.upsert({
           where: {
             website_target_id_source_url: {
-              website_target_id: run.website_target_id,
+              website_target_id: run.website_target_id!,
               source_url: item.source_url,
             },
           },
           create: {
-            website_target_id: run.website_target_id,
-            crawl_run_id: crawlRunId,
+            website_target_id: run.website_target_id!,
+            workflow_run_id: workflowRunId,
             source_url: item.source_url,
             external_id: externalId,
             raw_data: raw as Prisma.InputJsonValue,
@@ -270,7 +270,7 @@ export class CrawlProcessor extends WorkerHost implements OnModuleInit {
             last_seen_at: now,
           },
           update: {
-            crawl_run_id: crawlRunId,
+            workflow_run_id: workflowRunId,
             external_id: externalId,
             raw_data: raw as Prisma.InputJsonValue,
             content_hash: hash,
@@ -284,8 +284,8 @@ export class CrawlProcessor extends WorkerHost implements OnModuleInit {
 
       await this.prisma.scraperExecutionTrace.create({
         data: {
-          scraper_id: scraper.id,
-          crawl_run_id: crawlRunId,
+          workflow_config_id: workflowConfig.id,
+          workflow_run_id: workflowRunId,
           steps: crawlResult.steps as Prisma.InputJsonValue,
           success: crawlResult.success,
           error_summary: crawlResult.errorSummary ?? null,
@@ -295,10 +295,10 @@ export class CrawlProcessor extends WorkerHost implements OnModuleInit {
       const finishedAt = new Date();
       const runFailed = !crawlResult.success;
 
-      const finalized = await this.prisma.crawlRun.updateMany({
-        where: { id: crawlRunId, status: CrawlRunStatus.RUNNING },
+      const finalized = await this.prisma.workflowRun.updateMany({
+        where: { id: workflowRunId, status: RunStatus.RUNNING },
         data: {
-          status: runFailed ? CrawlRunStatus.FAILED : CrawlRunStatus.SUCCESS,
+          status: runFailed ? RunStatus.FAILED : RunStatus.SUCCESS,
           finished_at: finishedAt,
           duration_ms: finishedAt.getTime() - startedAt.getTime(),
           error_message: crawlResult.errorSummary ?? null,
@@ -307,7 +307,7 @@ export class CrawlProcessor extends WorkerHost implements OnModuleInit {
 
       if (finalized.count === 0) {
         this.logger.warn(
-          `crawl job ${crawlRunId}: run was cancelled — discarding result`,
+          `crawl job ${workflowRunId}: run was cancelled — discarding result`,
         );
         await this.prisma.jobLog.update({
           where: { id: logId },
@@ -327,30 +327,30 @@ export class CrawlProcessor extends WorkerHost implements OnModuleInit {
           severity: NotificationSeverity.CRITICAL,
           title: 'Crawl run failed',
           message: crawlResult.errorSummary ?? 'Crawl failed',
-          website_target_id: run.website_target_id,
-          scraper_id: scraper.id,
-          crawl_run_id: crawlRunId,
+          website_target_id: run.website_target_id ?? undefined,
+          workflow_config_id: workflowConfig.id,
+          workflow_run_id: workflowRunId,
         });
 
         await this.scraperFailureHandler.handle({
-          scraper,
-          crawlRunId,
-          websiteTargetId: run.website_target_id,
+          workflowConfig,
+          workflowRunId,
+          websiteTargetId: run.website_target_id!,
           zeroListingsPage0: crawlResult.zeroListingsPage0 ?? false,
           networkError: crawlResult.networkError ?? false,
           errorMessage: crawlResult.errorSummary ?? 'Crawl failed',
         });
       } else {
         await Promise.all([
-          this.prisma.scraper.update({
-            where: { id: scraper.id },
+          this.prisma.workflowConfig.update({
+            where: { id: workflowConfig.id },
             data: {
               consecutive_failures: 0,
               last_success_at: finishedAt,
             },
           }),
           this.prisma.websiteTarget.update({
-            where: { id: run.website_target_id },
+            where: { id: run.website_target_id! },
             data: {
               last_success_at: finishedAt,
               last_error_message: null,
@@ -366,7 +366,7 @@ export class CrawlProcessor extends WorkerHost implements OnModuleInit {
           finished_at: finishedAt,
           duration_ms: finishedAt.getTime() - startedAt.getTime(),
           result: {
-            status: runFailed ? CrawlRunStatus.FAILED : CrawlRunStatus.SUCCESS,
+            status: runFailed ? RunStatus.FAILED : RunStatus.SUCCESS,
             total_found: crawlResult.items.length,
             total_created: totalCreated,
             total_updated: totalUpdated,
@@ -381,14 +381,14 @@ export class CrawlProcessor extends WorkerHost implements OnModuleInit {
       const message = error instanceof Error ? error.message : String(error);
       const stack = error instanceof Error ? error.stack : undefined;
 
-      const currentRun = await this.prisma.crawlRun.findUnique({
-        where: { id: crawlRunId },
+      const currentRun = await this.prisma.workflowRun.findUnique({
+        where: { id: workflowRunId },
         include: {
-          scraper: true,
+          workflow_config: true,
         },
       });
 
-      if (currentRun?.status === CrawlRunStatus.CANCELLED) {
+      if (currentRun?.status === RunStatus.CANCELLED) {
         await this.prisma.jobLog.update({
           where: { id: logId },
           data: {
@@ -404,12 +404,12 @@ export class CrawlProcessor extends WorkerHost implements OnModuleInit {
       const isFinalAttempt = attempt >= maxAttempts;
 
       let markedFailed = false;
-      if (currentRun?.status === CrawlRunStatus.RUNNING) {
+      if (currentRun?.status === RunStatus.RUNNING) {
         if (isFinalAttempt) {
-          await this.prisma.crawlRun.update({
-            where: { id: crawlRunId },
+          await this.prisma.workflowRun.update({
+            where: { id: workflowRunId },
             data: {
-              status: CrawlRunStatus.FAILED,
+              status: RunStatus.FAILED,
               finished_at: finishedAt,
               duration_ms: finishedAt.getTime() - startedAt.getTime(),
               error_message: message,
@@ -422,16 +422,16 @@ export class CrawlProcessor extends WorkerHost implements OnModuleInit {
             severity: NotificationSeverity.CRITICAL,
             title: 'Crawl run failed',
             message,
-            website_target_id: currentRun.website_target_id,
-            scraper_id: currentRun.scraper_id ?? undefined,
-            crawl_run_id: crawlRunId,
+            website_target_id: currentRun.website_target_id ?? undefined,
+            workflow_config_id: currentRun.workflow_config_id,
+            workflow_run_id: workflowRunId,
           });
         } else {
           this.logger.warn(
-            `crawl job ${crawlRunId}: attempt ${attempt}/${maxAttempts} failed, will retry: ${message}`,
+            `crawl job ${workflowRunId}: attempt ${attempt}/${maxAttempts} failed, will retry: ${message}`,
           );
-          await this.prisma.crawlRun.update({
-            where: { id: crawlRunId },
+          await this.prisma.workflowRun.update({
+            where: { id: workflowRunId },
             data: {
               error_message: `Attempt ${attempt}/${maxAttempts} failed: ${message} -- retrying`,
             },
@@ -439,11 +439,11 @@ export class CrawlProcessor extends WorkerHost implements OnModuleInit {
         }
       }
 
-      if (markedFailed && currentRun?.scraper) {
+      if (markedFailed && currentRun?.workflow_config) {
         await this.scraperFailureHandler.handle({
-          scraper: currentRun.scraper,
-          crawlRunId,
-          websiteTargetId: currentRun.website_target_id,
+          workflowConfig: currentRun.workflow_config,
+          workflowRunId,
+          websiteTargetId: currentRun.website_target_id!,
           zeroListingsPage0: false,
           networkError: false,
           errorMessage: message,
@@ -490,7 +490,7 @@ export class CrawlProcessor extends WorkerHost implements OnModuleInit {
 
   private async markJobActive(
     job: Job<CrawlJobData>,
-    crawlRunId: string,
+    workflowRunId: string,
     jobLogId: string | undefined,
     attempt: number,
     startedAt: Date,
@@ -520,7 +520,7 @@ export class CrawlProcessor extends WorkerHost implements OnModuleInit {
         status: JobStatus.ACTIVE,
         attempt,
         max_attempts: job.opts.attempts ?? null,
-        crawl_run_id: crawlRunId,
+        workflow_run_id: workflowRunId,
         payload: job.data as object,
         started_at: startedAt,
       },

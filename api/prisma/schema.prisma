@@ -25,6 +25,12 @@ enum DocumentType {
   OTHER
 }
 
+enum WorkflowType {
+  SCRAPER
+  BROWSER_AGENT
+  PLAIN_SCRAPE
+}
+
 enum ScraperStatus {
   ACTIVE
   INACTIVE
@@ -53,7 +59,7 @@ enum ExtractionFormatStatus {
   FAILED
 }
 
-// How an execution run (CrawlRun / BrowserAgentRun / PlainScrapeRun) was started.
+// How an execution run was started.
 enum RunTrigger {
   MANUAL
   SCHEDULED
@@ -67,7 +73,7 @@ enum ScraperHealth {
   BROKEN
 }
 
-// Shared execution status for CrawlRun, BrowserAgentRun, and PlainScrapeRun.
+// Shared execution status across all three workflow types.
 enum RunStatus {
   QUEUED
   RUNNING
@@ -153,11 +159,14 @@ enum BlockRuleSource {
   SELECTOR
 }
 
+// Covers all three workflows: reusable scrapers, browser agent runs, and plain scrape runs.
 enum NotificationType {
   QUEUE_FAILURE
   BROKEN_SCRAPER
   WEBSITE_UNAVAILABLE
   LARGE_CRAWL_FAILURE
+  BROWSER_AGENT_FAILURE
+  PLAIN_SCRAPE_FAILURE
 }
 
 enum NotificationSeverity {
@@ -179,25 +188,22 @@ enum ComputerUseModel {
 }
 
 model User {
-  id                String   @id @default(uuid())
-  email             String   @unique
-  phone             String?  @unique
-  password          String
-  role              AuthRole
-  crawl_schedule_tz String   @default("Europe/Athens")
-  created_at        DateTime @default(now())
-  updated_at        DateTime @updatedAt
+  id                  String   @id @default(uuid())
+  email               String   @unique
+  phone               String?  @unique
+  password            String
+  role                AuthRole
+  // Default timezone applied to all saved-configuration schedules when no per-config override is set.
+  default_schedule_tz String   @default("Europe/Athens")
+  created_at          DateTime @default(now())
+  updated_at          DateTime @updatedAt
 
   password_reset_tokens PasswordResetToken[]
   website_targets       WebsiteTarget[]
-  scrapers              Scraper[]
-  crawl_runs            CrawlRun[]
+  workflow_configs      WorkflowConfig[]
+  workflow_runs         WorkflowRun[]
   user_integrations     UserIntegration[]
   extraction_schemas    ExtractionSchema[]
-  browser_agent_configs BrowserAgentConfig[]
-  browser_agent_runs    BrowserAgentRun[]
-  plain_scrape_configs  PlainScrapeConfig[]
-  plain_scrape_runs     PlainScrapeRun[]
 
   @@index([email])
   @@index([phone])
@@ -254,14 +260,13 @@ model WebsiteTarget {
   created_at                           DateTime  @default(now())
   updated_at                           DateTime  @updatedAt
 
-  scrapers                Scraper[]
+  user                    User                   @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  workflow_configs        WorkflowConfig[]
   scraper_generation_runs ScraperGenerationRun[]
-  crawl_runs              CrawlRun[]
+  workflow_runs           WorkflowRun[]
   block_rules             BlockRule[]
   notifications           Notification[]
   extracted_items         ExtractedItem[]
-
-  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@unique([user_id, base_url])
   @@index([user_id])
@@ -287,35 +292,59 @@ model BlockRule {
   @@map("block_rules")
 }
 
-model Scraper {
-  id                   String          @id @default(uuid())
-  user_id              String
-  website_target_id    String
-  name                 String
+// ---------------------------------------------------------------------------
+// Unified Workflow Configuration
+//
+// Replaces Scraper + BrowserAgentConfig + PlainScrapeConfig. The `type` field
+// acts as a discriminator — only fields relevant to that type are populated.
+// ---------------------------------------------------------------------------
+
+model WorkflowConfig {
+  id          String       @id @default(uuid())
+  user_id     String
+  type        WorkflowType
+  name        String
+  description String?
+
+  // ── SCRAPER only ──────────────────────────────────────────────────────────
+  website_target_id    String?
   active_version_id    String?         @unique
   version_count        Int             @default(0)
-  status               ScraperStatus   @default(TESTING)
+  status               ScraperStatus?
   self_healing_enabled Boolean         @default(true)
   diagnostics_mode     DiagnosticsMode @default(PRODUCTION)
-  health               ScraperHealth   @default(GOOD)
+  health               ScraperHealth?
   success_rate         Decimal?        @db.Decimal(5, 2)
   avg_runtime_ms       Int?
   consecutive_failures Int             @default(0)
   last_success_at      DateTime?
   last_failure_at      DateTime?
-  // Scheduling is a property of this saved configuration, not of the WebsiteTarget or a
-  // separate parallel concept — a standard cron expression evaluated in schedule_timezone.
-  schedule_cron        String?
-  schedule_timezone    String?
-  schedule_enabled     Boolean         @default(false)
-  created_at           DateTime        @default(now())
-  updated_at           DateTime        @updatedAt
 
-  website_target WebsiteTarget   @relation(fields: [website_target_id], references: [id], onDelete: Cascade)
-  user           User            @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  active_version ScraperVersion? @relation("ActiveVersion", fields: [active_version_id], references: [id], onDelete: SetNull)
+  // ── BROWSER_AGENT only ────────────────────────────────────────────────────
+  url String?
 
-  crawl_runs              CrawlRun[]
+  // ── PLAIN_SCRAPE only ─────────────────────────────────────────────────────
+  urls             String[]
+  extraction_scope ExtractionScope @default(COMBINED)
+
+  // ── BROWSER_AGENT + PLAIN_SCRAPE: output contract ─────────────────────────
+  output_formats               OutputFormat[]
+  extraction_schema_version_id String?
+
+  // ── Scheduling (all types) ────────────────────────────────────────────────
+  schedule_cron     String?
+  schedule_timezone String?
+  schedule_enabled  Boolean @default(false)
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  user                      User                     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  website_target            WebsiteTarget?           @relation(fields: [website_target_id], references: [id], onDelete: Cascade)
+  active_version            ScraperVersion?          @relation("ActiveVersion", fields: [active_version_id], references: [id], onDelete: SetNull)
+  extraction_schema_version ExtractionSchemaVersion? @relation(fields: [extraction_schema_version_id], references: [id], onDelete: SetNull)
+
+  runs                    WorkflowRun[]
   versions                ScraperVersion[]        @relation("ScraperVersions")
   execution_traces        ScraperExecutionTrace[]
   scraper_generation_runs ScraperGenerationRun[]
@@ -323,47 +352,48 @@ model Scraper {
   diagnostics_packages    DiagnosticsPackage[]
 
   @@index([user_id])
+  @@index([type])
   @@index([website_target_id])
   @@index([status])
   @@index([health])
-  @@map("scrapers")
+  @@map("workflow_configs")
 }
 
 model ScraperGenerationRun {
-  id                  String              @id @default(uuid())
-  website_target_id   String
-  scraper_id          String?
-  trigger             GenerationTrigger   @default(MANUAL)
-  status              GenerationRunStatus @default(QUEUED)
-  prompt              String?
-  max_steps           Int?
-  staged_config       Json?
-  produced_version_id String?             @unique
-  error_message       String?
-  started_at          DateTime?
-  finished_at         DateTime?
-  duration_ms         Int?
-  created_at          DateTime            @default(now())
-  updated_at          DateTime            @updatedAt
+  id                 String              @id @default(uuid())
+  website_target_id  String
+  workflow_config_id String?
+  trigger            GenerationTrigger   @default(MANUAL)
+  status             GenerationRunStatus @default(QUEUED)
+  prompt             String?
+  max_steps          Int?
+  staged_config      Json?
+  produced_version_id String?            @unique
+  error_message      String?
+  started_at         DateTime?
+  finished_at        DateTime?
+  duration_ms        Int?
+  created_at         DateTime            @default(now())
+  updated_at         DateTime            @updatedAt
 
-  website_target   WebsiteTarget   @relation(fields: [website_target_id], references: [id], onDelete: Cascade)
-  scraper          Scraper?        @relation(fields: [scraper_id], references: [id], onDelete: SetNull)
-  produced_version ScraperVersion? @relation("ProducedVersion", fields: [produced_version_id], references: [id], onDelete: SetNull)
+  website_target   WebsiteTarget    @relation(fields: [website_target_id], references: [id], onDelete: Cascade)
+  workflow_config  WorkflowConfig?  @relation(fields: [workflow_config_id], references: [id], onDelete: SetNull)
+  produced_version ScraperVersion?  @relation("ProducedVersion", fields: [produced_version_id], references: [id], onDelete: SetNull)
 
   steps ComputerUseStep[]
 
   @@index([website_target_id])
-  @@index([scraper_id])
+  @@index([workflow_config_id])
   @@index([status])
   @@map("scraper_generation_runs")
 }
 
 // A single Computer Use step, belonging to exactly one of: a ScraperGenerationRun (discovering
-// how to build a reusable scraper) or a BrowserAgentRun (a one-off dynamic browser task).
+// how to build a reusable scraper) or a WorkflowRun of type BROWSER_AGENT.
 model ComputerUseStep {
   id                        String             @id @default(uuid())
   scraper_generation_run_id String?
-  browser_agent_run_id      String?
+  workflow_run_id           String?
   step_index                Int
   action_type               ComputerActionType
   action_payload            Json
@@ -373,31 +403,30 @@ model ComputerUseStep {
   created_at                DateTime           @default(now())
 
   scraper_generation_run ScraperGenerationRun? @relation(fields: [scraper_generation_run_id], references: [id], onDelete: Cascade)
-  browser_agent_run      BrowserAgentRun?      @relation(fields: [browser_agent_run_id], references: [id], onDelete: Cascade)
+  workflow_run           WorkflowRun?          @relation(fields: [workflow_run_id], references: [id], onDelete: Cascade)
   screenshot_before      Document?             @relation("ComputerUseStepScreenshotBefore", fields: [screenshot_before_id], references: [id], onDelete: SetNull)
   screenshot_after       Document?             @relation("ComputerUseStepScreenshotAfter", fields: [screenshot_after_id], references: [id], onDelete: SetNull)
 
   @@index([scraper_generation_run_id])
   @@index([scraper_generation_run_id, step_index])
-  @@index([browser_agent_run_id])
-  @@index([browser_agent_run_id, step_index])
+  @@index([workflow_run_id])
+  @@index([workflow_run_id, step_index])
   @@map("computer_use_steps")
 }
 
 model ScraperVersion {
-  id         String                  @id @default(uuid())
-  scraper_id String
-  version    Int
+  id                 String                  @id @default(uuid())
+  workflow_config_id String
+  version            Int
   // Fixed/reusable scraper configuration or sequence of scraper steps (Computer-Use-generated
   // or CSS-selector-based) produced from generation_prompt. Opaque to Prisma by design.
-  config     Json
-  created_by ScraperVersionCreatedBy
-  notes      String?
+  config             Json
+  created_by         ScraperVersionCreatedBy
+  notes              String?
 
-  // Free-text scraper-generation instructions this version was built from (e.g. "Navigate to the
-  // properties page, iterate through every listing..."). Reused verbatim as the guiding prompt for
-  // MARKDOWN normalization at execution time — kept on the version (not just the generation run)
-  // so it stays available even when the producing ScraperGenerationRun is absent or pruned.
+  // Free-text scraper-generation instructions this version was built from. Reused verbatim as the
+  // guiding prompt for MARKDOWN normalization at execution time — kept on the version (not just the
+  // generation run) so it stays available even when the producing ScraperGenerationRun is pruned.
   generation_prompt String?
 
   // Output contract this version is expected to produce. STRUCTURED_JSON requires
@@ -408,78 +437,112 @@ model ScraperVersion {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  scraper                   Scraper                  @relation("ScraperVersions", fields: [scraper_id], references: [id], onDelete: Cascade)
+  workflow_config           WorkflowConfig           @relation("ScraperVersions", fields: [workflow_config_id], references: [id], onDelete: Cascade)
   extraction_schema_version ExtractionSchemaVersion? @relation(fields: [extraction_schema_version_id], references: [id], onDelete: SetNull)
 
-  active_for_scraper Scraper?              @relation("ActiveVersion")
-  produced_by_run    ScraperGenerationRun? @relation("ProducedVersion")
-  crawl_runs         CrawlRun[]
+  active_for_config WorkflowConfig?       @relation("ActiveVersion")
+  produced_by_run   ScraperGenerationRun? @relation("ProducedVersion")
+  workflow_runs     WorkflowRun[]
 
-  @@unique([scraper_id, version])
+  @@unique([workflow_config_id, version])
   @@index([extraction_schema_version_id])
   @@map("scraper_versions")
 }
 
 model ScraperExecutionTrace {
-  id            String   @id @default(uuid())
-  scraper_id    String
-  crawl_run_id  String?
-  steps         Json
-  success       Boolean
-  error_summary String?
-  created_at    DateTime @default(now())
-  updated_at    DateTime @updatedAt
+  id                 String   @id @default(uuid())
+  workflow_config_id String
+  workflow_run_id    String?
+  steps              Json
+  success            Boolean
+  error_summary      String?
+  created_at         DateTime @default(now())
+  updated_at         DateTime @updatedAt
 
-  scraper   Scraper   @relation(fields: [scraper_id], references: [id], onDelete: Cascade)
-  crawl_run CrawlRun? @relation(fields: [crawl_run_id], references: [id], onDelete: SetNull)
+  workflow_config WorkflowConfig @relation(fields: [workflow_config_id], references: [id], onDelete: Cascade)
+  workflow_run    WorkflowRun?   @relation(fields: [workflow_run_id], references: [id], onDelete: SetNull)
 
-  @@index([scraper_id])
+  @@index([workflow_config_id])
   @@map("scraper_execution_traces")
 }
 
-model CrawlRun {
-  id                       String     @id @default(uuid())
-  user_id                  String
-  website_target_id        String
-  scraper_id               String
+// ---------------------------------------------------------------------------
+// Unified Workflow Run
+//
+// Replaces CrawlRun + BrowserAgentRun + PlainScrapeRun. The `type` field
+// mirrors the parent WorkflowConfig type and acts as a discriminator.
+// ---------------------------------------------------------------------------
+
+model WorkflowRun {
+  id                 String       @id @default(uuid())
+  workflow_config_id String
+  user_id            String
+  type               WorkflowType
+  trigger            RunTrigger   @default(MANUAL)
+  status             RunStatus    @default(QUEUED)
+
+  // ── SCRAPER run ───────────────────────────────────────────────────────────
+  website_target_id String?
   // Exact ScraperVersion this run executed against — pins the config, generation_prompt,
   // output_formats, and extraction_schema_version_id for this run, independently of whatever
-  // version the Scraper's active_version_id later points to.
-  scraper_version_id       String
-  trigger                  RunTrigger @default(MANUAL)
-  status                   RunStatus  @default(QUEUED)
-  started_at               DateTime?
-  finished_at              DateTime?
-  duration_ms              Int?
-  error_message            String?
-  metadata                 Json?
-  created_at               DateTime   @default(now())
-  updated_at               DateTime   @updatedAt
+  // version the WorkflowConfig's active_version_id later points to.
+  scraper_version_id String?
 
-  website_target      WebsiteTarget           @relation(fields: [website_target_id], references: [id], onDelete: Cascade)
-  user                User                    @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  scraper             Scraper                 @relation(fields: [scraper_id], references: [id], onDelete: Cascade)
-  scraper_version     ScraperVersion          @relation(fields: [scraper_version_id], references: [id], onDelete: Cascade)
+  // ── BROWSER_AGENT run ─────────────────────────────────────────────────────
+  url             String?
+  visited_urls    Json?
+  browser_actions Json?
+  collected_data  Json?
+
+  // ── PLAIN_SCRAPE run ──────────────────────────────────────────────────────
+  urls             String[]
+  extraction_scope ExtractionScope?
+
+  // ── BROWSER_AGENT + PLAIN_SCRAPE: snapshot of the config's contract ───────
+  output_formats               OutputFormat[]
+  extraction_schema_version_id String?
+
+  // ── Common ────────────────────────────────────────────────────────────────
+  ai_usage      Json?
+  error_message String?
+  metadata      Json?
+
+  started_at  DateTime?
+  finished_at DateTime?
+  duration_ms Int?
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
+
+  workflow_config           WorkflowConfig           @relation(fields: [workflow_config_id], references: [id], onDelete: Cascade)
+  user                      User                     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  website_target            WebsiteTarget?           @relation(fields: [website_target_id], references: [id], onDelete: SetNull)
+  scraper_version           ScraperVersion?          @relation(fields: [scraper_version_id], references: [id], onDelete: Cascade)
+  extraction_schema_version ExtractionSchemaVersion? @relation(fields: [extraction_schema_version_id], references: [id], onDelete: SetNull)
+
+  steps               ComputerUseStep[]
   job_logs            JobLog[]
-  execution_traces    ScraperExecutionTrace[]
   notifications       Notification[]
   diagnostics_package DiagnosticsPackage?
   extracted_items     ExtractedItem[]
+  execution_traces    ScraperExecutionTrace[]
+  pages               PlainScrapedPage[]
   extraction_result   ExtractionResult?
 
+  @@index([workflow_config_id])
   @@index([user_id])
+  @@index([type])
   @@index([website_target_id])
-  @@index([scraper_id])
   @@index([scraper_version_id])
   @@index([status])
   @@index([created_at])
-  @@map("crawl_runs")
+  @@index([extraction_schema_version_id])
+  @@map("workflow_runs")
 }
 
 model ExtractedItem {
   id                String   @id @default(uuid())
   website_target_id String
-  crawl_run_id      String?
+  workflow_run_id   String?
   source_url        String
   external_id       String?
   raw_data          Json
@@ -490,10 +553,10 @@ model ExtractedItem {
   updated_at        DateTime @updatedAt
 
   website_target WebsiteTarget @relation(fields: [website_target_id], references: [id], onDelete: Cascade)
-  crawl_run      CrawlRun?     @relation(fields: [crawl_run_id], references: [id], onDelete: SetNull)
+  workflow_run   WorkflowRun?  @relation(fields: [workflow_run_id], references: [id], onDelete: SetNull)
 
   @@unique([website_target_id, source_url])
-  @@index([crawl_run_id])
+  @@index([workflow_run_id])
   @@map("extracted_items")
 }
 
@@ -501,10 +564,10 @@ model ExtractedItem {
 // App-Defined Output Schema (Shared Concept)
 //
 // Reusable, user-owned, versioned representation of the expected STRUCTURED_JSON output shape.
-// Referenced (never duplicated) by whichever workflow needs it: ScraperVersion, BrowserAgentConfig
-// / BrowserAgentRun, PlainScrapeConfig / PlainScrapeRun. Versions are immutable — a config's FK is
-// free to move to a newer version, but each run snapshots the version it actually executed against,
-// so changing a schema later can never make a historical run's result ambiguous.
+// Referenced (never duplicated) by whichever workflow needs it: ScraperVersion, WorkflowConfig,
+// WorkflowRun. Versions are immutable — a config's FK is free to move to a newer version, but
+// each run snapshots the version it actually executed against, so changing a schema later can
+// never make a historical run's result ambiguous.
 // ---------------------------------------------------------------------------
 
 model ExtractionSchema {
@@ -542,202 +605,51 @@ model ExtractionSchemaVersion {
   extraction_schema ExtractionSchema  @relation("ExtractionSchemaVersions", fields: [extraction_schema_id], references: [id], onDelete: Cascade)
   active_for_schema ExtractionSchema? @relation("ActiveExtractionSchemaVersion")
 
-  scraper_versions      ScraperVersion[]
-  browser_agent_configs BrowserAgentConfig[]
-  browser_agent_runs    BrowserAgentRun[]
-  plain_scrape_configs  PlainScrapeConfig[]
-  plain_scrape_runs     PlainScrapeRun[]
-  extraction_results    ExtractionResult[]
+  scraper_versions   ScraperVersion[]
+  workflow_configs   WorkflowConfig[]
+  workflow_runs      WorkflowRun[]
+  extraction_results ExtractionResult[]
 
   @@unique([extraction_schema_id, version])
   @@map("extraction_schema_versions")
 }
 
-// ---------------------------------------------------------------------------
-// Workflow 2: Dynamic Browser / Computer Vision Extraction
-//
-// One-off Computer Use + Playwright tasks with no fixed navigation steps. Still persisted as a
-// saved, reusable, schedulable configuration (per the on-demand & scheduled execution
-// requirement) — BrowserAgentRun is one execution of a BrowserAgentConfig.
-// ---------------------------------------------------------------------------
-
-model BrowserAgentConfig {
-  id      String @id @default(uuid())
-  user_id String
-  name    String
-  url     String
-
-  // Required output contract for every run of this config. STRUCTURED_JSON requires
-  // extraction_schema_version_id; MARKDOWN alone needs no schema.
-  output_formats               OutputFormat[]
-  extraction_schema_version_id String?
-
-  schedule_cron     String?
-  schedule_timezone String?
-  schedule_enabled  Boolean @default(false)
-
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-
-  user                      User                     @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  extraction_schema_version ExtractionSchemaVersion? @relation(fields: [extraction_schema_version_id], references: [id], onDelete: SetNull)
-  runs                      BrowserAgentRun[]
-
-  @@index([user_id])
-  @@index([extraction_schema_version_id])
-  @@map("browser_agent_configs")
-}
-
-model BrowserAgentRun {
-  id                      String     @id @default(uuid())
-  browser_agent_config_id String
-  user_id                 String
-  trigger                 RunTrigger @default(MANUAL)
-  status                  RunStatus  @default(QUEUED)
-
-  // Snapshot of the config's contract at the moment this run was launched, so later edits to
-  // the BrowserAgentConfig never change what a historical run is understood to have targeted.
-  url                          String
-  output_formats               OutputFormat[]
-  extraction_schema_version_id String?
-
-  visited_urls    Json?
-  browser_actions Json?
-  collected_data  Json?
-  ai_usage        Json?
-  error_message   String?
-
-  started_at  DateTime?
-  finished_at DateTime?
-  duration_ms Int?
-  created_at  DateTime  @default(now())
-  updated_at  DateTime  @updatedAt
-
-  browser_agent_config      BrowserAgentConfig       @relation(fields: [browser_agent_config_id], references: [id], onDelete: Cascade)
-  user                      User                     @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  extraction_schema_version ExtractionSchemaVersion? @relation(fields: [extraction_schema_version_id], references: [id], onDelete: SetNull)
-  steps                     ComputerUseStep[]
-  extraction_result         ExtractionResult?
-
-  @@index([browser_agent_config_id])
-  @@index([user_id])
-  @@index([status])
-  @@index([extraction_schema_version_id])
-  @@map("browser_agent_runs")
-}
-
-// ---------------------------------------------------------------------------
-// Workflow 3: Plain HTML / Website Content Scraping
-//
-// Lightweight multi-URL scraping with no Computer Use / computer vision. AI normalization
-// (STRUCTURED_JSON and/or MARKDOWN) is entirely optional. Saved as a reusable, schedulable
-// configuration like the other two workflows.
-// ---------------------------------------------------------------------------
-
-model PlainScrapeConfig {
-  id      String   @id @default(uuid())
-  user_id String
-  name    String
-  urls    String[]
-
-  // Absent/empty output_formats means "raw scraping only" — no AI normalization runs.
-  output_formats               OutputFormat[]
-  extraction_schema_version_id String?
-  // Whether multiple URLs are treated as one combined extraction task (default) or extracted
-  // per-URL. Applies to both STRUCTURED_JSON and MARKDOWN normalization.
-  extraction_scope             ExtractionScope @default(COMBINED)
-
-  schedule_cron     String?
-  schedule_timezone String?
-  schedule_enabled  Boolean @default(false)
-
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-
-  user                      User                     @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  extraction_schema_version ExtractionSchemaVersion? @relation(fields: [extraction_schema_version_id], references: [id], onDelete: SetNull)
-  runs                      PlainScrapeRun[]
-
-  @@index([user_id])
-  @@index([extraction_schema_version_id])
-  @@map("plain_scrape_configs")
-}
-
-model PlainScrapeRun {
-  id                     String     @id @default(uuid())
-  plain_scrape_config_id String
-  user_id                String
-  trigger                RunTrigger @default(MANUAL)
-  status                 RunStatus  @default(QUEUED)
-
-  // Snapshot of the config's contract at the moment this run was launched.
-  urls                         String[]
-  output_formats               OutputFormat[]
-  extraction_schema_version_id String?
-  extraction_scope             ExtractionScope @default(COMBINED)
-
-  error_message String?
-  ai_usage      Json?
-
-  started_at  DateTime?
-  finished_at DateTime?
-  duration_ms Int?
-  created_at  DateTime  @default(now())
-  updated_at  DateTime  @updatedAt
-
-  plain_scrape_config       PlainScrapeConfig        @relation(fields: [plain_scrape_config_id], references: [id], onDelete: Cascade)
-  user                      User                     @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  extraction_schema_version ExtractionSchemaVersion? @relation(fields: [extraction_schema_version_id], references: [id], onDelete: SetNull)
-  pages                     PlainScrapedPage[]
-  // Populated when extraction_scope is COMBINED (one result for all pages together).
-  extraction_result         ExtractionResult?
-
-  @@index([plain_scrape_config_id])
-  @@index([user_id])
-  @@index([status])
-  @@index([extraction_schema_version_id])
-  @@map("plain_scrape_runs")
-}
-
 // Raw per-URL fetch result — always populated, independently of whether normalization was requested.
 model PlainScrapedPage {
-  id                  String   @id @default(uuid())
-  plain_scrape_run_id String
-  requested_url       String
-  final_url           String?
-  http_status         Int?
-  success             Boolean  @default(false)
-  raw_html            String?
-  cleaned_content     String?
-  title               String?
-  metadata            Json?
-  error_message       String?
-  created_at          DateTime @default(now())
+  id              String   @id @default(uuid())
+  workflow_run_id String
+  requested_url   String
+  final_url       String?
+  http_status     Int?
+  success         Boolean  @default(false)
+  raw_html        String?
+  cleaned_content String?
+  title           String?
+  metadata        Json?
+  error_message   String?
+  created_at      DateTime @default(now())
 
-  plain_scrape_run  PlainScrapeRun    @relation(fields: [plain_scrape_run_id], references: [id], onDelete: Cascade)
+  workflow_run      WorkflowRun      @relation(fields: [workflow_run_id], references: [id], onDelete: Cascade)
   // Populated when the parent run's extraction_scope is PER_URL (one result per page).
   extraction_result ExtractionResult?
 
-  @@index([plain_scrape_run_id])
+  @@index([workflow_run_id])
   @@map("plain_scraped_pages")
 }
 
 // ---------------------------------------------------------------------------
 // Structured Extraction Pipeline (Shared Concept): normalized results
 //
-// One row per "thing that got normalized" — a CrawlRun, a BrowserAgentRun, a COMBINED
-// PlainScrapeRun, or a single PlainScrapedPage under a PER_URL PlainScrapeRun. Exactly one of
-// the four owner FKs is set. STRUCTURED_JSON and MARKDOWN are independently-failable outputs of
-// the same underlying run, never overwriting each other and never forcing an all-or-nothing
-// discriminator — either, both, or (on total failure) neither payload may be present.
+// One row per "thing that got normalized" — a SCRAPER WorkflowRun, a BROWSER_AGENT WorkflowRun,
+// a COMBINED PLAIN_SCRAPE WorkflowRun, or a single PlainScrapedPage under a PER_URL run.
+// STRUCTURED_JSON and MARKDOWN are independently-failable outputs — either, both, or (on total
+// failure) neither payload may be present.
 // ---------------------------------------------------------------------------
 
 model ExtractionResult {
   id String @id @default(uuid())
 
-  crawl_run_id          String? @unique
-  browser_agent_run_id  String? @unique
-  plain_scrape_run_id   String? @unique
+  workflow_run_id       String? @unique
   plain_scraped_page_id String? @unique
 
   // The exact schema version this result was validated against (STRUCTURED_JSON only).
@@ -758,9 +670,7 @@ model ExtractionResult {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  crawl_run                 CrawlRun?                @relation(fields: [crawl_run_id], references: [id], onDelete: Cascade)
-  browser_agent_run         BrowserAgentRun?         @relation(fields: [browser_agent_run_id], references: [id], onDelete: Cascade)
-  plain_scrape_run          PlainScrapeRun?          @relation(fields: [plain_scrape_run_id], references: [id], onDelete: Cascade)
+  workflow_run              WorkflowRun?             @relation(fields: [workflow_run_id], references: [id], onDelete: Cascade)
   plain_scraped_page        PlainScrapedPage?        @relation(fields: [plain_scraped_page_id], references: [id], onDelete: Cascade)
   extraction_schema_version ExtractionSchemaVersion? @relation(fields: [extraction_schema_version_id], references: [id], onDelete: SetNull)
 
@@ -770,8 +680,8 @@ model ExtractionResult {
 
 model DiagnosticsPackage {
   id                 String          @id @default(uuid())
-  crawl_run_id       String          @unique
-  scraper_id         String
+  workflow_run_id    String          @unique
+  workflow_config_id String
   mode               DiagnosticsMode
   url                String
   worker_id          String?
@@ -786,11 +696,11 @@ model DiagnosticsPackage {
   exception          String?
   created_at         DateTime        @default(now())
 
-  crawl_run CrawlRun              @relation(fields: [crawl_run_id], references: [id], onDelete: Cascade)
-  scraper   Scraper               @relation(fields: [scraper_id], references: [id], onDelete: Cascade)
-  artifacts DiagnosticsArtifact[]
+  workflow_run    WorkflowRun    @relation(fields: [workflow_run_id], references: [id], onDelete: Cascade)
+  workflow_config WorkflowConfig @relation(fields: [workflow_config_id], references: [id], onDelete: Cascade)
+  artifacts       DiagnosticsArtifact[]
 
-  @@index([scraper_id])
+  @@index([workflow_config_id])
   @@map("diagnostics_packages")
 }
 
@@ -809,50 +719,52 @@ model DiagnosticsArtifact {
   @@map("diagnostics_artifacts")
 }
 
+// Queue job tracking for all workflow types. workflow_run_id links to the unified WorkflowRun.
 model JobLog {
-  id            String    @id @default(uuid())
-  queue_name    String
-  job_id        String?
-  job_name      String?
-  status        JobStatus
-  attempt       Int       @default(0)
-  max_attempts  Int?
-  crawl_run_id  String?
-  payload       Json?
-  result        Json?
-  error_message String?
-  stack_trace   String?
-  started_at    DateTime?
-  finished_at   DateTime?
-  duration_ms   Int?
-  created_at    DateTime  @default(now())
-  updated_at    DateTime  @updatedAt
+  id              String    @id @default(uuid())
+  queue_name      String
+  job_id          String?
+  job_name        String?
+  status          JobStatus
+  attempt         Int       @default(0)
+  max_attempts    Int?
+  workflow_run_id String?
+  payload         Json?
+  result          Json?
+  error_message   String?
+  stack_trace     String?
+  started_at      DateTime?
+  finished_at     DateTime?
+  duration_ms     Int?
+  created_at      DateTime  @default(now())
+  updated_at      DateTime  @updatedAt
 
-  crawl_run CrawlRun? @relation(fields: [crawl_run_id], references: [id], onDelete: SetNull)
+  workflow_run WorkflowRun? @relation(fields: [workflow_run_id], references: [id], onDelete: SetNull)
 
   @@index([queue_name])
   @@index([job_id])
   @@index([status])
-  @@index([crawl_run_id])
+  @@index([workflow_run_id])
   @@index([created_at])
   @@map("job_logs")
 }
 
+// System notifications for all three workflow types.
 model Notification {
-  id                String               @id @default(uuid())
-  type              NotificationType
-  severity          NotificationSeverity @default(INFO)
-  title             String
-  message           String
-  website_target_id String?
-  scraper_id        String?
-  crawl_run_id      String?
-  is_read           Boolean              @default(false)
-  created_at        DateTime             @default(now())
+  id                 String               @id @default(uuid())
+  type               NotificationType
+  severity           NotificationSeverity @default(INFO)
+  title              String
+  message            String
+  website_target_id  String?
+  workflow_config_id String?
+  workflow_run_id    String?
+  is_read            Boolean              @default(false)
+  created_at         DateTime             @default(now())
 
-  website_target WebsiteTarget? @relation(fields: [website_target_id], references: [id], onDelete: SetNull)
-  scraper        Scraper?       @relation(fields: [scraper_id], references: [id], onDelete: SetNull)
-  crawl_run      CrawlRun?      @relation(fields: [crawl_run_id], references: [id], onDelete: SetNull)
+  website_target  WebsiteTarget?  @relation(fields: [website_target_id], references: [id], onDelete: SetNull)
+  workflow_config WorkflowConfig? @relation(fields: [workflow_config_id], references: [id], onDelete: SetNull)
+  workflow_run    WorkflowRun?    @relation(fields: [workflow_run_id], references: [id], onDelete: SetNull)
 
   @@index([type])
   @@index([severity])

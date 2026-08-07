@@ -3,7 +3,7 @@ export interface UserProfile {
   email: string;
   phone: string | null;
   role: string;
-  crawl_schedule_tz: string;
+  default_schedule_tz: string;
   created_at: string;
   updated_at: string;
 }
@@ -14,5 +14,5 @@ export interface CrawlScheduleTimezone {
 }
 
 export interface UpdateUserProfilePayload {
-  crawl_schedule_tz: string;
+  default_schedule_tz: string;
 }

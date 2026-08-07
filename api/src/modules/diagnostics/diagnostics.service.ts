@@ -22,8 +22,8 @@ export class DiagnosticsService {
   ): Promise<PaginatedResult<any>> {
     const where: Prisma.DiagnosticsPackageWhereInput = {
       ...diagnosticsUserWhere(authUser),
-      ...(query.scraper_id && { scraper_id: query.scraper_id }),
-      ...(query.crawl_run_id && { crawl_run_id: query.crawl_run_id }),
+      ...(query.scraper_id && { workflow_config_id: query.scraper_id }),
+      ...(query.crawl_run_id && { workflow_run_id: query.crawl_run_id }),
       ...(query.date_from || query.date_to
         ? {
             created_at: {
@@ -38,8 +38,8 @@ export class DiagnosticsService {
       this.prisma.diagnosticsPackage.findMany({
         where,
         include: {
-          scraper: { select: { name: true } },
-          crawl_run: { select: { website_target_id: true, status: true } },
+          workflow_config: { select: { name: true } },
+          workflow_run: { select: { website_target_id: true, status: true } },
           artifacts: { select: { kind: true } },
         },
         skip: (query.page - 1) * query.limit,
@@ -66,8 +66,8 @@ export class DiagnosticsService {
     const pkg = await this.prisma.diagnosticsPackage.findFirst({
       where: { id, ...diagnosticsUserWhere(authUser) },
       include: {
-        scraper: { select: { name: true } },
-        crawl_run: { select: { website_target_id: true, status: true } },
+        workflow_config: { select: { name: true } },
+        workflow_run: { select: { website_target_id: true, status: true } },
         artifacts: { orderBy: { created_at: 'asc' } },
       },
     });

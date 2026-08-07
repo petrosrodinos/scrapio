@@ -51,7 +51,7 @@ export default function ScraperDetailPage() {
   const { data: scraper, isPending } = useScraper(id!);
   const { data: versions } = useScraperVersions(id!);
   const { data: generationRunsData } = useGenerationRuns({ scraper_id: id!, limit: 5 });
-  const { data: crawlRunsData } = useCrawlRuns({ scraper_id: id!, limit: 5 });
+  const { data: crawlRunsData } = useCrawlRuns({ workflow_config_id: id!, limit: 5 });
   const updateScraper = useUpdateScraper();
   const activateVersion = useActivateScraperVersion();
   const createVersion = useCreateScraperVersion();

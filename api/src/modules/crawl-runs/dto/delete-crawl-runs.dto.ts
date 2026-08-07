@@ -6,5 +6,5 @@ export class DeleteCrawlRunsDto {
   @IsArray()
   @ArrayMinSize(1)
   @IsUUID('4', { each: true })
-  crawl_run_ids: string[];
+  workflow_run_ids: string[];
 }

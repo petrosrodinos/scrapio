@@ -1,11 +1,11 @@
 import { DiagnosticsMode } from 'generated/prisma';
 
 export interface DiagnosticsRunContext {
-  crawlRunId: string;
-  scraperId: string;
+  workflowRunId: string;
+  workflowConfigId: string;
   scraperVersion?: number;
   url: string;
-  mode: DiagnosticsMode;
+  mode: DiagnosticsMode | string;
   retryNumber?: number;
   workerId?: string;
 }

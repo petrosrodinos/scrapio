@@ -29,10 +29,6 @@ interface PendingArtifact {
   buffer: Buffer;
 }
 
-/// Owns the full lifecycle described in docs/playwright-debug.md: determines whether to enable
-/// tracing/video/HAR before the browser context is created, executes the caller's scraper logic,
-/// then decides whether to keep or discard whatever was collected -- CrawlerService never touches
-/// Playwright's tracing/video/HAR APIs directly.
 @Injectable()
 export class DiagnosticsCaptureService {
   private readonly logger = new Logger(DiagnosticsCaptureService.name);
@@ -43,11 +39,6 @@ export class DiagnosticsCaptureService {
     private readonly prisma: PrismaService,
   ) {}
 
-  // Every mode (including PRODUCTION) now runs through here so a failure always
-  // leaves behind at least a screenshot/HTML/console-log DiagnosticsPackage --
-  // with 100 scrapers running unattended, "no diagnostics_mode flipped on" can't
-  // mean "no idea why it failed". TRACE/FULL_DEBUG add progressively heavier
-  // artifacts (Playwright trace, then video + HAR) on top of that baseline.
   async run<T extends DiagnosticsOutcome>(
     ctx: DiagnosticsRunContext,
     fn: (page: Page) => Promise<T>,
@@ -63,7 +54,7 @@ export class DiagnosticsCaptureService {
     const traceEnabled = ctx.mode !== DiagnosticsMode.PRODUCTION;
     const fullDebug = ctx.mode === DiagnosticsMode.FULL_DEBUG;
 
-    const workDir = path.join(os.tmpdir(), 'diagnostics', ctx.crawlRunId);
+    const workDir = path.join(os.tmpdir(), 'diagnostics', ctx.workflowRunId);
     const videoDir = path.join(workDir, 'video');
     const tracePath = path.join(workDir, 'trace.zip');
     const harPath = path.join(workDir, 'network.har');
@@ -134,8 +125,6 @@ export class DiagnosticsCaptureService {
       }
     }
 
-    // Tracing is not retroactive but tracing.stop() always has to be called to release
-    // resources -- passing no path discards it, matching the "discard on success" retention rule.
     if (traceEnabled) {
       await context.tracing.stop(shouldKeep ? { path: tracePath } : undefined);
     }
@@ -230,7 +219,7 @@ export class DiagnosticsCaptureService {
     artifacts: PendingArtifact[];
   }): Promise<void> {
     const { ctx } = params;
-    const folder = `${GcsFolders.diagnostics}/${ctx.crawlRunId}`;
+    const folder = `${GcsFolders.diagnostics}/${ctx.workflowRunId}`;
 
     const uploaded = await Promise.all(
       params.artifacts.map(async (artifact) => {
@@ -249,7 +238,7 @@ export class DiagnosticsCaptureService {
           };
         } catch (error) {
           this.logger.error(
-            `Failed to upload diagnostics artifact ${artifact.filename} for crawl run ${ctx.crawlRunId}`,
+            `Failed to upload diagnostics artifact ${artifact.filename} for workflow run ${ctx.workflowRunId}`,
             error,
           );
           return null;
@@ -263,16 +252,16 @@ export class DiagnosticsCaptureService {
 
     if (artifactRows.length === 0) {
       this.logger.warn(
-        `No diagnostics artifacts uploaded for crawl run ${ctx.crawlRunId} -- skipping DiagnosticsPackage row`,
+        `No diagnostics artifacts uploaded for workflow run ${ctx.workflowRunId} -- skipping DiagnosticsPackage row`,
       );
       return;
     }
 
     await this.prisma.diagnosticsPackage.create({
       data: {
-        crawl_run_id: ctx.crawlRunId,
-        scraper_id: ctx.scraperId,
-        mode: ctx.mode,
+        workflow_run_id: ctx.workflowRunId,
+        workflow_config_id: ctx.workflowConfigId,
+        mode: ctx.mode as DiagnosticsMode,
         url: ctx.url,
         worker_id: ctx.workerId ?? null,
         browser_version: params.browserVersion ?? null,

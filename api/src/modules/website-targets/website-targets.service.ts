@@ -39,7 +39,11 @@ export class WebsiteTargetsService {
         orderBy: { created_at: 'desc' },
         include: {
           _count: {
-            select: { scrapers: true, crawl_runs: true, notifications: true },
+            select: {
+              workflow_configs: true,
+              workflow_runs: true,
+              notifications: true,
+            },
           },
         },
       }),
@@ -64,7 +68,11 @@ export class WebsiteTargetsService {
       where: { id, ...websiteTargetUserWhere(authUser) },
       include: {
         _count: {
-          select: { scrapers: true, crawl_runs: true, notifications: true },
+          select: {
+            workflow_configs: true,
+            workflow_runs: true,
+            notifications: true,
+          },
         },
         block_rules: {
           orderBy: { position: 'asc' },
@@ -139,8 +147,12 @@ export class WebsiteTargetsService {
     await this.ensureExists(authUser, id);
 
     const [scraperCount, crawlRunCount] = await Promise.all([
-      this.prisma.scraper.count({ where: { website_target_id: id } }),
-      this.prisma.crawlRun.count({ where: { website_target_id: id } }),
+      this.prisma.workflowConfig.count({
+        where: { website_target_id: id, type: 'SCRAPER' },
+      }),
+      this.prisma.workflowRun.count({
+        where: { website_target_id: id, type: 'SCRAPER' },
+      }),
     ]);
 
     if (scraperCount > 0 || crawlRunCount > 0) {

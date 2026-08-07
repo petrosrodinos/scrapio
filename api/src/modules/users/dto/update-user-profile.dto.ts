@@ -5,5 +5,5 @@ export class UpdateUserProfileDto {
   @ApiProperty({ example: 'Europe/Athens' })
   @IsString()
   @MinLength(1)
-  crawl_schedule_tz: string;
+  default_schedule_tz: string;
 }

@@ -27,7 +27,7 @@ export class UsersService {
         email: true,
         phone: true,
         role: true,
-        crawl_schedule_tz: true,
+        default_schedule_tz: true,
         created_at: true,
         updated_at: true,
       },
@@ -41,19 +41,19 @@ export class UsersService {
   }
 
   async updateProfile(authUser: AuthUser, dto: UpdateUserProfileDto) {
-    if (!isSupportedCrawlScheduleTimezone(dto.crawl_schedule_tz)) {
+    if (!isSupportedCrawlScheduleTimezone(dto.default_schedule_tz)) {
       throw new BadRequestException('Unsupported crawl schedule timezone');
     }
 
     return this.prisma.user.update({
       where: { id: authUser.id },
-      data: { crawl_schedule_tz: dto.crawl_schedule_tz },
+      data: { default_schedule_tz: dto.default_schedule_tz },
       select: {
         id: true,
         email: true,
         phone: true,
         role: true,
-        crawl_schedule_tz: true,
+        default_schedule_tz: true,
         created_at: true,
         updated_at: true,
       },

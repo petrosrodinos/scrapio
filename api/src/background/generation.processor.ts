@@ -46,7 +46,7 @@ export class GenerationProcessor extends WorkerHost {
         title: 'Generation queue job failed',
         message: `Generation job ${job.data.runId} failed: ${message}`,
         website_target_id: run?.website_target_id,
-        scraper_id: run?.scraper_id ?? undefined,
+        workflow_config_id: run?.workflow_config_id ?? undefined,
       });
 
       throw error;

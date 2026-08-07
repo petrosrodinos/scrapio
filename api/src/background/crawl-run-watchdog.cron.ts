@@ -5,10 +5,10 @@ import { NotificationsService } from '@/modules/notifications/notifications.serv
 import { ScraperFailureHandlerService } from './scraper-failure-handler.service';
 import { PlatformConfigService } from '@/modules/platform-config/platform-config.service';
 import {
-  CrawlRunStatus,
   JobStatus,
   NotificationSeverity,
   NotificationType,
+  RunStatus,
 } from 'generated/prisma';
 
 const STALE_GRACE_MS = 5 * 60_000;
@@ -35,15 +35,15 @@ export class CrawlRunWatchdogCron {
       Date.now() - 2 * crawl_job_timeout_ms - STALE_GRACE_MS,
     );
 
-    const staleRuns = await this.prisma.crawlRun.findMany({
+    const staleRuns = await this.prisma.workflowRun.findMany({
       where: {
-        status: CrawlRunStatus.RUNNING,
+        status: RunStatus.RUNNING,
         OR: [
           { updated_at: { lt: activityStaleBefore } },
           { started_at: { lt: absoluteStaleBefore } },
         ],
       },
-      include: { scraper: true },
+      include: { workflow_config: true },
     });
 
     for (const run of staleRuns) {
@@ -52,10 +52,10 @@ export class CrawlRunWatchdogCron {
         (crawl_job_timeout_ms + STALE_GRACE_MS) / 60_000,
       )} minutes with no update -- likely a worker crash/restart mid-job`;
 
-      await this.prisma.crawlRun.update({
+      await this.prisma.workflowRun.update({
         where: { id: run.id },
         data: {
-          status: CrawlRunStatus.FAILED,
+          status: RunStatus.FAILED,
           finished_at: finishedAt,
           duration_ms: run.started_at
             ? finishedAt.getTime() - run.started_at.getTime()
@@ -65,7 +65,7 @@ export class CrawlRunWatchdogCron {
       });
 
       await this.prisma.jobLog.updateMany({
-        where: { crawl_run_id: run.id, status: JobStatus.ACTIVE },
+        where: { workflow_run_id: run.id, status: JobStatus.ACTIVE },
         data: {
           status: JobStatus.FAILED,
           finished_at: finishedAt,
@@ -76,25 +76,25 @@ export class CrawlRunWatchdogCron {
       this.notificationsService.create({
         type: NotificationType.LARGE_CRAWL_FAILURE,
         severity: NotificationSeverity.CRITICAL,
-        title: 'Crawl run stuck and auto-failed by watchdog',
+        title: 'Run stuck and auto-failed by watchdog',
         message: errorMessage,
-        website_target_id: run.website_target_id,
-        scraper_id: run.scraper_id ?? undefined,
-        crawl_run_id: run.id,
+        website_target_id: run.website_target_id ?? undefined,
+        workflow_config_id: run.workflow_config_id,
+        workflow_run_id: run.id,
       });
 
-      if (run.scraper) {
+      if (run.workflow_config) {
         await this.scraperFailureHandler.handle({
-          scraper: run.scraper,
-          crawlRunId: run.id,
-          websiteTargetId: run.website_target_id,
+          workflowConfig: run.workflow_config,
+          workflowRunId: run.id,
+          websiteTargetId: run.website_target_id!,
           zeroListingsPage0: false,
           networkError: false,
           errorMessage,
         });
       }
 
-      this.logger.warn(`watchdog failed stale crawl run ${run.id}`);
+      this.logger.warn(`watchdog failed stale workflow run ${run.id}`);
     }
   }
 }

@@ -12,7 +12,7 @@ import { GENERATION_QUEUE } from '@/core/queues/queues.constants';
 import { AuthUser } from '@/shared/interfaces/auth-user.interface';
 import {
   generationRunUserWhere,
-  scraperUserWhere,
+  workflowConfigUserWhere,
   websiteTargetUserWhere,
 } from '@/shared/utils/user/user-scope.utils';
 import {
@@ -23,6 +23,7 @@ import {
   Prisma,
   ScraperStatus,
   ScraperVersionCreatedBy,
+  WorkflowType,
 } from 'generated/prisma';
 import { CreateGenerationRunDto } from './dto/create-generation-run.dto';
 import { RejectGenerationRunDto } from './dto/reject-generation-run.dto';
@@ -69,7 +70,9 @@ export class ScraperGenerationService {
       ...(query.website_target_id && {
         website_target_id: query.website_target_id,
       }),
-      ...(query.scraper_id && { scraper_id: query.scraper_id }),
+      ...(query.workflow_config_id && {
+        workflow_config_id: query.workflow_config_id,
+      }),
     };
 
     const [items, total] = await Promise.all([
@@ -77,7 +80,7 @@ export class ScraperGenerationService {
         where,
         include: {
           website_target: { select: { name: true } },
-          scraper: { select: { name: true } },
+          workflow_config: { select: { name: true } },
         },
         skip: (query.page - 1) * query.limit,
         take: query.limit,
@@ -104,7 +107,7 @@ export class ScraperGenerationService {
       where: { id, ...generationRunUserWhere(authUser) },
       include: {
         website_target: { select: { name: true } },
-        scraper: { select: { name: true } },
+        workflow_config: { select: { name: true } },
         steps: {
           orderBy: { step_index: 'asc' },
           include: {
@@ -121,8 +124,6 @@ export class ScraperGenerationService {
 
     return {
       ...run,
-      // The frontend replay view renders images directly; resolve Document ids to their
-      // GCS urls here instead of making it fetch each screenshot by id itself.
       steps: run.steps.map(
         ({
           screenshot_before,
@@ -162,13 +163,13 @@ export class ScraperGenerationService {
     }
 
     if (dto.scraper_id) {
-      await this.ensureScraperBelongsToUser(authUser, dto.scraper_id);
+      await this.ensureWorkflowConfigBelongsToUser(authUser, dto.scraper_id);
     }
 
     const run = await this.prisma.scraperGenerationRun.create({
       data: {
         website_target_id: dto.website_target_id,
-        scraper_id: dto.scraper_id,
+        workflow_config_id: dto.scraper_id ?? null,
         trigger: GenerationTrigger.MANUAL,
         status: GenerationRunStatus.QUEUED,
         prompt: dto.prompt,
@@ -183,7 +184,7 @@ export class ScraperGenerationService {
 
   async trigger(
     websiteTargetId: string,
-    scraperId: string | null,
+    workflowConfigId: string | null,
     trigger: GenerationTrigger,
     prompt?: string,
     maxSteps?: number,
@@ -191,7 +192,7 @@ export class ScraperGenerationService {
     const run = await this.prisma.scraperGenerationRun.create({
       data: {
         website_target_id: websiteTargetId,
-        scraper_id: scraperId,
+        workflow_config_id: workflowConfigId,
         trigger,
         status: GenerationRunStatus.QUEUED,
         prompt,
@@ -217,37 +218,38 @@ export class ScraperGenerationService {
     }
 
     return this.prisma.$transaction(async (tx) => {
-      let scraperId = run.scraper_id;
+      let workflowConfigId = run.workflow_config_id;
 
-      if (!scraperId) {
+      if (!workflowConfigId) {
         const websiteTarget = await tx.websiteTarget.findUniqueOrThrow({
           where: { id: run.website_target_id },
         });
 
-        const scraper = await tx.scraper.create({
+        const config = await tx.workflowConfig.create({
           data: {
             user_id: websiteTarget.user_id,
+            type: WorkflowType.SCRAPER,
             website_target_id: run.website_target_id,
             name: `${websiteTarget.name} scraper`,
             status: ScraperStatus.TESTING,
           },
         });
 
-        scraperId = scraper.id;
+        workflowConfigId = config.id;
       }
 
-      const scraper = await tx.scraper.findUniqueOrThrow({
-        where: { id: scraperId },
+      const config = await tx.workflowConfig.findUniqueOrThrow({
+        where: { id: workflowConfigId },
       });
 
       const latestVersion = await tx.scraperVersion.findFirst({
-        where: { scraper_id: scraperId },
+        where: { workflow_config_id: workflowConfigId },
         orderBy: { version: 'desc' },
       });
 
       const version = await tx.scraperVersion.create({
         data: {
-          scraper_id: scraperId,
+          workflow_config_id: workflowConfigId,
           version: (latestVersion?.version ?? 0) + 1,
           config: run.staged_config as Prisma.InputJsonValue,
           created_by: ScraperVersionCreatedBy.AI,
@@ -255,12 +257,12 @@ export class ScraperGenerationService {
         },
       });
 
-      await tx.scraper.update({
-        where: { id: scraperId },
+      await tx.workflowConfig.update({
+        where: { id: workflowConfigId },
         data: {
           active_version_id: version.id,
           version_count: { increment: 1 },
-          ...(scraper.status === ScraperStatus.BROKEN && {
+          ...(config.status === ScraperStatus.BROKEN && {
             status: ScraperStatus.ACTIVE,
           }),
         },
@@ -270,7 +272,7 @@ export class ScraperGenerationService {
       return tx.scraperGenerationRun.update({
         where: { id },
         data: {
-          scraper_id: scraperId,
+          workflow_config_id: workflowConfigId,
           produced_version_id: version.id,
           status: GenerationRunStatus.SUCCESS,
           finished_at: finishedAt,
@@ -363,7 +365,7 @@ export class ScraperGenerationService {
       where: { id, ...generationRunUserWhere(authUser) },
       include: {
         steps: { select: { id: true } },
-        scraper: { select: { self_healing_enabled: true } },
+        workflow_config: { select: { self_healing_enabled: true } },
       },
     });
 
@@ -378,10 +380,10 @@ export class ScraperGenerationService {
     }
 
     if (
-      run.scraper_id &&
+      run.workflow_config_id &&
       run.trigger === GenerationTrigger.SELF_HEAL &&
-      run.scraper &&
-      !run.scraper.self_healing_enabled
+      run.workflow_config &&
+      !run.workflow_config.self_healing_enabled
     ) {
       throw new BadRequestException(
         'Self-healing is disabled for this scraper',
@@ -418,13 +420,13 @@ export class ScraperGenerationService {
   }
 
   async retryLatestForScraper(
-    scraperId: string,
+    workflowConfigId: string,
     error: string,
     prompt?: string,
   ) {
     const run = await this.prisma.scraperGenerationRun.findFirst({
       where: {
-        scraper_id: scraperId,
+        workflow_config_id: workflowConfigId,
         status: { in: RETRYABLE_STATUSES },
         steps: { some: {} },
       },
@@ -551,30 +553,16 @@ export class ScraperGenerationService {
     });
   }
 
-  private async ensureWebsiteTargetBelongsToUser(
+  private async ensureWorkflowConfigBelongsToUser(
     authUser: AuthUser,
-    websiteTargetId: string,
+    workflowConfigId: string,
   ) {
-    const websiteTarget = await this.prisma.websiteTarget.findFirst({
-      where: { id: websiteTargetId, ...websiteTargetUserWhere(authUser) },
+    const config = await this.prisma.workflowConfig.findFirst({
+      where: { id: workflowConfigId, ...workflowConfigUserWhere(authUser) },
       select: { id: true },
     });
 
-    if (!websiteTarget) {
-      throw new NotFoundException('Website target not found');
-    }
-  }
-
-  private async ensureScraperBelongsToUser(
-    authUser: AuthUser,
-    scraperId: string,
-  ) {
-    const scraper = await this.prisma.scraper.findFirst({
-      where: { id: scraperId, ...scraperUserWhere(authUser) },
-      select: { id: true },
-    });
-
-    if (!scraper) {
+    if (!config) {
       throw new NotFoundException('Scraper not found');
     }
   }

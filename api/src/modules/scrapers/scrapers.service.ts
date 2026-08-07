@@ -7,14 +7,15 @@ import { PrismaService } from '@/core/databases/prisma/prisma.service';
 import { CrawlRunsService } from '@/modules/crawl-runs/crawl-runs.service';
 import { AuthUser } from '@/shared/interfaces/auth-user.interface';
 import {
-  scraperUserWhere,
+  workflowConfigUserWhere,
   websiteTargetUserWhere,
 } from '@/shared/utils/user/user-scope.utils';
 import {
-  CrawlRunStatus,
   Prisma,
+  RunStatus,
   ScraperStatus,
   ScraperVersionCreatedBy,
+  WorkflowType,
 } from 'generated/prisma';
 import { CreateScraperDto } from './dto/create-scraper.dto';
 import { CreateScraperVersionDto } from './dto/create-scraper-version.dto';
@@ -22,10 +23,7 @@ import { UpdateScraperDto } from './dto/update-scraper.dto';
 import { ScraperQueryType } from './dto/scraper-query.schema';
 import { PaginatedResult } from './interfaces/scraper.interface';
 
-const ACTIVE_CRAWL_RUN_STATUSES: CrawlRunStatus[] = [
-  CrawlRunStatus.QUEUED,
-  CrawlRunStatus.RUNNING,
-];
+const ACTIVE_RUN_STATUSES: RunStatus[] = [RunStatus.QUEUED, RunStatus.RUNNING];
 
 @Injectable()
 export class ScrapersService {
@@ -38,8 +36,9 @@ export class ScrapersService {
     authUser: AuthUser,
     query: ScraperQueryType,
   ): Promise<PaginatedResult<any>> {
-    const where: Prisma.ScraperWhereInput = {
-      ...scraperUserWhere(authUser, query.user_id),
+    const where: Prisma.WorkflowConfigWhereInput = {
+      ...workflowConfigUserWhere(authUser, query.user_id),
+      type: WorkflowType.SCRAPER,
       ...(query.search && {
         name: { contains: query.search, mode: 'insensitive' as const },
       }),
@@ -51,14 +50,14 @@ export class ScrapersService {
     };
 
     const [items, total] = await Promise.all([
-      this.prisma.scraper.findMany({
+      this.prisma.workflowConfig.findMany({
         where,
         include: { website_target: { select: { name: true } } },
         skip: (query.page - 1) * query.limit,
         take: query.limit,
         orderBy: { created_at: 'desc' },
       }),
-      this.prisma.scraper.count({ where }),
+      this.prisma.workflowConfig.count({ where }),
     ]);
 
     return {
@@ -75,8 +74,8 @@ export class ScrapersService {
   }
 
   async findOne(authUser: AuthUser, id: string) {
-    const scraper = await this.prisma.scraper.findFirst({
-      where: { id, ...scraperUserWhere(authUser) },
+    const scraper = await this.prisma.workflowConfig.findFirst({
+      where: { id, ...workflowConfigUserWhere(authUser), type: WorkflowType.SCRAPER },
       include: {
         website_target: { select: { name: true } },
         active_version: true,
@@ -97,9 +96,10 @@ export class ScrapersService {
     );
 
     if (dto.config === undefined) {
-      return this.prisma.scraper.create({
+      return this.prisma.workflowConfig.create({
         data: {
           user_id: authUser.id,
+          type: WorkflowType.SCRAPER,
           website_target_id: dto.website_target_id,
           name: dto.name,
           status: ScraperStatus.TESTING,
@@ -112,9 +112,10 @@ export class ScrapersService {
     }
 
     return this.prisma.$transaction(async (tx) => {
-      const scraper = await tx.scraper.create({
+      const scraper = await tx.workflowConfig.create({
         data: {
           user_id: authUser.id,
+          type: WorkflowType.SCRAPER,
           website_target_id: dto.website_target_id,
           name: dto.name,
           status: ScraperStatus.TESTING,
@@ -123,14 +124,14 @@ export class ScrapersService {
 
       const version = await tx.scraperVersion.create({
         data: {
-          scraper_id: scraper.id,
+          workflow_config_id: scraper.id,
           version: 1,
           config: dto.config as Prisma.InputJsonValue,
           created_by: ScraperVersionCreatedBy.USER,
         },
       });
 
-      return tx.scraper.update({
+      return tx.workflowConfig.update({
         where: { id: scraper.id },
         data: { active_version_id: version.id, version_count: 1 },
         include: {
@@ -145,7 +146,7 @@ export class ScrapersService {
     await this.ensureExists(authUser, scraperId);
 
     return this.prisma.scraperVersion.findMany({
-      where: { scraper_id: scraperId },
+      where: { workflow_config_id: scraperId },
       orderBy: { version: 'desc' },
     });
   }
@@ -159,13 +160,13 @@ export class ScrapersService {
 
     return this.prisma.$transaction(async (tx) => {
       const latest = await tx.scraperVersion.findFirst({
-        where: { scraper_id: scraperId },
+        where: { workflow_config_id: scraperId },
         orderBy: { version: 'desc' },
       });
 
       const version = await tx.scraperVersion.create({
         data: {
-          scraper_id: scraperId,
+          workflow_config_id: scraperId,
           version: (latest?.version ?? 0) + 1,
           config: (dto.config ?? {}) as Prisma.InputJsonValue,
           notes: dto.notes,
@@ -173,7 +174,7 @@ export class ScrapersService {
         },
       });
 
-      await tx.scraper.update({
+      await tx.workflowConfig.update({
         where: { id: scraperId },
         data: { version_count: { increment: 1 } },
       });
@@ -193,11 +194,11 @@ export class ScrapersService {
       where: { id: versionId },
     });
 
-    if (!version || version.scraper_id !== scraperId) {
+    if (!version || version.workflow_config_id !== scraperId) {
       throw new NotFoundException('Version not found for this scraper');
     }
 
-    return this.prisma.scraper.update({
+    return this.prisma.workflowConfig.update({
       where: { id: scraperId },
       data: {
         active_version_id: versionId,
@@ -216,7 +217,7 @@ export class ScrapersService {
     const scraper = await this.ensureExists(authUser, id);
 
     if (dto.validation_rules === undefined) {
-      return this.prisma.scraper.update({
+      return this.prisma.workflowConfig.update({
         where: { id },
         data: {
           ...(dto.status !== undefined && { status: dto.status }),
@@ -242,13 +243,13 @@ export class ScrapersService {
         : null;
 
       const latest = await tx.scraperVersion.findFirst({
-        where: { scraper_id: id },
+        where: { workflow_config_id: id },
         orderBy: { version: 'desc' },
       });
 
       const newVersion = await tx.scraperVersion.create({
         data: {
-          scraper_id: id,
+          workflow_config_id: id,
           version: (latest?.version ?? 0) + 1,
           config: {
             ...((activeVersion?.config as Record<string, unknown>) ?? {}),
@@ -259,7 +260,7 @@ export class ScrapersService {
         },
       });
 
-      return tx.scraper.update({
+      return tx.workflowConfig.update({
         where: { id },
         data: {
           active_version_id: newVersion.id,
@@ -284,31 +285,35 @@ export class ScrapersService {
     const scraper = await this.ensureExists(authUser, id);
 
     return this.crawlRunsService.enqueue(
-      scraper.website_target_id,
+      scraper.website_target_id!,
       scraper.id,
     );
   }
 
   async remove(authUser: AuthUser, id: string) {
     await this.ensureExists(authUser, id);
-    await this.ensureNoActiveCrawlRuns([id]);
+    await this.ensureNoActiveRuns([id]);
 
-    await this.prisma.scraper.delete({ where: { id } });
+    await this.prisma.workflowConfig.delete({ where: { id } });
   }
 
   async removeMany(authUser: AuthUser, scraperIds: string[]) {
     const uniqueIds = [...new Set(scraperIds)];
-    const count = await this.prisma.scraper.count({
-      where: { id: { in: uniqueIds }, ...scraperUserWhere(authUser) },
+    const count = await this.prisma.workflowConfig.count({
+      where: {
+        id: { in: uniqueIds },
+        ...workflowConfigUserWhere(authUser),
+        type: WorkflowType.SCRAPER,
+      },
     });
 
     if (count !== uniqueIds.length) {
       throw new NotFoundException('One or more scrapers not found');
     }
 
-    await this.ensureNoActiveCrawlRuns(uniqueIds);
+    await this.ensureNoActiveRuns(uniqueIds);
 
-    await this.prisma.scraper.deleteMany({
+    await this.prisma.workflowConfig.deleteMany({
       where: { id: { in: uniqueIds } },
     });
 
@@ -329,25 +334,25 @@ export class ScrapersService {
     }
   }
 
-  private async ensureNoActiveCrawlRuns(scraperIds: string[]) {
-    const activeRun = await this.prisma.crawlRun.findFirst({
+  private async ensureNoActiveRuns(workflowConfigIds: string[]) {
+    const activeRun = await this.prisma.workflowRun.findFirst({
       where: {
-        scraper_id: { in: scraperIds },
-        status: { in: ACTIVE_CRAWL_RUN_STATUSES },
+        workflow_config_id: { in: workflowConfigIds },
+        status: { in: ACTIVE_RUN_STATUSES },
       },
       select: { id: true },
     });
 
     if (activeRun) {
       throw new BadRequestException(
-        'Cancel active crawl runs for this scraper before deleting it',
+        'Cancel active runs for this scraper before deleting it',
       );
     }
   }
 
   private async ensureExists(authUser: AuthUser, id: string) {
-    const scraper = await this.prisma.scraper.findFirst({
-      where: { id, ...scraperUserWhere(authUser) },
+    const scraper = await this.prisma.workflowConfig.findFirst({
+      where: { id, ...workflowConfigUserWhere(authUser), type: WorkflowType.SCRAPER },
     });
 
     if (!scraper) {

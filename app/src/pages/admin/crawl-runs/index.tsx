@@ -51,7 +51,7 @@ export default function CrawlRunsListPage() {
 
   const [status, setStatus] = useState<CrawlRunStatus | "all">("all");
   const [websiteTargetId, setWebsiteTargetId] = useState<string | "all">("all");
-  const [scraperId, setScraperId] = useState<string | "all">("all");
+  const [workflowConfigId, setWorkflowConfigId] = useState<string | "all">("all");
   const [dateFrom, setDateFrom] = useState("");
   const [dateTo, setDateTo] = useState("");
   const [page, setPage] = useState(1);
@@ -64,11 +64,11 @@ export default function CrawlRunsListPage() {
       limit: 20,
       ...(status !== "all" && { status }),
       ...(websiteTargetId !== "all" && { website_target_id: websiteTargetId }),
-      ...(scraperId !== "all" && { scraper_id: scraperId }),
+      ...(workflowConfigId !== "all" && { workflow_config_id: workflowConfigId }),
       ...(dateFrom && { date_from: toStartOfDayIso(dateFrom) }),
       ...(dateTo && { date_to: toEndOfDayIso(dateTo) }),
     }),
-    [page, status, websiteTargetId, scraperId, dateFrom, dateTo],
+    [page, status, websiteTargetId, workflowConfigId, dateFrom, dateTo],
   );
 
   const { data, isPending } = useCrawlRuns(query);
@@ -106,7 +106,7 @@ export default function CrawlRunsListPage() {
   };
 
   const handleBulkDelete = async () => {
-    await deleteCrawlRuns.mutateAsync({ crawl_run_ids: Array.from(selectedIds) });
+    await deleteCrawlRuns.mutateAsync({ workflow_run_ids: Array.from(selectedIds) });
     clearSelection();
   };
 
@@ -180,10 +180,10 @@ export default function CrawlRunsListPage() {
 
         <Select
           aria-label="Filter by scraper"
-          selectedKey={scraperId}
+          selectedKey={workflowConfigId}
           onSelectionChange={(key) => {
             setPage(1);
-            setScraperId(key as string | "all");
+            setWorkflowConfigId(key as string | "all");
           }}
           className="w-48"
         >
@@ -282,7 +282,7 @@ export default function CrawlRunsListPage() {
                           {run.website_target?.name ?? "—"}
                         </span>
                       </Table.Cell>
-                      <Table.Cell>{run.scraper?.name ?? "—"}</Table.Cell>
+                      <Table.Cell>{run.workflow_config?.name ?? "—"}</Table.Cell>
                       <Table.Cell>
                         <CrawlRunStatusChip status={run.status} />
                       </Table.Cell>
