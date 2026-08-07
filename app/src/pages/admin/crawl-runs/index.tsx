@@ -224,7 +224,7 @@ export default function CrawlRunsListPage() {
       </div>
 
       {isPending ? (
-        <TableSkeleton rows={8} columns={7} />
+        <TableSkeleton rows={8} columns={6} />
       ) : runs.length === 0 ? (
         <div className="rounded-xl border border-border bg-surface p-10 text-center text-sm text-muted">
           No crawl runs found.
@@ -252,7 +252,6 @@ export default function CrawlRunsListPage() {
                   <Table.Column isRowHeader>Website target</Table.Column>
                   <Table.Column>Scraper</Table.Column>
                   <Table.Column>Status</Table.Column>
-                  <Table.Column>Totals</Table.Column>
                   <Table.Column>Started</Table.Column>
                   <Table.Column>Duration</Table.Column>
                   <Table.Column>Actions</Table.Column>
@@ -286,15 +285,6 @@ export default function CrawlRunsListPage() {
                       <Table.Cell>{run.scraper?.name ?? "—"}</Table.Cell>
                       <Table.Cell>
                         <CrawlRunStatusChip status={run.status} />
-                      </Table.Cell>
-                      <Table.Cell>
-                        <span
-                          className="text-xs text-muted font-mono"
-                          title="found / new / refreshed"
-                        >
-                          {run.total_found}/{run.total_new_listings}/
-                          {run.total_refreshed_listings}
-                        </span>
                       </Table.Cell>
                       <Table.Cell>{formatDateTime(run.started_at)}</Table.Cell>
                       <Table.Cell>{formatDuration(run.duration_ms)}</Table.Cell>

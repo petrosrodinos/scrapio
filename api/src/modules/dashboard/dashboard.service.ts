@@ -128,7 +128,6 @@ export class DashboardService {
           scraper_id: true,
           finished_at: true,
           created_at: true,
-          total_found: true,
           website_target: { select: { name: true } },
         },
       }),
@@ -219,7 +218,6 @@ export class DashboardService {
       scraper_id: string | null;
       finished_at: Date | null;
       created_at: Date;
-      total_found: number;
       website_target: { name: string };
     }[],
     failedCrawls: {
@@ -259,7 +257,7 @@ export class DashboardService {
         website_target_name: run.website_target.name,
         scraper_id: run.scraper_id,
         crawl_run_id: run.id,
-        message: `Crawl completed with ${run.total_found} items found`,
+        message: 'Crawl completed',
         occurred_at: run.finished_at ?? run.created_at,
       })),
       ...failedCrawls.map((run) => ({

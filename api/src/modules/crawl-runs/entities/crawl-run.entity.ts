@@ -26,20 +26,6 @@ export class CrawlRun {
   @ApiProperty({ nullable: true })
   duration_ms: number | null;
 
-  @ApiProperty()
-  total_found: number;
-
-  @ApiProperty({
-    description: 'Of total_found, how many were brand-new listings this scrape',
-  })
-  total_new_listings: number;
-
-  @ApiProperty({
-    description:
-      'Of total_found, how many were already-known listings re-seen this scrape',
-  })
-  total_refreshed_listings: number;
-
   @ApiProperty({ nullable: true })
   error_message: string | null;
 

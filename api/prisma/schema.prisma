@@ -451,9 +451,6 @@ model CrawlRun {
   started_at               DateTime?
   finished_at              DateTime?
   duration_ms              Int?
-  total_found              Int        @default(0)
-  total_new_listings       Int        @default(0)
-  total_refreshed_listings Int        @default(0)
   error_message            String?
   metadata                 Json?
   created_at               DateTime   @default(now())

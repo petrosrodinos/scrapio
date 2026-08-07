@@ -16760,16 +16760,10 @@ export namespace Prisma {
 
   export type CrawlRunAvgAggregateOutputType = {
     duration_ms: number | null
-    total_found: number | null
-    total_new_listings: number | null
-    total_refreshed_listings: number | null
   }
 
   export type CrawlRunSumAggregateOutputType = {
     duration_ms: number | null
-    total_found: number | null
-    total_new_listings: number | null
-    total_refreshed_listings: number | null
   }
 
   export type CrawlRunMinAggregateOutputType = {
@@ -16783,9 +16777,6 @@ export namespace Prisma {
     started_at: Date | null
     finished_at: Date | null
     duration_ms: number | null
-    total_found: number | null
-    total_new_listings: number | null
-    total_refreshed_listings: number | null
     error_message: string | null
     created_at: Date | null
     updated_at: Date | null
@@ -16802,9 +16793,6 @@ export namespace Prisma {
     started_at: Date | null
     finished_at: Date | null
     duration_ms: number | null
-    total_found: number | null
-    total_new_listings: number | null
-    total_refreshed_listings: number | null
     error_message: string | null
     created_at: Date | null
     updated_at: Date | null
@@ -16821,9 +16809,6 @@ export namespace Prisma {
     started_at: number
     finished_at: number
     duration_ms: number
-    total_found: number
-    total_new_listings: number
-    total_refreshed_listings: number
     error_message: number
     metadata: number
     created_at: number
@@ -16834,16 +16819,10 @@ export namespace Prisma {
 
   export type CrawlRunAvgAggregateInputType = {
     duration_ms?: true
-    total_found?: true
-    total_new_listings?: true
-    total_refreshed_listings?: true
   }
 
   export type CrawlRunSumAggregateInputType = {
     duration_ms?: true
-    total_found?: true
-    total_new_listings?: true
-    total_refreshed_listings?: true
   }
 
   export type CrawlRunMinAggregateInputType = {
@@ -16857,9 +16836,6 @@ export namespace Prisma {
     started_at?: true
     finished_at?: true
     duration_ms?: true
-    total_found?: true
-    total_new_listings?: true
-    total_refreshed_listings?: true
     error_message?: true
     created_at?: true
     updated_at?: true
@@ -16876,9 +16852,6 @@ export namespace Prisma {
     started_at?: true
     finished_at?: true
     duration_ms?: true
-    total_found?: true
-    total_new_listings?: true
-    total_refreshed_listings?: true
     error_message?: true
     created_at?: true
     updated_at?: true
@@ -16895,9 +16868,6 @@ export namespace Prisma {
     started_at?: true
     finished_at?: true
     duration_ms?: true
-    total_found?: true
-    total_new_listings?: true
-    total_refreshed_listings?: true
     error_message?: true
     metadata?: true
     created_at?: true
@@ -17002,9 +16972,6 @@ export namespace Prisma {
     started_at: Date | null
     finished_at: Date | null
     duration_ms: number | null
-    total_found: number
-    total_new_listings: number
-    total_refreshed_listings: number
     error_message: string | null
     metadata: JsonValue | null
     created_at: Date
@@ -17041,9 +17008,6 @@ export namespace Prisma {
     started_at?: boolean
     finished_at?: boolean
     duration_ms?: boolean
-    total_found?: boolean
-    total_new_listings?: boolean
-    total_refreshed_listings?: boolean
     error_message?: boolean
     metadata?: boolean
     created_at?: boolean
@@ -17072,9 +17036,6 @@ export namespace Prisma {
     started_at?: boolean
     finished_at?: boolean
     duration_ms?: boolean
-    total_found?: boolean
-    total_new_listings?: boolean
-    total_refreshed_listings?: boolean
     error_message?: boolean
     metadata?: boolean
     created_at?: boolean
@@ -17096,9 +17057,6 @@ export namespace Prisma {
     started_at?: boolean
     finished_at?: boolean
     duration_ms?: boolean
-    total_found?: boolean
-    total_new_listings?: boolean
-    total_refreshed_listings?: boolean
     error_message?: boolean
     metadata?: boolean
     created_at?: boolean
@@ -17120,16 +17078,13 @@ export namespace Prisma {
     started_at?: boolean
     finished_at?: boolean
     duration_ms?: boolean
-    total_found?: boolean
-    total_new_listings?: boolean
-    total_refreshed_listings?: boolean
     error_message?: boolean
     metadata?: boolean
     created_at?: boolean
     updated_at?: boolean
   }
 
-  export type CrawlRunOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "website_target_id" | "scraper_id" | "scraper_version_id" | "trigger" | "status" | "started_at" | "finished_at" | "duration_ms" | "total_found" | "total_new_listings" | "total_refreshed_listings" | "error_message" | "metadata" | "created_at" | "updated_at", ExtArgs["result"]["crawlRun"]>
+  export type CrawlRunOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "website_target_id" | "scraper_id" | "scraper_version_id" | "trigger" | "status" | "started_at" | "finished_at" | "duration_ms" | "error_message" | "metadata" | "created_at" | "updated_at", ExtArgs["result"]["crawlRun"]>
   export type CrawlRunInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     website_target?: boolean | WebsiteTargetDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -17181,9 +17136,6 @@ export namespace Prisma {
       started_at: Date | null
       finished_at: Date | null
       duration_ms: number | null
-      total_found: number
-      total_new_listings: number
-      total_refreshed_listings: number
       error_message: string | null
       metadata: Prisma.JsonValue | null
       created_at: Date
@@ -17631,9 +17583,6 @@ export namespace Prisma {
     readonly started_at: FieldRef<"CrawlRun", 'DateTime'>
     readonly finished_at: FieldRef<"CrawlRun", 'DateTime'>
     readonly duration_ms: FieldRef<"CrawlRun", 'Int'>
-    readonly total_found: FieldRef<"CrawlRun", 'Int'>
-    readonly total_new_listings: FieldRef<"CrawlRun", 'Int'>
-    readonly total_refreshed_listings: FieldRef<"CrawlRun", 'Int'>
     readonly error_message: FieldRef<"CrawlRun", 'String'>
     readonly metadata: FieldRef<"CrawlRun", 'Json'>
     readonly created_at: FieldRef<"CrawlRun", 'DateTime'>
@@ -36714,9 +36663,6 @@ export namespace Prisma {
     started_at: 'started_at',
     finished_at: 'finished_at',
     duration_ms: 'duration_ms',
-    total_found: 'total_found',
-    total_new_listings: 'total_new_listings',
-    total_refreshed_listings: 'total_refreshed_listings',
     error_message: 'error_message',
     metadata: 'metadata',
     created_at: 'created_at',
@@ -38442,9 +38388,6 @@ export namespace Prisma {
     started_at?: DateTimeNullableFilter<"CrawlRun"> | Date | string | null
     finished_at?: DateTimeNullableFilter<"CrawlRun"> | Date | string | null
     duration_ms?: IntNullableFilter<"CrawlRun"> | number | null
-    total_found?: IntFilter<"CrawlRun"> | number
-    total_new_listings?: IntFilter<"CrawlRun"> | number
-    total_refreshed_listings?: IntFilter<"CrawlRun"> | number
     error_message?: StringNullableFilter<"CrawlRun"> | string | null
     metadata?: JsonNullableFilter<"CrawlRun">
     created_at?: DateTimeFilter<"CrawlRun"> | Date | string
@@ -38472,9 +38415,6 @@ export namespace Prisma {
     started_at?: SortOrderInput | SortOrder
     finished_at?: SortOrderInput | SortOrder
     duration_ms?: SortOrderInput | SortOrder
-    total_found?: SortOrder
-    total_new_listings?: SortOrder
-    total_refreshed_listings?: SortOrder
     error_message?: SortOrderInput | SortOrder
     metadata?: SortOrderInput | SortOrder
     created_at?: SortOrder
@@ -38505,9 +38445,6 @@ export namespace Prisma {
     started_at?: DateTimeNullableFilter<"CrawlRun"> | Date | string | null
     finished_at?: DateTimeNullableFilter<"CrawlRun"> | Date | string | null
     duration_ms?: IntNullableFilter<"CrawlRun"> | number | null
-    total_found?: IntFilter<"CrawlRun"> | number
-    total_new_listings?: IntFilter<"CrawlRun"> | number
-    total_refreshed_listings?: IntFilter<"CrawlRun"> | number
     error_message?: StringNullableFilter<"CrawlRun"> | string | null
     metadata?: JsonNullableFilter<"CrawlRun">
     created_at?: DateTimeFilter<"CrawlRun"> | Date | string
@@ -38535,9 +38472,6 @@ export namespace Prisma {
     started_at?: SortOrderInput | SortOrder
     finished_at?: SortOrderInput | SortOrder
     duration_ms?: SortOrderInput | SortOrder
-    total_found?: SortOrder
-    total_new_listings?: SortOrder
-    total_refreshed_listings?: SortOrder
     error_message?: SortOrderInput | SortOrder
     metadata?: SortOrderInput | SortOrder
     created_at?: SortOrder
@@ -38563,9 +38497,6 @@ export namespace Prisma {
     started_at?: DateTimeNullableWithAggregatesFilter<"CrawlRun"> | Date | string | null
     finished_at?: DateTimeNullableWithAggregatesFilter<"CrawlRun"> | Date | string | null
     duration_ms?: IntNullableWithAggregatesFilter<"CrawlRun"> | number | null
-    total_found?: IntWithAggregatesFilter<"CrawlRun"> | number
-    total_new_listings?: IntWithAggregatesFilter<"CrawlRun"> | number
-    total_refreshed_listings?: IntWithAggregatesFilter<"CrawlRun"> | number
     error_message?: StringNullableWithAggregatesFilter<"CrawlRun"> | string | null
     metadata?: JsonNullableWithAggregatesFilter<"CrawlRun">
     created_at?: DateTimeWithAggregatesFilter<"CrawlRun"> | Date | string
@@ -41129,9 +41060,6 @@ export namespace Prisma {
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
-    total_found?: number
-    total_new_listings?: number
-    total_refreshed_listings?: number
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
@@ -41159,9 +41087,6 @@ export namespace Prisma {
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
-    total_found?: number
-    total_new_listings?: number
-    total_refreshed_listings?: number
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
@@ -41181,9 +41106,6 @@ export namespace Prisma {
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
-    total_found?: IntFieldUpdateOperationsInput | number
-    total_new_listings?: IntFieldUpdateOperationsInput | number
-    total_refreshed_listings?: IntFieldUpdateOperationsInput | number
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -41211,9 +41133,6 @@ export namespace Prisma {
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
-    total_found?: IntFieldUpdateOperationsInput | number
-    total_new_listings?: IntFieldUpdateOperationsInput | number
-    total_refreshed_listings?: IntFieldUpdateOperationsInput | number
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -41237,9 +41156,6 @@ export namespace Prisma {
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
-    total_found?: number
-    total_new_listings?: number
-    total_refreshed_listings?: number
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
@@ -41253,9 +41169,6 @@ export namespace Prisma {
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
-    total_found?: IntFieldUpdateOperationsInput | number
-    total_new_listings?: IntFieldUpdateOperationsInput | number
-    total_refreshed_listings?: IntFieldUpdateOperationsInput | number
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -41273,9 +41186,6 @@ export namespace Prisma {
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
-    total_found?: IntFieldUpdateOperationsInput | number
-    total_new_listings?: IntFieldUpdateOperationsInput | number
-    total_refreshed_listings?: IntFieldUpdateOperationsInput | number
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -44174,9 +44084,6 @@ export namespace Prisma {
     started_at?: SortOrder
     finished_at?: SortOrder
     duration_ms?: SortOrder
-    total_found?: SortOrder
-    total_new_listings?: SortOrder
-    total_refreshed_listings?: SortOrder
     error_message?: SortOrder
     metadata?: SortOrder
     created_at?: SortOrder
@@ -44185,9 +44092,6 @@ export namespace Prisma {
 
   export type CrawlRunAvgOrderByAggregateInput = {
     duration_ms?: SortOrder
-    total_found?: SortOrder
-    total_new_listings?: SortOrder
-    total_refreshed_listings?: SortOrder
   }
 
   export type CrawlRunMaxOrderByAggregateInput = {
@@ -44201,9 +44105,6 @@ export namespace Prisma {
     started_at?: SortOrder
     finished_at?: SortOrder
     duration_ms?: SortOrder
-    total_found?: SortOrder
-    total_new_listings?: SortOrder
-    total_refreshed_listings?: SortOrder
     error_message?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -44220,9 +44121,6 @@ export namespace Prisma {
     started_at?: SortOrder
     finished_at?: SortOrder
     duration_ms?: SortOrder
-    total_found?: SortOrder
-    total_new_listings?: SortOrder
-    total_refreshed_listings?: SortOrder
     error_message?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -44230,9 +44128,6 @@ export namespace Prisma {
 
   export type CrawlRunSumOrderByAggregateInput = {
     duration_ms?: SortOrder
-    total_found?: SortOrder
-    total_new_listings?: SortOrder
-    total_refreshed_listings?: SortOrder
   }
 
   export type EnumRunTriggerWithAggregatesFilter<$PrismaModel = never> = {
@@ -48983,9 +48878,6 @@ export namespace Prisma {
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
-    total_found?: number
-    total_new_listings?: number
-    total_refreshed_listings?: number
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
@@ -49011,9 +48903,6 @@ export namespace Prisma {
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
-    total_found?: number
-    total_new_listings?: number
-    total_refreshed_listings?: number
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
@@ -49417,9 +49306,6 @@ export namespace Prisma {
     started_at?: DateTimeNullableFilter<"CrawlRun"> | Date | string | null
     finished_at?: DateTimeNullableFilter<"CrawlRun"> | Date | string | null
     duration_ms?: IntNullableFilter<"CrawlRun"> | number | null
-    total_found?: IntFilter<"CrawlRun"> | number
-    total_new_listings?: IntFilter<"CrawlRun"> | number
-    total_refreshed_listings?: IntFilter<"CrawlRun"> | number
     error_message?: StringNullableFilter<"CrawlRun"> | string | null
     metadata?: JsonNullableFilter<"CrawlRun">
     created_at?: DateTimeFilter<"CrawlRun"> | Date | string
@@ -49963,9 +49849,6 @@ export namespace Prisma {
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
-    total_found?: number
-    total_new_listings?: number
-    total_refreshed_listings?: number
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
@@ -49991,9 +49874,6 @@ export namespace Prisma {
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
-    total_found?: number
-    total_new_listings?: number
-    total_refreshed_listings?: number
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
@@ -50621,9 +50501,6 @@ export namespace Prisma {
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
-    total_found?: number
-    total_new_listings?: number
-    total_refreshed_listings?: number
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
@@ -50649,9 +50526,6 @@ export namespace Prisma {
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
-    total_found?: number
-    total_new_listings?: number
-    total_refreshed_listings?: number
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
@@ -52059,9 +51933,6 @@ export namespace Prisma {
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
-    total_found?: number
-    total_new_listings?: number
-    total_refreshed_listings?: number
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
@@ -52087,9 +51958,6 @@ export namespace Prisma {
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
-    total_found?: number
-    total_new_listings?: number
-    total_refreshed_listings?: number
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
@@ -52416,9 +52284,6 @@ export namespace Prisma {
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
-    total_found?: number
-    total_new_listings?: number
-    total_refreshed_listings?: number
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
@@ -52445,9 +52310,6 @@ export namespace Prisma {
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
-    total_found?: number
-    total_new_listings?: number
-    total_refreshed_listings?: number
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
@@ -52549,9 +52411,6 @@ export namespace Prisma {
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
-    total_found?: IntFieldUpdateOperationsInput | number
-    total_new_listings?: IntFieldUpdateOperationsInput | number
-    total_refreshed_listings?: IntFieldUpdateOperationsInput | number
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -52578,9 +52437,6 @@ export namespace Prisma {
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
-    total_found?: IntFieldUpdateOperationsInput | number
-    total_new_listings?: IntFieldUpdateOperationsInput | number
-    total_refreshed_listings?: IntFieldUpdateOperationsInput | number
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -53469,9 +53325,6 @@ export namespace Prisma {
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
-    total_found?: number
-    total_new_listings?: number
-    total_refreshed_listings?: number
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
@@ -53498,9 +53351,6 @@ export namespace Prisma {
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
-    total_found?: number
-    total_new_listings?: number
-    total_refreshed_listings?: number
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
@@ -53588,9 +53438,6 @@ export namespace Prisma {
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
-    total_found?: IntFieldUpdateOperationsInput | number
-    total_new_listings?: IntFieldUpdateOperationsInput | number
-    total_refreshed_listings?: IntFieldUpdateOperationsInput | number
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -53617,9 +53464,6 @@ export namespace Prisma {
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
-    total_found?: IntFieldUpdateOperationsInput | number
-    total_new_listings?: IntFieldUpdateOperationsInput | number
-    total_refreshed_listings?: IntFieldUpdateOperationsInput | number
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -55834,9 +55678,6 @@ export namespace Prisma {
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
-    total_found?: number
-    total_new_listings?: number
-    total_refreshed_listings?: number
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
@@ -55863,9 +55704,6 @@ export namespace Prisma {
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
-    total_found?: number
-    total_new_listings?: number
-    total_refreshed_listings?: number
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
@@ -56062,9 +55900,6 @@ export namespace Prisma {
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
-    total_found?: IntFieldUpdateOperationsInput | number
-    total_new_listings?: IntFieldUpdateOperationsInput | number
-    total_refreshed_listings?: IntFieldUpdateOperationsInput | number
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -56091,9 +55926,6 @@ export namespace Prisma {
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
-    total_found?: IntFieldUpdateOperationsInput | number
-    total_new_listings?: IntFieldUpdateOperationsInput | number
-    total_refreshed_listings?: IntFieldUpdateOperationsInput | number
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -56298,9 +56130,6 @@ export namespace Prisma {
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
-    total_found?: number
-    total_new_listings?: number
-    total_refreshed_listings?: number
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
@@ -56327,9 +56156,6 @@ export namespace Prisma {
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
-    total_found?: number
-    total_new_listings?: number
-    total_refreshed_listings?: number
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
@@ -56453,9 +56279,6 @@ export namespace Prisma {
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
-    total_found?: IntFieldUpdateOperationsInput | number
-    total_new_listings?: IntFieldUpdateOperationsInput | number
-    total_refreshed_listings?: IntFieldUpdateOperationsInput | number
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -56482,9 +56305,6 @@ export namespace Prisma {
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
-    total_found?: IntFieldUpdateOperationsInput | number
-    total_new_listings?: IntFieldUpdateOperationsInput | number
-    total_refreshed_listings?: IntFieldUpdateOperationsInput | number
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -56691,9 +56511,6 @@ export namespace Prisma {
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
-    total_found?: number
-    total_new_listings?: number
-    total_refreshed_listings?: number
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
@@ -56720,9 +56537,6 @@ export namespace Prisma {
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
-    total_found?: number
-    total_new_listings?: number
-    total_refreshed_listings?: number
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
@@ -56757,9 +56571,6 @@ export namespace Prisma {
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
-    total_found?: IntFieldUpdateOperationsInput | number
-    total_new_listings?: IntFieldUpdateOperationsInput | number
-    total_refreshed_listings?: IntFieldUpdateOperationsInput | number
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -56786,9 +56597,6 @@ export namespace Prisma {
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
-    total_found?: IntFieldUpdateOperationsInput | number
-    total_new_listings?: IntFieldUpdateOperationsInput | number
-    total_refreshed_listings?: IntFieldUpdateOperationsInput | number
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -56915,9 +56723,6 @@ export namespace Prisma {
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
-    total_found?: number
-    total_new_listings?: number
-    total_refreshed_listings?: number
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
@@ -56944,9 +56749,6 @@ export namespace Prisma {
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
-    total_found?: number
-    total_new_listings?: number
-    total_refreshed_listings?: number
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
@@ -57101,9 +56903,6 @@ export namespace Prisma {
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
-    total_found?: IntFieldUpdateOperationsInput | number
-    total_new_listings?: IntFieldUpdateOperationsInput | number
-    total_refreshed_listings?: IntFieldUpdateOperationsInput | number
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -57130,9 +56929,6 @@ export namespace Prisma {
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
-    total_found?: IntFieldUpdateOperationsInput | number
-    total_new_listings?: IntFieldUpdateOperationsInput | number
-    total_refreshed_listings?: IntFieldUpdateOperationsInput | number
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -57295,9 +57091,6 @@ export namespace Prisma {
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
-    total_found?: number
-    total_new_listings?: number
-    total_refreshed_listings?: number
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
@@ -57556,9 +57349,6 @@ export namespace Prisma {
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
-    total_found?: IntFieldUpdateOperationsInput | number
-    total_new_listings?: IntFieldUpdateOperationsInput | number
-    total_refreshed_listings?: IntFieldUpdateOperationsInput | number
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -57584,9 +57374,6 @@ export namespace Prisma {
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
-    total_found?: IntFieldUpdateOperationsInput | number
-    total_new_listings?: IntFieldUpdateOperationsInput | number
-    total_refreshed_listings?: IntFieldUpdateOperationsInput | number
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -57609,9 +57396,6 @@ export namespace Prisma {
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
-    total_found?: IntFieldUpdateOperationsInput | number
-    total_new_listings?: IntFieldUpdateOperationsInput | number
-    total_refreshed_listings?: IntFieldUpdateOperationsInput | number
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -58035,9 +57819,6 @@ export namespace Prisma {
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
-    total_found?: number
-    total_new_listings?: number
-    total_refreshed_listings?: number
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
@@ -58220,9 +58001,6 @@ export namespace Prisma {
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
-    total_found?: IntFieldUpdateOperationsInput | number
-    total_new_listings?: IntFieldUpdateOperationsInput | number
-    total_refreshed_listings?: IntFieldUpdateOperationsInput | number
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -58248,9 +58026,6 @@ export namespace Prisma {
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
-    total_found?: IntFieldUpdateOperationsInput | number
-    total_new_listings?: IntFieldUpdateOperationsInput | number
-    total_refreshed_listings?: IntFieldUpdateOperationsInput | number
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -58273,9 +58048,6 @@ export namespace Prisma {
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
-    total_found?: IntFieldUpdateOperationsInput | number
-    total_new_listings?: IntFieldUpdateOperationsInput | number
-    total_refreshed_listings?: IntFieldUpdateOperationsInput | number
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -58406,9 +58178,6 @@ export namespace Prisma {
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
-    total_found?: number
-    total_new_listings?: number
-    total_refreshed_listings?: number
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
@@ -58492,9 +58261,6 @@ export namespace Prisma {
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
-    total_found?: IntFieldUpdateOperationsInput | number
-    total_new_listings?: IntFieldUpdateOperationsInput | number
-    total_refreshed_listings?: IntFieldUpdateOperationsInput | number
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -58520,9 +58286,6 @@ export namespace Prisma {
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
-    total_found?: IntFieldUpdateOperationsInput | number
-    total_new_listings?: IntFieldUpdateOperationsInput | number
-    total_refreshed_listings?: IntFieldUpdateOperationsInput | number
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -58545,9 +58308,6 @@ export namespace Prisma {
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
-    total_found?: IntFieldUpdateOperationsInput | number
-    total_new_listings?: IntFieldUpdateOperationsInput | number
-    total_refreshed_listings?: IntFieldUpdateOperationsInput | number
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -58832,9 +58592,6 @@ export namespace Prisma {
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
-    total_found?: number
-    total_new_listings?: number
-    total_refreshed_listings?: number
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
@@ -58848,9 +58605,6 @@ export namespace Prisma {
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
-    total_found?: IntFieldUpdateOperationsInput | number
-    total_new_listings?: IntFieldUpdateOperationsInput | number
-    total_refreshed_listings?: IntFieldUpdateOperationsInput | number
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -58876,9 +58630,6 @@ export namespace Prisma {
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
-    total_found?: IntFieldUpdateOperationsInput | number
-    total_new_listings?: IntFieldUpdateOperationsInput | number
-    total_refreshed_listings?: IntFieldUpdateOperationsInput | number
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -58901,9 +58652,6 @@ export namespace Prisma {
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
-    total_found?: IntFieldUpdateOperationsInput | number
-    total_new_listings?: IntFieldUpdateOperationsInput | number
-    total_refreshed_listings?: IntFieldUpdateOperationsInput | number
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string

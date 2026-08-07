@@ -301,9 +301,6 @@ export class CrawlProcessor extends WorkerHost implements OnModuleInit {
           status: runFailed ? CrawlRunStatus.FAILED : CrawlRunStatus.SUCCESS,
           finished_at: finishedAt,
           duration_ms: finishedAt.getTime() - startedAt.getTime(),
-          total_found: crawlResult.items.length,
-          total_new_listings: totalCreated,
-          total_refreshed_listings: totalUpdated,
           error_message: crawlResult.errorSummary ?? null,
         },
       });

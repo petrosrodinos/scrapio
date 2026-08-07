@@ -42,9 +42,6 @@ export interface CrawlRun {
   started_at: string | null;
   finished_at: string | null;
   duration_ms: number | null;
-  total_found: number;
-  total_new_listings: number;
-  total_refreshed_listings: number;
   error_message: string | null;
   metadata: Record<string, unknown> | null;
   created_at: string;

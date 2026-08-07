@@ -438,26 +438,23 @@ model ScraperExecutionTrace {
 }
 
 model CrawlRun {
-  id                       String     @id @default(uuid())
-  user_id                  String
-  website_target_id        String
-  scraper_id               String
+  id                 String     @id @default(uuid())
+  user_id            String
+  website_target_id  String
+  scraper_id         String
   // Exact ScraperVersion this run executed against — pins the config, generation_prompt,
   // output_formats, and extraction_schema_version_id for this run, independently of whatever
   // version the Scraper's active_version_id later points to.
-  scraper_version_id       String
-  trigger                  RunTrigger @default(MANUAL)
-  status                   RunStatus  @default(QUEUED)
-  started_at               DateTime?
-  finished_at              DateTime?
-  duration_ms              Int?
-  total_found              Int        @default(0)
-  total_new_listings       Int        @default(0)
-  total_refreshed_listings Int        @default(0)
-  error_message            String?
-  metadata                 Json?
-  created_at               DateTime   @default(now())
-  updated_at               DateTime   @updatedAt
+  scraper_version_id String
+  trigger            RunTrigger @default(MANUAL)
+  status             RunStatus  @default(QUEUED)
+  started_at         DateTime?
+  finished_at        DateTime?
+  duration_ms        Int?
+  error_message      String?
+  metadata           Json?
+  created_at         DateTime   @default(now())
+  updated_at         DateTime   @updatedAt
 
   website_target      WebsiteTarget           @relation(fields: [website_target_id], references: [id], onDelete: Cascade)
   user                User                    @relation(fields: [user_id], references: [id], onDelete: Cascade)
