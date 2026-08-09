@@ -5,8 +5,18 @@ import { ActionButtonWithPending } from "@/components/ui/action-button-with-pend
 import { useWebsiteTargets } from "@/features/website-targets/hooks/use-website-targets";
 import {
   createGenerationRunFormSchema,
+  outputConfigDefaults,
   type CreateGenerationRunFormValues,
 } from "@/features/scraper-generation/validation-schemas/scraper-generation.schema";
+import { isOutputSchemaJsonValid } from "@/features/scraper-generation/validation-schemas/output-config.schema";
+import { OutputDataConfigEditor } from "./output-data-config-editor";
+import {
+  OutputFormats,
+  OutputSchemaEditorModes,
+  type OutputFormat,
+  type OutputSchemaEditorMode,
+  type OutputSchemaField,
+} from "@/features/scraper-generation/interfaces/output-config.interfaces";
 
 interface CreateGenerationRunFormProps {
   defaultWebsiteTargetId?: string;
@@ -39,6 +49,7 @@ export function CreateGenerationRunForm({
     register,
     handleSubmit,
     control,
+    watch,
     formState: { errors },
   } = useForm<CreateGenerationRunFormValues>({
     resolver: zodResolver(createGenerationRunFormSchema) as Resolver<CreateGenerationRunFormValues>,
@@ -47,11 +58,21 @@ export function CreateGenerationRunForm({
       scraper_id: defaultScraperId,
       prompt: "",
       max_steps: undefined,
+      ...outputConfigDefaults,
     },
   });
 
+  const outputFormats = watch("output_formats");
+  const schemaMode = watch("output_schema_mode");
+  const schemaJson = watch("output_schema_json");
+
+  const jsonSchemaInvalid =
+    outputFormats?.includes(OutputFormats.STRUCTURED_JSON) &&
+    schemaMode === OutputSchemaEditorModes.JSON &&
+    !isOutputSchemaJsonValid(schemaJson ?? "");
+
   return (
-    <Form onSubmit={handleSubmit(onSubmit)} className="grid gap-4">
+    <Form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
       <div className="flex flex-col gap-1">
         {lockWebsiteTarget ? (
           <>
@@ -95,6 +116,18 @@ export function CreateGenerationRunForm({
       </div>
 
       <div className="flex flex-col gap-1">
+        <Label htmlFor="generation-prompt">Prompt</Label>
+        <TextArea
+          id="generation-prompt"
+          {...register("prompt")}
+          placeholder="Describe what the scraper should do (e.g. navigate to rentals, open each listing, extract details)"
+          rows={3}
+          fullWidth
+        />
+        {errors.prompt && <FieldError>{errors.prompt.message}</FieldError>}
+      </div>
+
+      <div className="flex flex-col gap-1">
         <Label htmlFor="generation-max-steps">Max steps (optional)</Label>
         <Input
           id="generation-max-steps"
@@ -102,24 +135,54 @@ export function CreateGenerationRunForm({
           min={1}
           {...register("max_steps")}
           placeholder="Unlimited"
+          className="max-w-48"
           fullWidth
         />
         {errors.max_steps && <FieldError>{errors.max_steps.message}</FieldError>}
       </div>
 
-      <div className="flex flex-col gap-1">
-        <Label htmlFor="generation-prompt">Prompt (optional)</Label>
-        <TextArea
-          id="generation-prompt"
-          {...register("prompt")}
-          placeholder="Any extra instructions for the AI (e.g. focus on the rentals page)"
-          rows={4}
-          fullWidth
+      <div className="border-t border-border pt-5">
+        <Controller
+          name="output_formats"
+          control={control}
+          render={({ field: formatsField }) => (
+            <Controller
+              name="output_schema_mode"
+              control={control}
+              render={({ field: modeField }) => (
+                <Controller
+                  name="output_schema_fields"
+                  control={control}
+                  render={({ field: fieldsField }) => (
+                    <Controller
+                      name="output_schema_json"
+                      control={control}
+                      render={({ field: jsonField }) => (
+                        <OutputDataConfigEditor
+                          outputFormats={formatsField.value as OutputFormat[]}
+                          schemaMode={modeField.value as OutputSchemaEditorMode}
+                          schemaFields={fieldsField.value as OutputSchemaField[]}
+                          schemaJson={jsonField.value}
+                          onOutputFormatsChange={formatsField.onChange}
+                          onSchemaModeChange={modeField.onChange}
+                          onSchemaFieldsChange={fieldsField.onChange}
+                          onSchemaJsonChange={jsonField.onChange}
+                          formatsError={errors.output_formats?.message}
+                          schemaFieldsError={errors.output_schema_fields?.message}
+                          schemaJsonError={errors.output_schema_json?.message}
+                          isDisabled={isPending}
+                        />
+                      )}
+                    />
+                  )}
+                />
+              )}
+            />
+          )}
         />
-        {errors.prompt && <FieldError>{errors.prompt.message}</FieldError>}
       </div>
 
-      <div className="flex justify-end gap-2 mt-2">
+      <div className="flex justify-end gap-2 border-t border-border pt-4">
         {onCancel && (
           <ActionButtonWithPending
             type="button"
@@ -130,7 +193,11 @@ export function CreateGenerationRunForm({
             Cancel
           </ActionButtonWithPending>
         )}
-        <ActionButtonWithPending type="submit" isPending={isPending} isDisabled={isPending}>
+        <ActionButtonWithPending
+          type="submit"
+          isPending={isPending}
+          isDisabled={isPending || jsonSchemaInvalid}
+        >
           {submitLabel}
         </ActionButtonWithPending>
       </div>

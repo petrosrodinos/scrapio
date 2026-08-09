@@ -28,7 +28,8 @@ import {
 import { ScraperStatusFormOptions } from "@/config/constants/dropdowns/scrapers/scraper-status-form.options";
 import { DiagnosticsModeFormOptions } from "@/config/constants/dropdowns/scrapers/diagnostics-mode-form.options";
 import { getCrawlIntervalPresetLabel } from "@/config/constants/dropdowns/website-targets/crawl-interval-preset.options";
-import { CreateGenerationRunForm } from "./components/create-generation-run-form";
+import { CreateGenerationRunForm } from "@/pages/admin/generation-runs/components/create-generation-run-form";
+import { buildCreateGenerationRunPayload } from "@/features/scraper-generation/validation-schemas/scraper-generation.schema";
 import { GenerationRunStatusChip } from "./components/generation-run-status-chip";
 import { GenerationRunTriggerChip } from "./components/generation-run-trigger-chip";
 import {
@@ -107,7 +108,7 @@ export default function ScraperDetailPage() {
           </ActionButtonWithPending>
           <ActionButtonWithPending
             isPending={runNow.isPending}
-            isDisabled={runNow.isPending}
+            isDisabled={runNow.isPending || !scraper.active_version_id}
             onPress={() =>
               runNow.mutate(scraper.id, {
                 onSuccess: (run) => navigate(Routes.crawlRuns.detail(run.id)),
@@ -468,8 +469,8 @@ export default function ScraperDetailPage() {
 
       <Modal state={generateModal}>
         <Modal.Backdrop isDismissable>
-          <Modal.Container>
-            <Modal.Dialog>
+          <Modal.Container size="lg">
+            <Modal.Dialog className="max-h-[90vh]">
               <Modal.Header>
                 <Modal.Heading>
                   <div className="flex items-center gap-2">
@@ -488,20 +489,12 @@ export default function ScraperDetailPage() {
                   isPending={createGenerationRun.isPending}
                   onCancel={generateModal.close}
                   onSubmit={(values) =>
-                    createGenerationRun.mutate(
-                      {
-                        website_target_id: values.website_target_id,
-                        scraper_id: values.scraper_id,
-                        prompt: values.prompt || undefined,
-                        max_steps: values.max_steps,
+                    createGenerationRun.mutate(buildCreateGenerationRunPayload(values), {
+                      onSuccess: (run) => {
+                        generateModal.close();
+                        navigate(Routes.generationRuns.detail(run.id));
                       },
-                      {
-                        onSuccess: (run) => {
-                          generateModal.close();
-                          navigate(Routes.generationRuns.detail(run.id));
-                        },
-                      },
-                    )
+                    })
                   }
                 />
               </Modal.Body>

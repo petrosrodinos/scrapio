@@ -20,6 +20,7 @@ import {
   GenerationRunStatus,
   GenerationTrigger,
   IntegrationType,
+  OutputFormat,
   Prisma,
   ScraperStatus,
   ScraperVersionCreatedBy,
@@ -166,6 +167,8 @@ export class ScraperGenerationService {
       await this.ensureWorkflowConfigBelongsToUser(authUser, dto.scraper_id);
     }
 
+    this.validateOutputConfig(dto.output_formats, dto.output_schema);
+
     const run = await this.prisma.scraperGenerationRun.create({
       data: {
         website_target_id: dto.website_target_id,
@@ -174,6 +177,10 @@ export class ScraperGenerationService {
         status: GenerationRunStatus.QUEUED,
         prompt: dto.prompt,
         max_steps: dto.max_steps ?? null,
+        output_formats: dto.output_formats,
+        output_schema: dto.output_schema
+          ? (dto.output_schema as Prisma.InputJsonValue)
+          : null,
       },
     });
 
@@ -218,14 +225,39 @@ export class ScraperGenerationService {
     }
 
     return this.prisma.$transaction(async (tx) => {
+      const websiteTarget = await tx.websiteTarget.findUniqueOrThrow({
+        where: { id: run.website_target_id },
+      });
+
+      const outputFormats =
+        (run.output_formats ?? []).length > 0
+          ? run.output_formats
+          : [OutputFormat.MARKDOWN];
+
       let workflowConfigId = run.workflow_config_id;
+      let extractionSchemaVersionId: string | null = null;
+
+      if (
+        outputFormats.includes(OutputFormat.STRUCTURED_JSON) &&
+        run.output_schema
+      ) {
+        const schemaName = workflowConfigId
+          ? (await tx.workflowConfig.findUniqueOrThrow({
+              where: { id: workflowConfigId },
+              select: { name: true },
+            })).name
+          : `${websiteTarget.name} scraper`;
+
+        extractionSchemaVersionId = await this.createExtractionSchemaVersion(
+          tx,
+          websiteTarget.user_id,
+          schemaName,
+          run.output_schema as Prisma.InputJsonValue,
+        );
+      }
 
       if (!workflowConfigId) {
-        const websiteTarget = await tx.websiteTarget.findUniqueOrThrow({
-          where: { id: run.website_target_id },
-        });
-
-        const config = await tx.workflowConfig.create({
+        const createdConfig = await tx.workflowConfig.create({
           data: {
             user_id: websiteTarget.user_id,
             type: WorkflowType.SCRAPER,
@@ -233,11 +265,12 @@ export class ScraperGenerationService {
             name: `${websiteTarget.name} scraper`,
             status: ScraperStatus.TESTING,
             urls: [],
-            output_formats: [],
+            output_formats: outputFormats,
+            extraction_schema_version_id: extractionSchemaVersionId,
           },
         });
 
-        workflowConfigId = config.id;
+        workflowConfigId = createdConfig.id;
       }
 
       const config = await tx.workflowConfig.findUniqueOrThrow({
@@ -256,6 +289,9 @@ export class ScraperGenerationService {
           config: run.staged_config as Prisma.InputJsonValue,
           created_by: ScraperVersionCreatedBy.AI,
           notes: `Generated via ${run.trigger} run ${run.id}`,
+          generation_prompt: run.prompt,
+          output_formats: outputFormats,
+          extraction_schema_version_id: extractionSchemaVersionId,
         },
       });
 
@@ -264,6 +300,8 @@ export class ScraperGenerationService {
         data: {
           active_version_id: version.id,
           version_count: { increment: 1 },
+          output_formats: outputFormats,
+          extraction_schema_version_id: extractionSchemaVersionId,
           ...(config.status === ScraperStatus.BROKEN && {
             status: ScraperStatus.ACTIVE,
           }),
@@ -579,5 +617,57 @@ export class ScraperGenerationService {
     }
 
     return run;
+  }
+
+  private validateOutputConfig(
+    outputFormats: OutputFormat[],
+    outputSchema?: Record<string, unknown>,
+  ): void {
+    if (!outputFormats?.length) {
+      throw new BadRequestException('At least one output format is required');
+    }
+
+    if (!outputFormats.includes(OutputFormat.STRUCTURED_JSON)) {
+      return;
+    }
+
+    if (!outputSchema || Object.keys(outputSchema).length === 0) {
+      throw new BadRequestException(
+        'output_schema is required when STRUCTURED_JSON is selected',
+      );
+    }
+  }
+
+  private async createExtractionSchemaVersion(
+    tx: Prisma.TransactionClient,
+    userId: string,
+    schemaName: string,
+    definition: Prisma.InputJsonValue,
+  ): Promise<string> {
+    const schema = await tx.extractionSchema.create({
+      data: {
+        user_id: userId,
+        name: `${schemaName} output schema`,
+        versions: {
+          create: {
+            version: 1,
+            definition,
+          },
+        },
+      },
+      include: { versions: true },
+    });
+
+    const version = schema.versions[0];
+
+    await tx.extractionSchema.update({
+      where: { id: schema.id },
+      data: {
+        active_version_id: version.id,
+        version_count: 1,
+      },
+    });
+
+    return version.id;
   }
 }

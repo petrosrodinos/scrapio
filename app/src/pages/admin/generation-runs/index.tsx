@@ -7,6 +7,7 @@ import { TableSkeleton } from "@/components/ui/table-skeleton";
 import { ActionButtonWithPending } from "@/components/ui/action-button-with-pending";
 import { useWebsiteTargets } from "@/features/website-targets/hooks/use-website-targets";
 import { CreateGenerationRunForm } from "./components/create-generation-run-form";
+import { buildCreateGenerationRunPayload } from "@/features/scraper-generation/validation-schemas/scraper-generation.schema";
 import { GenerationRunStatusChip } from "./components/generation-run-status-chip";
 import { GenerationRunTriggerChip } from "./components/generation-run-trigger-chip";
 import {
@@ -224,8 +225,8 @@ export default function GenerationRunsListPage() {
 
       <Modal state={createModal}>
         <Modal.Backdrop isDismissable>
-          <Modal.Container>
-            <Modal.Dialog>
+          <Modal.Container size="lg">
+            <Modal.Dialog className="max-h-[90vh]">
               <Modal.Header>
                 <Modal.Heading>New generation run</Modal.Heading>
               </Modal.Header>
@@ -234,20 +235,12 @@ export default function GenerationRunsListPage() {
                   isPending={createGenerationRun.isPending}
                   onCancel={createModal.close}
                   onSubmit={(values) =>
-                    createGenerationRun.mutate(
-                      {
-                        website_target_id: values.website_target_id,
-                        scraper_id: values.scraper_id || undefined,
-                        prompt: values.prompt || undefined,
-                        max_steps: values.max_steps,
+                    createGenerationRun.mutate(buildCreateGenerationRunPayload(values), {
+                      onSuccess: (run) => {
+                        createModal.close();
+                        navigate(Routes.generationRuns.detail(run.id));
                       },
-                      {
-                        onSuccess: (run) => {
-                          createModal.close();
-                          navigate(Routes.generationRuns.detail(run.id));
-                        },
-                      },
-                    )
+                    })
                   }
                 />
               </Modal.Body>

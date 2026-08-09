@@ -1,3 +1,5 @@
+import type { OutputFormat } from "@/features/scraper-generation/interfaces/output-config.interfaces";
+
 export const GenerationRunStatuses = {
   QUEUED: "QUEUED",
   RUNNING: "RUNNING",
@@ -73,8 +75,10 @@ export interface GenerationRun {
 export interface CreateGenerationRunPayload {
   website_target_id: string;
   scraper_id?: string;
-  prompt?: string;
+  prompt: string;
   max_steps?: number;
+  output_formats?: OutputFormat[];
+  output_schema?: Record<string, unknown>;
 }
 
 export interface RejectGenerationRunPayload {

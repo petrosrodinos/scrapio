@@ -134,11 +134,11 @@ export default function WebsiteTargetDetailPage() {
           </a>
         </div>
         {selectedTab === TargetDetailTabs.TARGET ? (
-          <div className="flex items-center gap-2">
-            <ActionButtonWithPending variant="secondary" onPress={editModal.open}>
-              Edit
-            </ActionButtonWithPending>
-            <div className="flex flex-col items-end gap-1">
+          <div className="flex flex-col items-end gap-1">
+            <div className="flex items-center gap-2">
+              <ActionButtonWithPending variant="secondary" onPress={editModal.open}>
+                Edit
+              </ActionButtonWithPending>
               <ActionButtonWithPending
                 variant="danger"
                 isDisabled={!canDelete}
@@ -146,13 +146,13 @@ export default function WebsiteTargetDetailPage() {
               >
                 Delete
               </ActionButtonWithPending>
-              {!canDelete && (
-                <span className="text-xs text-muted">
-                  Has {dependentCount} dependent record{dependentCount === 1 ? "" : "s"} — remove
-                  them before deleting
-                </span>
-              )}
             </div>
+            {!canDelete && (
+              <span className="text-xs text-muted text-right max-w-xs">
+                Has {dependentCount} dependent record{dependentCount === 1 ? "" : "s"} — remove them
+                before deleting
+              </span>
+            )}
           </div>
         ) : (
           <ActionButtonWithPending

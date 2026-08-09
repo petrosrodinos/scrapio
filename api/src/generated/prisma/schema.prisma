@@ -379,6 +379,8 @@ model ScraperGenerationRun {
   status              GenerationRunStatus @default(QUEUED)
   prompt              String?
   max_steps           Int?
+  output_formats      OutputFormat[]
+  output_schema       Json?
   staged_config       Json?
   produced_version_id String?             @unique
   error_message       String?
