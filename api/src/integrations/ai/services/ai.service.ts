@@ -1,5 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { embed, generateObject, generateText, streamText } from 'ai';
+import { IntegrationCredentialResolverService } from '@/integrations/credentials/services/integration-credential-resolver.service';
+import { IntegrationType } from 'generated/prisma';
 import {
     AIGenerateObjectResponse,
     AIGenerateOptions,
@@ -7,6 +9,7 @@ import {
     AIStreamTextOptions,
 } from '../interfaces/ai.interface';
 import { AiConfig } from '../utils/ai.config';
+import { integrationTypeToAiProvider } from '../utils/integration-type-to-ai-provider';
 import { z } from 'zod';
 import { createOpenAI } from '@ai-sdk/openai';
 import { calculateAiCost } from '../utils/ai-cost';
@@ -14,14 +17,37 @@ import { calculateAiCost } from '../utils/ai-cost';
 @Injectable()
 export class AiService {
 
-    constructor(private readonly aiConfig: AiConfig) { }
+    constructor(
+        private readonly aiConfig: AiConfig,
+        private readonly credentialResolver: IntegrationCredentialResolverService,
+    ) { }
 
     private readonly logger = new Logger(AiService.name);
 
+    async generateTextForUser(
+        userId: string,
+        options: Omit<AIGenerateOptions, 'provider' | 'model' | 'apiKey'>,
+    ): Promise<AIGenerateTextResponse> {
+        const resolved = await this.resolveDefaultAiOptions(userId);
+        return this.generateText({
+            ...options,
+            ...resolved,
+        });
+    }
+
+    async generateTextWithSchemaForUser(
+        userId: string,
+        options: Omit<AIGenerateOptions, 'provider' | 'model' | 'apiKey'>,
+    ): Promise<AIGenerateObjectResponse> {
+        const resolved = await this.resolveDefaultAiOptions(userId);
+        return this.generateTextWithSchema({
+            ...options,
+            ...resolved,
+        });
+    }
+
     async generateText(options: AIGenerateOptions): Promise<AIGenerateTextResponse> {
         try {
-
-            // this.aiConfig.validateProviderAndModel(options.provider, options.model);
 
             const modelAdapter = this.aiConfig.getModelAdapter(
                 options.provider,
@@ -147,6 +173,32 @@ export class AiService {
         }
     }
 
+    async embedTextForUser(text: string, userId: string): Promise<number[]> {
+        let apiKey: string;
+
+        try {
+            const defaultAi =
+                await this.credentialResolver.resolveDefaultAiIntegration(userId);
+            if (defaultAi.integrationType === IntegrationType.OPENAI) {
+                apiKey = defaultAi.apiKey;
+            } else {
+                const openai = await this.credentialResolver.resolveApiKey({
+                    userId,
+                    integrationType: IntegrationType.OPENAI,
+                });
+                apiKey = openai.apiKey;
+            }
+        } catch {
+            const openai = await this.credentialResolver.resolveApiKey({
+                userId,
+                integrationType: IntegrationType.OPENAI,
+            });
+            apiKey = openai.apiKey;
+        }
+
+        return this.embedText(text, apiKey);
+    }
+
     async embedText(text: string, apiKey: string): Promise<number[]> {
         const embeddingModel = createOpenAI({ apiKey }).embedding(
             'text-embedding-3-small',
@@ -156,6 +208,21 @@ export class AiService {
             value: text,
         });
         return embedding;
+    }
+
+    private async resolveDefaultAiOptions(userId: string) {
+        const credentials =
+            await this.credentialResolver.resolveDefaultAiIntegration(userId);
+
+        if (!credentials.aiModel) {
+            throw new Error('Default AI integration is missing an AI model');
+        }
+
+        return {
+            provider: integrationTypeToAiProvider(credentials.integrationType),
+            model: credentials.aiModel,
+            apiKey: credentials.apiKey,
+        };
     }
 
 

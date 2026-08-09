@@ -33,6 +33,11 @@ export class UpdateUserIntegrationDto {
 
   @ApiProperty({ required: false })
   @IsOptional()
+  @IsBoolean()
+  is_default?: boolean;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
   @IsObject()
   metadata?: Record<string, unknown>;
 }

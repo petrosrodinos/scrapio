@@ -5,8 +5,6 @@ import {
 } from '@nestjs/common';
 import { Client } from '@elastic/elasticsearch';
 import { AiService } from '@/integrations/ai/services/ai.service';
-import { IntegrationCredentialResolverService } from '@/integrations/credentials/services/integration-credential-resolver.service';
-import { IntegrationType } from 'generated/prisma';
 import { ELASTICSEARCH_CLIENT } from './elasticsearch.constants';
 import {
     IndexDocumentOptions,
@@ -23,7 +21,6 @@ export class ElasticsearchService {
     constructor(
         @Inject(ELASTICSEARCH_CLIENT) private readonly client: Client | null,
         private readonly aiService: AiService,
-        private readonly credentialResolver: IntegrationCredentialResolverService,
     ) { }
 
     get enabled(): boolean {
@@ -147,14 +144,7 @@ export class ElasticsearchService {
     }
 
     private async embed(text: string, userId: string): Promise<number[]> {
-        const credentials = await this.credentialResolver.resolveApiKey({
-            userId,
-            integrationType: IntegrationType.OPENAI,
-        });
-        return this.aiService.embedText(
-            text.trim() || ' ',
-            credentials.apiKey,
-        );
+        return this.aiService.embedTextForUser(text.trim() || ' ', userId);
     }
 
     private formatResponse<T>(response: any): SearchResult<T> {

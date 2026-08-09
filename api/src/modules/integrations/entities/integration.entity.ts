@@ -37,9 +37,6 @@ export class Integration {
   name: string;
 
   @ApiProperty()
-  base_url: string;
-
-  @ApiProperty()
   is_visible: boolean;
 
   @ApiProperty()

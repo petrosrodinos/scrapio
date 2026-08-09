@@ -9,6 +9,12 @@ import {
 } from '../interfaces/integration-credentials.interface';
 import { CredentialEncryptionService } from './credential-encryption.service';
 
+const AI_INTEGRATION_TYPES: IntegrationType[] = [
+  IntegrationType.OPENAI,
+  IntegrationType.GEMINI,
+  IntegrationType.DEEPSEEK,
+];
+
 @Injectable()
 export class IntegrationCredentialResolverService {
   constructor(
@@ -38,42 +44,27 @@ export class IntegrationCredentialResolverService {
   async resolveDefaultAiIntegration(
     userId: string,
   ): Promise<ResolvedIntegrationCredentials> {
-    const user = await this.prisma.user.findUnique({
-      where: { id: userId },
-      select: { default_ai_user_integration_id: true },
+    const preferred = await this.prisma.userIntegration.findFirst({
+      where: {
+        user_id: userId,
+        is_default: true,
+        is_active: true,
+        ai_model: { not: null },
+        integration_type: { in: AI_INTEGRATION_TYPES },
+      },
     });
 
-    const preferredId = user?.default_ai_user_integration_id ?? null;
+    if (preferred?.ai_model) {
+      const credentials = this.credentialEncryption.decrypt(
+        preferred.credentials_encrypted,
+      );
 
-    if (preferredId) {
-      const preferred = await this.prisma.userIntegration.findFirst({
-        where: {
-          id: preferredId,
-          user_id: userId,
-          is_active: true,
-          ai_model: { not: null },
-          integration_type: {
-            in: [
-              IntegrationType.OPENAI,
-              IntegrationType.GEMINI,
-              IntegrationType.DEEPSEEK,
-            ],
-          },
-        },
-      });
-
-      if (preferred?.ai_model) {
-        const credentials = this.credentialEncryption.decrypt(
-          preferred.credentials_encrypted,
-        );
-
-        return {
-          apiKey: credentials.api_key,
-          userIntegrationId: preferred.id,
-          integrationType: preferred.integration_type,
-          aiModel: getComputerUseModelApiId(preferred.ai_model),
-        };
-      }
+      return {
+        apiKey: credentials.api_key,
+        userIntegrationId: preferred.id,
+        integrationType: preferred.integration_type,
+        aiModel: getComputerUseModelApiId(preferred.ai_model),
+      };
     }
 
     const fallback = await this.prisma.userIntegration.findFirst({
@@ -81,13 +72,7 @@ export class IntegrationCredentialResolverService {
         user_id: userId,
         is_active: true,
         ai_model: { not: null },
-        integration_type: {
-          in: [
-            IntegrationType.OPENAI,
-            IntegrationType.GEMINI,
-            IntegrationType.DEEPSEEK,
-          ],
-        },
+        integration_type: { in: AI_INTEGRATION_TYPES },
       },
       orderBy: { updated_at: 'desc' },
     });

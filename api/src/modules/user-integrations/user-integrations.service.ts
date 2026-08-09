@@ -24,6 +24,12 @@ import {
   UserIntegrationResponse,
 } from './interfaces/user-integration.interface';
 
+const AI_INTEGRATION_TYPES: IntegrationType[] = [
+  IntegrationType.OPENAI,
+  IntegrationType.GEMINI,
+  IntegrationType.DEEPSEEK,
+];
+
 @Injectable()
 export class UserIntegrationsService {
   constructor(
@@ -101,6 +107,12 @@ export class UserIntegrationsService {
     this.validateComputerUseModel(dto.integration_type, dto.computer_use_model);
     this.validateAiModel(dto.integration_type, dto.ai_model);
 
+    if (dto.is_default && !integrationRequiresAiModel(dto.integration_type)) {
+      throw new BadRequestException(
+        'Only AI integrations can be set as default',
+      );
+    }
+
     const existing = await this.prisma.userIntegration.findUnique({
       where: {
         user_id_integration_type: {
@@ -116,25 +128,38 @@ export class UserIntegrationsService {
       );
     }
 
-    const created = await this.prisma.userIntegration.create({
-      data: {
-        user_id: authUser.id,
-        integration_type: dto.integration_type,
-        computer_use_model: dto.computer_use_model ?? null,
-        ai_model: dto.ai_model ?? null,
-        credentials_encrypted: this.credentialEncryption.encrypt({
-          api_key: dto.api_key,
-        }),
-        metadata: dto.metadata as Prisma.InputJsonValue | undefined,
-      },
-    });
+    const shouldBeDefault =
+      integrationRequiresAiModel(dto.integration_type) &&
+      !!dto.ai_model &&
+      (dto.is_default === true ||
+        (dto.is_default !== false &&
+          !(await this.hasDefaultAiIntegration(authUser.id))));
 
-    if (
-      integrationRequiresAiModel(created.integration_type) &&
-      created.ai_model
-    ) {
-      await this.ensureDefaultAiIntegration(authUser.id, created.id);
-    }
+    const created = await this.prisma.$transaction(async (tx) => {
+      if (shouldBeDefault) {
+        await tx.userIntegration.updateMany({
+          where: {
+            user_id: authUser.id,
+            is_default: true,
+          },
+          data: { is_default: false },
+        });
+      }
+
+      return tx.userIntegration.create({
+        data: {
+          user_id: authUser.id,
+          integration_type: dto.integration_type,
+          computer_use_model: dto.computer_use_model ?? null,
+          ai_model: dto.ai_model ?? null,
+          is_default: shouldBeDefault,
+          credentials_encrypted: this.credentialEncryption.encrypt({
+            api_key: dto.api_key,
+          }),
+          metadata: dto.metadata as Prisma.InputJsonValue | undefined,
+        },
+      });
+    });
 
     return this.toResponse(created);
   }
@@ -155,62 +180,102 @@ export class UserIntegrationsService {
       dto.ai_model ?? existing.ai_model ?? undefined,
     );
 
-    const updated = await this.prisma.userIntegration.update({
-      where: { id: existing.id },
-      data: {
-        ...(dto.is_active !== undefined && { is_active: dto.is_active }),
-        ...(dto.metadata !== undefined && {
-          metadata: dto.metadata as Prisma.InputJsonValue,
-        }),
-        ...(dto.computer_use_model !== undefined && {
-          computer_use_model: dto.computer_use_model,
-        }),
-        ...(dto.ai_model !== undefined && {
-          ai_model: dto.ai_model,
-        }),
-        ...(dto.api_key && {
-          credentials_encrypted: this.credentialEncryption.encrypt({
-            api_key: dto.api_key,
+    if (
+      dto.is_default === true &&
+      !integrationRequiresAiModel(existing.integration_type)
+    ) {
+      throw new BadRequestException(
+        'Only AI integrations can be set as default',
+      );
+    }
+
+    const nextAiModel = dto.ai_model ?? existing.ai_model;
+    if (dto.is_default === true && !nextAiModel) {
+      throw new BadRequestException(
+        'AI model is required before setting as default',
+      );
+    }
+
+    const updated = await this.prisma.$transaction(async (tx) => {
+      if (dto.is_default === true) {
+        await tx.userIntegration.updateMany({
+          where: {
+            user_id: existing.user_id,
+            is_default: true,
+            NOT: { id: existing.id },
+          },
+          data: { is_default: false },
+        });
+      }
+
+      return tx.userIntegration.update({
+        where: { id: existing.id },
+        data: {
+          ...(dto.is_active !== undefined && { is_active: dto.is_active }),
+          ...(dto.is_default !== undefined && { is_default: dto.is_default }),
+          ...(dto.metadata !== undefined && {
+            metadata: dto.metadata as Prisma.InputJsonValue,
           }),
-        }),
-      },
+          ...(dto.computer_use_model !== undefined && {
+            computer_use_model: dto.computer_use_model,
+          }),
+          ...(dto.ai_model !== undefined && {
+            ai_model: dto.ai_model,
+          }),
+          ...(dto.api_key && {
+            credentials_encrypted: this.credentialEncryption.encrypt({
+              api_key: dto.api_key,
+            }),
+          }),
+        },
+      });
     });
+
+    if (
+      (dto.is_default === false || dto.is_active === false) &&
+      existing.is_default
+    ) {
+      await this.fallbackDefaultAiIntegration(existing.user_id);
+    } else if (
+      integrationRequiresAiModel(updated.integration_type) &&
+      updated.ai_model &&
+      updated.is_active &&
+      !(await this.hasDefaultAiIntegration(updated.user_id))
+    ) {
+      await this.prisma.userIntegration.update({
+        where: { id: updated.id },
+        data: { is_default: true },
+      });
+      return this.toResponse({ ...updated, is_default: true });
+    }
 
     return this.toResponse(updated);
   }
 
   async disconnect(authUser: AuthUser, id: string): Promise<void> {
     const existing = await this.ensureOwned(authUser, id);
+    const wasDefault = existing.is_default;
     await this.prisma.userIntegration.delete({ where: { id: existing.id } });
-    await this.fallbackDefaultAiIntegration(existing.user_id);
+    if (wasDefault) {
+      await this.fallbackDefaultAiIntegration(existing.user_id);
+    }
   }
 
-  private async ensureDefaultAiIntegration(
-    userId: string,
-    userIntegrationId: string,
-  ) {
-    const user = await this.prisma.user.findUnique({
-      where: { id: userId },
-      select: { default_ai_user_integration_id: true },
+  private async hasDefaultAiIntegration(userId: string): Promise<boolean> {
+    const count = await this.prisma.userIntegration.count({
+      where: {
+        user_id: userId,
+        is_default: true,
+        is_active: true,
+        ai_model: { not: null },
+        integration_type: { in: AI_INTEGRATION_TYPES },
+      },
     });
-
-    if (!user || user.default_ai_user_integration_id) {
-      return;
-    }
-
-    await this.prisma.user.update({
-      where: { id: userId },
-      data: { default_ai_user_integration_id: userIntegrationId },
-    });
+    return count > 0;
   }
 
   private async fallbackDefaultAiIntegration(userId: string) {
-    const user = await this.prisma.user.findUnique({
-      where: { id: userId },
-      select: { default_ai_user_integration_id: true },
-    });
-
-    if (!user || user.default_ai_user_integration_id) {
+    if (await this.hasDefaultAiIntegration(userId)) {
       return;
     }
 
@@ -219,13 +284,7 @@ export class UserIntegrationsService {
         user_id: userId,
         is_active: true,
         ai_model: { not: null },
-        integration_type: {
-          in: [
-            IntegrationType.OPENAI,
-            IntegrationType.GEMINI,
-            IntegrationType.DEEPSEEK,
-          ],
-        },
+        integration_type: { in: AI_INTEGRATION_TYPES },
       },
       orderBy: { updated_at: 'desc' },
       select: { id: true },
@@ -235,9 +294,9 @@ export class UserIntegrationsService {
       return;
     }
 
-    await this.prisma.user.update({
-      where: { id: userId },
-      data: { default_ai_user_integration_id: fallback.id },
+    await this.prisma.userIntegration.update({
+      where: { id: fallback.id },
+      data: { is_default: true },
     });
   }
 
@@ -321,6 +380,7 @@ export class UserIntegrationsService {
     ai_model: ComputerUseModel | null;
     credentials_encrypted: string;
     is_active: boolean;
+    is_default: boolean;
     metadata: unknown;
     created_at: Date;
     updated_at: Date;
@@ -337,6 +397,7 @@ export class UserIntegrationsService {
       ai_model: integration.ai_model,
       api_key_masked: maskApiKey(credentials.api_key),
       is_active: integration.is_active,
+      is_default: integration.is_default,
       metadata: (integration.metadata as Record<string, unknown> | null) ?? null,
       created_at: integration.created_at,
       updated_at: integration.updated_at,

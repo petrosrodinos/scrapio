@@ -20,6 +20,7 @@ export interface UserIntegrationResponse {
   ai_model: ComputerUseModel | null;
   api_key_masked: string;
   is_active: boolean;
+  is_default: boolean;
   metadata: Record<string, unknown> | null;
   created_at: Date;
   updated_at: Date;

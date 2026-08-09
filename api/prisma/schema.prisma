@@ -201,28 +201,25 @@ enum ComputerUseModel {
 }
 
 model User {
-  id                             String   @id @default(uuid())
-  email                          String   @unique
-  phone                          String?  @unique
-  password                       String
-  role                           AuthRole
-  default_schedule_tz            String   @default("Europe/Athens")
-  default_ai_user_integration_id String?
-  created_at                     DateTime @default(now())
-  updated_at                     DateTime @updatedAt
+  id                  String   @id @default(uuid())
+  email               String   @unique
+  phone               String?  @unique
+  password            String
+  role                AuthRole
+  default_schedule_tz String   @default("Europe/Athens")
+  created_at          DateTime @default(now())
+  updated_at          DateTime @updatedAt
 
-  password_reset_tokens      PasswordResetToken[]
-  website_targets            WebsiteTarget[]
-  workflow_configs           WorkflowConfig[]
-  workflow_runs              WorkflowRun[]
-  user_integrations          UserIntegration[]       @relation("UserIntegrations")
-  default_ai_user_integration UserIntegration?       @relation("DefaultAiUserIntegration", fields: [default_ai_user_integration_id], references: [id], onDelete: SetNull)
-  extraction_schemas         ExtractionSchema[]
+  password_reset_tokens PasswordResetToken[]
+  website_targets       WebsiteTarget[]
+  workflow_configs      WorkflowConfig[]
+  workflow_runs         WorkflowRun[]
+  user_integrations     UserIntegration[]
+  extraction_schemas    ExtractionSchema[]
 
   @@index([email])
   @@index([phone])
   @@index([id])
-  @@index([default_ai_user_integration_id])
   @@map("users")
 }
 
@@ -796,17 +793,18 @@ model UserIntegration {
   ai_model              ComputerUseModel?
   credentials_encrypted String
   is_active             Boolean           @default(true)
+  is_default            Boolean           @default(false)
   metadata              Json?
   created_at            DateTime          @default(now())
   updated_at            DateTime          @updatedAt
 
-  user              User   @relation("UserIntegrations", fields: [user_id], references: [id], onDelete: Cascade)
-  default_for_users User[] @relation("DefaultAiUserIntegration")
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@unique([user_id, integration_type])
   @@index([user_id])
   @@index([integration_type])
   @@index([is_active])
+  @@index([user_id, is_default])
   @@map("user_integrations")
 }
 

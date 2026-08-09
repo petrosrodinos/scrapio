@@ -40,6 +40,7 @@ export const connectUserIntegrationSchema = z
     api_key: z.string().min(1, "API key is required"),
     computer_use_model: integrationModelEnum.optional(),
     ai_model: integrationModelEnum.optional(),
+    is_default: z.boolean().optional(),
   })
   .superRefine((values, ctx) => {
     if (
@@ -71,6 +72,7 @@ export const updateUserIntegrationSchema = z.object({
   computer_use_model: integrationModelEnum.optional(),
   ai_model: integrationModelEnum.optional(),
   is_active: z.boolean().optional(),
+  is_default: z.boolean().optional(),
 });
 
 export type UpdateUserIntegrationFormValues = z.infer<

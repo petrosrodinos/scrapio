@@ -1,6 +1,6 @@
 import { Controller, useForm, type Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, Label, FieldError, Select, ListBox } from "@heroui/react";
+import { Checkbox, Form, Label, FieldError, Select, ListBox } from "@heroui/react";
 import { ActionButtonWithPending } from "@/components/ui/action-button-with-pending";
 import { PasswordInput } from "@/components/ui/password-input";
 import type { Integration } from "@/features/integrations/interfaces/integrations.interfaces";
@@ -22,6 +22,7 @@ export function IntegrationConnectForm({
   onSubmit,
   onCancel,
 }: IntegrationConnectFormProps) {
+  const supportsAiModel = (integration.ai_models?.length ?? 0) > 0;
   const {
     register,
     control,
@@ -34,6 +35,7 @@ export function IntegrationConnectForm({
       api_key: "",
       computer_use_model: integration.computer_use_models?.[0]?.value,
       ai_model: integration.ai_models?.[0]?.value,
+      is_default: supportsAiModel,
     },
   });
 
@@ -87,7 +89,7 @@ export function IntegrationConnectForm({
         />
       ) : null}
 
-      {integration.ai_models?.length ? (
+      {supportsAiModel ? (
         <Controller
           name="ai_model"
           control={control}
@@ -115,6 +117,33 @@ export function IntegrationConnectForm({
                 </Select.Popover>
               </Select>
               {errors.ai_model && <FieldError>{errors.ai_model.message}</FieldError>}
+            </div>
+          )}
+        />
+      ) : null}
+
+      {supportsAiModel ? (
+        <Controller
+          name="is_default"
+          control={control}
+          render={({ field }) => (
+            <div className="flex items-center justify-between gap-3 border-t border-border pt-3">
+              <div className="flex min-w-0 flex-col gap-0.5">
+                <span className="text-sm text-foreground">Default AI</span>
+                <span className="text-xs text-muted">
+                  Used for normalisation and other AI functionality.
+                </span>
+              </div>
+              <Checkbox
+                aria-label="Default AI"
+                isSelected={Boolean(field.value)}
+                isDisabled={isPending}
+                onChange={field.onChange}
+              >
+                <Checkbox.Control className="size-6">
+                  <Checkbox.Indicator className="size-4" />
+                </Checkbox.Control>
+              </Checkbox>
             </div>
           )}
         />

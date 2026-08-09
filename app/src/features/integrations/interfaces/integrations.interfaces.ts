@@ -38,7 +38,6 @@ export interface IntegrationModel {
 export interface Integration {
   type: IntegrationType;
   name: string;
-  base_url: string;
   is_visible: boolean;
   config_schema: {
     fields: Array<{

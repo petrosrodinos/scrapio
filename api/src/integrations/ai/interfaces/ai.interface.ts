@@ -57,6 +57,7 @@ export interface AICostResponse {
 
 export const AiProviders = {
     openai: 'openai',
+    deepseek: 'deepseek',
     grok: 'grok',
     gemini: 'gemini',
 } as const;
@@ -69,6 +70,10 @@ export const AiModels = {
         gpt4: 'gpt-4',
         gpt35Turbo: 'gpt-3.5-turbo',
     },
+    deepseek: {
+        chat: 'deepseek-chat',
+        reasoner: 'deepseek-reasoner',
+    },
     grok: {
         grokBeta: 'grok-beta',
         grokPro: 'grok-pro',
@@ -78,10 +83,11 @@ export const AiModels = {
         geminiProVision: 'gemini-pro-vision',
         gemini15Pro: 'gemini-1.5-pro',
         gemini15Flash: 'gemini-1.5-flash',
+        gemini20Flash: 'gemini-2.0-flash',
+        gemini25Pro: 'gemini-2.5-pro',
+        gemini25Flash: 'gemini-2.5-flash',
     }
 }
 
 export type AiProvider = typeof AiProviders[keyof typeof AiProviders];
 export type AiModel = string;
-
-

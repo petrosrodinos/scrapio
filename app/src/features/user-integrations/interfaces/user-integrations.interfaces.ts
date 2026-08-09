@@ -11,6 +11,7 @@ export interface UserIntegration {
   ai_model: ComputerUseModel | null;
   api_key_masked: string;
   is_active: boolean;
+  is_default: boolean;
   metadata: Record<string, unknown> | null;
   created_at: string;
   updated_at: string;
@@ -40,6 +41,7 @@ export interface ConnectUserIntegrationPayload {
   api_key: string;
   computer_use_model?: ComputerUseModel;
   ai_model?: ComputerUseModel;
+  is_default?: boolean;
   metadata?: Record<string, unknown>;
 }
 
@@ -48,5 +50,6 @@ export interface UpdateUserIntegrationPayload {
   computer_use_model?: ComputerUseModel;
   ai_model?: ComputerUseModel;
   is_active?: boolean;
+  is_default?: boolean;
   metadata?: Record<string, unknown>;
 }

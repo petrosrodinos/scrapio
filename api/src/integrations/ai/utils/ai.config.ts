@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { AIModelInfo, AiModels, AiProvider, AiProviders } from '../interfaces/ai.interface';
+import { createDeepSeek } from '@ai-sdk/deepseek';
+import { createGoogleGenerativeAI } from '@ai-sdk/google';
 import { createOpenAI } from '@ai-sdk/openai';
+import { AIModelInfo, AiModels, AiProvider, AiProviders } from '../interfaces/ai.interface';
 
 @Injectable()
 export class AiConfig {
@@ -11,11 +13,17 @@ export class AiConfig {
         { provider: AiProviders.openai, model: AiModels.openai.gpt4Turbo },
         { provider: AiProviders.openai, model: AiModels.openai.gpt4 },
         { provider: AiProviders.openai, model: AiModels.openai.gpt35Turbo },
+        { provider: AiProviders.deepseek, model: AiModels.deepseek.chat },
+        { provider: AiProviders.deepseek, model: AiModels.deepseek.reasoner },
         { provider: AiProviders.grok, model: AiModels.grok.grokBeta },
         { provider: AiProviders.grok, model: AiModels.grok.grokPro },
         { provider: AiProviders.gemini, model: AiModels.gemini.geminiPro },
         { provider: AiProviders.gemini, model: AiModels.gemini.geminiProVision },
         { provider: AiProviders.gemini, model: AiModels.gemini.gemini15Pro },
+        { provider: AiProviders.gemini, model: AiModels.gemini.gemini15Flash },
+        { provider: AiProviders.gemini, model: AiModels.gemini.gemini20Flash },
+        { provider: AiProviders.gemini, model: AiModels.gemini.gemini25Pro },
+        { provider: AiProviders.gemini, model: AiModels.gemini.gemini25Flash },
     ];
 
     getModelAdapter(
@@ -29,10 +37,18 @@ export class AiConfig {
                     throw new Error('OpenAI API key is required');
                 }
                 return createOpenAI({ apiKey })(model);
+            case AiProviders.deepseek:
+                if (!apiKey) {
+                    throw new Error('DeepSeek API key is required');
+                }
+                return createDeepSeek({ apiKey })(model);
             case AiProviders.grok:
                 throw new Error('Grok provider not yet implemented. SDK required.');
             case AiProviders.gemini:
-                throw new Error('Gemini provider not yet implemented. SDK required.');
+                if (!apiKey) {
+                    throw new Error('Gemini API key is required');
+                }
+                return createGoogleGenerativeAI({ apiKey })(model);
             default:
                 if (!apiKey) {
                     throw new Error('OpenAI API key is required');

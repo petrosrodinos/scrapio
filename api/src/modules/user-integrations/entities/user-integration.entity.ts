@@ -23,6 +23,9 @@ export class UserIntegration {
   @ApiProperty()
   is_active: boolean;
 
+  @ApiProperty()
+  is_default: boolean;
+
   @ApiProperty({ nullable: true })
   metadata: Record<string, unknown> | null;
 

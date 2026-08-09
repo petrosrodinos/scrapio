@@ -11,7 +11,6 @@ import { ConfirmationDialog } from "@/components/ui/confirmation-dialog";
 import { IntegrationConnectForm } from "./components/integration-connect-form";
 import { IntegrationEditForm } from "./components/integration-edit-form";
 import { CrawlScheduleTimezonePanel } from "./components/crawl-schedule-timezone-panel";
-import { DefaultAiModelPanel } from "./components/default-ai-model-panel";
 import { useIntegrations } from "@/features/integrations/hooks/use-integrations";
 import type { Integration } from "@/features/integrations/interfaces/integrations.interfaces";
 import type { UserIntegration } from "@/features/user-integrations/interfaces/user-integrations.interfaces";
@@ -107,7 +106,8 @@ export default function IntegrationsPage() {
       ...(values.computer_use_model
         ? { computer_use_model: values.computer_use_model }
         : {}),
-      ...(values.ai_model ? { ai_model: values.ai_model } : {}),
+      ...(values.ai_model !== undefined ? { ai_model: values.ai_model } : {}),
+      ...(values.is_default !== undefined ? { is_default: values.is_default } : {}),
     };
 
     await updateIntegration.mutateAsync({
@@ -119,7 +119,7 @@ export default function IntegrationsPage() {
   };
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-6 min-w-0">
       <div>
         <p className="text-2xl font-semibold tracking-tight text-foreground">Integrations</p>
         <p className="text-sm text-muted">
@@ -129,12 +129,11 @@ export default function IntegrationsPage() {
       </div>
 
       <CrawlScheduleTimezonePanel />
-      <DefaultAiModelPanel />
 
       {isPending ? (
         <TableSkeleton rows={4} columns={4} />
       ) : (
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3 min-w-0">
           {integrations.map((integration) => {
             const connected = connectedByType.get(integration.type);
             const computerUseLabel = getModelLabel(
@@ -146,16 +145,22 @@ export default function IntegrationsPage() {
             return (
               <section
                 key={integration.type}
-                className="rounded-xl border border-border bg-surface p-5 flex flex-col gap-4"
+                className="min-w-0 overflow-hidden rounded-xl border border-border bg-surface p-5 flex flex-col gap-4"
               >
-                <div className="flex items-start justify-between gap-3">
-                  <div>
+                <div className="flex items-start justify-between gap-3 min-w-0">
+                  <div className="min-w-0 flex-1">
                     <p className="text-base font-semibold text-foreground">{integration.name}</p>
-                    <p className="text-sm text-muted">{integration.base_url}</p>
                   </div>
-                  <Chip size="sm" variant={connected ? "primary" : "secondary"}>
-                    {connected ? "Connected" : "Not connected"}
-                  </Chip>
+                  <div className="flex shrink-0 flex-wrap justify-end gap-2">
+                    {connected?.is_default ? (
+                      <Chip size="sm" variant="primary">
+                        Default AI
+                      </Chip>
+                    ) : null}
+                    <Chip size="sm" variant={connected ? "primary" : "secondary"}>
+                      {connected ? "Connected" : "Not connected"}
+                    </Chip>
+                  </div>
                 </div>
 
                 <p className="text-sm text-muted">

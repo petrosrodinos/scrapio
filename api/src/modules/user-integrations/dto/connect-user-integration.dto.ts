@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { ComputerUseModel, IntegrationType } from 'generated/prisma';
 import {
+  IsBoolean,
   IsEnum,
   IsObject,
   IsOptional,
@@ -36,6 +37,11 @@ export class ConnectUserIntegrationDto {
   )
   @IsEnum(ComputerUseModel)
   ai_model?: ComputerUseModel;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsBoolean()
+  is_default?: boolean;
 
   @ApiProperty({ required: false })
   @IsOptional()
