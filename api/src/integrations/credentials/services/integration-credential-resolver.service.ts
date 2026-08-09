@@ -35,6 +35,81 @@ export class IntegrationCredentialResolverService {
     };
   }
 
+  async resolveDefaultAiIntegration(
+    userId: string,
+  ): Promise<ResolvedIntegrationCredentials> {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: { default_ai_user_integration_id: true },
+    });
+
+    const preferredId = user?.default_ai_user_integration_id ?? null;
+
+    if (preferredId) {
+      const preferred = await this.prisma.userIntegration.findFirst({
+        where: {
+          id: preferredId,
+          user_id: userId,
+          is_active: true,
+          ai_model: { not: null },
+          integration_type: {
+            in: [
+              IntegrationType.OPENAI,
+              IntegrationType.GEMINI,
+              IntegrationType.DEEPSEEK,
+            ],
+          },
+        },
+      });
+
+      if (preferred?.ai_model) {
+        const credentials = this.credentialEncryption.decrypt(
+          preferred.credentials_encrypted,
+        );
+
+        return {
+          apiKey: credentials.api_key,
+          userIntegrationId: preferred.id,
+          integrationType: preferred.integration_type,
+          aiModel: getComputerUseModelApiId(preferred.ai_model),
+        };
+      }
+    }
+
+    const fallback = await this.prisma.userIntegration.findFirst({
+      where: {
+        user_id: userId,
+        is_active: true,
+        ai_model: { not: null },
+        integration_type: {
+          in: [
+            IntegrationType.OPENAI,
+            IntegrationType.GEMINI,
+            IntegrationType.DEEPSEEK,
+          ],
+        },
+      },
+      orderBy: { updated_at: 'desc' },
+    });
+
+    if (!fallback?.ai_model) {
+      throw new Error(
+        'No active AI integration with a model configured for user',
+      );
+    }
+
+    const credentials = this.credentialEncryption.decrypt(
+      fallback.credentials_encrypted,
+    );
+
+    return {
+      apiKey: credentials.api_key,
+      userIntegrationId: fallback.id,
+      integrationType: fallback.integration_type,
+      aiModel: getComputerUseModelApiId(fallback.ai_model),
+    };
+  }
+
   async resolveComputerUseIntegration(
     userId: string,
   ): Promise<ResolvedComputerUseIntegration> {

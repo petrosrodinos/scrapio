@@ -127,6 +127,7 @@ exports.Prisma.UserScalarFieldEnum = {
   password: 'password',
   role: 'role',
   default_schedule_tz: 'default_schedule_tz',
+  default_ai_user_integration_id: 'default_ai_user_integration_id',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };

@@ -3647,6 +3647,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type UserIntegrationCountOutputType
+   */
+
+  export type UserIntegrationCountOutputType = {
+    default_for_users: number
+  }
+
+  export type UserIntegrationCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    default_for_users?: boolean | UserIntegrationCountOutputTypeCountDefault_for_usersArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * UserIntegrationCountOutputType without action
+   */
+  export type UserIntegrationCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserIntegrationCountOutputType
+     */
+    select?: UserIntegrationCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * UserIntegrationCountOutputType without action
+   */
+  export type UserIntegrationCountOutputTypeCountDefault_for_usersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserWhereInput
+  }
+
+
+  /**
    * Models
    */
 
@@ -3667,6 +3698,7 @@ export namespace Prisma {
     password: string | null
     role: $Enums.AuthRole | null
     default_schedule_tz: string | null
+    default_ai_user_integration_id: string | null
     created_at: Date | null
     updated_at: Date | null
   }
@@ -3678,6 +3710,7 @@ export namespace Prisma {
     password: string | null
     role: $Enums.AuthRole | null
     default_schedule_tz: string | null
+    default_ai_user_integration_id: string | null
     created_at: Date | null
     updated_at: Date | null
   }
@@ -3689,6 +3722,7 @@ export namespace Prisma {
     password: number
     role: number
     default_schedule_tz: number
+    default_ai_user_integration_id: number
     created_at: number
     updated_at: number
     _all: number
@@ -3702,6 +3736,7 @@ export namespace Prisma {
     password?: true
     role?: true
     default_schedule_tz?: true
+    default_ai_user_integration_id?: true
     created_at?: true
     updated_at?: true
   }
@@ -3713,6 +3748,7 @@ export namespace Prisma {
     password?: true
     role?: true
     default_schedule_tz?: true
+    default_ai_user_integration_id?: true
     created_at?: true
     updated_at?: true
   }
@@ -3724,6 +3760,7 @@ export namespace Prisma {
     password?: true
     role?: true
     default_schedule_tz?: true
+    default_ai_user_integration_id?: true
     created_at?: true
     updated_at?: true
     _all?: true
@@ -3808,6 +3845,7 @@ export namespace Prisma {
     password: string
     role: $Enums.AuthRole
     default_schedule_tz: string
+    default_ai_user_integration_id: string | null
     created_at: Date
     updated_at: Date
     _count: UserCountAggregateOutputType | null
@@ -3836,6 +3874,7 @@ export namespace Prisma {
     password?: boolean
     role?: boolean
     default_schedule_tz?: boolean
+    default_ai_user_integration_id?: boolean
     created_at?: boolean
     updated_at?: boolean
     password_reset_tokens?: boolean | User$password_reset_tokensArgs<ExtArgs>
@@ -3843,6 +3882,7 @@ export namespace Prisma {
     workflow_configs?: boolean | User$workflow_configsArgs<ExtArgs>
     workflow_runs?: boolean | User$workflow_runsArgs<ExtArgs>
     user_integrations?: boolean | User$user_integrationsArgs<ExtArgs>
+    default_ai_user_integration?: boolean | User$default_ai_user_integrationArgs<ExtArgs>
     extraction_schemas?: boolean | User$extraction_schemasArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
@@ -3854,8 +3894,10 @@ export namespace Prisma {
     password?: boolean
     role?: boolean
     default_schedule_tz?: boolean
+    default_ai_user_integration_id?: boolean
     created_at?: boolean
     updated_at?: boolean
+    default_ai_user_integration?: boolean | User$default_ai_user_integrationArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -3865,8 +3907,10 @@ export namespace Prisma {
     password?: boolean
     role?: boolean
     default_schedule_tz?: boolean
+    default_ai_user_integration_id?: boolean
     created_at?: boolean
     updated_at?: boolean
+    default_ai_user_integration?: boolean | User$default_ai_user_integrationArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -3876,22 +3920,28 @@ export namespace Prisma {
     password?: boolean
     role?: boolean
     default_schedule_tz?: boolean
+    default_ai_user_integration_id?: boolean
     created_at?: boolean
     updated_at?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "phone" | "password" | "role" | "default_schedule_tz" | "created_at" | "updated_at", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "phone" | "password" | "role" | "default_schedule_tz" | "default_ai_user_integration_id" | "created_at" | "updated_at", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     password_reset_tokens?: boolean | User$password_reset_tokensArgs<ExtArgs>
     website_targets?: boolean | User$website_targetsArgs<ExtArgs>
     workflow_configs?: boolean | User$workflow_configsArgs<ExtArgs>
     workflow_runs?: boolean | User$workflow_runsArgs<ExtArgs>
     user_integrations?: boolean | User$user_integrationsArgs<ExtArgs>
+    default_ai_user_integration?: boolean | User$default_ai_user_integrationArgs<ExtArgs>
     extraction_schemas?: boolean | User$extraction_schemasArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type UserIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    default_ai_user_integration?: boolean | User$default_ai_user_integrationArgs<ExtArgs>
+  }
+  export type UserIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    default_ai_user_integration?: boolean | User$default_ai_user_integrationArgs<ExtArgs>
+  }
 
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
@@ -3901,6 +3951,7 @@ export namespace Prisma {
       workflow_configs: Prisma.$WorkflowConfigPayload<ExtArgs>[]
       workflow_runs: Prisma.$WorkflowRunPayload<ExtArgs>[]
       user_integrations: Prisma.$UserIntegrationPayload<ExtArgs>[]
+      default_ai_user_integration: Prisma.$UserIntegrationPayload<ExtArgs> | null
       extraction_schemas: Prisma.$ExtractionSchemaPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -3910,6 +3961,7 @@ export namespace Prisma {
       password: string
       role: $Enums.AuthRole
       default_schedule_tz: string
+      default_ai_user_integration_id: string | null
       created_at: Date
       updated_at: Date
     }, ExtArgs["result"]["user"]>
@@ -4311,6 +4363,7 @@ export namespace Prisma {
     workflow_configs<T extends User$workflow_configsArgs<ExtArgs> = {}>(args?: Subset<T, User$workflow_configsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WorkflowConfigPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     workflow_runs<T extends User$workflow_runsArgs<ExtArgs> = {}>(args?: Subset<T, User$workflow_runsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WorkflowRunPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     user_integrations<T extends User$user_integrationsArgs<ExtArgs> = {}>(args?: Subset<T, User$user_integrationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserIntegrationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    default_ai_user_integration<T extends User$default_ai_user_integrationArgs<ExtArgs> = {}>(args?: Subset<T, User$default_ai_user_integrationArgs<ExtArgs>>): Prisma__UserIntegrationClient<$Result.GetResult<Prisma.$UserIntegrationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     extraction_schemas<T extends User$extraction_schemasArgs<ExtArgs> = {}>(args?: Subset<T, User$extraction_schemasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExtractionSchemaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -4347,6 +4400,7 @@ export namespace Prisma {
     readonly password: FieldRef<"User", 'String'>
     readonly role: FieldRef<"User", 'AuthRole'>
     readonly default_schedule_tz: FieldRef<"User", 'String'>
+    readonly default_ai_user_integration_id: FieldRef<"User", 'String'>
     readonly created_at: FieldRef<"User", 'DateTime'>
     readonly updated_at: FieldRef<"User", 'DateTime'>
   }
@@ -4598,6 +4652,10 @@ export namespace Prisma {
      */
     data: UserCreateManyInput | UserCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -4668,6 +4726,10 @@ export namespace Prisma {
      * Limit how many Users to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -4854,6 +4916,25 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: UserIntegrationScalarFieldEnum | UserIntegrationScalarFieldEnum[]
+  }
+
+  /**
+   * User.default_ai_user_integration
+   */
+  export type User$default_ai_user_integrationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserIntegration
+     */
+    select?: UserIntegrationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserIntegration
+     */
+    omit?: UserIntegrationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserIntegrationInclude<ExtArgs> | null
+    where?: UserIntegrationWhereInput
   }
 
   /**
@@ -28995,6 +29076,8 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
+    default_for_users?: boolean | UserIntegration$default_for_usersArgs<ExtArgs>
+    _count?: boolean | UserIntegrationCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userIntegration"]>
 
   export type UserIntegrationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -29041,6 +29124,8 @@ export namespace Prisma {
   export type UserIntegrationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "integration_type" | "computer_use_model" | "ai_model" | "credentials_encrypted" | "is_active" | "metadata" | "created_at" | "updated_at", ExtArgs["result"]["userIntegration"]>
   export type UserIntegrationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
+    default_for_users?: boolean | UserIntegration$default_for_usersArgs<ExtArgs>
+    _count?: boolean | UserIntegrationCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIntegrationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -29053,6 +29138,7 @@ export namespace Prisma {
     name: "UserIntegration"
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
+      default_for_users: Prisma.$UserPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -29460,6 +29546,7 @@ export namespace Prisma {
   export interface Prisma__UserIntegrationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    default_for_users<T extends UserIntegration$default_for_usersArgs<ExtArgs> = {}>(args?: Subset<T, UserIntegration$default_for_usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -29892,6 +29979,30 @@ export namespace Prisma {
      * Limit how many UserIntegrations to delete.
      */
     limit?: number
+  }
+
+  /**
+   * UserIntegration.default_for_users
+   */
+  export type UserIntegration$default_for_usersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    cursor?: UserWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
   }
 
   /**
@@ -31086,6 +31197,7 @@ export namespace Prisma {
     password: 'password',
     role: 'role',
     default_schedule_tz: 'default_schedule_tz',
+    default_ai_user_integration_id: 'default_ai_user_integration_id',
     created_at: 'created_at',
     updated_at: 'updated_at'
   };
@@ -31955,6 +32067,7 @@ export namespace Prisma {
     password?: StringFilter<"User"> | string
     role?: EnumAuthRoleFilter<"User"> | $Enums.AuthRole
     default_schedule_tz?: StringFilter<"User"> | string
+    default_ai_user_integration_id?: StringNullableFilter<"User"> | string | null
     created_at?: DateTimeFilter<"User"> | Date | string
     updated_at?: DateTimeFilter<"User"> | Date | string
     password_reset_tokens?: PasswordResetTokenListRelationFilter
@@ -31962,6 +32075,7 @@ export namespace Prisma {
     workflow_configs?: WorkflowConfigListRelationFilter
     workflow_runs?: WorkflowRunListRelationFilter
     user_integrations?: UserIntegrationListRelationFilter
+    default_ai_user_integration?: XOR<UserIntegrationNullableScalarRelationFilter, UserIntegrationWhereInput> | null
     extraction_schemas?: ExtractionSchemaListRelationFilter
   }
 
@@ -31972,6 +32086,7 @@ export namespace Prisma {
     password?: SortOrder
     role?: SortOrder
     default_schedule_tz?: SortOrder
+    default_ai_user_integration_id?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     password_reset_tokens?: PasswordResetTokenOrderByRelationAggregateInput
@@ -31979,6 +32094,7 @@ export namespace Prisma {
     workflow_configs?: WorkflowConfigOrderByRelationAggregateInput
     workflow_runs?: WorkflowRunOrderByRelationAggregateInput
     user_integrations?: UserIntegrationOrderByRelationAggregateInput
+    default_ai_user_integration?: UserIntegrationOrderByWithRelationInput
     extraction_schemas?: ExtractionSchemaOrderByRelationAggregateInput
   }
 
@@ -31992,6 +32108,7 @@ export namespace Prisma {
     password?: StringFilter<"User"> | string
     role?: EnumAuthRoleFilter<"User"> | $Enums.AuthRole
     default_schedule_tz?: StringFilter<"User"> | string
+    default_ai_user_integration_id?: StringNullableFilter<"User"> | string | null
     created_at?: DateTimeFilter<"User"> | Date | string
     updated_at?: DateTimeFilter<"User"> | Date | string
     password_reset_tokens?: PasswordResetTokenListRelationFilter
@@ -31999,6 +32116,7 @@ export namespace Prisma {
     workflow_configs?: WorkflowConfigListRelationFilter
     workflow_runs?: WorkflowRunListRelationFilter
     user_integrations?: UserIntegrationListRelationFilter
+    default_ai_user_integration?: XOR<UserIntegrationNullableScalarRelationFilter, UserIntegrationWhereInput> | null
     extraction_schemas?: ExtractionSchemaListRelationFilter
   }, "id" | "email" | "phone">
 
@@ -32009,6 +32127,7 @@ export namespace Prisma {
     password?: SortOrder
     role?: SortOrder
     default_schedule_tz?: SortOrder
+    default_ai_user_integration_id?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     _count?: UserCountOrderByAggregateInput
@@ -32026,6 +32145,7 @@ export namespace Prisma {
     password?: StringWithAggregatesFilter<"User"> | string
     role?: EnumAuthRoleWithAggregatesFilter<"User"> | $Enums.AuthRole
     default_schedule_tz?: StringWithAggregatesFilter<"User"> | string
+    default_ai_user_integration_id?: StringNullableWithAggregatesFilter<"User"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
@@ -33986,6 +34106,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"UserIntegration"> | Date | string
     updated_at?: DateTimeFilter<"UserIntegration"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    default_for_users?: UserListRelationFilter
   }
 
   export type UserIntegrationOrderByWithRelationInput = {
@@ -34000,6 +34121,7 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     user?: UserOrderByWithRelationInput
+    default_for_users?: UserOrderByRelationAggregateInput
   }
 
   export type UserIntegrationWhereUniqueInput = Prisma.AtLeast<{
@@ -34018,6 +34140,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"UserIntegration"> | Date | string
     updated_at?: DateTimeFilter<"UserIntegration"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    default_for_users?: UserListRelationFilter
   }, "id" | "user_id_integration_type">
 
   export type UserIntegrationOrderByWithAggregationInput = {
@@ -34155,6 +34278,7 @@ export namespace Prisma {
     workflow_configs?: WorkflowConfigCreateNestedManyWithoutUserInput
     workflow_runs?: WorkflowRunCreateNestedManyWithoutUserInput
     user_integrations?: UserIntegrationCreateNestedManyWithoutUserInput
+    default_ai_user_integration?: UserIntegrationCreateNestedOneWithoutDefault_for_usersInput
     extraction_schemas?: ExtractionSchemaCreateNestedManyWithoutUserInput
   }
 
@@ -34165,6 +34289,7 @@ export namespace Prisma {
     password: string
     role: $Enums.AuthRole
     default_schedule_tz?: string
+    default_ai_user_integration_id?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     password_reset_tokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
@@ -34189,6 +34314,7 @@ export namespace Prisma {
     workflow_configs?: WorkflowConfigUpdateManyWithoutUserNestedInput
     workflow_runs?: WorkflowRunUpdateManyWithoutUserNestedInput
     user_integrations?: UserIntegrationUpdateManyWithoutUserNestedInput
+    default_ai_user_integration?: UserIntegrationUpdateOneWithoutDefault_for_usersNestedInput
     extraction_schemas?: ExtractionSchemaUpdateManyWithoutUserNestedInput
   }
 
@@ -34199,6 +34325,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
     default_schedule_tz?: StringFieldUpdateOperationsInput | string
+    default_ai_user_integration_id?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     password_reset_tokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -34216,6 +34343,7 @@ export namespace Prisma {
     password: string
     role: $Enums.AuthRole
     default_schedule_tz?: string
+    default_ai_user_integration_id?: string | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -34238,6 +34366,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
     default_schedule_tz?: StringFieldUpdateOperationsInput | string
+    default_ai_user_integration_id?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -36394,6 +36523,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     user: UserCreateNestedOneWithoutUser_integrationsInput
+    default_for_users?: UserCreateNestedManyWithoutDefault_ai_user_integrationInput
   }
 
   export type UserIntegrationUncheckedCreateInput = {
@@ -36407,6 +36537,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
     updated_at?: Date | string
+    default_for_users?: UserUncheckedCreateNestedManyWithoutDefault_ai_user_integrationInput
   }
 
   export type UserIntegrationUpdateInput = {
@@ -36420,6 +36551,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutUser_integrationsNestedInput
+    default_for_users?: UserUpdateManyWithoutDefault_ai_user_integrationNestedInput
   }
 
   export type UserIntegrationUncheckedUpdateInput = {
@@ -36433,6 +36565,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    default_for_users?: UserUncheckedUpdateManyWithoutDefault_ai_user_integrationNestedInput
   }
 
   export type UserIntegrationCreateManyInput = {
@@ -36656,6 +36789,11 @@ export namespace Prisma {
     none?: UserIntegrationWhereInput
   }
 
+  export type UserIntegrationNullableScalarRelationFilter = {
+    is?: UserIntegrationWhereInput | null
+    isNot?: UserIntegrationWhereInput | null
+  }
+
   export type ExtractionSchemaListRelationFilter = {
     every?: ExtractionSchemaWhereInput
     some?: ExtractionSchemaWhereInput
@@ -36698,6 +36836,7 @@ export namespace Prisma {
     password?: SortOrder
     role?: SortOrder
     default_schedule_tz?: SortOrder
+    default_ai_user_integration_id?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -36709,6 +36848,7 @@ export namespace Prisma {
     password?: SortOrder
     role?: SortOrder
     default_schedule_tz?: SortOrder
+    default_ai_user_integration_id?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -36720,6 +36860,7 @@ export namespace Prisma {
     password?: SortOrder
     role?: SortOrder
     default_schedule_tz?: SortOrder
+    default_ai_user_integration_id?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -38570,6 +38711,16 @@ export namespace Prisma {
     not?: NestedEnumComputerUseModelNullableFilter<$PrismaModel> | $Enums.ComputerUseModel | null
   }
 
+  export type UserListRelationFilter = {
+    every?: UserWhereInput
+    some?: UserWhereInput
+    none?: UserWhereInput
+  }
+
+  export type UserOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type UserIntegrationUser_idIntegration_typeCompoundUniqueInput = {
     user_id: string
     integration_type: $Enums.IntegrationType
@@ -38736,6 +38887,12 @@ export namespace Prisma {
     connect?: UserIntegrationWhereUniqueInput | UserIntegrationWhereUniqueInput[]
   }
 
+  export type UserIntegrationCreateNestedOneWithoutDefault_for_usersInput = {
+    create?: XOR<UserIntegrationCreateWithoutDefault_for_usersInput, UserIntegrationUncheckedCreateWithoutDefault_for_usersInput>
+    connectOrCreate?: UserIntegrationCreateOrConnectWithoutDefault_for_usersInput
+    connect?: UserIntegrationWhereUniqueInput
+  }
+
   export type ExtractionSchemaCreateNestedManyWithoutUserInput = {
     create?: XOR<ExtractionSchemaCreateWithoutUserInput, ExtractionSchemaUncheckedCreateWithoutUserInput> | ExtractionSchemaCreateWithoutUserInput[] | ExtractionSchemaUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ExtractionSchemaCreateOrConnectWithoutUserInput | ExtractionSchemaCreateOrConnectWithoutUserInput[]
@@ -38869,6 +39026,16 @@ export namespace Prisma {
     update?: UserIntegrationUpdateWithWhereUniqueWithoutUserInput | UserIntegrationUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: UserIntegrationUpdateManyWithWhereWithoutUserInput | UserIntegrationUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: UserIntegrationScalarWhereInput | UserIntegrationScalarWhereInput[]
+  }
+
+  export type UserIntegrationUpdateOneWithoutDefault_for_usersNestedInput = {
+    create?: XOR<UserIntegrationCreateWithoutDefault_for_usersInput, UserIntegrationUncheckedCreateWithoutDefault_for_usersInput>
+    connectOrCreate?: UserIntegrationCreateOrConnectWithoutDefault_for_usersInput
+    upsert?: UserIntegrationUpsertWithoutDefault_for_usersInput
+    disconnect?: UserIntegrationWhereInput | boolean
+    delete?: UserIntegrationWhereInput | boolean
+    connect?: UserIntegrationWhereUniqueInput
+    update?: XOR<XOR<UserIntegrationUpdateToOneWithWhereWithoutDefault_for_usersInput, UserIntegrationUpdateWithoutDefault_for_usersInput>, UserIntegrationUncheckedUpdateWithoutDefault_for_usersInput>
   }
 
   export type ExtractionSchemaUpdateManyWithoutUserNestedInput = {
@@ -41092,6 +41259,20 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type UserCreateNestedManyWithoutDefault_ai_user_integrationInput = {
+    create?: XOR<UserCreateWithoutDefault_ai_user_integrationInput, UserUncheckedCreateWithoutDefault_ai_user_integrationInput> | UserCreateWithoutDefault_ai_user_integrationInput[] | UserUncheckedCreateWithoutDefault_ai_user_integrationInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutDefault_ai_user_integrationInput | UserCreateOrConnectWithoutDefault_ai_user_integrationInput[]
+    createMany?: UserCreateManyDefault_ai_user_integrationInputEnvelope
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+  }
+
+  export type UserUncheckedCreateNestedManyWithoutDefault_ai_user_integrationInput = {
+    create?: XOR<UserCreateWithoutDefault_ai_user_integrationInput, UserUncheckedCreateWithoutDefault_ai_user_integrationInput> | UserCreateWithoutDefault_ai_user_integrationInput[] | UserUncheckedCreateWithoutDefault_ai_user_integrationInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutDefault_ai_user_integrationInput | UserCreateOrConnectWithoutDefault_ai_user_integrationInput[]
+    createMany?: UserCreateManyDefault_ai_user_integrationInputEnvelope
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+  }
+
   export type EnumIntegrationTypeFieldUpdateOperationsInput = {
     set?: $Enums.IntegrationType
   }
@@ -41106,6 +41287,34 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutUser_integrationsInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutUser_integrationsInput, UserUpdateWithoutUser_integrationsInput>, UserUncheckedUpdateWithoutUser_integrationsInput>
+  }
+
+  export type UserUpdateManyWithoutDefault_ai_user_integrationNestedInput = {
+    create?: XOR<UserCreateWithoutDefault_ai_user_integrationInput, UserUncheckedCreateWithoutDefault_ai_user_integrationInput> | UserCreateWithoutDefault_ai_user_integrationInput[] | UserUncheckedCreateWithoutDefault_ai_user_integrationInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutDefault_ai_user_integrationInput | UserCreateOrConnectWithoutDefault_ai_user_integrationInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutDefault_ai_user_integrationInput | UserUpsertWithWhereUniqueWithoutDefault_ai_user_integrationInput[]
+    createMany?: UserCreateManyDefault_ai_user_integrationInputEnvelope
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    update?: UserUpdateWithWhereUniqueWithoutDefault_ai_user_integrationInput | UserUpdateWithWhereUniqueWithoutDefault_ai_user_integrationInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutDefault_ai_user_integrationInput | UserUpdateManyWithWhereWithoutDefault_ai_user_integrationInput[]
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
+  }
+
+  export type UserUncheckedUpdateManyWithoutDefault_ai_user_integrationNestedInput = {
+    create?: XOR<UserCreateWithoutDefault_ai_user_integrationInput, UserUncheckedCreateWithoutDefault_ai_user_integrationInput> | UserCreateWithoutDefault_ai_user_integrationInput[] | UserUncheckedCreateWithoutDefault_ai_user_integrationInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutDefault_ai_user_integrationInput | UserCreateOrConnectWithoutDefault_ai_user_integrationInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutDefault_ai_user_integrationInput | UserUpsertWithWhereUniqueWithoutDefault_ai_user_integrationInput[]
+    createMany?: UserCreateManyDefault_ai_user_integrationInputEnvelope
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    update?: UserUpdateWithWhereUniqueWithoutDefault_ai_user_integrationInput | UserUpdateWithWhereUniqueWithoutDefault_ai_user_integrationInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutDefault_ai_user_integrationInput | UserUpdateManyWithWhereWithoutDefault_ai_user_integrationInput[]
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -42019,6 +42228,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
     updated_at?: Date | string
+    default_for_users?: UserCreateNestedManyWithoutDefault_ai_user_integrationInput
   }
 
   export type UserIntegrationUncheckedCreateWithoutUserInput = {
@@ -42031,6 +42241,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
     updated_at?: Date | string
+    default_for_users?: UserUncheckedCreateNestedManyWithoutDefault_ai_user_integrationInput
   }
 
   export type UserIntegrationCreateOrConnectWithoutUserInput = {
@@ -42041,6 +42252,37 @@ export namespace Prisma {
   export type UserIntegrationCreateManyUserInputEnvelope = {
     data: UserIntegrationCreateManyUserInput | UserIntegrationCreateManyUserInput[]
     skipDuplicates?: boolean
+  }
+
+  export type UserIntegrationCreateWithoutDefault_for_usersInput = {
+    id?: string
+    integration_type: $Enums.IntegrationType
+    computer_use_model?: $Enums.ComputerUseModel | null
+    ai_model?: $Enums.ComputerUseModel | null
+    credentials_encrypted: string
+    is_active?: boolean
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    updated_at?: Date | string
+    user: UserCreateNestedOneWithoutUser_integrationsInput
+  }
+
+  export type UserIntegrationUncheckedCreateWithoutDefault_for_usersInput = {
+    id?: string
+    user_id: string
+    integration_type: $Enums.IntegrationType
+    computer_use_model?: $Enums.ComputerUseModel | null
+    ai_model?: $Enums.ComputerUseModel | null
+    credentials_encrypted: string
+    is_active?: boolean
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type UserIntegrationCreateOrConnectWithoutDefault_for_usersInput = {
+    where: UserIntegrationWhereUniqueInput
+    create: XOR<UserIntegrationCreateWithoutDefault_for_usersInput, UserIntegrationUncheckedCreateWithoutDefault_for_usersInput>
   }
 
   export type ExtractionSchemaCreateWithoutUserInput = {
@@ -42265,6 +42507,43 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"UserIntegration"> | Date | string
   }
 
+  export type UserIntegrationUpsertWithoutDefault_for_usersInput = {
+    update: XOR<UserIntegrationUpdateWithoutDefault_for_usersInput, UserIntegrationUncheckedUpdateWithoutDefault_for_usersInput>
+    create: XOR<UserIntegrationCreateWithoutDefault_for_usersInput, UserIntegrationUncheckedCreateWithoutDefault_for_usersInput>
+    where?: UserIntegrationWhereInput
+  }
+
+  export type UserIntegrationUpdateToOneWithWhereWithoutDefault_for_usersInput = {
+    where?: UserIntegrationWhereInput
+    data: XOR<UserIntegrationUpdateWithoutDefault_for_usersInput, UserIntegrationUncheckedUpdateWithoutDefault_for_usersInput>
+  }
+
+  export type UserIntegrationUpdateWithoutDefault_for_usersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    integration_type?: EnumIntegrationTypeFieldUpdateOperationsInput | $Enums.IntegrationType
+    computer_use_model?: NullableEnumComputerUseModelFieldUpdateOperationsInput | $Enums.ComputerUseModel | null
+    ai_model?: NullableEnumComputerUseModelFieldUpdateOperationsInput | $Enums.ComputerUseModel | null
+    credentials_encrypted?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutUser_integrationsNestedInput
+  }
+
+  export type UserIntegrationUncheckedUpdateWithoutDefault_for_usersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    integration_type?: EnumIntegrationTypeFieldUpdateOperationsInput | $Enums.IntegrationType
+    computer_use_model?: NullableEnumComputerUseModelFieldUpdateOperationsInput | $Enums.ComputerUseModel | null
+    ai_model?: NullableEnumComputerUseModelFieldUpdateOperationsInput | $Enums.ComputerUseModel | null
+    credentials_encrypted?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type ExtractionSchemaUpsertWithWhereUniqueWithoutUserInput = {
     where: ExtractionSchemaWhereUniqueInput
     update: XOR<ExtractionSchemaUpdateWithoutUserInput, ExtractionSchemaUncheckedUpdateWithoutUserInput>
@@ -42308,6 +42587,7 @@ export namespace Prisma {
     workflow_configs?: WorkflowConfigCreateNestedManyWithoutUserInput
     workflow_runs?: WorkflowRunCreateNestedManyWithoutUserInput
     user_integrations?: UserIntegrationCreateNestedManyWithoutUserInput
+    default_ai_user_integration?: UserIntegrationCreateNestedOneWithoutDefault_for_usersInput
     extraction_schemas?: ExtractionSchemaCreateNestedManyWithoutUserInput
   }
 
@@ -42318,6 +42598,7 @@ export namespace Prisma {
     password: string
     role: $Enums.AuthRole
     default_schedule_tz?: string
+    default_ai_user_integration_id?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     website_targets?: WebsiteTargetUncheckedCreateNestedManyWithoutUserInput
@@ -42356,6 +42637,7 @@ export namespace Prisma {
     workflow_configs?: WorkflowConfigUpdateManyWithoutUserNestedInput
     workflow_runs?: WorkflowRunUpdateManyWithoutUserNestedInput
     user_integrations?: UserIntegrationUpdateManyWithoutUserNestedInput
+    default_ai_user_integration?: UserIntegrationUpdateOneWithoutDefault_for_usersNestedInput
     extraction_schemas?: ExtractionSchemaUpdateManyWithoutUserNestedInput
   }
 
@@ -42366,6 +42648,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
     default_schedule_tz?: StringFieldUpdateOperationsInput | string
+    default_ai_user_integration_id?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     website_targets?: WebsiteTargetUncheckedUpdateManyWithoutUserNestedInput
@@ -42504,6 +42787,7 @@ export namespace Prisma {
     workflow_configs?: WorkflowConfigCreateNestedManyWithoutUserInput
     workflow_runs?: WorkflowRunCreateNestedManyWithoutUserInput
     user_integrations?: UserIntegrationCreateNestedManyWithoutUserInput
+    default_ai_user_integration?: UserIntegrationCreateNestedOneWithoutDefault_for_usersInput
     extraction_schemas?: ExtractionSchemaCreateNestedManyWithoutUserInput
   }
 
@@ -42514,6 +42798,7 @@ export namespace Prisma {
     password: string
     role: $Enums.AuthRole
     default_schedule_tz?: string
+    default_ai_user_integration_id?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     password_reset_tokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
@@ -42862,6 +43147,7 @@ export namespace Prisma {
     workflow_configs?: WorkflowConfigUpdateManyWithoutUserNestedInput
     workflow_runs?: WorkflowRunUpdateManyWithoutUserNestedInput
     user_integrations?: UserIntegrationUpdateManyWithoutUserNestedInput
+    default_ai_user_integration?: UserIntegrationUpdateOneWithoutDefault_for_usersNestedInput
     extraction_schemas?: ExtractionSchemaUpdateManyWithoutUserNestedInput
   }
 
@@ -42872,6 +43158,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
     default_schedule_tz?: StringFieldUpdateOperationsInput | string
+    default_ai_user_integration_id?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     password_reset_tokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -43161,6 +43448,7 @@ export namespace Prisma {
     website_targets?: WebsiteTargetCreateNestedManyWithoutUserInput
     workflow_runs?: WorkflowRunCreateNestedManyWithoutUserInput
     user_integrations?: UserIntegrationCreateNestedManyWithoutUserInput
+    default_ai_user_integration?: UserIntegrationCreateNestedOneWithoutDefault_for_usersInput
     extraction_schemas?: ExtractionSchemaCreateNestedManyWithoutUserInput
   }
 
@@ -43171,6 +43459,7 @@ export namespace Prisma {
     password: string
     role: $Enums.AuthRole
     default_schedule_tz?: string
+    default_ai_user_integration_id?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     password_reset_tokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
@@ -43600,6 +43889,7 @@ export namespace Prisma {
     website_targets?: WebsiteTargetUpdateManyWithoutUserNestedInput
     workflow_runs?: WorkflowRunUpdateManyWithoutUserNestedInput
     user_integrations?: UserIntegrationUpdateManyWithoutUserNestedInput
+    default_ai_user_integration?: UserIntegrationUpdateOneWithoutDefault_for_usersNestedInput
     extraction_schemas?: ExtractionSchemaUpdateManyWithoutUserNestedInput
   }
 
@@ -43610,6 +43900,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
     default_schedule_tz?: StringFieldUpdateOperationsInput | string
+    default_ai_user_integration_id?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     password_reset_tokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -45615,6 +45906,7 @@ export namespace Prisma {
     website_targets?: WebsiteTargetCreateNestedManyWithoutUserInput
     workflow_configs?: WorkflowConfigCreateNestedManyWithoutUserInput
     user_integrations?: UserIntegrationCreateNestedManyWithoutUserInput
+    default_ai_user_integration?: UserIntegrationCreateNestedOneWithoutDefault_for_usersInput
     extraction_schemas?: ExtractionSchemaCreateNestedManyWithoutUserInput
   }
 
@@ -45625,6 +45917,7 @@ export namespace Prisma {
     password: string
     role: $Enums.AuthRole
     default_schedule_tz?: string
+    default_ai_user_integration_id?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     password_reset_tokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
@@ -46161,6 +46454,7 @@ export namespace Prisma {
     website_targets?: WebsiteTargetUpdateManyWithoutUserNestedInput
     workflow_configs?: WorkflowConfigUpdateManyWithoutUserNestedInput
     user_integrations?: UserIntegrationUpdateManyWithoutUserNestedInput
+    default_ai_user_integration?: UserIntegrationUpdateOneWithoutDefault_for_usersNestedInput
     extraction_schemas?: ExtractionSchemaUpdateManyWithoutUserNestedInput
   }
 
@@ -46171,6 +46465,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
     default_schedule_tz?: StringFieldUpdateOperationsInput | string
+    default_ai_user_integration_id?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     password_reset_tokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -46808,6 +47103,7 @@ export namespace Prisma {
     workflow_configs?: WorkflowConfigCreateNestedManyWithoutUserInput
     workflow_runs?: WorkflowRunCreateNestedManyWithoutUserInput
     user_integrations?: UserIntegrationCreateNestedManyWithoutUserInput
+    default_ai_user_integration?: UserIntegrationCreateNestedOneWithoutDefault_for_usersInput
   }
 
   export type UserUncheckedCreateWithoutExtraction_schemasInput = {
@@ -46817,6 +47113,7 @@ export namespace Prisma {
     password: string
     role: $Enums.AuthRole
     default_schedule_tz?: string
+    default_ai_user_integration_id?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     password_reset_tokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
@@ -46919,6 +47216,7 @@ export namespace Prisma {
     workflow_configs?: WorkflowConfigUpdateManyWithoutUserNestedInput
     workflow_runs?: WorkflowRunUpdateManyWithoutUserNestedInput
     user_integrations?: UserIntegrationUpdateManyWithoutUserNestedInput
+    default_ai_user_integration?: UserIntegrationUpdateOneWithoutDefault_for_usersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutExtraction_schemasInput = {
@@ -46928,6 +47226,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
     default_schedule_tz?: StringFieldUpdateOperationsInput | string
+    default_ai_user_integration_id?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     password_reset_tokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -49006,6 +49305,7 @@ export namespace Prisma {
     website_targets?: WebsiteTargetCreateNestedManyWithoutUserInput
     workflow_configs?: WorkflowConfigCreateNestedManyWithoutUserInput
     workflow_runs?: WorkflowRunCreateNestedManyWithoutUserInput
+    default_ai_user_integration?: UserIntegrationCreateNestedOneWithoutDefault_for_usersInput
     extraction_schemas?: ExtractionSchemaCreateNestedManyWithoutUserInput
   }
 
@@ -49016,6 +49316,7 @@ export namespace Prisma {
     password: string
     role: $Enums.AuthRole
     default_schedule_tz?: string
+    default_ai_user_integration_id?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     password_reset_tokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
@@ -49028,6 +49329,50 @@ export namespace Prisma {
   export type UserCreateOrConnectWithoutUser_integrationsInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutUser_integrationsInput, UserUncheckedCreateWithoutUser_integrationsInput>
+  }
+
+  export type UserCreateWithoutDefault_ai_user_integrationInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    password: string
+    role: $Enums.AuthRole
+    default_schedule_tz?: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    password_reset_tokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    website_targets?: WebsiteTargetCreateNestedManyWithoutUserInput
+    workflow_configs?: WorkflowConfigCreateNestedManyWithoutUserInput
+    workflow_runs?: WorkflowRunCreateNestedManyWithoutUserInput
+    user_integrations?: UserIntegrationCreateNestedManyWithoutUserInput
+    extraction_schemas?: ExtractionSchemaCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutDefault_ai_user_integrationInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    password: string
+    role: $Enums.AuthRole
+    default_schedule_tz?: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    password_reset_tokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    website_targets?: WebsiteTargetUncheckedCreateNestedManyWithoutUserInput
+    workflow_configs?: WorkflowConfigUncheckedCreateNestedManyWithoutUserInput
+    workflow_runs?: WorkflowRunUncheckedCreateNestedManyWithoutUserInput
+    user_integrations?: UserIntegrationUncheckedCreateNestedManyWithoutUserInput
+    extraction_schemas?: ExtractionSchemaUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutDefault_ai_user_integrationInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutDefault_ai_user_integrationInput, UserUncheckedCreateWithoutDefault_ai_user_integrationInput>
+  }
+
+  export type UserCreateManyDefault_ai_user_integrationInputEnvelope = {
+    data: UserCreateManyDefault_ai_user_integrationInput | UserCreateManyDefault_ai_user_integrationInput[]
+    skipDuplicates?: boolean
   }
 
   export type UserUpsertWithoutUser_integrationsInput = {
@@ -49054,6 +49399,7 @@ export namespace Prisma {
     website_targets?: WebsiteTargetUpdateManyWithoutUserNestedInput
     workflow_configs?: WorkflowConfigUpdateManyWithoutUserNestedInput
     workflow_runs?: WorkflowRunUpdateManyWithoutUserNestedInput
+    default_ai_user_integration?: UserIntegrationUpdateOneWithoutDefault_for_usersNestedInput
     extraction_schemas?: ExtractionSchemaUpdateManyWithoutUserNestedInput
   }
 
@@ -49064,6 +49410,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
     default_schedule_tz?: StringFieldUpdateOperationsInput | string
+    default_ai_user_integration_id?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     password_reset_tokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -49071,6 +49418,37 @@ export namespace Prisma {
     workflow_configs?: WorkflowConfigUncheckedUpdateManyWithoutUserNestedInput
     workflow_runs?: WorkflowRunUncheckedUpdateManyWithoutUserNestedInput
     extraction_schemas?: ExtractionSchemaUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUpsertWithWhereUniqueWithoutDefault_ai_user_integrationInput = {
+    where: UserWhereUniqueInput
+    update: XOR<UserUpdateWithoutDefault_ai_user_integrationInput, UserUncheckedUpdateWithoutDefault_ai_user_integrationInput>
+    create: XOR<UserCreateWithoutDefault_ai_user_integrationInput, UserUncheckedCreateWithoutDefault_ai_user_integrationInput>
+  }
+
+  export type UserUpdateWithWhereUniqueWithoutDefault_ai_user_integrationInput = {
+    where: UserWhereUniqueInput
+    data: XOR<UserUpdateWithoutDefault_ai_user_integrationInput, UserUncheckedUpdateWithoutDefault_ai_user_integrationInput>
+  }
+
+  export type UserUpdateManyWithWhereWithoutDefault_ai_user_integrationInput = {
+    where: UserScalarWhereInput
+    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyWithoutDefault_ai_user_integrationInput>
+  }
+
+  export type UserScalarWhereInput = {
+    AND?: UserScalarWhereInput | UserScalarWhereInput[]
+    OR?: UserScalarWhereInput[]
+    NOT?: UserScalarWhereInput | UserScalarWhereInput[]
+    id?: StringFilter<"User"> | string
+    email?: StringFilter<"User"> | string
+    phone?: StringNullableFilter<"User"> | string | null
+    password?: StringFilter<"User"> | string
+    role?: EnumAuthRoleFilter<"User"> | $Enums.AuthRole
+    default_schedule_tz?: StringFilter<"User"> | string
+    default_ai_user_integration_id?: StringNullableFilter<"User"> | string | null
+    created_at?: DateTimeFilter<"User"> | Date | string
+    updated_at?: DateTimeFilter<"User"> | Date | string
   }
 
   export type PasswordResetTokenCreateManyUserInput = {
@@ -49457,6 +49835,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    default_for_users?: UserUpdateManyWithoutDefault_ai_user_integrationNestedInput
   }
 
   export type UserIntegrationUncheckedUpdateWithoutUserInput = {
@@ -49469,6 +49848,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    default_for_users?: UserUncheckedUpdateManyWithoutDefault_ai_user_integrationNestedInput
   }
 
   export type UserIntegrationUncheckedUpdateManyWithoutUserInput = {
@@ -51427,6 +51807,62 @@ export namespace Prisma {
     content_type?: StringFieldUpdateOperationsInput | string
     size_bytes?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserCreateManyDefault_ai_user_integrationInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    password: string
+    role: $Enums.AuthRole
+    default_schedule_tz?: string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type UserUpdateWithoutDefault_ai_user_integrationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
+    default_schedule_tz?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    password_reset_tokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    website_targets?: WebsiteTargetUpdateManyWithoutUserNestedInput
+    workflow_configs?: WorkflowConfigUpdateManyWithoutUserNestedInput
+    workflow_runs?: WorkflowRunUpdateManyWithoutUserNestedInput
+    user_integrations?: UserIntegrationUpdateManyWithoutUserNestedInput
+    extraction_schemas?: ExtractionSchemaUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutDefault_ai_user_integrationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
+    default_schedule_tz?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    password_reset_tokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    website_targets?: WebsiteTargetUncheckedUpdateManyWithoutUserNestedInput
+    workflow_configs?: WorkflowConfigUncheckedUpdateManyWithoutUserNestedInput
+    workflow_runs?: WorkflowRunUncheckedUpdateManyWithoutUserNestedInput
+    user_integrations?: UserIntegrationUncheckedUpdateManyWithoutUserNestedInput
+    extraction_schemas?: ExtractionSchemaUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateManyWithoutDefault_ai_user_integrationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
+    default_schedule_tz?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

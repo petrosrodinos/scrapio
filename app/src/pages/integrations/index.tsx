@@ -11,6 +11,7 @@ import { ConfirmationDialog } from "@/components/ui/confirmation-dialog";
 import { IntegrationConnectForm } from "./components/integration-connect-form";
 import { IntegrationEditForm } from "./components/integration-edit-form";
 import { CrawlScheduleTimezonePanel } from "./components/crawl-schedule-timezone-panel";
+import { DefaultAiModelPanel } from "./components/default-ai-model-panel";
 import { useIntegrations } from "@/features/integrations/hooks/use-integrations";
 import type { Integration } from "@/features/integrations/interfaces/integrations.interfaces";
 import type { UserIntegration } from "@/features/user-integrations/interfaces/user-integrations.interfaces";
@@ -128,6 +129,7 @@ export default function IntegrationsPage() {
       </div>
 
       <CrawlScheduleTimezonePanel />
+      <DefaultAiModelPanel />
 
       {isPending ? (
         <TableSkeleton rows={4} columns={4} />

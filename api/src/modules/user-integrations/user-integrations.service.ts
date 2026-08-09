@@ -129,6 +129,13 @@ export class UserIntegrationsService {
       },
     });
 
+    if (
+      integrationRequiresAiModel(created.integration_type) &&
+      created.ai_model
+    ) {
+      await this.ensureDefaultAiIntegration(authUser.id, created.id);
+    }
+
     return this.toResponse(created);
   }
 
@@ -175,6 +182,63 @@ export class UserIntegrationsService {
   async disconnect(authUser: AuthUser, id: string): Promise<void> {
     const existing = await this.ensureOwned(authUser, id);
     await this.prisma.userIntegration.delete({ where: { id: existing.id } });
+    await this.fallbackDefaultAiIntegration(existing.user_id);
+  }
+
+  private async ensureDefaultAiIntegration(
+    userId: string,
+    userIntegrationId: string,
+  ) {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: { default_ai_user_integration_id: true },
+    });
+
+    if (!user || user.default_ai_user_integration_id) {
+      return;
+    }
+
+    await this.prisma.user.update({
+      where: { id: userId },
+      data: { default_ai_user_integration_id: userIntegrationId },
+    });
+  }
+
+  private async fallbackDefaultAiIntegration(userId: string) {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: { default_ai_user_integration_id: true },
+    });
+
+    if (!user || user.default_ai_user_integration_id) {
+      return;
+    }
+
+    const fallback = await this.prisma.userIntegration.findFirst({
+      where: {
+        user_id: userId,
+        is_active: true,
+        ai_model: { not: null },
+        integration_type: {
+          in: [
+            IntegrationType.OPENAI,
+            IntegrationType.GEMINI,
+            IntegrationType.DEEPSEEK,
+          ],
+        },
+      },
+      orderBy: { updated_at: 'desc' },
+      select: { id: true },
+    });
+
+    if (!fallback) {
+      return;
+    }
+
+    await this.prisma.user.update({
+      where: { id: userId },
+      data: { default_ai_user_integration_id: fallback.id },
+    });
   }
 
   private async ensureOwned(authUser: AuthUser, id: string) {

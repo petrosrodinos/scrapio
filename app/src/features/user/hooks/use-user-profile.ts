@@ -28,11 +28,11 @@ export const useUpdateCurrentUserProfile = () => {
     mutationFn: (payload: UpdateUserProfilePayload) => updateCurrentUserProfile(payload),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["users"] });
-      toast({ title: "Schedule timezone updated", duration: 2000, variant: "success" });
+      toast({ title: "Profile updated", duration: 2000, variant: "success" });
     },
     onError: (error: Error) => {
       toast({
-        title: "Could not update schedule timezone",
+        title: "Could not update profile",
         description: error.message,
         variant: "error",
       });

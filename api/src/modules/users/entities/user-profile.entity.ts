@@ -17,6 +17,9 @@ export class UserProfile {
   @ApiProperty({ example: 'Europe/Athens' })
   default_schedule_tz: string;
 
+  @ApiProperty({ nullable: true })
+  default_ai_user_integration_id: string | null;
+
   @ApiProperty()
   created_at: Date;
 
