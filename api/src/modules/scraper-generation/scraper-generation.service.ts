@@ -232,6 +232,8 @@ export class ScraperGenerationService {
             website_target_id: run.website_target_id,
             name: `${websiteTarget.name} scraper`,
             status: ScraperStatus.TESTING,
+            urls: [],
+            output_formats: [],
           },
         });
 

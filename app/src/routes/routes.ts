@@ -10,10 +10,18 @@ export const Routes = {
     },
     websiteTargets: {
         list: "/website-targets",
-        detail: (id: string) => `/website-targets/${id}`,
+        detail: (
+            id: string,
+            options?: { tab?: "target" | "scrapers"; createScraper?: boolean },
+        ) => {
+            const params = new URLSearchParams();
+            if (options?.tab === "scrapers") params.set("tab", "scrapers");
+            if (options?.createScraper) params.set("createScraper", "1");
+            const qs = params.toString();
+            return `/website-targets/${id}${qs ? `?${qs}` : ""}`;
+        },
     },
     scrapers: {
-        list: "/scrapers",
         detail: (id: string) => `/scrapers/${id}`,
     },
     generationRuns: {

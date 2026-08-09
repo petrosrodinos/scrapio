@@ -29,7 +29,6 @@ export const createScraperFormSchema = z.object({
       (value) => value == null || /^(\S+\s+){4}\S+$/.test(value),
       "Enter a valid 5-field cron expression",
     ),
-  config: optionalJsonTextarea,
 });
 
 export type CreateScraperFormValues = z.infer<typeof createScraperFormSchema>;

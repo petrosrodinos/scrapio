@@ -234,7 +234,17 @@ export default function WebsiteTargetsListPage() {
                           block_rules: blockHandling.block_rules,
                         }),
                       },
-                      { onSuccess: () => createModal.close() },
+                      {
+                        onSuccess: (created) => {
+                          createModal.close();
+                          navigate(
+                            Routes.websiteTargets.detail(created.id, {
+                              tab: "scrapers",
+                              createScraper: true,
+                            }),
+                          );
+                        },
+                      },
                     );
                   }}
                 />

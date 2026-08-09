@@ -12,7 +12,6 @@ import DashboardHome from "@/pages/dashboard";
 import AdminHealthPage from "@/pages/admin/pages/health";
 import WebsiteTargetsListPage from "@/pages/admin/website-targets";
 import WebsiteTargetDetailPage from "@/pages/admin/website-targets/detail";
-import ScrapersListPage from "@/pages/admin/scrapers";
 import ScraperDetailPage from "@/pages/admin/scrapers/detail";
 import GenerationRunsListPage from "@/pages/admin/generation-runs";
 import GenerationRunDetailPage from "@/pages/admin/generation-runs/detail";
@@ -54,8 +53,8 @@ export default function AppRoutes() {
         <Route path={Routes.dashboard.root} element={<DashboardHome />} />
         <Route path={Routes.websiteTargets.list} element={<WebsiteTargetsListPage />} />
         <Route path={`${Routes.websiteTargets.list}/:id`} element={<WebsiteTargetDetailPage />} />
-        <Route path={Routes.scrapers.list} element={<ScrapersListPage />} />
-        <Route path={`${Routes.scrapers.list}/:id`} element={<ScraperDetailPage />} />
+        <Route path="/scrapers" element={<Navigate to={Routes.websiteTargets.list} replace />} />
+        <Route path="/scrapers/:id" element={<ScraperDetailPage />} />
         <Route path={Routes.generationRuns.list} element={<GenerationRunsListPage />} />
         <Route path={`${Routes.generationRuns.list}/:id`} element={<GenerationRunDetailPage />} />
         <Route path={Routes.crawlRuns.list} element={<CrawlRunsListPage />} />

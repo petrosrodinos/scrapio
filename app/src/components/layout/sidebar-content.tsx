@@ -2,7 +2,6 @@ import { NavLink } from 'react-router-dom';
 import {
   Activity,
   Bell,
-  Bot,
   Globe,
   LayoutDashboard,
   Plug,
@@ -27,7 +26,6 @@ const dashboardNavItems = [
 
 const scraperNavItems = [
   { label: 'Targets', icon: Globe, href: Routes.websiteTargets.list, end: false },
-  { label: 'Scrapers', icon: Bot, href: Routes.scrapers.list, end: false },
   { label: 'Generation', icon: Sparkles, href: Routes.generationRuns.list, end: false },
   { label: 'Crawl Runs', icon: Play, href: Routes.crawlRuns.list, end: false },
   { label: 'Diagnostics', icon: Activity, href: Routes.diagnostics.list, end: false },

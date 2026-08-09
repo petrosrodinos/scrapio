@@ -80,11 +80,15 @@ export default function ScraperDetailPage() {
   return (
     <div className="flex flex-col gap-6">
       <button
-        onClick={() => navigate(Routes.scrapers.list)}
+        onClick={() =>
+          navigate(
+            Routes.websiteTargets.detail(scraper.website_target_id, { tab: "scrapers" }),
+          )
+        }
         className="flex items-center gap-1.5 text-sm text-muted hover:text-foreground transition-colors"
       >
         <ArrowLeft className="h-4 w-4" />
-        Back to scrapers
+        Back to website target
       </button>
 
       <div className="flex items-center justify-between">
@@ -128,7 +132,11 @@ export default function ScraperDetailPage() {
           <span className="text-xs font-medium uppercase tracking-wide text-muted">Website target</span>
           <button
             className="text-sm text-accent hover:underline text-left"
-            onClick={() => navigate(Routes.websiteTargets.detail(scraper.website_target_id))}
+            onClick={() =>
+              navigate(
+                Routes.websiteTargets.detail(scraper.website_target_id, { tab: "scrapers" }),
+              )
+            }
           >
             {scraper.website_target?.name ?? scraper.website_target_id}
           </button>
@@ -510,7 +518,9 @@ export default function ScraperDetailPage() {
         isPending={deleteScraper.isPending}
         onConfirm={async () => {
           await deleteScraper.mutateAsync(scraper.id);
-          navigate(Routes.scrapers.list);
+          navigate(
+            Routes.websiteTargets.detail(scraper.website_target_id, { tab: "scrapers" }),
+          );
         }}
       />
     </div>

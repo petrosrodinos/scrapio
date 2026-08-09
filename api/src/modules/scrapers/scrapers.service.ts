@@ -105,6 +105,8 @@ export class ScrapersService {
           website_target_id: dto.website_target_id,
           name: dto.name,
           status: ScraperStatus.TESTING,
+          urls: [],
+          output_formats: [],
           ...schedule,
         },
         include: {
@@ -122,6 +124,8 @@ export class ScrapersService {
           website_target_id: dto.website_target_id,
           name: dto.name,
           status: ScraperStatus.TESTING,
+          urls: [],
+          output_formats: [],
           ...schedule,
         },
       });

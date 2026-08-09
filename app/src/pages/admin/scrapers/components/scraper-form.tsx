@@ -1,6 +1,6 @@
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, Label, Input, TextArea, FieldError, Select, ListBox } from "@heroui/react";
+import { Form, Label, Input, FieldError, Select, ListBox } from "@heroui/react";
 import { ActionButtonWithPending } from "@/components/ui/action-button-with-pending";
 import { CrawlIntervalField } from "@/components/ui/crawl-interval-field";
 import { useWebsiteTargets } from "@/features/website-targets/hooks/use-website-targets";
@@ -9,8 +9,13 @@ import {
   type CreateScraperFormValues,
 } from "@/features/scrapers/validation-schemas/scrapers.schema";
 
+function defaultScraperName(websiteTargetName: string): string {
+  return `${websiteTargetName} - Scraper`;
+}
+
 interface ScraperFormProps {
-  defaultWebsiteTargetId?: string;
+  websiteTargetId?: string;
+  websiteTargetName?: string;
   submitLabel: string;
   isPending: boolean;
   onSubmit: (values: CreateScraperFormValues) => void;
@@ -18,65 +23,92 @@ interface ScraperFormProps {
 }
 
 export function ScraperForm({
-  defaultWebsiteTargetId,
+  websiteTargetId,
+  websiteTargetName,
   submitLabel,
   isPending,
   onSubmit,
   onCancel,
 }: ScraperFormProps) {
-  const { data: websiteTargetsData } = useWebsiteTargets({ limit: 100 });
+  const lockedTargetId = websiteTargetId?.trim() || undefined;
+  const { data: websiteTargetsData } = useWebsiteTargets(
+    { limit: 100 },
+    { enabled: !lockedTargetId },
+  );
   const websiteTargets = websiteTargetsData?.data ?? [];
 
   const {
     register,
     handleSubmit,
     control,
+    setValue,
+    getValues,
     formState: { errors },
   } = useForm<CreateScraperFormValues>({
     resolver: zodResolver(createScraperFormSchema),
     defaultValues: {
-      website_target_id: defaultWebsiteTargetId ?? "",
-      name: "",
+      website_target_id: lockedTargetId ?? "",
+      name: websiteTargetName?.trim()
+        ? defaultScraperName(websiteTargetName.trim())
+        : "",
       schedule_cron: null,
-      config: "",
     },
   });
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)} className="grid gap-4">
-      <div className="flex flex-col gap-1">
-        <Controller
-          name="website_target_id"
-          control={control}
-          render={({ field }) => (
-            <Select
-              placeholder="Select a website target"
-              selectedKey={field.value}
-              onSelectionChange={(key) => field.onChange(key as string)}
-            >
-              <Label>Website target</Label>
-              <Select.Trigger>
-                <Select.Value />
-                <Select.Indicator />
-              </Select.Trigger>
-              <Select.Popover>
-                <ListBox>
-                  {websiteTargets.map((websiteTarget) => (
-                    <ListBox.Item key={websiteTarget.id} id={websiteTarget.id}>
-                      {websiteTarget.name}
-                    </ListBox.Item>
-                  ))}
-                </ListBox>
-              </Select.Popover>
-            </Select>
+      {!lockedTargetId ? (
+        <div className="flex flex-col gap-1">
+          <Controller
+            name="website_target_id"
+            control={control}
+            render={({ field }) => (
+              <Select
+                placeholder="Select a website target"
+                selectedKey={field.value}
+                onSelectionChange={(key) => {
+                  const nextId = key as string;
+                  field.onChange(nextId);
+                  const selected = websiteTargets.find((target) => target.id === nextId);
+                  if (!selected) return;
+                  const currentName = getValues("name").trim();
+                  const isBlankOrDefault =
+                    !currentName || currentName.endsWith(" - Scraper");
+                  if (isBlankOrDefault) {
+                    setValue("name", defaultScraperName(selected.name), {
+                      shouldDirty: true,
+                    });
+                  }
+                }}
+              >
+                <Label>Website target</Label>
+                <Select.Trigger>
+                  <Select.Value />
+                  <Select.Indicator />
+                </Select.Trigger>
+                <Select.Popover>
+                  <ListBox>
+                    {websiteTargets.map((websiteTarget) => (
+                      <ListBox.Item key={websiteTarget.id} id={websiteTarget.id}>
+                        {websiteTarget.name}
+                      </ListBox.Item>
+                    ))}
+                  </ListBox>
+                </Select.Popover>
+              </Select>
+            )}
+          />
+          {errors.website_target_id && (
+            <FieldError>{errors.website_target_id.message}</FieldError>
           )}
-        />
-        {errors.website_target_id && <FieldError>{errors.website_target_id.message}</FieldError>}
-      </div>
+        </div>
+      ) : (
+        <input type="hidden" {...register("website_target_id")} />
+      )}
 
       <div className="flex flex-col gap-1">
         <Label htmlFor="scraper-name">Name</Label>
-        <Input id="scraper-name" {...register("name")} placeholder="Example scraper" fullWidth />
+        <Input id="scraper-name" {...register("name")} placeholder="Example - Scraper" fullWidth />
         {errors.name && <FieldError>{errors.name.message}</FieldError>}
       </div>
 
@@ -92,19 +124,6 @@ export function ScraperForm({
         )}
       />
       {errors.schedule_cron && <FieldError>{errors.schedule_cron.message}</FieldError>}
-
-      <div className="flex flex-col gap-1">
-        <Label htmlFor="scraper-config">Config (JSON, optional)</Label>
-        <TextArea
-          id="scraper-config"
-          {...register("config")}
-          placeholder='{"start_url": "https://..."}'
-          rows={8}
-          className="font-mono text-xs"
-          fullWidth
-        />
-        {errors.config && <FieldError>{errors.config.message}</FieldError>}
-      </div>
 
       <div className="flex justify-end gap-2 mt-2">
         {onCancel && (
