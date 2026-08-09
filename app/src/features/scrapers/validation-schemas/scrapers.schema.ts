@@ -22,6 +22,13 @@ export function parseOptionalJsonConfig(value: string): Record<string, unknown> 
 export const createScraperFormSchema = z.object({
   website_target_id: z.string().min(1, "Website target is required"),
   name: z.string().min(1, "Name is required"),
+  schedule_cron: z
+    .string()
+    .nullable()
+    .refine(
+      (value) => value == null || /^(\S+\s+){4}\S+$/.test(value),
+      "Enter a valid 5-field cron expression",
+    ),
   config: optionalJsonTextarea,
 });
 

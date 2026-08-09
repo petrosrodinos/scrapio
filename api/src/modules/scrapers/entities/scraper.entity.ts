@@ -50,6 +50,22 @@ export class Scraper {
   @ApiProperty()
   consecutive_failures: number;
 
+  @ApiProperty({
+    nullable: true,
+    description: 'Cron expression when scheduled; null means manual only',
+    example: '0 */6 * * *',
+  })
+  schedule_cron: string | null;
+
+  @ApiProperty({ nullable: true })
+  schedule_timezone: string | null;
+
+  @ApiProperty({
+    description: 'Whether the cron schedule is active',
+    example: false,
+  })
+  schedule_enabled: boolean;
+
   @ApiProperty({ nullable: true })
   last_success_at: Date | null;
 

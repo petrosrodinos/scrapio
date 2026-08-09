@@ -4,6 +4,9 @@ import {
   IsEnum,
   IsObject,
   IsOptional,
+  IsString,
+  Matches,
+  ValidateIf,
 } from 'class-validator';
 import { DiagnosticsMode, ScraperStatus } from 'generated/prisma';
 
@@ -33,6 +36,21 @@ export class UpdateScraperDto {
   @IsOptional()
   @IsEnum(DiagnosticsMode)
   diagnostics_mode?: DiagnosticsMode;
+
+  @ApiProperty({
+    required: false,
+    nullable: true,
+    description:
+      'Cron schedule for automatic crawls. Null disables scheduled runs (manual only).',
+    example: '0 */6 * * *',
+  })
+  @IsOptional()
+  @ValidateIf((_, value) => value != null && value !== '')
+  @IsString()
+  @Matches(/^(\S+\s+){4}\S+$/, {
+    message: 'schedule_cron must be a valid 5-field cron expression',
+  })
+  schedule_cron?: string | null;
 
   @ApiProperty({
     required: false,

@@ -30,7 +30,6 @@ export interface WebsiteTarget {
   user_id: string;
   name: string;
   base_url: string;
-  crawl_interval: string;
   notes: string | null;
   last_success_at: string | null;
   last_failure_at: string | null;
@@ -41,8 +40,8 @@ export interface WebsiteTarget {
   created_at: string;
   updated_at: string;
   _count?: {
-    scrapers: number;
-    crawl_runs: number;
+    workflow_configs: number;
+    workflow_runs: number;
     notifications: number;
   };
 }
@@ -51,7 +50,6 @@ export interface CreateWebsiteTargetPayload {
   name: string;
   base_url: string;
   notes?: string;
-  crawl_interval?: string;
   block_handling_wait_timeout_ms?: number | null;
   block_handling_min_ready_body_length?: number | null;
   block_rules?: BlockRule[];

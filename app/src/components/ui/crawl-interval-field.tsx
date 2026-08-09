@@ -14,7 +14,11 @@ import {
 } from "@/config/constants/dropdowns/website-targets/crawl-interval-builder.options";
 import {
   CrawlIntervalPresetOptions,
+  crawlIntervalToSelectKey,
   isCrawlIntervalPreset,
+  isManualCrawlInterval,
+  ManualCrawlIntervalId,
+  selectKeyToCrawlInterval,
 } from "@/config/constants/dropdowns/website-targets/crawl-interval-preset.options";
 
 const CrawlIntervalModes = {
@@ -25,35 +29,48 @@ const CrawlIntervalModes = {
 
 type CrawlIntervalMode = (typeof CrawlIntervalModes)[keyof typeof CrawlIntervalModes];
 
-function detectCrawlIntervalMode(cron: string): CrawlIntervalMode {
-  if (isCrawlIntervalPreset(cron)) return CrawlIntervalModes.PRESET;
-  if (parseCrawlIntervalBuilderState(cron)) return CrawlIntervalModes.BUILDER;
+const DefaultScheduledCron = "0 */6 * * *";
+
+function detectCrawlIntervalMode(cron: string | null): CrawlIntervalMode {
+  if (isManualCrawlInterval(cron) || isCrawlIntervalPreset(cron)) {
+    return CrawlIntervalModes.PRESET;
+  }
+  if (parseCrawlIntervalBuilderState(cron!)) return CrawlIntervalModes.BUILDER;
   return CrawlIntervalModes.CUSTOM;
 }
 
 interface CrawlIntervalFieldProps {
-  value: string;
+  value: string | null;
   disabled?: boolean;
-  onChange: (cron: string) => void;
+  onChange: (cron: string | null) => void;
 }
 
 export function CrawlIntervalField({ value, disabled = false, onChange }: CrawlIntervalFieldProps) {
   const [mode, setMode] = useState<CrawlIntervalMode>(() => detectCrawlIntervalMode(value));
-  const [customValue, setCustomValue] = useState(value);
+  const [customValue, setCustomValue] = useState(value ?? DefaultScheduledCron);
   const [builder, setBuilder] = useState<CrawlIntervalBuilderState>(
-    () => parseCrawlIntervalBuilderState(value) ?? DefaultCrawlIntervalBuilderState,
+    () =>
+      (!isManualCrawlInterval(value) ? parseCrawlIntervalBuilderState(value!) : null) ??
+      DefaultCrawlIntervalBuilderState,
   );
 
   useEffect(() => {
-    setCustomValue(value);
-    const parsed = parseCrawlIntervalBuilderState(value);
-    if (parsed) setBuilder(parsed);
+    setCustomValue(isManualCrawlInterval(value) ? DefaultScheduledCron : value!);
+    if (!isManualCrawlInterval(value)) {
+      const parsed = parseCrawlIntervalBuilderState(value!);
+      if (parsed) setBuilder(parsed);
+    }
   }, [value]);
 
-  const commit = (cron: string) => {
-    const next = cron.trim();
-    if (!next || next === value) return;
-    onChange(next);
+  const commit = (cron: string | null) => {
+    if (cron === value) return;
+    if (cron != null) {
+      const next = cron.trim();
+      if (!next || next === value) return;
+      onChange(next);
+      return;
+    }
+    onChange(null);
   };
 
   const updateBuilder = (patch: Partial<CrawlIntervalBuilderState>) => {
@@ -74,11 +91,19 @@ export function CrawlIntervalField({ value, disabled = false, onChange }: CrawlI
           const nextMode = key as CrawlIntervalMode;
           setMode(nextMode);
           if (nextMode === CrawlIntervalModes.CUSTOM) {
-            setCustomValue(value);
+            const next = isManualCrawlInterval(value) ? DefaultScheduledCron : value!;
+            setCustomValue(next);
+            commit(next);
           }
           if (nextMode === CrawlIntervalModes.BUILDER) {
-            const parsed = parseCrawlIntervalBuilderState(value);
-            if (parsed) setBuilder(parsed);
+            const parsed =
+              (!isManualCrawlInterval(value) ? parseCrawlIntervalBuilderState(value!) : null) ??
+              DefaultCrawlIntervalBuilderState;
+            setBuilder(parsed);
+            commit(buildCrawlIntervalCron(parsed));
+          }
+          if (nextMode === CrawlIntervalModes.PRESET && isManualCrawlInterval(value)) {
+            commit(null);
           }
         }}
       >
@@ -101,10 +126,10 @@ export function CrawlIntervalField({ value, disabled = false, onChange }: CrawlI
 
         <Tabs.Panel id={CrawlIntervalModes.PRESET} className="pt-3">
           <Select
-            selectedKey={isCrawlIntervalPreset(value) ? value : undefined}
+            selectedKey={crawlIntervalToSelectKey(value)}
             isDisabled={disabled}
             onSelectionChange={(key) => {
-              if (typeof key === "string") commit(key);
+              if (typeof key === "string") commit(selectKeyToCrawlInterval(key));
             }}
             className="w-full"
             aria-label="Preset crawl interval"
@@ -120,7 +145,11 @@ export function CrawlIntervalField({ value, disabled = false, onChange }: CrawlI
                   <ListBox.Item key={option.id} id={option.id} textValue={option.label}>
                     <div className="flex flex-col gap-0.5">
                       <span>{option.label}</span>
-                      <span className="font-mono text-xs text-muted">{option.id}</span>
+                      {option.id !== ManualCrawlIntervalId ? (
+                        <span className="font-mono text-xs text-muted">{option.id}</span>
+                      ) : (
+                        <span className="text-xs text-muted">Run only when you trigger it</span>
+                      )}
                     </div>
                   </ListBox.Item>
                 ))}

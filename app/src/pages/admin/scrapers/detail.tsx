@@ -9,6 +9,7 @@ import { ConfirmationDialog } from "@/components/ui/confirmation-dialog";
 import { ScraperStatusChip } from "./components/scraper-status-chip";
 import { ScraperHealthChip } from "./components/scraper-health-chip";
 import { ScraperVersionForm } from "./components/scraper-version-form";
+import { ScraperSchedulePanel } from "./components/scraper-schedule-panel";
 import {
   useActivateScraperVersion,
   useCreateScraperVersion,
@@ -26,6 +27,7 @@ import {
 } from "@/features/scrapers/interfaces/scrapers.interfaces";
 import { ScraperStatusFormOptions } from "@/config/constants/dropdowns/scrapers/scraper-status-form.options";
 import { DiagnosticsModeFormOptions } from "@/config/constants/dropdowns/scrapers/diagnostics-mode-form.options";
+import { getCrawlIntervalPresetLabel } from "@/config/constants/dropdowns/website-targets/crawl-interval-preset.options";
 import { CreateGenerationRunForm } from "./components/create-generation-run-form";
 import { GenerationRunStatusChip } from "./components/generation-run-status-chip";
 import { GenerationRunTriggerChip } from "./components/generation-run-trigger-chip";
@@ -179,6 +181,17 @@ export default function ScraperDetailPage() {
           <span className="text-sm text-foreground">{scraper.consecutive_failures}</span>
         </div>
         <div className="flex flex-col gap-1">
+          <span className="text-xs font-medium uppercase tracking-wide text-muted">Schedule</span>
+          <span className="text-sm text-foreground">
+            {scraper.schedule_enabled
+              ? getCrawlIntervalPresetLabel(scraper.schedule_cron)
+              : "Manual only"}
+          </span>
+          {scraper.schedule_enabled && scraper.schedule_cron ? (
+            <span className="font-mono text-xs text-muted">{scraper.schedule_cron}</span>
+          ) : null}
+        </div>
+        <div className="flex flex-col gap-1">
           <span className="text-xs font-medium uppercase tracking-wide text-muted">Last success / failure</span>
           <span className="text-sm text-foreground">
             {formatDateTime(scraper.last_success_at)} / {formatDateTime(scraper.last_failure_at)}
@@ -228,6 +241,15 @@ export default function ScraperDetailPage() {
           </Select>
         </div>
       </div>
+
+      <ScraperSchedulePanel
+        scheduleCron={scraper.schedule_cron}
+        scheduleEnabled={scraper.schedule_enabled}
+        isPending={updateScraper.isPending}
+        onSave={(schedule_cron) =>
+          updateScraper.mutate({ id: scraper.id, payload: { schedule_cron } })
+        }
+      />
 
       <div className="rounded-xl border border-border bg-surface p-6">
         <div className="flex items-center justify-between mb-4">

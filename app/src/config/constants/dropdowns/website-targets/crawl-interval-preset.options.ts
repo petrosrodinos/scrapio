@@ -1,4 +1,7 @@
+export const ManualCrawlIntervalId = "manual";
+
 export const CrawlIntervalPresetOptions: { id: string; label: string }[] = [
+  { id: ManualCrawlIntervalId, label: "Manual only" },
   { id: "0 * * * *", label: "Every hour" },
   { id: "0 */2 * * *", label: "Every 2 hours" },
   { id: "0 */3 * * *", label: "Every 3 hours" },
@@ -15,10 +18,24 @@ export const CrawlIntervalPresetOptions: { id: string; label: string }[] = [
   { id: "0 9 * * 1-5", label: "Weekdays at 09:00 (Athens)" },
 ];
 
-export function getCrawlIntervalPresetLabel(cron: string): string {
-  return CrawlIntervalPresetOptions.find((option) => option.id === cron)?.label ?? cron;
+export function isManualCrawlInterval(cron: string | null | undefined): boolean {
+  return cron == null || cron === "" || cron === ManualCrawlIntervalId;
 }
 
-export function isCrawlIntervalPreset(cron: string): boolean {
+export function crawlIntervalToSelectKey(cron: string | null | undefined): string {
+  return isManualCrawlInterval(cron) ? ManualCrawlIntervalId : cron!;
+}
+
+export function selectKeyToCrawlInterval(key: string): string | null {
+  return key === ManualCrawlIntervalId ? null : key;
+}
+
+export function getCrawlIntervalPresetLabel(cron: string | null | undefined): string {
+  if (isManualCrawlInterval(cron)) return "Manual only";
+  return CrawlIntervalPresetOptions.find((option) => option.id === cron)?.label ?? cron!;
+}
+
+export function isCrawlIntervalPreset(cron: string | null | undefined): boolean {
+  if (isManualCrawlInterval(cron)) return true;
   return CrawlIntervalPresetOptions.some((option) => option.id === cron);
 }

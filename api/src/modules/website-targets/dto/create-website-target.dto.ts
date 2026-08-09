@@ -6,7 +6,6 @@ import {
   IsOptional,
   IsString,
   IsUrl,
-  Matches,
   Min,
   MinLength,
   ValidateNested,
@@ -33,20 +32,6 @@ export class CreateWebsiteTargetDto {
   @IsOptional()
   @IsString()
   notes?: string;
-
-  @ApiProperty({
-    required: false,
-    description:
-      'Default cron expression for scheduled crawls (5 space-separated fields)',
-    example: '0 */6 * * *',
-    default: '0 */6 * * *',
-  })
-  @IsOptional()
-  @IsString()
-  @Matches(/^(\S+\s+){4}\S+$/, {
-    message: 'crawl_interval must be a valid 5-field cron expression',
-  })
-  crawl_interval?: string;
 
   @ApiProperty({
     required: false,

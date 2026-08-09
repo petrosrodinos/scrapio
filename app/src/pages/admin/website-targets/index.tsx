@@ -32,7 +32,8 @@ import { useDebouncedValue } from "./hooks/use-debounced-value";
 
 function getWebsiteTargetActions(websiteTarget: WebsiteTarget): TableRowAction[] {
   const dependentCount =
-    (websiteTarget._count?.scrapers ?? 0) + (websiteTarget._count?.crawl_runs ?? 0);
+    (websiteTarget._count?.workflow_configs ?? 0) +
+    (websiteTarget._count?.workflow_runs ?? 0);
 
   return [
     {
@@ -220,7 +221,6 @@ export default function WebsiteTargetsListPage() {
                         name: values.name,
                         base_url: values.base_url,
                         notes: values.notes,
-                        crawl_interval: values.crawl_interval,
                         ...(blockHandling.block_handling_wait_timeout_ms != null && {
                           block_handling_wait_timeout_ms:
                             blockHandling.block_handling_wait_timeout_ms,

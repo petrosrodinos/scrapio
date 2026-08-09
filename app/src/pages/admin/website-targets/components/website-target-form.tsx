@@ -2,10 +2,8 @@ import { Controller, useForm, type Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, Label, Input, FieldError } from "@heroui/react";
 import { ActionButtonWithPending } from "@/components/ui/action-button-with-pending";
-import { CrawlIntervalField } from "@/components/ui/crawl-interval-field";
 import {
   websiteTargetFormSchema,
-  DefaultWebsiteTargetCrawlInterval,
   type WebsiteTargetFormValues,
 } from "@/features/website-targets/validation-schemas/website-targets.schema";
 import { BlockRulesEditor } from "./block-rules-editor";
@@ -36,7 +34,6 @@ export function WebsiteTargetForm({
       name: defaultValues?.name ?? "",
       base_url: defaultValues?.base_url ?? "",
       notes: defaultValues?.notes ?? "",
-      crawl_interval: defaultValues?.crawl_interval ?? DefaultWebsiteTargetCrawlInterval,
       block_handling_wait_timeout_ms:
         defaultValues?.block_handling_wait_timeout_ms ?? undefined,
       block_handling_min_ready_body_length:
@@ -69,23 +66,6 @@ export function WebsiteTargetForm({
         <Input id="website-target-notes" {...register("notes")} placeholder="Optional notes" fullWidth />
         {errors.notes && <FieldError>{errors.notes.message}</FieldError>}
       </div>
-
-      <Controller
-        name="crawl_interval"
-        control={control}
-        render={({ field }) => (
-          <div className="flex flex-col gap-1">
-            <CrawlIntervalField
-              value={field.value}
-              disabled={isPending}
-              onChange={field.onChange}
-            />
-            {errors.crawl_interval && (
-              <FieldError>{errors.crawl_interval.message}</FieldError>
-            )}
-          </div>
-        )}
-      />
 
       <div className="grid grid-cols-2 gap-4">
         <div className="flex flex-col gap-1">

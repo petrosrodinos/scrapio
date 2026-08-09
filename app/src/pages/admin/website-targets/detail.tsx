@@ -5,9 +5,7 @@ import { Routes } from "@/routes/routes";
 import { DetailSkeleton } from "@/components/ui/detail-skeleton";
 import { ActionButtonWithPending } from "@/components/ui/action-button-with-pending";
 import { ConfirmationDialog } from "@/components/ui/confirmation-dialog";
-import { getCrawlIntervalPresetLabel } from "@/config/constants/dropdowns/website-targets/crawl-interval-preset.options";
 import { WebsiteTargetForm } from "./components/website-target-form";
-import { WebsiteTargetCrawlIntervalPanel } from "./components/website-target-crawl-interval-panel";
 import {
   useWebsiteTarget,
   useDeleteWebsiteTarget,
@@ -40,7 +38,8 @@ export default function WebsiteTargetDetailPage() {
   }
 
   const dependentCount =
-    (websiteTarget._count?.scrapers ?? 0) + (websiteTarget._count?.crawl_runs ?? 0);
+    (websiteTarget._count?.workflow_configs ?? 0) +
+    (websiteTarget._count?.workflow_runs ?? 0);
   const canDelete = dependentCount === 0;
 
   return (
@@ -108,13 +107,6 @@ export default function WebsiteTargetDetailPage() {
             <span className="text-xs text-danger">{websiteTarget.last_error_message}</span>
           )}
         </div>
-        <div className="flex flex-col gap-1">
-          <span className="text-xs font-medium uppercase tracking-wide text-muted">Crawl interval</span>
-          <span className="text-sm text-foreground">
-            {getCrawlIntervalPresetLabel(websiteTarget.crawl_interval)}
-          </span>
-          <span className="font-mono text-xs text-muted">{websiteTarget.crawl_interval}</span>
-        </div>
         {websiteTarget.notes && (
           <div className="flex flex-col gap-1 sm:col-span-2">
             <span className="text-xs font-medium uppercase tracking-wide text-muted">Notes</span>
@@ -122,14 +114,6 @@ export default function WebsiteTargetDetailPage() {
           </div>
         )}
       </div>
-
-      <WebsiteTargetCrawlIntervalPanel
-        crawlInterval={websiteTarget.crawl_interval}
-        isPending={updateWebsiteTarget.isPending}
-        onSave={(crawl_interval) =>
-          updateWebsiteTarget.mutate({ id: websiteTarget.id, payload: { crawl_interval } })
-        }
-      />
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="rounded-xl border border-border bg-surface p-6">
@@ -196,7 +180,6 @@ export default function WebsiteTargetDetailPage() {
                     name: websiteTarget.name,
                     base_url: websiteTarget.base_url,
                     notes: websiteTarget.notes ?? "",
-                    crawl_interval: websiteTarget.crawl_interval,
                     block_handling_wait_timeout_ms:
                       websiteTarget.block_handling_wait_timeout_ms ?? undefined,
                     block_handling_min_ready_body_length:
@@ -211,7 +194,6 @@ export default function WebsiteTargetDetailPage() {
                           name: values.name,
                           base_url: values.base_url,
                           notes: values.notes,
-                          crawl_interval: values.crawl_interval,
                           ...toWebsiteTargetBlockHandlingPayload(values),
                         },
                       },

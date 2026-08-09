@@ -2,6 +2,7 @@ import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, Label, Input, TextArea, FieldError, Select, ListBox } from "@heroui/react";
 import { ActionButtonWithPending } from "@/components/ui/action-button-with-pending";
+import { CrawlIntervalField } from "@/components/ui/crawl-interval-field";
 import { useWebsiteTargets } from "@/features/website-targets/hooks/use-website-targets";
 import {
   createScraperFormSchema,
@@ -36,6 +37,7 @@ export function ScraperForm({
     defaultValues: {
       website_target_id: defaultWebsiteTargetId ?? "",
       name: "",
+      schedule_cron: null,
       config: "",
     },
   });
@@ -77,6 +79,19 @@ export function ScraperForm({
         <Input id="scraper-name" {...register("name")} placeholder="Example scraper" fullWidth />
         {errors.name && <FieldError>{errors.name.message}</FieldError>}
       </div>
+
+      <Controller
+        name="schedule_cron"
+        control={control}
+        render={({ field }) => (
+          <CrawlIntervalField
+            value={field.value}
+            disabled={isPending}
+            onChange={field.onChange}
+          />
+        )}
+      />
+      {errors.schedule_cron && <FieldError>{errors.schedule_cron.message}</FieldError>}
 
       <div className="flex flex-col gap-1">
         <Label htmlFor="scraper-config">Config (JSON, optional)</Label>

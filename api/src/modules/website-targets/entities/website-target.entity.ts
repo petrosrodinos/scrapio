@@ -13,9 +13,6 @@ export class WebsiteTarget {
   @ApiProperty({ example: 'https://example.com' })
   base_url: string;
 
-  @ApiProperty({ example: '0 */6 * * *' })
-  crawl_interval: string;
-
   @ApiProperty({ nullable: true })
   notes: string | null;
 
@@ -59,11 +56,11 @@ export class WebsiteTarget {
   @ApiProperty({
     required: false,
     description: 'Present on GET /admin/website-targets/:id',
-    example: { scrapers: 0, crawl_runs: 0, notifications: 0 },
+    example: { workflow_configs: 0, workflow_runs: 0, notifications: 0 },
   })
   _count?: {
-    scrapers: number;
-    crawl_runs: number;
+    workflow_configs: number;
+    workflow_runs: number;
     notifications: number;
   };
 }

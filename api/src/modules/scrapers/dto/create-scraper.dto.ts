@@ -4,7 +4,9 @@ import {
   IsOptional,
   IsString,
   IsUUID,
+  Matches,
   MinLength,
+  ValidateIf,
 } from 'class-validator';
 
 export class CreateScraperDto {
@@ -19,6 +21,21 @@ export class CreateScraperDto {
   @IsString()
   @MinLength(1)
   name: string;
+
+  @ApiProperty({
+    required: false,
+    nullable: true,
+    description:
+      'Cron schedule for automatic crawls. Null/omit for manual-only runs.',
+    example: '0 */6 * * *',
+  })
+  @IsOptional()
+  @ValidateIf((_, value) => value != null && value !== '')
+  @IsString()
+  @Matches(/^(\S+\s+){4}\S+$/, {
+    message: 'schedule_cron must be a valid 5-field cron expression',
+  })
+  schedule_cron?: string | null;
 
   @ApiProperty({
     required: false,

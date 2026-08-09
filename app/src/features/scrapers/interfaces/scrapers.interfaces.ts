@@ -59,6 +59,9 @@ export interface Scraper {
   success_rate: number | null;
   avg_runtime_ms: number | null;
   consecutive_failures: number;
+  schedule_cron: string | null;
+  schedule_timezone: string | null;
+  schedule_enabled: boolean;
   last_success_at: string | null;
   last_failure_at: string | null;
   created_at: string;
@@ -70,6 +73,7 @@ export interface Scraper {
 export interface CreateScraperPayload {
   website_target_id: string;
   name: string;
+  schedule_cron?: string | null;
   config?: Record<string, unknown>;
 }
 
@@ -82,6 +86,7 @@ export interface UpdateScraperPayload {
   status?: ScraperStatus;
   self_healing_enabled?: boolean;
   diagnostics_mode?: DiagnosticsMode;
+  schedule_cron?: string | null;
   validation_rules?: Record<string, unknown>;
 }
 

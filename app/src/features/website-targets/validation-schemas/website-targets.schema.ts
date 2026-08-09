@@ -29,18 +29,12 @@ export const websiteTargetFormSchema = z.object({
   name: z.string().min(1, "Name is required"),
   base_url: z.string().min(1, "Website URL is required").url("Enter a valid URL"),
   notes: z.string().optional(),
-  crawl_interval: z
-    .string()
-    .min(1, "Crawl interval is required")
-    .regex(/^(\S+\s+){4}\S+$/, "Enter a valid 5-field cron expression"),
   block_handling_wait_timeout_ms: optionalNonNegativeInt,
   block_handling_min_ready_body_length: optionalNonNegativeInt,
   block_rules: z.array(blockRuleSchema).default([]),
 });
 
 export type WebsiteTargetFormValues = z.infer<typeof websiteTargetFormSchema>;
-
-export const DefaultWebsiteTargetCrawlInterval = "0 */6 * * *";
 
 export const EmptyBlockRule = {
   label: "",

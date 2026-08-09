@@ -95,6 +95,8 @@ export class ScrapersService {
       dto.website_target_id,
     );
 
+    const schedule = this.toScheduleData(dto.schedule_cron);
+
     if (dto.config === undefined) {
       return this.prisma.workflowConfig.create({
         data: {
@@ -103,6 +105,7 @@ export class ScrapersService {
           website_target_id: dto.website_target_id,
           name: dto.name,
           status: ScraperStatus.TESTING,
+          ...schedule,
         },
         include: {
           active_version: true,
@@ -119,6 +122,7 @@ export class ScrapersService {
           website_target_id: dto.website_target_id,
           name: dto.name,
           status: ScraperStatus.TESTING,
+          ...schedule,
         },
       });
 
@@ -216,6 +220,11 @@ export class ScrapersService {
   async update(authUser: AuthUser, id: string, dto: UpdateScraperDto) {
     const scraper = await this.ensureExists(authUser, id);
 
+    const schedule =
+      dto.schedule_cron !== undefined
+        ? this.toScheduleData(dto.schedule_cron)
+        : undefined;
+
     if (dto.validation_rules === undefined) {
       return this.prisma.workflowConfig.update({
         where: { id },
@@ -227,6 +236,7 @@ export class ScrapersService {
           ...(dto.diagnostics_mode !== undefined && {
             diagnostics_mode: dto.diagnostics_mode,
           }),
+          ...schedule,
         },
         include: {
           active_version: true,
@@ -272,6 +282,7 @@ export class ScrapersService {
           ...(dto.diagnostics_mode !== undefined && {
             diagnostics_mode: dto.diagnostics_mode,
           }),
+          ...schedule,
         },
         include: {
           active_version: true,
@@ -318,6 +329,16 @@ export class ScrapersService {
     });
 
     return { deleted: uniqueIds.length };
+  }
+
+  private toScheduleData(scheduleCron: string | null | undefined): {
+    schedule_cron: string | null;
+    schedule_enabled: boolean;
+  } {
+    if (scheduleCron == null || scheduleCron === '') {
+      return { schedule_cron: null, schedule_enabled: false };
+    }
+    return { schedule_cron: scheduleCron, schedule_enabled: true };
   }
 
   private async ensureWebsiteTargetBelongsToUser(

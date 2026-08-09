@@ -370,6 +370,7 @@ export default function ScrapersListPage() {
                       {
                         website_target_id: values.website_target_id,
                         name: values.name,
+                        schedule_cron: values.schedule_cron,
                         ...(config && { config }),
                       },
                       { onSuccess: () => createModal.close() },
