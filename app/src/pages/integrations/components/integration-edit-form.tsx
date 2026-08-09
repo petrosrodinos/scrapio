@@ -4,49 +4,50 @@ import { Form, Label, FieldError, Select, ListBox } from "@heroui/react";
 import { ActionButtonWithPending } from "@/components/ui/action-button-with-pending";
 import { PasswordInput } from "@/components/ui/password-input";
 import type { Integration } from "@/features/integrations/interfaces/integrations.interfaces";
+import type { UserIntegration } from "@/features/user-integrations/interfaces/user-integrations.interfaces";
 import {
-  connectUserIntegrationSchema,
-  type ConnectUserIntegrationFormValues,
+  updateUserIntegrationSchema,
+  type UpdateUserIntegrationFormValues,
 } from "@/features/user-integrations/validation-schemas/user-integrations.schema";
 
-interface IntegrationConnectFormProps {
+interface IntegrationEditFormProps {
   integration: Integration;
+  userIntegration: UserIntegration;
   isPending: boolean;
-  onSubmit: (values: ConnectUserIntegrationFormValues) => void;
+  onSubmit: (values: UpdateUserIntegrationFormValues) => void;
   onCancel?: () => void;
 }
 
-export function IntegrationConnectForm({
+export function IntegrationEditForm({
   integration,
+  userIntegration,
   isPending,
   onSubmit,
   onCancel,
-}: IntegrationConnectFormProps) {
+}: IntegrationEditFormProps) {
   const {
     register,
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<ConnectUserIntegrationFormValues>({
-    resolver: zodResolver(connectUserIntegrationSchema) as Resolver<ConnectUserIntegrationFormValues>,
+  } = useForm<UpdateUserIntegrationFormValues>({
+    resolver: zodResolver(updateUserIntegrationSchema) as Resolver<UpdateUserIntegrationFormValues>,
     defaultValues: {
-      integration_type: integration.type,
       api_key: "",
-      computer_use_model: integration.computer_use_models?.[0]?.value,
-      ai_model: integration.ai_models?.[0]?.value,
+      computer_use_model:
+        userIntegration.computer_use_model ?? integration.computer_use_models?.[0]?.value,
+      ai_model: userIntegration.ai_model ?? integration.ai_models?.[0]?.value,
     },
   });
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)} className="grid gap-4">
-      <input type="hidden" {...register("integration_type")} />
-
       <div className="flex flex-col gap-1">
-        <Label htmlFor="integration-api-key">API Key</Label>
+        <Label htmlFor="integration-edit-api-key">API Key</Label>
         <PasswordInput
-          id="integration-api-key"
+          id="integration-edit-api-key"
           {...register("api_key")}
-          placeholder="Paste your API key"
+          placeholder={`Leave blank to keep ${userIntegration.api_key_masked}`}
           disabled={isPending}
         />
         {errors.api_key && <FieldError>{errors.api_key.message}</FieldError>}
@@ -127,7 +128,7 @@ export function IntegrationConnectForm({
           </ActionButtonWithPending>
         ) : null}
         <ActionButtonWithPending type="submit" isPending={isPending}>
-          Connect
+          Save changes
         </ActionButtonWithPending>
       </div>
     </Form>

@@ -428,6 +428,7 @@ exports.Prisma.UserIntegrationScalarFieldEnum = {
   user_id: 'user_id',
   integration_type: 'integration_type',
   computer_use_model: 'computer_use_model',
+  ai_model: 'ai_model',
   credentials_encrypted: 'credentials_encrypted',
   is_active: 'is_active',
   metadata: 'metadata',
@@ -649,7 +650,20 @@ exports.IntegrationType = exports.$Enums.IntegrationType = {
 
 exports.ComputerUseModel = exports.$Enums.ComputerUseModel = {
   CLAUDE_OPUS_4_8: 'CLAUDE_OPUS_4_8',
-  CLAUDE_SONNET_4_6: 'CLAUDE_SONNET_4_6'
+  CLAUDE_SONNET_4_6: 'CLAUDE_SONNET_4_6',
+  COMPUTER_USE_PREVIEW: 'COMPUTER_USE_PREVIEW',
+  GPT_4O: 'GPT_4O',
+  GPT_4O_MINI: 'GPT_4O_MINI',
+  GPT_4_TURBO: 'GPT_4_TURBO',
+  GPT_4: 'GPT_4',
+  GPT_35_TURBO: 'GPT_35_TURBO',
+  GEMINI_2_5_PRO: 'GEMINI_2_5_PRO',
+  GEMINI_2_5_FLASH: 'GEMINI_2_5_FLASH',
+  GEMINI_2_0_FLASH: 'GEMINI_2_0_FLASH',
+  GEMINI_1_5_PRO: 'GEMINI_1_5_PRO',
+  GEMINI_1_5_FLASH: 'GEMINI_1_5_FLASH',
+  DEEPSEEK_CHAT: 'DEEPSEEK_CHAT',
+  DEEPSEEK_REASONER: 'DEEPSEEK_REASONER'
 };
 
 exports.Prisma.ModelName = {

@@ -11,6 +11,18 @@ export type IntegrationType =
 export const ComputerUseModels = {
   CLAUDE_OPUS_4_8: "CLAUDE_OPUS_4_8",
   CLAUDE_SONNET_4_6: "CLAUDE_SONNET_4_6",
+  GPT_4O: "GPT_4O",
+  GPT_4O_MINI: "GPT_4O_MINI",
+  GPT_4_TURBO: "GPT_4_TURBO",
+  GPT_4: "GPT_4",
+  GPT_35_TURBO: "GPT_35_TURBO",
+  GEMINI_2_5_PRO: "GEMINI_2_5_PRO",
+  GEMINI_2_5_FLASH: "GEMINI_2_5_FLASH",
+  GEMINI_2_0_FLASH: "GEMINI_2_0_FLASH",
+  GEMINI_1_5_PRO: "GEMINI_1_5_PRO",
+  GEMINI_1_5_FLASH: "GEMINI_1_5_FLASH",
+  DEEPSEEK_CHAT: "DEEPSEEK_CHAT",
+  DEEPSEEK_REASONER: "DEEPSEEK_REASONER",
 } as const;
 
 export type ComputerUseModel =
@@ -36,5 +48,6 @@ export interface Integration {
       required: boolean;
     }>;
   };
-  models: IntegrationModel[];
+  computer_use_models: IntegrationModel[];
+  ai_models: IntegrationModel[];
 }

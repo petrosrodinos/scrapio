@@ -14,6 +14,9 @@ export class UserIntegration {
   @ApiProperty({ enum: ComputerUseModel, nullable: true })
   computer_use_model: ComputerUseModel | null;
 
+  @ApiProperty({ enum: ComputerUseModel, nullable: true })
+  ai_model: ComputerUseModel | null;
+
   @ApiProperty({ example: 'sk-...xxxx' })
   api_key_masked: string;
 

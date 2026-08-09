@@ -150,15 +150,15 @@ export class ScraperGenerationService {
       throw new NotFoundException('Website target not found');
     }
 
-    const hasAnthropicCredentials =
+    const hasAnthropicComputerUse =
       await this.credentialResolver.hasResolvableCredentials({
         userId: websiteTarget.user_id,
         integrationType: IntegrationType.ANTHROPIC,
       });
 
-    if (!hasAnthropicCredentials) {
+    if (!hasAnthropicComputerUse) {
       throw new BadRequestException(
-        'No active Anthropic integration configured for this user',
+        'No active Anthropic computer use integration configured for this user',
       );
     }
 

@@ -8,8 +8,12 @@ import { PrismaService } from '@/core/databases/prisma/prisma.service';
 import { CredentialEncryptionService } from '@/integrations/credentials/services/credential-encryption.service';
 import { maskApiKey } from '@/integrations/credentials/utils/mask-api-key.util';
 import { IntegrationsService } from '@/modules/integrations/integrations.service';
-import { integrationRequiresComputerUseModel } from '@/shared/config/integrations/integrations.config';
-import { isComputerUseModel } from '@/shared/config/integrations/computer-use-models.config';
+import {
+  integrationRequiresAiModel,
+  integrationRequiresComputerUseModel,
+  isAiModelAllowed,
+  isComputerUseModelAllowed,
+} from '@/shared/config/integrations/integrations.config';
 import { AuthUser } from '@/shared/interfaces/auth-user.interface';
 import { AuthRole, ComputerUseModel, IntegrationType, Prisma } from 'generated/prisma';
 import { ConnectUserIntegrationDto } from './dto/connect-user-integration.dto';
@@ -95,6 +99,7 @@ export class UserIntegrationsService {
     }
 
     this.validateComputerUseModel(dto.integration_type, dto.computer_use_model);
+    this.validateAiModel(dto.integration_type, dto.ai_model);
 
     const existing = await this.prisma.userIntegration.findUnique({
       where: {
@@ -116,6 +121,7 @@ export class UserIntegrationsService {
         user_id: authUser.id,
         integration_type: dto.integration_type,
         computer_use_model: dto.computer_use_model ?? null,
+        ai_model: dto.ai_model ?? null,
         credentials_encrypted: this.credentialEncryption.encrypt({
           api_key: dto.api_key,
         }),
@@ -137,6 +143,10 @@ export class UserIntegrationsService {
       existing.integration_type,
       dto.computer_use_model ?? existing.computer_use_model ?? undefined,
     );
+    this.validateAiModel(
+      existing.integration_type,
+      dto.ai_model ?? existing.ai_model ?? undefined,
+    );
 
     const updated = await this.prisma.userIntegration.update({
       where: { id: existing.id },
@@ -147,6 +157,9 @@ export class UserIntegrationsService {
         }),
         ...(dto.computer_use_model !== undefined && {
           computer_use_model: dto.computer_use_model,
+        }),
+        ...(dto.ai_model !== undefined && {
+          ai_model: dto.ai_model,
         }),
         ...(dto.api_key && {
           credentials_encrypted: this.credentialEncryption.encrypt({
@@ -183,22 +196,48 @@ export class UserIntegrationsService {
 
   private validateComputerUseModel(
     integrationType: IntegrationType,
-    computerUseModel?: ComputerUseModel | null,
+    selectedModel?: ComputerUseModel | null,
   ) {
     const requiresModel = integrationRequiresComputerUseModel(integrationType);
 
-    if (requiresModel && !computerUseModel) {
-      throw new BadRequestException('computer_use_model is required');
+    if (requiresModel && !selectedModel) {
+      throw new BadRequestException('Computer use model is required');
     }
 
-    if (computerUseModel && !requiresModel) {
+    if (selectedModel && !requiresModel) {
       throw new BadRequestException(
-        'computer_use_model is not supported for this integration',
+        'Computer use model is not supported for this integration',
       );
     }
 
-    if (computerUseModel && !isComputerUseModel(computerUseModel)) {
-      throw new BadRequestException('Invalid computer_use_model');
+    if (
+      selectedModel &&
+      !isComputerUseModelAllowed(integrationType, selectedModel)
+    ) {
+      throw new BadRequestException(
+        'Invalid computer use model for this integration',
+      );
+    }
+  }
+
+  private validateAiModel(
+    integrationType: IntegrationType,
+    selectedModel?: ComputerUseModel | null,
+  ) {
+    const requiresModel = integrationRequiresAiModel(integrationType);
+
+    if (requiresModel && !selectedModel) {
+      throw new BadRequestException('AI model is required');
+    }
+
+    if (selectedModel && !requiresModel) {
+      throw new BadRequestException(
+        'AI model is not supported for this integration',
+      );
+    }
+
+    if (selectedModel && !isAiModelAllowed(integrationType, selectedModel)) {
+      throw new BadRequestException('Invalid AI model for this integration');
     }
   }
 
@@ -215,6 +254,7 @@ export class UserIntegrationsService {
     user_id: string;
     integration_type: IntegrationType;
     computer_use_model: ComputerUseModel | null;
+    ai_model: ComputerUseModel | null;
     credentials_encrypted: string;
     is_active: boolean;
     metadata: unknown;
@@ -230,6 +270,7 @@ export class UserIntegrationsService {
       user_id: integration.user_id,
       integration_type: integration.integration_type,
       computer_use_model: integration.computer_use_model,
+      ai_model: integration.ai_model,
       api_key_masked: maskApiKey(credentials.api_key),
       is_active: integration.is_active,
       metadata: (integration.metadata as Record<string, unknown> | null) ?? null,

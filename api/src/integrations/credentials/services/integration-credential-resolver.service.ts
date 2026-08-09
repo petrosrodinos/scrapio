@@ -29,6 +29,9 @@ export class IntegrationCredentialResolverService {
       apiKey: credentials.api_key,
       userIntegrationId: userIntegration.id,
       integrationType: context.integrationType,
+      aiModel: userIntegration.ai_model
+        ? getComputerUseModelApiId(userIntegration.ai_model)
+        : undefined,
     };
   }
 
@@ -40,6 +43,7 @@ export class IntegrationCredentialResolverService {
         user_id: userId,
         integration_type: IntegrationType.ANTHROPIC,
         is_active: true,
+        computer_use_model: { not: null },
       },
       orderBy: { updated_at: 'desc' },
     });
@@ -58,6 +62,7 @@ export class IntegrationCredentialResolverService {
       apiKey: credentials.api_key,
       model: getComputerUseModelApiId(userIntegration.computer_use_model),
       computerUseModel: userIntegration.computer_use_model,
+      integrationType: userIntegration.integration_type,
       userIntegrationId: userIntegration.id,
     };
   }
@@ -67,8 +72,15 @@ export class IntegrationCredentialResolverService {
   ): Promise<boolean> {
     try {
       if (context.integrationType === IntegrationType.ANTHROPIC) {
-        await this.resolveComputerUseIntegration(context.userId);
-        return true;
+        const computerUse = await this.prisma.userIntegration.findFirst({
+          where: {
+            user_id: context.userId,
+            integration_type: IntegrationType.ANTHROPIC,
+            is_active: true,
+            computer_use_model: { not: null },
+          },
+        });
+        return !!computerUse;
       }
 
       await this.resolveApiKey(context);

@@ -48,5 +48,8 @@ export class Integration {
   };
 
   @ApiProperty({ type: [IntegrationModel] })
-  models: IntegrationModel[];
+  computer_use_models: IntegrationModel[];
+
+  @ApiProperty({ type: [IntegrationModel] })
+  ai_models: IntegrationModel[];
 }

@@ -1,5 +1,11 @@
-import { IntegrationType } from 'generated/prisma';
-import { COMPUTER_USE_MODELS, ComputerUseModelDefinition } from './computer-use-models.config';
+import { ComputerUseModel, IntegrationType } from 'generated/prisma';
+import {
+  ANTHROPIC_COMPUTER_USE_MODELS,
+  DEEPSEEK_AI_MODELS,
+  GEMINI_AI_MODELS,
+  IntegrationModelDefinition,
+  OPENAI_AI_MODELS,
+} from './integration-models.config';
 
 export interface IntegrationFieldDefinition {
   key: string;
@@ -16,7 +22,8 @@ export interface IntegrationDefinition {
   config_schema: {
     fields: IntegrationFieldDefinition[];
   };
-  models: ComputerUseModelDefinition[];
+  computer_use_models: IntegrationModelDefinition[];
+  ai_models: IntegrationModelDefinition[];
 }
 
 export const INTEGRATIONS: IntegrationDefinition[] = [
@@ -30,7 +37,8 @@ export const INTEGRATIONS: IntegrationDefinition[] = [
         { key: 'api_key', label: 'API Key', type: 'password', required: true },
       ],
     },
-    models: COMPUTER_USE_MODELS.filter((model) => model.supports_computer_use),
+    computer_use_models: ANTHROPIC_COMPUTER_USE_MODELS,
+    ai_models: [],
   },
   {
     type: IntegrationType.OPENAI,
@@ -42,7 +50,8 @@ export const INTEGRATIONS: IntegrationDefinition[] = [
         { key: 'api_key', label: 'API Key', type: 'password', required: true },
       ],
     },
-    models: [],
+    computer_use_models: [],
+    ai_models: OPENAI_AI_MODELS,
   },
   {
     type: IntegrationType.GEMINI,
@@ -54,7 +63,8 @@ export const INTEGRATIONS: IntegrationDefinition[] = [
         { key: 'api_key', label: 'API Key', type: 'password', required: true },
       ],
     },
-    models: [],
+    computer_use_models: [],
+    ai_models: GEMINI_AI_MODELS,
   },
   {
     type: IntegrationType.DEEPSEEK,
@@ -66,7 +76,8 @@ export const INTEGRATIONS: IntegrationDefinition[] = [
         { key: 'api_key', label: 'API Key', type: 'password', required: true },
       ],
     },
-    models: [],
+    computer_use_models: [],
+    ai_models: DEEPSEEK_AI_MODELS,
   },
 ];
 
@@ -77,5 +88,35 @@ export const INTEGRATIONS_BY_TYPE = Object.fromEntries(
 export function integrationRequiresComputerUseModel(
   integrationType: IntegrationType,
 ): boolean {
-  return (INTEGRATIONS_BY_TYPE[integrationType]?.models.length ?? 0) > 0;
+  return (
+    (INTEGRATIONS_BY_TYPE[integrationType]?.computer_use_models.length ?? 0) > 0
+  );
+}
+
+export function integrationRequiresAiModel(
+  integrationType: IntegrationType,
+): boolean {
+  return (INTEGRATIONS_BY_TYPE[integrationType]?.ai_models.length ?? 0) > 0;
+}
+
+export function isComputerUseModelAllowed(
+  integrationType: IntegrationType,
+  model: ComputerUseModel,
+): boolean {
+  return (
+    INTEGRATIONS_BY_TYPE[integrationType]?.computer_use_models.some(
+      (entry) => entry.value === model,
+    ) ?? false
+  );
+}
+
+export function isAiModelAllowed(
+  integrationType: IntegrationType,
+  model: ComputerUseModel,
+): boolean {
+  return (
+    INTEGRATIONS_BY_TYPE[integrationType]?.ai_models.some(
+      (entry) => entry.value === model,
+    ) ?? false
+  );
 }

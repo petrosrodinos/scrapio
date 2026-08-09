@@ -8,12 +8,14 @@ export interface ResolvedIntegrationCredentials {
   apiKey: string;
   userIntegrationId: string;
   integrationType: IntegrationType;
+  aiModel?: string;
 }
 
 export interface ResolvedComputerUseIntegration {
   apiKey: string;
   model: string;
   computerUseModel: ComputerUseModel;
+  integrationType: IntegrationType;
   userIntegrationId: string;
 }
 

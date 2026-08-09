@@ -185,6 +185,19 @@ enum IntegrationType {
 enum ComputerUseModel {
   CLAUDE_OPUS_4_8
   CLAUDE_SONNET_4_6
+  COMPUTER_USE_PREVIEW
+  GPT_4O
+  GPT_4O_MINI
+  GPT_4_TURBO
+  GPT_4
+  GPT_35_TURBO
+  GEMINI_2_5_PRO
+  GEMINI_2_5_FLASH
+  GEMINI_2_0_FLASH
+  GEMINI_1_5_PRO
+  GEMINI_1_5_FLASH
+  DEEPSEEK_CHAT
+  DEEPSEEK_REASONER
 }
 
 model User {
@@ -778,6 +791,7 @@ model UserIntegration {
   user_id               String
   integration_type      IntegrationType
   computer_use_model    ComputerUseModel?
+  ai_model              ComputerUseModel?
   credentials_encrypted String
   is_active             Boolean           @default(true)
   metadata              Json?

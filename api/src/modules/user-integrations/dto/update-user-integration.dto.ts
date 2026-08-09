@@ -21,6 +21,11 @@ export class UpdateUserIntegrationDto {
   @IsEnum(ComputerUseModel)
   computer_use_model?: ComputerUseModel;
 
+  @ApiProperty({ enum: ComputerUseModel, required: false })
+  @IsOptional()
+  @IsEnum(ComputerUseModel)
+  ai_model?: ComputerUseModel;
+
   @ApiProperty({ required: false })
   @IsOptional()
   @IsBoolean()

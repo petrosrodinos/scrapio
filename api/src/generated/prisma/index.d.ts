@@ -364,7 +364,20 @@ export type IntegrationType = (typeof IntegrationType)[keyof typeof IntegrationT
 
 export const ComputerUseModel: {
   CLAUDE_OPUS_4_8: 'CLAUDE_OPUS_4_8',
-  CLAUDE_SONNET_4_6: 'CLAUDE_SONNET_4_6'
+  CLAUDE_SONNET_4_6: 'CLAUDE_SONNET_4_6',
+  COMPUTER_USE_PREVIEW: 'COMPUTER_USE_PREVIEW',
+  GPT_4O: 'GPT_4O',
+  GPT_4O_MINI: 'GPT_4O_MINI',
+  GPT_4_TURBO: 'GPT_4_TURBO',
+  GPT_4: 'GPT_4',
+  GPT_35_TURBO: 'GPT_35_TURBO',
+  GEMINI_2_5_PRO: 'GEMINI_2_5_PRO',
+  GEMINI_2_5_FLASH: 'GEMINI_2_5_FLASH',
+  GEMINI_2_0_FLASH: 'GEMINI_2_0_FLASH',
+  GEMINI_1_5_PRO: 'GEMINI_1_5_PRO',
+  GEMINI_1_5_FLASH: 'GEMINI_1_5_FLASH',
+  DEEPSEEK_CHAT: 'DEEPSEEK_CHAT',
+  DEEPSEEK_REASONER: 'DEEPSEEK_REASONER'
 };
 
 export type ComputerUseModel = (typeof ComputerUseModel)[keyof typeof ComputerUseModel]
@@ -28796,6 +28809,7 @@ export namespace Prisma {
     user_id: string | null
     integration_type: $Enums.IntegrationType | null
     computer_use_model: $Enums.ComputerUseModel | null
+    ai_model: $Enums.ComputerUseModel | null
     credentials_encrypted: string | null
     is_active: boolean | null
     created_at: Date | null
@@ -28807,6 +28821,7 @@ export namespace Prisma {
     user_id: string | null
     integration_type: $Enums.IntegrationType | null
     computer_use_model: $Enums.ComputerUseModel | null
+    ai_model: $Enums.ComputerUseModel | null
     credentials_encrypted: string | null
     is_active: boolean | null
     created_at: Date | null
@@ -28818,6 +28833,7 @@ export namespace Prisma {
     user_id: number
     integration_type: number
     computer_use_model: number
+    ai_model: number
     credentials_encrypted: number
     is_active: number
     metadata: number
@@ -28832,6 +28848,7 @@ export namespace Prisma {
     user_id?: true
     integration_type?: true
     computer_use_model?: true
+    ai_model?: true
     credentials_encrypted?: true
     is_active?: true
     created_at?: true
@@ -28843,6 +28860,7 @@ export namespace Prisma {
     user_id?: true
     integration_type?: true
     computer_use_model?: true
+    ai_model?: true
     credentials_encrypted?: true
     is_active?: true
     created_at?: true
@@ -28854,6 +28872,7 @@ export namespace Prisma {
     user_id?: true
     integration_type?: true
     computer_use_model?: true
+    ai_model?: true
     credentials_encrypted?: true
     is_active?: true
     metadata?: true
@@ -28939,6 +28958,7 @@ export namespace Prisma {
     user_id: string
     integration_type: $Enums.IntegrationType
     computer_use_model: $Enums.ComputerUseModel | null
+    ai_model: $Enums.ComputerUseModel | null
     credentials_encrypted: string
     is_active: boolean
     metadata: JsonValue | null
@@ -28968,6 +28988,7 @@ export namespace Prisma {
     user_id?: boolean
     integration_type?: boolean
     computer_use_model?: boolean
+    ai_model?: boolean
     credentials_encrypted?: boolean
     is_active?: boolean
     metadata?: boolean
@@ -28981,6 +29002,7 @@ export namespace Prisma {
     user_id?: boolean
     integration_type?: boolean
     computer_use_model?: boolean
+    ai_model?: boolean
     credentials_encrypted?: boolean
     is_active?: boolean
     metadata?: boolean
@@ -28994,6 +29016,7 @@ export namespace Prisma {
     user_id?: boolean
     integration_type?: boolean
     computer_use_model?: boolean
+    ai_model?: boolean
     credentials_encrypted?: boolean
     is_active?: boolean
     metadata?: boolean
@@ -29007,6 +29030,7 @@ export namespace Prisma {
     user_id?: boolean
     integration_type?: boolean
     computer_use_model?: boolean
+    ai_model?: boolean
     credentials_encrypted?: boolean
     is_active?: boolean
     metadata?: boolean
@@ -29014,7 +29038,7 @@ export namespace Prisma {
     updated_at?: boolean
   }
 
-  export type UserIntegrationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "integration_type" | "computer_use_model" | "credentials_encrypted" | "is_active" | "metadata" | "created_at" | "updated_at", ExtArgs["result"]["userIntegration"]>
+  export type UserIntegrationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "integration_type" | "computer_use_model" | "ai_model" | "credentials_encrypted" | "is_active" | "metadata" | "created_at" | "updated_at", ExtArgs["result"]["userIntegration"]>
   export type UserIntegrationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -29035,6 +29059,7 @@ export namespace Prisma {
       user_id: string
       integration_type: $Enums.IntegrationType
       computer_use_model: $Enums.ComputerUseModel | null
+      ai_model: $Enums.ComputerUseModel | null
       credentials_encrypted: string
       is_active: boolean
       metadata: Prisma.JsonValue | null
@@ -29468,6 +29493,7 @@ export namespace Prisma {
     readonly user_id: FieldRef<"UserIntegration", 'String'>
     readonly integration_type: FieldRef<"UserIntegration", 'IntegrationType'>
     readonly computer_use_model: FieldRef<"UserIntegration", 'ComputerUseModel'>
+    readonly ai_model: FieldRef<"UserIntegration", 'ComputerUseModel'>
     readonly credentials_encrypted: FieldRef<"UserIntegration", 'String'>
     readonly is_active: FieldRef<"UserIntegration", 'Boolean'>
     readonly metadata: FieldRef<"UserIntegration", 'Json'>
@@ -31421,6 +31447,7 @@ export namespace Prisma {
     user_id: 'user_id',
     integration_type: 'integration_type',
     computer_use_model: 'computer_use_model',
+    ai_model: 'ai_model',
     credentials_encrypted: 'credentials_encrypted',
     is_active: 'is_active',
     metadata: 'metadata',
@@ -33952,6 +33979,7 @@ export namespace Prisma {
     user_id?: StringFilter<"UserIntegration"> | string
     integration_type?: EnumIntegrationTypeFilter<"UserIntegration"> | $Enums.IntegrationType
     computer_use_model?: EnumComputerUseModelNullableFilter<"UserIntegration"> | $Enums.ComputerUseModel | null
+    ai_model?: EnumComputerUseModelNullableFilter<"UserIntegration"> | $Enums.ComputerUseModel | null
     credentials_encrypted?: StringFilter<"UserIntegration"> | string
     is_active?: BoolFilter<"UserIntegration"> | boolean
     metadata?: JsonNullableFilter<"UserIntegration">
@@ -33965,6 +33993,7 @@ export namespace Prisma {
     user_id?: SortOrder
     integration_type?: SortOrder
     computer_use_model?: SortOrderInput | SortOrder
+    ai_model?: SortOrderInput | SortOrder
     credentials_encrypted?: SortOrder
     is_active?: SortOrder
     metadata?: SortOrderInput | SortOrder
@@ -33982,6 +34011,7 @@ export namespace Prisma {
     user_id?: StringFilter<"UserIntegration"> | string
     integration_type?: EnumIntegrationTypeFilter<"UserIntegration"> | $Enums.IntegrationType
     computer_use_model?: EnumComputerUseModelNullableFilter<"UserIntegration"> | $Enums.ComputerUseModel | null
+    ai_model?: EnumComputerUseModelNullableFilter<"UserIntegration"> | $Enums.ComputerUseModel | null
     credentials_encrypted?: StringFilter<"UserIntegration"> | string
     is_active?: BoolFilter<"UserIntegration"> | boolean
     metadata?: JsonNullableFilter<"UserIntegration">
@@ -33995,6 +34025,7 @@ export namespace Prisma {
     user_id?: SortOrder
     integration_type?: SortOrder
     computer_use_model?: SortOrderInput | SortOrder
+    ai_model?: SortOrderInput | SortOrder
     credentials_encrypted?: SortOrder
     is_active?: SortOrder
     metadata?: SortOrderInput | SortOrder
@@ -34013,6 +34044,7 @@ export namespace Prisma {
     user_id?: StringWithAggregatesFilter<"UserIntegration"> | string
     integration_type?: EnumIntegrationTypeWithAggregatesFilter<"UserIntegration"> | $Enums.IntegrationType
     computer_use_model?: EnumComputerUseModelNullableWithAggregatesFilter<"UserIntegration"> | $Enums.ComputerUseModel | null
+    ai_model?: EnumComputerUseModelNullableWithAggregatesFilter<"UserIntegration"> | $Enums.ComputerUseModel | null
     credentials_encrypted?: StringWithAggregatesFilter<"UserIntegration"> | string
     is_active?: BoolWithAggregatesFilter<"UserIntegration"> | boolean
     metadata?: JsonNullableWithAggregatesFilter<"UserIntegration">
@@ -36355,6 +36387,7 @@ export namespace Prisma {
     id?: string
     integration_type: $Enums.IntegrationType
     computer_use_model?: $Enums.ComputerUseModel | null
+    ai_model?: $Enums.ComputerUseModel | null
     credentials_encrypted: string
     is_active?: boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -36368,6 +36401,7 @@ export namespace Prisma {
     user_id: string
     integration_type: $Enums.IntegrationType
     computer_use_model?: $Enums.ComputerUseModel | null
+    ai_model?: $Enums.ComputerUseModel | null
     credentials_encrypted: string
     is_active?: boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -36379,6 +36413,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     integration_type?: EnumIntegrationTypeFieldUpdateOperationsInput | $Enums.IntegrationType
     computer_use_model?: NullableEnumComputerUseModelFieldUpdateOperationsInput | $Enums.ComputerUseModel | null
+    ai_model?: NullableEnumComputerUseModelFieldUpdateOperationsInput | $Enums.ComputerUseModel | null
     credentials_encrypted?: StringFieldUpdateOperationsInput | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -36392,6 +36427,7 @@ export namespace Prisma {
     user_id?: StringFieldUpdateOperationsInput | string
     integration_type?: EnumIntegrationTypeFieldUpdateOperationsInput | $Enums.IntegrationType
     computer_use_model?: NullableEnumComputerUseModelFieldUpdateOperationsInput | $Enums.ComputerUseModel | null
+    ai_model?: NullableEnumComputerUseModelFieldUpdateOperationsInput | $Enums.ComputerUseModel | null
     credentials_encrypted?: StringFieldUpdateOperationsInput | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -36404,6 +36440,7 @@ export namespace Prisma {
     user_id: string
     integration_type: $Enums.IntegrationType
     computer_use_model?: $Enums.ComputerUseModel | null
+    ai_model?: $Enums.ComputerUseModel | null
     credentials_encrypted: string
     is_active?: boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -36415,6 +36452,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     integration_type?: EnumIntegrationTypeFieldUpdateOperationsInput | $Enums.IntegrationType
     computer_use_model?: NullableEnumComputerUseModelFieldUpdateOperationsInput | $Enums.ComputerUseModel | null
+    ai_model?: NullableEnumComputerUseModelFieldUpdateOperationsInput | $Enums.ComputerUseModel | null
     credentials_encrypted?: StringFieldUpdateOperationsInput | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -36427,6 +36465,7 @@ export namespace Prisma {
     user_id?: StringFieldUpdateOperationsInput | string
     integration_type?: EnumIntegrationTypeFieldUpdateOperationsInput | $Enums.IntegrationType
     computer_use_model?: NullableEnumComputerUseModelFieldUpdateOperationsInput | $Enums.ComputerUseModel | null
+    ai_model?: NullableEnumComputerUseModelFieldUpdateOperationsInput | $Enums.ComputerUseModel | null
     credentials_encrypted?: StringFieldUpdateOperationsInput | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -38541,6 +38580,7 @@ export namespace Prisma {
     user_id?: SortOrder
     integration_type?: SortOrder
     computer_use_model?: SortOrder
+    ai_model?: SortOrder
     credentials_encrypted?: SortOrder
     is_active?: SortOrder
     metadata?: SortOrder
@@ -38553,6 +38593,7 @@ export namespace Prisma {
     user_id?: SortOrder
     integration_type?: SortOrder
     computer_use_model?: SortOrder
+    ai_model?: SortOrder
     credentials_encrypted?: SortOrder
     is_active?: SortOrder
     created_at?: SortOrder
@@ -38564,6 +38605,7 @@ export namespace Prisma {
     user_id?: SortOrder
     integration_type?: SortOrder
     computer_use_model?: SortOrder
+    ai_model?: SortOrder
     credentials_encrypted?: SortOrder
     is_active?: SortOrder
     created_at?: SortOrder
@@ -41971,6 +42013,7 @@ export namespace Prisma {
     id?: string
     integration_type: $Enums.IntegrationType
     computer_use_model?: $Enums.ComputerUseModel | null
+    ai_model?: $Enums.ComputerUseModel | null
     credentials_encrypted: string
     is_active?: boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -41982,6 +42025,7 @@ export namespace Prisma {
     id?: string
     integration_type: $Enums.IntegrationType
     computer_use_model?: $Enums.ComputerUseModel | null
+    ai_model?: $Enums.ComputerUseModel | null
     credentials_encrypted: string
     is_active?: boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -42213,6 +42257,7 @@ export namespace Prisma {
     user_id?: StringFilter<"UserIntegration"> | string
     integration_type?: EnumIntegrationTypeFilter<"UserIntegration"> | $Enums.IntegrationType
     computer_use_model?: EnumComputerUseModelNullableFilter<"UserIntegration"> | $Enums.ComputerUseModel | null
+    ai_model?: EnumComputerUseModelNullableFilter<"UserIntegration"> | $Enums.ComputerUseModel | null
     credentials_encrypted?: StringFilter<"UserIntegration"> | string
     is_active?: BoolFilter<"UserIntegration"> | boolean
     metadata?: JsonNullableFilter<"UserIntegration">
@@ -49110,6 +49155,7 @@ export namespace Prisma {
     id?: string
     integration_type: $Enums.IntegrationType
     computer_use_model?: $Enums.ComputerUseModel | null
+    ai_model?: $Enums.ComputerUseModel | null
     credentials_encrypted: string
     is_active?: boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -49405,6 +49451,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     integration_type?: EnumIntegrationTypeFieldUpdateOperationsInput | $Enums.IntegrationType
     computer_use_model?: NullableEnumComputerUseModelFieldUpdateOperationsInput | $Enums.ComputerUseModel | null
+    ai_model?: NullableEnumComputerUseModelFieldUpdateOperationsInput | $Enums.ComputerUseModel | null
     credentials_encrypted?: StringFieldUpdateOperationsInput | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -49416,6 +49463,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     integration_type?: EnumIntegrationTypeFieldUpdateOperationsInput | $Enums.IntegrationType
     computer_use_model?: NullableEnumComputerUseModelFieldUpdateOperationsInput | $Enums.ComputerUseModel | null
+    ai_model?: NullableEnumComputerUseModelFieldUpdateOperationsInput | $Enums.ComputerUseModel | null
     credentials_encrypted?: StringFieldUpdateOperationsInput | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -49427,6 +49475,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     integration_type?: EnumIntegrationTypeFieldUpdateOperationsInput | $Enums.IntegrationType
     computer_use_model?: NullableEnumComputerUseModelFieldUpdateOperationsInput | $Enums.ComputerUseModel | null
+    ai_model?: NullableEnumComputerUseModelFieldUpdateOperationsInput | $Enums.ComputerUseModel | null
     credentials_encrypted?: StringFieldUpdateOperationsInput | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
     metadata?: NullableJsonNullValueInput | InputJsonValue

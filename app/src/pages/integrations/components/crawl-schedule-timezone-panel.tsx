@@ -46,12 +46,12 @@ export function CrawlScheduleTimezonePanel() {
             <Select.Value />
           </Select.Trigger>
           <Select.Popover>
-            <ListBox items={timezones}>
-              {(timezone) => (
-                <ListBox.Item id={timezone.value} textValue={timezone.label}>
+            <ListBox>
+              {timezones.map((timezone) => (
+                <ListBox.Item key={timezone.value} id={timezone.value} textValue={timezone.label}>
                   {timezone.label}
                 </ListBox.Item>
-              )}
+              ))}
             </ListBox>
           </Select.Popover>
         </Select>

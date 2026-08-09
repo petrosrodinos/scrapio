@@ -1,0 +1,5 @@
+ALTER TYPE "ComputerUseModel" ADD VALUE 'GPT_4O';
+ALTER TYPE "ComputerUseModel" ADD VALUE 'GPT_4O_MINI';
+ALTER TYPE "ComputerUseModel" ADD VALUE 'GPT_4_TURBO';
+ALTER TYPE "ComputerUseModel" ADD VALUE 'GPT_4';
+ALTER TYPE "ComputerUseModel" ADD VALUE 'GPT_35_TURBO';

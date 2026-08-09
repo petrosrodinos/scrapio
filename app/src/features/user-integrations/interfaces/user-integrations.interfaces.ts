@@ -8,6 +8,7 @@ export interface UserIntegration {
   user_id: string;
   integration_type: IntegrationType;
   computer_use_model: ComputerUseModel | null;
+  ai_model: ComputerUseModel | null;
   api_key_masked: string;
   is_active: boolean;
   metadata: Record<string, unknown> | null;
@@ -38,12 +39,14 @@ export interface ConnectUserIntegrationPayload {
   integration_type: IntegrationType;
   api_key: string;
   computer_use_model?: ComputerUseModel;
+  ai_model?: ComputerUseModel;
   metadata?: Record<string, unknown>;
 }
 
 export interface UpdateUserIntegrationPayload {
   api_key?: string;
   computer_use_model?: ComputerUseModel;
+  ai_model?: ComputerUseModel;
   is_active?: boolean;
   metadata?: Record<string, unknown>;
 }

@@ -80,11 +80,11 @@ export class ComputerUseOrchestratorService {
       return;
     }
 
-    const anthropicIntegration =
+    const computerUseIntegration =
       await this.credentialResolver.resolveComputerUseIntegration(
         run.website_target.user_id,
       );
-    const model = anthropicIntegration.model;
+    const model = computerUseIntegration.model;
     const targetUrl = run.website_target.base_url;
     const systemPrompt = this.buildSystemPrompt(run.prompt);
     const blockHandlingConfig = buildBlockHandlingConfig(run.website_target);
@@ -231,7 +231,7 @@ export class ComputerUseOrchestratorService {
           requestMessages,
           systemPrompt,
           model,
-          anthropicIntegration.apiKey,
+          computerUseIntegration.apiKey,
         );
         messages.push({ role: 'assistant', content: rawText });
 

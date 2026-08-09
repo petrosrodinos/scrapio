@@ -8,6 +8,10 @@ import {
   MinLength,
   ValidateIf,
 } from 'class-validator';
+import {
+  integrationRequiresAiModel,
+  integrationRequiresComputerUseModel,
+} from '@/shared/config/integrations/integrations.config';
 
 export class ConnectUserIntegrationDto {
   @ApiProperty({ enum: IntegrationType })
@@ -21,10 +25,17 @@ export class ConnectUserIntegrationDto {
 
   @ApiProperty({ enum: ComputerUseModel, required: false })
   @ValidateIf((dto: ConnectUserIntegrationDto) =>
-    dto.integration_type === IntegrationType.ANTHROPIC,
+    integrationRequiresComputerUseModel(dto.integration_type),
   )
   @IsEnum(ComputerUseModel)
   computer_use_model?: ComputerUseModel;
+
+  @ApiProperty({ enum: ComputerUseModel, required: false })
+  @ValidateIf((dto: ConnectUserIntegrationDto) =>
+    integrationRequiresAiModel(dto.integration_type),
+  )
+  @IsEnum(ComputerUseModel)
+  ai_model?: ComputerUseModel;
 
   @ApiProperty({ required: false })
   @IsOptional()

@@ -17,6 +17,7 @@ export interface UserIntegrationResponse {
   user_id: string;
   integration_type: IntegrationType;
   computer_use_model: ComputerUseModel | null;
+  ai_model: ComputerUseModel | null;
   api_key_masked: string;
   is_active: boolean;
   metadata: Record<string, unknown> | null;
