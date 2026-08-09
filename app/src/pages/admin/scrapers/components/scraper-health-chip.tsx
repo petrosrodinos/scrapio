@@ -12,10 +12,18 @@ const healthColor: Record<ScraperHealth, "success" | "warning" | "danger"> = {
 };
 
 interface ScraperHealthChipProps {
-  health: ScraperHealth;
+  health: ScraperHealth | null;
 }
 
 export function ScraperHealthChip({ health }: ScraperHealthChipProps) {
+  if (!health) {
+    return (
+      <Chip color="default" size="sm" variant="soft">
+        <Chip.Label>Unknown</Chip.Label>
+      </Chip>
+    );
+  }
+
   return (
     <Chip color={healthColor[health]} size="sm" variant="soft">
       <Chip.Label>{getDropdownOptionLabel(ScraperHealthFilterOptions, health)}</Chip.Label>

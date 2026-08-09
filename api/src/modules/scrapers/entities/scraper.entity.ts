@@ -38,8 +38,8 @@ export class Scraper {
   })
   diagnostics_mode: DiagnosticsMode;
 
-  @ApiProperty({ enum: ScraperHealth, example: ScraperHealth.GOOD })
-  health: ScraperHealth;
+  @ApiProperty({ enum: ScraperHealth, example: ScraperHealth.GOOD, nullable: true })
+  health: ScraperHealth | null;
 
   @ApiProperty({ nullable: true })
   success_rate: number | null;

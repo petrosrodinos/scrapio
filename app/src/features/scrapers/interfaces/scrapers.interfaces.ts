@@ -55,7 +55,7 @@ export interface Scraper {
   status: ScraperStatus;
   self_healing_enabled: boolean;
   diagnostics_mode: DiagnosticsMode;
-  health: ScraperHealth;
+  health: ScraperHealth | null;
   success_rate: number | null;
   avg_runtime_ms: number | null;
   consecutive_failures: number;
