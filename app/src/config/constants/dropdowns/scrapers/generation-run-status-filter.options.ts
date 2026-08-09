@@ -5,6 +5,7 @@ import {
 
 export const GenerationRunStatusFilterOptions: { id: GenerationRunStatus | "all"; label: string }[] = [
   { id: "all", label: "All statuses" },
+  { id: GenerationRunStatuses.DRAFT, label: "Draft" },
   { id: GenerationRunStatuses.QUEUED, label: "Queued" },
   { id: GenerationRunStatuses.RUNNING, label: "Running" },
   { id: GenerationRunStatuses.AWAITING_REVIEW, label: "Awaiting review" },

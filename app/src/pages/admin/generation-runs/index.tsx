@@ -234,13 +234,16 @@ export default function GenerationRunsListPage() {
                 <CreateGenerationRunForm
                   isPending={createGenerationRun.isPending}
                   onCancel={createModal.close}
-                  onSubmit={(values) =>
-                    createGenerationRun.mutate(buildCreateGenerationRunPayload(values), {
-                      onSuccess: (run) => {
-                        createModal.close();
-                        navigate(Routes.generationRuns.detail(run.id));
+                  onSubmit={(values, start) =>
+                    createGenerationRun.mutate(
+                      buildCreateGenerationRunPayload(values, { start }),
+                      {
+                        onSuccess: (run) => {
+                          createModal.close();
+                          navigate(Routes.generationRuns.detail(run.id));
+                        },
                       },
-                    })
+                    )
                   }
                 />
               </Modal.Body>

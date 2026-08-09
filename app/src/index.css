@@ -86,3 +86,26 @@ body {
   --focus: var(--accent);
   --link:  oklch(0.50 0.12 192);
 }
+
+.modal__header,
+.modal__body,
+.modal__footer,
+.drawer__header,
+.drawer__body,
+.drawer__footer {
+  padding-inline: 0.5rem;
+}
+
+.modal__body,
+.drawer__body {
+  padding-block: 0.5rem;
+}
+
+.modal__header + .modal__body {
+  margin-top: 0.75rem;
+}
+
+.modal__body + .modal__footer,
+.modal__header + .modal__footer {
+  margin-top: 1.5rem;
+}

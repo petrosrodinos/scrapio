@@ -3,6 +3,7 @@ import { Type } from 'class-transformer';
 import {
   ArrayMinSize,
   IsArray,
+  IsBoolean,
   IsEnum,
   IsInt,
   IsObject,
@@ -67,10 +68,20 @@ export class CreateGenerationRunDto {
     example: {
       title: 'string',
       price: 'number',
+      status: ['for_sale', 'sold', 'pending'],
+      rating: [1, 2, 3, 4, 5],
       features: 'string[]',
     },
   })
   @ValidateIf((dto) => dto.output_formats?.includes(OutputFormat.STRUCTURED_JSON))
   @IsObject()
   output_schema?: Record<string, unknown>;
+
+  @ApiProperty({
+    description:
+      'When true, queue the generation job immediately. When false, save as DRAFT without starting.',
+    default: false,
+  })
+  @IsBoolean()
+  start: boolean;
 }

@@ -30,6 +30,7 @@ import { CreateGenerationRunDto } from './dto/create-generation-run.dto';
 import { RejectGenerationRunDto } from './dto/reject-generation-run.dto';
 import { RetryGenerationRunDto } from './dto/retry-generation-run.dto';
 import { GenerationRunQueryType } from './dto/generation-run-query.schema';
+import { getOutputSchemaDefinitionError } from './dto/output-schema.schema';
 import { PaginatedResult } from './interfaces/generation-run.interface';
 import { IntegrationCredentialResolverService } from '@/integrations/credentials/services/integration-credential-resolver.service';
 
@@ -151,30 +152,24 @@ export class ScraperGenerationService {
       throw new NotFoundException('Website target not found');
     }
 
-    const hasAnthropicComputerUse =
-      await this.credentialResolver.hasResolvableCredentials({
-        userId: websiteTarget.user_id,
-        integrationType: IntegrationType.ANTHROPIC,
-      });
-
-    if (!hasAnthropicComputerUse) {
-      throw new BadRequestException(
-        'No active Anthropic computer use integration configured for this user',
-      );
-    }
-
     if (dto.scraper_id) {
       await this.ensureWorkflowConfigBelongsToUser(authUser, dto.scraper_id);
     }
 
     this.validateOutputConfig(dto.output_formats, dto.output_schema);
 
+    if (dto.start) {
+      await this.ensureAnthropicComputerUse(websiteTarget.user_id);
+    }
+
     const run = await this.prisma.scraperGenerationRun.create({
       data: {
         website_target_id: dto.website_target_id,
         workflow_config_id: dto.scraper_id ?? null,
         trigger: GenerationTrigger.MANUAL,
-        status: GenerationRunStatus.QUEUED,
+        status: dto.start
+          ? GenerationRunStatus.QUEUED
+          : GenerationRunStatus.DRAFT,
         prompt: dto.prompt,
         max_steps: dto.max_steps ?? null,
         output_formats: dto.output_formats,
@@ -184,9 +179,60 @@ export class ScraperGenerationService {
       },
     });
 
-    await this.enqueueGenerationJob(run.id, { runId: run.id });
+    if (dto.start) {
+      await this.enqueueGenerationJob(run.id, { runId: run.id });
+    }
 
     return run;
+  }
+
+  async start(authUser: AuthUser, id: string) {
+    const run = await this.ensureExists(authUser, id);
+
+    if (run.status !== GenerationRunStatus.DRAFT) {
+      throw new BadRequestException('Only DRAFT generation runs can be started');
+    }
+
+    const websiteTarget = await this.prisma.websiteTarget.findFirst({
+      where: {
+        id: run.website_target_id,
+        ...websiteTargetUserWhere(authUser),
+      },
+      select: { user_id: true },
+    });
+
+    if (!websiteTarget) {
+      throw new NotFoundException('Website target not found');
+    }
+
+    await this.ensureAnthropicComputerUse(websiteTarget.user_id);
+
+    const updated = await this.prisma.scraperGenerationRun.updateMany({
+      where: { id, status: GenerationRunStatus.DRAFT },
+      data: { status: GenerationRunStatus.QUEUED },
+    });
+
+    if (updated.count === 0) {
+      throw new BadRequestException('Only DRAFT generation runs can be started');
+    }
+
+    await this.enqueueGenerationJob(id, { runId: id });
+
+    return this.prisma.scraperGenerationRun.findUniqueOrThrow({ where: { id } });
+  }
+
+  private async ensureAnthropicComputerUse(userId: string): Promise<void> {
+    const hasAnthropicComputerUse =
+      await this.credentialResolver.hasResolvableCredentials({
+        userId,
+        integrationType: IntegrationType.ANTHROPIC,
+      });
+
+    if (!hasAnthropicComputerUse) {
+      throw new BadRequestException(
+        'No active Anthropic computer use integration configured for this user',
+      );
+    }
   }
 
   async trigger(
@@ -635,6 +681,11 @@ export class ScraperGenerationService {
       throw new BadRequestException(
         'output_schema is required when STRUCTURED_JSON is selected',
       );
+    }
+
+    const schemaError = getOutputSchemaDefinitionError(outputSchema);
+    if (schemaError) {
+      throw new BadRequestException(schemaError);
     }
   }
 

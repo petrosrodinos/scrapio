@@ -560,6 +560,7 @@ exports.GenerationTrigger = exports.$Enums.GenerationTrigger = {
 };
 
 exports.GenerationRunStatus = exports.$Enums.GenerationRunStatus = {
+  DRAFT: 'DRAFT',
   QUEUED: 'QUEUED',
   RUNNING: 'RUNNING',
   AWAITING_REVIEW: 'AWAITING_REVIEW',

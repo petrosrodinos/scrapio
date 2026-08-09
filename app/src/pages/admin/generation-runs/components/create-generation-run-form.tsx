@@ -23,9 +23,8 @@ interface CreateGenerationRunFormProps {
   defaultWebsiteTargetName?: string;
   lockWebsiteTarget?: boolean;
   defaultScraperId?: string;
-  submitLabel?: string;
   isPending: boolean;
-  onSubmit: (values: CreateGenerationRunFormValues) => void;
+  onSubmit: (values: CreateGenerationRunFormValues, start: boolean) => void;
   onCancel?: () => void;
 }
 
@@ -34,7 +33,6 @@ export function CreateGenerationRunForm({
   defaultWebsiteTargetName,
   lockWebsiteTarget = false,
   defaultScraperId,
-  submitLabel = "Generate",
   isPending,
   onSubmit,
   onCancel,
@@ -72,8 +70,12 @@ export function CreateGenerationRunForm({
     !isOutputSchemaJsonValid(schemaJson ?? "");
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
-      <div className="flex flex-col gap-1">
+    <Form
+      onSubmit={(event) => {
+        event.preventDefault();
+      }}
+      className="flex flex-col gap-5"
+    >      <div className="flex flex-col gap-1">
         {lockWebsiteTarget ? (
           <>
             <Label htmlFor="generation-website-target">Website target</Label>
@@ -194,11 +196,21 @@ export function CreateGenerationRunForm({
           </ActionButtonWithPending>
         )}
         <ActionButtonWithPending
-          type="submit"
+          type="button"
+          variant="secondary"
           isPending={isPending}
           isDisabled={isPending || jsonSchemaInvalid}
+          onPress={() => handleSubmit((values) => onSubmit(values, false))()}
         >
-          {submitLabel}
+          Save
+        </ActionButtonWithPending>
+        <ActionButtonWithPending
+          type="button"
+          isPending={isPending}
+          isDisabled={isPending || jsonSchemaInvalid}
+          onPress={() => handleSubmit((values) => onSubmit(values, true))()}
+        >
+          Start
         </ActionButtonWithPending>
       </div>
     </Form>

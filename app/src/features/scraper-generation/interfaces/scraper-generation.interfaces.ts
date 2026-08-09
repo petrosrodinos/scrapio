@@ -1,6 +1,7 @@
 import type { OutputFormat } from "@/features/scraper-generation/interfaces/output-config.interfaces";
 
 export const GenerationRunStatuses = {
+  DRAFT: "DRAFT",
   QUEUED: "QUEUED",
   RUNNING: "RUNNING",
   AWAITING_REVIEW: "AWAITING_REVIEW",
@@ -79,6 +80,7 @@ export interface CreateGenerationRunPayload {
   max_steps?: number;
   output_formats?: OutputFormat[];
   output_schema?: Record<string, unknown>;
+  start: boolean;
 }
 
 export interface RejectGenerationRunPayload {

@@ -39,7 +39,18 @@ export const createGenerationRun = async (
     return response.data;
   } catch (error: any) {
     throw new Error(
-      error?.response?.data?.message || "Failed to trigger generation run. Please try again.",
+      error?.response?.data?.message || "Failed to create generation run. Please try again.",
+    );
+  }
+};
+
+export const startGenerationRun = async (id: string): Promise<GenerationRun> => {
+  try {
+    const response = await axiosInstance.post(ApiRoutes.admin.generationRuns.start(id));
+    return response.data;
+  } catch (error: any) {
+    throw new Error(
+      error?.response?.data?.message || "Failed to start generation run. Please try again.",
     );
   }
 };

@@ -49,6 +49,7 @@ export const ApiRoutes = {
             reject: (id: string) => `/admin/generation-runs/${id}/reject`,
             cancel: (id: string) => `/admin/generation-runs/${id}/cancel`,
             retry: (id: string) => `/admin/generation-runs/${id}/retry`,
+            start: (id: string) => `/admin/generation-runs/${id}/start`,
             delete: (id: string) => `/admin/generation-runs/${id}`,
         },
         crawlRuns: {

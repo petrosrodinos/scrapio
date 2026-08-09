@@ -13,16 +13,21 @@ export const SchemaFieldTypes = {
   STRING_ARRAY: "string[]",
   NUMBER_ARRAY: "number[]",
   BOOLEAN_ARRAY: "boolean[]",
+  STRING_ENUM: "enum",
+  NUMBER_ENUM: "number_enum",
   OBJECT: "object",
   OBJECT_ARRAY: "object[]",
 } as const;
 
 export type SchemaFieldType = (typeof SchemaFieldTypes)[keyof typeof SchemaFieldTypes];
 
+export type OutputSchemaEnumValue = string | number;
+
 export interface OutputSchemaField {
   name: string;
   type: SchemaFieldType;
   children?: OutputSchemaField[];
+  enumValues?: OutputSchemaEnumValue[];
 }
 
 export type OutputSchemaDefinition = Record<string, unknown>;
@@ -39,6 +44,10 @@ export function isComplexSchemaFieldType(type: SchemaFieldType | string): boolea
   return type === SchemaFieldTypes.OBJECT || type === SchemaFieldTypes.OBJECT_ARRAY;
 }
 
+export function isEnumSchemaFieldType(type: SchemaFieldType | string): boolean {
+  return type === SchemaFieldTypes.STRING_ENUM || type === SchemaFieldTypes.NUMBER_ENUM;
+}
+
 export const OUTPUT_DATA_CONFIG_EXAMPLE = {
   output_formats: [OutputFormats.STRUCTURED_JSON, OutputFormats.MARKDOWN],
   output_schema: {
@@ -46,6 +55,8 @@ export const OUTPUT_DATA_CONFIG_EXAMPLE = {
     price: "number",
     location: "string",
     property_url: "string",
+    status: ["for_sale", "sold", "pending"],
+    rating: [1, 2, 3, 4, 5],
     agent: {
       name: "string",
       email: "string",

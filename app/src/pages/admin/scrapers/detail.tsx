@@ -485,16 +485,18 @@ export default function ScraperDetailPage() {
                   defaultWebsiteTargetName={scraper.website_target?.name}
                   lockWebsiteTarget
                   defaultScraperId={scraper.id}
-                  submitLabel="Generate"
                   isPending={createGenerationRun.isPending}
                   onCancel={generateModal.close}
-                  onSubmit={(values) =>
-                    createGenerationRun.mutate(buildCreateGenerationRunPayload(values), {
-                      onSuccess: (run) => {
-                        generateModal.close();
-                        navigate(Routes.generationRuns.detail(run.id));
+                  onSubmit={(values, start) =>
+                    createGenerationRun.mutate(
+                      buildCreateGenerationRunPayload(values, { start }),
+                      {
+                        onSuccess: (run) => {
+                          generateModal.close();
+                          navigate(Routes.generationRuns.detail(run.id));
+                        },
                       },
-                    })
+                    )
                   }
                 />
               </Modal.Body>

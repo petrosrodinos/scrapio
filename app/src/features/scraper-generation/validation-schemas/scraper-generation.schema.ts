@@ -25,7 +25,10 @@ export const createGenerationRunFormSchema = z
 
 export type CreateGenerationRunFormValues = z.infer<typeof createGenerationRunFormSchema>;
 
-export function buildCreateGenerationRunPayload(values: CreateGenerationRunFormValues) {
+export function buildCreateGenerationRunPayload(
+  values: CreateGenerationRunFormValues,
+  options: { start: boolean },
+) {
   return {
     website_target_id: values.website_target_id,
     scraper_id: values.scraper_id || undefined,
@@ -33,6 +36,7 @@ export function buildCreateGenerationRunPayload(values: CreateGenerationRunFormV
     max_steps: values.max_steps,
     output_formats: values.output_formats,
     output_schema: resolveOutputSchemaFromForm(values),
+    start: options.start,
   };
 }
 

@@ -4,6 +4,7 @@ import { getDropdownOptionLabel } from "@/lib/dropdown-option-label.utils";
 import { GenerationRunStatuses, type GenerationRunStatus } from "@/features/scraper-generation/interfaces/scraper-generation.interfaces";
 
 const statusColor: Record<GenerationRunStatus, "success" | "default" | "warning" | "danger"> = {
+  [GenerationRunStatuses.DRAFT]: "default",
   [GenerationRunStatuses.QUEUED]: "default",
   [GenerationRunStatuses.RUNNING]: "warning",
   [GenerationRunStatuses.AWAITING_REVIEW]: "warning",

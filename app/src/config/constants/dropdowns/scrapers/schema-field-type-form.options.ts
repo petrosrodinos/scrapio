@@ -11,6 +11,8 @@ export const SchemaFieldTypeFormOptions: { id: SchemaFieldType; label: string }[
   { id: SchemaFieldTypes.STRING_ARRAY, label: "Text list (string[])" },
   { id: SchemaFieldTypes.NUMBER_ARRAY, label: "Number list (number[])" },
   { id: SchemaFieldTypes.BOOLEAN_ARRAY, label: "Boolean list (boolean[])" },
+  { id: SchemaFieldTypes.STRING_ENUM, label: "Enum (strings)" },
+  { id: SchemaFieldTypes.NUMBER_ENUM, label: "Enum (numbers)" },
   { id: SchemaFieldTypes.OBJECT, label: "Nested object" },
   { id: SchemaFieldTypes.OBJECT_ARRAY, label: "Object list (object[])" },
 ];

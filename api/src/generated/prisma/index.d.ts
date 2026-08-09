@@ -250,6 +250,7 @@ export type DiagnosticsArtifactKind = (typeof DiagnosticsArtifactKind)[keyof typ
 
 
 export const GenerationRunStatus: {
+  DRAFT: 'DRAFT',
   QUEUED: 'QUEUED',
   RUNNING: 'RUNNING',
   AWAITING_REVIEW: 'AWAITING_REVIEW',

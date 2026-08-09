@@ -15,6 +15,7 @@ import {
   useGenerationRun,
   useRejectGenerationRun,
   useRetryGenerationRun,
+  useStartGenerationRun,
 } from "@/features/scraper-generation/hooks/use-scraper-generation";
 import {
   GenerationRunStatuses,
@@ -47,12 +48,14 @@ export default function GenerationRunDetailPage() {
   const cancelRun = useCancelGenerationRun();
   const deleteRun = useDeleteGenerationRun();
   const retryRun = useRetryGenerationRun();
+  const startRun = useStartGenerationRun();
 
   if (isPending || !run) {
     return <DetailSkeleton fieldCount={4} showSubTable subTableRows={3} />;
   }
 
   const isActive = ACTIVE_STATUSES.includes(run.status);
+  const isDraft = run.status === GenerationRunStatuses.DRAFT;
   const canRetry =
     run.status === GenerationRunStatuses.FAILED ||
     run.status === GenerationRunStatuses.CANCELLED;
@@ -89,6 +92,15 @@ export default function GenerationRunDetailPage() {
           </ActionButtonWithPending>
         ) : (
           <div className="flex items-center gap-2 flex-wrap">
+            {isDraft && (
+              <ActionButtonWithPending
+                isPending={startRun.isPending}
+                isDisabled={startRun.isPending}
+                onPress={() => startRun.mutate(run.id)}
+              >
+                Start
+              </ActionButtonWithPending>
+            )}
             {canRetry && (
               <ActionButtonWithPending
                 isPending={retryRun.isPending}
@@ -113,6 +125,21 @@ export default function GenerationRunDetailPage() {
           </div>
         )}
       </div>
+
+      {isDraft && (
+        <div className="rounded-xl border border-border bg-surface-secondary/60 p-6 flex items-center justify-between flex-wrap gap-3">
+          <p className="text-sm text-foreground">
+            Saved as draft — not running yet. Start when ready.
+          </p>
+          <ActionButtonWithPending
+            isPending={startRun.isPending}
+            isDisabled={startRun.isPending}
+            onPress={() => startRun.mutate(run.id)}
+          >
+            Start generation
+          </ActionButtonWithPending>
+        </div>
+      )}
 
       <div className="grid gap-4 sm:grid-cols-2 rounded-xl border border-border bg-surface p-6">
         <div className="flex flex-col gap-1">

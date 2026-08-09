@@ -8,13 +8,17 @@ import {
   OUTPUT_DATA_CONFIG_EXAMPLE,
   OutputFormats,
   OutputSchemaEditorModes,
+  SchemaFieldTypes,
   isComplexSchemaFieldType,
+  isEnumSchemaFieldType,
   type OutputFormat,
   type OutputSchemaEditorMode,
+  type OutputSchemaEnumValue,
   type OutputSchemaField,
   type SchemaFieldType,
 } from "@/features/scraper-generation/interfaces/output-config.interfaces";
 import {
+  createEmptyEnumValue,
   createEmptyOutputSchemaField,
   definitionToSchemaFields,
   getOutputSchemaJsonError,
@@ -72,7 +76,7 @@ function SchemaFieldList({
   return (
     <div className={cn("flex flex-col gap-1.5", depth > 0 && "pl-3 border-l border-border")}>
       {depth === 0 ? (
-        <div className="grid grid-cols-[minmax(0,1fr)_10rem_2rem] gap-2 px-0.5 text-xs text-muted">
+        <div className="grid grid-cols-[minmax(0,1fr)_11.5rem_2rem] gap-2 px-0.5 text-xs text-muted">
           <span>Field name</span>
           <span>Type</span>
           <span className="sr-only">Remove</span>
@@ -81,9 +85,38 @@ function SchemaFieldList({
 
       {fields.map((field, index) => {
         const complex = isComplexSchemaFieldType(field.type);
+        const isEnum = isEnumSchemaFieldType(field.type);
+        const enumValues = field.enumValues ?? [createEmptyEnumValue(field.type)];
+
+        const updateEnumValue = (valueIndex: number, raw: string) => {
+          const nextValues = [...enumValues];
+          if (field.type === SchemaFieldTypes.NUMBER_ENUM) {
+            const parsed = Number(raw);
+            nextValues[valueIndex] = raw.trim() === "" || Number.isNaN(parsed) ? 0 : parsed;
+          } else {
+            nextValues[valueIndex] = raw;
+          }
+          updateField(index, { ...field, enumValues: nextValues });
+        };
+
+        const removeEnumValue = (valueIndex: number) => {
+          const nextValues = enumValues.filter((_, i) => i !== valueIndex);
+          updateField(index, {
+            ...field,
+            enumValues: nextValues.length > 0 ? nextValues : [createEmptyEnumValue(field.type)],
+          });
+        };
+
+        const addEnumValue = () => {
+          updateField(index, {
+            ...field,
+            enumValues: [...enumValues, createEmptyEnumValue(field.type)],
+          });
+        };
+
         return (
           <div key={`schema-field-${depth}-${index}`} className="flex flex-col gap-1.5">
-            <div className="grid grid-cols-[minmax(0,1fr)_10rem_2rem] items-center gap-2">
+            <div className="grid grid-cols-[minmax(0,1fr)_11.5rem_2rem] items-center gap-2">
               <Input
                 aria-label={`Field name depth ${depth} index ${index + 1}`}
                 value={field.name}
@@ -133,6 +166,60 @@ function SchemaFieldList({
                 <span className="sr-only">Remove</span>
               </ActionButtonWithPending>
             </div>
+
+            {isEnum ? (
+              <div className="flex flex-col gap-1.5 rounded-lg bg-surface-secondary/60 p-2.5">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="text-xs text-muted">
+                    {field.type === SchemaFieldTypes.NUMBER_ENUM
+                      ? "Allowed numbers"
+                      : "Allowed strings"}
+                  </span>
+                  <ActionButtonWithPending
+                    type="button"
+                    size="sm"
+                    variant="secondary"
+                    idleLeading={<Plus className="h-3.5 w-3.5" />}
+                    onPress={addEnumValue}
+                    isDisabled={isDisabled}
+                  >
+                    Add value
+                  </ActionButtonWithPending>
+                </div>
+                <div className="flex flex-col gap-1.5">
+                  {enumValues.map((value: OutputSchemaEnumValue, valueIndex) => (
+                    <div
+                      key={`enum-value-${depth}-${index}-${valueIndex}`}
+                      className="grid grid-cols-[minmax(0,1fr)_2rem] items-center gap-2"
+                    >
+                      <Input
+                        aria-label={`Enum value depth ${depth} field ${index + 1} value ${valueIndex + 1}`}
+                        type={field.type === SchemaFieldTypes.NUMBER_ENUM ? "number" : "text"}
+                        value={String(value)}
+                        onChange={(event) => updateEnumValue(valueIndex, event.target.value)}
+                        placeholder={
+                          field.type === SchemaFieldTypes.NUMBER_ENUM ? "1" : "for_sale"
+                        }
+                        disabled={isDisabled}
+                        fullWidth
+                      />
+                      <ActionButtonWithPending
+                        type="button"
+                        size="sm"
+                        variant="ghost"
+                        aria-label={`Remove enum value ${valueIndex + 1}`}
+                        idleLeading={<Trash2 className="h-3.5 w-3.5 text-danger" />}
+                        onPress={() => removeEnumValue(valueIndex)}
+                        isDisabled={isDisabled || enumValues.length <= 1}
+                        className="min-w-8 px-0"
+                      >
+                        <span className="sr-only">Remove</span>
+                      </ActionButtonWithPending>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : null}
 
             {complex ? (
               <div className="flex flex-col gap-1.5 rounded-lg bg-surface-secondary/60 p-2.5">
@@ -272,7 +359,7 @@ export function OutputDataConfigEditor({
           <div className="flex flex-col gap-0.5">
             <span className="text-sm font-medium text-foreground">Output schema</span>
             <span className="text-xs text-muted">
-              Field names and types for structured JSON. Nested object types support unlimited nesting.
+              Field names and types for structured JSON. 
             </span>
           </div>
 
@@ -358,7 +445,7 @@ export function OutputDataConfigEditor({
                   liveJsonError && "border-danger focus-visible:ring-danger",
                 )}
                 placeholder={
-                  '{\n  "title": "string",\n  "agent": {\n    "name": "string"\n  }\n}'
+                  '{\n  "title": "string",\n  "status": ["for_sale", "sold"],\n  "rating": [1, 2, 3]\n}'
                 }
                 disabled={isDisabled}
                 fullWidth

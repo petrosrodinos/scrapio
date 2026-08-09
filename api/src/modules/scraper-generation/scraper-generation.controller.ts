@@ -75,18 +75,31 @@ export class ScraperGenerationController {
   @Post()
   @Roles(AuthRole.USER, AuthRole.ADMIN)
   @ApiOperation({
-    summary: 'Trigger a manual AI computer-use generation run',
+    summary:
+      'Create a generation run. Pass start=true to queue immediately, or start=false to save as DRAFT.',
   })
   @ApiResponse({ status: 201, type: ScraperGenerationRun })
   @ApiResponse({
     status: 400,
-    description: 'No active Anthropic integration configured for this user',
+    description: 'Invalid output config, or no Anthropic integration when starting',
   })
   create(
     @CurrentUser() authUser: AuthUser,
     @Body() dto: CreateGenerationRunDto,
   ) {
     return this.scraperGenerationService.create(authUser, dto);
+  }
+
+  @Post(':id/start')
+  @Roles(AuthRole.USER, AuthRole.ADMIN)
+  @ApiOperation({ summary: 'Start a DRAFT generation run' })
+  @ApiResponse({ status: 200, type: ScraperGenerationRun })
+  @ApiResponse({
+    status: 400,
+    description: 'Run is not DRAFT, or no Anthropic integration configured',
+  })
+  start(@CurrentUser() authUser: AuthUser, @Param('id') id: string) {
+    return this.scraperGenerationService.start(authUser, id);
   }
 
   @Post(':id/approve')

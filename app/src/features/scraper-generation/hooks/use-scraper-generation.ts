@@ -9,6 +9,7 @@ import {
   getGenerationRuns,
   rejectGenerationRun,
   retryGenerationRun,
+  startGenerationRun,
 } from "../services/scraper-generation.services";
 import type {
   CreateGenerationRunPayload,
@@ -44,13 +45,37 @@ export const useCreateGenerationRun = () => {
 
   return useMutation({
     mutationFn: (payload: CreateGenerationRunPayload) => createGenerationRun(payload),
-    onSuccess: () => {
+    onSuccess: (_data, payload) => {
       queryClient.invalidateQueries({ queryKey: ["generationRuns"] });
-      toast({ title: "Generation run triggered", duration: 2000, variant: "success" });
+      toast({
+        title: payload.start ? "Generation run started" : "Generation run saved",
+        duration: 2000,
+        variant: "success",
+      });
     },
     onError: (error: any) => {
       toast({
-        title: "Could not trigger generation run",
+        title: "Could not create generation run",
+        description: error.message,
+        variant: "error",
+      });
+    },
+  });
+};
+
+export const useStartGenerationRun = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (id: string) => startGenerationRun(id),
+    onSuccess: (_data, id) => {
+      queryClient.invalidateQueries({ queryKey: ["generationRuns"] });
+      queryClient.invalidateQueries({ queryKey: ["generationRuns", "detail", id] });
+      toast({ title: "Generation run started", duration: 2000, variant: "success" });
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Could not start generation run",
         description: error.message,
         variant: "error",
       });
