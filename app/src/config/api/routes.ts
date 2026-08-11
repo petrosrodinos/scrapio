@@ -60,6 +60,20 @@ export const ApiRoutes = {
             cancel: (id: string) => `/admin/crawl-runs/${id}/cancel`,
             bulkDelete: "/admin/crawl-runs/bulk-delete",
         },
+        plainScrapeConfigs: {
+            prefix: "/admin/plain-scrape-configs",
+            list: "/admin/plain-scrape-configs",
+            detail: (id: string) => `/admin/plain-scrape-configs/${id}`,
+            runNow: (id: string) => `/admin/plain-scrape-configs/${id}/run-now`,
+            bulkDelete: "/admin/plain-scrape-configs/bulk-delete",
+        },
+        browserAgentConfigs: {
+            prefix: "/admin/browser-agent-configs",
+            list: "/admin/browser-agent-configs",
+            detail: (id: string) => `/admin/browser-agent-configs/${id}`,
+            runNow: (id: string) => `/admin/browser-agent-configs/${id}/run-now`,
+            bulkDelete: "/admin/browser-agent-configs/bulk-delete",
+        },
         jobs: {
             prefix: "/admin/jobs",
             list: "/admin/jobs",

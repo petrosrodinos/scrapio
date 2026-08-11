@@ -24,6 +24,17 @@ export const Routes = {
     scrapers: {
         detail: (id: string) => `/scrapers/${id}`,
     },
+    workflows: {
+        new: "/workflows/new",
+    },
+    plainScrape: {
+        list: "/plain-scrape",
+        detail: (id: string) => `/plain-scrape/${id}`,
+    },
+    browserAgent: {
+        list: "/browser-agent",
+        detail: (id: string) => `/browser-agent/${id}`,
+    },
     generationRuns: {
         list: "/generation-runs",
         detail: (id: string) => `/generation-runs/${id}`,

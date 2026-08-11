@@ -13,6 +13,11 @@ import AdminHealthPage from "@/pages/admin/pages/health";
 import WebsiteTargetsListPage from "@/pages/admin/website-targets";
 import WebsiteTargetDetailPage from "@/pages/admin/website-targets/detail";
 import ScraperDetailPage from "@/pages/admin/scrapers/detail";
+import NewWorkflowPage from "@/pages/admin/workflows/new";
+import PlainScrapeListPage from "@/pages/admin/plain-scrape";
+import PlainScrapeDetailPage from "@/pages/admin/plain-scrape/detail";
+import BrowserAgentListPage from "@/pages/admin/browser-agent";
+import BrowserAgentDetailPage from "@/pages/admin/browser-agent/detail";
 import GenerationRunsListPage from "@/pages/admin/generation-runs";
 import GenerationRunDetailPage from "@/pages/admin/generation-runs/detail";
 import CrawlRunsListPage from "@/pages/admin/crawl-runs";
@@ -55,6 +60,11 @@ export default function AppRoutes() {
         <Route path={`${Routes.websiteTargets.list}/:id`} element={<WebsiteTargetDetailPage />} />
         <Route path="/scrapers" element={<Navigate to={Routes.websiteTargets.list} replace />} />
         <Route path="/scrapers/:id" element={<ScraperDetailPage />} />
+        <Route path={Routes.workflows.new} element={<NewWorkflowPage />} />
+        <Route path={Routes.plainScrape.list} element={<PlainScrapeListPage />} />
+        <Route path={`${Routes.plainScrape.list}/:id`} element={<PlainScrapeDetailPage />} />
+        <Route path={Routes.browserAgent.list} element={<BrowserAgentListPage />} />
+        <Route path={`${Routes.browserAgent.list}/:id`} element={<BrowserAgentDetailPage />} />
         <Route path={Routes.generationRuns.list} element={<GenerationRunsListPage />} />
         <Route path={`${Routes.generationRuns.list}/:id`} element={<GenerationRunDetailPage />} />
         <Route path={Routes.crawlRuns.list} element={<CrawlRunsListPage />} />

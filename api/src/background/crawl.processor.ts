@@ -16,13 +16,19 @@ import { contentHash } from '@/integrations/crawler/utils/crawler.utils';
 import { buildBlockHandlingConfig } from '@/integrations/crawler/block-handling/block-handling.utils';
 import { NotificationsService } from '@/modules/notifications/notifications.service';
 import { ScraperFailureHandlerService } from '@/background/scraper-failure-handler.service';
+import { ExtractionService } from '@/modules/extraction/extraction.service';
+import { ExtractionOutcome } from '@/modules/extraction/interfaces/extraction.interface';
 import {
+  ExtractionFormatStatus,
   JobStatus,
   NotificationSeverity,
   NotificationType,
+  OutputFormat,
   Prisma,
   RunStatus,
 } from 'generated/prisma';
+
+const MAX_COMBINED_CONTENT_CHARS = 60_000;
 
 interface CrawlJobData {
   workflowRunId: string;
@@ -53,6 +59,7 @@ export class CrawlProcessor extends WorkerHost implements OnModuleInit {
     private readonly notificationsService: NotificationsService,
     private readonly scraperFailureHandler: ScraperFailureHandlerService,
     private readonly platformConfigService: PlatformConfigService,
+    private readonly extractionService: ExtractionService,
   ) {
     super();
   }
@@ -97,6 +104,7 @@ export class CrawlProcessor extends WorkerHost implements OnModuleInit {
         workflow_config: {
           include: { active_version: true },
         },
+        extraction_schema_version: true,
         website_target: {
           select: {
             block_rules: true,
@@ -292,16 +300,57 @@ export class CrawlProcessor extends WorkerHost implements OnModuleInit {
         },
       });
 
-      const finishedAt = new Date();
       const runFailed = !crawlResult.success;
+      const outputFormats = run.output_formats as OutputFormat[];
+
+      let extractionOutcome: ExtractionOutcome | null = null;
+      if (!runFailed && outputFormats.length > 0 && crawlResult.items.length > 0) {
+        const combinedContent = crawlResult.items
+          .map((item) => `=== SOURCE: ${item.source_url} ===\n${JSON.stringify(item.raw ?? {})}`)
+          .join('\n\n')
+          .slice(0, MAX_COMBINED_CONTENT_CHARS);
+
+        extractionOutcome = await this.extractionService.extract({
+          userId: run.user_id,
+          outputFormats,
+          content: combinedContent,
+          contentLabel: `${crawlResult.items.length} extracted item(s) from ${config.start_url}`,
+          instructions: activeVersion.generation_prompt,
+          schemaDefinition: run.extraction_schema_version?.definition as
+            | Record<string, unknown>
+            | null
+            | undefined,
+          sourceUrl: config.start_url,
+        });
+
+        await this.extractionService.persist(extractionOutcome, {
+          workflowRunId,
+          extractionSchemaVersionId: run.extraction_schema_version_id,
+        });
+      }
+
+      const finishedAt = new Date();
+      const extractionFailed = extractionOutcome
+        ? this.deriveExtractionFailed(extractionOutcome, outputFormats)
+        : false;
+      const runStatus = runFailed
+        ? RunStatus.FAILED
+        : extractionOutcome
+          ? this.deriveRunStatus(extractionOutcome, outputFormats)
+          : RunStatus.SUCCESS;
+      const errorMessage = runFailed
+        ? (crawlResult.errorSummary ?? null)
+        : extractionFailed
+          ? 'Extraction did not produce a valid result'
+          : null;
 
       const finalized = await this.prisma.workflowRun.updateMany({
         where: { id: workflowRunId, status: RunStatus.RUNNING },
         data: {
-          status: runFailed ? RunStatus.FAILED : RunStatus.SUCCESS,
+          status: runStatus,
           finished_at: finishedAt,
           duration_ms: finishedAt.getTime() - startedAt.getTime(),
-          error_message: crawlResult.errorSummary ?? null,
+          error_message: errorMessage,
         },
       });
 
@@ -359,19 +408,32 @@ export class CrawlProcessor extends WorkerHost implements OnModuleInit {
         ]);
       }
 
+      if (!runFailed && extractionFailed) {
+        this.notificationsService.create({
+          type: NotificationType.LARGE_CRAWL_FAILURE,
+          severity: NotificationSeverity.CRITICAL,
+          title: 'Scraper extraction failed',
+          message: 'Extraction did not produce a valid result',
+          website_target_id: run.website_target_id ?? undefined,
+          workflow_config_id: workflowConfig.id,
+          workflow_run_id: workflowRunId,
+        });
+      }
+
       await this.prisma.jobLog.update({
         where: { id: logId },
         data: {
-          status: runFailed ? JobStatus.FAILED : JobStatus.COMPLETED,
+          status:
+            runStatus === RunStatus.FAILED ? JobStatus.FAILED : JobStatus.COMPLETED,
           finished_at: finishedAt,
           duration_ms: finishedAt.getTime() - startedAt.getTime(),
           result: {
-            status: runFailed ? RunStatus.FAILED : RunStatus.SUCCESS,
+            status: runStatus,
             total_found: crawlResult.items.length,
             total_created: totalCreated,
             total_updated: totalUpdated,
           },
-          error_message: runFailed ? crawlResult.errorSummary : null,
+          error_message: errorMessage,
         },
       });
 
@@ -463,6 +525,34 @@ export class CrawlProcessor extends WorkerHost implements OnModuleInit {
 
       throw error;
     }
+  }
+
+  private deriveRunStatus(
+    outcome: ExtractionOutcome,
+    outputFormats: OutputFormat[],
+  ): RunStatus {
+    const wantsStructured = outputFormats.includes(OutputFormat.STRUCTURED_JSON);
+    const wantsMarkdown = outputFormats.includes(OutputFormat.MARKDOWN);
+
+    const structuredOk =
+      !wantsStructured || outcome.structured_status === ExtractionFormatStatus.VALID;
+    const markdownOk =
+      !wantsMarkdown || outcome.markdown_status === ExtractionFormatStatus.VALID;
+
+    if (structuredOk && markdownOk) {
+      return RunStatus.SUCCESS;
+    }
+    if (structuredOk || markdownOk) {
+      return RunStatus.PARTIAL_SUCCESS;
+    }
+    return RunStatus.FAILED;
+  }
+
+  private deriveExtractionFailed(
+    outcome: ExtractionOutcome,
+    outputFormats: OutputFormat[],
+  ): boolean {
+    return this.deriveRunStatus(outcome, outputFormats) !== RunStatus.SUCCESS;
   }
 
   private withTimeout<T>(

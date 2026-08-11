@@ -6,6 +6,7 @@ import { DetailSkeleton } from "@/components/ui/detail-skeleton";
 import { ActionButtonWithPending } from "@/components/ui/action-button-with-pending";
 import { ConfirmationDialog } from "@/components/ui/confirmation-dialog";
 import { CrawlRunStatusChip } from "./components/crawl-run-status-chip";
+import { WorkflowTypeChip } from "./components/workflow-type-chip";
 import {
   useCancelCrawlRun,
   useCrawlRun,
@@ -14,6 +15,7 @@ import {
 } from "@/features/crawl-runs/hooks/use-crawl-runs";
 import {
   CrawlRunStatuses,
+  WorkflowTypes,
   type CrawlRunStatus,
 } from "@/features/crawl-runs/interfaces/crawl-runs.interfaces";
 import { JobStatusChip } from "./components/job-status-chip";
@@ -44,6 +46,14 @@ export default function CrawlRunDetailPage() {
   const isActive = ACTIVE_STATUSES.includes(run.status);
   const traces = run.execution_traces ?? [];
   const jobLogs = run.job_logs ?? [];
+  const pages = run.pages ?? [];
+  const steps = run.steps ?? [];
+  const extractionResult = run.extraction_result ?? null;
+  const isScraper = run.type === WorkflowTypes.SCRAPER;
+  const isPlainScrape = run.type === WorkflowTypes.PLAIN_SCRAPE;
+  const isBrowserAgent = run.type === WorkflowTypes.BROWSER_AGENT;
+  const targetLabel =
+    run.website_target?.name ?? run.url ?? run.urls?.[0] ?? run.workflow_config?.name ?? "Crawl run";
 
   return (
     <div className="flex flex-col gap-6">
@@ -57,9 +67,8 @@ export default function CrawlRunDetailPage() {
 
       <div className="flex items-center justify-between flex-wrap gap-3">
         <div className="flex items-center gap-3 flex-wrap">
-          <p className="text-2xl font-semibold tracking-tight text-foreground">
-            {run.website_target?.name ?? run.website_target_id}
-          </p>
+          <p className="text-2xl font-semibold tracking-tight text-foreground">{targetLabel}</p>
+          <WorkflowTypeChip type={run.type} />
           <CrawlRunStatusChip status={run.status} />
           {isActive && <Loader2 className="h-4 w-4 animate-spin text-muted" />}
         </div>
@@ -100,11 +109,21 @@ export default function CrawlRunDetailPage() {
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 rounded-xl border border-border bg-surface p-6">
         <div className="flex flex-col gap-1">
-          <span className="text-xs font-medium uppercase tracking-wide text-muted">Scraper</span>
+          <span className="text-xs font-medium uppercase tracking-wide text-muted">
+            {isScraper ? "Scraper" : "Config"}
+          </span>
           {run.workflow_config_id ? (
             <button
               className="text-sm text-accent hover:underline text-left"
-              onClick={() => navigate(Routes.scrapers.detail(run.workflow_config_id!))}
+              onClick={() => {
+                if (isScraper) {
+                  navigate(Routes.scrapers.detail(run.workflow_config_id!));
+                } else if (isPlainScrape) {
+                  navigate(Routes.plainScrape.detail(run.workflow_config_id!));
+                } else {
+                  navigate(Routes.browserAgent.detail(run.workflow_config_id!));
+                }
+              }}
             >
               {run.workflow_config?.name ?? run.workflow_config_id}
             </button>
@@ -112,15 +131,39 @@ export default function CrawlRunDetailPage() {
             <span className="text-sm text-foreground">—</span>
           )}
         </div>
-        <div className="flex flex-col gap-1">
-          <span className="text-xs font-medium uppercase tracking-wide text-muted">Website target</span>
-          <button
-            className="text-sm text-accent hover:underline text-left"
-            onClick={() => navigate(Routes.websiteTargets.detail(run.website_target_id!))}
-          >
-            {run.website_target?.name ?? run.website_target_id}
-          </button>
-        </div>
+        {run.website_target_id ? (
+          <div className="flex flex-col gap-1">
+            <span className="text-xs font-medium uppercase tracking-wide text-muted">Website target</span>
+            <button
+              className="text-sm text-accent hover:underline text-left"
+              onClick={() => navigate(Routes.websiteTargets.detail(run.website_target_id!))}
+            >
+              {run.website_target?.name ?? run.website_target_id}
+            </button>
+          </div>
+        ) : (
+          <div className="flex flex-col gap-1 min-w-0">
+            <span className="text-xs font-medium uppercase tracking-wide text-muted">
+              {isPlainScrape && (run.urls?.length ?? 0) > 1 ? "URLs" : "URL"}
+            </span>
+            {isPlainScrape && (run.urls?.length ?? 0) > 0 ? (
+              <div className="flex flex-col gap-0.5">
+                {run.urls!.slice(0, 3).map((u) => (
+                  <span key={u} className="text-sm text-foreground truncate" title={u}>
+                    {u}
+                  </span>
+                ))}
+                {run.urls!.length > 3 && (
+                  <span className="text-xs text-muted">+{run.urls!.length - 3} more</span>
+                )}
+              </div>
+            ) : (
+              <span className="text-sm text-foreground truncate" title={run.url ?? undefined}>
+                {run.url ?? "—"}
+              </span>
+            )}
+          </div>
+        )}
         <div className="flex flex-col gap-1">
           <span className="text-xs font-medium uppercase tracking-wide text-muted">
             Started / finished
@@ -133,6 +176,14 @@ export default function CrawlRunDetailPage() {
           <span className="text-xs font-medium uppercase tracking-wide text-muted">Duration</span>
           <span className="text-sm text-foreground">{formatDuration(run.duration_ms)}</span>
         </div>
+        {run.output_formats && run.output_formats.length > 0 && (
+          <div className="flex flex-col gap-1">
+            <span className="text-xs font-medium uppercase tracking-wide text-muted">
+              Output formats
+            </span>
+            <span className="text-sm text-foreground">{run.output_formats.join(", ")}</span>
+          </div>
+        )}
         {run.error_message && (
           <div className="flex flex-col gap-1 sm:col-span-2 lg:col-span-3">
             <span className="text-xs font-medium uppercase tracking-wide text-muted">Error</span>
@@ -141,54 +192,320 @@ export default function CrawlRunDetailPage() {
         )}
       </div>
 
-      <div className="rounded-xl border border-border bg-surface px-6">
-        <Accordion defaultExpandedKeys={[]} hideSeparator>
-          <Accordion.Item id="execution-traces">
-            <Accordion.Heading>
-              <Accordion.Trigger className="text-sm font-medium text-foreground">
-                Execution traces ({traces.length})
-                <Accordion.Indicator />
-              </Accordion.Trigger>
-            </Accordion.Heading>
-            <Accordion.Panel>
-              <Accordion.Body>
-                <div className="flex flex-col gap-4 pb-4">
-                  {run.diagnostics_package ? (
-                    <button
-                      className="text-sm text-accent hover:underline self-start"
-                      onClick={() =>
-                        navigate(Routes.diagnostics.detail(run.diagnostics_package!.id))
-                      }
-                    >
-                      View diagnostics
-                    </button>
-                  ) : null}
-                  {traces.length === 0 ? (
-                    <p className="text-sm text-muted">No execution traces recorded.</p>
-                  ) : (
-                    traces.map((trace) => (
-                      <div key={trace.id} className="flex flex-col gap-2">
-                        <div className="flex items-center gap-2 text-sm">
-                          <span className={trace.success ? "text-success" : "text-danger"}>
-                            {trace.success ? "Success" : "Failed"}
-                          </span>
-                          <span className="text-muted">{formatDateTime(trace.created_at)}</span>
-                          {trace.error_summary ? (
-                            <span className="text-danger text-xs">{trace.error_summary}</span>
-                          ) : null}
+      {(isScraper || traces.length > 0) && (
+        <div className="rounded-xl border border-border bg-surface px-6">
+          <Accordion defaultExpandedKeys={[]} hideSeparator>
+            <Accordion.Item id="execution-traces">
+              <Accordion.Heading>
+                <Accordion.Trigger className="text-sm font-medium text-foreground">
+                  Execution traces ({traces.length})
+                  <Accordion.Indicator />
+                </Accordion.Trigger>
+              </Accordion.Heading>
+              <Accordion.Panel>
+                <Accordion.Body>
+                  <div className="flex flex-col gap-4 pb-4">
+                    {run.diagnostics_package ? (
+                      <button
+                        className="text-sm text-accent hover:underline self-start"
+                        onClick={() =>
+                          navigate(Routes.diagnostics.detail(run.diagnostics_package!.id))
+                        }
+                      >
+                        View diagnostics
+                      </button>
+                    ) : null}
+                    {traces.length === 0 ? (
+                      <p className="text-sm text-muted">No execution traces recorded.</p>
+                    ) : (
+                      traces.map((trace) => (
+                        <div key={trace.id} className="flex flex-col gap-2">
+                          <div className="flex items-center gap-2 text-sm">
+                            <span className={trace.success ? "text-success" : "text-danger"}>
+                              {trace.success ? "Success" : "Failed"}
+                            </span>
+                            <span className="text-muted">{formatDateTime(trace.created_at)}</span>
+                            {trace.error_summary ? (
+                              <span className="text-danger text-xs">{trace.error_summary}</span>
+                            ) : null}
+                          </div>
+                          <pre className="rounded-lg border border-border bg-background p-3 text-xs overflow-auto max-h-96">
+                            {JSON.stringify(trace.steps, null, 2)}
+                          </pre>
                         </div>
-                        <pre className="rounded-lg border border-border bg-background p-3 text-xs overflow-auto max-h-96">
-                          {JSON.stringify(trace.steps, null, 2)}
+                      ))
+                    )}
+                  </div>
+                </Accordion.Body>
+              </Accordion.Panel>
+            </Accordion.Item>
+          </Accordion>
+        </div>
+      )}
+
+      {isPlainScrape && (
+        <div className="rounded-xl border border-border bg-surface px-6">
+          <Accordion defaultExpandedKeys={[]} hideSeparator>
+            <Accordion.Item id="scraped-pages">
+              <Accordion.Heading>
+                <Accordion.Trigger className="text-sm font-medium text-foreground">
+                  Scraped pages ({pages.length})
+                  <Accordion.Indicator />
+                </Accordion.Trigger>
+              </Accordion.Heading>
+              <Accordion.Panel>
+                <Accordion.Body>
+                  <div className="flex flex-col gap-4 pb-4">
+                    {pages.length === 0 ? (
+                      <p className="text-sm text-muted">No pages recorded yet.</p>
+                    ) : (
+                      pages.map((page) => (
+                        <div
+                          key={page.id}
+                          className="flex flex-col gap-2 rounded-lg border border-border p-3"
+                        >
+                          <div className="flex items-center gap-2 text-sm flex-wrap">
+                            <span className={page.success ? "text-success" : "text-danger"}>
+                              {page.success ? "Success" : "Failed"}
+                            </span>
+                            <span className="text-foreground truncate" title={page.requested_url}>
+                              {page.requested_url}
+                            </span>
+                            {page.http_status !== null && (
+                              <span className="text-muted">HTTP {page.http_status}</span>
+                            )}
+                          </div>
+                          {page.title && (
+                            <span className="text-sm text-muted">{page.title}</span>
+                          )}
+                          {page.error_message && (
+                            <span className="text-xs text-danger">{page.error_message}</span>
+                          )}
+                          {page.cleaned_content && (
+                            <Accordion defaultExpandedKeys={[]} hideSeparator>
+                              <Accordion.Item id={`cleaned-${page.id}`}>
+                                <Accordion.Heading>
+                                  <Accordion.Trigger className="text-xs font-medium text-foreground">
+                                    Cleaned content
+                                    <Accordion.Indicator />
+                                  </Accordion.Trigger>
+                                </Accordion.Heading>
+                                <Accordion.Panel>
+                                  <Accordion.Body>
+                                    <pre className="rounded-lg border border-border bg-background p-3 text-xs overflow-auto max-h-80 whitespace-pre-wrap">
+                                      {page.cleaned_content}
+                                    </pre>
+                                  </Accordion.Body>
+                                </Accordion.Panel>
+                              </Accordion.Item>
+                            </Accordion>
+                          )}
+                          {page.raw_html && (
+                            <Accordion defaultExpandedKeys={[]} hideSeparator>
+                              <Accordion.Item id={`raw-${page.id}`}>
+                                <Accordion.Heading>
+                                  <Accordion.Trigger className="text-xs font-medium text-foreground">
+                                    Raw HTML
+                                    <Accordion.Indicator />
+                                  </Accordion.Trigger>
+                                </Accordion.Heading>
+                                <Accordion.Panel>
+                                  <Accordion.Body>
+                                    <pre className="rounded-lg border border-border bg-background p-3 text-xs overflow-auto max-h-80 whitespace-pre-wrap">
+                                      {page.raw_html}
+                                    </pre>
+                                  </Accordion.Body>
+                                </Accordion.Panel>
+                              </Accordion.Item>
+                            </Accordion>
+                          )}
+                          {page.extraction_result && (
+                            <div className="flex flex-col gap-1 text-xs text-muted">
+                              <span>
+                                Structured: {page.extraction_result.structured_status ?? "—"} · Markdown:{" "}
+                                {page.extraction_result.markdown_status ?? "—"}
+                              </span>
+                              {page.extraction_result.structured_data && (
+                                <pre className="rounded-lg border border-border bg-background p-3 text-xs overflow-auto max-h-60">
+                                  {JSON.stringify(page.extraction_result.structured_data, null, 2)}
+                                </pre>
+                              )}
+                              {page.extraction_result.markdown && (
+                                <pre className="rounded-lg border border-border bg-background p-3 text-xs overflow-auto max-h-60 whitespace-pre-wrap">
+                                  {page.extraction_result.markdown}
+                                </pre>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      ))
+                    )}
+                  </div>
+                </Accordion.Body>
+              </Accordion.Panel>
+            </Accordion.Item>
+          </Accordion>
+        </div>
+      )}
+
+      {isBrowserAgent && (
+        <div className="rounded-xl border border-border bg-surface px-6">
+          <Accordion defaultExpandedKeys={[]} hideSeparator>
+            <Accordion.Item id="visited-urls">
+              <Accordion.Heading>
+                <Accordion.Trigger className="text-sm font-medium text-foreground">
+                  Visited URLs ({run.visited_urls?.length ?? 0})
+                  <Accordion.Indicator />
+                </Accordion.Trigger>
+              </Accordion.Heading>
+              <Accordion.Panel>
+                <Accordion.Body>
+                  <div className="flex flex-col gap-1 pb-4">
+                    {!run.visited_urls || run.visited_urls.length === 0 ? (
+                      <p className="text-sm text-muted">No URLs visited yet.</p>
+                    ) : (
+                      run.visited_urls.map((visitedUrl, index) => (
+                        <span
+                          key={`${visitedUrl}-${index}`}
+                          className="text-sm text-foreground truncate"
+                          title={visitedUrl}
+                        >
+                          {index + 1}. {visitedUrl}
+                        </span>
+                      ))
+                    )}
+                  </div>
+                </Accordion.Body>
+              </Accordion.Panel>
+            </Accordion.Item>
+          </Accordion>
+        </div>
+      )}
+
+      {isBrowserAgent && (
+        <div className="rounded-xl border border-border bg-surface px-6">
+          <Accordion defaultExpandedKeys={[]} hideSeparator>
+            <Accordion.Item id="agent-steps">
+              <Accordion.Heading>
+                <Accordion.Trigger className="text-sm font-medium text-foreground">
+                  Agent steps ({steps.length})
+                  <Accordion.Indicator />
+                </Accordion.Trigger>
+              </Accordion.Heading>
+              <Accordion.Panel>
+                <Accordion.Body>
+                  <div className="flex flex-col gap-3 pb-4">
+                    {steps.length === 0 ? (
+                      <p className="text-sm text-muted">No agent steps recorded yet.</p>
+                    ) : (
+                      steps.map((step) => (
+                        <div key={step.id} className="flex flex-col gap-1 rounded-lg border border-border p-3">
+                          <div className="flex items-center gap-2 text-sm">
+                            <span className="font-medium text-foreground">
+                              #{step.step_index} {step.action_type}
+                            </span>
+                            <span className="text-muted">{formatDateTime(step.created_at)}</span>
+                          </div>
+                          {step.model_reasoning && (
+                            <span className="text-xs text-muted">{step.model_reasoning}</span>
+                          )}
+                          <pre className="rounded-lg border border-border bg-background p-3 text-xs overflow-auto max-h-60">
+                            {JSON.stringify(step.action_payload, null, 2)}
+                          </pre>
+                        </div>
+                      ))
+                    )}
+                  </div>
+                </Accordion.Body>
+              </Accordion.Panel>
+            </Accordion.Item>
+          </Accordion>
+        </div>
+      )}
+
+      {isBrowserAgent && run.collected_data && (
+        <div className="rounded-xl border border-border bg-surface px-6">
+          <Accordion defaultExpandedKeys={[]} hideSeparator>
+            <Accordion.Item id="collected-data">
+              <Accordion.Heading>
+                <Accordion.Trigger className="text-sm font-medium text-foreground">
+                  Collected data
+                  <Accordion.Indicator />
+                </Accordion.Trigger>
+              </Accordion.Heading>
+              <Accordion.Panel>
+                <Accordion.Body>
+                  <pre className="rounded-lg border border-border bg-background p-3 text-xs overflow-auto max-h-96 mb-4">
+                    {JSON.stringify(run.collected_data, null, 2)}
+                  </pre>
+                </Accordion.Body>
+              </Accordion.Panel>
+            </Accordion.Item>
+          </Accordion>
+        </div>
+      )}
+
+      {extractionResult && (
+        <div className="rounded-xl border border-border bg-surface px-6">
+          <Accordion defaultExpandedKeys={[]} hideSeparator>
+            <Accordion.Item id="extraction-result">
+              <Accordion.Heading>
+                <Accordion.Trigger className="text-sm font-medium text-foreground">
+                  Extraction result
+                  <Accordion.Indicator />
+                </Accordion.Trigger>
+              </Accordion.Heading>
+              <Accordion.Panel>
+                <Accordion.Body>
+                  <div className="flex flex-col gap-3 pb-4">
+                    <span className="text-xs text-muted">
+                      Structured: {extractionResult.structured_status ?? "—"} · Markdown:{" "}
+                      {extractionResult.markdown_status ?? "—"}
+                    </span>
+                    {extractionResult.structured_data && (
+                      <pre className="rounded-lg border border-border bg-background p-3 text-xs overflow-auto max-h-96">
+                        {JSON.stringify(extractionResult.structured_data, null, 2)}
+                      </pre>
+                    )}
+                    {Boolean(extractionResult.structured_validation_errors) && (
+                      <div className="flex flex-col gap-1">
+                        <span className="text-xs font-medium text-danger">Validation errors</span>
+                        <pre className="rounded-lg border border-danger/30 bg-background p-3 text-xs overflow-auto max-h-60 text-danger">
+                          {JSON.stringify(extractionResult.structured_validation_errors, null, 2)}
                         </pre>
                       </div>
-                    ))
-                  )}
-                </div>
-              </Accordion.Body>
-            </Accordion.Panel>
-          </Accordion.Item>
-        </Accordion>
-      </div>
+                    )}
+                    {Boolean(extractionResult.structured_raw_ai_output) && (
+                      <div className="flex flex-col gap-1">
+                        <span className="text-xs font-medium text-muted">Raw AI output</span>
+                        <pre className="rounded-lg border border-border bg-background p-3 text-xs overflow-auto max-h-60">
+                          {JSON.stringify(extractionResult.structured_raw_ai_output, null, 2)}
+                        </pre>
+                      </div>
+                    )}
+                    {extractionResult.markdown && (
+                      <div className="flex flex-col gap-1">
+                        <span className="text-xs font-medium text-muted">Markdown</span>
+                        <pre className="rounded-lg border border-border bg-background p-3 text-xs overflow-auto max-h-96 whitespace-pre-wrap">
+                          {extractionResult.markdown}
+                        </pre>
+                      </div>
+                    )}
+                    {extractionResult.ai_usage && (
+                      <div className="flex flex-col gap-1">
+                        <span className="text-xs font-medium text-muted">AI usage</span>
+                        <pre className="rounded-lg border border-border bg-background p-3 text-xs overflow-auto max-h-40">
+                          {JSON.stringify(extractionResult.ai_usage, null, 2)}
+                        </pre>
+                      </div>
+                    )}
+                  </div>
+                </Accordion.Body>
+              </Accordion.Panel>
+            </Accordion.Item>
+          </Accordion>
+        </div>
+      )}
 
       <div className="rounded-xl border border-border bg-surface px-6">
         <Accordion defaultExpandedKeys={[]} hideSeparator>

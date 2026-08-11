@@ -6,7 +6,12 @@ import {
 import { InjectQueue } from '@nestjs/bullmq';
 import { Queue } from 'bullmq';
 import { PrismaService } from '@/core/databases/prisma/prisma.service';
-import { CRAWL_QUEUE, GENERATION_QUEUE } from '@/core/queues/queues.constants';
+import {
+  BROWSER_AGENT_QUEUE,
+  CRAWL_QUEUE,
+  GENERATION_QUEUE,
+  PLAIN_SCRAPE_QUEUE,
+} from '@/core/queues/queues.constants';
 import { AuthUser } from '@/shared/interfaces/auth-user.interface';
 import { jobLogUserWhere } from '@/shared/utils/user/user-scope.utils';
 import {
@@ -24,6 +29,12 @@ const ACTIVE_JOB_STATUSES: JobStatus[] = [
   JobStatus.PAUSED,
 ];
 
+const WORKFLOW_QUEUES: ReadonlySet<string> = new Set([
+  CRAWL_QUEUE,
+  PLAIN_SCRAPE_QUEUE,
+  BROWSER_AGENT_QUEUE,
+]);
+
 @Injectable()
 export class JobsService {
   constructor(
@@ -31,6 +42,10 @@ export class JobsService {
     @InjectQueue(GENERATION_QUEUE)
     private readonly generationQueue: Queue,
     @InjectQueue(CRAWL_QUEUE) private readonly crawlQueue: Queue,
+    @InjectQueue(PLAIN_SCRAPE_QUEUE)
+    private readonly plainScrapeQueue: Queue,
+    @InjectQueue(BROWSER_AGENT_QUEUE)
+    private readonly browserAgentQueue: Queue,
   ) {}
 
   async findAll(
@@ -117,21 +132,19 @@ export class JobsService {
       },
     });
 
-    const enrichedPayload =
-      jobLog.queue_name === CRAWL_QUEUE
-        ? { ...payload, jobLogId: jobLog.id }
-        : payload;
+    const enrichedPayload = WORKFLOW_QUEUES.has(jobLog.queue_name)
+      ? { ...payload, jobLogId: jobLog.id }
+      : payload;
 
-    const jobOptions =
-      jobLog.queue_name === CRAWL_QUEUE
-        ? {
-            attempts: DEFAULT_CRAWL_JOB_ATTEMPTS,
-            backoff: {
-              type: 'exponential' as const,
-              delay: DEFAULT_CRAWL_JOB_BACKOFF_MS,
-            },
-          }
-        : undefined;
+    const jobOptions = WORKFLOW_QUEUES.has(jobLog.queue_name)
+      ? {
+          attempts: DEFAULT_CRAWL_JOB_ATTEMPTS,
+          backoff: {
+            type: 'exponential' as const,
+            delay: DEFAULT_CRAWL_JOB_BACKOFF_MS,
+          },
+        }
+      : undefined;
 
     await queue.add(jobLog.job_name ?? 'retry', enrichedPayload, jobOptions);
 
@@ -220,6 +233,12 @@ export class JobsService {
     }
     if (queueName === CRAWL_QUEUE) {
       return this.crawlQueue;
+    }
+    if (queueName === PLAIN_SCRAPE_QUEUE) {
+      return this.plainScrapeQueue;
+    }
+    if (queueName === BROWSER_AGENT_QUEUE) {
+      return this.browserAgentQueue;
     }
     throw new BadRequestException(`Unsupported queue: ${queueName}`);
   }

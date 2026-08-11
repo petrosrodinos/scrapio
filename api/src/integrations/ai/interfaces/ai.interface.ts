@@ -20,12 +20,50 @@ export interface AIGenerateTextResponse {
     usage?: AICostResponse
 }
 
-export interface AIGenerateObjectResponse {
-    response: z.ZodSchema[] | null;
+export interface AIGenerateObjectResponse<T = unknown> {
+    response: T;
     usage?: AICostResponse
 }
 
+export type AiGenerationErrorKind = 'no_object_generated' | 'unknown';
 
+export interface AiGenerationErrorOptions {
+    cause?: unknown;
+    kind?: AiGenerationErrorKind;
+    /** Raw text returned by the model when it could not be parsed/validated into the schema. */
+    rawText?: string;
+    /** The underlying parse/validation error (e.g. a ZodError or JSON parse error). */
+    validationError?: unknown;
+    /** Usage/cost incurred even though generation ultimately failed. */
+    usage?: AICostResponse;
+}
+
+/**
+ * Thrown by `AiService.generateTextWithSchema` when the AI SDK fails to produce
+ * a valid object (unparseable JSON or schema validation failure). Preserves the
+ * raw model output and validation details so callers can persist invalid AI
+ * output and surface actionable errors instead of a generic message.
+ */
+export class AiGenerationError extends Error {
+    readonly cause?: unknown;
+    /** 'no_object_generated' = model responded but output was unparseable/invalid against the
+     * schema (worth retrying with a corrective prompt); 'unknown' = infrastructure/auth/network
+     * failure (retrying with the same prompt is unlikely to help). */
+    readonly kind: AiGenerationErrorKind;
+    readonly rawText?: string;
+    readonly validationError?: unknown;
+    readonly usage?: AICostResponse;
+
+    constructor(message: string, options: AiGenerationErrorOptions = {}) {
+        super(message);
+        this.name = 'AiGenerationError';
+        this.cause = options.cause;
+        this.kind = options.kind ?? 'unknown';
+        this.rawText = options.rawText;
+        this.validationError = options.validationError;
+        this.usage = options.usage;
+    }
+}
 
 export interface AIStreamTextOptions extends AIGenerateOptions {
     onToken?: (token: string) => void;

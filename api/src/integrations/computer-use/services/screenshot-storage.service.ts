@@ -15,10 +15,15 @@ export class ScreenshotStorageService {
   ) {}
 
   async store(buffer: Buffer, filename: string): Promise<string> {
+    const contentType = filename.toLowerCase().endsWith('.jpg')
+      || filename.toLowerCase().endsWith('.jpeg')
+      ? 'image/jpeg'
+      : 'image/png';
+
     const upload = await this.gcsService.uploadImageFromBuffer(
       buffer,
       filename,
-      'image/png',
+      contentType,
       GcsFolders.generationRunScreenshots,
     );
 
@@ -26,7 +31,7 @@ export class ScreenshotStorageService {
       data: {
         user_id: SCREENSHOT_UPLOADER_PLACEHOLDER,
         filename: upload.filename,
-        mimetype: 'image/png',
+        mimetype: contentType,
         size: upload.size,
         url: upload.url,
         path: upload.path,

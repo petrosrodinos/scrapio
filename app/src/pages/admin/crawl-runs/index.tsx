@@ -19,18 +19,28 @@ import { TableRowActionsMenu, type TableRowAction } from "@/components/ui/table-
 import { useWebsiteTargets } from "@/features/website-targets/hooks/use-website-targets";
 import { useScrapers } from "@/features/scrapers/hooks/use-scrapers";
 import { CrawlRunStatusChip } from "./components/crawl-run-status-chip";
+import { WorkflowTypeChip } from "./components/workflow-type-chip";
 import {
   useCrawlRuns,
   useDeleteCrawlRun,
   useDeleteCrawlRuns,
 } from "@/features/crawl-runs/hooks/use-crawl-runs";
 import {
+  WorkflowTypes,
   type CrawlRunListQuery,
   type CrawlRunStatus,
+  type WorkflowType,
 } from "@/features/crawl-runs/interfaces/crawl-runs.interfaces";
 import { CrawlRunStatusFilterOptions } from "@/config/constants/dropdowns/website-targets/crawl-run-status-filter.options";
 import { formatDateTime } from "@/lib/date";
 import { formatDuration } from "@/lib/duration";
+
+const WORKFLOW_TYPE_FILTER_OPTIONS: { id: WorkflowType | "all"; label: string }[] = [
+  { id: "all", label: "All types" },
+  { id: WorkflowTypes.SCRAPER, label: "Reusable scraper" },
+  { id: WorkflowTypes.PLAIN_SCRAPE, label: "Plain scrape" },
+  { id: WorkflowTypes.BROWSER_AGENT, label: "Browser agent" },
+];
 
 const CRAWL_RUN_DELETE_ACTIONS: TableRowAction[] = [
   { id: "delete", label: "Delete", variant: "danger", icon: Trash2 },
@@ -50,6 +60,7 @@ export default function CrawlRunsListPage() {
   const bulkDeleteConfirm = useOverlayState();
 
   const [status, setStatus] = useState<CrawlRunStatus | "all">("all");
+  const [type, setType] = useState<WorkflowType | "all">("all");
   const [websiteTargetId, setWebsiteTargetId] = useState<string | "all">("all");
   const [workflowConfigId, setWorkflowConfigId] = useState<string | "all">("all");
   const [dateFrom, setDateFrom] = useState("");
@@ -63,12 +74,13 @@ export default function CrawlRunsListPage() {
       page,
       limit: 20,
       ...(status !== "all" && { status }),
+      ...(type !== "all" && { type }),
       ...(websiteTargetId !== "all" && { website_target_id: websiteTargetId }),
       ...(workflowConfigId !== "all" && { workflow_config_id: workflowConfigId }),
       ...(dateFrom && { date_from: toStartOfDayIso(dateFrom) }),
       ...(dateTo && { date_to: toEndOfDayIso(dateTo) }),
     }),
-    [page, status, websiteTargetId, workflowConfigId, dateFrom, dateTo],
+    [page, status, type, websiteTargetId, workflowConfigId, dateFrom, dateTo],
   );
 
   const { data, isPending } = useCrawlRuns(query);
@@ -152,6 +164,30 @@ export default function CrawlRunsListPage() {
         </Select>
 
         <Select
+          aria-label="Filter by workflow type"
+          selectedKey={type}
+          onSelectionChange={(key) => {
+            setPage(1);
+            setType(key as WorkflowType | "all");
+          }}
+          className="w-44"
+        >
+          <Select.Trigger>
+            <Select.Value />
+            <Select.Indicator />
+          </Select.Trigger>
+          <Select.Popover>
+            <ListBox>
+              {WORKFLOW_TYPE_FILTER_OPTIONS.map((option) => (
+                <ListBox.Item key={option.id} id={option.id}>
+                  {option.label}
+                </ListBox.Item>
+              ))}
+            </ListBox>
+          </Select.Popover>
+        </Select>
+
+        <Select
           aria-label="Filter by website target"
           selectedKey={websiteTargetId}
           onSelectionChange={(key) => {
@@ -179,7 +215,7 @@ export default function CrawlRunsListPage() {
         </Select>
 
         <Select
-          aria-label="Filter by scraper"
+          aria-label="Filter by workflow config"
           selectedKey={workflowConfigId}
           onSelectionChange={(key) => {
             setPage(1);
@@ -194,7 +230,7 @@ export default function CrawlRunsListPage() {
           <Select.Popover>
             <ListBox>
               <ListBox.Item key="all" id="all">
-                All scrapers
+                All configs
               </ListBox.Item>
               {scrapers.map((scraper) => (
                 <ListBox.Item key={scraper.id} id={scraper.id}>
@@ -249,8 +285,9 @@ export default function CrawlRunsListPage() {
                       </Checkbox.Content>
                     </Checkbox>
                   </Table.Column>
-                  <Table.Column isRowHeader>Website target</Table.Column>
-                  <Table.Column>Scraper</Table.Column>
+                  <Table.Column isRowHeader>Target</Table.Column>
+                  <Table.Column>Type</Table.Column>
+                  <Table.Column>Config</Table.Column>
                   <Table.Column>Status</Table.Column>
                   <Table.Column>Started</Table.Column>
                   <Table.Column>Duration</Table.Column>
@@ -279,8 +316,11 @@ export default function CrawlRunsListPage() {
                       </Table.Cell>
                       <Table.Cell>
                         <span className="font-medium text-foreground">
-                          {run.website_target?.name ?? "—"}
+                          {run.website_target?.name ?? run.url ?? "—"}
                         </span>
+                      </Table.Cell>
+                      <Table.Cell>
+                        <WorkflowTypeChip type={run.type} />
                       </Table.Cell>
                       <Table.Cell>{run.workflow_config?.name ?? "—"}</Table.Cell>
                       <Table.Cell>

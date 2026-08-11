@@ -50,6 +50,8 @@ const RETRYABLE_STATUSES: GenerationRunStatus[] = [
   GenerationRunStatus.CANCELLED,
 ];
 
+const SCREENSHOT_URL_TTL_MINUTES = 60;
+
 @Injectable()
 export class ScraperGenerationService {
   private readonly logger = new Logger(ScraperGenerationService.name);
@@ -113,8 +115,8 @@ export class ScraperGenerationService {
         steps: {
           orderBy: { step_index: 'asc' },
           include: {
-            screenshot_before: { select: { url: true } },
-            screenshot_after: { select: { url: true } },
+            screenshot_before: { select: { path: true } },
+            screenshot_after: { select: { path: true } },
           },
         },
       },
@@ -124,21 +126,43 @@ export class ScraperGenerationService {
       throw new NotFoundException('Generation run not found');
     }
 
-    return {
-      ...run,
-      steps: run.steps.map(
-        ({
+    const steps = await Promise.all(
+      run.steps.map(
+        async ({
           screenshot_before,
           screenshot_after,
           screenshot_before_id,
           screenshot_after_id,
           ...step
-        }) => ({
-          ...step,
-          screenshot_before_url: screenshot_before?.url ?? null,
-          screenshot_after_url: screenshot_after?.url ?? null,
-        }),
+        }) => {
+          const [screenshot_before_url, screenshot_after_url] =
+            await Promise.all([
+              screenshot_before?.path
+                ? this.gcsService.getSignedUrlForPath(
+                    screenshot_before.path,
+                    SCREENSHOT_URL_TTL_MINUTES,
+                  )
+                : null,
+              screenshot_after?.path
+                ? this.gcsService.getSignedUrlForPath(
+                    screenshot_after.path,
+                    SCREENSHOT_URL_TTL_MINUTES,
+                  )
+                : null,
+            ]);
+
+          return {
+            ...step,
+            screenshot_before_url,
+            screenshot_after_url,
+          };
+        },
       ),
+    );
+
+    return {
+      ...run,
+      steps,
     };
   }
 

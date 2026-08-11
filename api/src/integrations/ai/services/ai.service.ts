@@ -1,8 +1,9 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { embed, generateObject, generateText, streamText } from 'ai';
+import { embed, generateObject, generateText, NoObjectGeneratedError, streamText } from 'ai';
 import { IntegrationCredentialResolverService } from '@/integrations/credentials/services/integration-credential-resolver.service';
 import { IntegrationType } from 'generated/prisma';
 import {
+    AiGenerationError,
     AIGenerateObjectResponse,
     AIGenerateOptions,
     AIGenerateTextResponse,
@@ -35,12 +36,12 @@ export class AiService {
         });
     }
 
-    async generateTextWithSchemaForUser(
+    async generateTextWithSchemaForUser<T = unknown>(
         userId: string,
         options: Omit<AIGenerateOptions, 'provider' | 'model' | 'apiKey'>,
-    ): Promise<AIGenerateObjectResponse> {
+    ): Promise<AIGenerateObjectResponse<T>> {
         const resolved = await this.resolveDefaultAiOptions(userId);
-        return this.generateTextWithSchema({
+        return this.generateTextWithSchema<T>({
             ...options,
             ...resolved,
         });
@@ -84,52 +85,72 @@ export class AiService {
     }
 
 
-    async generateTextWithSchema(options: AIGenerateOptions): Promise<AIGenerateObjectResponse> {
-        const maxRetries = 3;
-        let lastError: Error;
+    /**
+     * Generates a structured object matching `options.schema`. Performs a single
+     * attempt only — callers that need correction retries (e.g. re-prompting the
+     * model with the validation error) are responsible for orchestrating those,
+     * since only they know how to build a corrective follow-up prompt.
+     *
+     * On failure throws `AiGenerationError`, which preserves the raw model text
+     * and the underlying validation/parse error so invalid AI output can be
+     * persisted and surfaced instead of being swallowed.
+     */
+    async generateTextWithSchema<T = unknown>(options: AIGenerateOptions): Promise<AIGenerateObjectResponse<T>> {
+        const modelAdapter = this.aiConfig.getModelAdapter(
+            options.provider,
+            options.model,
+            options.apiKey,
+        );
 
-        for (let attempt = 1; attempt <= maxRetries; attempt++) {
-            try {
-                const modelAdapter = this.aiConfig.getModelAdapter(
-                options.provider,
-                options.model,
-                options.apiKey,
-            );
+        try {
+            const { object, usage } = await generateObject({
+                model: modelAdapter,
+                schema: options?.schema || z.record(z.string(), z.unknown()),
+                prompt: options.prompt,
+                system: options?.system || 'You are a helpful assistant.',
+                temperature: options.temperature,
+                maxTokens: options.maxTokens,
+                topP: options.topP,
+                frequencyPenalty: options.frequencyPenalty,
+                presencePenalty: options.presencePenalty,
+            });
 
-                const { object, usage } = await generateObject({
-                    model: modelAdapter,
-                    output: 'array',
-                    schema: options?.schema || z.any(),
-                    prompt: options.prompt,
-                    system: options?.system || 'You are a helpful assistant.',
-                });
+            const cost = calculateAiCost({
+                provider: options.provider,
+                model: options.model,
+                inputTokens: usage.promptTokens,
+                outputTokens: usage.completionTokens,
+            });
 
-                const cost = calculateAiCost({
-                    provider: options.provider,
-                    model: options.model,
-                    inputTokens: usage.promptTokens,
-                    outputTokens: usage.completionTokens,
-                });
+            return {
+                response: object as T,
+                usage: cost,
+            };
+        } catch (error) {
+            if (NoObjectGeneratedError.isInstance(error)) {
+                const cost = error.usage
+                    ? calculateAiCost({
+                        provider: options.provider,
+                        model: options.model,
+                        inputTokens: error.usage.promptTokens ?? 0,
+                        outputTokens: error.usage.completionTokens ?? 0,
+                    })
+                    : undefined;
 
-                return {
-                    response: object,
+                this.logger.warn(`No object generated: ${error.message}`);
+
+                throw new AiGenerationError(error.message, {
+                    cause: error.cause,
+                    kind: 'no_object_generated',
+                    rawText: error.text,
+                    validationError: error.cause,
                     usage: cost,
-                };
-
-            } catch (error) {
-                lastError = error;
-
-                if (attempt < maxRetries) {
-                    this.logger.warn(`Schema validation error on attempt ${attempt}, retrying... Error: ${error.message}`);
-                    continue;
-                }
-
-                this.logger.error(`Error generating text on attempt ${attempt}: ${error.message}`);
-                throw new Error(`Failed to generate text: ${error.message}`);
+                });
             }
-        }
 
-        throw lastError || new Error('Failed to generate text after all retry attempts');
+            this.logger.error(`Error generating object: ${error.message}`, error.stack);
+            throw new AiGenerationError(`Failed to generate object: ${error.message}`, { cause: error });
+        }
     }
 
     async streamText(options: AIStreamTextOptions): Promise<void> {

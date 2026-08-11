@@ -1,5 +1,5 @@
-import { useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { Table, Select, ListBox, Modal, Pagination, useOverlayState } from "@heroui/react";
 import { Plus } from "lucide-react";
 import { Routes } from "@/routes/routes";
@@ -26,7 +26,24 @@ import { formatDuration } from "@/lib/duration";
 
 export default function GenerationRunsListPage() {
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const createModal = useOverlayState();
+  const didAutoOpen = useRef(false);
+
+  useEffect(() => {
+    if (didAutoOpen.current) return;
+    if (searchParams.get("create") === "1") {
+      didAutoOpen.current = true;
+      createModal.open();
+      setSearchParams(
+        (prev) => {
+          prev.delete("create");
+          return prev;
+        },
+        { replace: true },
+      );
+    }
+  });
 
   const [status, setStatus] = useState<GenerationRunStatus | "all">("all");
   const [trigger, setTrigger] = useState<GenerationTrigger | "all">("all");

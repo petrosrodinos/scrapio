@@ -20,6 +20,10 @@ import { DashboardModule } from './modules/dashboard/dashboard.module';
 import { IntegrationsModule } from './modules/integrations/integrations.module';
 import { UserIntegrationsModule } from './modules/user-integrations/user-integrations.module';
 import { UsersModule } from './modules/users/users.module';
+import { ExtractionModule } from './modules/extraction/extraction.module';
+import { ExtractionSchemasModule } from './modules/extraction-schemas/extraction-schemas.module';
+import { PlainScrapeModule } from './modules/plain-scrape/plain-scrape.module';
+import { BrowserAgentModule } from './modules/browser-agent/browser-agent.module';
 
 @Module({
   imports: [
@@ -36,6 +40,10 @@ import { UsersModule } from './modules/users/users.module';
     ScrapersModule,
     ScraperGenerationModule,
     CrawlRunsModule,
+    ExtractionModule,
+    ExtractionSchemasModule,
+    PlainScrapeModule,
+    BrowserAgentModule,
     JobsModule,
     DiagnosticsModule,
     PlatformConfigModule,

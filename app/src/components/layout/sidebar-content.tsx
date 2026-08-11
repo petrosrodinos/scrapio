@@ -2,10 +2,13 @@ import { NavLink } from 'react-router-dom';
 import {
   Activity,
   Bell,
+  Bot,
+  FileCode2,
   Globe,
   LayoutDashboard,
   Plug,
   Play,
+  PlusCircle,
   Settings2,
   Sparkles,
   Wrench,
@@ -24,9 +27,15 @@ const dashboardNavItems = [
   { label: 'Dashboard', icon: LayoutDashboard, href: Routes.dashboard.root, end: true },
 ];
 
+const workflowNavItems = [
+  { label: 'New Workflow', icon: PlusCircle, href: Routes.workflows.new, end: true },
+];
+
 const scraperNavItems = [
   { label: 'Targets', icon: Globe, href: Routes.websiteTargets.list, end: false },
+  { label: 'Plain Scrape', icon: FileCode2, href: Routes.plainScrape.list, end: false },
   { label: 'Generation', icon: Sparkles, href: Routes.generationRuns.list, end: false },
+  { label: 'Browser Agent', icon: Bot, href: Routes.browserAgent.list, end: false },
   { label: 'Crawl Runs', icon: Play, href: Routes.crawlRuns.list, end: false },
   { label: 'Diagnostics', icon: Activity, href: Routes.diagnostics.list, end: false },
   { label: 'Integrations', icon: Plug, href: Routes.integrations.list, end: false },
@@ -146,6 +155,8 @@ export default function SidebarContent({ collapsed, onNavigate }: SidebarContent
   return (
     <div className="space-y-4">
       <NavSection items={dashboardNavItems} collapsed={collapsed} onNavigate={onNavigate} />
+
+      <NavSection items={workflowNavItems} collapsed={collapsed} onNavigate={onNavigate} />
 
       <NavSection
         title="Scrapers"

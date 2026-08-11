@@ -397,43 +397,47 @@ export const outputSchemaFieldSchema: z.ZodType<OutputSchemaField> = z.lazy(() =
   }),
 ) as z.ZodType<OutputSchemaField>;
 
-export const outputDataConfigSchema = z
-  .object({
-    output_formats: z
-      .array(outputFormatSchema)
-      .min(1, "Select at least one output format"),
-    output_schema_mode: z.enum(["builder", "json"]),
-    output_schema_fields: z.array(outputSchemaFieldSchema),
-    output_schema_json: z.string(),
-  })
-  .superRefine((values, ctx) => {
-    if (!values.output_formats.includes(OutputFormats.STRUCTURED_JSON)) {
-      return;
-    }
+export function createOutputDataConfigSchema(requireAtLeastOneFormat = true) {
+  return z
+    .object({
+      output_formats: requireAtLeastOneFormat
+        ? z.array(outputFormatSchema).min(1, "Select at least one output format")
+        : z.array(outputFormatSchema),
+      output_schema_mode: z.enum(["builder", "json"]),
+      output_schema_fields: z.array(outputSchemaFieldSchema),
+      output_schema_json: z.string(),
+    })
+    .superRefine((values, ctx) => {
+      if (!values.output_formats.includes(OutputFormats.STRUCTURED_JSON)) {
+        return;
+      }
 
-    if (values.output_schema_mode === "builder") {
-      validateSchemaFields(values.output_schema_fields, ["output_schema_fields"], ctx);
-      return;
-    }
+      if (values.output_schema_mode === "builder") {
+        validateSchemaFields(values.output_schema_fields, ["output_schema_fields"], ctx);
+        return;
+      }
 
-    if (!values.output_schema_json.trim()) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: "Output schema JSON is required for structured JSON",
-        path: ["output_schema_json"],
-      });
-      return;
-    }
+      if (!values.output_schema_json.trim()) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Output schema JSON is required for structured JSON",
+          path: ["output_schema_json"],
+        });
+        return;
+      }
 
-    const jsonError = getOutputSchemaJsonError(values.output_schema_json);
-    if (jsonError) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: jsonError,
-        path: ["output_schema_json"],
-      });
-    }
-  });
+      const jsonError = getOutputSchemaJsonError(values.output_schema_json);
+      if (jsonError) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: jsonError,
+          path: ["output_schema_json"],
+        });
+      }
+    });
+}
+
+export const outputDataConfigSchema = createOutputDataConfigSchema(true);
 
 export type OutputDataConfigFormValues = z.infer<typeof outputDataConfigSchema>;
 

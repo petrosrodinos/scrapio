@@ -6,7 +6,11 @@ import {
 import { InjectQueue } from '@nestjs/bullmq';
 import { Queue } from 'bullmq';
 import { PrismaService } from '@/core/databases/prisma/prisma.service';
-import { CRAWL_QUEUE } from '@/core/queues/queues.constants';
+import {
+  BROWSER_AGENT_QUEUE,
+  CRAWL_QUEUE,
+  PLAIN_SCRAPE_QUEUE,
+} from '@/core/queues/queues.constants';
 import { AuthUser } from '@/shared/interfaces/auth-user.interface';
 import { workflowRunUserWhere } from '@/shared/utils/user/user-scope.utils';
 import {
@@ -15,9 +19,9 @@ import {
 } from '@/integrations/crawler/constants/crawler.constants';
 import { JobStatus, Prisma, RunStatus, WorkflowType } from 'generated/prisma';
 import { CrawlRunQueryType } from './dto/crawl-run-query.schema';
-import { PaginatedResult } from './interfaces/crawl-run.interface';
+import { PaginatedResult } from '@/shared/interfaces/paginated-result.interface';
 
-interface CrawlJobData {
+interface WorkflowJobData {
   workflowRunId: string;
 }
 
@@ -37,8 +41,35 @@ const ACTIVE_RUN_STATUSES: RunStatus[] = [
 export class CrawlRunsService {
   constructor(
     private readonly prisma: PrismaService,
-    @InjectQueue(CRAWL_QUEUE) private readonly crawlQueue: Queue<CrawlJobData>,
+    @InjectQueue(CRAWL_QUEUE)
+    private readonly crawlQueue: Queue<WorkflowJobData>,
+    @InjectQueue(PLAIN_SCRAPE_QUEUE)
+    private readonly plainScrapeQueue: Queue<WorkflowJobData>,
+    @InjectQueue(BROWSER_AGENT_QUEUE)
+    private readonly browserAgentQueue: Queue<WorkflowJobData>,
   ) {}
+
+  private getQueueForType(type: WorkflowType): Queue<WorkflowJobData> {
+    switch (type) {
+      case WorkflowType.SCRAPER:
+        return this.crawlQueue;
+      case WorkflowType.PLAIN_SCRAPE:
+        return this.plainScrapeQueue;
+      case WorkflowType.BROWSER_AGENT:
+        return this.browserAgentQueue;
+    }
+  }
+
+  private getJobNameForType(type: WorkflowType): string {
+    switch (type) {
+      case WorkflowType.SCRAPER:
+        return 'crawl';
+      case WorkflowType.PLAIN_SCRAPE:
+        return 'plain-scrape';
+      case WorkflowType.BROWSER_AGENT:
+        return 'browser-agent';
+    }
+  }
 
   async enqueue(websiteTargetId: string, workflowConfigId?: string) {
     const websiteTarget = await this.prisma.websiteTarget.findUniqueOrThrow({
@@ -46,12 +77,25 @@ export class CrawlRunsService {
       select: { user_id: true },
     });
 
+    const activeVersion = workflowConfigId
+      ? await this.prisma.workflowConfig
+          .findUnique({
+            where: { id: workflowConfigId },
+            select: { active_version: true },
+          })
+          .then((c) => c?.active_version ?? null)
+      : null;
+
     const run = await this.prisma.workflowRun.create({
       data: {
         user_id: websiteTarget.user_id,
         type: WorkflowType.SCRAPER,
         workflow_config_id: workflowConfigId!,
         website_target_id: websiteTargetId,
+        scraper_version_id: activeVersion?.id ?? null,
+        output_formats: activeVersion?.output_formats ?? [],
+        extraction_schema_version_id:
+          activeVersion?.extraction_schema_version_id ?? null,
         status: RunStatus.QUEUED,
       },
     });
@@ -71,13 +115,105 @@ export class CrawlRunsService {
     return run;
   }
 
+  async enqueuePlainScrape(workflowConfigId: string) {
+    const config = await this.prisma.workflowConfig.findUniqueOrThrow({
+      where: { id: workflowConfigId },
+      select: {
+        user_id: true,
+        type: true,
+        urls: true,
+        extraction_scope: true,
+        output_formats: true,
+        extraction_schema_version_id: true,
+      },
+    });
+
+    if (config.type !== WorkflowType.PLAIN_SCRAPE) {
+      throw new BadRequestException(
+        'Workflow config is not a plain scrape config',
+      );
+    }
+
+    const run = await this.prisma.workflowRun.create({
+      data: {
+        user_id: config.user_id,
+        type: WorkflowType.PLAIN_SCRAPE,
+        workflow_config_id: workflowConfigId,
+        urls: config.urls,
+        extraction_scope: config.extraction_scope,
+        output_formats: config.output_formats,
+        extraction_schema_version_id: config.extraction_schema_version_id,
+        status: RunStatus.QUEUED,
+      },
+    });
+
+    await this.plainScrapeQueue.add(
+      'plain-scrape',
+      { workflowRunId: run.id },
+      {
+        attempts: DEFAULT_CRAWL_JOB_ATTEMPTS,
+        backoff: {
+          type: 'exponential',
+          delay: DEFAULT_CRAWL_JOB_BACKOFF_MS,
+        },
+      },
+    );
+
+    return run;
+  }
+
+  async enqueueBrowserAgent(workflowConfigId: string) {
+    const config = await this.prisma.workflowConfig.findUniqueOrThrow({
+      where: { id: workflowConfigId },
+      select: {
+        user_id: true,
+        type: true,
+        url: true,
+        output_formats: true,
+        extraction_schema_version_id: true,
+      },
+    });
+
+    if (config.type !== WorkflowType.BROWSER_AGENT) {
+      throw new BadRequestException(
+        'Workflow config is not a browser agent config',
+      );
+    }
+
+    const run = await this.prisma.workflowRun.create({
+      data: {
+        user_id: config.user_id,
+        type: WorkflowType.BROWSER_AGENT,
+        workflow_config_id: workflowConfigId,
+        url: config.url,
+        output_formats: config.output_formats,
+        extraction_schema_version_id: config.extraction_schema_version_id,
+        status: RunStatus.QUEUED,
+      },
+    });
+
+    await this.browserAgentQueue.add(
+      'browser-agent',
+      { workflowRunId: run.id },
+      {
+        attempts: DEFAULT_CRAWL_JOB_ATTEMPTS,
+        backoff: {
+          type: 'exponential',
+          delay: DEFAULT_CRAWL_JOB_BACKOFF_MS,
+        },
+      },
+    );
+
+    return run;
+  }
+
   async findAll(
     authUser: AuthUser,
     query: CrawlRunQueryType,
   ): Promise<PaginatedResult<any>> {
     const where: Prisma.WorkflowRunWhereInput = {
       ...workflowRunUserWhere(authUser, query.user_id),
-      type: query.type ?? WorkflowType.SCRAPER,
+      ...(query.type && { type: query.type }),
       ...(query.status && { status: query.status }),
       ...(query.website_target_id && { website_target_id: query.website_target_id }),
       ...(query.workflow_config_id && { workflow_config_id: query.workflow_config_id }),
@@ -133,6 +269,14 @@ export class CrawlRunsService {
         diagnostics_package: {
           select: { id: true, mode: true },
         },
+        pages: {
+          orderBy: { created_at: 'asc' },
+          include: { extraction_result: true },
+        },
+        extraction_result: true,
+        steps: {
+          orderBy: { step_index: 'asc' },
+        },
       },
     });
 
@@ -152,7 +296,14 @@ export class CrawlRunsService {
       throw new NotFoundException('Workflow run not found');
     }
 
-    return this.enqueue(run.website_target_id!, run.workflow_config_id);
+    switch (run.type) {
+      case WorkflowType.SCRAPER:
+        return this.enqueue(run.website_target_id!, run.workflow_config_id);
+      case WorkflowType.PLAIN_SCRAPE:
+        return this.enqueuePlainScrape(run.workflow_config_id);
+      case WorkflowType.BROWSER_AGENT:
+        return this.enqueueBrowserAgent(run.workflow_config_id);
+    }
   }
 
   async cancel(authUser: AuthUser, id: string) {
@@ -177,10 +328,12 @@ export class CrawlRunsService {
       },
     });
 
+    const queue = this.getQueueForType(run.type);
+
     for (const jobLog of jobLogs) {
       if (!jobLog.job_id) continue;
       try {
-        await this.crawlQueue.remove(jobLog.job_id);
+        await queue.remove(jobLog.job_id);
       } catch {}
     }
 
@@ -277,6 +430,18 @@ export class CrawlRunsService {
     const active = await this.prisma.workflowRun.findFirst({
       where: {
         website_target_id: websiteTargetId,
+        status: { in: ACTIVE_RUN_STATUSES },
+      },
+      select: { id: true },
+    });
+
+    return active !== null;
+  }
+
+  async hasActiveRunForWorkflowConfig(workflowConfigId: string): Promise<boolean> {
+    const active = await this.prisma.workflowRun.findFirst({
+      where: {
+        workflow_config_id: workflowConfigId,
         status: { in: ACTIVE_RUN_STATUSES },
       },
       select: { id: true },

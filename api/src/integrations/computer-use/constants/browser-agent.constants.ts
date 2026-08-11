@@ -1,0 +1,2 @@
+export const MAX_BROWSER_AGENT_STEPS = 25;
+export const MAX_BROWSER_AGENT_IMAGE_TURNS = 6;
