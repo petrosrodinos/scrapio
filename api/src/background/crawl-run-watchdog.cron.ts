@@ -83,11 +83,11 @@ export class CrawlRunWatchdogCron {
         workflow_run_id: run.id,
       });
 
-      if (run.workflow_config) {
+      if (run.workflow_config && run.website_target_id) {
         await this.scraperFailureHandler.handle({
           workflowConfig: run.workflow_config,
           workflowRunId: run.id,
-          websiteTargetId: run.website_target_id!,
+          websiteTargetId: run.website_target_id,
           zeroListingsPage0: false,
           networkError: false,
           errorMessage,

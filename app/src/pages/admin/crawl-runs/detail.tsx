@@ -6,6 +6,7 @@ import { DetailSkeleton } from "@/components/ui/detail-skeleton";
 import { ActionButtonWithPending } from "@/components/ui/action-button-with-pending";
 import { ConfirmationDialog } from "@/components/ui/confirmation-dialog";
 import { CrawlRunStatusChip } from "./components/crawl-run-status-chip";
+import { CrawlRunOverview } from "./components/crawl-run-overview";
 import { WorkflowTypeChip } from "./components/workflow-type-chip";
 import {
   useCancelCrawlRun,
@@ -75,7 +76,7 @@ export default function CrawlRunDetailPage() {
         <div className="flex items-center gap-2 flex-wrap">
           {isActive ? (
             <ActionButtonWithPending
-              variant="danger"
+              variant="secondary"
               isPending={cancelRun.isPending}
               isDisabled={cancelRun.isPending}
               onPress={stopConfirm.open}
@@ -121,90 +122,7 @@ export default function CrawlRunDetailPage() {
         </div>
       )}
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 rounded-xl border border-border bg-surface p-6">
-        <div className="flex flex-col gap-1">
-          <span className="text-xs font-medium uppercase tracking-wide text-muted">
-            {isScraper ? "Scraper" : "Config"}
-          </span>
-          {run.workflow_config_id ? (
-            <button
-              className="text-sm text-accent hover:underline text-left"
-              onClick={() => {
-                if (isScraper) {
-                  navigate(Routes.scrapers.detail(run.workflow_config_id!));
-                } else if (isPlainScrape) {
-                  navigate(Routes.plainScrape.detail(run.workflow_config_id!));
-                } else {
-                  navigate(Routes.browserAgent.detail(run.workflow_config_id!));
-                }
-              }}
-            >
-              {run.workflow_config?.name ?? run.workflow_config_id}
-            </button>
-          ) : (
-            <span className="text-sm text-foreground">—</span>
-          )}
-        </div>
-        {run.website_target_id ? (
-          <div className="flex flex-col gap-1">
-            <span className="text-xs font-medium uppercase tracking-wide text-muted">Website target</span>
-            <button
-              className="text-sm text-accent hover:underline text-left"
-              onClick={() => navigate(Routes.websiteTargets.detail(run.website_target_id!))}
-            >
-              {run.website_target?.name ?? run.website_target_id}
-            </button>
-          </div>
-        ) : (
-          <div className="flex flex-col gap-1 min-w-0">
-            <span className="text-xs font-medium uppercase tracking-wide text-muted">
-              {isPlainScrape && (run.urls?.length ?? 0) > 1 ? "URLs" : "URL"}
-            </span>
-            {isPlainScrape && (run.urls?.length ?? 0) > 0 ? (
-              <div className="flex flex-col gap-0.5">
-                {run.urls!.slice(0, 3).map((u) => (
-                  <span key={u} className="text-sm text-foreground truncate" title={u}>
-                    {u}
-                  </span>
-                ))}
-                {run.urls!.length > 3 && (
-                  <span className="text-xs text-muted">+{run.urls!.length - 3} more</span>
-                )}
-              </div>
-            ) : (
-              <span className="text-sm text-foreground truncate" title={run.url ?? undefined}>
-                {run.url ?? "—"}
-              </span>
-            )}
-          </div>
-        )}
-        <div className="flex flex-col gap-1">
-          <span className="text-xs font-medium uppercase tracking-wide text-muted">
-            Started / finished
-          </span>
-          <span className="text-sm text-foreground">
-            {formatDateTime(run.started_at)} / {formatDateTime(run.finished_at)}
-          </span>
-        </div>
-        <div className="flex flex-col gap-1">
-          <span className="text-xs font-medium uppercase tracking-wide text-muted">Duration</span>
-          <span className="text-sm text-foreground">{formatDuration(run.duration_ms)}</span>
-        </div>
-        {run.output_formats && run.output_formats.length > 0 && (
-          <div className="flex flex-col gap-1">
-            <span className="text-xs font-medium uppercase tracking-wide text-muted">
-              Output formats
-            </span>
-            <span className="text-sm text-foreground">{run.output_formats.join(", ")}</span>
-          </div>
-        )}
-        {run.error_message && (
-          <div className="flex flex-col gap-1 sm:col-span-2 lg:col-span-3">
-            <span className="text-xs font-medium uppercase tracking-wide text-muted">Error</span>
-            <span className="text-sm text-danger">{run.error_message}</span>
-          </div>
-        )}
-      </div>
+      <CrawlRunOverview run={run} />
 
       {(isScraper || traces.length > 0) && (
         <div className="rounded-xl border border-border bg-surface px-6">

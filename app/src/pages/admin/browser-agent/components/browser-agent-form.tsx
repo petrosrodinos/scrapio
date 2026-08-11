@@ -56,6 +56,8 @@ export function BrowserAgentForm({
   const schemaMode = watch("output_schema_mode");
   const schemaJson = watch("output_schema_json");
 
+  const noOutputFormatSelected = !outputFormats?.length;
+
   const jsonSchemaInvalid =
     outputFormats?.includes(OutputFormats.STRUCTURED_JSON) &&
     schemaMode === OutputSchemaEditorModes.JSON &&
@@ -169,7 +171,7 @@ export function BrowserAgentForm({
         <ActionButtonWithPending
           type="submit"
           isPending={isPending}
-          isDisabled={isPending || jsonSchemaInvalid}
+          isDisabled={isPending || noOutputFormatSelected || jsonSchemaInvalid}
         >
           {submitLabel}
         </ActionButtonWithPending>

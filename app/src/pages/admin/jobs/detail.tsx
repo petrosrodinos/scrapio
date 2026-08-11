@@ -65,7 +65,7 @@ export default function JobDetailPage() {
         <div className="flex items-center gap-2">
           {isActive ? (
             <ActionButtonWithPending
-              variant="danger"
+              variant="secondary"
               isPending={stopJob.isPending}
               isDisabled={stopJob.isPending}
               onPress={stopConfirm.open}

@@ -93,6 +93,7 @@ export class CrawlRunsService {
         workflow_config_id: workflowConfigId!,
         website_target_id: websiteTargetId,
         scraper_version_id: activeVersion?.id ?? null,
+        urls: [],
         output_formats: activeVersion?.output_formats ?? [],
         extraction_schema_version_id:
           activeVersion?.extraction_schema_version_id ?? null,
@@ -186,6 +187,7 @@ export class CrawlRunsService {
         type: WorkflowType.BROWSER_AGENT,
         workflow_config_id: workflowConfigId,
         url: config.url,
+        urls: [],
         output_formats: config.output_formats,
         extraction_schema_version_id: config.extraction_schema_version_id,
         status: RunStatus.QUEUED,

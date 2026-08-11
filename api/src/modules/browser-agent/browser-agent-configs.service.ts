@@ -94,6 +94,7 @@ export class BrowserAgentConfigsService {
         name: dto.name,
         description: dto.description ?? null,
         url: dto.url,
+        urls: [],
         output_formats: outputFormats,
         extraction_schema_version_id: extractionSchemaVersionId,
         ...this.toScheduleData(dto.schedule_cron),
