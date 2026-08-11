@@ -35,7 +35,7 @@ import { Notification } from './entities/notification.entity';
 
 @ApiTags('Notifications')
 @ApiBearerAuth()
-@Controller('admin/notifications')
+@Controller('notifications')
 @UseGuards(JwtGuard, RolesGuard)
 @Roles(AuthRole.ADMIN, AuthRole.SUPPORT)
 export class NotificationsController {

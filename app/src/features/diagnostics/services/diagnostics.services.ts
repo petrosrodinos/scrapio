@@ -11,7 +11,7 @@ export const getDiagnosticsPackages = async (
   query?: DiagnosticsListQuery,
 ): Promise<PaginatedResponse<DiagnosticsPackage>> => {
   try {
-    const response = await axiosInstance.get(ApiRoutes.admin.diagnostics.list, {
+    const response = await axiosInstance.get(ApiRoutes.diagnostics.list, {
       params: query,
     });
     return response.data;
@@ -24,7 +24,7 @@ export const getDiagnosticsPackage = async (
   id: string,
 ): Promise<DiagnosticsPackageDetail> => {
   try {
-    const response = await axiosInstance.get(ApiRoutes.admin.diagnostics.detail(id));
+    const response = await axiosInstance.get(ApiRoutes.diagnostics.detail(id));
     return response.data;
   } catch (error) {
     throw new Error("Failed to fetch diagnostics package. Please try again.");

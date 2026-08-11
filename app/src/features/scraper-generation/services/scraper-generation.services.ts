@@ -7,13 +7,14 @@ import type {
   PaginatedResponse,
   RejectGenerationRunPayload,
   RetryGenerationRunPayload,
+  UpdateGenerationRunPayload,
 } from "../interfaces/scraper-generation.interfaces";
 
 export const getGenerationRuns = async (
   query?: GenerationRunListQuery,
 ): Promise<PaginatedResponse<GenerationRun>> => {
   try {
-    const response = await axiosInstance.get(ApiRoutes.admin.generationRuns.list, {
+    const response = await axiosInstance.get(ApiRoutes.generationRuns.list, {
       params: query,
     });
     return response.data;
@@ -24,7 +25,7 @@ export const getGenerationRuns = async (
 
 export const getGenerationRun = async (id: string): Promise<GenerationRun> => {
   try {
-    const response = await axiosInstance.get(ApiRoutes.admin.generationRuns.detail(id));
+    const response = await axiosInstance.get(ApiRoutes.generationRuns.detail(id));
     return response.data;
   } catch (error) {
     throw new Error("Failed to fetch generation run. Please try again.");
@@ -35,7 +36,7 @@ export const createGenerationRun = async (
   payload: CreateGenerationRunPayload,
 ): Promise<GenerationRun> => {
   try {
-    const response = await axiosInstance.post(ApiRoutes.admin.generationRuns.list, payload);
+    const response = await axiosInstance.post(ApiRoutes.generationRuns.list, payload);
     return response.data;
   } catch (error: any) {
     throw new Error(
@@ -44,9 +45,26 @@ export const createGenerationRun = async (
   }
 };
 
+export const updateGenerationRun = async (
+  id: string,
+  payload: UpdateGenerationRunPayload,
+): Promise<GenerationRun> => {
+  try {
+    const response = await axiosInstance.patch(
+      ApiRoutes.generationRuns.update(id),
+      payload,
+    );
+    return response.data;
+  } catch (error: any) {
+    throw new Error(
+      error?.response?.data?.message || "Failed to update generation run. Please try again.",
+    );
+  }
+};
+
 export const startGenerationRun = async (id: string): Promise<GenerationRun> => {
   try {
-    const response = await axiosInstance.post(ApiRoutes.admin.generationRuns.start(id));
+    const response = await axiosInstance.post(ApiRoutes.generationRuns.start(id));
     return response.data;
   } catch (error: any) {
     throw new Error(
@@ -57,7 +75,7 @@ export const startGenerationRun = async (id: string): Promise<GenerationRun> => 
 
 export const approveGenerationRun = async (id: string): Promise<GenerationRun> => {
   try {
-    const response = await axiosInstance.post(ApiRoutes.admin.generationRuns.approve(id));
+    const response = await axiosInstance.post(ApiRoutes.generationRuns.approve(id));
     return response.data;
   } catch (error: any) {
     throw new Error(
@@ -71,7 +89,7 @@ export const rejectGenerationRun = async (
   payload?: RejectGenerationRunPayload,
 ): Promise<GenerationRun> => {
   try {
-    const response = await axiosInstance.post(ApiRoutes.admin.generationRuns.reject(id), payload);
+    const response = await axiosInstance.post(ApiRoutes.generationRuns.reject(id), payload);
     return response.data;
   } catch (error: any) {
     throw new Error(
@@ -82,7 +100,7 @@ export const rejectGenerationRun = async (
 
 export const cancelGenerationRun = async (id: string): Promise<GenerationRun> => {
   try {
-    const response = await axiosInstance.post(ApiRoutes.admin.generationRuns.cancel(id));
+    const response = await axiosInstance.post(ApiRoutes.generationRuns.cancel(id));
     return response.data;
   } catch (error: any) {
     throw new Error(
@@ -96,7 +114,7 @@ export const retryGenerationRun = async (
   payload?: RetryGenerationRunPayload,
 ): Promise<GenerationRun> => {
   try {
-    const response = await axiosInstance.post(ApiRoutes.admin.generationRuns.retry(id), payload);
+    const response = await axiosInstance.post(ApiRoutes.generationRuns.retry(id), payload);
     return response.data;
   } catch (error: any) {
     throw new Error(
@@ -107,7 +125,7 @@ export const retryGenerationRun = async (
 
 export const deleteGenerationRun = async (id: string): Promise<void> => {
   try {
-    await axiosInstance.delete(ApiRoutes.admin.generationRuns.delete(id));
+    await axiosInstance.delete(ApiRoutes.generationRuns.delete(id));
   } catch (error: any) {
     throw new Error(
       error?.response?.data?.message || "Failed to delete generation run. Please try again.",

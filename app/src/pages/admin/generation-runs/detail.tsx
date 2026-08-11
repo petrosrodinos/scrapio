@@ -1,13 +1,18 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Modal, Label, TextArea, EmptyState, useOverlayState } from "@heroui/react";
-import { ArrowLeft, Loader2, ImageOff, X } from "lucide-react";
+import { Modal, Label, TextArea, EmptyState, FieldError, useOverlayState } from "@heroui/react";
+import { ArrowLeft, Loader2, ImageOff, Pencil, Play, RotateCcw, Trash2, X } from "lucide-react";
 import { Routes } from "@/routes/routes";
 import { DetailSkeleton } from "@/components/ui/detail-skeleton";
 import { ActionButtonWithPending } from "@/components/ui/action-button-with-pending";
 import { ConfirmationDialog } from "@/components/ui/confirmation-dialog";
+import {
+  TableRowActionsMenu,
+  type TableRowAction,
+} from "@/components/ui/table-row-actions-menu";
 import { GenerationRunStatusChip } from "./components/generation-run-status-chip";
 import { GenerationRunTriggerChip } from "./components/generation-run-trigger-chip";
+import { EditGenerationRunForm } from "./components/edit-generation-run-form";
 import {
   useApproveGenerationRun,
   useCancelGenerationRun,
@@ -16,6 +21,7 @@ import {
   useRejectGenerationRun,
   useRetryGenerationRun,
   useStartGenerationRun,
+  useUpdateGenerationRun,
 } from "@/features/scraper-generation/hooks/use-scraper-generation";
 import {
   GenerationRunStatuses,
@@ -29,17 +35,27 @@ const ACTIVE_STATUSES: GenerationRunStatus[] = [
   GenerationRunStatuses.RUNNING,
 ];
 
+const CONFIG_EDITABLE_STATUSES: GenerationRunStatus[] = [
+  GenerationRunStatuses.DRAFT,
+  GenerationRunStatuses.FAILED,
+  GenerationRunStatuses.CANCELLED,
+];
+
 export default function GenerationRunDetailPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const rejectModal = useOverlayState();
   const retryModal = useOverlayState();
+  const editConfigModal = useOverlayState();
+  const editStagedModal = useOverlayState();
   const cancelConfirm = useOverlayState();
   const deleteConfirm = useOverlayState();
 
   const [rejectReason, setRejectReason] = useState("");
   const [retryError, setRetryError] = useState("");
   const [retryPrompt, setRetryPrompt] = useState("");
+  const [stagedConfigJson, setStagedConfigJson] = useState("");
+  const [stagedConfigError, setStagedConfigError] = useState<string | null>(null);
   const [lightboxUrl, setLightboxUrl] = useState<string | null>(null);
 
   const { data: run, isPending } = useGenerationRun(id!);
@@ -49,6 +65,7 @@ export default function GenerationRunDetailPage() {
   const deleteRun = useDeleteGenerationRun();
   const retryRun = useRetryGenerationRun();
   const startRun = useStartGenerationRun();
+  const updateRun = useUpdateGenerationRun();
 
   if (isPending || !run) {
     return <DetailSkeleton fieldCount={4} showSubTable subTableRows={3} />;
@@ -56,10 +73,70 @@ export default function GenerationRunDetailPage() {
 
   const isActive = ACTIVE_STATUSES.includes(run.status);
   const isDraft = run.status === GenerationRunStatuses.DRAFT;
+  const canEditConfig = CONFIG_EDITABLE_STATUSES.includes(run.status);
+  const canEditStaged = run.status === GenerationRunStatuses.AWAITING_REVIEW;
   const canRetry =
     run.status === GenerationRunStatuses.FAILED ||
     run.status === GenerationRunStatuses.CANCELLED;
   const steps = run.steps ?? [];
+
+  const headerActions: TableRowAction[] = [
+    ...(canEditConfig || canEditStaged
+      ? [{ id: "edit", label: "Edit", icon: Pencil } satisfies TableRowAction]
+      : []),
+    ...(isDraft
+      ? [
+          {
+            id: "start",
+            label: "Start",
+            icon: Play,
+            isDisabled: startRun.isPending,
+          } satisfies TableRowAction,
+        ]
+      : []),
+    ...(canRetry
+      ? [
+          {
+            id: "retry",
+            label: "Retry",
+            icon: RotateCcw,
+            isDisabled: retryRun.isPending,
+          } satisfies TableRowAction,
+        ]
+      : []),
+    {
+      id: "delete",
+      label: "Delete",
+      variant: "danger",
+      icon: Trash2,
+      isDisabled: deleteRun.isPending,
+    },
+  ];
+
+  const handleHeaderAction = (actionId: string) => {
+    switch (actionId) {
+      case "edit":
+        if (canEditStaged) {
+          setStagedConfigJson(JSON.stringify(run.staged_config ?? {}, null, 2));
+          setStagedConfigError(null);
+          editStagedModal.open();
+          return;
+        }
+        editConfigModal.open();
+        return;
+      case "start":
+        startRun.mutate(run.id);
+        return;
+      case "retry":
+        setRetryError(run.error_message ?? "");
+        setRetryPrompt("");
+        retryModal.open();
+        return;
+      case "delete":
+        deleteConfirm.open();
+        return;
+    }
+  };
 
   return (
     <div className="flex flex-col gap-6">
@@ -91,38 +168,12 @@ export default function GenerationRunDetailPage() {
             Cancel
           </ActionButtonWithPending>
         ) : (
-          <div className="flex items-center gap-2 flex-wrap">
-            {isDraft && (
-              <ActionButtonWithPending
-                isPending={startRun.isPending}
-                isDisabled={startRun.isPending}
-                onPress={() => startRun.mutate(run.id)}
-              >
-                Start
-              </ActionButtonWithPending>
-            )}
-            {canRetry && (
-              <ActionButtonWithPending
-                isPending={retryRun.isPending}
-                isDisabled={retryRun.isPending}
-                onPress={() => {
-                  setRetryError(run.error_message ?? "");
-                  setRetryPrompt("");
-                  retryModal.open();
-                }}
-              >
-                Retry
-              </ActionButtonWithPending>
-            )}
-            <ActionButtonWithPending
-              variant="danger"
-              isPending={deleteRun.isPending}
-              isDisabled={deleteRun.isPending}
-              onPress={deleteConfirm.open}
-            >
-              Delete
-            </ActionButtonWithPending>
-          </div>
+          <TableRowActionsMenu
+            actions={headerActions}
+            onAction={handleHeaderAction}
+            ariaLabel="Generation run actions"
+            triggerClassName="bg-surface-secondary hover:bg-surface-secondary/80 border border-border"
+          />
         )}
       </div>
 
@@ -220,6 +271,16 @@ export default function GenerationRunDetailPage() {
             {JSON.stringify(run.staged_config, null, 2)}
           </pre>
           <div className="flex justify-end gap-2">
+            <ActionButtonWithPending
+              variant="secondary"
+              onPress={() => {
+                setStagedConfigJson(JSON.stringify(run.staged_config ?? {}, null, 2));
+                setStagedConfigError(null);
+                editStagedModal.open();
+              }}
+            >
+              Edit staged config
+            </ActionButtonWithPending>
             <ActionButtonWithPending variant="secondary" onPress={rejectModal.open}>
               Reject
             </ActionButtonWithPending>
@@ -314,6 +375,103 @@ export default function GenerationRunDetailPage() {
           />
         </div>
       )}
+
+      <Modal state={editConfigModal}>
+        <Modal.Backdrop isDismissable={!updateRun.isPending}>
+          <Modal.Container size="lg">
+            <Modal.Dialog>
+              <Modal.Header>
+                <Modal.Heading>Edit generation run</Modal.Heading>
+              </Modal.Header>
+              <Modal.Body>
+                <EditGenerationRunForm
+                  run={run}
+                  isPending={updateRun.isPending}
+                  onCancel={editConfigModal.close}
+                  onSubmit={(payload) =>
+                    updateRun.mutate(
+                      { id: run.id, payload },
+                      { onSuccess: () => editConfigModal.close() },
+                    )
+                  }
+                />
+              </Modal.Body>
+            </Modal.Dialog>
+          </Modal.Container>
+        </Modal.Backdrop>
+      </Modal>
+
+      <Modal state={editStagedModal}>
+        <Modal.Backdrop isDismissable={!updateRun.isPending}>
+          <Modal.Container size="lg">
+            <Modal.Dialog>
+              <Modal.Header>
+                <Modal.Heading>Edit staged config</Modal.Heading>
+              </Modal.Header>
+              <Modal.Body>
+                <div className="flex flex-col gap-4">
+                  <div className="flex flex-col gap-1">
+                    <Label htmlFor="staged-config-json">Staged config (JSON)</Label>
+                    <TextArea
+                      id="staged-config-json"
+                      value={stagedConfigJson}
+                      onChange={(e) => {
+                        setStagedConfigJson(e.target.value);
+                        setStagedConfigError(null);
+                      }}
+                      rows={16}
+                      fullWidth
+                      className="font-mono text-xs"
+                    />
+                    {stagedConfigError && <FieldError>{stagedConfigError}</FieldError>}
+                  </div>
+                  <div className="flex justify-end gap-2">
+                    <ActionButtonWithPending
+                      variant="secondary"
+                      isDisabled={updateRun.isPending}
+                      onPress={editStagedModal.close}
+                    >
+                      Cancel
+                    </ActionButtonWithPending>
+                    <ActionButtonWithPending
+                      isPending={updateRun.isPending}
+                      isDisabled={updateRun.isPending}
+                      onPress={() => {
+                        let parsed: unknown;
+                        try {
+                          parsed = JSON.parse(stagedConfigJson);
+                        } catch {
+                          setStagedConfigError("Invalid JSON");
+                          return;
+                        }
+                        if (
+                          !parsed ||
+                          typeof parsed !== "object" ||
+                          Array.isArray(parsed)
+                        ) {
+                          setStagedConfigError("Staged config must be a JSON object");
+                          return;
+                        }
+                        updateRun.mutate(
+                          {
+                            id: run.id,
+                            payload: {
+                              staged_config: parsed as Record<string, unknown>,
+                            },
+                          },
+                          { onSuccess: () => editStagedModal.close() },
+                        );
+                      }}
+                    >
+                      Save
+                    </ActionButtonWithPending>
+                  </div>
+                </div>
+              </Modal.Body>
+            </Modal.Dialog>
+          </Modal.Container>
+        </Modal.Backdrop>
+      </Modal>
 
       <Modal state={rejectModal}>
         <Modal.Backdrop isDismissable={!rejectRun.isPending}>

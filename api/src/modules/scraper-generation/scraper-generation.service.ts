@@ -27,6 +27,7 @@ import {
   WorkflowType,
 } from 'generated/prisma';
 import { CreateGenerationRunDto } from './dto/create-generation-run.dto';
+import { UpdateGenerationRunDto } from './dto/update-generation-run.dto';
 import { RejectGenerationRunDto } from './dto/reject-generation-run.dto';
 import { RetryGenerationRunDto } from './dto/retry-generation-run.dto';
 import { GenerationRunQueryType } from './dto/generation-run-query.schema';
@@ -46,6 +47,12 @@ const ACTIVE_STATUSES: GenerationRunStatus[] = [
 ];
 
 const RETRYABLE_STATUSES: GenerationRunStatus[] = [
+  GenerationRunStatus.FAILED,
+  GenerationRunStatus.CANCELLED,
+];
+
+const CONFIG_EDITABLE_STATUSES: GenerationRunStatus[] = [
+  GenerationRunStatus.DRAFT,
   GenerationRunStatus.FAILED,
   GenerationRunStatus.CANCELLED,
 ];
@@ -208,6 +215,86 @@ export class ScraperGenerationService {
     }
 
     return run;
+  }
+
+  async update(authUser: AuthUser, id: string, dto: UpdateGenerationRunDto) {
+    const run = await this.ensureExists(authUser, id);
+
+    const hasConfigField =
+      dto.prompt !== undefined ||
+      dto.max_steps !== undefined ||
+      dto.output_formats !== undefined ||
+      dto.output_schema !== undefined;
+    const hasStagedConfig = dto.staged_config !== undefined;
+
+    if (!hasConfigField && !hasStagedConfig) {
+      throw new BadRequestException('No fields to update');
+    }
+
+    if (run.status === GenerationRunStatus.AWAITING_REVIEW) {
+      if (hasConfigField) {
+        throw new BadRequestException(
+          'Only staged_config can be edited while awaiting review',
+        );
+      }
+
+      if (
+        !dto.staged_config ||
+        typeof dto.staged_config !== 'object' ||
+        Array.isArray(dto.staged_config)
+      ) {
+        throw new BadRequestException('staged_config must be a JSON object');
+      }
+
+      return this.prisma.scraperGenerationRun.update({
+        where: { id },
+        data: {
+          staged_config: dto.staged_config as Prisma.InputJsonValue,
+        },
+      });
+    }
+
+    if (!CONFIG_EDITABLE_STATUSES.includes(run.status)) {
+      throw new BadRequestException(
+        'Only DRAFT, FAILED, CANCELLED, or AWAITING_REVIEW runs can be edited',
+      );
+    }
+
+    if (hasStagedConfig) {
+      throw new BadRequestException(
+        'staged_config can only be edited while awaiting review',
+      );
+    }
+
+    const nextFormats = dto.output_formats ?? run.output_formats;
+    const nextSchema =
+      dto.output_schema !== undefined
+        ? dto.output_schema
+        : ((run.output_schema as Record<string, unknown> | null) ?? undefined);
+
+    if (dto.output_formats !== undefined || dto.output_schema !== undefined) {
+      this.validateOutputConfig(
+        nextFormats,
+        nextSchema === null ? undefined : nextSchema,
+      );
+    }
+
+    return this.prisma.scraperGenerationRun.update({
+      where: { id },
+      data: {
+        ...(dto.prompt !== undefined && { prompt: dto.prompt.trim() }),
+        ...(dto.max_steps !== undefined && { max_steps: dto.max_steps }),
+        ...(dto.output_formats !== undefined && {
+          output_formats: dto.output_formats,
+        }),
+        ...(dto.output_schema !== undefined && {
+          output_schema:
+            dto.output_schema === null
+              ? Prisma.DbNull
+              : (dto.output_schema as Prisma.InputJsonValue),
+        }),
+      },
+    });
   }
 
   async start(authUser: AuthUser, id: string) {
@@ -658,8 +745,8 @@ export class ScraperGenerationService {
 
     await this.generationQueue.add('generate', data, {
       jobId,
-      removeOnComplete: true,
-      removeOnFail: true,
+      removeOnComplete: 50,
+      removeOnFail: 50,
     });
   }
 

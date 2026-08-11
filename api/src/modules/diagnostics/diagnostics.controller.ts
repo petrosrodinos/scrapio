@@ -21,7 +21,7 @@ import {
 
 @ApiTags('Diagnostics')
 @ApiBearerAuth()
-@Controller('admin/diagnostics')
+@Controller('diagnostics')
 @UseGuards(JwtGuard, RolesGuard)
 @Roles(AuthRole.ADMIN, AuthRole.SUPPORT)
 export class DiagnosticsController {

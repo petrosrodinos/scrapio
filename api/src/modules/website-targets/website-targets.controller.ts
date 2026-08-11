@@ -34,7 +34,7 @@ import { WebsiteTarget } from './entities/website-target.entity';
 
 @ApiTags('Website Targets')
 @ApiBearerAuth()
-@Controller('admin/website-targets')
+@Controller('website-targets')
 @UseGuards(JwtGuard, RolesGuard)
 @Roles(AuthRole.USER, AuthRole.ADMIN, AuthRole.SUPPORT)
 export class WebsiteTargetsController {

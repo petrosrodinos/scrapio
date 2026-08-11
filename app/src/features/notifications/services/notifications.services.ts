@@ -13,7 +13,7 @@ export const getNotifications = async (
   query?: NotificationListQuery,
 ): Promise<PaginatedResponse<Notification>> => {
   try {
-    const response = await axiosInstance.get(ApiRoutes.admin.notifications.list, {
+    const response = await axiosInstance.get(ApiRoutes.notifications.list, {
       params: query,
     });
     return response.data;
@@ -24,7 +24,7 @@ export const getNotifications = async (
 
 export const markNotificationRead = async (id: string): Promise<Notification> => {
   try {
-    const response = await axiosInstance.patch(ApiRoutes.admin.notifications.markRead(id));
+    const response = await axiosInstance.patch(ApiRoutes.notifications.markRead(id));
     return response.data;
   } catch {
     throw new Error("Failed to mark notification as read. Please try again.");
@@ -33,7 +33,7 @@ export const markNotificationRead = async (id: string): Promise<Notification> =>
 
 export const markAllNotificationsRead = async (): Promise<MarkAllReadResponse> => {
   try {
-    const response = await axiosInstance.patch(ApiRoutes.admin.notifications.markAllRead);
+    const response = await axiosInstance.patch(ApiRoutes.notifications.markAllRead);
     return response.data;
   } catch {
     throw new Error("Failed to mark all notifications as read. Please try again.");
@@ -42,7 +42,7 @@ export const markAllNotificationsRead = async (): Promise<MarkAllReadResponse> =
 
 export const deleteNotification = async (id: string): Promise<DeleteNotificationsResponse> => {
   try {
-    const response = await axiosInstance.delete(ApiRoutes.admin.notifications.detail(id));
+    const response = await axiosInstance.delete(ApiRoutes.notifications.detail(id));
     return response.data;
   } catch {
     throw new Error("Failed to delete notification. Please try again.");
@@ -54,7 +54,7 @@ export const deleteNotifications = async (
 ): Promise<DeleteNotificationsResponse> => {
   try {
     const response = await axiosInstance.post(
-      ApiRoutes.admin.notifications.bulkDelete,
+      ApiRoutes.notifications.bulkDelete,
       payload,
     );
     return response.data;

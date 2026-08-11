@@ -33,7 +33,7 @@ export class WebsiteTarget {
 
   @ApiProperty({
     required: false,
-    description: 'Present on GET /admin/website-targets/:id',
+    description: 'Present on GET /website-targets/:id',
     type: 'array',
   })
   block_rules?: Array<{
@@ -55,7 +55,7 @@ export class WebsiteTarget {
 
   @ApiProperty({
     required: false,
-    description: 'Present on GET /admin/website-targets/:id',
+    description: 'Present on GET /website-targets/:id',
     example: { workflow_configs: 0, workflow_runs: 0, notifications: 0 },
   })
   _count?: {

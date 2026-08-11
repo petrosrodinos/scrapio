@@ -17,6 +17,7 @@ export type TableRowActionsMenuProps = {
   actions: TableRowAction[];
   onAction: (actionId: string) => void;
   ariaLabel?: string;
+  triggerClassName?: string;
 };
 
 const actionToneClass: Record<TableRowActionVariant, string> = {
@@ -44,6 +45,7 @@ export function TableRowActionsMenu({
   actions,
   onAction,
   ariaLabel = "Row actions",
+  triggerClassName,
 }: TableRowActionsMenuProps) {
   if (actions.length === 0) {
     return <span className="text-muted text-sm">—</span>;
@@ -52,7 +54,12 @@ export function TableRowActionsMenu({
   return (
     <div onClick={(event) => event.stopPropagation()}>
       <Dropdown>
-        <Button size="sm" variant="ghost" aria-label={ariaLabel} className="min-w-8 px-2">
+        <Button
+          size="sm"
+          variant="ghost"
+          aria-label={ariaLabel}
+          className={cn("min-w-8 px-2", triggerClassName)}
+        >
           <MoreHorizontal className="h-4 w-4" />
         </Button>
         <Dropdown.Popover>

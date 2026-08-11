@@ -15,7 +15,7 @@ import { PlatformConfig } from './entities/platform-config.entity';
 
 @ApiTags('Platform Config')
 @ApiBearerAuth()
-@Controller('admin/platform-config')
+@Controller('platform-config')
 @UseGuards(JwtGuard, RolesGuard)
 @Roles(AuthRole.ADMIN, AuthRole.SUPPORT)
 export class PlatformConfigController {

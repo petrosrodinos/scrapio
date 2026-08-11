@@ -6,6 +6,7 @@ import { ComputerUseModule } from '@/integrations/computer-use/computer-use.modu
 import { GcsIntegrationModule } from '@/integrations/storage/gcs/gcs.module';
 import { GENERATION_QUEUE } from '@/core/queues/queues.constants';
 import { GenerationProcessor } from '@/background/generation.processor';
+import { GenerationRunWatchdogCron } from '@/background/generation-run-watchdog.cron';
 import { ScraperGenerationController } from './scraper-generation.controller';
 import { ScraperGenerationService } from './scraper-generation.service';
 import { CredentialsModule } from '@/integrations/credentials/credentials.module';
@@ -20,7 +21,11 @@ import { CredentialsModule } from '@/integrations/credentials/credentials.module
     BullModule.registerQueue({ name: GENERATION_QUEUE }),
   ],
   controllers: [ScraperGenerationController],
-  providers: [ScraperGenerationService, GenerationProcessor],
+  providers: [
+    ScraperGenerationService,
+    GenerationProcessor,
+    GenerationRunWatchdogCron,
+  ],
   exports: [ScraperGenerationService],
 })
 export class ScraperGenerationModule {}

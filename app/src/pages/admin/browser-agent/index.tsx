@@ -80,7 +80,9 @@ export default function BrowserAgentListPage() {
 
   const handleAction = (config: BrowserAgentConfig, actionId: string) => {
     if (actionId === "run-now") {
-      runNow.mutate(config.id);
+      runNow.mutate(config.id, {
+        onSuccess: (run) => navigate(Routes.crawlRuns.detail(run.id)),
+      });
       return;
     }
     if (actionId === "edit") {

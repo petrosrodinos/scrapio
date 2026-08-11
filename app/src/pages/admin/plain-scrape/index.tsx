@@ -82,7 +82,9 @@ export default function PlainScrapeListPage() {
 
   const handleAction = (config: PlainScrapeConfig, actionId: string) => {
     if (actionId === "run-now") {
-      runNow.mutate(config.id);
+      runNow.mutate(config.id, {
+        onSuccess: (run) => navigate(Routes.crawlRuns.detail(run.id)),
+      });
       return;
     }
     if (actionId === "edit") {

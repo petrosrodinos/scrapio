@@ -63,7 +63,7 @@ export class ScraperGenerationRun {
     required: false,
     type: [ComputerUseStep],
     description:
-      'Present on GET /admin/generation-runs/:id, ordered by step_index asc',
+      'Present on GET /generation-runs/:id, ordered by step_index asc',
   })
   steps?: ComputerUseStep[];
 

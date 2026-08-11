@@ -4,7 +4,7 @@ import type { Integration, IntegrationType } from "../interfaces/integrations.in
 
 export const getIntegrations = async (): Promise<Integration[]> => {
   try {
-    const response = await axiosInstance.get<Integration[]>(ApiRoutes.admin.integrations.list);
+    const response = await axiosInstance.get<Integration[]>(ApiRoutes.integrations.list);
     return response.data;
   } catch (error) {
     throw new Error("Failed to fetch integrations. Please try again.");
@@ -14,7 +14,7 @@ export const getIntegrations = async (): Promise<Integration[]> => {
 export const getIntegration = async (type: IntegrationType): Promise<Integration> => {
   try {
     const response = await axiosInstance.get<Integration>(
-      ApiRoutes.admin.integrations.detail(type),
+      ApiRoutes.integrations.detail(type),
     );
     return response.data;
   } catch (error) {

@@ -32,7 +32,7 @@ import { CrawlRun } from './entities/crawl-run.entity';
 
 @ApiTags('Crawl Runs')
 @ApiBearerAuth()
-@Controller('admin/crawl-runs')
+@Controller('crawl-runs')
 @UseGuards(JwtGuard, RolesGuard)
 @Roles(AuthRole.USER, AuthRole.ADMIN, AuthRole.SUPPORT)
 export class CrawlRunsController {

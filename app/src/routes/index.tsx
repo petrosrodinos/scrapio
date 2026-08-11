@@ -72,25 +72,17 @@ export default function AppRoutes() {
         <Route path={Routes.diagnostics.list} element={<DiagnosticsListPage />} />
         <Route path={`${Routes.diagnostics.list}/:id`} element={<DiagnosticsDetailPage />} />
         <Route path={Routes.integrations.list} element={<IntegrationsPage />} />
+        <Route element={<AdminOnlyRoute />}>
+          <Route path={Routes.admin.jobs.list} element={<JobsListPage />} />
+          <Route path={`${Routes.admin.jobs.list}/:id`} element={<JobDetailPage />} />
+          <Route path={Routes.admin.crawlerConfig} element={<CrawlerConfigPage />} />
+          <Route path={Routes.admin.notifications} element={<NotificationsListPage />} />
+          <Route path={Routes.admin.health} element={<AdminHealthPage />} />
+        </Route>
       </Route>
 
-      <Route
-        path="/admin"
-        element={
-          <ProtectedRoute loggedIn={true}>
-            <DashboardLayout />
-          </ProtectedRoute>
-        }
-      >
-        <Route element={<AdminOnlyRoute />}>
-          <Route path="jobs" element={<JobsListPage />} />
-          <Route path="jobs/:id" element={<JobDetailPage />} />
-          <Route path="crawler-config" element={<CrawlerConfigPage />} />
-          <Route path="notifications" element={<NotificationsListPage />} />
-          <Route path="health" element={<AdminHealthPage />} />
-        </Route>
-        <Route index element={<Navigate to={Routes.admin.jobs.list} replace />} />
-      </Route>
+      <Route path="/admin" element={<Navigate to={Routes.admin.jobs.list} replace />} />
+      <Route path="/admin/*" element={<Navigate to={Routes.admin.jobs.list} replace />} />
 
       <Route path="/" element={<Navigate to={Routes.auth.sign_in} replace />} />
       <Route path="*" element={<Navigate to="/" replace />} />

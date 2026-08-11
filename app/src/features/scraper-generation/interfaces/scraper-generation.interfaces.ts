@@ -60,6 +60,8 @@ export interface GenerationRun {
   status: GenerationRunStatus;
   prompt: string | null;
   max_steps: number | null;
+  output_formats: OutputFormat[];
+  output_schema: Record<string, unknown> | null;
   staged_config: Record<string, unknown> | null;
   produced_version_id: string | null;
   error_message: string | null;
@@ -81,6 +83,14 @@ export interface CreateGenerationRunPayload {
   output_formats?: OutputFormat[];
   output_schema?: Record<string, unknown>;
   start: boolean;
+}
+
+export interface UpdateGenerationRunPayload {
+  prompt?: string;
+  max_steps?: number | null;
+  output_formats?: OutputFormat[];
+  output_schema?: Record<string, unknown> | null;
+  staged_config?: Record<string, unknown>;
 }
 
 export interface RejectGenerationRunPayload {

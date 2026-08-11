@@ -1,5 +1,5 @@
 import { Logger } from '@nestjs/common';
-import { Processor, WorkerHost } from '@nestjs/bullmq';
+import { OnWorkerEvent, Processor, WorkerHost } from '@nestjs/bullmq';
 import { Job } from 'bullmq';
 import { PrismaService } from '@/core/databases/prisma/prisma.service';
 import { ComputerUseOrchestratorService } from '@/integrations/computer-use/computer-use-orchestrator.service';
@@ -53,6 +53,37 @@ export class GenerationProcessor extends WorkerHost {
     }
   }
 
+  @OnWorkerEvent('failed')
+  async onFailed(
+    job: Job<GenerationJobData> | undefined,
+    error: Error,
+  ): Promise<void> {
+    const runId = job?.data?.runId ?? job?.id;
+    if (!runId || typeof runId !== 'string') {
+      this.logger.error(
+        `generation job failed without runId: ${error.message}`,
+      );
+      return;
+    }
+
+    if (job) {
+      const maxAttempts = job.opts.attempts ?? 1;
+      if (job.attemptsMade < maxAttempts) {
+        return;
+      }
+    }
+
+    await this.failRunIfActive(
+      runId,
+      error.message || 'Generation queue job failed',
+    );
+  }
+
+  @OnWorkerEvent('stalled')
+  onStalled(jobId: string): void {
+    this.logger.warn(`generation job stalled: ${jobId}`);
+  }
+
   private async processGenerationJob(
     job: Job<GenerationJobData>,
   ): Promise<void> {
@@ -68,16 +99,31 @@ export class GenerationProcessor extends WorkerHost {
       return;
     }
 
-    if (run.status !== GenerationRunStatus.QUEUED) {
+    if (
+      run.status === GenerationRunStatus.SUCCESS ||
+      run.status === GenerationRunStatus.FAILED ||
+      run.status === GenerationRunStatus.CANCELLED ||
+      run.status === GenerationRunStatus.AWAITING_REVIEW ||
+      run.status === GenerationRunStatus.DRAFT
+    ) {
       this.logger.warn(
-        `generation job ${runId}: run is ${run.status}, not QUEUED — skipping`,
+        `generation job ${runId}: run is ${run.status} — skipping`,
       );
       return;
     }
 
+    const resume =
+      job.data.resume === true || run.status === GenerationRunStatus.RUNNING;
+
+    if (run.status === GenerationRunStatus.RUNNING) {
+      this.logger.warn(
+        `generation job ${runId}: resuming stalled RUNNING run`,
+      );
+    }
+
     try {
       await this.orchestrator.run(runId, {
-        resume: job.data.resume,
+        resume,
         retryError: job.data.retryError,
         retryPrompt: job.data.retryPrompt,
       });
@@ -86,7 +132,50 @@ export class GenerationProcessor extends WorkerHost {
       this.logger.error(
         `generation job ${runId} crashed outside the orchestrator: ${message}`,
       );
+      await this.failRunIfActive(runId, message);
       throw error;
+    }
+  }
+
+  private async failRunIfActive(
+    runId: string,
+    errorMessage: string,
+  ): Promise<void> {
+    const finishedAt = new Date();
+    const run = await this.prisma.scraperGenerationRun.findUnique({
+      where: { id: runId },
+      select: { started_at: true, status: true },
+    });
+
+    if (
+      !run ||
+      (run.status !== GenerationRunStatus.RUNNING &&
+        run.status !== GenerationRunStatus.QUEUED)
+    ) {
+      return;
+    }
+
+    const updated = await this.prisma.scraperGenerationRun.updateMany({
+      where: {
+        id: runId,
+        status: {
+          in: [GenerationRunStatus.RUNNING, GenerationRunStatus.QUEUED],
+        },
+      },
+      data: {
+        status: GenerationRunStatus.FAILED,
+        error_message: errorMessage,
+        finished_at: finishedAt,
+        duration_ms: run.started_at
+          ? finishedAt.getTime() - run.started_at.getTime()
+          : null,
+      },
+    });
+
+    if (updated.count > 0) {
+      this.logger.warn(
+        `generation job ${runId}: marked FAILED after queue failure`,
+      );
     }
   }
 }

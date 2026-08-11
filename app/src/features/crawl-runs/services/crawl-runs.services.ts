@@ -12,7 +12,7 @@ export const getCrawlRuns = async (
   query?: CrawlRunListQuery,
 ): Promise<CrawlRunListResponse> => {
   try {
-    const response = await axiosInstance.get(ApiRoutes.admin.crawlRuns.list, { params: query });
+    const response = await axiosInstance.get(ApiRoutes.crawlRuns.list, { params: query });
     return response.data;
   } catch (error) {
     throw new Error("Failed to fetch crawl runs. Please try again.");
@@ -21,7 +21,7 @@ export const getCrawlRuns = async (
 
 export const getCrawlRun = async (id: string): Promise<CrawlRunDetail> => {
   try {
-    const response = await axiosInstance.get(ApiRoutes.admin.crawlRuns.detail(id));
+    const response = await axiosInstance.get(ApiRoutes.crawlRuns.detail(id));
     return response.data;
   } catch (error) {
     throw new Error("Failed to fetch crawl run. Please try again.");
@@ -30,7 +30,7 @@ export const getCrawlRun = async (id: string): Promise<CrawlRunDetail> => {
 
 export const rerunCrawlRun = async (id: string): Promise<CrawlRun> => {
   try {
-    const response = await axiosInstance.post(ApiRoutes.admin.crawlRuns.rerun(id));
+    const response = await axiosInstance.post(ApiRoutes.crawlRuns.rerun(id));
     return response.data;
   } catch (error: any) {
     throw new Error(error?.response?.data?.message || "Failed to rerun crawl. Please try again.");
@@ -39,7 +39,7 @@ export const rerunCrawlRun = async (id: string): Promise<CrawlRun> => {
 
 export const cancelCrawlRun = async (id: string): Promise<CrawlRunDetail> => {
   try {
-    const response = await axiosInstance.post(ApiRoutes.admin.crawlRuns.cancel(id));
+    const response = await axiosInstance.post(ApiRoutes.crawlRuns.cancel(id));
     return response.data;
   } catch (error: any) {
     throw new Error(
@@ -50,7 +50,7 @@ export const cancelCrawlRun = async (id: string): Promise<CrawlRunDetail> => {
 
 export const deleteCrawlRun = async (id: string): Promise<void> => {
   try {
-    await axiosInstance.delete(ApiRoutes.admin.crawlRuns.detail(id));
+    await axiosInstance.delete(ApiRoutes.crawlRuns.detail(id));
   } catch (error: any) {
     throw new Error(
       error?.response?.data?.message || "Failed to delete crawl run. Please try again.",
@@ -62,7 +62,7 @@ export const deleteCrawlRuns = async (
   payload: DeleteCrawlRunsPayload,
 ): Promise<{ deleted: number }> => {
   try {
-    const response = await axiosInstance.post(ApiRoutes.admin.crawlRuns.bulkDelete, payload);
+    const response = await axiosInstance.post(ApiRoutes.crawlRuns.bulkDelete, payload);
     return response.data;
   } catch (error: any) {
     throw new Error(

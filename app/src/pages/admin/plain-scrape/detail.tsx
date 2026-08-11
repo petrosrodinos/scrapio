@@ -55,7 +55,11 @@ export default function PlainScrapeDetailPage() {
             variant="secondary"
             idleLeading={<Play className="h-4 w-4" />}
             isPending={runNow.isPending}
-            onPress={() => runNow.mutate(config.id)}
+            onPress={() =>
+              runNow.mutate(config.id, {
+                onSuccess: (run) => navigate(Routes.crawlRuns.detail(run.id)),
+              })
+            }
           >
             Run now
           </ActionButtonWithPending>

@@ -81,7 +81,7 @@ export class Scraper {
   @ApiProperty({
     required: false,
     type: ScraperVersion,
-    description: 'Present on GET /admin/scrapers/:id',
+    description: 'Present on GET /scrapers/:id',
   })
   active_version?: ScraperVersion | null;
 

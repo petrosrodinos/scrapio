@@ -64,18 +64,24 @@ export class ComputerUseOrchestratorService {
       },
     });
 
-    const startedAt = new Date();
+    const startedAt = run.started_at ?? new Date();
+    const claimStatuses = options.resume
+      ? [GenerationRunStatus.QUEUED, GenerationRunStatus.RUNNING]
+      : [GenerationRunStatus.QUEUED];
     const claimed = await this.prisma.scraperGenerationRun.updateMany({
       where: {
         id: generationRunId,
-        status: GenerationRunStatus.QUEUED,
+        status: { in: claimStatuses },
       },
-      data: { status: GenerationRunStatus.RUNNING, started_at: startedAt },
+      data: {
+        status: GenerationRunStatus.RUNNING,
+        started_at: startedAt,
+      },
     });
 
     if (claimed.count === 0) {
       this.logger.warn(
-        `generation run ${generationRunId}: not QUEUED at start — aborting`,
+        `generation run ${generationRunId}: not claimable (status=${run.status}, resume=${options.resume === true}) — aborting`,
       );
       return;
     }

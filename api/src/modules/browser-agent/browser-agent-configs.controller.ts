@@ -34,7 +34,7 @@ import { DeleteBrowserAgentConfigsDto } from './dto/delete-browser-agent-configs
 
 @ApiTags('Browser Agent Configs')
 @ApiBearerAuth()
-@Controller('admin/browser-agent-configs')
+@Controller('browser-agent-configs')
 @UseGuards(JwtGuard, RolesGuard)
 @Roles(AuthRole.USER, AuthRole.ADMIN, AuthRole.SUPPORT)
 export class BrowserAgentConfigsController {

@@ -10,6 +10,7 @@ import {
   rejectGenerationRun,
   retryGenerationRun,
   startGenerationRun,
+  updateGenerationRun,
 } from "../services/scraper-generation.services";
 import type {
   CreateGenerationRunPayload,
@@ -17,6 +18,7 @@ import type {
   GenerationRunListQuery,
   RejectGenerationRunPayload,
   RetryGenerationRunPayload,
+  UpdateGenerationRunPayload,
 } from "../interfaces/scraper-generation.interfaces";
 
 const ACTIVE_STATUSES: GenerationRun["status"][] = ["QUEUED", "RUNNING"];
@@ -56,6 +58,27 @@ export const useCreateGenerationRun = () => {
     onError: (error: any) => {
       toast({
         title: "Could not create generation run",
+        description: error.message,
+        variant: "error",
+      });
+    },
+  });
+};
+
+export const useUpdateGenerationRun = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ id, payload }: { id: string; payload: UpdateGenerationRunPayload }) =>
+      updateGenerationRun(id, payload),
+    onSuccess: (_data, { id }) => {
+      queryClient.invalidateQueries({ queryKey: ["generationRuns"] });
+      queryClient.invalidateQueries({ queryKey: ["generationRuns", "detail", id] });
+      toast({ title: "Generation run updated", duration: 2000, variant: "success" });
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Could not update generation run",
         description: error.message,
         variant: "error",
       });

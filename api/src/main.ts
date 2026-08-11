@@ -45,7 +45,7 @@ async function bootstrap() {
   const configService = app.get(ConfigService);
   const serverAdapter = app.get<ExpressAdapter>(BULL_BOARD_ADAPTER);
   app.use(
-    '/admin/queues',
+    '/queues',
     bullBoardAuthMiddleware(configService),
     serverAdapter.getRouter(),
   );

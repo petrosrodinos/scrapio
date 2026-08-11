@@ -7,12 +7,13 @@ import type {
   PaginatedResponse,
   UpdateBrowserAgentConfigPayload,
 } from "../interfaces/browser-agent.interfaces";
+import type { CrawlRun } from "@/features/crawl-runs/interfaces/crawl-runs.interfaces";
 
 export const getBrowserAgentConfigs = async (
   query?: BrowserAgentConfigListQuery,
 ): Promise<PaginatedResponse<BrowserAgentConfig>> => {
   try {
-    const response = await axiosInstance.get(ApiRoutes.admin.browserAgentConfigs.list, {
+    const response = await axiosInstance.get(ApiRoutes.browserAgentConfigs.list, {
       params: query,
     });
     return response.data;
@@ -23,7 +24,7 @@ export const getBrowserAgentConfigs = async (
 
 export const getBrowserAgentConfig = async (id: string): Promise<BrowserAgentConfig> => {
   try {
-    const response = await axiosInstance.get(ApiRoutes.admin.browserAgentConfigs.detail(id));
+    const response = await axiosInstance.get(ApiRoutes.browserAgentConfigs.detail(id));
     return response.data;
   } catch {
     throw new Error("Failed to fetch browser agent config. Please try again.");
@@ -34,7 +35,7 @@ export const createBrowserAgentConfig = async (
   payload: CreateBrowserAgentConfigPayload,
 ): Promise<BrowserAgentConfig> => {
   try {
-    const response = await axiosInstance.post(ApiRoutes.admin.browserAgentConfigs.list, payload);
+    const response = await axiosInstance.post(ApiRoutes.browserAgentConfigs.list, payload);
     return response.data;
   } catch (error: any) {
     throw new Error(
@@ -49,7 +50,7 @@ export const updateBrowserAgentConfig = async (
 ): Promise<BrowserAgentConfig> => {
   try {
     const response = await axiosInstance.patch(
-      ApiRoutes.admin.browserAgentConfigs.detail(id),
+      ApiRoutes.browserAgentConfigs.detail(id),
       payload,
     );
     return response.data;
@@ -62,7 +63,7 @@ export const updateBrowserAgentConfig = async (
 
 export const deleteBrowserAgentConfig = async (id: string): Promise<void> => {
   try {
-    await axiosInstance.delete(ApiRoutes.admin.browserAgentConfigs.detail(id));
+    await axiosInstance.delete(ApiRoutes.browserAgentConfigs.detail(id));
   } catch (error: any) {
     throw new Error(
       error?.response?.data?.message || "Failed to delete browser agent config. Please try again.",
@@ -72,7 +73,7 @@ export const deleteBrowserAgentConfig = async (id: string): Promise<void> => {
 
 export const bulkDeleteBrowserAgentConfigs = async (ids: string[]): Promise<void> => {
   try {
-    await axiosInstance.post(ApiRoutes.admin.browserAgentConfigs.bulkDelete, {
+    await axiosInstance.post(ApiRoutes.browserAgentConfigs.bulkDelete, {
       workflow_config_ids: ids,
     });
   } catch (error: any) {
@@ -83,9 +84,10 @@ export const bulkDeleteBrowserAgentConfigs = async (ids: string[]): Promise<void
   }
 };
 
-export const runBrowserAgentConfigNow = async (id: string): Promise<void> => {
+export const runBrowserAgentConfigNow = async (id: string): Promise<CrawlRun> => {
   try {
-    await axiosInstance.post(ApiRoutes.admin.browserAgentConfigs.runNow(id));
+    const response = await axiosInstance.post(ApiRoutes.browserAgentConfigs.runNow(id));
+    return response.data;
   } catch (error: any) {
     throw new Error(
       error?.response?.data?.message || "Failed to start browser agent run. Please try again.",

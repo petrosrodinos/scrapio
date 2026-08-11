@@ -107,6 +107,20 @@ export default function CrawlRunDetailPage() {
         </div>
       </div>
 
+      {run.status === CrawlRunStatuses.QUEUED && (
+        <div className="rounded-xl border border-border bg-surface-secondary/60 p-6 flex items-center gap-3">
+          <Loader2 className="h-4 w-4 animate-spin text-muted shrink-0" />
+          <p className="text-sm text-foreground">Queued — waiting for a worker to pick this up.</p>
+        </div>
+      )}
+
+      {run.status === CrawlRunStatuses.RUNNING && (
+        <div className="rounded-xl border border-accent/30 bg-accent/10 p-6 flex items-center gap-3">
+          <Loader2 className="h-4 w-4 animate-spin text-accent shrink-0" />
+          <p className="text-sm text-foreground">Running — live updates every few seconds.</p>
+        </div>
+      )}
+
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 rounded-xl border border-border bg-surface p-6">
         <div className="flex flex-col gap-1">
           <span className="text-xs font-medium uppercase tracking-wide text-muted">

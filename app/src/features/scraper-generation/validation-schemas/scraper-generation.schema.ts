@@ -40,4 +40,29 @@ export function buildCreateGenerationRunPayload(
   };
 }
 
+const optionalNullableMaxSteps = z.preprocess((value) => {
+  if (value === "" || value === null || value === undefined) return null;
+  if (typeof value === "number") return value;
+  const parsed = Number(value);
+  return Number.isFinite(parsed) ? parsed : value;
+}, z.number().int().min(1).nullable());
+
+export const updateGenerationRunFormSchema = z
+  .object({
+    prompt: z.string().trim().min(1, "Prompt is required"),
+    max_steps: optionalNullableMaxSteps,
+  })
+  .merge(outputDataConfigSchema);
+
+export type UpdateGenerationRunFormValues = z.infer<typeof updateGenerationRunFormSchema>;
+
+export function buildUpdateGenerationRunPayload(values: UpdateGenerationRunFormValues) {
+  return {
+    prompt: values.prompt.trim(),
+    max_steps: values.max_steps,
+    output_formats: values.output_formats,
+    output_schema: resolveOutputSchemaFromForm(values) ?? null,
+  };
+}
+
 export { outputConfigDefaults };

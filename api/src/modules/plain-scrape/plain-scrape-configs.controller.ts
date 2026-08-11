@@ -34,7 +34,7 @@ import { DeletePlainScrapeConfigsDto } from './dto/delete-plain-scrape-configs.d
 
 @ApiTags('Plain Scrape Configs')
 @ApiBearerAuth()
-@Controller('admin/plain-scrape-configs')
+@Controller('plain-scrape-configs')
 @UseGuards(JwtGuard, RolesGuard)
 @Roles(AuthRole.USER, AuthRole.ADMIN, AuthRole.SUPPORT)
 export class PlainScrapeConfigsController {

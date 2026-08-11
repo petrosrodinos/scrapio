@@ -29,7 +29,7 @@ import { JobLog } from './entities/job-log.entity';
 
 @ApiTags('Jobs')
 @ApiBearerAuth()
-@Controller('admin/jobs')
+@Controller('jobs')
 @UseGuards(JwtGuard, RolesGuard)
 @Roles(AuthRole.ADMIN, AuthRole.SUPPORT)
 export class JobsController {

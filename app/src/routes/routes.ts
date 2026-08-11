@@ -52,11 +52,11 @@ export const Routes = {
     },
     admin: {
         jobs: {
-            list: "/admin/jobs",
-            detail: (id: string) => `/admin/jobs/${id}`,
+            list: "/jobs",
+            detail: (id: string) => `/jobs/${id}`,
         },
-        crawlerConfig: "/admin/crawler-config",
-        notifications: "/admin/notifications",
-        health: "/admin/health",
+        crawlerConfig: "/crawler-config",
+        notifications: "/notifications",
+        health: "/health",
     },
 };

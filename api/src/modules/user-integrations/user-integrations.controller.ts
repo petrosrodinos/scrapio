@@ -34,7 +34,7 @@ import { UserIntegration } from './entities/user-integration.entity';
 
 @ApiTags('User Integrations')
 @ApiBearerAuth()
-@Controller('admin/user-integrations')
+@Controller('user-integrations')
 @UseGuards(JwtGuard, RolesGuard)
 @Roles(AuthRole.USER, AuthRole.ADMIN, AuthRole.SUPPORT)
 export class UserIntegrationsController {

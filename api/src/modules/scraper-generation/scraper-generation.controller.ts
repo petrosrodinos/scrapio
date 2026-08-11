@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  Patch,
   Post,
   Query,
   UseGuards,
@@ -28,6 +29,7 @@ import { AuthUser } from '@/shared/interfaces/auth-user.interface';
 import { ZodValidationPipe } from '@/shared/pipes/zod.validation.pipe';
 import { ScraperGenerationService } from './scraper-generation.service';
 import { CreateGenerationRunDto } from './dto/create-generation-run.dto';
+import { UpdateGenerationRunDto } from './dto/update-generation-run.dto';
 import { RejectGenerationRunDto } from './dto/reject-generation-run.dto';
 import { RetryGenerationRunDto } from './dto/retry-generation-run.dto';
 import {
@@ -38,7 +40,7 @@ import { ScraperGenerationRun } from './entities/generation-run.entity';
 
 @ApiTags('Scraper Generation')
 @ApiBearerAuth()
-@Controller('admin/generation-runs')
+@Controller('generation-runs')
 @UseGuards(JwtGuard, RolesGuard)
 @Roles(AuthRole.USER, AuthRole.ADMIN, AuthRole.SUPPORT)
 export class ScraperGenerationController {
@@ -81,13 +83,34 @@ export class ScraperGenerationController {
   @ApiResponse({ status: 201, type: ScraperGenerationRun })
   @ApiResponse({
     status: 400,
-    description: 'Invalid output config, or no Anthropic integration when starting',
+    description:
+      'Invalid output config, or no Anthropic integration when starting',
   })
   create(
     @CurrentUser() authUser: AuthUser,
     @Body() dto: CreateGenerationRunDto,
   ) {
     return this.scraperGenerationService.create(authUser, dto);
+  }
+
+  @Patch(':id')
+  @Roles(AuthRole.USER, AuthRole.ADMIN)
+  @ApiOperation({
+    summary:
+      'Update a generation run. DRAFT/FAILED/CANCELLED: prompt, max_steps, output config. AWAITING_REVIEW: staged_config only.',
+  })
+  @ApiResponse({ status: 200, type: ScraperGenerationRun })
+  @ApiResponse({
+    status: 400,
+    description: 'Run status does not allow edit, or invalid fields for status',
+  })
+  @ApiResponse({ status: 404, description: 'Generation run not found' })
+  update(
+    @CurrentUser() authUser: AuthUser,
+    @Param('id') id: string,
+    @Body() dto: UpdateGenerationRunDto,
+  ) {
+    return this.scraperGenerationService.update(authUser, id, dto);
   }
 
   @Post(':id/start')

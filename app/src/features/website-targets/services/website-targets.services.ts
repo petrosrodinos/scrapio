@@ -12,7 +12,7 @@ export const getWebsiteTargets = async (
   query?: WebsiteTargetListQuery,
 ): Promise<PaginatedResponse<WebsiteTarget>> => {
   try {
-    const response = await axiosInstance.get(ApiRoutes.admin.websiteTargets.list, {
+    const response = await axiosInstance.get(ApiRoutes.websiteTargets.list, {
       params: query,
     });
     return response.data;
@@ -23,7 +23,7 @@ export const getWebsiteTargets = async (
 
 export const getWebsiteTarget = async (id: string): Promise<WebsiteTarget> => {
   try {
-    const response = await axiosInstance.get(ApiRoutes.admin.websiteTargets.detail(id));
+    const response = await axiosInstance.get(ApiRoutes.websiteTargets.detail(id));
     return response.data;
   } catch {
     throw new Error("Failed to fetch website target. Please try again.");
@@ -34,7 +34,7 @@ export const createWebsiteTarget = async (
   payload: CreateWebsiteTargetPayload,
 ): Promise<WebsiteTarget> => {
   try {
-    const response = await axiosInstance.post(ApiRoutes.admin.websiteTargets.list, payload);
+    const response = await axiosInstance.post(ApiRoutes.websiteTargets.list, payload);
     return response.data;
   } catch (error: any) {
     throw new Error(
@@ -49,7 +49,7 @@ export const updateWebsiteTarget = async (
 ): Promise<WebsiteTarget> => {
   try {
     const response = await axiosInstance.patch(
-      ApiRoutes.admin.websiteTargets.detail(id),
+      ApiRoutes.websiteTargets.detail(id),
       payload,
     );
     return response.data;
@@ -62,7 +62,7 @@ export const updateWebsiteTarget = async (
 
 export const deleteWebsiteTarget = async (id: string): Promise<void> => {
   try {
-    await axiosInstance.delete(ApiRoutes.admin.websiteTargets.detail(id));
+    await axiosInstance.delete(ApiRoutes.websiteTargets.detail(id));
   } catch (error: any) {
     throw new Error(
       error?.response?.data?.message || "Failed to delete website target. Please try again.",
