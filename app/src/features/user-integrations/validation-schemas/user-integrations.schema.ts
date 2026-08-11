@@ -21,9 +21,9 @@ const integrationModelEnum = z.enum([
   ComputerUseModels.DEEPSEEK_REASONER,
 ]);
 
-const computerUseRequiredTypes = new Set([IntegrationTypes.ANTHROPIC]);
+const computerUseRequiredTypes = new Set<string>([IntegrationTypes.ANTHROPIC]);
 
-const aiModelRequiredTypes = new Set([
+const aiModelRequiredTypes = new Set<string>([
   IntegrationTypes.OPENAI,
   IntegrationTypes.GEMINI,
   IntegrationTypes.DEEPSEEK,
