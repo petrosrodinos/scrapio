@@ -5,6 +5,7 @@ import { Routes } from "@/routes/routes";
 import { DetailSkeleton } from "@/components/ui/detail-skeleton";
 import { ActionButtonWithPending } from "@/components/ui/action-button-with-pending";
 import { ConfirmationDialog } from "@/components/ui/confirmation-dialog";
+import { ComputerUseSessionReplay } from "@/components/ui/computer-use-session-replay";
 import { CrawlRunStatusChip } from "./components/crawl-run-status-chip";
 import { CrawlRunOverview } from "./components/crawl-run-overview";
 import { WorkflowTypeChip } from "./components/workflow-type-chip";
@@ -315,44 +316,12 @@ export default function CrawlRunDetailPage() {
       )}
 
       {isBrowserAgent && (
-        <div className="rounded-xl border border-border bg-surface px-6">
-          <Accordion defaultExpandedKeys={[]} hideSeparator>
-            <Accordion.Item id="agent-steps">
-              <Accordion.Heading>
-                <Accordion.Trigger className="text-sm font-medium text-foreground">
-                  Agent steps ({steps.length})
-                  <Accordion.Indicator />
-                </Accordion.Trigger>
-              </Accordion.Heading>
-              <Accordion.Panel>
-                <Accordion.Body>
-                  <div className="flex flex-col gap-3 pb-4">
-                    {steps.length === 0 ? (
-                      <p className="text-sm text-muted">No agent steps recorded yet.</p>
-                    ) : (
-                      steps.map((step) => (
-                        <div key={step.id} className="flex flex-col gap-1 rounded-lg border border-border p-3">
-                          <div className="flex items-center gap-2 text-sm">
-                            <span className="font-medium text-foreground">
-                              #{step.step_index} {step.action_type}
-                            </span>
-                            <span className="text-muted">{formatDateTime(step.created_at)}</span>
-                          </div>
-                          {step.model_reasoning && (
-                            <span className="text-xs text-muted">{step.model_reasoning}</span>
-                          )}
-                          <pre className="rounded-lg border border-border bg-background p-3 text-xs overflow-auto max-h-60">
-                            {JSON.stringify(step.action_payload, null, 2)}
-                          </pre>
-                        </div>
-                      ))
-                    )}
-                  </div>
-                </Accordion.Body>
-              </Accordion.Panel>
-            </Accordion.Item>
-          </Accordion>
-        </div>
+        <ComputerUseSessionReplay
+          steps={steps}
+          isActive={isActive}
+          emptyActiveMessage="Waiting for the first agent step..."
+          emptyIdleMessage="No agent steps were recorded for this run."
+        />
       )}
 
       {isBrowserAgent && run.collected_data && (

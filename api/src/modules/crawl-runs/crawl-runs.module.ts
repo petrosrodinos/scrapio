@@ -7,6 +7,7 @@ import {
   PLAIN_SCRAPE_QUEUE,
 } from '@/core/queues/queues.constants';
 import { CrawlerModule } from '@/integrations/crawler/crawler.module';
+import { ComputerUseModule } from '@/integrations/computer-use/computer-use.module';
 import { PlatformConfigModule } from '@/modules/platform-config/platform-config.module';
 import { CrawlProcessor } from '@/background/crawl.processor';
 import { CrawlSchedulerCron } from '@/background/crawl-scheduler.cron';
@@ -23,6 +24,7 @@ import { CrawlRunsService } from './crawl-runs.service';
   imports: [
     PrismaModule,
     CrawlerModule,
+    ComputerUseModule,
     PlatformConfigModule,
     ScraperGenerationModule,
     NotificationsModule,

@@ -1,12 +1,15 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
 import {
   IsArray,
   IsEnum,
+  IsInt,
   IsObject,
   IsOptional,
   IsString,
   IsUrl,
   Matches,
+  Min,
   MinLength,
   ValidateIf,
 } from 'class-validator';
@@ -30,6 +33,17 @@ export class CreateBrowserAgentConfigDto {
   @ApiProperty({ description: 'Website URL the agent should explore' })
   @IsUrl()
   url: string;
+
+  @ApiProperty({
+    description: 'Hard cap on computer-use steps for runs of this config',
+    default: 25,
+    minimum: 1,
+    example: 25,
+  })
+  @Type(() => Number)
+  @IsInt()
+  @Min(1)
+  max_steps: number;
 
   @ApiProperty({
     type: [String],

@@ -6,6 +6,7 @@ export interface BrowserAgentConfig {
   name: string;
   description: string | null;
   url: string;
+  max_steps: number;
   output_formats: OutputFormat[];
   extraction_schema_version_id: string | null;
   schedule_cron: string | null;
@@ -22,6 +23,7 @@ export interface CreateBrowserAgentConfigPayload {
   name: string;
   description?: string | null;
   url: string;
+  max_steps: number;
   output_formats: OutputFormat[];
   output_schema?: Record<string, unknown>;
   schedule_cron?: string | null;

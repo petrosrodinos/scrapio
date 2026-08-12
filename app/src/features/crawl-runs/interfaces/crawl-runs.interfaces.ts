@@ -84,6 +84,8 @@ export interface ComputerUseStep {
   step_index: number;
   action_type: string;
   action_payload: Record<string, unknown>;
+  screenshot_before_url: string | null;
+  screenshot_after_url: string | null;
   model_reasoning: string | null;
   created_at: string;
 }
@@ -120,6 +122,7 @@ export interface WorkflowRun {
   website_target_id: string | null;
   scraper_version_id: string | null;
   url: string | null;
+  max_steps: number | null;
   urls: string[] | null;
   extraction_scope: ExtractionScope | null;
   output_formats: string[] | null;

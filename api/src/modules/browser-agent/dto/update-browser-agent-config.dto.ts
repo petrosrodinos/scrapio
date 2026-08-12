@@ -1,12 +1,15 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
 import {
   IsArray,
   IsEnum,
+  IsInt,
   IsObject,
   IsOptional,
   IsString,
   IsUrl,
   Matches,
+  Min,
   MinLength,
   ValidateIf,
 } from 'class-validator';
@@ -28,6 +31,17 @@ export class UpdateBrowserAgentConfigDto {
   @IsOptional()
   @IsUrl()
   url?: string;
+
+  @ApiProperty({
+    required: false,
+    description: 'Hard cap on computer-use steps for runs of this config',
+    minimum: 1,
+  })
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt()
+  @Min(1)
+  max_steps?: number;
 
   @ApiProperty({ type: [String], enum: OutputFormat, required: false })
   @IsOptional()

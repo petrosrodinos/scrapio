@@ -17,6 +17,7 @@ import {
   DEFAULT_CRAWL_JOB_ATTEMPTS,
   DEFAULT_CRAWL_JOB_BACKOFF_MS,
 } from '@/integrations/crawler/constants/crawler.constants';
+import { ScreenshotStorageService } from '@/integrations/computer-use/services/screenshot-storage.service';
 import { JobStatus, Prisma, RunStatus, WorkflowType } from 'generated/prisma';
 import { CrawlRunQueryType } from './dto/crawl-run-query.schema';
 import { PaginatedResult } from '@/shared/interfaces/paginated-result.interface';
@@ -41,6 +42,7 @@ const ACTIVE_RUN_STATUSES: RunStatus[] = [
 export class CrawlRunsService {
   constructor(
     private readonly prisma: PrismaService,
+    private readonly screenshotStorage: ScreenshotStorageService,
     @InjectQueue(CRAWL_QUEUE)
     private readonly crawlQueue: Queue<WorkflowJobData>,
     @InjectQueue(PLAIN_SCRAPE_QUEUE)
@@ -170,6 +172,7 @@ export class CrawlRunsService {
         user_id: true,
         type: true,
         url: true,
+        max_steps: true,
         output_formats: true,
         extraction_schema_version_id: true,
       },
@@ -187,6 +190,7 @@ export class CrawlRunsService {
         type: WorkflowType.BROWSER_AGENT,
         workflow_config_id: workflowConfigId,
         url: config.url,
+        max_steps: config.max_steps,
         urls: [],
         output_formats: config.output_formats,
         extraction_schema_version_id: config.extraction_schema_version_id,
@@ -278,6 +282,10 @@ export class CrawlRunsService {
         extraction_result: true,
         steps: {
           orderBy: { step_index: 'asc' },
+          include: {
+            screenshot_before: { select: { path: true } },
+            screenshot_after: { select: { path: true } },
+          },
         },
       },
     });
@@ -286,7 +294,12 @@ export class CrawlRunsService {
       throw new NotFoundException('Workflow run not found');
     }
 
-    return run;
+    const steps = await this.screenshotStorage.attachSignedUrls(run.steps);
+
+    return {
+      ...run,
+      steps,
+    };
   }
 
   async rerun(authUser: AuthUser, id: string) {

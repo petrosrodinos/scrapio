@@ -14,6 +14,7 @@ import {
 } from "@/features/scraper-generation/interfaces/output-config.interfaces";
 import {
   browserAgentFormSchema,
+  DEFAULT_BROWSER_AGENT_MAX_STEPS,
   type BrowserAgentFormValues,
 } from "@/features/browser-agent/validation-schemas/browser-agent.schema";
 
@@ -44,6 +45,7 @@ export function BrowserAgentForm({
       name: defaultValues?.name ?? "",
       description: defaultValues?.description ?? "",
       url: defaultValues?.url ?? "",
+      max_steps: defaultValues?.max_steps ?? DEFAULT_BROWSER_AGENT_MAX_STEPS,
       schedule_cron: defaultValues?.schedule_cron ?? null,
       output_formats: defaultValues?.output_formats ?? [OutputFormats.STRUCTURED_JSON],
       output_schema_mode: defaultValues?.output_schema_mode ?? OutputSchemaEditorModes.BUILDER,
@@ -100,6 +102,22 @@ export function BrowserAgentForm({
           The agent uses computer vision to click, scroll, and navigate the site autonomously to
           find this information — no manual selectors required.
         </span>
+      </div>
+
+      <div className="flex flex-col gap-1">
+        <Label htmlFor="browser-agent-max-steps">Max steps</Label>
+        <Input
+          id="browser-agent-max-steps"
+          type="number"
+          min={1}
+          {...register("max_steps")}
+          className="max-w-48"
+          fullWidth
+        />
+        <span className="text-xs text-muted">
+          Hard cap on computer-use steps per run, to bound cost and runtime.
+        </span>
+        {errors.max_steps && <FieldError>{errors.max_steps.message}</FieldError>}
       </div>
 
       <div className="border-t border-border pt-5">

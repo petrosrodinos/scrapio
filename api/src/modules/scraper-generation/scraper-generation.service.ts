@@ -34,6 +34,7 @@ import { GenerationRunQueryType } from './dto/generation-run-query.schema';
 import { getOutputSchemaDefinitionError } from './dto/output-schema.schema';
 import { PaginatedResult } from './interfaces/generation-run.interface';
 import { IntegrationCredentialResolverService } from '@/integrations/credentials/services/integration-credential-resolver.service';
+import { ScreenshotStorageService } from '@/integrations/computer-use/services/screenshot-storage.service';
 
 const TERMINAL_STATUSES: GenerationRunStatus[] = [
   GenerationRunStatus.SUCCESS,
@@ -57,8 +58,6 @@ const CONFIG_EDITABLE_STATUSES: GenerationRunStatus[] = [
   GenerationRunStatus.CANCELLED,
 ];
 
-const SCREENSHOT_URL_TTL_MINUTES = 60;
-
 @Injectable()
 export class ScraperGenerationService {
   private readonly logger = new Logger(ScraperGenerationService.name);
@@ -66,6 +65,7 @@ export class ScraperGenerationService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly gcsService: GcsService,
+    private readonly screenshotStorage: ScreenshotStorageService,
     private readonly credentialResolver: IntegrationCredentialResolverService,
     @InjectQueue(GENERATION_QUEUE) private readonly generationQueue: Queue,
   ) {}
@@ -133,39 +133,7 @@ export class ScraperGenerationService {
       throw new NotFoundException('Generation run not found');
     }
 
-    const steps = await Promise.all(
-      run.steps.map(
-        async ({
-          screenshot_before,
-          screenshot_after,
-          screenshot_before_id,
-          screenshot_after_id,
-          ...step
-        }) => {
-          const [screenshot_before_url, screenshot_after_url] =
-            await Promise.all([
-              screenshot_before?.path
-                ? this.gcsService.getSignedUrlForPath(
-                    screenshot_before.path,
-                    SCREENSHOT_URL_TTL_MINUTES,
-                  )
-                : null,
-              screenshot_after?.path
-                ? this.gcsService.getSignedUrlForPath(
-                    screenshot_after.path,
-                    SCREENSHOT_URL_TTL_MINUTES,
-                  )
-                : null,
-            ]);
-
-          return {
-            ...step,
-            screenshot_before_url,
-            screenshot_after_url,
-          };
-        },
-      ),
-    );
+    const steps = await this.screenshotStorage.attachSignedUrls(run.steps);
 
     return {
       ...run,

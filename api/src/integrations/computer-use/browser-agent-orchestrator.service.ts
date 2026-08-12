@@ -48,6 +48,8 @@ export class BrowserAgentOrchestratorService {
       };
     }
 
+    const maxSteps = run.max_steps ?? MAX_BROWSER_AGENT_STEPS;
+
     const computerUseIntegration =
       await this.credentialResolver.resolveComputerUseIntegration(
         run.user_id,
@@ -87,7 +89,7 @@ export class BrowserAgentOrchestratorService {
         !finalFindings &&
         !failureReason &&
         !wasCancelled &&
-        stepIndex < MAX_BROWSER_AGENT_STEPS
+        stepIndex < maxSteps
       ) {
         if (await this.isCancelled(workflowRunId)) {
           wasCancelled = true;
@@ -218,7 +220,7 @@ export class BrowserAgentOrchestratorService {
       }
 
       if (!finalFindings && !failureReason && !wasCancelled) {
-        failureReason = `Reached max steps (${MAX_BROWSER_AGENT_STEPS}) without completing the task`;
+        failureReason = `Reached max steps (${maxSteps}) without completing the task`;
       }
     } catch (error) {
       failureReason =

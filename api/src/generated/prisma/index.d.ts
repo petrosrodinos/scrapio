@@ -9708,6 +9708,7 @@ export namespace Prisma {
     success_rate: Decimal | null
     avg_runtime_ms: number | null
     consecutive_failures: number | null
+    max_steps: number | null
   }
 
   export type WorkflowConfigSumAggregateOutputType = {
@@ -9715,6 +9716,7 @@ export namespace Prisma {
     success_rate: Decimal | null
     avg_runtime_ms: number | null
     consecutive_failures: number | null
+    max_steps: number | null
   }
 
   export type WorkflowConfigMinAggregateOutputType = {
@@ -9736,6 +9738,7 @@ export namespace Prisma {
     last_success_at: Date | null
     last_failure_at: Date | null
     url: string | null
+    max_steps: number | null
     extraction_scope: $Enums.ExtractionScope | null
     extraction_schema_version_id: string | null
     schedule_cron: string | null
@@ -9764,6 +9767,7 @@ export namespace Prisma {
     last_success_at: Date | null
     last_failure_at: Date | null
     url: string | null
+    max_steps: number | null
     extraction_scope: $Enums.ExtractionScope | null
     extraction_schema_version_id: string | null
     schedule_cron: string | null
@@ -9792,6 +9796,7 @@ export namespace Prisma {
     last_success_at: number
     last_failure_at: number
     url: number
+    max_steps: number
     urls: number
     extraction_scope: number
     output_formats: number
@@ -9810,6 +9815,7 @@ export namespace Prisma {
     success_rate?: true
     avg_runtime_ms?: true
     consecutive_failures?: true
+    max_steps?: true
   }
 
   export type WorkflowConfigSumAggregateInputType = {
@@ -9817,6 +9823,7 @@ export namespace Prisma {
     success_rate?: true
     avg_runtime_ms?: true
     consecutive_failures?: true
+    max_steps?: true
   }
 
   export type WorkflowConfigMinAggregateInputType = {
@@ -9838,6 +9845,7 @@ export namespace Prisma {
     last_success_at?: true
     last_failure_at?: true
     url?: true
+    max_steps?: true
     extraction_scope?: true
     extraction_schema_version_id?: true
     schedule_cron?: true
@@ -9866,6 +9874,7 @@ export namespace Prisma {
     last_success_at?: true
     last_failure_at?: true
     url?: true
+    max_steps?: true
     extraction_scope?: true
     extraction_schema_version_id?: true
     schedule_cron?: true
@@ -9894,6 +9903,7 @@ export namespace Prisma {
     last_success_at?: true
     last_failure_at?: true
     url?: true
+    max_steps?: true
     urls?: true
     extraction_scope?: true
     output_formats?: true
@@ -10011,6 +10021,7 @@ export namespace Prisma {
     last_success_at: Date | null
     last_failure_at: Date | null
     url: string | null
+    max_steps: number | null
     urls: string[]
     extraction_scope: $Enums.ExtractionScope
     output_formats: $Enums.OutputFormat[]
@@ -10060,6 +10071,7 @@ export namespace Prisma {
     last_success_at?: boolean
     last_failure_at?: boolean
     url?: boolean
+    max_steps?: boolean
     urls?: boolean
     extraction_scope?: boolean
     output_formats?: boolean
@@ -10101,6 +10113,7 @@ export namespace Prisma {
     last_success_at?: boolean
     last_failure_at?: boolean
     url?: boolean
+    max_steps?: boolean
     urls?: boolean
     extraction_scope?: boolean
     output_formats?: boolean
@@ -10135,6 +10148,7 @@ export namespace Prisma {
     last_success_at?: boolean
     last_failure_at?: boolean
     url?: boolean
+    max_steps?: boolean
     urls?: boolean
     extraction_scope?: boolean
     output_formats?: boolean
@@ -10169,6 +10183,7 @@ export namespace Prisma {
     last_success_at?: boolean
     last_failure_at?: boolean
     url?: boolean
+    max_steps?: boolean
     urls?: boolean
     extraction_scope?: boolean
     output_formats?: boolean
@@ -10180,7 +10195,7 @@ export namespace Prisma {
     updated_at?: boolean
   }
 
-  export type WorkflowConfigOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "type" | "name" | "description" | "website_target_id" | "active_version_id" | "version_count" | "status" | "self_healing_enabled" | "diagnostics_mode" | "health" | "success_rate" | "avg_runtime_ms" | "consecutive_failures" | "last_success_at" | "last_failure_at" | "url" | "urls" | "extraction_scope" | "output_formats" | "extraction_schema_version_id" | "schedule_cron" | "schedule_timezone" | "schedule_enabled" | "created_at" | "updated_at", ExtArgs["result"]["workflowConfig"]>
+  export type WorkflowConfigOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "type" | "name" | "description" | "website_target_id" | "active_version_id" | "version_count" | "status" | "self_healing_enabled" | "diagnostics_mode" | "health" | "success_rate" | "avg_runtime_ms" | "consecutive_failures" | "last_success_at" | "last_failure_at" | "url" | "max_steps" | "urls" | "extraction_scope" | "output_formats" | "extraction_schema_version_id" | "schedule_cron" | "schedule_timezone" | "schedule_enabled" | "created_at" | "updated_at", ExtArgs["result"]["workflowConfig"]>
   export type WorkflowConfigInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     website_target?: boolean | WorkflowConfig$website_targetArgs<ExtArgs>
@@ -10240,6 +10255,7 @@ export namespace Prisma {
       last_success_at: Date | null
       last_failure_at: Date | null
       url: string | null
+      max_steps: number | null
       urls: string[]
       extraction_scope: $Enums.ExtractionScope
       output_formats: $Enums.OutputFormat[]
@@ -10700,6 +10716,7 @@ export namespace Prisma {
     readonly last_success_at: FieldRef<"WorkflowConfig", 'DateTime'>
     readonly last_failure_at: FieldRef<"WorkflowConfig", 'DateTime'>
     readonly url: FieldRef<"WorkflowConfig", 'String'>
+    readonly max_steps: FieldRef<"WorkflowConfig", 'Int'>
     readonly urls: FieldRef<"WorkflowConfig", 'String[]'>
     readonly extraction_scope: FieldRef<"WorkflowConfig", 'ExtractionScope'>
     readonly output_formats: FieldRef<"WorkflowConfig", 'OutputFormat[]'>
@@ -16299,10 +16316,12 @@ export namespace Prisma {
   }
 
   export type WorkflowRunAvgAggregateOutputType = {
+    max_steps: number | null
     duration_ms: number | null
   }
 
   export type WorkflowRunSumAggregateOutputType = {
+    max_steps: number | null
     duration_ms: number | null
   }
 
@@ -16316,6 +16335,7 @@ export namespace Prisma {
     website_target_id: string | null
     scraper_version_id: string | null
     url: string | null
+    max_steps: number | null
     extraction_scope: $Enums.ExtractionScope | null
     extraction_schema_version_id: string | null
     error_message: string | null
@@ -16336,6 +16356,7 @@ export namespace Prisma {
     website_target_id: string | null
     scraper_version_id: string | null
     url: string | null
+    max_steps: number | null
     extraction_scope: $Enums.ExtractionScope | null
     extraction_schema_version_id: string | null
     error_message: string | null
@@ -16356,6 +16377,7 @@ export namespace Prisma {
     website_target_id: number
     scraper_version_id: number
     url: number
+    max_steps: number
     visited_urls: number
     browser_actions: number
     collected_data: number
@@ -16376,10 +16398,12 @@ export namespace Prisma {
 
 
   export type WorkflowRunAvgAggregateInputType = {
+    max_steps?: true
     duration_ms?: true
   }
 
   export type WorkflowRunSumAggregateInputType = {
+    max_steps?: true
     duration_ms?: true
   }
 
@@ -16393,6 +16417,7 @@ export namespace Prisma {
     website_target_id?: true
     scraper_version_id?: true
     url?: true
+    max_steps?: true
     extraction_scope?: true
     extraction_schema_version_id?: true
     error_message?: true
@@ -16413,6 +16438,7 @@ export namespace Prisma {
     website_target_id?: true
     scraper_version_id?: true
     url?: true
+    max_steps?: true
     extraction_scope?: true
     extraction_schema_version_id?: true
     error_message?: true
@@ -16433,6 +16459,7 @@ export namespace Prisma {
     website_target_id?: true
     scraper_version_id?: true
     url?: true
+    max_steps?: true
     visited_urls?: true
     browser_actions?: true
     collected_data?: true
@@ -16547,6 +16574,7 @@ export namespace Prisma {
     website_target_id: string | null
     scraper_version_id: string | null
     url: string | null
+    max_steps: number | null
     visited_urls: JsonValue | null
     browser_actions: JsonValue | null
     collected_data: JsonValue | null
@@ -16593,6 +16621,7 @@ export namespace Prisma {
     website_target_id?: boolean
     scraper_version_id?: boolean
     url?: boolean
+    max_steps?: boolean
     visited_urls?: boolean
     browser_actions?: boolean
     collected_data?: boolean
@@ -16634,6 +16663,7 @@ export namespace Prisma {
     website_target_id?: boolean
     scraper_version_id?: boolean
     url?: boolean
+    max_steps?: boolean
     visited_urls?: boolean
     browser_actions?: boolean
     collected_data?: boolean
@@ -16666,6 +16696,7 @@ export namespace Prisma {
     website_target_id?: boolean
     scraper_version_id?: boolean
     url?: boolean
+    max_steps?: boolean
     visited_urls?: boolean
     browser_actions?: boolean
     collected_data?: boolean
@@ -16698,6 +16729,7 @@ export namespace Prisma {
     website_target_id?: boolean
     scraper_version_id?: boolean
     url?: boolean
+    max_steps?: boolean
     visited_urls?: boolean
     browser_actions?: boolean
     collected_data?: boolean
@@ -16715,7 +16747,7 @@ export namespace Prisma {
     updated_at?: boolean
   }
 
-  export type WorkflowRunOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "workflow_config_id" | "user_id" | "type" | "trigger" | "status" | "website_target_id" | "scraper_version_id" | "url" | "visited_urls" | "browser_actions" | "collected_data" | "urls" | "extraction_scope" | "output_formats" | "extraction_schema_version_id" | "ai_usage" | "error_message" | "metadata" | "started_at" | "finished_at" | "duration_ms" | "created_at" | "updated_at", ExtArgs["result"]["workflowRun"]>
+  export type WorkflowRunOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "workflow_config_id" | "user_id" | "type" | "trigger" | "status" | "website_target_id" | "scraper_version_id" | "url" | "max_steps" | "visited_urls" | "browser_actions" | "collected_data" | "urls" | "extraction_scope" | "output_formats" | "extraction_schema_version_id" | "ai_usage" | "error_message" | "metadata" | "started_at" | "finished_at" | "duration_ms" | "created_at" | "updated_at", ExtArgs["result"]["workflowRun"]>
   export type WorkflowRunInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workflow_config?: boolean | WorkflowConfigDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -16774,6 +16806,7 @@ export namespace Prisma {
       website_target_id: string | null
       scraper_version_id: string | null
       url: string | null
+      max_steps: number | null
       visited_urls: Prisma.JsonValue | null
       browser_actions: Prisma.JsonValue | null
       collected_data: Prisma.JsonValue | null
@@ -17234,6 +17267,7 @@ export namespace Prisma {
     readonly website_target_id: FieldRef<"WorkflowRun", 'String'>
     readonly scraper_version_id: FieldRef<"WorkflowRun", 'String'>
     readonly url: FieldRef<"WorkflowRun", 'String'>
+    readonly max_steps: FieldRef<"WorkflowRun", 'Int'>
     readonly visited_urls: FieldRef<"WorkflowRun", 'Json'>
     readonly browser_actions: FieldRef<"WorkflowRun", 'Json'>
     readonly collected_data: FieldRef<"WorkflowRun", 'Json'>
@@ -31207,6 +31241,7 @@ export namespace Prisma {
     last_success_at: 'last_success_at',
     last_failure_at: 'last_failure_at',
     url: 'url',
+    max_steps: 'max_steps',
     urls: 'urls',
     extraction_scope: 'extraction_scope',
     output_formats: 'output_formats',
@@ -31301,6 +31336,7 @@ export namespace Prisma {
     website_target_id: 'website_target_id',
     scraper_version_id: 'scraper_version_id',
     url: 'url',
+    max_steps: 'max_steps',
     visited_urls: 'visited_urls',
     browser_actions: 'browser_actions',
     collected_data: 'collected_data',
@@ -32430,6 +32466,7 @@ export namespace Prisma {
     last_success_at?: DateTimeNullableFilter<"WorkflowConfig"> | Date | string | null
     last_failure_at?: DateTimeNullableFilter<"WorkflowConfig"> | Date | string | null
     url?: StringNullableFilter<"WorkflowConfig"> | string | null
+    max_steps?: IntNullableFilter<"WorkflowConfig"> | number | null
     urls?: StringNullableListFilter<"WorkflowConfig">
     extraction_scope?: EnumExtractionScopeFilter<"WorkflowConfig"> | $Enums.ExtractionScope
     output_formats?: EnumOutputFormatNullableListFilter<"WorkflowConfig">
@@ -32470,6 +32507,7 @@ export namespace Prisma {
     last_success_at?: SortOrderInput | SortOrder
     last_failure_at?: SortOrderInput | SortOrder
     url?: SortOrderInput | SortOrder
+    max_steps?: SortOrderInput | SortOrder
     urls?: SortOrder
     extraction_scope?: SortOrder
     output_formats?: SortOrder
@@ -32513,6 +32551,7 @@ export namespace Prisma {
     last_success_at?: DateTimeNullableFilter<"WorkflowConfig"> | Date | string | null
     last_failure_at?: DateTimeNullableFilter<"WorkflowConfig"> | Date | string | null
     url?: StringNullableFilter<"WorkflowConfig"> | string | null
+    max_steps?: IntNullableFilter<"WorkflowConfig"> | number | null
     urls?: StringNullableListFilter<"WorkflowConfig">
     extraction_scope?: EnumExtractionScopeFilter<"WorkflowConfig"> | $Enums.ExtractionScope
     output_formats?: EnumOutputFormatNullableListFilter<"WorkflowConfig">
@@ -32553,6 +32592,7 @@ export namespace Prisma {
     last_success_at?: SortOrderInput | SortOrder
     last_failure_at?: SortOrderInput | SortOrder
     url?: SortOrderInput | SortOrder
+    max_steps?: SortOrderInput | SortOrder
     urls?: SortOrder
     extraction_scope?: SortOrder
     output_formats?: SortOrder
@@ -32591,6 +32631,7 @@ export namespace Prisma {
     last_success_at?: DateTimeNullableWithAggregatesFilter<"WorkflowConfig"> | Date | string | null
     last_failure_at?: DateTimeNullableWithAggregatesFilter<"WorkflowConfig"> | Date | string | null
     url?: StringNullableWithAggregatesFilter<"WorkflowConfig"> | string | null
+    max_steps?: IntNullableWithAggregatesFilter<"WorkflowConfig"> | number | null
     urls?: StringNullableListFilter<"WorkflowConfig">
     extraction_scope?: EnumExtractionScopeWithAggregatesFilter<"WorkflowConfig"> | $Enums.ExtractionScope
     output_formats?: EnumOutputFormatNullableListFilter<"WorkflowConfig">
@@ -33005,6 +33046,7 @@ export namespace Prisma {
     website_target_id?: StringNullableFilter<"WorkflowRun"> | string | null
     scraper_version_id?: StringNullableFilter<"WorkflowRun"> | string | null
     url?: StringNullableFilter<"WorkflowRun"> | string | null
+    max_steps?: IntNullableFilter<"WorkflowRun"> | number | null
     visited_urls?: JsonNullableFilter<"WorkflowRun">
     browser_actions?: JsonNullableFilter<"WorkflowRun">
     collected_data?: JsonNullableFilter<"WorkflowRun">
@@ -33045,6 +33087,7 @@ export namespace Prisma {
     website_target_id?: SortOrderInput | SortOrder
     scraper_version_id?: SortOrderInput | SortOrder
     url?: SortOrderInput | SortOrder
+    max_steps?: SortOrderInput | SortOrder
     visited_urls?: SortOrderInput | SortOrder
     browser_actions?: SortOrderInput | SortOrder
     collected_data?: SortOrderInput | SortOrder
@@ -33088,6 +33131,7 @@ export namespace Prisma {
     website_target_id?: StringNullableFilter<"WorkflowRun"> | string | null
     scraper_version_id?: StringNullableFilter<"WorkflowRun"> | string | null
     url?: StringNullableFilter<"WorkflowRun"> | string | null
+    max_steps?: IntNullableFilter<"WorkflowRun"> | number | null
     visited_urls?: JsonNullableFilter<"WorkflowRun">
     browser_actions?: JsonNullableFilter<"WorkflowRun">
     collected_data?: JsonNullableFilter<"WorkflowRun">
@@ -33128,6 +33172,7 @@ export namespace Prisma {
     website_target_id?: SortOrderInput | SortOrder
     scraper_version_id?: SortOrderInput | SortOrder
     url?: SortOrderInput | SortOrder
+    max_steps?: SortOrderInput | SortOrder
     visited_urls?: SortOrderInput | SortOrder
     browser_actions?: SortOrderInput | SortOrder
     collected_data?: SortOrderInput | SortOrder
@@ -33163,6 +33208,7 @@ export namespace Prisma {
     website_target_id?: StringNullableWithAggregatesFilter<"WorkflowRun"> | string | null
     scraper_version_id?: StringNullableWithAggregatesFilter<"WorkflowRun"> | string | null
     url?: StringNullableWithAggregatesFilter<"WorkflowRun"> | string | null
+    max_steps?: IntNullableWithAggregatesFilter<"WorkflowRun"> | number | null
     visited_urls?: JsonNullableWithAggregatesFilter<"WorkflowRun">
     browser_actions?: JsonNullableWithAggregatesFilter<"WorkflowRun">
     collected_data?: JsonNullableWithAggregatesFilter<"WorkflowRun">
@@ -34694,6 +34740,7 @@ export namespace Prisma {
     last_success_at?: Date | string | null
     last_failure_at?: Date | string | null
     url?: string | null
+    max_steps?: number | null
     urls?: WorkflowConfigCreateurlsInput | string[]
     extraction_scope?: $Enums.ExtractionScope
     output_formats?: WorkflowConfigCreateoutput_formatsInput | $Enums.OutputFormat[]
@@ -34733,6 +34780,7 @@ export namespace Prisma {
     last_success_at?: Date | string | null
     last_failure_at?: Date | string | null
     url?: string | null
+    max_steps?: number | null
     urls?: WorkflowConfigCreateurlsInput | string[]
     extraction_scope?: $Enums.ExtractionScope
     output_formats?: WorkflowConfigCreateoutput_formatsInput | $Enums.OutputFormat[]
@@ -34766,6 +34814,7 @@ export namespace Prisma {
     last_success_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_failure_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     urls?: WorkflowConfigUpdateurlsInput | string[]
     extraction_scope?: EnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope
     output_formats?: WorkflowConfigUpdateoutput_formatsInput | $Enums.OutputFormat[]
@@ -34805,6 +34854,7 @@ export namespace Prisma {
     last_success_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_failure_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     urls?: WorkflowConfigUpdateurlsInput | string[]
     extraction_scope?: EnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope
     output_formats?: WorkflowConfigUpdateoutput_formatsInput | $Enums.OutputFormat[]
@@ -34841,6 +34891,7 @@ export namespace Prisma {
     last_success_at?: Date | string | null
     last_failure_at?: Date | string | null
     url?: string | null
+    max_steps?: number | null
     urls?: WorkflowConfigCreateurlsInput | string[]
     extraction_scope?: $Enums.ExtractionScope
     output_formats?: WorkflowConfigCreateoutput_formatsInput | $Enums.OutputFormat[]
@@ -34868,6 +34919,7 @@ export namespace Prisma {
     last_success_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_failure_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     urls?: WorkflowConfigUpdateurlsInput | string[]
     extraction_scope?: EnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope
     output_formats?: WorkflowConfigUpdateoutput_formatsInput | $Enums.OutputFormat[]
@@ -34897,6 +34949,7 @@ export namespace Prisma {
     last_success_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_failure_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     urls?: WorkflowConfigUpdateurlsInput | string[]
     extraction_scope?: EnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope
     output_formats?: WorkflowConfigUpdateoutput_formatsInput | $Enums.OutputFormat[]
@@ -35325,6 +35378,7 @@ export namespace Prisma {
     trigger?: $Enums.RunTrigger
     status?: $Enums.RunStatus
     url?: string | null
+    max_steps?: number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -35364,6 +35418,7 @@ export namespace Prisma {
     website_target_id?: string | null
     scraper_version_id?: string | null
     url?: string | null
+    max_steps?: number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -35395,6 +35450,7 @@ export namespace Prisma {
     trigger?: EnumRunTriggerFieldUpdateOperationsInput | $Enums.RunTrigger
     status?: EnumRunStatusFieldUpdateOperationsInput | $Enums.RunStatus
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -35434,6 +35490,7 @@ export namespace Prisma {
     website_target_id?: NullableStringFieldUpdateOperationsInput | string | null
     scraper_version_id?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -35469,6 +35526,7 @@ export namespace Prisma {
     website_target_id?: string | null
     scraper_version_id?: string | null
     url?: string | null
+    max_steps?: number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -35492,6 +35550,7 @@ export namespace Prisma {
     trigger?: EnumRunTriggerFieldUpdateOperationsInput | $Enums.RunTrigger
     status?: EnumRunStatusFieldUpdateOperationsInput | $Enums.RunStatus
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -35518,6 +35577,7 @@ export namespace Prisma {
     website_target_id?: NullableStringFieldUpdateOperationsInput | string | null
     scraper_version_id?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -37415,6 +37475,7 @@ export namespace Prisma {
     last_success_at?: SortOrder
     last_failure_at?: SortOrder
     url?: SortOrder
+    max_steps?: SortOrder
     urls?: SortOrder
     extraction_scope?: SortOrder
     output_formats?: SortOrder
@@ -37431,6 +37492,7 @@ export namespace Prisma {
     success_rate?: SortOrder
     avg_runtime_ms?: SortOrder
     consecutive_failures?: SortOrder
+    max_steps?: SortOrder
   }
 
   export type WorkflowConfigMaxOrderByAggregateInput = {
@@ -37452,6 +37514,7 @@ export namespace Prisma {
     last_success_at?: SortOrder
     last_failure_at?: SortOrder
     url?: SortOrder
+    max_steps?: SortOrder
     extraction_scope?: SortOrder
     extraction_schema_version_id?: SortOrder
     schedule_cron?: SortOrder
@@ -37480,6 +37543,7 @@ export namespace Prisma {
     last_success_at?: SortOrder
     last_failure_at?: SortOrder
     url?: SortOrder
+    max_steps?: SortOrder
     extraction_scope?: SortOrder
     extraction_schema_version_id?: SortOrder
     schedule_cron?: SortOrder
@@ -37494,6 +37558,7 @@ export namespace Prisma {
     success_rate?: SortOrder
     avg_runtime_ms?: SortOrder
     consecutive_failures?: SortOrder
+    max_steps?: SortOrder
   }
 
   export type EnumWorkflowTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -37956,6 +38021,7 @@ export namespace Prisma {
     website_target_id?: SortOrder
     scraper_version_id?: SortOrder
     url?: SortOrder
+    max_steps?: SortOrder
     visited_urls?: SortOrder
     browser_actions?: SortOrder
     collected_data?: SortOrder
@@ -37974,6 +38040,7 @@ export namespace Prisma {
   }
 
   export type WorkflowRunAvgOrderByAggregateInput = {
+    max_steps?: SortOrder
     duration_ms?: SortOrder
   }
 
@@ -37987,6 +38054,7 @@ export namespace Prisma {
     website_target_id?: SortOrder
     scraper_version_id?: SortOrder
     url?: SortOrder
+    max_steps?: SortOrder
     extraction_scope?: SortOrder
     extraction_schema_version_id?: SortOrder
     error_message?: SortOrder
@@ -38007,6 +38075,7 @@ export namespace Prisma {
     website_target_id?: SortOrder
     scraper_version_id?: SortOrder
     url?: SortOrder
+    max_steps?: SortOrder
     extraction_scope?: SortOrder
     extraction_schema_version_id?: SortOrder
     error_message?: SortOrder
@@ -38018,6 +38087,7 @@ export namespace Prisma {
   }
 
   export type WorkflowRunSumOrderByAggregateInput = {
+    max_steps?: SortOrder
     duration_ms?: SortOrder
   }
 
@@ -41952,6 +42022,7 @@ export namespace Prisma {
     last_success_at?: Date | string | null
     last_failure_at?: Date | string | null
     url?: string | null
+    max_steps?: number | null
     urls?: WorkflowConfigCreateurlsInput | string[]
     extraction_scope?: $Enums.ExtractionScope
     output_formats?: WorkflowConfigCreateoutput_formatsInput | $Enums.OutputFormat[]
@@ -41989,6 +42060,7 @@ export namespace Prisma {
     last_success_at?: Date | string | null
     last_failure_at?: Date | string | null
     url?: string | null
+    max_steps?: number | null
     urls?: WorkflowConfigCreateurlsInput | string[]
     extraction_scope?: $Enums.ExtractionScope
     output_formats?: WorkflowConfigCreateoutput_formatsInput | $Enums.OutputFormat[]
@@ -42022,6 +42094,7 @@ export namespace Prisma {
     trigger?: $Enums.RunTrigger
     status?: $Enums.RunStatus
     url?: string | null
+    max_steps?: number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -42059,6 +42132,7 @@ export namespace Prisma {
     website_target_id?: string | null
     scraper_version_id?: string | null
     url?: string | null
+    max_steps?: number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -42263,6 +42337,7 @@ export namespace Prisma {
     last_success_at?: DateTimeNullableFilter<"WorkflowConfig"> | Date | string | null
     last_failure_at?: DateTimeNullableFilter<"WorkflowConfig"> | Date | string | null
     url?: StringNullableFilter<"WorkflowConfig"> | string | null
+    max_steps?: IntNullableFilter<"WorkflowConfig"> | number | null
     urls?: StringNullableListFilter<"WorkflowConfig">
     extraction_scope?: EnumExtractionScopeFilter<"WorkflowConfig"> | $Enums.ExtractionScope
     output_formats?: EnumOutputFormatNullableListFilter<"WorkflowConfig">
@@ -42303,6 +42378,7 @@ export namespace Prisma {
     website_target_id?: StringNullableFilter<"WorkflowRun"> | string | null
     scraper_version_id?: StringNullableFilter<"WorkflowRun"> | string | null
     url?: StringNullableFilter<"WorkflowRun"> | string | null
+    max_steps?: IntNullableFilter<"WorkflowRun"> | number | null
     visited_urls?: JsonNullableFilter<"WorkflowRun">
     browser_actions?: JsonNullableFilter<"WorkflowRun">
     collected_data?: JsonNullableFilter<"WorkflowRun">
@@ -42632,6 +42708,7 @@ export namespace Prisma {
     last_success_at?: Date | string | null
     last_failure_at?: Date | string | null
     url?: string | null
+    max_steps?: number | null
     urls?: WorkflowConfigCreateurlsInput | string[]
     extraction_scope?: $Enums.ExtractionScope
     output_formats?: WorkflowConfigCreateoutput_formatsInput | $Enums.OutputFormat[]
@@ -42669,6 +42746,7 @@ export namespace Prisma {
     last_success_at?: Date | string | null
     last_failure_at?: Date | string | null
     url?: string | null
+    max_steps?: number | null
     urls?: WorkflowConfigCreateurlsInput | string[]
     extraction_scope?: $Enums.ExtractionScope
     output_formats?: WorkflowConfigCreateoutput_formatsInput | $Enums.OutputFormat[]
@@ -42752,6 +42830,7 @@ export namespace Prisma {
     trigger?: $Enums.RunTrigger
     status?: $Enums.RunStatus
     url?: string | null
+    max_steps?: number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -42789,6 +42868,7 @@ export namespace Prisma {
     status?: $Enums.RunStatus
     scraper_version_id?: string | null
     url?: string | null
+    max_steps?: number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -43398,6 +43478,7 @@ export namespace Prisma {
     trigger?: $Enums.RunTrigger
     status?: $Enums.RunStatus
     url?: string | null
+    max_steps?: number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -43435,6 +43516,7 @@ export namespace Prisma {
     website_target_id?: string | null
     scraper_version_id?: string | null
     url?: string | null
+    max_steps?: number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -44060,6 +44142,7 @@ export namespace Prisma {
     last_success_at?: Date | string | null
     last_failure_at?: Date | string | null
     url?: string | null
+    max_steps?: number | null
     urls?: WorkflowConfigCreateurlsInput | string[]
     extraction_scope?: $Enums.ExtractionScope
     output_formats?: WorkflowConfigCreateoutput_formatsInput | $Enums.OutputFormat[]
@@ -44098,6 +44181,7 @@ export namespace Prisma {
     last_success_at?: Date | string | null
     last_failure_at?: Date | string | null
     url?: string | null
+    max_steps?: number | null
     urls?: WorkflowConfigCreateurlsInput | string[]
     extraction_scope?: $Enums.ExtractionScope
     output_formats?: WorkflowConfigCreateoutput_formatsInput | $Enums.OutputFormat[]
@@ -44270,6 +44354,7 @@ export namespace Prisma {
     last_success_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_failure_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     urls?: WorkflowConfigUpdateurlsInput | string[]
     extraction_scope?: EnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope
     output_formats?: WorkflowConfigUpdateoutput_formatsInput | $Enums.OutputFormat[]
@@ -44308,6 +44393,7 @@ export namespace Prisma {
     last_success_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_failure_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     urls?: WorkflowConfigUpdateurlsInput | string[]
     extraction_scope?: EnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope
     output_formats?: WorkflowConfigUpdateoutput_formatsInput | $Enums.OutputFormat[]
@@ -44434,6 +44520,7 @@ export namespace Prisma {
     trigger?: $Enums.RunTrigger
     status?: $Enums.RunStatus
     url?: string | null
+    max_steps?: number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -44472,6 +44559,7 @@ export namespace Prisma {
     website_target_id?: string | null
     scraper_version_id?: string | null
     url?: string | null
+    max_steps?: number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -44631,6 +44719,7 @@ export namespace Prisma {
     trigger?: EnumRunTriggerFieldUpdateOperationsInput | $Enums.RunTrigger
     status?: EnumRunStatusFieldUpdateOperationsInput | $Enums.RunStatus
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -44669,6 +44758,7 @@ export namespace Prisma {
     website_target_id?: NullableStringFieldUpdateOperationsInput | string | null
     scraper_version_id?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -44783,6 +44873,7 @@ export namespace Prisma {
     last_success_at?: Date | string | null
     last_failure_at?: Date | string | null
     url?: string | null
+    max_steps?: number | null
     urls?: WorkflowConfigCreateurlsInput | string[]
     extraction_scope?: $Enums.ExtractionScope
     output_formats?: WorkflowConfigCreateoutput_formatsInput | $Enums.OutputFormat[]
@@ -44821,6 +44912,7 @@ export namespace Prisma {
     last_success_at?: Date | string | null
     last_failure_at?: Date | string | null
     url?: string | null
+    max_steps?: number | null
     urls?: WorkflowConfigCreateurlsInput | string[]
     extraction_scope?: $Enums.ExtractionScope
     output_formats?: WorkflowConfigCreateoutput_formatsInput | $Enums.OutputFormat[]
@@ -44887,6 +44979,7 @@ export namespace Prisma {
     last_success_at?: Date | string | null
     last_failure_at?: Date | string | null
     url?: string | null
+    max_steps?: number | null
     urls?: WorkflowConfigCreateurlsInput | string[]
     extraction_scope?: $Enums.ExtractionScope
     output_formats?: WorkflowConfigCreateoutput_formatsInput | $Enums.OutputFormat[]
@@ -44924,6 +45017,7 @@ export namespace Prisma {
     last_success_at?: Date | string | null
     last_failure_at?: Date | string | null
     url?: string | null
+    max_steps?: number | null
     urls?: WorkflowConfigCreateurlsInput | string[]
     extraction_scope?: $Enums.ExtractionScope
     output_formats?: WorkflowConfigCreateoutput_formatsInput | $Enums.OutputFormat[]
@@ -44997,6 +45091,7 @@ export namespace Prisma {
     trigger?: $Enums.RunTrigger
     status?: $Enums.RunStatus
     url?: string | null
+    max_steps?: number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -45034,6 +45129,7 @@ export namespace Prisma {
     status?: $Enums.RunStatus
     website_target_id?: string | null
     url?: string | null
+    max_steps?: number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -45096,6 +45192,7 @@ export namespace Prisma {
     last_success_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_failure_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     urls?: WorkflowConfigUpdateurlsInput | string[]
     extraction_scope?: EnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope
     output_formats?: WorkflowConfigUpdateoutput_formatsInput | $Enums.OutputFormat[]
@@ -45134,6 +45231,7 @@ export namespace Prisma {
     last_success_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_failure_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     urls?: WorkflowConfigUpdateurlsInput | string[]
     extraction_scope?: EnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope
     output_formats?: WorkflowConfigUpdateoutput_formatsInput | $Enums.OutputFormat[]
@@ -45212,6 +45310,7 @@ export namespace Prisma {
     last_success_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_failure_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     urls?: WorkflowConfigUpdateurlsInput | string[]
     extraction_scope?: EnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope
     output_formats?: WorkflowConfigUpdateoutput_formatsInput | $Enums.OutputFormat[]
@@ -45249,6 +45348,7 @@ export namespace Prisma {
     last_success_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_failure_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     urls?: WorkflowConfigUpdateurlsInput | string[]
     extraction_scope?: EnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope
     output_formats?: WorkflowConfigUpdateoutput_formatsInput | $Enums.OutputFormat[]
@@ -45349,6 +45449,7 @@ export namespace Prisma {
     last_success_at?: Date | string | null
     last_failure_at?: Date | string | null
     url?: string | null
+    max_steps?: number | null
     urls?: WorkflowConfigCreateurlsInput | string[]
     extraction_scope?: $Enums.ExtractionScope
     output_formats?: WorkflowConfigCreateoutput_formatsInput | $Enums.OutputFormat[]
@@ -45387,6 +45488,7 @@ export namespace Prisma {
     last_success_at?: Date | string | null
     last_failure_at?: Date | string | null
     url?: string | null
+    max_steps?: number | null
     urls?: WorkflowConfigCreateurlsInput | string[]
     extraction_scope?: $Enums.ExtractionScope
     output_formats?: WorkflowConfigCreateoutput_formatsInput | $Enums.OutputFormat[]
@@ -45414,6 +45516,7 @@ export namespace Prisma {
     trigger?: $Enums.RunTrigger
     status?: $Enums.RunStatus
     url?: string | null
+    max_steps?: number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -45452,6 +45555,7 @@ export namespace Prisma {
     website_target_id?: string | null
     scraper_version_id?: string | null
     url?: string | null
+    max_steps?: number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -45508,6 +45612,7 @@ export namespace Prisma {
     last_success_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_failure_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     urls?: WorkflowConfigUpdateurlsInput | string[]
     extraction_scope?: EnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope
     output_formats?: WorkflowConfigUpdateoutput_formatsInput | $Enums.OutputFormat[]
@@ -45546,6 +45651,7 @@ export namespace Prisma {
     last_success_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_failure_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     urls?: WorkflowConfigUpdateurlsInput | string[]
     extraction_scope?: EnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope
     output_formats?: WorkflowConfigUpdateoutput_formatsInput | $Enums.OutputFormat[]
@@ -45579,6 +45685,7 @@ export namespace Prisma {
     trigger?: EnumRunTriggerFieldUpdateOperationsInput | $Enums.RunTrigger
     status?: EnumRunStatusFieldUpdateOperationsInput | $Enums.RunStatus
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -45617,6 +45724,7 @@ export namespace Prisma {
     website_target_id?: NullableStringFieldUpdateOperationsInput | string | null
     scraper_version_id?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -45657,6 +45765,7 @@ export namespace Prisma {
     last_success_at?: Date | string | null
     last_failure_at?: Date | string | null
     url?: string | null
+    max_steps?: number | null
     urls?: WorkflowConfigCreateurlsInput | string[]
     extraction_scope?: $Enums.ExtractionScope
     output_formats?: WorkflowConfigCreateoutput_formatsInput | $Enums.OutputFormat[]
@@ -45695,6 +45804,7 @@ export namespace Prisma {
     last_success_at?: Date | string | null
     last_failure_at?: Date | string | null
     url?: string | null
+    max_steps?: number | null
     urls?: WorkflowConfigCreateurlsInput | string[]
     extraction_scope?: $Enums.ExtractionScope
     output_formats?: WorkflowConfigCreateoutput_formatsInput | $Enums.OutputFormat[]
@@ -46197,6 +46307,7 @@ export namespace Prisma {
     last_success_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_failure_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     urls?: WorkflowConfigUpdateurlsInput | string[]
     extraction_scope?: EnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope
     output_formats?: WorkflowConfigUpdateoutput_formatsInput | $Enums.OutputFormat[]
@@ -46235,6 +46346,7 @@ export namespace Prisma {
     last_success_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_failure_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     urls?: WorkflowConfigUpdateurlsInput | string[]
     extraction_scope?: EnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope
     output_formats?: WorkflowConfigUpdateoutput_formatsInput | $Enums.OutputFormat[]
@@ -46709,6 +46821,7 @@ export namespace Prisma {
     trigger?: $Enums.RunTrigger
     status?: $Enums.RunStatus
     url?: string | null
+    max_steps?: number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -46747,6 +46860,7 @@ export namespace Prisma {
     website_target_id?: string | null
     scraper_version_id?: string | null
     url?: string | null
+    max_steps?: number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -46846,6 +46960,7 @@ export namespace Prisma {
     trigger?: EnumRunTriggerFieldUpdateOperationsInput | $Enums.RunTrigger
     status?: EnumRunStatusFieldUpdateOperationsInput | $Enums.RunStatus
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -46884,6 +46999,7 @@ export namespace Prisma {
     website_target_id?: NullableStringFieldUpdateOperationsInput | string | null
     scraper_version_id?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -47225,6 +47341,7 @@ export namespace Prisma {
     last_success_at?: Date | string | null
     last_failure_at?: Date | string | null
     url?: string | null
+    max_steps?: number | null
     urls?: WorkflowConfigCreateurlsInput | string[]
     extraction_scope?: $Enums.ExtractionScope
     output_formats?: WorkflowConfigCreateoutput_formatsInput | $Enums.OutputFormat[]
@@ -47263,6 +47380,7 @@ export namespace Prisma {
     last_success_at?: Date | string | null
     last_failure_at?: Date | string | null
     url?: string | null
+    max_steps?: number | null
     urls?: WorkflowConfigCreateurlsInput | string[]
     extraction_scope?: $Enums.ExtractionScope
     output_formats?: WorkflowConfigCreateoutput_formatsInput | $Enums.OutputFormat[]
@@ -47295,6 +47413,7 @@ export namespace Prisma {
     trigger?: $Enums.RunTrigger
     status?: $Enums.RunStatus
     url?: string | null
+    max_steps?: number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -47333,6 +47452,7 @@ export namespace Prisma {
     website_target_id?: string | null
     scraper_version_id?: string | null
     url?: string | null
+    max_steps?: number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -47568,6 +47688,7 @@ export namespace Prisma {
     trigger?: $Enums.RunTrigger
     status?: $Enums.RunStatus
     url?: string | null
+    max_steps?: number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -47606,6 +47727,7 @@ export namespace Prisma {
     website_target_id?: string | null
     scraper_version_id?: string | null
     url?: string | null
+    max_steps?: number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -47691,6 +47813,7 @@ export namespace Prisma {
     trigger?: EnumRunTriggerFieldUpdateOperationsInput | $Enums.RunTrigger
     status?: EnumRunStatusFieldUpdateOperationsInput | $Enums.RunStatus
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -47729,6 +47852,7 @@ export namespace Prisma {
     website_target_id?: NullableStringFieldUpdateOperationsInput | string | null
     scraper_version_id?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -47804,6 +47928,7 @@ export namespace Prisma {
     trigger?: $Enums.RunTrigger
     status?: $Enums.RunStatus
     url?: string | null
+    max_steps?: number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -47842,6 +47967,7 @@ export namespace Prisma {
     website_target_id?: string | null
     scraper_version_id?: string | null
     url?: string | null
+    max_steps?: number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -47952,6 +48078,7 @@ export namespace Prisma {
     trigger?: EnumRunTriggerFieldUpdateOperationsInput | $Enums.RunTrigger
     status?: EnumRunStatusFieldUpdateOperationsInput | $Enums.RunStatus
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -47990,6 +48117,7 @@ export namespace Prisma {
     website_target_id?: NullableStringFieldUpdateOperationsInput | string | null
     scraper_version_id?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -48096,6 +48224,7 @@ export namespace Prisma {
     trigger?: $Enums.RunTrigger
     status?: $Enums.RunStatus
     url?: string | null
+    max_steps?: number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -48134,6 +48263,7 @@ export namespace Prisma {
     website_target_id?: string | null
     scraper_version_id?: string | null
     url?: string | null
+    max_steps?: number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -48179,6 +48309,7 @@ export namespace Prisma {
     last_success_at?: Date | string | null
     last_failure_at?: Date | string | null
     url?: string | null
+    max_steps?: number | null
     urls?: WorkflowConfigCreateurlsInput | string[]
     extraction_scope?: $Enums.ExtractionScope
     output_formats?: WorkflowConfigCreateoutput_formatsInput | $Enums.OutputFormat[]
@@ -48217,6 +48348,7 @@ export namespace Prisma {
     last_success_at?: Date | string | null
     last_failure_at?: Date | string | null
     url?: string | null
+    max_steps?: number | null
     urls?: WorkflowConfigCreateurlsInput | string[]
     extraction_scope?: $Enums.ExtractionScope
     output_formats?: WorkflowConfigCreateoutput_formatsInput | $Enums.OutputFormat[]
@@ -48283,6 +48415,7 @@ export namespace Prisma {
     trigger?: EnumRunTriggerFieldUpdateOperationsInput | $Enums.RunTrigger
     status?: EnumRunStatusFieldUpdateOperationsInput | $Enums.RunStatus
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -48321,6 +48454,7 @@ export namespace Prisma {
     website_target_id?: NullableStringFieldUpdateOperationsInput | string | null
     scraper_version_id?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -48372,6 +48506,7 @@ export namespace Prisma {
     last_success_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_failure_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     urls?: WorkflowConfigUpdateurlsInput | string[]
     extraction_scope?: EnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope
     output_formats?: WorkflowConfigUpdateoutput_formatsInput | $Enums.OutputFormat[]
@@ -48410,6 +48545,7 @@ export namespace Prisma {
     last_success_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_failure_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     urls?: WorkflowConfigUpdateurlsInput | string[]
     extraction_scope?: EnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope
     output_formats?: WorkflowConfigUpdateoutput_formatsInput | $Enums.OutputFormat[]
@@ -48553,6 +48689,7 @@ export namespace Prisma {
     trigger?: $Enums.RunTrigger
     status?: $Enums.RunStatus
     url?: string | null
+    max_steps?: number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -48591,6 +48728,7 @@ export namespace Prisma {
     website_target_id?: string | null
     scraper_version_id?: string | null
     url?: string | null
+    max_steps?: number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -48637,6 +48775,7 @@ export namespace Prisma {
     trigger?: EnumRunTriggerFieldUpdateOperationsInput | $Enums.RunTrigger
     status?: EnumRunStatusFieldUpdateOperationsInput | $Enums.RunStatus
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -48675,6 +48814,7 @@ export namespace Prisma {
     website_target_id?: NullableStringFieldUpdateOperationsInput | string | null
     scraper_version_id?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -48762,6 +48902,7 @@ export namespace Prisma {
     last_success_at?: Date | string | null
     last_failure_at?: Date | string | null
     url?: string | null
+    max_steps?: number | null
     urls?: WorkflowConfigCreateurlsInput | string[]
     extraction_scope?: $Enums.ExtractionScope
     output_formats?: WorkflowConfigCreateoutput_formatsInput | $Enums.OutputFormat[]
@@ -48800,6 +48941,7 @@ export namespace Prisma {
     last_success_at?: Date | string | null
     last_failure_at?: Date | string | null
     url?: string | null
+    max_steps?: number | null
     urls?: WorkflowConfigCreateurlsInput | string[]
     extraction_scope?: $Enums.ExtractionScope
     output_formats?: WorkflowConfigCreateoutput_formatsInput | $Enums.OutputFormat[]
@@ -48827,6 +48969,7 @@ export namespace Prisma {
     trigger?: $Enums.RunTrigger
     status?: $Enums.RunStatus
     url?: string | null
+    max_steps?: number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -48865,6 +49008,7 @@ export namespace Prisma {
     website_target_id?: string | null
     scraper_version_id?: string | null
     url?: string | null
+    max_steps?: number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -48974,6 +49118,7 @@ export namespace Prisma {
     last_success_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_failure_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     urls?: WorkflowConfigUpdateurlsInput | string[]
     extraction_scope?: EnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope
     output_formats?: WorkflowConfigUpdateoutput_formatsInput | $Enums.OutputFormat[]
@@ -49012,6 +49157,7 @@ export namespace Prisma {
     last_success_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_failure_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     urls?: WorkflowConfigUpdateurlsInput | string[]
     extraction_scope?: EnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope
     output_formats?: WorkflowConfigUpdateoutput_formatsInput | $Enums.OutputFormat[]
@@ -49045,6 +49191,7 @@ export namespace Prisma {
     trigger?: EnumRunTriggerFieldUpdateOperationsInput | $Enums.RunTrigger
     status?: EnumRunStatusFieldUpdateOperationsInput | $Enums.RunStatus
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -49083,6 +49230,7 @@ export namespace Prisma {
     website_target_id?: NullableStringFieldUpdateOperationsInput | string | null
     scraper_version_id?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -49228,6 +49376,7 @@ export namespace Prisma {
     last_success_at?: Date | string | null
     last_failure_at?: Date | string | null
     url?: string | null
+    max_steps?: number | null
     urls?: WorkflowConfigCreateurlsInput | string[]
     extraction_scope?: $Enums.ExtractionScope
     output_formats?: WorkflowConfigCreateoutput_formatsInput | $Enums.OutputFormat[]
@@ -49248,6 +49397,7 @@ export namespace Prisma {
     website_target_id?: string | null
     scraper_version_id?: string | null
     url?: string | null
+    max_steps?: number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -49385,6 +49535,7 @@ export namespace Prisma {
     last_success_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_failure_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     urls?: WorkflowConfigUpdateurlsInput | string[]
     extraction_scope?: EnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope
     output_formats?: WorkflowConfigUpdateoutput_formatsInput | $Enums.OutputFormat[]
@@ -49422,6 +49573,7 @@ export namespace Prisma {
     last_success_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_failure_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     urls?: WorkflowConfigUpdateurlsInput | string[]
     extraction_scope?: EnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope
     output_formats?: WorkflowConfigUpdateoutput_formatsInput | $Enums.OutputFormat[]
@@ -49457,6 +49609,7 @@ export namespace Prisma {
     last_success_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_failure_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     urls?: WorkflowConfigUpdateurlsInput | string[]
     extraction_scope?: EnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope
     output_formats?: WorkflowConfigUpdateoutput_formatsInput | $Enums.OutputFormat[]
@@ -49474,6 +49627,7 @@ export namespace Prisma {
     trigger?: EnumRunTriggerFieldUpdateOperationsInput | $Enums.RunTrigger
     status?: EnumRunStatusFieldUpdateOperationsInput | $Enums.RunStatus
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -49511,6 +49665,7 @@ export namespace Prisma {
     website_target_id?: NullableStringFieldUpdateOperationsInput | string | null
     scraper_version_id?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -49545,6 +49700,7 @@ export namespace Prisma {
     website_target_id?: NullableStringFieldUpdateOperationsInput | string | null
     scraper_version_id?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -49747,6 +49903,7 @@ export namespace Prisma {
     last_success_at?: Date | string | null
     last_failure_at?: Date | string | null
     url?: string | null
+    max_steps?: number | null
     urls?: WorkflowConfigCreateurlsInput | string[]
     extraction_scope?: $Enums.ExtractionScope
     output_formats?: WorkflowConfigCreateoutput_formatsInput | $Enums.OutputFormat[]
@@ -49786,6 +49943,7 @@ export namespace Prisma {
     status?: $Enums.RunStatus
     scraper_version_id?: string | null
     url?: string | null
+    max_steps?: number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -49857,6 +50015,7 @@ export namespace Prisma {
     last_success_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_failure_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     urls?: WorkflowConfigUpdateurlsInput | string[]
     extraction_scope?: EnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope
     output_formats?: WorkflowConfigUpdateoutput_formatsInput | $Enums.OutputFormat[]
@@ -49894,6 +50053,7 @@ export namespace Prisma {
     last_success_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_failure_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     urls?: WorkflowConfigUpdateurlsInput | string[]
     extraction_scope?: EnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope
     output_formats?: WorkflowConfigUpdateoutput_formatsInput | $Enums.OutputFormat[]
@@ -49929,6 +50089,7 @@ export namespace Prisma {
     last_success_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_failure_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     urls?: WorkflowConfigUpdateurlsInput | string[]
     extraction_scope?: EnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope
     output_formats?: WorkflowConfigUpdateoutput_formatsInput | $Enums.OutputFormat[]
@@ -50005,6 +50166,7 @@ export namespace Prisma {
     trigger?: EnumRunTriggerFieldUpdateOperationsInput | $Enums.RunTrigger
     status?: EnumRunStatusFieldUpdateOperationsInput | $Enums.RunStatus
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -50042,6 +50204,7 @@ export namespace Prisma {
     status?: EnumRunStatusFieldUpdateOperationsInput | $Enums.RunStatus
     scraper_version_id?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -50076,6 +50239,7 @@ export namespace Prisma {
     status?: EnumRunStatusFieldUpdateOperationsInput | $Enums.RunStatus
     scraper_version_id?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -50216,6 +50380,7 @@ export namespace Prisma {
     website_target_id?: string | null
     scraper_version_id?: string | null
     url?: string | null
+    max_steps?: number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -50311,6 +50476,7 @@ export namespace Prisma {
     trigger?: EnumRunTriggerFieldUpdateOperationsInput | $Enums.RunTrigger
     status?: EnumRunStatusFieldUpdateOperationsInput | $Enums.RunStatus
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -50348,6 +50514,7 @@ export namespace Prisma {
     website_target_id?: NullableStringFieldUpdateOperationsInput | string | null
     scraper_version_id?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -50382,6 +50549,7 @@ export namespace Prisma {
     website_target_id?: NullableStringFieldUpdateOperationsInput | string | null
     scraper_version_id?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -50682,6 +50850,7 @@ export namespace Prisma {
     status?: $Enums.RunStatus
     website_target_id?: string | null
     url?: string | null
+    max_steps?: number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -50705,6 +50874,7 @@ export namespace Prisma {
     trigger?: EnumRunTriggerFieldUpdateOperationsInput | $Enums.RunTrigger
     status?: EnumRunStatusFieldUpdateOperationsInput | $Enums.RunStatus
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -50742,6 +50912,7 @@ export namespace Prisma {
     status?: EnumRunStatusFieldUpdateOperationsInput | $Enums.RunStatus
     website_target_id?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -50776,6 +50947,7 @@ export namespace Prisma {
     status?: EnumRunStatusFieldUpdateOperationsInput | $Enums.RunStatus
     website_target_id?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -51185,6 +51357,7 @@ export namespace Prisma {
     last_success_at?: Date | string | null
     last_failure_at?: Date | string | null
     url?: string | null
+    max_steps?: number | null
     urls?: WorkflowConfigCreateurlsInput | string[]
     extraction_scope?: $Enums.ExtractionScope
     output_formats?: WorkflowConfigCreateoutput_formatsInput | $Enums.OutputFormat[]
@@ -51205,6 +51378,7 @@ export namespace Prisma {
     website_target_id?: string | null
     scraper_version_id?: string | null
     url?: string | null
+    max_steps?: number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -51299,6 +51473,7 @@ export namespace Prisma {
     last_success_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_failure_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     urls?: WorkflowConfigUpdateurlsInput | string[]
     extraction_scope?: EnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope
     output_formats?: WorkflowConfigUpdateoutput_formatsInput | $Enums.OutputFormat[]
@@ -51337,6 +51512,7 @@ export namespace Prisma {
     last_success_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_failure_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     urls?: WorkflowConfigUpdateurlsInput | string[]
     extraction_scope?: EnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope
     output_formats?: WorkflowConfigUpdateoutput_formatsInput | $Enums.OutputFormat[]
@@ -51372,6 +51548,7 @@ export namespace Prisma {
     last_success_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     last_failure_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     urls?: WorkflowConfigUpdateurlsInput | string[]
     extraction_scope?: EnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope
     output_formats?: WorkflowConfigUpdateoutput_formatsInput | $Enums.OutputFormat[]
@@ -51388,6 +51565,7 @@ export namespace Prisma {
     trigger?: EnumRunTriggerFieldUpdateOperationsInput | $Enums.RunTrigger
     status?: EnumRunStatusFieldUpdateOperationsInput | $Enums.RunStatus
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -51426,6 +51604,7 @@ export namespace Prisma {
     website_target_id?: NullableStringFieldUpdateOperationsInput | string | null
     scraper_version_id?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue
@@ -51460,6 +51639,7 @@ export namespace Prisma {
     website_target_id?: NullableStringFieldUpdateOperationsInput | string | null
     scraper_version_id?: NullableStringFieldUpdateOperationsInput | string | null
     url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
     visited_urls?: NullableJsonNullValueInput | InputJsonValue
     browser_actions?: NullableJsonNullValueInput | InputJsonValue
     collected_data?: NullableJsonNullValueInput | InputJsonValue

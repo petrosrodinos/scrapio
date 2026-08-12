@@ -334,7 +334,8 @@ model WorkflowConfig {
   last_failure_at      DateTime?
 
   // ── BROWSER_AGENT only ────────────────────────────────────────────────────
-  url String?
+  url       String?
+  max_steps Int?    @default(25)
 
   // ── PLAIN_SCRAPE only ─────────────────────────────────────────────────────
   urls             String[]
@@ -505,6 +506,7 @@ model WorkflowRun {
 
   // ── BROWSER_AGENT run ─────────────────────────────────────────────────────
   url             String?
+  max_steps       Int?
   visited_urls    Json?
   browser_actions Json?
   collected_data  Json?
