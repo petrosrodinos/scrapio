@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ScheduleModule } from '@nestjs/schedule';
+import { EventEmitterModule } from '@nestjs/event-emitter';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { RedisModule } from './core/databases/redis/redis.module';
@@ -20,6 +21,7 @@ import { DashboardModule } from './modules/dashboard/dashboard.module';
 import { IntegrationsModule } from './modules/integrations/integrations.module';
 import { UserIntegrationsModule } from './modules/user-integrations/user-integrations.module';
 import { ApiKeysModule } from './modules/api-keys/api-keys.module';
+import { WebhooksModule } from './modules/webhooks/webhooks.module';
 import { UsersModule } from './modules/users/users.module';
 import { ExtractionModule } from './modules/extraction/extraction.module';
 import { ExtractionSchemasModule } from './modules/extraction-schemas/extraction-schemas.module';
@@ -30,6 +32,7 @@ import { BrowserAgentModule } from './modules/browser-agent/browser-agent.module
   imports: [
     ConfigModule,
     ScheduleModule.forRoot(),
+    EventEmitterModule.forRoot(),
     RedisModule,
     QueuesModule,
     BullBoardModule,
@@ -51,6 +54,7 @@ import { BrowserAgentModule } from './modules/browser-agent/browser-agent.module
     IntegrationsModule,
     UserIntegrationsModule,
     ApiKeysModule,
+    WebhooksModule,
     UsersModule,
   ],
   controllers: [AppController],

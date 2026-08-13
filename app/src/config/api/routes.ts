@@ -113,4 +113,11 @@ export const ApiRoutes = {
         list: "/api-keys",
         detail: (id: string) => `/api-keys/${id}`,
     },
+    webhooks: {
+        list: "/webhooks",
+        detail: (id: string) => `/webhooks/${id}`,
+        deliveries: (id: string) => `/webhooks/${id}/deliveries`,
+        test: (id: string) => `/webhooks/${id}/test`,
+        eventCatalog: "/webhooks/event-catalog",
+    },
 };

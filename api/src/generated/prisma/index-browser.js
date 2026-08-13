@@ -153,6 +153,35 @@ exports.Prisma.ApiKeyScalarFieldEnum = {
   created_at: 'created_at'
 };
 
+exports.Prisma.WebhookEndpointScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  name: 'name',
+  url: 'url',
+  secret_encrypted: 'secret_encrypted',
+  subscribed_events: 'subscribed_events',
+  is_active: 'is_active',
+  last_triggered_at: 'last_triggered_at',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.WebhookDeliveryScalarFieldEnum = {
+  id: 'id',
+  webhook_endpoint_id: 'webhook_endpoint_id',
+  event_type: 'event_type',
+  workflow_run_id: 'workflow_run_id',
+  is_test: 'is_test',
+  payload: 'payload',
+  status: 'status',
+  http_status_code: 'http_status_code',
+  response_body: 'response_body',
+  error_message: 'error_message',
+  attempt_number: 'attempt_number',
+  duration_ms: 'duration_ms',
+  created_at: 'created_at'
+};
+
 exports.Prisma.DocumentScalarFieldEnum = {
   id: 'id',
   user_id: 'user_id',
@@ -474,12 +503,12 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
-exports.Prisma.NullableJsonNullValueInput = {
-  DbNull: Prisma.DbNull,
+exports.Prisma.JsonNullValueInput = {
   JsonNull: Prisma.JsonNull
 };
 
-exports.Prisma.JsonNullValueInput = {
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
   JsonNull: Prisma.JsonNull
 };
 
@@ -503,6 +532,21 @@ exports.AuthRole = exports.$Enums.AuthRole = {
   ADMIN: 'ADMIN',
   SUPER_ADMIN: 'SUPER_ADMIN',
   SUPPORT: 'SUPPORT'
+};
+
+exports.WebhookEventType = exports.$Enums.WebhookEventType = {
+  WORKFLOW_RUN_QUEUED: 'WORKFLOW_RUN_QUEUED',
+  WORKFLOW_RUN_RUNNING: 'WORKFLOW_RUN_RUNNING',
+  WORKFLOW_RUN_SUCCEEDED: 'WORKFLOW_RUN_SUCCEEDED',
+  WORKFLOW_RUN_PARTIAL_SUCCESS: 'WORKFLOW_RUN_PARTIAL_SUCCESS',
+  WORKFLOW_RUN_FAILED: 'WORKFLOW_RUN_FAILED',
+  WORKFLOW_RUN_CANCELLED: 'WORKFLOW_RUN_CANCELLED'
+};
+
+exports.WebhookDeliveryStatus = exports.$Enums.WebhookDeliveryStatus = {
+  PENDING: 'PENDING',
+  SUCCESS: 'SUCCESS',
+  FAILED: 'FAILED'
 };
 
 exports.DocumentType = exports.$Enums.DocumentType = {
@@ -689,6 +733,8 @@ exports.Prisma.ModelName = {
   User: 'User',
   PasswordResetToken: 'PasswordResetToken',
   ApiKey: 'ApiKey',
+  WebhookEndpoint: 'WebhookEndpoint',
+  WebhookDelivery: 'WebhookDelivery',
   Document: 'Document',
   WebsiteTarget: 'WebsiteTarget',
   BlockRule: 'BlockRule',

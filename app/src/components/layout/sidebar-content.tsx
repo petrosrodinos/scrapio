@@ -12,6 +12,7 @@ import {
   PlusCircle,
   Settings2,
   Sparkles,
+  Webhook,
   Wrench,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -43,6 +44,7 @@ const scraperNavItems = [
 
 const accountNavItems = [
   { label: 'API Keys', icon: KeyRound, href: Routes.apiKeys.list, end: false },
+  { label: 'Webhooks', icon: Webhook, href: Routes.webhooks.list, end: false },
 ];
 
 const adminNavItems = [

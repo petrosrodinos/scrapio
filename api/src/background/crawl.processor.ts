@@ -1,5 +1,6 @@
 import { Logger, OnModuleInit } from '@nestjs/common';
 import { Processor, WorkerHost } from '@nestjs/bullmq';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 import { Job } from 'bullmq';
 import { PrismaService } from '@/core/databases/prisma/prisma.service';
 import { CRAWL_QUEUE } from '@/core/queues/queues.constants';
@@ -16,6 +17,7 @@ import { contentHash } from '@/integrations/crawler/utils/crawler.utils';
 import { buildBlockHandlingConfig } from '@/integrations/crawler/block-handling/block-handling.utils';
 import { NotificationsService } from '@/modules/notifications/notifications.service';
 import { ScraperFailureHandlerService } from '@/background/scraper-failure-handler.service';
+import { WORKFLOW_RUN_STATUS_CHANGED_EVENT } from '@/shared/interfaces/workflow-run-status-changed.event';
 import { ExtractionService } from '@/modules/extraction/extraction.service';
 import { ExtractionOutcome } from '@/modules/extraction/interfaces/extraction.interface';
 import {
@@ -58,6 +60,7 @@ export class CrawlProcessor extends WorkerHost implements OnModuleInit {
     private readonly detailEnrichmentService: DetailEnrichmentService,
     private readonly notificationsService: NotificationsService,
     private readonly scraperFailureHandler: ScraperFailureHandlerService,
+    private readonly eventEmitter: EventEmitter2,
     private readonly platformConfigService: PlatformConfigService,
     private readonly extractionService: ExtractionService,
   ) {
@@ -168,6 +171,15 @@ export class CrawlProcessor extends WorkerHost implements OnModuleInit {
       });
       return;
     }
+
+    this.eventEmitter.emit(WORKFLOW_RUN_STATUS_CHANGED_EVENT, {
+      workflowRunId,
+      userId: run.user_id,
+      workflowConfigId: run.workflow_config_id,
+      type: run.type,
+      status: RunStatus.RUNNING,
+      startedAt,
+    });
 
     try {
       const workflowConfig = run.workflow_config;
@@ -370,6 +382,18 @@ export class CrawlProcessor extends WorkerHost implements OnModuleInit {
         return;
       }
 
+      this.eventEmitter.emit(WORKFLOW_RUN_STATUS_CHANGED_EVENT, {
+        workflowRunId,
+        userId: run.user_id,
+        workflowConfigId: workflowConfig.id,
+        type: run.type,
+        status: runStatus,
+        errorMessage,
+        startedAt,
+        finishedAt,
+        durationMs: finishedAt.getTime() - startedAt.getTime(),
+      });
+
       if (runFailed) {
         this.notificationsService.create({
           type: NotificationType.LARGE_CRAWL_FAILURE,
@@ -478,6 +502,18 @@ export class CrawlProcessor extends WorkerHost implements OnModuleInit {
             },
           });
           markedFailed = true;
+
+          this.eventEmitter.emit(WORKFLOW_RUN_STATUS_CHANGED_EVENT, {
+            workflowRunId,
+            userId: run.user_id,
+            workflowConfigId: currentRun.workflow_config_id,
+            type: run.type,
+            status: RunStatus.FAILED,
+            errorMessage: message,
+            startedAt,
+            finishedAt,
+            durationMs: finishedAt.getTime() - startedAt.getTime(),
+          });
 
           this.notificationsService.create({
             type: NotificationType.LARGE_CRAWL_FAILURE,

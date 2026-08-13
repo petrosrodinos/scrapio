@@ -30,6 +30,7 @@ import CrawlerConfigPage from "@/pages/admin/crawler-config";
 import NotificationsListPage from "@/pages/admin/notifications";
 import IntegrationsPage from "@/pages/integrations";
 import ApiKeysPage from "@/pages/api-keys";
+import WebhooksPage from "@/pages/webhooks";
 
 export default function AppRoutes() {
   return (
@@ -72,6 +73,7 @@ export default function AppRoutes() {
         <Route path={`${Routes.crawlRuns.list}/:id`} element={<CrawlRunDetailPage />} />
         <Route path={Routes.integrations.list} element={<IntegrationsPage />} />
         <Route path={Routes.apiKeys.list} element={<ApiKeysPage />} />
+        <Route path={Routes.webhooks.list} element={<WebhooksPage />} />
         <Route element={<AdminOnlyRoute />}>
           <Route path={Routes.diagnostics.list} element={<DiagnosticsListPage />} />
           <Route path={`${Routes.diagnostics.list}/:id`} element={<DiagnosticsDetailPage />} />

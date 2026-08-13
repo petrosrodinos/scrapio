@@ -4,8 +4,10 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectQueue } from '@nestjs/bullmq';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 import { Queue } from 'bullmq';
 import { PrismaService } from '@/core/databases/prisma/prisma.service';
+import { WORKFLOW_RUN_STATUS_CHANGED_EVENT } from '@/shared/interfaces/workflow-run-status-changed.event';
 import {
   BROWSER_AGENT_QUEUE,
   CRAWL_QUEUE,
@@ -49,6 +51,7 @@ export class CrawlRunsService {
     private readonly plainScrapeQueue: Queue<WorkflowJobData>,
     @InjectQueue(BROWSER_AGENT_QUEUE)
     private readonly browserAgentQueue: Queue<WorkflowJobData>,
+    private readonly eventEmitter: EventEmitter2,
   ) {}
 
   private getQueueForType(type: WorkflowType): Queue<WorkflowJobData> {
@@ -115,6 +118,14 @@ export class CrawlRunsService {
       },
     );
 
+    this.eventEmitter.emit(WORKFLOW_RUN_STATUS_CHANGED_EVENT, {
+      workflowRunId: run.id,
+      userId: run.user_id,
+      workflowConfigId: run.workflow_config_id,
+      type: run.type,
+      status: RunStatus.QUEUED,
+    });
+
     return run;
   }
 
@@ -161,6 +172,14 @@ export class CrawlRunsService {
         },
       },
     );
+
+    this.eventEmitter.emit(WORKFLOW_RUN_STATUS_CHANGED_EVENT, {
+      workflowRunId: run.id,
+      userId: run.user_id,
+      workflowConfigId: run.workflow_config_id,
+      type: run.type,
+      status: RunStatus.QUEUED,
+    });
 
     return run;
   }
@@ -209,6 +228,14 @@ export class CrawlRunsService {
         },
       },
     );
+
+    this.eventEmitter.emit(WORKFLOW_RUN_STATUS_CHANGED_EVENT, {
+      workflowRunId: run.id,
+      userId: run.user_id,
+      workflowConfigId: run.workflow_config_id,
+      type: run.type,
+      status: RunStatus.QUEUED,
+    });
 
     return run;
   }
@@ -375,6 +402,18 @@ export class CrawlRunsService {
         'Only QUEUED or RUNNING runs can be stopped',
       );
     }
+
+    this.eventEmitter.emit(WORKFLOW_RUN_STATUS_CHANGED_EVENT, {
+      workflowRunId: id,
+      userId: run.user_id,
+      workflowConfigId: run.workflow_config_id,
+      type: run.type,
+      status: RunStatus.CANCELLED,
+      errorMessage: 'Cancelled by admin',
+      startedAt: run.started_at,
+      finishedAt,
+      durationMs,
+    });
 
     if (jobLogs.length > 0) {
       await this.prisma.jobLog.updateMany({

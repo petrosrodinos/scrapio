@@ -53,6 +53,9 @@ export const Routes = {
     apiKeys: {
         list: "/api-keys",
     },
+    webhooks: {
+        list: "/webhooks",
+    },
     admin: {
         jobs: {
             list: "/jobs",

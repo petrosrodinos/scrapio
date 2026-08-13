@@ -29,6 +29,16 @@ export type PasswordResetToken = $Result.DefaultSelection<Prisma.$PasswordResetT
  */
 export type ApiKey = $Result.DefaultSelection<Prisma.$ApiKeyPayload>
 /**
+ * Model WebhookEndpoint
+ * 
+ */
+export type WebhookEndpoint = $Result.DefaultSelection<Prisma.$WebhookEndpointPayload>
+/**
+ * Model WebhookDelivery
+ * 
+ */
+export type WebhookDelivery = $Result.DefaultSelection<Prisma.$WebhookDeliveryPayload>
+/**
  * Model Document
  * 
  */
@@ -368,6 +378,27 @@ export const IntegrationType: {
 export type IntegrationType = (typeof IntegrationType)[keyof typeof IntegrationType]
 
 
+export const WebhookEventType: {
+  WORKFLOW_RUN_QUEUED: 'WORKFLOW_RUN_QUEUED',
+  WORKFLOW_RUN_RUNNING: 'WORKFLOW_RUN_RUNNING',
+  WORKFLOW_RUN_SUCCEEDED: 'WORKFLOW_RUN_SUCCEEDED',
+  WORKFLOW_RUN_PARTIAL_SUCCESS: 'WORKFLOW_RUN_PARTIAL_SUCCESS',
+  WORKFLOW_RUN_FAILED: 'WORKFLOW_RUN_FAILED',
+  WORKFLOW_RUN_CANCELLED: 'WORKFLOW_RUN_CANCELLED'
+};
+
+export type WebhookEventType = (typeof WebhookEventType)[keyof typeof WebhookEventType]
+
+
+export const WebhookDeliveryStatus: {
+  PENDING: 'PENDING',
+  SUCCESS: 'SUCCESS',
+  FAILED: 'FAILED'
+};
+
+export type WebhookDeliveryStatus = (typeof WebhookDeliveryStatus)[keyof typeof WebhookDeliveryStatus]
+
+
 export const ComputerUseModel: {
   CLAUDE_OPUS_4_8: 'CLAUDE_OPUS_4_8',
   CLAUDE_SONNET_4_6: 'CLAUDE_SONNET_4_6',
@@ -477,6 +508,14 @@ export const NotificationSeverity: typeof $Enums.NotificationSeverity
 export type IntegrationType = $Enums.IntegrationType
 
 export const IntegrationType: typeof $Enums.IntegrationType
+
+export type WebhookEventType = $Enums.WebhookEventType
+
+export const WebhookEventType: typeof $Enums.WebhookEventType
+
+export type WebhookDeliveryStatus = $Enums.WebhookDeliveryStatus
+
+export const WebhookDeliveryStatus: typeof $Enums.WebhookDeliveryStatus
 
 export type ComputerUseModel = $Enums.ComputerUseModel
 
@@ -628,6 +667,26 @@ export class PrismaClient<
     * ```
     */
   get apiKey(): Prisma.ApiKeyDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.webhookEndpoint`: Exposes CRUD operations for the **WebhookEndpoint** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more WebhookEndpoints
+    * const webhookEndpoints = await prisma.webhookEndpoint.findMany()
+    * ```
+    */
+  get webhookEndpoint(): Prisma.WebhookEndpointDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.webhookDelivery`: Exposes CRUD operations for the **WebhookDelivery** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more WebhookDeliveries
+    * const webhookDeliveries = await prisma.webhookDelivery.findMany()
+    * ```
+    */
+  get webhookDelivery(): Prisma.WebhookDeliveryDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.document`: Exposes CRUD operations for the **Document** model.
@@ -1265,6 +1324,8 @@ export namespace Prisma {
     User: 'User',
     PasswordResetToken: 'PasswordResetToken',
     ApiKey: 'ApiKey',
+    WebhookEndpoint: 'WebhookEndpoint',
+    WebhookDelivery: 'WebhookDelivery',
     Document: 'Document',
     WebsiteTarget: 'WebsiteTarget',
     BlockRule: 'BlockRule',
@@ -1300,7 +1361,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "passwordResetToken" | "apiKey" | "document" | "websiteTarget" | "blockRule" | "workflowConfig" | "scraperGenerationRun" | "computerUseStep" | "scraperVersion" | "scraperExecutionTrace" | "workflowRun" | "extractedItem" | "extractionSchema" | "extractionSchemaVersion" | "plainScrapedPage" | "extractionResult" | "diagnosticsPackage" | "diagnosticsArtifact" | "jobLog" | "notification" | "userIntegration" | "platformConfig"
+      modelProps: "user" | "passwordResetToken" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "document" | "websiteTarget" | "blockRule" | "workflowConfig" | "scraperGenerationRun" | "computerUseStep" | "scraperVersion" | "scraperExecutionTrace" | "workflowRun" | "extractedItem" | "extractionSchema" | "extractionSchemaVersion" | "plainScrapedPage" | "extractionResult" | "diagnosticsPackage" | "diagnosticsArtifact" | "jobLog" | "notification" | "userIntegration" | "platformConfig"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1523,6 +1584,154 @@ export namespace Prisma {
           count: {
             args: Prisma.ApiKeyCountArgs<ExtArgs>
             result: $Utils.Optional<ApiKeyCountAggregateOutputType> | number
+          }
+        }
+      }
+      WebhookEndpoint: {
+        payload: Prisma.$WebhookEndpointPayload<ExtArgs>
+        fields: Prisma.WebhookEndpointFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.WebhookEndpointFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebhookEndpointPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.WebhookEndpointFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebhookEndpointPayload>
+          }
+          findFirst: {
+            args: Prisma.WebhookEndpointFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebhookEndpointPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.WebhookEndpointFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebhookEndpointPayload>
+          }
+          findMany: {
+            args: Prisma.WebhookEndpointFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebhookEndpointPayload>[]
+          }
+          create: {
+            args: Prisma.WebhookEndpointCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebhookEndpointPayload>
+          }
+          createMany: {
+            args: Prisma.WebhookEndpointCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.WebhookEndpointCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebhookEndpointPayload>[]
+          }
+          delete: {
+            args: Prisma.WebhookEndpointDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebhookEndpointPayload>
+          }
+          update: {
+            args: Prisma.WebhookEndpointUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebhookEndpointPayload>
+          }
+          deleteMany: {
+            args: Prisma.WebhookEndpointDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.WebhookEndpointUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.WebhookEndpointUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebhookEndpointPayload>[]
+          }
+          upsert: {
+            args: Prisma.WebhookEndpointUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebhookEndpointPayload>
+          }
+          aggregate: {
+            args: Prisma.WebhookEndpointAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateWebhookEndpoint>
+          }
+          groupBy: {
+            args: Prisma.WebhookEndpointGroupByArgs<ExtArgs>
+            result: $Utils.Optional<WebhookEndpointGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.WebhookEndpointCountArgs<ExtArgs>
+            result: $Utils.Optional<WebhookEndpointCountAggregateOutputType> | number
+          }
+        }
+      }
+      WebhookDelivery: {
+        payload: Prisma.$WebhookDeliveryPayload<ExtArgs>
+        fields: Prisma.WebhookDeliveryFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.WebhookDeliveryFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebhookDeliveryPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.WebhookDeliveryFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebhookDeliveryPayload>
+          }
+          findFirst: {
+            args: Prisma.WebhookDeliveryFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebhookDeliveryPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.WebhookDeliveryFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebhookDeliveryPayload>
+          }
+          findMany: {
+            args: Prisma.WebhookDeliveryFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebhookDeliveryPayload>[]
+          }
+          create: {
+            args: Prisma.WebhookDeliveryCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebhookDeliveryPayload>
+          }
+          createMany: {
+            args: Prisma.WebhookDeliveryCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.WebhookDeliveryCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebhookDeliveryPayload>[]
+          }
+          delete: {
+            args: Prisma.WebhookDeliveryDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebhookDeliveryPayload>
+          }
+          update: {
+            args: Prisma.WebhookDeliveryUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebhookDeliveryPayload>
+          }
+          deleteMany: {
+            args: Prisma.WebhookDeliveryDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.WebhookDeliveryUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.WebhookDeliveryUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebhookDeliveryPayload>[]
+          }
+          upsert: {
+            args: Prisma.WebhookDeliveryUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebhookDeliveryPayload>
+          }
+          aggregate: {
+            args: Prisma.WebhookDeliveryAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateWebhookDelivery>
+          }
+          groupBy: {
+            args: Prisma.WebhookDeliveryGroupByArgs<ExtArgs>
+            result: $Utils.Optional<WebhookDeliveryGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.WebhookDeliveryCountArgs<ExtArgs>
+            result: $Utils.Optional<WebhookDeliveryCountAggregateOutputType> | number
           }
         }
       }
@@ -3117,6 +3326,8 @@ export namespace Prisma {
     user?: UserOmit
     passwordResetToken?: PasswordResetTokenOmit
     apiKey?: ApiKeyOmit
+    webhookEndpoint?: WebhookEndpointOmit
+    webhookDelivery?: WebhookDeliveryOmit
     document?: DocumentOmit
     websiteTarget?: WebsiteTargetOmit
     blockRule?: BlockRuleOmit
@@ -3224,6 +3435,7 @@ export namespace Prisma {
     user_integrations: number
     extraction_schemas: number
     api_keys: number
+    webhook_endpoints: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3234,6 +3446,7 @@ export namespace Prisma {
     user_integrations?: boolean | UserCountOutputTypeCountUser_integrationsArgs
     extraction_schemas?: boolean | UserCountOutputTypeCountExtraction_schemasArgs
     api_keys?: boolean | UserCountOutputTypeCountApi_keysArgs
+    webhook_endpoints?: boolean | UserCountOutputTypeCountWebhook_endpointsArgs
   }
 
   // Custom InputTypes
@@ -3294,6 +3507,44 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountApi_keysArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ApiKeyWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountWebhook_endpointsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: WebhookEndpointWhereInput
+  }
+
+
+  /**
+   * Count Type WebhookEndpointCountOutputType
+   */
+
+  export type WebhookEndpointCountOutputType = {
+    deliveries: number
+  }
+
+  export type WebhookEndpointCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    deliveries?: boolean | WebhookEndpointCountOutputTypeCountDeliveriesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * WebhookEndpointCountOutputType without action
+   */
+  export type WebhookEndpointCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebhookEndpointCountOutputType
+     */
+    select?: WebhookEndpointCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * WebhookEndpointCountOutputType without action
+   */
+  export type WebhookEndpointCountOutputTypeCountDeliveriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: WebhookDeliveryWhereInput
   }
 
 
@@ -3946,6 +4197,7 @@ export namespace Prisma {
     user_integrations?: boolean | User$user_integrationsArgs<ExtArgs>
     extraction_schemas?: boolean | User$extraction_schemasArgs<ExtArgs>
     api_keys?: boolean | User$api_keysArgs<ExtArgs>
+    webhook_endpoints?: boolean | User$webhook_endpointsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -3991,6 +4243,7 @@ export namespace Prisma {
     user_integrations?: boolean | User$user_integrationsArgs<ExtArgs>
     extraction_schemas?: boolean | User$extraction_schemasArgs<ExtArgs>
     api_keys?: boolean | User$api_keysArgs<ExtArgs>
+    webhook_endpoints?: boolean | User$webhook_endpointsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -4006,6 +4259,7 @@ export namespace Prisma {
       user_integrations: Prisma.$UserIntegrationPayload<ExtArgs>[]
       extraction_schemas: Prisma.$ExtractionSchemaPayload<ExtArgs>[]
       api_keys: Prisma.$ApiKeyPayload<ExtArgs>[]
+      webhook_endpoints: Prisma.$WebhookEndpointPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -4417,6 +4671,7 @@ export namespace Prisma {
     user_integrations<T extends User$user_integrationsArgs<ExtArgs> = {}>(args?: Subset<T, User$user_integrationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserIntegrationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     extraction_schemas<T extends User$extraction_schemasArgs<ExtArgs> = {}>(args?: Subset<T, User$extraction_schemasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExtractionSchemaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     api_keys<T extends User$api_keysArgs<ExtArgs> = {}>(args?: Subset<T, User$api_keysArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ApiKeyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    webhook_endpoints<T extends User$webhook_endpointsArgs<ExtArgs> = {}>(args?: Subset<T, User$webhook_endpointsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WebhookEndpointPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5007,6 +5262,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ApiKeyScalarFieldEnum | ApiKeyScalarFieldEnum[]
+  }
+
+  /**
+   * User.webhook_endpoints
+   */
+  export type User$webhook_endpointsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebhookEndpoint
+     */
+    select?: WebhookEndpointSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebhookEndpoint
+     */
+    omit?: WebhookEndpointOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebhookEndpointInclude<ExtArgs> | null
+    where?: WebhookEndpointWhereInput
+    orderBy?: WebhookEndpointOrderByWithRelationInput | WebhookEndpointOrderByWithRelationInput[]
+    cursor?: WebhookEndpointWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: WebhookEndpointScalarFieldEnum | WebhookEndpointScalarFieldEnum[]
   }
 
   /**
@@ -7219,6 +7498,2355 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: ApiKeyInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model WebhookEndpoint
+   */
+
+  export type AggregateWebhookEndpoint = {
+    _count: WebhookEndpointCountAggregateOutputType | null
+    _min: WebhookEndpointMinAggregateOutputType | null
+    _max: WebhookEndpointMaxAggregateOutputType | null
+  }
+
+  export type WebhookEndpointMinAggregateOutputType = {
+    id: string | null
+    user_id: string | null
+    name: string | null
+    url: string | null
+    secret_encrypted: string | null
+    is_active: boolean | null
+    last_triggered_at: Date | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type WebhookEndpointMaxAggregateOutputType = {
+    id: string | null
+    user_id: string | null
+    name: string | null
+    url: string | null
+    secret_encrypted: string | null
+    is_active: boolean | null
+    last_triggered_at: Date | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type WebhookEndpointCountAggregateOutputType = {
+    id: number
+    user_id: number
+    name: number
+    url: number
+    secret_encrypted: number
+    subscribed_events: number
+    is_active: number
+    last_triggered_at: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type WebhookEndpointMinAggregateInputType = {
+    id?: true
+    user_id?: true
+    name?: true
+    url?: true
+    secret_encrypted?: true
+    is_active?: true
+    last_triggered_at?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type WebhookEndpointMaxAggregateInputType = {
+    id?: true
+    user_id?: true
+    name?: true
+    url?: true
+    secret_encrypted?: true
+    is_active?: true
+    last_triggered_at?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type WebhookEndpointCountAggregateInputType = {
+    id?: true
+    user_id?: true
+    name?: true
+    url?: true
+    secret_encrypted?: true
+    subscribed_events?: true
+    is_active?: true
+    last_triggered_at?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type WebhookEndpointAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which WebhookEndpoint to aggregate.
+     */
+    where?: WebhookEndpointWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WebhookEndpoints to fetch.
+     */
+    orderBy?: WebhookEndpointOrderByWithRelationInput | WebhookEndpointOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: WebhookEndpointWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WebhookEndpoints from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WebhookEndpoints.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned WebhookEndpoints
+    **/
+    _count?: true | WebhookEndpointCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: WebhookEndpointMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: WebhookEndpointMaxAggregateInputType
+  }
+
+  export type GetWebhookEndpointAggregateType<T extends WebhookEndpointAggregateArgs> = {
+        [P in keyof T & keyof AggregateWebhookEndpoint]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateWebhookEndpoint[P]>
+      : GetScalarType<T[P], AggregateWebhookEndpoint[P]>
+  }
+
+
+
+
+  export type WebhookEndpointGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: WebhookEndpointWhereInput
+    orderBy?: WebhookEndpointOrderByWithAggregationInput | WebhookEndpointOrderByWithAggregationInput[]
+    by: WebhookEndpointScalarFieldEnum[] | WebhookEndpointScalarFieldEnum
+    having?: WebhookEndpointScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: WebhookEndpointCountAggregateInputType | true
+    _min?: WebhookEndpointMinAggregateInputType
+    _max?: WebhookEndpointMaxAggregateInputType
+  }
+
+  export type WebhookEndpointGroupByOutputType = {
+    id: string
+    user_id: string
+    name: string | null
+    url: string
+    secret_encrypted: string
+    subscribed_events: $Enums.WebhookEventType[]
+    is_active: boolean
+    last_triggered_at: Date | null
+    created_at: Date
+    updated_at: Date
+    _count: WebhookEndpointCountAggregateOutputType | null
+    _min: WebhookEndpointMinAggregateOutputType | null
+    _max: WebhookEndpointMaxAggregateOutputType | null
+  }
+
+  type GetWebhookEndpointGroupByPayload<T extends WebhookEndpointGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<WebhookEndpointGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof WebhookEndpointGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], WebhookEndpointGroupByOutputType[P]>
+            : GetScalarType<T[P], WebhookEndpointGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type WebhookEndpointSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    user_id?: boolean
+    name?: boolean
+    url?: boolean
+    secret_encrypted?: boolean
+    subscribed_events?: boolean
+    is_active?: boolean
+    last_triggered_at?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    deliveries?: boolean | WebhookEndpoint$deliveriesArgs<ExtArgs>
+    _count?: boolean | WebhookEndpointCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["webhookEndpoint"]>
+
+  export type WebhookEndpointSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    user_id?: boolean
+    name?: boolean
+    url?: boolean
+    secret_encrypted?: boolean
+    subscribed_events?: boolean
+    is_active?: boolean
+    last_triggered_at?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["webhookEndpoint"]>
+
+  export type WebhookEndpointSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    user_id?: boolean
+    name?: boolean
+    url?: boolean
+    secret_encrypted?: boolean
+    subscribed_events?: boolean
+    is_active?: boolean
+    last_triggered_at?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["webhookEndpoint"]>
+
+  export type WebhookEndpointSelectScalar = {
+    id?: boolean
+    user_id?: boolean
+    name?: boolean
+    url?: boolean
+    secret_encrypted?: boolean
+    subscribed_events?: boolean
+    is_active?: boolean
+    last_triggered_at?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type WebhookEndpointOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "name" | "url" | "secret_encrypted" | "subscribed_events" | "is_active" | "last_triggered_at" | "created_at" | "updated_at", ExtArgs["result"]["webhookEndpoint"]>
+  export type WebhookEndpointInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    deliveries?: boolean | WebhookEndpoint$deliveriesArgs<ExtArgs>
+    _count?: boolean | WebhookEndpointCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type WebhookEndpointIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type WebhookEndpointIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $WebhookEndpointPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "WebhookEndpoint"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      deliveries: Prisma.$WebhookDeliveryPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      user_id: string
+      name: string | null
+      url: string
+      secret_encrypted: string
+      subscribed_events: $Enums.WebhookEventType[]
+      is_active: boolean
+      last_triggered_at: Date | null
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["webhookEndpoint"]>
+    composites: {}
+  }
+
+  type WebhookEndpointGetPayload<S extends boolean | null | undefined | WebhookEndpointDefaultArgs> = $Result.GetResult<Prisma.$WebhookEndpointPayload, S>
+
+  type WebhookEndpointCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<WebhookEndpointFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: WebhookEndpointCountAggregateInputType | true
+    }
+
+  export interface WebhookEndpointDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['WebhookEndpoint'], meta: { name: 'WebhookEndpoint' } }
+    /**
+     * Find zero or one WebhookEndpoint that matches the filter.
+     * @param {WebhookEndpointFindUniqueArgs} args - Arguments to find a WebhookEndpoint
+     * @example
+     * // Get one WebhookEndpoint
+     * const webhookEndpoint = await prisma.webhookEndpoint.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends WebhookEndpointFindUniqueArgs>(args: SelectSubset<T, WebhookEndpointFindUniqueArgs<ExtArgs>>): Prisma__WebhookEndpointClient<$Result.GetResult<Prisma.$WebhookEndpointPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one WebhookEndpoint that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {WebhookEndpointFindUniqueOrThrowArgs} args - Arguments to find a WebhookEndpoint
+     * @example
+     * // Get one WebhookEndpoint
+     * const webhookEndpoint = await prisma.webhookEndpoint.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends WebhookEndpointFindUniqueOrThrowArgs>(args: SelectSubset<T, WebhookEndpointFindUniqueOrThrowArgs<ExtArgs>>): Prisma__WebhookEndpointClient<$Result.GetResult<Prisma.$WebhookEndpointPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first WebhookEndpoint that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WebhookEndpointFindFirstArgs} args - Arguments to find a WebhookEndpoint
+     * @example
+     * // Get one WebhookEndpoint
+     * const webhookEndpoint = await prisma.webhookEndpoint.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends WebhookEndpointFindFirstArgs>(args?: SelectSubset<T, WebhookEndpointFindFirstArgs<ExtArgs>>): Prisma__WebhookEndpointClient<$Result.GetResult<Prisma.$WebhookEndpointPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first WebhookEndpoint that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WebhookEndpointFindFirstOrThrowArgs} args - Arguments to find a WebhookEndpoint
+     * @example
+     * // Get one WebhookEndpoint
+     * const webhookEndpoint = await prisma.webhookEndpoint.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends WebhookEndpointFindFirstOrThrowArgs>(args?: SelectSubset<T, WebhookEndpointFindFirstOrThrowArgs<ExtArgs>>): Prisma__WebhookEndpointClient<$Result.GetResult<Prisma.$WebhookEndpointPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more WebhookEndpoints that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WebhookEndpointFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all WebhookEndpoints
+     * const webhookEndpoints = await prisma.webhookEndpoint.findMany()
+     * 
+     * // Get first 10 WebhookEndpoints
+     * const webhookEndpoints = await prisma.webhookEndpoint.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const webhookEndpointWithIdOnly = await prisma.webhookEndpoint.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends WebhookEndpointFindManyArgs>(args?: SelectSubset<T, WebhookEndpointFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WebhookEndpointPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a WebhookEndpoint.
+     * @param {WebhookEndpointCreateArgs} args - Arguments to create a WebhookEndpoint.
+     * @example
+     * // Create one WebhookEndpoint
+     * const WebhookEndpoint = await prisma.webhookEndpoint.create({
+     *   data: {
+     *     // ... data to create a WebhookEndpoint
+     *   }
+     * })
+     * 
+     */
+    create<T extends WebhookEndpointCreateArgs>(args: SelectSubset<T, WebhookEndpointCreateArgs<ExtArgs>>): Prisma__WebhookEndpointClient<$Result.GetResult<Prisma.$WebhookEndpointPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many WebhookEndpoints.
+     * @param {WebhookEndpointCreateManyArgs} args - Arguments to create many WebhookEndpoints.
+     * @example
+     * // Create many WebhookEndpoints
+     * const webhookEndpoint = await prisma.webhookEndpoint.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends WebhookEndpointCreateManyArgs>(args?: SelectSubset<T, WebhookEndpointCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many WebhookEndpoints and returns the data saved in the database.
+     * @param {WebhookEndpointCreateManyAndReturnArgs} args - Arguments to create many WebhookEndpoints.
+     * @example
+     * // Create many WebhookEndpoints
+     * const webhookEndpoint = await prisma.webhookEndpoint.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many WebhookEndpoints and only return the `id`
+     * const webhookEndpointWithIdOnly = await prisma.webhookEndpoint.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends WebhookEndpointCreateManyAndReturnArgs>(args?: SelectSubset<T, WebhookEndpointCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WebhookEndpointPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a WebhookEndpoint.
+     * @param {WebhookEndpointDeleteArgs} args - Arguments to delete one WebhookEndpoint.
+     * @example
+     * // Delete one WebhookEndpoint
+     * const WebhookEndpoint = await prisma.webhookEndpoint.delete({
+     *   where: {
+     *     // ... filter to delete one WebhookEndpoint
+     *   }
+     * })
+     * 
+     */
+    delete<T extends WebhookEndpointDeleteArgs>(args: SelectSubset<T, WebhookEndpointDeleteArgs<ExtArgs>>): Prisma__WebhookEndpointClient<$Result.GetResult<Prisma.$WebhookEndpointPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one WebhookEndpoint.
+     * @param {WebhookEndpointUpdateArgs} args - Arguments to update one WebhookEndpoint.
+     * @example
+     * // Update one WebhookEndpoint
+     * const webhookEndpoint = await prisma.webhookEndpoint.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends WebhookEndpointUpdateArgs>(args: SelectSubset<T, WebhookEndpointUpdateArgs<ExtArgs>>): Prisma__WebhookEndpointClient<$Result.GetResult<Prisma.$WebhookEndpointPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more WebhookEndpoints.
+     * @param {WebhookEndpointDeleteManyArgs} args - Arguments to filter WebhookEndpoints to delete.
+     * @example
+     * // Delete a few WebhookEndpoints
+     * const { count } = await prisma.webhookEndpoint.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends WebhookEndpointDeleteManyArgs>(args?: SelectSubset<T, WebhookEndpointDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more WebhookEndpoints.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WebhookEndpointUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many WebhookEndpoints
+     * const webhookEndpoint = await prisma.webhookEndpoint.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends WebhookEndpointUpdateManyArgs>(args: SelectSubset<T, WebhookEndpointUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more WebhookEndpoints and returns the data updated in the database.
+     * @param {WebhookEndpointUpdateManyAndReturnArgs} args - Arguments to update many WebhookEndpoints.
+     * @example
+     * // Update many WebhookEndpoints
+     * const webhookEndpoint = await prisma.webhookEndpoint.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more WebhookEndpoints and only return the `id`
+     * const webhookEndpointWithIdOnly = await prisma.webhookEndpoint.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends WebhookEndpointUpdateManyAndReturnArgs>(args: SelectSubset<T, WebhookEndpointUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WebhookEndpointPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one WebhookEndpoint.
+     * @param {WebhookEndpointUpsertArgs} args - Arguments to update or create a WebhookEndpoint.
+     * @example
+     * // Update or create a WebhookEndpoint
+     * const webhookEndpoint = await prisma.webhookEndpoint.upsert({
+     *   create: {
+     *     // ... data to create a WebhookEndpoint
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the WebhookEndpoint we want to update
+     *   }
+     * })
+     */
+    upsert<T extends WebhookEndpointUpsertArgs>(args: SelectSubset<T, WebhookEndpointUpsertArgs<ExtArgs>>): Prisma__WebhookEndpointClient<$Result.GetResult<Prisma.$WebhookEndpointPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of WebhookEndpoints.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WebhookEndpointCountArgs} args - Arguments to filter WebhookEndpoints to count.
+     * @example
+     * // Count the number of WebhookEndpoints
+     * const count = await prisma.webhookEndpoint.count({
+     *   where: {
+     *     // ... the filter for the WebhookEndpoints we want to count
+     *   }
+     * })
+    **/
+    count<T extends WebhookEndpointCountArgs>(
+      args?: Subset<T, WebhookEndpointCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], WebhookEndpointCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a WebhookEndpoint.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WebhookEndpointAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends WebhookEndpointAggregateArgs>(args: Subset<T, WebhookEndpointAggregateArgs>): Prisma.PrismaPromise<GetWebhookEndpointAggregateType<T>>
+
+    /**
+     * Group by WebhookEndpoint.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WebhookEndpointGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends WebhookEndpointGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: WebhookEndpointGroupByArgs['orderBy'] }
+        : { orderBy?: WebhookEndpointGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, WebhookEndpointGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetWebhookEndpointGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the WebhookEndpoint model
+   */
+  readonly fields: WebhookEndpointFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for WebhookEndpoint.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__WebhookEndpointClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    deliveries<T extends WebhookEndpoint$deliveriesArgs<ExtArgs> = {}>(args?: Subset<T, WebhookEndpoint$deliveriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WebhookDeliveryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the WebhookEndpoint model
+   */
+  interface WebhookEndpointFieldRefs {
+    readonly id: FieldRef<"WebhookEndpoint", 'String'>
+    readonly user_id: FieldRef<"WebhookEndpoint", 'String'>
+    readonly name: FieldRef<"WebhookEndpoint", 'String'>
+    readonly url: FieldRef<"WebhookEndpoint", 'String'>
+    readonly secret_encrypted: FieldRef<"WebhookEndpoint", 'String'>
+    readonly subscribed_events: FieldRef<"WebhookEndpoint", 'WebhookEventType[]'>
+    readonly is_active: FieldRef<"WebhookEndpoint", 'Boolean'>
+    readonly last_triggered_at: FieldRef<"WebhookEndpoint", 'DateTime'>
+    readonly created_at: FieldRef<"WebhookEndpoint", 'DateTime'>
+    readonly updated_at: FieldRef<"WebhookEndpoint", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * WebhookEndpoint findUnique
+   */
+  export type WebhookEndpointFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebhookEndpoint
+     */
+    select?: WebhookEndpointSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebhookEndpoint
+     */
+    omit?: WebhookEndpointOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebhookEndpointInclude<ExtArgs> | null
+    /**
+     * Filter, which WebhookEndpoint to fetch.
+     */
+    where: WebhookEndpointWhereUniqueInput
+  }
+
+  /**
+   * WebhookEndpoint findUniqueOrThrow
+   */
+  export type WebhookEndpointFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebhookEndpoint
+     */
+    select?: WebhookEndpointSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebhookEndpoint
+     */
+    omit?: WebhookEndpointOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebhookEndpointInclude<ExtArgs> | null
+    /**
+     * Filter, which WebhookEndpoint to fetch.
+     */
+    where: WebhookEndpointWhereUniqueInput
+  }
+
+  /**
+   * WebhookEndpoint findFirst
+   */
+  export type WebhookEndpointFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebhookEndpoint
+     */
+    select?: WebhookEndpointSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebhookEndpoint
+     */
+    omit?: WebhookEndpointOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebhookEndpointInclude<ExtArgs> | null
+    /**
+     * Filter, which WebhookEndpoint to fetch.
+     */
+    where?: WebhookEndpointWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WebhookEndpoints to fetch.
+     */
+    orderBy?: WebhookEndpointOrderByWithRelationInput | WebhookEndpointOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for WebhookEndpoints.
+     */
+    cursor?: WebhookEndpointWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WebhookEndpoints from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WebhookEndpoints.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of WebhookEndpoints.
+     */
+    distinct?: WebhookEndpointScalarFieldEnum | WebhookEndpointScalarFieldEnum[]
+  }
+
+  /**
+   * WebhookEndpoint findFirstOrThrow
+   */
+  export type WebhookEndpointFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebhookEndpoint
+     */
+    select?: WebhookEndpointSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebhookEndpoint
+     */
+    omit?: WebhookEndpointOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebhookEndpointInclude<ExtArgs> | null
+    /**
+     * Filter, which WebhookEndpoint to fetch.
+     */
+    where?: WebhookEndpointWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WebhookEndpoints to fetch.
+     */
+    orderBy?: WebhookEndpointOrderByWithRelationInput | WebhookEndpointOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for WebhookEndpoints.
+     */
+    cursor?: WebhookEndpointWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WebhookEndpoints from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WebhookEndpoints.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of WebhookEndpoints.
+     */
+    distinct?: WebhookEndpointScalarFieldEnum | WebhookEndpointScalarFieldEnum[]
+  }
+
+  /**
+   * WebhookEndpoint findMany
+   */
+  export type WebhookEndpointFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebhookEndpoint
+     */
+    select?: WebhookEndpointSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebhookEndpoint
+     */
+    omit?: WebhookEndpointOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebhookEndpointInclude<ExtArgs> | null
+    /**
+     * Filter, which WebhookEndpoints to fetch.
+     */
+    where?: WebhookEndpointWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WebhookEndpoints to fetch.
+     */
+    orderBy?: WebhookEndpointOrderByWithRelationInput | WebhookEndpointOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing WebhookEndpoints.
+     */
+    cursor?: WebhookEndpointWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WebhookEndpoints from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WebhookEndpoints.
+     */
+    skip?: number
+    distinct?: WebhookEndpointScalarFieldEnum | WebhookEndpointScalarFieldEnum[]
+  }
+
+  /**
+   * WebhookEndpoint create
+   */
+  export type WebhookEndpointCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebhookEndpoint
+     */
+    select?: WebhookEndpointSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebhookEndpoint
+     */
+    omit?: WebhookEndpointOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebhookEndpointInclude<ExtArgs> | null
+    /**
+     * The data needed to create a WebhookEndpoint.
+     */
+    data: XOR<WebhookEndpointCreateInput, WebhookEndpointUncheckedCreateInput>
+  }
+
+  /**
+   * WebhookEndpoint createMany
+   */
+  export type WebhookEndpointCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many WebhookEndpoints.
+     */
+    data: WebhookEndpointCreateManyInput | WebhookEndpointCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * WebhookEndpoint createManyAndReturn
+   */
+  export type WebhookEndpointCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebhookEndpoint
+     */
+    select?: WebhookEndpointSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebhookEndpoint
+     */
+    omit?: WebhookEndpointOmit<ExtArgs> | null
+    /**
+     * The data used to create many WebhookEndpoints.
+     */
+    data: WebhookEndpointCreateManyInput | WebhookEndpointCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebhookEndpointIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * WebhookEndpoint update
+   */
+  export type WebhookEndpointUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebhookEndpoint
+     */
+    select?: WebhookEndpointSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebhookEndpoint
+     */
+    omit?: WebhookEndpointOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebhookEndpointInclude<ExtArgs> | null
+    /**
+     * The data needed to update a WebhookEndpoint.
+     */
+    data: XOR<WebhookEndpointUpdateInput, WebhookEndpointUncheckedUpdateInput>
+    /**
+     * Choose, which WebhookEndpoint to update.
+     */
+    where: WebhookEndpointWhereUniqueInput
+  }
+
+  /**
+   * WebhookEndpoint updateMany
+   */
+  export type WebhookEndpointUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update WebhookEndpoints.
+     */
+    data: XOR<WebhookEndpointUpdateManyMutationInput, WebhookEndpointUncheckedUpdateManyInput>
+    /**
+     * Filter which WebhookEndpoints to update
+     */
+    where?: WebhookEndpointWhereInput
+    /**
+     * Limit how many WebhookEndpoints to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * WebhookEndpoint updateManyAndReturn
+   */
+  export type WebhookEndpointUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebhookEndpoint
+     */
+    select?: WebhookEndpointSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebhookEndpoint
+     */
+    omit?: WebhookEndpointOmit<ExtArgs> | null
+    /**
+     * The data used to update WebhookEndpoints.
+     */
+    data: XOR<WebhookEndpointUpdateManyMutationInput, WebhookEndpointUncheckedUpdateManyInput>
+    /**
+     * Filter which WebhookEndpoints to update
+     */
+    where?: WebhookEndpointWhereInput
+    /**
+     * Limit how many WebhookEndpoints to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebhookEndpointIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * WebhookEndpoint upsert
+   */
+  export type WebhookEndpointUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebhookEndpoint
+     */
+    select?: WebhookEndpointSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebhookEndpoint
+     */
+    omit?: WebhookEndpointOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebhookEndpointInclude<ExtArgs> | null
+    /**
+     * The filter to search for the WebhookEndpoint to update in case it exists.
+     */
+    where: WebhookEndpointWhereUniqueInput
+    /**
+     * In case the WebhookEndpoint found by the `where` argument doesn't exist, create a new WebhookEndpoint with this data.
+     */
+    create: XOR<WebhookEndpointCreateInput, WebhookEndpointUncheckedCreateInput>
+    /**
+     * In case the WebhookEndpoint was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<WebhookEndpointUpdateInput, WebhookEndpointUncheckedUpdateInput>
+  }
+
+  /**
+   * WebhookEndpoint delete
+   */
+  export type WebhookEndpointDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebhookEndpoint
+     */
+    select?: WebhookEndpointSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebhookEndpoint
+     */
+    omit?: WebhookEndpointOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebhookEndpointInclude<ExtArgs> | null
+    /**
+     * Filter which WebhookEndpoint to delete.
+     */
+    where: WebhookEndpointWhereUniqueInput
+  }
+
+  /**
+   * WebhookEndpoint deleteMany
+   */
+  export type WebhookEndpointDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which WebhookEndpoints to delete
+     */
+    where?: WebhookEndpointWhereInput
+    /**
+     * Limit how many WebhookEndpoints to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * WebhookEndpoint.deliveries
+   */
+  export type WebhookEndpoint$deliveriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebhookDelivery
+     */
+    select?: WebhookDeliverySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebhookDelivery
+     */
+    omit?: WebhookDeliveryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebhookDeliveryInclude<ExtArgs> | null
+    where?: WebhookDeliveryWhereInput
+    orderBy?: WebhookDeliveryOrderByWithRelationInput | WebhookDeliveryOrderByWithRelationInput[]
+    cursor?: WebhookDeliveryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: WebhookDeliveryScalarFieldEnum | WebhookDeliveryScalarFieldEnum[]
+  }
+
+  /**
+   * WebhookEndpoint without action
+   */
+  export type WebhookEndpointDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebhookEndpoint
+     */
+    select?: WebhookEndpointSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebhookEndpoint
+     */
+    omit?: WebhookEndpointOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebhookEndpointInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model WebhookDelivery
+   */
+
+  export type AggregateWebhookDelivery = {
+    _count: WebhookDeliveryCountAggregateOutputType | null
+    _avg: WebhookDeliveryAvgAggregateOutputType | null
+    _sum: WebhookDeliverySumAggregateOutputType | null
+    _min: WebhookDeliveryMinAggregateOutputType | null
+    _max: WebhookDeliveryMaxAggregateOutputType | null
+  }
+
+  export type WebhookDeliveryAvgAggregateOutputType = {
+    http_status_code: number | null
+    attempt_number: number | null
+    duration_ms: number | null
+  }
+
+  export type WebhookDeliverySumAggregateOutputType = {
+    http_status_code: number | null
+    attempt_number: number | null
+    duration_ms: number | null
+  }
+
+  export type WebhookDeliveryMinAggregateOutputType = {
+    id: string | null
+    webhook_endpoint_id: string | null
+    event_type: $Enums.WebhookEventType | null
+    workflow_run_id: string | null
+    is_test: boolean | null
+    status: $Enums.WebhookDeliveryStatus | null
+    http_status_code: number | null
+    response_body: string | null
+    error_message: string | null
+    attempt_number: number | null
+    duration_ms: number | null
+    created_at: Date | null
+  }
+
+  export type WebhookDeliveryMaxAggregateOutputType = {
+    id: string | null
+    webhook_endpoint_id: string | null
+    event_type: $Enums.WebhookEventType | null
+    workflow_run_id: string | null
+    is_test: boolean | null
+    status: $Enums.WebhookDeliveryStatus | null
+    http_status_code: number | null
+    response_body: string | null
+    error_message: string | null
+    attempt_number: number | null
+    duration_ms: number | null
+    created_at: Date | null
+  }
+
+  export type WebhookDeliveryCountAggregateOutputType = {
+    id: number
+    webhook_endpoint_id: number
+    event_type: number
+    workflow_run_id: number
+    is_test: number
+    payload: number
+    status: number
+    http_status_code: number
+    response_body: number
+    error_message: number
+    attempt_number: number
+    duration_ms: number
+    created_at: number
+    _all: number
+  }
+
+
+  export type WebhookDeliveryAvgAggregateInputType = {
+    http_status_code?: true
+    attempt_number?: true
+    duration_ms?: true
+  }
+
+  export type WebhookDeliverySumAggregateInputType = {
+    http_status_code?: true
+    attempt_number?: true
+    duration_ms?: true
+  }
+
+  export type WebhookDeliveryMinAggregateInputType = {
+    id?: true
+    webhook_endpoint_id?: true
+    event_type?: true
+    workflow_run_id?: true
+    is_test?: true
+    status?: true
+    http_status_code?: true
+    response_body?: true
+    error_message?: true
+    attempt_number?: true
+    duration_ms?: true
+    created_at?: true
+  }
+
+  export type WebhookDeliveryMaxAggregateInputType = {
+    id?: true
+    webhook_endpoint_id?: true
+    event_type?: true
+    workflow_run_id?: true
+    is_test?: true
+    status?: true
+    http_status_code?: true
+    response_body?: true
+    error_message?: true
+    attempt_number?: true
+    duration_ms?: true
+    created_at?: true
+  }
+
+  export type WebhookDeliveryCountAggregateInputType = {
+    id?: true
+    webhook_endpoint_id?: true
+    event_type?: true
+    workflow_run_id?: true
+    is_test?: true
+    payload?: true
+    status?: true
+    http_status_code?: true
+    response_body?: true
+    error_message?: true
+    attempt_number?: true
+    duration_ms?: true
+    created_at?: true
+    _all?: true
+  }
+
+  export type WebhookDeliveryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which WebhookDelivery to aggregate.
+     */
+    where?: WebhookDeliveryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WebhookDeliveries to fetch.
+     */
+    orderBy?: WebhookDeliveryOrderByWithRelationInput | WebhookDeliveryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: WebhookDeliveryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WebhookDeliveries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WebhookDeliveries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned WebhookDeliveries
+    **/
+    _count?: true | WebhookDeliveryCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: WebhookDeliveryAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: WebhookDeliverySumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: WebhookDeliveryMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: WebhookDeliveryMaxAggregateInputType
+  }
+
+  export type GetWebhookDeliveryAggregateType<T extends WebhookDeliveryAggregateArgs> = {
+        [P in keyof T & keyof AggregateWebhookDelivery]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateWebhookDelivery[P]>
+      : GetScalarType<T[P], AggregateWebhookDelivery[P]>
+  }
+
+
+
+
+  export type WebhookDeliveryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: WebhookDeliveryWhereInput
+    orderBy?: WebhookDeliveryOrderByWithAggregationInput | WebhookDeliveryOrderByWithAggregationInput[]
+    by: WebhookDeliveryScalarFieldEnum[] | WebhookDeliveryScalarFieldEnum
+    having?: WebhookDeliveryScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: WebhookDeliveryCountAggregateInputType | true
+    _avg?: WebhookDeliveryAvgAggregateInputType
+    _sum?: WebhookDeliverySumAggregateInputType
+    _min?: WebhookDeliveryMinAggregateInputType
+    _max?: WebhookDeliveryMaxAggregateInputType
+  }
+
+  export type WebhookDeliveryGroupByOutputType = {
+    id: string
+    webhook_endpoint_id: string
+    event_type: $Enums.WebhookEventType
+    workflow_run_id: string | null
+    is_test: boolean
+    payload: JsonValue
+    status: $Enums.WebhookDeliveryStatus
+    http_status_code: number | null
+    response_body: string | null
+    error_message: string | null
+    attempt_number: number
+    duration_ms: number | null
+    created_at: Date
+    _count: WebhookDeliveryCountAggregateOutputType | null
+    _avg: WebhookDeliveryAvgAggregateOutputType | null
+    _sum: WebhookDeliverySumAggregateOutputType | null
+    _min: WebhookDeliveryMinAggregateOutputType | null
+    _max: WebhookDeliveryMaxAggregateOutputType | null
+  }
+
+  type GetWebhookDeliveryGroupByPayload<T extends WebhookDeliveryGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<WebhookDeliveryGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof WebhookDeliveryGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], WebhookDeliveryGroupByOutputType[P]>
+            : GetScalarType<T[P], WebhookDeliveryGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type WebhookDeliverySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    webhook_endpoint_id?: boolean
+    event_type?: boolean
+    workflow_run_id?: boolean
+    is_test?: boolean
+    payload?: boolean
+    status?: boolean
+    http_status_code?: boolean
+    response_body?: boolean
+    error_message?: boolean
+    attempt_number?: boolean
+    duration_ms?: boolean
+    created_at?: boolean
+    webhook_endpoint?: boolean | WebhookEndpointDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["webhookDelivery"]>
+
+  export type WebhookDeliverySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    webhook_endpoint_id?: boolean
+    event_type?: boolean
+    workflow_run_id?: boolean
+    is_test?: boolean
+    payload?: boolean
+    status?: boolean
+    http_status_code?: boolean
+    response_body?: boolean
+    error_message?: boolean
+    attempt_number?: boolean
+    duration_ms?: boolean
+    created_at?: boolean
+    webhook_endpoint?: boolean | WebhookEndpointDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["webhookDelivery"]>
+
+  export type WebhookDeliverySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    webhook_endpoint_id?: boolean
+    event_type?: boolean
+    workflow_run_id?: boolean
+    is_test?: boolean
+    payload?: boolean
+    status?: boolean
+    http_status_code?: boolean
+    response_body?: boolean
+    error_message?: boolean
+    attempt_number?: boolean
+    duration_ms?: boolean
+    created_at?: boolean
+    webhook_endpoint?: boolean | WebhookEndpointDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["webhookDelivery"]>
+
+  export type WebhookDeliverySelectScalar = {
+    id?: boolean
+    webhook_endpoint_id?: boolean
+    event_type?: boolean
+    workflow_run_id?: boolean
+    is_test?: boolean
+    payload?: boolean
+    status?: boolean
+    http_status_code?: boolean
+    response_body?: boolean
+    error_message?: boolean
+    attempt_number?: boolean
+    duration_ms?: boolean
+    created_at?: boolean
+  }
+
+  export type WebhookDeliveryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "webhook_endpoint_id" | "event_type" | "workflow_run_id" | "is_test" | "payload" | "status" | "http_status_code" | "response_body" | "error_message" | "attempt_number" | "duration_ms" | "created_at", ExtArgs["result"]["webhookDelivery"]>
+  export type WebhookDeliveryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    webhook_endpoint?: boolean | WebhookEndpointDefaultArgs<ExtArgs>
+  }
+  export type WebhookDeliveryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    webhook_endpoint?: boolean | WebhookEndpointDefaultArgs<ExtArgs>
+  }
+  export type WebhookDeliveryIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    webhook_endpoint?: boolean | WebhookEndpointDefaultArgs<ExtArgs>
+  }
+
+  export type $WebhookDeliveryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "WebhookDelivery"
+    objects: {
+      webhook_endpoint: Prisma.$WebhookEndpointPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      webhook_endpoint_id: string
+      event_type: $Enums.WebhookEventType
+      workflow_run_id: string | null
+      is_test: boolean
+      payload: Prisma.JsonValue
+      status: $Enums.WebhookDeliveryStatus
+      http_status_code: number | null
+      response_body: string | null
+      error_message: string | null
+      attempt_number: number
+      duration_ms: number | null
+      created_at: Date
+    }, ExtArgs["result"]["webhookDelivery"]>
+    composites: {}
+  }
+
+  type WebhookDeliveryGetPayload<S extends boolean | null | undefined | WebhookDeliveryDefaultArgs> = $Result.GetResult<Prisma.$WebhookDeliveryPayload, S>
+
+  type WebhookDeliveryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<WebhookDeliveryFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: WebhookDeliveryCountAggregateInputType | true
+    }
+
+  export interface WebhookDeliveryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['WebhookDelivery'], meta: { name: 'WebhookDelivery' } }
+    /**
+     * Find zero or one WebhookDelivery that matches the filter.
+     * @param {WebhookDeliveryFindUniqueArgs} args - Arguments to find a WebhookDelivery
+     * @example
+     * // Get one WebhookDelivery
+     * const webhookDelivery = await prisma.webhookDelivery.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends WebhookDeliveryFindUniqueArgs>(args: SelectSubset<T, WebhookDeliveryFindUniqueArgs<ExtArgs>>): Prisma__WebhookDeliveryClient<$Result.GetResult<Prisma.$WebhookDeliveryPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one WebhookDelivery that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {WebhookDeliveryFindUniqueOrThrowArgs} args - Arguments to find a WebhookDelivery
+     * @example
+     * // Get one WebhookDelivery
+     * const webhookDelivery = await prisma.webhookDelivery.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends WebhookDeliveryFindUniqueOrThrowArgs>(args: SelectSubset<T, WebhookDeliveryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__WebhookDeliveryClient<$Result.GetResult<Prisma.$WebhookDeliveryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first WebhookDelivery that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WebhookDeliveryFindFirstArgs} args - Arguments to find a WebhookDelivery
+     * @example
+     * // Get one WebhookDelivery
+     * const webhookDelivery = await prisma.webhookDelivery.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends WebhookDeliveryFindFirstArgs>(args?: SelectSubset<T, WebhookDeliveryFindFirstArgs<ExtArgs>>): Prisma__WebhookDeliveryClient<$Result.GetResult<Prisma.$WebhookDeliveryPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first WebhookDelivery that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WebhookDeliveryFindFirstOrThrowArgs} args - Arguments to find a WebhookDelivery
+     * @example
+     * // Get one WebhookDelivery
+     * const webhookDelivery = await prisma.webhookDelivery.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends WebhookDeliveryFindFirstOrThrowArgs>(args?: SelectSubset<T, WebhookDeliveryFindFirstOrThrowArgs<ExtArgs>>): Prisma__WebhookDeliveryClient<$Result.GetResult<Prisma.$WebhookDeliveryPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more WebhookDeliveries that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WebhookDeliveryFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all WebhookDeliveries
+     * const webhookDeliveries = await prisma.webhookDelivery.findMany()
+     * 
+     * // Get first 10 WebhookDeliveries
+     * const webhookDeliveries = await prisma.webhookDelivery.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const webhookDeliveryWithIdOnly = await prisma.webhookDelivery.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends WebhookDeliveryFindManyArgs>(args?: SelectSubset<T, WebhookDeliveryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WebhookDeliveryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a WebhookDelivery.
+     * @param {WebhookDeliveryCreateArgs} args - Arguments to create a WebhookDelivery.
+     * @example
+     * // Create one WebhookDelivery
+     * const WebhookDelivery = await prisma.webhookDelivery.create({
+     *   data: {
+     *     // ... data to create a WebhookDelivery
+     *   }
+     * })
+     * 
+     */
+    create<T extends WebhookDeliveryCreateArgs>(args: SelectSubset<T, WebhookDeliveryCreateArgs<ExtArgs>>): Prisma__WebhookDeliveryClient<$Result.GetResult<Prisma.$WebhookDeliveryPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many WebhookDeliveries.
+     * @param {WebhookDeliveryCreateManyArgs} args - Arguments to create many WebhookDeliveries.
+     * @example
+     * // Create many WebhookDeliveries
+     * const webhookDelivery = await prisma.webhookDelivery.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends WebhookDeliveryCreateManyArgs>(args?: SelectSubset<T, WebhookDeliveryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many WebhookDeliveries and returns the data saved in the database.
+     * @param {WebhookDeliveryCreateManyAndReturnArgs} args - Arguments to create many WebhookDeliveries.
+     * @example
+     * // Create many WebhookDeliveries
+     * const webhookDelivery = await prisma.webhookDelivery.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many WebhookDeliveries and only return the `id`
+     * const webhookDeliveryWithIdOnly = await prisma.webhookDelivery.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends WebhookDeliveryCreateManyAndReturnArgs>(args?: SelectSubset<T, WebhookDeliveryCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WebhookDeliveryPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a WebhookDelivery.
+     * @param {WebhookDeliveryDeleteArgs} args - Arguments to delete one WebhookDelivery.
+     * @example
+     * // Delete one WebhookDelivery
+     * const WebhookDelivery = await prisma.webhookDelivery.delete({
+     *   where: {
+     *     // ... filter to delete one WebhookDelivery
+     *   }
+     * })
+     * 
+     */
+    delete<T extends WebhookDeliveryDeleteArgs>(args: SelectSubset<T, WebhookDeliveryDeleteArgs<ExtArgs>>): Prisma__WebhookDeliveryClient<$Result.GetResult<Prisma.$WebhookDeliveryPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one WebhookDelivery.
+     * @param {WebhookDeliveryUpdateArgs} args - Arguments to update one WebhookDelivery.
+     * @example
+     * // Update one WebhookDelivery
+     * const webhookDelivery = await prisma.webhookDelivery.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends WebhookDeliveryUpdateArgs>(args: SelectSubset<T, WebhookDeliveryUpdateArgs<ExtArgs>>): Prisma__WebhookDeliveryClient<$Result.GetResult<Prisma.$WebhookDeliveryPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more WebhookDeliveries.
+     * @param {WebhookDeliveryDeleteManyArgs} args - Arguments to filter WebhookDeliveries to delete.
+     * @example
+     * // Delete a few WebhookDeliveries
+     * const { count } = await prisma.webhookDelivery.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends WebhookDeliveryDeleteManyArgs>(args?: SelectSubset<T, WebhookDeliveryDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more WebhookDeliveries.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WebhookDeliveryUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many WebhookDeliveries
+     * const webhookDelivery = await prisma.webhookDelivery.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends WebhookDeliveryUpdateManyArgs>(args: SelectSubset<T, WebhookDeliveryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more WebhookDeliveries and returns the data updated in the database.
+     * @param {WebhookDeliveryUpdateManyAndReturnArgs} args - Arguments to update many WebhookDeliveries.
+     * @example
+     * // Update many WebhookDeliveries
+     * const webhookDelivery = await prisma.webhookDelivery.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more WebhookDeliveries and only return the `id`
+     * const webhookDeliveryWithIdOnly = await prisma.webhookDelivery.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends WebhookDeliveryUpdateManyAndReturnArgs>(args: SelectSubset<T, WebhookDeliveryUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WebhookDeliveryPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one WebhookDelivery.
+     * @param {WebhookDeliveryUpsertArgs} args - Arguments to update or create a WebhookDelivery.
+     * @example
+     * // Update or create a WebhookDelivery
+     * const webhookDelivery = await prisma.webhookDelivery.upsert({
+     *   create: {
+     *     // ... data to create a WebhookDelivery
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the WebhookDelivery we want to update
+     *   }
+     * })
+     */
+    upsert<T extends WebhookDeliveryUpsertArgs>(args: SelectSubset<T, WebhookDeliveryUpsertArgs<ExtArgs>>): Prisma__WebhookDeliveryClient<$Result.GetResult<Prisma.$WebhookDeliveryPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of WebhookDeliveries.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WebhookDeliveryCountArgs} args - Arguments to filter WebhookDeliveries to count.
+     * @example
+     * // Count the number of WebhookDeliveries
+     * const count = await prisma.webhookDelivery.count({
+     *   where: {
+     *     // ... the filter for the WebhookDeliveries we want to count
+     *   }
+     * })
+    **/
+    count<T extends WebhookDeliveryCountArgs>(
+      args?: Subset<T, WebhookDeliveryCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], WebhookDeliveryCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a WebhookDelivery.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WebhookDeliveryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends WebhookDeliveryAggregateArgs>(args: Subset<T, WebhookDeliveryAggregateArgs>): Prisma.PrismaPromise<GetWebhookDeliveryAggregateType<T>>
+
+    /**
+     * Group by WebhookDelivery.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WebhookDeliveryGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends WebhookDeliveryGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: WebhookDeliveryGroupByArgs['orderBy'] }
+        : { orderBy?: WebhookDeliveryGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, WebhookDeliveryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetWebhookDeliveryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the WebhookDelivery model
+   */
+  readonly fields: WebhookDeliveryFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for WebhookDelivery.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__WebhookDeliveryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    webhook_endpoint<T extends WebhookEndpointDefaultArgs<ExtArgs> = {}>(args?: Subset<T, WebhookEndpointDefaultArgs<ExtArgs>>): Prisma__WebhookEndpointClient<$Result.GetResult<Prisma.$WebhookEndpointPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the WebhookDelivery model
+   */
+  interface WebhookDeliveryFieldRefs {
+    readonly id: FieldRef<"WebhookDelivery", 'String'>
+    readonly webhook_endpoint_id: FieldRef<"WebhookDelivery", 'String'>
+    readonly event_type: FieldRef<"WebhookDelivery", 'WebhookEventType'>
+    readonly workflow_run_id: FieldRef<"WebhookDelivery", 'String'>
+    readonly is_test: FieldRef<"WebhookDelivery", 'Boolean'>
+    readonly payload: FieldRef<"WebhookDelivery", 'Json'>
+    readonly status: FieldRef<"WebhookDelivery", 'WebhookDeliveryStatus'>
+    readonly http_status_code: FieldRef<"WebhookDelivery", 'Int'>
+    readonly response_body: FieldRef<"WebhookDelivery", 'String'>
+    readonly error_message: FieldRef<"WebhookDelivery", 'String'>
+    readonly attempt_number: FieldRef<"WebhookDelivery", 'Int'>
+    readonly duration_ms: FieldRef<"WebhookDelivery", 'Int'>
+    readonly created_at: FieldRef<"WebhookDelivery", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * WebhookDelivery findUnique
+   */
+  export type WebhookDeliveryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebhookDelivery
+     */
+    select?: WebhookDeliverySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebhookDelivery
+     */
+    omit?: WebhookDeliveryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebhookDeliveryInclude<ExtArgs> | null
+    /**
+     * Filter, which WebhookDelivery to fetch.
+     */
+    where: WebhookDeliveryWhereUniqueInput
+  }
+
+  /**
+   * WebhookDelivery findUniqueOrThrow
+   */
+  export type WebhookDeliveryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebhookDelivery
+     */
+    select?: WebhookDeliverySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebhookDelivery
+     */
+    omit?: WebhookDeliveryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebhookDeliveryInclude<ExtArgs> | null
+    /**
+     * Filter, which WebhookDelivery to fetch.
+     */
+    where: WebhookDeliveryWhereUniqueInput
+  }
+
+  /**
+   * WebhookDelivery findFirst
+   */
+  export type WebhookDeliveryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebhookDelivery
+     */
+    select?: WebhookDeliverySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebhookDelivery
+     */
+    omit?: WebhookDeliveryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebhookDeliveryInclude<ExtArgs> | null
+    /**
+     * Filter, which WebhookDelivery to fetch.
+     */
+    where?: WebhookDeliveryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WebhookDeliveries to fetch.
+     */
+    orderBy?: WebhookDeliveryOrderByWithRelationInput | WebhookDeliveryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for WebhookDeliveries.
+     */
+    cursor?: WebhookDeliveryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WebhookDeliveries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WebhookDeliveries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of WebhookDeliveries.
+     */
+    distinct?: WebhookDeliveryScalarFieldEnum | WebhookDeliveryScalarFieldEnum[]
+  }
+
+  /**
+   * WebhookDelivery findFirstOrThrow
+   */
+  export type WebhookDeliveryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebhookDelivery
+     */
+    select?: WebhookDeliverySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebhookDelivery
+     */
+    omit?: WebhookDeliveryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebhookDeliveryInclude<ExtArgs> | null
+    /**
+     * Filter, which WebhookDelivery to fetch.
+     */
+    where?: WebhookDeliveryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WebhookDeliveries to fetch.
+     */
+    orderBy?: WebhookDeliveryOrderByWithRelationInput | WebhookDeliveryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for WebhookDeliveries.
+     */
+    cursor?: WebhookDeliveryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WebhookDeliveries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WebhookDeliveries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of WebhookDeliveries.
+     */
+    distinct?: WebhookDeliveryScalarFieldEnum | WebhookDeliveryScalarFieldEnum[]
+  }
+
+  /**
+   * WebhookDelivery findMany
+   */
+  export type WebhookDeliveryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebhookDelivery
+     */
+    select?: WebhookDeliverySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebhookDelivery
+     */
+    omit?: WebhookDeliveryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebhookDeliveryInclude<ExtArgs> | null
+    /**
+     * Filter, which WebhookDeliveries to fetch.
+     */
+    where?: WebhookDeliveryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WebhookDeliveries to fetch.
+     */
+    orderBy?: WebhookDeliveryOrderByWithRelationInput | WebhookDeliveryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing WebhookDeliveries.
+     */
+    cursor?: WebhookDeliveryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WebhookDeliveries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WebhookDeliveries.
+     */
+    skip?: number
+    distinct?: WebhookDeliveryScalarFieldEnum | WebhookDeliveryScalarFieldEnum[]
+  }
+
+  /**
+   * WebhookDelivery create
+   */
+  export type WebhookDeliveryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebhookDelivery
+     */
+    select?: WebhookDeliverySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebhookDelivery
+     */
+    omit?: WebhookDeliveryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebhookDeliveryInclude<ExtArgs> | null
+    /**
+     * The data needed to create a WebhookDelivery.
+     */
+    data: XOR<WebhookDeliveryCreateInput, WebhookDeliveryUncheckedCreateInput>
+  }
+
+  /**
+   * WebhookDelivery createMany
+   */
+  export type WebhookDeliveryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many WebhookDeliveries.
+     */
+    data: WebhookDeliveryCreateManyInput | WebhookDeliveryCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * WebhookDelivery createManyAndReturn
+   */
+  export type WebhookDeliveryCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebhookDelivery
+     */
+    select?: WebhookDeliverySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebhookDelivery
+     */
+    omit?: WebhookDeliveryOmit<ExtArgs> | null
+    /**
+     * The data used to create many WebhookDeliveries.
+     */
+    data: WebhookDeliveryCreateManyInput | WebhookDeliveryCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebhookDeliveryIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * WebhookDelivery update
+   */
+  export type WebhookDeliveryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebhookDelivery
+     */
+    select?: WebhookDeliverySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebhookDelivery
+     */
+    omit?: WebhookDeliveryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebhookDeliveryInclude<ExtArgs> | null
+    /**
+     * The data needed to update a WebhookDelivery.
+     */
+    data: XOR<WebhookDeliveryUpdateInput, WebhookDeliveryUncheckedUpdateInput>
+    /**
+     * Choose, which WebhookDelivery to update.
+     */
+    where: WebhookDeliveryWhereUniqueInput
+  }
+
+  /**
+   * WebhookDelivery updateMany
+   */
+  export type WebhookDeliveryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update WebhookDeliveries.
+     */
+    data: XOR<WebhookDeliveryUpdateManyMutationInput, WebhookDeliveryUncheckedUpdateManyInput>
+    /**
+     * Filter which WebhookDeliveries to update
+     */
+    where?: WebhookDeliveryWhereInput
+    /**
+     * Limit how many WebhookDeliveries to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * WebhookDelivery updateManyAndReturn
+   */
+  export type WebhookDeliveryUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebhookDelivery
+     */
+    select?: WebhookDeliverySelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebhookDelivery
+     */
+    omit?: WebhookDeliveryOmit<ExtArgs> | null
+    /**
+     * The data used to update WebhookDeliveries.
+     */
+    data: XOR<WebhookDeliveryUpdateManyMutationInput, WebhookDeliveryUncheckedUpdateManyInput>
+    /**
+     * Filter which WebhookDeliveries to update
+     */
+    where?: WebhookDeliveryWhereInput
+    /**
+     * Limit how many WebhookDeliveries to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebhookDeliveryIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * WebhookDelivery upsert
+   */
+  export type WebhookDeliveryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebhookDelivery
+     */
+    select?: WebhookDeliverySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebhookDelivery
+     */
+    omit?: WebhookDeliveryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebhookDeliveryInclude<ExtArgs> | null
+    /**
+     * The filter to search for the WebhookDelivery to update in case it exists.
+     */
+    where: WebhookDeliveryWhereUniqueInput
+    /**
+     * In case the WebhookDelivery found by the `where` argument doesn't exist, create a new WebhookDelivery with this data.
+     */
+    create: XOR<WebhookDeliveryCreateInput, WebhookDeliveryUncheckedCreateInput>
+    /**
+     * In case the WebhookDelivery was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<WebhookDeliveryUpdateInput, WebhookDeliveryUncheckedUpdateInput>
+  }
+
+  /**
+   * WebhookDelivery delete
+   */
+  export type WebhookDeliveryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebhookDelivery
+     */
+    select?: WebhookDeliverySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebhookDelivery
+     */
+    omit?: WebhookDeliveryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebhookDeliveryInclude<ExtArgs> | null
+    /**
+     * Filter which WebhookDelivery to delete.
+     */
+    where: WebhookDeliveryWhereUniqueInput
+  }
+
+  /**
+   * WebhookDelivery deleteMany
+   */
+  export type WebhookDeliveryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which WebhookDeliveries to delete
+     */
+    where?: WebhookDeliveryWhereInput
+    /**
+     * Limit how many WebhookDeliveries to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * WebhookDelivery without action
+   */
+  export type WebhookDeliveryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebhookDelivery
+     */
+    select?: WebhookDeliverySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebhookDelivery
+     */
+    omit?: WebhookDeliveryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebhookDeliveryInclude<ExtArgs> | null
   }
 
 
@@ -32438,6 +35066,41 @@ export namespace Prisma {
   export type ApiKeyScalarFieldEnum = (typeof ApiKeyScalarFieldEnum)[keyof typeof ApiKeyScalarFieldEnum]
 
 
+  export const WebhookEndpointScalarFieldEnum: {
+    id: 'id',
+    user_id: 'user_id',
+    name: 'name',
+    url: 'url',
+    secret_encrypted: 'secret_encrypted',
+    subscribed_events: 'subscribed_events',
+    is_active: 'is_active',
+    last_triggered_at: 'last_triggered_at',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type WebhookEndpointScalarFieldEnum = (typeof WebhookEndpointScalarFieldEnum)[keyof typeof WebhookEndpointScalarFieldEnum]
+
+
+  export const WebhookDeliveryScalarFieldEnum: {
+    id: 'id',
+    webhook_endpoint_id: 'webhook_endpoint_id',
+    event_type: 'event_type',
+    workflow_run_id: 'workflow_run_id',
+    is_test: 'is_test',
+    payload: 'payload',
+    status: 'status',
+    http_status_code: 'http_status_code',
+    response_body: 'response_body',
+    error_message: 'error_message',
+    attempt_number: 'attempt_number',
+    duration_ms: 'duration_ms',
+    created_at: 'created_at'
+  };
+
+  export type WebhookDeliveryScalarFieldEnum = (typeof WebhookDeliveryScalarFieldEnum)[keyof typeof WebhookDeliveryScalarFieldEnum]
+
+
   export const DocumentScalarFieldEnum: {
     id: 'id',
     user_id: 'user_id',
@@ -32822,19 +35485,19 @@ export namespace Prisma {
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+  export const JsonNullValueInput: {
+    JsonNull: typeof JsonNull
+  };
+
+  export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
   export const NullableJsonNullValueInput: {
     DbNull: typeof DbNull,
     JsonNull: typeof JsonNull
   };
 
   export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
-
-
-  export const JsonNullValueInput: {
-    JsonNull: typeof JsonNull
-  };
-
-  export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
   export const QueryMode: {
@@ -32917,6 +35580,48 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'WebhookEventType[]'
+   */
+  export type ListEnumWebhookEventTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WebhookEventType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'WebhookEventType'
+   */
+  export type EnumWebhookEventTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WebhookEventType'>
+    
+
+
+  /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
+   * Reference to a field of type 'QueryMode'
+   */
+  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
+
+  /**
+   * Reference to a field of type 'WebhookDeliveryStatus'
+   */
+  export type EnumWebhookDeliveryStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WebhookDeliveryStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'WebhookDeliveryStatus[]'
+   */
+  export type ListEnumWebhookDeliveryStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WebhookDeliveryStatus[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -32941,20 +35646,6 @@ export namespace Prisma {
    * Reference to a field of type 'DocumentType[]'
    */
   export type ListEnumDocumentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DocumentType[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Json'
-   */
-  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
-    
-
-
-  /**
-   * Reference to a field of type 'QueryMode'
-   */
-  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
 
 
@@ -33302,6 +35993,7 @@ export namespace Prisma {
     user_integrations?: UserIntegrationListRelationFilter
     extraction_schemas?: ExtractionSchemaListRelationFilter
     api_keys?: ApiKeyListRelationFilter
+    webhook_endpoints?: WebhookEndpointListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -33320,6 +36012,7 @@ export namespace Prisma {
     user_integrations?: UserIntegrationOrderByRelationAggregateInput
     extraction_schemas?: ExtractionSchemaOrderByRelationAggregateInput
     api_keys?: ApiKeyOrderByRelationAggregateInput
+    webhook_endpoints?: WebhookEndpointOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -33341,6 +36034,7 @@ export namespace Prisma {
     user_integrations?: UserIntegrationListRelationFilter
     extraction_schemas?: ExtractionSchemaListRelationFilter
     api_keys?: ApiKeyListRelationFilter
+    webhook_endpoints?: WebhookEndpointListRelationFilter
   }, "id" | "email" | "phone">
 
   export type UserOrderByWithAggregationInput = {
@@ -33509,6 +36203,186 @@ export namespace Prisma {
     expires_at?: DateTimeNullableWithAggregatesFilter<"ApiKey"> | Date | string | null
     revoked_at?: DateTimeNullableWithAggregatesFilter<"ApiKey"> | Date | string | null
     created_at?: DateTimeWithAggregatesFilter<"ApiKey"> | Date | string
+  }
+
+  export type WebhookEndpointWhereInput = {
+    AND?: WebhookEndpointWhereInput | WebhookEndpointWhereInput[]
+    OR?: WebhookEndpointWhereInput[]
+    NOT?: WebhookEndpointWhereInput | WebhookEndpointWhereInput[]
+    id?: StringFilter<"WebhookEndpoint"> | string
+    user_id?: StringFilter<"WebhookEndpoint"> | string
+    name?: StringNullableFilter<"WebhookEndpoint"> | string | null
+    url?: StringFilter<"WebhookEndpoint"> | string
+    secret_encrypted?: StringFilter<"WebhookEndpoint"> | string
+    subscribed_events?: EnumWebhookEventTypeNullableListFilter<"WebhookEndpoint">
+    is_active?: BoolFilter<"WebhookEndpoint"> | boolean
+    last_triggered_at?: DateTimeNullableFilter<"WebhookEndpoint"> | Date | string | null
+    created_at?: DateTimeFilter<"WebhookEndpoint"> | Date | string
+    updated_at?: DateTimeFilter<"WebhookEndpoint"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    deliveries?: WebhookDeliveryListRelationFilter
+  }
+
+  export type WebhookEndpointOrderByWithRelationInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    name?: SortOrderInput | SortOrder
+    url?: SortOrder
+    secret_encrypted?: SortOrder
+    subscribed_events?: SortOrder
+    is_active?: SortOrder
+    last_triggered_at?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    user?: UserOrderByWithRelationInput
+    deliveries?: WebhookDeliveryOrderByRelationAggregateInput
+  }
+
+  export type WebhookEndpointWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: WebhookEndpointWhereInput | WebhookEndpointWhereInput[]
+    OR?: WebhookEndpointWhereInput[]
+    NOT?: WebhookEndpointWhereInput | WebhookEndpointWhereInput[]
+    user_id?: StringFilter<"WebhookEndpoint"> | string
+    name?: StringNullableFilter<"WebhookEndpoint"> | string | null
+    url?: StringFilter<"WebhookEndpoint"> | string
+    secret_encrypted?: StringFilter<"WebhookEndpoint"> | string
+    subscribed_events?: EnumWebhookEventTypeNullableListFilter<"WebhookEndpoint">
+    is_active?: BoolFilter<"WebhookEndpoint"> | boolean
+    last_triggered_at?: DateTimeNullableFilter<"WebhookEndpoint"> | Date | string | null
+    created_at?: DateTimeFilter<"WebhookEndpoint"> | Date | string
+    updated_at?: DateTimeFilter<"WebhookEndpoint"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    deliveries?: WebhookDeliveryListRelationFilter
+  }, "id">
+
+  export type WebhookEndpointOrderByWithAggregationInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    name?: SortOrderInput | SortOrder
+    url?: SortOrder
+    secret_encrypted?: SortOrder
+    subscribed_events?: SortOrder
+    is_active?: SortOrder
+    last_triggered_at?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: WebhookEndpointCountOrderByAggregateInput
+    _max?: WebhookEndpointMaxOrderByAggregateInput
+    _min?: WebhookEndpointMinOrderByAggregateInput
+  }
+
+  export type WebhookEndpointScalarWhereWithAggregatesInput = {
+    AND?: WebhookEndpointScalarWhereWithAggregatesInput | WebhookEndpointScalarWhereWithAggregatesInput[]
+    OR?: WebhookEndpointScalarWhereWithAggregatesInput[]
+    NOT?: WebhookEndpointScalarWhereWithAggregatesInput | WebhookEndpointScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"WebhookEndpoint"> | string
+    user_id?: StringWithAggregatesFilter<"WebhookEndpoint"> | string
+    name?: StringNullableWithAggregatesFilter<"WebhookEndpoint"> | string | null
+    url?: StringWithAggregatesFilter<"WebhookEndpoint"> | string
+    secret_encrypted?: StringWithAggregatesFilter<"WebhookEndpoint"> | string
+    subscribed_events?: EnumWebhookEventTypeNullableListFilter<"WebhookEndpoint">
+    is_active?: BoolWithAggregatesFilter<"WebhookEndpoint"> | boolean
+    last_triggered_at?: DateTimeNullableWithAggregatesFilter<"WebhookEndpoint"> | Date | string | null
+    created_at?: DateTimeWithAggregatesFilter<"WebhookEndpoint"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"WebhookEndpoint"> | Date | string
+  }
+
+  export type WebhookDeliveryWhereInput = {
+    AND?: WebhookDeliveryWhereInput | WebhookDeliveryWhereInput[]
+    OR?: WebhookDeliveryWhereInput[]
+    NOT?: WebhookDeliveryWhereInput | WebhookDeliveryWhereInput[]
+    id?: StringFilter<"WebhookDelivery"> | string
+    webhook_endpoint_id?: StringFilter<"WebhookDelivery"> | string
+    event_type?: EnumWebhookEventTypeFilter<"WebhookDelivery"> | $Enums.WebhookEventType
+    workflow_run_id?: StringNullableFilter<"WebhookDelivery"> | string | null
+    is_test?: BoolFilter<"WebhookDelivery"> | boolean
+    payload?: JsonFilter<"WebhookDelivery">
+    status?: EnumWebhookDeliveryStatusFilter<"WebhookDelivery"> | $Enums.WebhookDeliveryStatus
+    http_status_code?: IntNullableFilter<"WebhookDelivery"> | number | null
+    response_body?: StringNullableFilter<"WebhookDelivery"> | string | null
+    error_message?: StringNullableFilter<"WebhookDelivery"> | string | null
+    attempt_number?: IntFilter<"WebhookDelivery"> | number
+    duration_ms?: IntNullableFilter<"WebhookDelivery"> | number | null
+    created_at?: DateTimeFilter<"WebhookDelivery"> | Date | string
+    webhook_endpoint?: XOR<WebhookEndpointScalarRelationFilter, WebhookEndpointWhereInput>
+  }
+
+  export type WebhookDeliveryOrderByWithRelationInput = {
+    id?: SortOrder
+    webhook_endpoint_id?: SortOrder
+    event_type?: SortOrder
+    workflow_run_id?: SortOrderInput | SortOrder
+    is_test?: SortOrder
+    payload?: SortOrder
+    status?: SortOrder
+    http_status_code?: SortOrderInput | SortOrder
+    response_body?: SortOrderInput | SortOrder
+    error_message?: SortOrderInput | SortOrder
+    attempt_number?: SortOrder
+    duration_ms?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    webhook_endpoint?: WebhookEndpointOrderByWithRelationInput
+  }
+
+  export type WebhookDeliveryWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: WebhookDeliveryWhereInput | WebhookDeliveryWhereInput[]
+    OR?: WebhookDeliveryWhereInput[]
+    NOT?: WebhookDeliveryWhereInput | WebhookDeliveryWhereInput[]
+    webhook_endpoint_id?: StringFilter<"WebhookDelivery"> | string
+    event_type?: EnumWebhookEventTypeFilter<"WebhookDelivery"> | $Enums.WebhookEventType
+    workflow_run_id?: StringNullableFilter<"WebhookDelivery"> | string | null
+    is_test?: BoolFilter<"WebhookDelivery"> | boolean
+    payload?: JsonFilter<"WebhookDelivery">
+    status?: EnumWebhookDeliveryStatusFilter<"WebhookDelivery"> | $Enums.WebhookDeliveryStatus
+    http_status_code?: IntNullableFilter<"WebhookDelivery"> | number | null
+    response_body?: StringNullableFilter<"WebhookDelivery"> | string | null
+    error_message?: StringNullableFilter<"WebhookDelivery"> | string | null
+    attempt_number?: IntFilter<"WebhookDelivery"> | number
+    duration_ms?: IntNullableFilter<"WebhookDelivery"> | number | null
+    created_at?: DateTimeFilter<"WebhookDelivery"> | Date | string
+    webhook_endpoint?: XOR<WebhookEndpointScalarRelationFilter, WebhookEndpointWhereInput>
+  }, "id">
+
+  export type WebhookDeliveryOrderByWithAggregationInput = {
+    id?: SortOrder
+    webhook_endpoint_id?: SortOrder
+    event_type?: SortOrder
+    workflow_run_id?: SortOrderInput | SortOrder
+    is_test?: SortOrder
+    payload?: SortOrder
+    status?: SortOrder
+    http_status_code?: SortOrderInput | SortOrder
+    response_body?: SortOrderInput | SortOrder
+    error_message?: SortOrderInput | SortOrder
+    attempt_number?: SortOrder
+    duration_ms?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    _count?: WebhookDeliveryCountOrderByAggregateInput
+    _avg?: WebhookDeliveryAvgOrderByAggregateInput
+    _max?: WebhookDeliveryMaxOrderByAggregateInput
+    _min?: WebhookDeliveryMinOrderByAggregateInput
+    _sum?: WebhookDeliverySumOrderByAggregateInput
+  }
+
+  export type WebhookDeliveryScalarWhereWithAggregatesInput = {
+    AND?: WebhookDeliveryScalarWhereWithAggregatesInput | WebhookDeliveryScalarWhereWithAggregatesInput[]
+    OR?: WebhookDeliveryScalarWhereWithAggregatesInput[]
+    NOT?: WebhookDeliveryScalarWhereWithAggregatesInput | WebhookDeliveryScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"WebhookDelivery"> | string
+    webhook_endpoint_id?: StringWithAggregatesFilter<"WebhookDelivery"> | string
+    event_type?: EnumWebhookEventTypeWithAggregatesFilter<"WebhookDelivery"> | $Enums.WebhookEventType
+    workflow_run_id?: StringNullableWithAggregatesFilter<"WebhookDelivery"> | string | null
+    is_test?: BoolWithAggregatesFilter<"WebhookDelivery"> | boolean
+    payload?: JsonWithAggregatesFilter<"WebhookDelivery">
+    status?: EnumWebhookDeliveryStatusWithAggregatesFilter<"WebhookDelivery"> | $Enums.WebhookDeliveryStatus
+    http_status_code?: IntNullableWithAggregatesFilter<"WebhookDelivery"> | number | null
+    response_body?: StringNullableWithAggregatesFilter<"WebhookDelivery"> | string | null
+    error_message?: StringNullableWithAggregatesFilter<"WebhookDelivery"> | string | null
+    attempt_number?: IntWithAggregatesFilter<"WebhookDelivery"> | number
+    duration_ms?: IntNullableWithAggregatesFilter<"WebhookDelivery"> | number | null
+    created_at?: DateTimeWithAggregatesFilter<"WebhookDelivery"> | Date | string
   }
 
   export type DocumentWhereInput = {
@@ -35603,6 +38477,7 @@ export namespace Prisma {
     user_integrations?: UserIntegrationCreateNestedManyWithoutUserInput
     extraction_schemas?: ExtractionSchemaCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyCreateNestedManyWithoutUserInput
+    webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -35621,6 +38496,7 @@ export namespace Prisma {
     user_integrations?: UserIntegrationUncheckedCreateNestedManyWithoutUserInput
     extraction_schemas?: ExtractionSchemaUncheckedCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
+    webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -35639,6 +38515,7 @@ export namespace Prisma {
     user_integrations?: UserIntegrationUpdateManyWithoutUserNestedInput
     extraction_schemas?: ExtractionSchemaUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
+    webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -35657,6 +38534,7 @@ export namespace Prisma {
     user_integrations?: UserIntegrationUncheckedUpdateManyWithoutUserNestedInput
     extraction_schemas?: ExtractionSchemaUncheckedUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
+    webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -35841,6 +38719,211 @@ export namespace Prisma {
     last_used_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     expires_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     revoked_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WebhookEndpointCreateInput = {
+    id?: string
+    name?: string | null
+    url: string
+    secret_encrypted: string
+    subscribed_events?: WebhookEndpointCreatesubscribed_eventsInput | $Enums.WebhookEventType[]
+    is_active?: boolean
+    last_triggered_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    user: UserCreateNestedOneWithoutWebhook_endpointsInput
+    deliveries?: WebhookDeliveryCreateNestedManyWithoutWebhook_endpointInput
+  }
+
+  export type WebhookEndpointUncheckedCreateInput = {
+    id?: string
+    user_id: string
+    name?: string | null
+    url: string
+    secret_encrypted: string
+    subscribed_events?: WebhookEndpointCreatesubscribed_eventsInput | $Enums.WebhookEventType[]
+    is_active?: boolean
+    last_triggered_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deliveries?: WebhookDeliveryUncheckedCreateNestedManyWithoutWebhook_endpointInput
+  }
+
+  export type WebhookEndpointUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: StringFieldUpdateOperationsInput | string
+    secret_encrypted?: StringFieldUpdateOperationsInput | string
+    subscribed_events?: WebhookEndpointUpdatesubscribed_eventsInput | $Enums.WebhookEventType[]
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    last_triggered_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutWebhook_endpointsNestedInput
+    deliveries?: WebhookDeliveryUpdateManyWithoutWebhook_endpointNestedInput
+  }
+
+  export type WebhookEndpointUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: StringFieldUpdateOperationsInput | string
+    secret_encrypted?: StringFieldUpdateOperationsInput | string
+    subscribed_events?: WebhookEndpointUpdatesubscribed_eventsInput | $Enums.WebhookEventType[]
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    last_triggered_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deliveries?: WebhookDeliveryUncheckedUpdateManyWithoutWebhook_endpointNestedInput
+  }
+
+  export type WebhookEndpointCreateManyInput = {
+    id?: string
+    user_id: string
+    name?: string | null
+    url: string
+    secret_encrypted: string
+    subscribed_events?: WebhookEndpointCreatesubscribed_eventsInput | $Enums.WebhookEventType[]
+    is_active?: boolean
+    last_triggered_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type WebhookEndpointUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: StringFieldUpdateOperationsInput | string
+    secret_encrypted?: StringFieldUpdateOperationsInput | string
+    subscribed_events?: WebhookEndpointUpdatesubscribed_eventsInput | $Enums.WebhookEventType[]
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    last_triggered_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WebhookEndpointUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: StringFieldUpdateOperationsInput | string
+    secret_encrypted?: StringFieldUpdateOperationsInput | string
+    subscribed_events?: WebhookEndpointUpdatesubscribed_eventsInput | $Enums.WebhookEventType[]
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    last_triggered_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WebhookDeliveryCreateInput = {
+    id?: string
+    event_type: $Enums.WebhookEventType
+    workflow_run_id?: string | null
+    is_test?: boolean
+    payload: JsonNullValueInput | InputJsonValue
+    status?: $Enums.WebhookDeliveryStatus
+    http_status_code?: number | null
+    response_body?: string | null
+    error_message?: string | null
+    attempt_number?: number
+    duration_ms?: number | null
+    created_at?: Date | string
+    webhook_endpoint: WebhookEndpointCreateNestedOneWithoutDeliveriesInput
+  }
+
+  export type WebhookDeliveryUncheckedCreateInput = {
+    id?: string
+    webhook_endpoint_id: string
+    event_type: $Enums.WebhookEventType
+    workflow_run_id?: string | null
+    is_test?: boolean
+    payload: JsonNullValueInput | InputJsonValue
+    status?: $Enums.WebhookDeliveryStatus
+    http_status_code?: number | null
+    response_body?: string | null
+    error_message?: string | null
+    attempt_number?: number
+    duration_ms?: number | null
+    created_at?: Date | string
+  }
+
+  export type WebhookDeliveryUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    event_type?: EnumWebhookEventTypeFieldUpdateOperationsInput | $Enums.WebhookEventType
+    workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
+    is_test?: BoolFieldUpdateOperationsInput | boolean
+    payload?: JsonNullValueInput | InputJsonValue
+    status?: EnumWebhookDeliveryStatusFieldUpdateOperationsInput | $Enums.WebhookDeliveryStatus
+    http_status_code?: NullableIntFieldUpdateOperationsInput | number | null
+    response_body?: NullableStringFieldUpdateOperationsInput | string | null
+    error_message?: NullableStringFieldUpdateOperationsInput | string | null
+    attempt_number?: IntFieldUpdateOperationsInput | number
+    duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    webhook_endpoint?: WebhookEndpointUpdateOneRequiredWithoutDeliveriesNestedInput
+  }
+
+  export type WebhookDeliveryUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    webhook_endpoint_id?: StringFieldUpdateOperationsInput | string
+    event_type?: EnumWebhookEventTypeFieldUpdateOperationsInput | $Enums.WebhookEventType
+    workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
+    is_test?: BoolFieldUpdateOperationsInput | boolean
+    payload?: JsonNullValueInput | InputJsonValue
+    status?: EnumWebhookDeliveryStatusFieldUpdateOperationsInput | $Enums.WebhookDeliveryStatus
+    http_status_code?: NullableIntFieldUpdateOperationsInput | number | null
+    response_body?: NullableStringFieldUpdateOperationsInput | string | null
+    error_message?: NullableStringFieldUpdateOperationsInput | string | null
+    attempt_number?: IntFieldUpdateOperationsInput | number
+    duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WebhookDeliveryCreateManyInput = {
+    id?: string
+    webhook_endpoint_id: string
+    event_type: $Enums.WebhookEventType
+    workflow_run_id?: string | null
+    is_test?: boolean
+    payload: JsonNullValueInput | InputJsonValue
+    status?: $Enums.WebhookDeliveryStatus
+    http_status_code?: number | null
+    response_body?: string | null
+    error_message?: string | null
+    attempt_number?: number
+    duration_ms?: number | null
+    created_at?: Date | string
+  }
+
+  export type WebhookDeliveryUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    event_type?: EnumWebhookEventTypeFieldUpdateOperationsInput | $Enums.WebhookEventType
+    workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
+    is_test?: BoolFieldUpdateOperationsInput | boolean
+    payload?: JsonNullValueInput | InputJsonValue
+    status?: EnumWebhookDeliveryStatusFieldUpdateOperationsInput | $Enums.WebhookDeliveryStatus
+    http_status_code?: NullableIntFieldUpdateOperationsInput | number | null
+    response_body?: NullableStringFieldUpdateOperationsInput | string | null
+    error_message?: NullableStringFieldUpdateOperationsInput | string | null
+    attempt_number?: IntFieldUpdateOperationsInput | number
+    duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WebhookDeliveryUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    webhook_endpoint_id?: StringFieldUpdateOperationsInput | string
+    event_type?: EnumWebhookEventTypeFieldUpdateOperationsInput | $Enums.WebhookEventType
+    workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
+    is_test?: BoolFieldUpdateOperationsInput | boolean
+    payload?: JsonNullValueInput | InputJsonValue
+    status?: EnumWebhookDeliveryStatusFieldUpdateOperationsInput | $Enums.WebhookDeliveryStatus
+    http_status_code?: NullableIntFieldUpdateOperationsInput | number | null
+    response_body?: NullableStringFieldUpdateOperationsInput | string | null
+    error_message?: NullableStringFieldUpdateOperationsInput | string | null
+    attempt_number?: IntFieldUpdateOperationsInput | number
+    duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -38243,6 +41326,12 @@ export namespace Prisma {
     none?: ApiKeyWhereInput
   }
 
+  export type WebhookEndpointListRelationFilter = {
+    every?: WebhookEndpointWhereInput
+    some?: WebhookEndpointWhereInput
+    none?: WebhookEndpointWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -38273,6 +41362,10 @@ export namespace Prisma {
   }
 
   export type ApiKeyOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type WebhookEndpointOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -38478,6 +41571,109 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
+  export type EnumWebhookEventTypeNullableListFilter<$PrismaModel = never> = {
+    equals?: $Enums.WebhookEventType[] | ListEnumWebhookEventTypeFieldRefInput<$PrismaModel> | null
+    has?: $Enums.WebhookEventType | EnumWebhookEventTypeFieldRefInput<$PrismaModel> | null
+    hasEvery?: $Enums.WebhookEventType[] | ListEnumWebhookEventTypeFieldRefInput<$PrismaModel>
+    hasSome?: $Enums.WebhookEventType[] | ListEnumWebhookEventTypeFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
+  }
+
+  export type WebhookDeliveryListRelationFilter = {
+    every?: WebhookDeliveryWhereInput
+    some?: WebhookDeliveryWhereInput
+    none?: WebhookDeliveryWhereInput
+  }
+
+  export type WebhookDeliveryOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type WebhookEndpointCountOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    name?: SortOrder
+    url?: SortOrder
+    secret_encrypted?: SortOrder
+    subscribed_events?: SortOrder
+    is_active?: SortOrder
+    last_triggered_at?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type WebhookEndpointMaxOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    name?: SortOrder
+    url?: SortOrder
+    secret_encrypted?: SortOrder
+    is_active?: SortOrder
+    last_triggered_at?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type WebhookEndpointMinOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    name?: SortOrder
+    url?: SortOrder
+    secret_encrypted?: SortOrder
+    is_active?: SortOrder
+    last_triggered_at?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type EnumWebhookEventTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.WebhookEventType | EnumWebhookEventTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.WebhookEventType[] | ListEnumWebhookEventTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.WebhookEventType[] | ListEnumWebhookEventTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumWebhookEventTypeFilter<$PrismaModel> | $Enums.WebhookEventType
+  }
+  export type JsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type EnumWebhookDeliveryStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.WebhookDeliveryStatus | EnumWebhookDeliveryStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.WebhookDeliveryStatus[] | ListEnumWebhookDeliveryStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.WebhookDeliveryStatus[] | ListEnumWebhookDeliveryStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumWebhookDeliveryStatusFilter<$PrismaModel> | $Enums.WebhookDeliveryStatus
+  }
+
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -38487,6 +41683,147 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type WebhookEndpointScalarRelationFilter = {
+    is?: WebhookEndpointWhereInput
+    isNot?: WebhookEndpointWhereInput
+  }
+
+  export type WebhookDeliveryCountOrderByAggregateInput = {
+    id?: SortOrder
+    webhook_endpoint_id?: SortOrder
+    event_type?: SortOrder
+    workflow_run_id?: SortOrder
+    is_test?: SortOrder
+    payload?: SortOrder
+    status?: SortOrder
+    http_status_code?: SortOrder
+    response_body?: SortOrder
+    error_message?: SortOrder
+    attempt_number?: SortOrder
+    duration_ms?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type WebhookDeliveryAvgOrderByAggregateInput = {
+    http_status_code?: SortOrder
+    attempt_number?: SortOrder
+    duration_ms?: SortOrder
+  }
+
+  export type WebhookDeliveryMaxOrderByAggregateInput = {
+    id?: SortOrder
+    webhook_endpoint_id?: SortOrder
+    event_type?: SortOrder
+    workflow_run_id?: SortOrder
+    is_test?: SortOrder
+    status?: SortOrder
+    http_status_code?: SortOrder
+    response_body?: SortOrder
+    error_message?: SortOrder
+    attempt_number?: SortOrder
+    duration_ms?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type WebhookDeliveryMinOrderByAggregateInput = {
+    id?: SortOrder
+    webhook_endpoint_id?: SortOrder
+    event_type?: SortOrder
+    workflow_run_id?: SortOrder
+    is_test?: SortOrder
+    status?: SortOrder
+    http_status_code?: SortOrder
+    response_body?: SortOrder
+    error_message?: SortOrder
+    attempt_number?: SortOrder
+    duration_ms?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type WebhookDeliverySumOrderByAggregateInput = {
+    http_status_code?: SortOrder
+    attempt_number?: SortOrder
+    duration_ms?: SortOrder
+  }
+
+  export type EnumWebhookEventTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.WebhookEventType | EnumWebhookEventTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.WebhookEventType[] | ListEnumWebhookEventTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.WebhookEventType[] | ListEnumWebhookEventTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumWebhookEventTypeWithAggregatesFilter<$PrismaModel> | $Enums.WebhookEventType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumWebhookEventTypeFilter<$PrismaModel>
+    _max?: NestedEnumWebhookEventTypeFilter<$PrismaModel>
+  }
+  export type JsonWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedJsonFilter<$PrismaModel>
+    _max?: NestedJsonFilter<$PrismaModel>
+  }
+
+  export type EnumWebhookDeliveryStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.WebhookDeliveryStatus | EnumWebhookDeliveryStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.WebhookDeliveryStatus[] | ListEnumWebhookDeliveryStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.WebhookDeliveryStatus[] | ListEnumWebhookDeliveryStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumWebhookDeliveryStatusWithAggregatesFilter<$PrismaModel> | $Enums.WebhookDeliveryStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumWebhookDeliveryStatusFilter<$PrismaModel>
+    _max?: NestedEnumWebhookDeliveryStatusFilter<$PrismaModel>
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type EnumDocumentTypeFilter<$PrismaModel = never> = {
@@ -38550,22 +41887,6 @@ export namespace Prisma {
     size?: SortOrder
   }
 
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
-  }
-
   export type EnumDocumentTypeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.DocumentType | EnumDocumentTypeFieldRefInput<$PrismaModel>
     in?: $Enums.DocumentType[] | ListEnumDocumentTypeFieldRefInput<$PrismaModel>
@@ -38597,17 +41918,6 @@ export namespace Prisma {
     gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-  }
-
-  export type IntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
   export type ScraperGenerationRunListRelationFilter = {
@@ -38735,22 +42045,6 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedJsonNullableFilter<$PrismaModel>
     _max?: NestedJsonNullableFilter<$PrismaModel>
-  }
-
-  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type EnumBlockSignalFilter<$PrismaModel = never> = {
@@ -39229,29 +42523,6 @@ export namespace Prisma {
     notIn?: $Enums.ComputerActionType[] | ListEnumComputerActionTypeFieldRefInput<$PrismaModel>
     not?: NestedEnumComputerActionTypeFilter<$PrismaModel> | $Enums.ComputerActionType
   }
-  export type JsonFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
-
-  export type JsonFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-  }
 
   export type ScraperGenerationRunNullableScalarRelationFilter = {
     is?: ScraperGenerationRunWhereInput | null
@@ -39321,32 +42592,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumComputerActionTypeFilter<$PrismaModel>
     _max?: NestedEnumComputerActionTypeFilter<$PrismaModel>
-  }
-  export type JsonWithAggregatesFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
-
-  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedJsonFilter<$PrismaModel>
-    _max?: NestedJsonFilter<$PrismaModel>
   }
 
   export type EnumScraperVersionCreatedByFilter<$PrismaModel = never> = {
@@ -40389,6 +43634,13 @@ export namespace Prisma {
     connect?: ApiKeyWhereUniqueInput | ApiKeyWhereUniqueInput[]
   }
 
+  export type WebhookEndpointCreateNestedManyWithoutUserInput = {
+    create?: XOR<WebhookEndpointCreateWithoutUserInput, WebhookEndpointUncheckedCreateWithoutUserInput> | WebhookEndpointCreateWithoutUserInput[] | WebhookEndpointUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: WebhookEndpointCreateOrConnectWithoutUserInput | WebhookEndpointCreateOrConnectWithoutUserInput[]
+    createMany?: WebhookEndpointCreateManyUserInputEnvelope
+    connect?: WebhookEndpointWhereUniqueInput | WebhookEndpointWhereUniqueInput[]
+  }
+
   export type PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<PasswordResetTokenCreateWithoutUserInput, PasswordResetTokenUncheckedCreateWithoutUserInput> | PasswordResetTokenCreateWithoutUserInput[] | PasswordResetTokenUncheckedCreateWithoutUserInput[]
     connectOrCreate?: PasswordResetTokenCreateOrConnectWithoutUserInput | PasswordResetTokenCreateOrConnectWithoutUserInput[]
@@ -40436,6 +43688,13 @@ export namespace Prisma {
     connectOrCreate?: ApiKeyCreateOrConnectWithoutUserInput | ApiKeyCreateOrConnectWithoutUserInput[]
     createMany?: ApiKeyCreateManyUserInputEnvelope
     connect?: ApiKeyWhereUniqueInput | ApiKeyWhereUniqueInput[]
+  }
+
+  export type WebhookEndpointUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<WebhookEndpointCreateWithoutUserInput, WebhookEndpointUncheckedCreateWithoutUserInput> | WebhookEndpointCreateWithoutUserInput[] | WebhookEndpointUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: WebhookEndpointCreateOrConnectWithoutUserInput | WebhookEndpointCreateOrConnectWithoutUserInput[]
+    createMany?: WebhookEndpointCreateManyUserInputEnvelope
+    connect?: WebhookEndpointWhereUniqueInput | WebhookEndpointWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -40552,6 +43811,20 @@ export namespace Prisma {
     deleteMany?: ApiKeyScalarWhereInput | ApiKeyScalarWhereInput[]
   }
 
+  export type WebhookEndpointUpdateManyWithoutUserNestedInput = {
+    create?: XOR<WebhookEndpointCreateWithoutUserInput, WebhookEndpointUncheckedCreateWithoutUserInput> | WebhookEndpointCreateWithoutUserInput[] | WebhookEndpointUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: WebhookEndpointCreateOrConnectWithoutUserInput | WebhookEndpointCreateOrConnectWithoutUserInput[]
+    upsert?: WebhookEndpointUpsertWithWhereUniqueWithoutUserInput | WebhookEndpointUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: WebhookEndpointCreateManyUserInputEnvelope
+    set?: WebhookEndpointWhereUniqueInput | WebhookEndpointWhereUniqueInput[]
+    disconnect?: WebhookEndpointWhereUniqueInput | WebhookEndpointWhereUniqueInput[]
+    delete?: WebhookEndpointWhereUniqueInput | WebhookEndpointWhereUniqueInput[]
+    connect?: WebhookEndpointWhereUniqueInput | WebhookEndpointWhereUniqueInput[]
+    update?: WebhookEndpointUpdateWithWhereUniqueWithoutUserInput | WebhookEndpointUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: WebhookEndpointUpdateManyWithWhereWithoutUserInput | WebhookEndpointUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: WebhookEndpointScalarWhereInput | WebhookEndpointScalarWhereInput[]
+  }
+
   export type PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<PasswordResetTokenCreateWithoutUserInput, PasswordResetTokenUncheckedCreateWithoutUserInput> | PasswordResetTokenCreateWithoutUserInput[] | PasswordResetTokenUncheckedCreateWithoutUserInput[]
     connectOrCreate?: PasswordResetTokenCreateOrConnectWithoutUserInput | PasswordResetTokenCreateOrConnectWithoutUserInput[]
@@ -40650,6 +43923,20 @@ export namespace Prisma {
     deleteMany?: ApiKeyScalarWhereInput | ApiKeyScalarWhereInput[]
   }
 
+  export type WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<WebhookEndpointCreateWithoutUserInput, WebhookEndpointUncheckedCreateWithoutUserInput> | WebhookEndpointCreateWithoutUserInput[] | WebhookEndpointUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: WebhookEndpointCreateOrConnectWithoutUserInput | WebhookEndpointCreateOrConnectWithoutUserInput[]
+    upsert?: WebhookEndpointUpsertWithWhereUniqueWithoutUserInput | WebhookEndpointUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: WebhookEndpointCreateManyUserInputEnvelope
+    set?: WebhookEndpointWhereUniqueInput | WebhookEndpointWhereUniqueInput[]
+    disconnect?: WebhookEndpointWhereUniqueInput | WebhookEndpointWhereUniqueInput[]
+    delete?: WebhookEndpointWhereUniqueInput | WebhookEndpointWhereUniqueInput[]
+    connect?: WebhookEndpointWhereUniqueInput | WebhookEndpointWhereUniqueInput[]
+    update?: WebhookEndpointUpdateWithWhereUniqueWithoutUserInput | WebhookEndpointUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: WebhookEndpointUpdateManyWithWhereWithoutUserInput | WebhookEndpointUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: WebhookEndpointScalarWhereInput | WebhookEndpointScalarWhereInput[]
+  }
+
   export type UserCreateNestedOneWithoutPassword_reset_tokensInput = {
     create?: XOR<UserCreateWithoutPassword_reset_tokensInput, UserUncheckedCreateWithoutPassword_reset_tokensInput>
     connectOrCreate?: UserCreateOrConnectWithoutPassword_reset_tokensInput
@@ -40686,6 +43973,109 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutApi_keysInput, UserUpdateWithoutApi_keysInput>, UserUncheckedUpdateWithoutApi_keysInput>
   }
 
+  export type WebhookEndpointCreatesubscribed_eventsInput = {
+    set: $Enums.WebhookEventType[]
+  }
+
+  export type UserCreateNestedOneWithoutWebhook_endpointsInput = {
+    create?: XOR<UserCreateWithoutWebhook_endpointsInput, UserUncheckedCreateWithoutWebhook_endpointsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutWebhook_endpointsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type WebhookDeliveryCreateNestedManyWithoutWebhook_endpointInput = {
+    create?: XOR<WebhookDeliveryCreateWithoutWebhook_endpointInput, WebhookDeliveryUncheckedCreateWithoutWebhook_endpointInput> | WebhookDeliveryCreateWithoutWebhook_endpointInput[] | WebhookDeliveryUncheckedCreateWithoutWebhook_endpointInput[]
+    connectOrCreate?: WebhookDeliveryCreateOrConnectWithoutWebhook_endpointInput | WebhookDeliveryCreateOrConnectWithoutWebhook_endpointInput[]
+    createMany?: WebhookDeliveryCreateManyWebhook_endpointInputEnvelope
+    connect?: WebhookDeliveryWhereUniqueInput | WebhookDeliveryWhereUniqueInput[]
+  }
+
+  export type WebhookDeliveryUncheckedCreateNestedManyWithoutWebhook_endpointInput = {
+    create?: XOR<WebhookDeliveryCreateWithoutWebhook_endpointInput, WebhookDeliveryUncheckedCreateWithoutWebhook_endpointInput> | WebhookDeliveryCreateWithoutWebhook_endpointInput[] | WebhookDeliveryUncheckedCreateWithoutWebhook_endpointInput[]
+    connectOrCreate?: WebhookDeliveryCreateOrConnectWithoutWebhook_endpointInput | WebhookDeliveryCreateOrConnectWithoutWebhook_endpointInput[]
+    createMany?: WebhookDeliveryCreateManyWebhook_endpointInputEnvelope
+    connect?: WebhookDeliveryWhereUniqueInput | WebhookDeliveryWhereUniqueInput[]
+  }
+
+  export type WebhookEndpointUpdatesubscribed_eventsInput = {
+    set?: $Enums.WebhookEventType[]
+    push?: $Enums.WebhookEventType | $Enums.WebhookEventType[]
+  }
+
+  export type UserUpdateOneRequiredWithoutWebhook_endpointsNestedInput = {
+    create?: XOR<UserCreateWithoutWebhook_endpointsInput, UserUncheckedCreateWithoutWebhook_endpointsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutWebhook_endpointsInput
+    upsert?: UserUpsertWithoutWebhook_endpointsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutWebhook_endpointsInput, UserUpdateWithoutWebhook_endpointsInput>, UserUncheckedUpdateWithoutWebhook_endpointsInput>
+  }
+
+  export type WebhookDeliveryUpdateManyWithoutWebhook_endpointNestedInput = {
+    create?: XOR<WebhookDeliveryCreateWithoutWebhook_endpointInput, WebhookDeliveryUncheckedCreateWithoutWebhook_endpointInput> | WebhookDeliveryCreateWithoutWebhook_endpointInput[] | WebhookDeliveryUncheckedCreateWithoutWebhook_endpointInput[]
+    connectOrCreate?: WebhookDeliveryCreateOrConnectWithoutWebhook_endpointInput | WebhookDeliveryCreateOrConnectWithoutWebhook_endpointInput[]
+    upsert?: WebhookDeliveryUpsertWithWhereUniqueWithoutWebhook_endpointInput | WebhookDeliveryUpsertWithWhereUniqueWithoutWebhook_endpointInput[]
+    createMany?: WebhookDeliveryCreateManyWebhook_endpointInputEnvelope
+    set?: WebhookDeliveryWhereUniqueInput | WebhookDeliveryWhereUniqueInput[]
+    disconnect?: WebhookDeliveryWhereUniqueInput | WebhookDeliveryWhereUniqueInput[]
+    delete?: WebhookDeliveryWhereUniqueInput | WebhookDeliveryWhereUniqueInput[]
+    connect?: WebhookDeliveryWhereUniqueInput | WebhookDeliveryWhereUniqueInput[]
+    update?: WebhookDeliveryUpdateWithWhereUniqueWithoutWebhook_endpointInput | WebhookDeliveryUpdateWithWhereUniqueWithoutWebhook_endpointInput[]
+    updateMany?: WebhookDeliveryUpdateManyWithWhereWithoutWebhook_endpointInput | WebhookDeliveryUpdateManyWithWhereWithoutWebhook_endpointInput[]
+    deleteMany?: WebhookDeliveryScalarWhereInput | WebhookDeliveryScalarWhereInput[]
+  }
+
+  export type WebhookDeliveryUncheckedUpdateManyWithoutWebhook_endpointNestedInput = {
+    create?: XOR<WebhookDeliveryCreateWithoutWebhook_endpointInput, WebhookDeliveryUncheckedCreateWithoutWebhook_endpointInput> | WebhookDeliveryCreateWithoutWebhook_endpointInput[] | WebhookDeliveryUncheckedCreateWithoutWebhook_endpointInput[]
+    connectOrCreate?: WebhookDeliveryCreateOrConnectWithoutWebhook_endpointInput | WebhookDeliveryCreateOrConnectWithoutWebhook_endpointInput[]
+    upsert?: WebhookDeliveryUpsertWithWhereUniqueWithoutWebhook_endpointInput | WebhookDeliveryUpsertWithWhereUniqueWithoutWebhook_endpointInput[]
+    createMany?: WebhookDeliveryCreateManyWebhook_endpointInputEnvelope
+    set?: WebhookDeliveryWhereUniqueInput | WebhookDeliveryWhereUniqueInput[]
+    disconnect?: WebhookDeliveryWhereUniqueInput | WebhookDeliveryWhereUniqueInput[]
+    delete?: WebhookDeliveryWhereUniqueInput | WebhookDeliveryWhereUniqueInput[]
+    connect?: WebhookDeliveryWhereUniqueInput | WebhookDeliveryWhereUniqueInput[]
+    update?: WebhookDeliveryUpdateWithWhereUniqueWithoutWebhook_endpointInput | WebhookDeliveryUpdateWithWhereUniqueWithoutWebhook_endpointInput[]
+    updateMany?: WebhookDeliveryUpdateManyWithWhereWithoutWebhook_endpointInput | WebhookDeliveryUpdateManyWithWhereWithoutWebhook_endpointInput[]
+    deleteMany?: WebhookDeliveryScalarWhereInput | WebhookDeliveryScalarWhereInput[]
+  }
+
+  export type WebhookEndpointCreateNestedOneWithoutDeliveriesInput = {
+    create?: XOR<WebhookEndpointCreateWithoutDeliveriesInput, WebhookEndpointUncheckedCreateWithoutDeliveriesInput>
+    connectOrCreate?: WebhookEndpointCreateOrConnectWithoutDeliveriesInput
+    connect?: WebhookEndpointWhereUniqueInput
+  }
+
+  export type EnumWebhookEventTypeFieldUpdateOperationsInput = {
+    set?: $Enums.WebhookEventType
+  }
+
+  export type EnumWebhookDeliveryStatusFieldUpdateOperationsInput = {
+    set?: $Enums.WebhookDeliveryStatus
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type WebhookEndpointUpdateOneRequiredWithoutDeliveriesNestedInput = {
+    create?: XOR<WebhookEndpointCreateWithoutDeliveriesInput, WebhookEndpointUncheckedCreateWithoutDeliveriesInput>
+    connectOrCreate?: WebhookEndpointCreateOrConnectWithoutDeliveriesInput
+    upsert?: WebhookEndpointUpsertWithoutDeliveriesInput
+    connect?: WebhookEndpointWhereUniqueInput
+    update?: XOR<XOR<WebhookEndpointUpdateToOneWithWhereWithoutDeliveriesInput, WebhookEndpointUpdateWithoutDeliveriesInput>, WebhookEndpointUncheckedUpdateWithoutDeliveriesInput>
+  }
+
   export type ComputerUseStepCreateNestedManyWithoutScreenshot_beforeInput = {
     create?: XOR<ComputerUseStepCreateWithoutScreenshot_beforeInput, ComputerUseStepUncheckedCreateWithoutScreenshot_beforeInput> | ComputerUseStepCreateWithoutScreenshot_beforeInput[] | ComputerUseStepUncheckedCreateWithoutScreenshot_beforeInput[]
     connectOrCreate?: ComputerUseStepCreateOrConnectWithoutScreenshot_beforeInput | ComputerUseStepCreateOrConnectWithoutScreenshot_beforeInput[]
@@ -40712,14 +44102,6 @@ export namespace Prisma {
     connectOrCreate?: ComputerUseStepCreateOrConnectWithoutScreenshot_afterInput | ComputerUseStepCreateOrConnectWithoutScreenshot_afterInput[]
     createMany?: ComputerUseStepCreateManyScreenshot_afterInputEnvelope
     connect?: ComputerUseStepWhereUniqueInput | ComputerUseStepWhereUniqueInput[]
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type EnumDocumentTypeFieldUpdateOperationsInput = {
@@ -40870,14 +44252,6 @@ export namespace Prisma {
     connectOrCreate?: ExtractedItemCreateOrConnectWithoutWebsite_targetInput | ExtractedItemCreateOrConnectWithoutWebsite_targetInput[]
     createMany?: ExtractedItemCreateManyWebsite_targetInputEnvelope
     connect?: ExtractedItemWhereUniqueInput | ExtractedItemWhereUniqueInput[]
-  }
-
-  export type NullableIntFieldUpdateOperationsInput = {
-    set?: number | null
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type UserUpdateOneRequiredWithoutWebsite_targetsNestedInput = {
@@ -42976,11 +46350,88 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
-  export type NestedEnumDocumentTypeFilter<$PrismaModel = never> = {
-    equals?: $Enums.DocumentType | EnumDocumentTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.DocumentType[] | ListEnumDocumentTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.DocumentType[] | ListEnumDocumentTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumDocumentTypeFilter<$PrismaModel> | $Enums.DocumentType
+  export type NestedEnumWebhookEventTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.WebhookEventType | EnumWebhookEventTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.WebhookEventType[] | ListEnumWebhookEventTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.WebhookEventType[] | ListEnumWebhookEventTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumWebhookEventTypeFilter<$PrismaModel> | $Enums.WebhookEventType
+  }
+
+  export type NestedEnumWebhookDeliveryStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.WebhookDeliveryStatus | EnumWebhookDeliveryStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.WebhookDeliveryStatus[] | ListEnumWebhookDeliveryStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.WebhookDeliveryStatus[] | ListEnumWebhookDeliveryStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumWebhookDeliveryStatusFilter<$PrismaModel> | $Enums.WebhookDeliveryStatus
+  }
+
+  export type NestedEnumWebhookEventTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.WebhookEventType | EnumWebhookEventTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.WebhookEventType[] | ListEnumWebhookEventTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.WebhookEventType[] | ListEnumWebhookEventTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumWebhookEventTypeWithAggregatesFilter<$PrismaModel> | $Enums.WebhookEventType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumWebhookEventTypeFilter<$PrismaModel>
+    _max?: NestedEnumWebhookEventTypeFilter<$PrismaModel>
+  }
+  export type NestedJsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type NestedEnumWebhookDeliveryStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.WebhookDeliveryStatus | EnumWebhookDeliveryStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.WebhookDeliveryStatus[] | ListEnumWebhookDeliveryStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.WebhookDeliveryStatus[] | ListEnumWebhookDeliveryStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumWebhookDeliveryStatusWithAggregatesFilter<$PrismaModel> | $Enums.WebhookDeliveryStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumWebhookDeliveryStatusFilter<$PrismaModel>
+    _max?: NestedEnumWebhookDeliveryStatusFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -43008,6 +46459,13 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedEnumDocumentTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.DocumentType | EnumDocumentTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.DocumentType[] | ListEnumDocumentTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DocumentType[] | ListEnumDocumentTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumDocumentTypeFilter<$PrismaModel> | $Enums.DocumentType
   }
 
   export type NestedEnumDocumentTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -43041,33 +46499,6 @@ export namespace Prisma {
     gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-  }
-
-  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
-  }
-
-  export type NestedFloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedEnumBlockSignalFilter<$PrismaModel = never> = {
@@ -43265,29 +46696,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumComputerActionTypeFilter<$PrismaModel>
     _max?: NestedEnumComputerActionTypeFilter<$PrismaModel>
-  }
-  export type NestedJsonFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
-        Required<NestedJsonFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
-
-  export type NestedJsonFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
   export type NestedEnumScraperVersionCreatedByFilter<$PrismaModel = never> = {
@@ -43819,6 +47227,42 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type WebhookEndpointCreateWithoutUserInput = {
+    id?: string
+    name?: string | null
+    url: string
+    secret_encrypted: string
+    subscribed_events?: WebhookEndpointCreatesubscribed_eventsInput | $Enums.WebhookEventType[]
+    is_active?: boolean
+    last_triggered_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deliveries?: WebhookDeliveryCreateNestedManyWithoutWebhook_endpointInput
+  }
+
+  export type WebhookEndpointUncheckedCreateWithoutUserInput = {
+    id?: string
+    name?: string | null
+    url: string
+    secret_encrypted: string
+    subscribed_events?: WebhookEndpointCreatesubscribed_eventsInput | $Enums.WebhookEventType[]
+    is_active?: boolean
+    last_triggered_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    deliveries?: WebhookDeliveryUncheckedCreateNestedManyWithoutWebhook_endpointInput
+  }
+
+  export type WebhookEndpointCreateOrConnectWithoutUserInput = {
+    where: WebhookEndpointWhereUniqueInput
+    create: XOR<WebhookEndpointCreateWithoutUserInput, WebhookEndpointUncheckedCreateWithoutUserInput>
+  }
+
+  export type WebhookEndpointCreateManyUserInputEnvelope = {
+    data: WebhookEndpointCreateManyUserInput | WebhookEndpointCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type PasswordResetTokenUpsertWithWhereUniqueWithoutUserInput = {
     where: PasswordResetTokenWhereUniqueInput
     update: XOR<PasswordResetTokenUpdateWithoutUserInput, PasswordResetTokenUncheckedUpdateWithoutUserInput>
@@ -44074,6 +47518,38 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"ApiKey"> | Date | string
   }
 
+  export type WebhookEndpointUpsertWithWhereUniqueWithoutUserInput = {
+    where: WebhookEndpointWhereUniqueInput
+    update: XOR<WebhookEndpointUpdateWithoutUserInput, WebhookEndpointUncheckedUpdateWithoutUserInput>
+    create: XOR<WebhookEndpointCreateWithoutUserInput, WebhookEndpointUncheckedCreateWithoutUserInput>
+  }
+
+  export type WebhookEndpointUpdateWithWhereUniqueWithoutUserInput = {
+    where: WebhookEndpointWhereUniqueInput
+    data: XOR<WebhookEndpointUpdateWithoutUserInput, WebhookEndpointUncheckedUpdateWithoutUserInput>
+  }
+
+  export type WebhookEndpointUpdateManyWithWhereWithoutUserInput = {
+    where: WebhookEndpointScalarWhereInput
+    data: XOR<WebhookEndpointUpdateManyMutationInput, WebhookEndpointUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type WebhookEndpointScalarWhereInput = {
+    AND?: WebhookEndpointScalarWhereInput | WebhookEndpointScalarWhereInput[]
+    OR?: WebhookEndpointScalarWhereInput[]
+    NOT?: WebhookEndpointScalarWhereInput | WebhookEndpointScalarWhereInput[]
+    id?: StringFilter<"WebhookEndpoint"> | string
+    user_id?: StringFilter<"WebhookEndpoint"> | string
+    name?: StringNullableFilter<"WebhookEndpoint"> | string | null
+    url?: StringFilter<"WebhookEndpoint"> | string
+    secret_encrypted?: StringFilter<"WebhookEndpoint"> | string
+    subscribed_events?: EnumWebhookEventTypeNullableListFilter<"WebhookEndpoint">
+    is_active?: BoolFilter<"WebhookEndpoint"> | boolean
+    last_triggered_at?: DateTimeNullableFilter<"WebhookEndpoint"> | Date | string | null
+    created_at?: DateTimeFilter<"WebhookEndpoint"> | Date | string
+    updated_at?: DateTimeFilter<"WebhookEndpoint"> | Date | string
+  }
+
   export type UserCreateWithoutPassword_reset_tokensInput = {
     id?: string
     email: string
@@ -44089,6 +47565,7 @@ export namespace Prisma {
     user_integrations?: UserIntegrationCreateNestedManyWithoutUserInput
     extraction_schemas?: ExtractionSchemaCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyCreateNestedManyWithoutUserInput
+    webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPassword_reset_tokensInput = {
@@ -44106,6 +47583,7 @@ export namespace Prisma {
     user_integrations?: UserIntegrationUncheckedCreateNestedManyWithoutUserInput
     extraction_schemas?: ExtractionSchemaUncheckedCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
+    webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPassword_reset_tokensInput = {
@@ -44139,6 +47617,7 @@ export namespace Prisma {
     user_integrations?: UserIntegrationUpdateManyWithoutUserNestedInput
     extraction_schemas?: ExtractionSchemaUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
+    webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPassword_reset_tokensInput = {
@@ -44156,6 +47635,7 @@ export namespace Prisma {
     user_integrations?: UserIntegrationUncheckedUpdateManyWithoutUserNestedInput
     extraction_schemas?: ExtractionSchemaUncheckedUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
+    webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutApi_keysInput = {
@@ -44173,6 +47653,7 @@ export namespace Prisma {
     workflow_runs?: WorkflowRunCreateNestedManyWithoutUserInput
     user_integrations?: UserIntegrationCreateNestedManyWithoutUserInput
     extraction_schemas?: ExtractionSchemaCreateNestedManyWithoutUserInput
+    webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutApi_keysInput = {
@@ -44190,6 +47671,7 @@ export namespace Prisma {
     workflow_runs?: WorkflowRunUncheckedCreateNestedManyWithoutUserInput
     user_integrations?: UserIntegrationUncheckedCreateNestedManyWithoutUserInput
     extraction_schemas?: ExtractionSchemaUncheckedCreateNestedManyWithoutUserInput
+    webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutApi_keysInput = {
@@ -44223,6 +47705,7 @@ export namespace Prisma {
     workflow_runs?: WorkflowRunUpdateManyWithoutUserNestedInput
     user_integrations?: UserIntegrationUpdateManyWithoutUserNestedInput
     extraction_schemas?: ExtractionSchemaUpdateManyWithoutUserNestedInput
+    webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutApi_keysInput = {
@@ -44240,6 +47723,238 @@ export namespace Prisma {
     workflow_runs?: WorkflowRunUncheckedUpdateManyWithoutUserNestedInput
     user_integrations?: UserIntegrationUncheckedUpdateManyWithoutUserNestedInput
     extraction_schemas?: ExtractionSchemaUncheckedUpdateManyWithoutUserNestedInput
+    webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutWebhook_endpointsInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    password: string
+    role: $Enums.AuthRole
+    default_schedule_tz?: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    password_reset_tokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    website_targets?: WebsiteTargetCreateNestedManyWithoutUserInput
+    workflow_configs?: WorkflowConfigCreateNestedManyWithoutUserInput
+    workflow_runs?: WorkflowRunCreateNestedManyWithoutUserInput
+    user_integrations?: UserIntegrationCreateNestedManyWithoutUserInput
+    extraction_schemas?: ExtractionSchemaCreateNestedManyWithoutUserInput
+    api_keys?: ApiKeyCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutWebhook_endpointsInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    password: string
+    role: $Enums.AuthRole
+    default_schedule_tz?: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    password_reset_tokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    website_targets?: WebsiteTargetUncheckedCreateNestedManyWithoutUserInput
+    workflow_configs?: WorkflowConfigUncheckedCreateNestedManyWithoutUserInput
+    workflow_runs?: WorkflowRunUncheckedCreateNestedManyWithoutUserInput
+    user_integrations?: UserIntegrationUncheckedCreateNestedManyWithoutUserInput
+    extraction_schemas?: ExtractionSchemaUncheckedCreateNestedManyWithoutUserInput
+    api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutWebhook_endpointsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutWebhook_endpointsInput, UserUncheckedCreateWithoutWebhook_endpointsInput>
+  }
+
+  export type WebhookDeliveryCreateWithoutWebhook_endpointInput = {
+    id?: string
+    event_type: $Enums.WebhookEventType
+    workflow_run_id?: string | null
+    is_test?: boolean
+    payload: JsonNullValueInput | InputJsonValue
+    status?: $Enums.WebhookDeliveryStatus
+    http_status_code?: number | null
+    response_body?: string | null
+    error_message?: string | null
+    attempt_number?: number
+    duration_ms?: number | null
+    created_at?: Date | string
+  }
+
+  export type WebhookDeliveryUncheckedCreateWithoutWebhook_endpointInput = {
+    id?: string
+    event_type: $Enums.WebhookEventType
+    workflow_run_id?: string | null
+    is_test?: boolean
+    payload: JsonNullValueInput | InputJsonValue
+    status?: $Enums.WebhookDeliveryStatus
+    http_status_code?: number | null
+    response_body?: string | null
+    error_message?: string | null
+    attempt_number?: number
+    duration_ms?: number | null
+    created_at?: Date | string
+  }
+
+  export type WebhookDeliveryCreateOrConnectWithoutWebhook_endpointInput = {
+    where: WebhookDeliveryWhereUniqueInput
+    create: XOR<WebhookDeliveryCreateWithoutWebhook_endpointInput, WebhookDeliveryUncheckedCreateWithoutWebhook_endpointInput>
+  }
+
+  export type WebhookDeliveryCreateManyWebhook_endpointInputEnvelope = {
+    data: WebhookDeliveryCreateManyWebhook_endpointInput | WebhookDeliveryCreateManyWebhook_endpointInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserUpsertWithoutWebhook_endpointsInput = {
+    update: XOR<UserUpdateWithoutWebhook_endpointsInput, UserUncheckedUpdateWithoutWebhook_endpointsInput>
+    create: XOR<UserCreateWithoutWebhook_endpointsInput, UserUncheckedCreateWithoutWebhook_endpointsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutWebhook_endpointsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutWebhook_endpointsInput, UserUncheckedUpdateWithoutWebhook_endpointsInput>
+  }
+
+  export type UserUpdateWithoutWebhook_endpointsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
+    default_schedule_tz?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    password_reset_tokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    website_targets?: WebsiteTargetUpdateManyWithoutUserNestedInput
+    workflow_configs?: WorkflowConfigUpdateManyWithoutUserNestedInput
+    workflow_runs?: WorkflowRunUpdateManyWithoutUserNestedInput
+    user_integrations?: UserIntegrationUpdateManyWithoutUserNestedInput
+    extraction_schemas?: ExtractionSchemaUpdateManyWithoutUserNestedInput
+    api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutWebhook_endpointsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
+    default_schedule_tz?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    password_reset_tokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    website_targets?: WebsiteTargetUncheckedUpdateManyWithoutUserNestedInput
+    workflow_configs?: WorkflowConfigUncheckedUpdateManyWithoutUserNestedInput
+    workflow_runs?: WorkflowRunUncheckedUpdateManyWithoutUserNestedInput
+    user_integrations?: UserIntegrationUncheckedUpdateManyWithoutUserNestedInput
+    extraction_schemas?: ExtractionSchemaUncheckedUpdateManyWithoutUserNestedInput
+    api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type WebhookDeliveryUpsertWithWhereUniqueWithoutWebhook_endpointInput = {
+    where: WebhookDeliveryWhereUniqueInput
+    update: XOR<WebhookDeliveryUpdateWithoutWebhook_endpointInput, WebhookDeliveryUncheckedUpdateWithoutWebhook_endpointInput>
+    create: XOR<WebhookDeliveryCreateWithoutWebhook_endpointInput, WebhookDeliveryUncheckedCreateWithoutWebhook_endpointInput>
+  }
+
+  export type WebhookDeliveryUpdateWithWhereUniqueWithoutWebhook_endpointInput = {
+    where: WebhookDeliveryWhereUniqueInput
+    data: XOR<WebhookDeliveryUpdateWithoutWebhook_endpointInput, WebhookDeliveryUncheckedUpdateWithoutWebhook_endpointInput>
+  }
+
+  export type WebhookDeliveryUpdateManyWithWhereWithoutWebhook_endpointInput = {
+    where: WebhookDeliveryScalarWhereInput
+    data: XOR<WebhookDeliveryUpdateManyMutationInput, WebhookDeliveryUncheckedUpdateManyWithoutWebhook_endpointInput>
+  }
+
+  export type WebhookDeliveryScalarWhereInput = {
+    AND?: WebhookDeliveryScalarWhereInput | WebhookDeliveryScalarWhereInput[]
+    OR?: WebhookDeliveryScalarWhereInput[]
+    NOT?: WebhookDeliveryScalarWhereInput | WebhookDeliveryScalarWhereInput[]
+    id?: StringFilter<"WebhookDelivery"> | string
+    webhook_endpoint_id?: StringFilter<"WebhookDelivery"> | string
+    event_type?: EnumWebhookEventTypeFilter<"WebhookDelivery"> | $Enums.WebhookEventType
+    workflow_run_id?: StringNullableFilter<"WebhookDelivery"> | string | null
+    is_test?: BoolFilter<"WebhookDelivery"> | boolean
+    payload?: JsonFilter<"WebhookDelivery">
+    status?: EnumWebhookDeliveryStatusFilter<"WebhookDelivery"> | $Enums.WebhookDeliveryStatus
+    http_status_code?: IntNullableFilter<"WebhookDelivery"> | number | null
+    response_body?: StringNullableFilter<"WebhookDelivery"> | string | null
+    error_message?: StringNullableFilter<"WebhookDelivery"> | string | null
+    attempt_number?: IntFilter<"WebhookDelivery"> | number
+    duration_ms?: IntNullableFilter<"WebhookDelivery"> | number | null
+    created_at?: DateTimeFilter<"WebhookDelivery"> | Date | string
+  }
+
+  export type WebhookEndpointCreateWithoutDeliveriesInput = {
+    id?: string
+    name?: string | null
+    url: string
+    secret_encrypted: string
+    subscribed_events?: WebhookEndpointCreatesubscribed_eventsInput | $Enums.WebhookEventType[]
+    is_active?: boolean
+    last_triggered_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    user: UserCreateNestedOneWithoutWebhook_endpointsInput
+  }
+
+  export type WebhookEndpointUncheckedCreateWithoutDeliveriesInput = {
+    id?: string
+    user_id: string
+    name?: string | null
+    url: string
+    secret_encrypted: string
+    subscribed_events?: WebhookEndpointCreatesubscribed_eventsInput | $Enums.WebhookEventType[]
+    is_active?: boolean
+    last_triggered_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type WebhookEndpointCreateOrConnectWithoutDeliveriesInput = {
+    where: WebhookEndpointWhereUniqueInput
+    create: XOR<WebhookEndpointCreateWithoutDeliveriesInput, WebhookEndpointUncheckedCreateWithoutDeliveriesInput>
+  }
+
+  export type WebhookEndpointUpsertWithoutDeliveriesInput = {
+    update: XOR<WebhookEndpointUpdateWithoutDeliveriesInput, WebhookEndpointUncheckedUpdateWithoutDeliveriesInput>
+    create: XOR<WebhookEndpointCreateWithoutDeliveriesInput, WebhookEndpointUncheckedCreateWithoutDeliveriesInput>
+    where?: WebhookEndpointWhereInput
+  }
+
+  export type WebhookEndpointUpdateToOneWithWhereWithoutDeliveriesInput = {
+    where?: WebhookEndpointWhereInput
+    data: XOR<WebhookEndpointUpdateWithoutDeliveriesInput, WebhookEndpointUncheckedUpdateWithoutDeliveriesInput>
+  }
+
+  export type WebhookEndpointUpdateWithoutDeliveriesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: StringFieldUpdateOperationsInput | string
+    secret_encrypted?: StringFieldUpdateOperationsInput | string
+    subscribed_events?: WebhookEndpointUpdatesubscribed_eventsInput | $Enums.WebhookEventType[]
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    last_triggered_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutWebhook_endpointsNestedInput
+  }
+
+  export type WebhookEndpointUncheckedUpdateWithoutDeliveriesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: StringFieldUpdateOperationsInput | string
+    secret_encrypted?: StringFieldUpdateOperationsInput | string
+    subscribed_events?: WebhookEndpointUpdatesubscribed_eventsInput | $Enums.WebhookEventType[]
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    last_triggered_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ComputerUseStepCreateWithoutScreenshot_beforeInput = {
@@ -44373,6 +48088,7 @@ export namespace Prisma {
     user_integrations?: UserIntegrationCreateNestedManyWithoutUserInput
     extraction_schemas?: ExtractionSchemaCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyCreateNestedManyWithoutUserInput
+    webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWebsite_targetsInput = {
@@ -44390,6 +48106,7 @@ export namespace Prisma {
     user_integrations?: UserIntegrationUncheckedCreateNestedManyWithoutUserInput
     extraction_schemas?: ExtractionSchemaUncheckedCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
+    webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWebsite_targetsInput = {
@@ -44741,6 +48458,7 @@ export namespace Prisma {
     user_integrations?: UserIntegrationUpdateManyWithoutUserNestedInput
     extraction_schemas?: ExtractionSchemaUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
+    webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWebsite_targetsInput = {
@@ -44758,6 +48476,7 @@ export namespace Prisma {
     user_integrations?: UserIntegrationUncheckedUpdateManyWithoutUserNestedInput
     extraction_schemas?: ExtractionSchemaUncheckedUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
+    webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WorkflowConfigUpsertWithWhereUniqueWithoutWebsite_targetInput = {
@@ -45044,6 +48763,7 @@ export namespace Prisma {
     user_integrations?: UserIntegrationCreateNestedManyWithoutUserInput
     extraction_schemas?: ExtractionSchemaCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyCreateNestedManyWithoutUserInput
+    webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWorkflow_configsInput = {
@@ -45061,6 +48781,7 @@ export namespace Prisma {
     user_integrations?: UserIntegrationUncheckedCreateNestedManyWithoutUserInput
     extraction_schemas?: ExtractionSchemaUncheckedCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
+    webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWorkflow_configsInput = {
@@ -45491,6 +49212,7 @@ export namespace Prisma {
     user_integrations?: UserIntegrationUpdateManyWithoutUserNestedInput
     extraction_schemas?: ExtractionSchemaUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
+    webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWorkflow_configsInput = {
@@ -45508,6 +49230,7 @@ export namespace Prisma {
     user_integrations?: UserIntegrationUncheckedUpdateManyWithoutUserNestedInput
     extraction_schemas?: ExtractionSchemaUncheckedUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
+    webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WebsiteTargetUpsertWithoutWorkflow_configsInput = {
@@ -47552,6 +51275,7 @@ export namespace Prisma {
     user_integrations?: UserIntegrationCreateNestedManyWithoutUserInput
     extraction_schemas?: ExtractionSchemaCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyCreateNestedManyWithoutUserInput
+    webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWorkflow_runsInput = {
@@ -47569,6 +51293,7 @@ export namespace Prisma {
     user_integrations?: UserIntegrationUncheckedCreateNestedManyWithoutUserInput
     extraction_schemas?: ExtractionSchemaUncheckedCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
+    webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWorkflow_runsInput = {
@@ -48102,6 +51827,7 @@ export namespace Prisma {
     user_integrations?: UserIntegrationUpdateManyWithoutUserNestedInput
     extraction_schemas?: ExtractionSchemaUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
+    webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWorkflow_runsInput = {
@@ -48119,6 +51845,7 @@ export namespace Prisma {
     user_integrations?: UserIntegrationUncheckedUpdateManyWithoutUserNestedInput
     extraction_schemas?: ExtractionSchemaUncheckedUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
+    webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WebsiteTargetUpsertWithoutWorkflow_runsInput = {
@@ -48754,6 +52481,7 @@ export namespace Prisma {
     workflow_runs?: WorkflowRunCreateNestedManyWithoutUserInput
     user_integrations?: UserIntegrationCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyCreateNestedManyWithoutUserInput
+    webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutExtraction_schemasInput = {
@@ -48771,6 +52499,7 @@ export namespace Prisma {
     workflow_runs?: WorkflowRunUncheckedCreateNestedManyWithoutUserInput
     user_integrations?: UserIntegrationUncheckedCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
+    webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutExtraction_schemasInput = {
@@ -48867,6 +52596,7 @@ export namespace Prisma {
     workflow_runs?: WorkflowRunUpdateManyWithoutUserNestedInput
     user_integrations?: UserIntegrationUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
+    webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutExtraction_schemasInput = {
@@ -48884,6 +52614,7 @@ export namespace Prisma {
     workflow_runs?: WorkflowRunUncheckedUpdateManyWithoutUserNestedInput
     user_integrations?: UserIntegrationUncheckedUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
+    webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ExtractionSchemaVersionUpsertWithoutActive_for_schemaInput = {
@@ -50989,6 +54720,7 @@ export namespace Prisma {
     workflow_runs?: WorkflowRunCreateNestedManyWithoutUserInput
     extraction_schemas?: ExtractionSchemaCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyCreateNestedManyWithoutUserInput
+    webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutUser_integrationsInput = {
@@ -51006,6 +54738,7 @@ export namespace Prisma {
     workflow_runs?: WorkflowRunUncheckedCreateNestedManyWithoutUserInput
     extraction_schemas?: ExtractionSchemaUncheckedCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
+    webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutUser_integrationsInput = {
@@ -51039,6 +54772,7 @@ export namespace Prisma {
     workflow_runs?: WorkflowRunUpdateManyWithoutUserNestedInput
     extraction_schemas?: ExtractionSchemaUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
+    webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutUser_integrationsInput = {
@@ -51056,6 +54790,7 @@ export namespace Prisma {
     workflow_runs?: WorkflowRunUncheckedUpdateManyWithoutUserNestedInput
     extraction_schemas?: ExtractionSchemaUncheckedUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
+    webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PasswordResetTokenCreateManyUserInput = {
@@ -51171,6 +54906,18 @@ export namespace Prisma {
     expires_at?: Date | string | null
     revoked_at?: Date | string | null
     created_at?: Date | string
+  }
+
+  export type WebhookEndpointCreateManyUserInput = {
+    id?: string
+    name?: string | null
+    url: string
+    secret_encrypted: string
+    subscribed_events?: WebhookEndpointCreatesubscribed_eventsInput | $Enums.WebhookEventType[]
+    is_active?: boolean
+    last_triggered_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type PasswordResetTokenUpdateWithoutUserInput = {
@@ -51557,6 +55304,104 @@ export namespace Prisma {
     last_used_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     expires_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     revoked_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WebhookEndpointUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: StringFieldUpdateOperationsInput | string
+    secret_encrypted?: StringFieldUpdateOperationsInput | string
+    subscribed_events?: WebhookEndpointUpdatesubscribed_eventsInput | $Enums.WebhookEventType[]
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    last_triggered_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deliveries?: WebhookDeliveryUpdateManyWithoutWebhook_endpointNestedInput
+  }
+
+  export type WebhookEndpointUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: StringFieldUpdateOperationsInput | string
+    secret_encrypted?: StringFieldUpdateOperationsInput | string
+    subscribed_events?: WebhookEndpointUpdatesubscribed_eventsInput | $Enums.WebhookEventType[]
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    last_triggered_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deliveries?: WebhookDeliveryUncheckedUpdateManyWithoutWebhook_endpointNestedInput
+  }
+
+  export type WebhookEndpointUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: StringFieldUpdateOperationsInput | string
+    secret_encrypted?: StringFieldUpdateOperationsInput | string
+    subscribed_events?: WebhookEndpointUpdatesubscribed_eventsInput | $Enums.WebhookEventType[]
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    last_triggered_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WebhookDeliveryCreateManyWebhook_endpointInput = {
+    id?: string
+    event_type: $Enums.WebhookEventType
+    workflow_run_id?: string | null
+    is_test?: boolean
+    payload: JsonNullValueInput | InputJsonValue
+    status?: $Enums.WebhookDeliveryStatus
+    http_status_code?: number | null
+    response_body?: string | null
+    error_message?: string | null
+    attempt_number?: number
+    duration_ms?: number | null
+    created_at?: Date | string
+  }
+
+  export type WebhookDeliveryUpdateWithoutWebhook_endpointInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    event_type?: EnumWebhookEventTypeFieldUpdateOperationsInput | $Enums.WebhookEventType
+    workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
+    is_test?: BoolFieldUpdateOperationsInput | boolean
+    payload?: JsonNullValueInput | InputJsonValue
+    status?: EnumWebhookDeliveryStatusFieldUpdateOperationsInput | $Enums.WebhookDeliveryStatus
+    http_status_code?: NullableIntFieldUpdateOperationsInput | number | null
+    response_body?: NullableStringFieldUpdateOperationsInput | string | null
+    error_message?: NullableStringFieldUpdateOperationsInput | string | null
+    attempt_number?: IntFieldUpdateOperationsInput | number
+    duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WebhookDeliveryUncheckedUpdateWithoutWebhook_endpointInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    event_type?: EnumWebhookEventTypeFieldUpdateOperationsInput | $Enums.WebhookEventType
+    workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
+    is_test?: BoolFieldUpdateOperationsInput | boolean
+    payload?: JsonNullValueInput | InputJsonValue
+    status?: EnumWebhookDeliveryStatusFieldUpdateOperationsInput | $Enums.WebhookDeliveryStatus
+    http_status_code?: NullableIntFieldUpdateOperationsInput | number | null
+    response_body?: NullableStringFieldUpdateOperationsInput | string | null
+    error_message?: NullableStringFieldUpdateOperationsInput | string | null
+    attempt_number?: IntFieldUpdateOperationsInput | number
+    duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WebhookDeliveryUncheckedUpdateManyWithoutWebhook_endpointInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    event_type?: EnumWebhookEventTypeFieldUpdateOperationsInput | $Enums.WebhookEventType
+    workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
+    is_test?: BoolFieldUpdateOperationsInput | boolean
+    payload?: JsonNullValueInput | InputJsonValue
+    status?: EnumWebhookDeliveryStatusFieldUpdateOperationsInput | $Enums.WebhookDeliveryStatus
+    http_status_code?: NullableIntFieldUpdateOperationsInput | number | null
+    response_body?: NullableStringFieldUpdateOperationsInput | string | null
+    error_message?: NullableStringFieldUpdateOperationsInput | string | null
+    attempt_number?: IntFieldUpdateOperationsInput | number
+    duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

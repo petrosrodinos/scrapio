@@ -1,11 +1,13 @@
 import { Logger } from '@nestjs/common';
 import { Processor, WorkerHost } from '@nestjs/bullmq';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 import { Job } from 'bullmq';
 import { PrismaService } from '@/core/databases/prisma/prisma.service';
 import { PLAIN_SCRAPE_QUEUE } from '@/core/queues/queues.constants';
 import { HtmlFetcherService } from '@/modules/plain-scrape/services/html-fetcher.service';
 import { ExtractionService } from '@/modules/extraction/extraction.service';
 import { NotificationsService } from '@/modules/notifications/notifications.service';
+import { WORKFLOW_RUN_STATUS_CHANGED_EVENT } from '@/shared/interfaces/workflow-run-status-changed.event';
 import {
   ExtractionScope,
   JobStatus,
@@ -32,6 +34,7 @@ export class PlainScrapeProcessor extends WorkerHost {
     private readonly htmlFetcher: HtmlFetcherService,
     private readonly extractionService: ExtractionService,
     private readonly notificationsService: NotificationsService,
+    private readonly eventEmitter: EventEmitter2,
   ) {
     super();
   }
@@ -89,6 +92,15 @@ export class PlainScrapeProcessor extends WorkerHost {
       });
       return;
     }
+
+    this.eventEmitter.emit(WORKFLOW_RUN_STATUS_CHANGED_EVENT, {
+      workflowRunId,
+      userId: run.user_id,
+      workflowConfigId: run.workflow_config_id,
+      type: run.type,
+      status: RunStatus.RUNNING,
+      startedAt,
+    });
 
     try {
       const urls = run.urls;
@@ -217,6 +229,18 @@ export class PlainScrapeProcessor extends WorkerHost {
         return;
       }
 
+      this.eventEmitter.emit(WORKFLOW_RUN_STATUS_CHANGED_EVENT, {
+        workflowRunId,
+        userId: run.user_id,
+        workflowConfigId: run.workflow_config_id,
+        type: run.type,
+        status: allFailed ? RunStatus.FAILED : RunStatus.SUCCESS,
+        errorMessage: allFailed ? 'All URLs failed to fetch' : null,
+        startedAt,
+        finishedAt,
+        durationMs: finishedAt.getTime() - startedAt.getTime(),
+      });
+
       if (allFailed) {
         this.notificationsService.create({
           type: NotificationType.PLAIN_SCRAPE_FAILURE,
@@ -273,6 +297,18 @@ export class PlainScrapeProcessor extends WorkerHost {
             duration_ms: finishedAt.getTime() - startedAt.getTime(),
             error_message: message,
           },
+        });
+
+        this.eventEmitter.emit(WORKFLOW_RUN_STATUS_CHANGED_EVENT, {
+          workflowRunId,
+          userId: run.user_id,
+          workflowConfigId: run.workflow_config_id,
+          type: run.type,
+          status: RunStatus.FAILED,
+          errorMessage: message,
+          startedAt,
+          finishedAt,
+          durationMs: finishedAt.getTime() - startedAt.getTime(),
         });
       }
 
