@@ -70,11 +70,11 @@ export default function AppRoutes() {
         <Route path={`${Routes.generationRuns.list}/:id`} element={<GenerationRunDetailPage />} />
         <Route path={Routes.crawlRuns.list} element={<CrawlRunsListPage />} />
         <Route path={`${Routes.crawlRuns.list}/:id`} element={<CrawlRunDetailPage />} />
-        <Route path={Routes.diagnostics.list} element={<DiagnosticsListPage />} />
-        <Route path={`${Routes.diagnostics.list}/:id`} element={<DiagnosticsDetailPage />} />
         <Route path={Routes.integrations.list} element={<IntegrationsPage />} />
         <Route path={Routes.apiKeys.list} element={<ApiKeysPage />} />
         <Route element={<AdminOnlyRoute />}>
+          <Route path={Routes.diagnostics.list} element={<DiagnosticsListPage />} />
+          <Route path={`${Routes.diagnostics.list}/:id`} element={<DiagnosticsDetailPage />} />
           <Route path={Routes.admin.jobs.list} element={<JobsListPage />} />
           <Route path={`${Routes.admin.jobs.list}/:id`} element={<JobDetailPage />} />
           <Route path={Routes.admin.crawlerConfig} element={<CrawlerConfigPage />} />

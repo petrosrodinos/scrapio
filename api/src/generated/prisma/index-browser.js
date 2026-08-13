@@ -146,6 +146,7 @@ exports.Prisma.ApiKeyScalarFieldEnum = {
   name: 'name',
   key_prefix: 'key_prefix',
   key_hash: 'key_hash',
+  is_active: 'is_active',
   last_used_at: 'last_used_at',
   expires_at: 'expires_at',
   revoked_at: 'revoked_at',

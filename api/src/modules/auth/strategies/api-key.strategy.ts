@@ -25,6 +25,9 @@ export class ApiKeyStrategy extends PassportStrategy(BearerStrategy, 'api-key') 
     if (!apiKey || apiKey.revoked_at) {
       throw new UnauthorizedException('API key is invalid or has been revoked');
     }
+    if (!apiKey.is_active) {
+      throw new UnauthorizedException('API key is disabled');
+    }
     if (apiKey.expires_at && apiKey.expires_at < new Date()) {
       throw new UnauthorizedException('API key has expired');
     }

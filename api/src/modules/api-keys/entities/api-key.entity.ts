@@ -10,6 +10,9 @@ export class ApiKeyEntity {
   @ApiProperty({ example: 'spio_AbCdEf…' })
   key_prefix: string;
 
+  @ApiProperty()
+  is_active: boolean;
+
   @ApiProperty({ nullable: true })
   last_used_at: Date | null;
 

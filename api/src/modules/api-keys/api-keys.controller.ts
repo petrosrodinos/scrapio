@@ -35,14 +35,14 @@ export class ApiKeysController {
   }
 
   @Patch(':id')
-  @ApiOperation({ summary: 'Rename an API key' })
+  @ApiOperation({ summary: 'Rename or enable/disable an API key' })
   @ApiResponse({ status: 200, type: ApiKeyEntity })
-  rename(
+  update(
     @CurrentUser() authUser: AuthUser,
     @Param('id') id: string,
     @Body() dto: UpdateApiKeyDto,
   ) {
-    return this.apiKeysService.rename(authUser, id, dto);
+    return this.apiKeysService.update(authUser, id, dto);
   }
 
   @Delete(':id')

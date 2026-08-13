@@ -3,7 +3,7 @@ import { toast } from "@/hooks/use-toast";
 import {
   createApiKey,
   getApiKeys,
-  renameApiKey,
+  updateApiKey,
   revokeApiKey,
 } from "../services/api-keys.services";
 import type { CreateApiKeyPayload, UpdateApiKeyPayload } from "../interfaces/api-keys.interfaces";
@@ -33,19 +33,19 @@ export const useCreateApiKey = () => {
   });
 };
 
-export const useRenameApiKey = () => {
+export const useUpdateApiKey = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: ({ id, payload }: { id: string; payload: UpdateApiKeyPayload }) =>
-      renameApiKey(id, payload),
+      updateApiKey(id, payload),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["api-keys"] });
-      toast({ title: "API key renamed", duration: 2000, variant: "success" });
+      toast({ title: "API key updated", duration: 2000, variant: "success" });
     },
     onError: (error: Error) => {
       toast({
-        title: "Could not rename API key",
+        title: "Could not update API key",
         description: error.message,
         variant: "error",
       });

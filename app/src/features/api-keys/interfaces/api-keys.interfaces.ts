@@ -2,6 +2,7 @@ export interface ApiKey {
   id: string;
   name: string;
   key_prefix: string;
+  is_active: boolean;
   last_used_at: string | null;
   expires_at: string | null;
   revoked_at: string | null;
@@ -18,5 +19,6 @@ export interface CreateApiKeyPayload {
 }
 
 export interface UpdateApiKeyPayload {
-  name: string;
+  name?: string;
+  is_active?: boolean;
 }

@@ -47,11 +47,19 @@ export class ApiKeysService {
     return keys.map((key) => this.toResponse(key));
   }
 
-  async rename(authUser: AuthUser, id: string, dto: UpdateApiKeyDto): Promise<ApiKeyEntity> {
+  async update(authUser: AuthUser, id: string, dto: UpdateApiKeyDto): Promise<ApiKeyEntity> {
     const existing = await this.ensureOwned(authUser, id);
+
+    if (dto.is_active === true && existing.revoked_at) {
+      throw new BadRequestException('A revoked API key cannot be re-enabled');
+    }
+
     const updated = await this.prisma.apiKey.update({
       where: { id: existing.id },
-      data: { name: dto.name },
+      data: {
+        ...(dto.name !== undefined && { name: dto.name }),
+        ...(dto.is_active !== undefined && { is_active: dto.is_active }),
+      },
     });
     return this.toResponse(updated);
   }
@@ -82,6 +90,7 @@ export class ApiKeysService {
       id: key.id,
       name: key.name,
       key_prefix: key.key_prefix,
+      is_active: key.is_active,
       last_used_at: key.last_used_at,
       expires_at: key.expires_at,
       revoked_at: key.revoked_at,

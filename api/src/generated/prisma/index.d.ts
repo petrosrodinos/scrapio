@@ -6115,6 +6115,7 @@ export namespace Prisma {
     name: string | null
     key_prefix: string | null
     key_hash: string | null
+    is_active: boolean | null
     last_used_at: Date | null
     expires_at: Date | null
     revoked_at: Date | null
@@ -6127,6 +6128,7 @@ export namespace Prisma {
     name: string | null
     key_prefix: string | null
     key_hash: string | null
+    is_active: boolean | null
     last_used_at: Date | null
     expires_at: Date | null
     revoked_at: Date | null
@@ -6139,6 +6141,7 @@ export namespace Prisma {
     name: number
     key_prefix: number
     key_hash: number
+    is_active: number
     last_used_at: number
     expires_at: number
     revoked_at: number
@@ -6153,6 +6156,7 @@ export namespace Prisma {
     name?: true
     key_prefix?: true
     key_hash?: true
+    is_active?: true
     last_used_at?: true
     expires_at?: true
     revoked_at?: true
@@ -6165,6 +6169,7 @@ export namespace Prisma {
     name?: true
     key_prefix?: true
     key_hash?: true
+    is_active?: true
     last_used_at?: true
     expires_at?: true
     revoked_at?: true
@@ -6177,6 +6182,7 @@ export namespace Prisma {
     name?: true
     key_prefix?: true
     key_hash?: true
+    is_active?: true
     last_used_at?: true
     expires_at?: true
     revoked_at?: true
@@ -6262,6 +6268,7 @@ export namespace Prisma {
     name: string
     key_prefix: string
     key_hash: string
+    is_active: boolean
     last_used_at: Date | null
     expires_at: Date | null
     revoked_at: Date | null
@@ -6291,6 +6298,7 @@ export namespace Prisma {
     name?: boolean
     key_prefix?: boolean
     key_hash?: boolean
+    is_active?: boolean
     last_used_at?: boolean
     expires_at?: boolean
     revoked_at?: boolean
@@ -6304,6 +6312,7 @@ export namespace Prisma {
     name?: boolean
     key_prefix?: boolean
     key_hash?: boolean
+    is_active?: boolean
     last_used_at?: boolean
     expires_at?: boolean
     revoked_at?: boolean
@@ -6317,6 +6326,7 @@ export namespace Prisma {
     name?: boolean
     key_prefix?: boolean
     key_hash?: boolean
+    is_active?: boolean
     last_used_at?: boolean
     expires_at?: boolean
     revoked_at?: boolean
@@ -6330,13 +6340,14 @@ export namespace Prisma {
     name?: boolean
     key_prefix?: boolean
     key_hash?: boolean
+    is_active?: boolean
     last_used_at?: boolean
     expires_at?: boolean
     revoked_at?: boolean
     created_at?: boolean
   }
 
-  export type ApiKeyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "name" | "key_prefix" | "key_hash" | "last_used_at" | "expires_at" | "revoked_at" | "created_at", ExtArgs["result"]["apiKey"]>
+  export type ApiKeyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "name" | "key_prefix" | "key_hash" | "is_active" | "last_used_at" | "expires_at" | "revoked_at" | "created_at", ExtArgs["result"]["apiKey"]>
   export type ApiKeyInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -6358,6 +6369,7 @@ export namespace Prisma {
       name: string
       key_prefix: string
       key_hash: string
+      is_active: boolean
       last_used_at: Date | null
       expires_at: Date | null
       revoked_at: Date | null
@@ -6791,6 +6803,7 @@ export namespace Prisma {
     readonly name: FieldRef<"ApiKey", 'String'>
     readonly key_prefix: FieldRef<"ApiKey", 'String'>
     readonly key_hash: FieldRef<"ApiKey", 'String'>
+    readonly is_active: FieldRef<"ApiKey", 'Boolean'>
     readonly last_used_at: FieldRef<"ApiKey", 'DateTime'>
     readonly expires_at: FieldRef<"ApiKey", 'DateTime'>
     readonly revoked_at: FieldRef<"ApiKey", 'DateTime'>
@@ -32415,6 +32428,7 @@ export namespace Prisma {
     name: 'name',
     key_prefix: 'key_prefix',
     key_hash: 'key_hash',
+    is_active: 'is_active',
     last_used_at: 'last_used_at',
     expires_at: 'expires_at',
     revoked_at: 'revoked_at',
@@ -32896,6 +32910,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -32962,13 +32983,6 @@ export namespace Prisma {
    * Reference to a field of type 'BlockRuleSource[]'
    */
   export type ListEnumBlockRuleSourceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BlockRuleSource[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Boolean'
-   */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -33426,6 +33440,7 @@ export namespace Prisma {
     name?: StringFilter<"ApiKey"> | string
     key_prefix?: StringFilter<"ApiKey"> | string
     key_hash?: StringFilter<"ApiKey"> | string
+    is_active?: BoolFilter<"ApiKey"> | boolean
     last_used_at?: DateTimeNullableFilter<"ApiKey"> | Date | string | null
     expires_at?: DateTimeNullableFilter<"ApiKey"> | Date | string | null
     revoked_at?: DateTimeNullableFilter<"ApiKey"> | Date | string | null
@@ -33439,6 +33454,7 @@ export namespace Prisma {
     name?: SortOrder
     key_prefix?: SortOrder
     key_hash?: SortOrder
+    is_active?: SortOrder
     last_used_at?: SortOrderInput | SortOrder
     expires_at?: SortOrderInput | SortOrder
     revoked_at?: SortOrderInput | SortOrder
@@ -33455,6 +33471,7 @@ export namespace Prisma {
     user_id?: StringFilter<"ApiKey"> | string
     name?: StringFilter<"ApiKey"> | string
     key_prefix?: StringFilter<"ApiKey"> | string
+    is_active?: BoolFilter<"ApiKey"> | boolean
     last_used_at?: DateTimeNullableFilter<"ApiKey"> | Date | string | null
     expires_at?: DateTimeNullableFilter<"ApiKey"> | Date | string | null
     revoked_at?: DateTimeNullableFilter<"ApiKey"> | Date | string | null
@@ -33468,6 +33485,7 @@ export namespace Prisma {
     name?: SortOrder
     key_prefix?: SortOrder
     key_hash?: SortOrder
+    is_active?: SortOrder
     last_used_at?: SortOrderInput | SortOrder
     expires_at?: SortOrderInput | SortOrder
     revoked_at?: SortOrderInput | SortOrder
@@ -33486,6 +33504,7 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"ApiKey"> | string
     key_prefix?: StringWithAggregatesFilter<"ApiKey"> | string
     key_hash?: StringWithAggregatesFilter<"ApiKey"> | string
+    is_active?: BoolWithAggregatesFilter<"ApiKey"> | boolean
     last_used_at?: DateTimeNullableWithAggregatesFilter<"ApiKey"> | Date | string | null
     expires_at?: DateTimeNullableWithAggregatesFilter<"ApiKey"> | Date | string | null
     revoked_at?: DateTimeNullableWithAggregatesFilter<"ApiKey"> | Date | string | null
@@ -35740,6 +35759,7 @@ export namespace Prisma {
     name: string
     key_prefix: string
     key_hash: string
+    is_active?: boolean
     last_used_at?: Date | string | null
     expires_at?: Date | string | null
     revoked_at?: Date | string | null
@@ -35753,6 +35773,7 @@ export namespace Prisma {
     name: string
     key_prefix: string
     key_hash: string
+    is_active?: boolean
     last_used_at?: Date | string | null
     expires_at?: Date | string | null
     revoked_at?: Date | string | null
@@ -35764,6 +35785,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     key_prefix?: StringFieldUpdateOperationsInput | string
     key_hash?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
     last_used_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     expires_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     revoked_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -35777,6 +35799,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     key_prefix?: StringFieldUpdateOperationsInput | string
     key_hash?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
     last_used_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     expires_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     revoked_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -35789,6 +35812,7 @@ export namespace Prisma {
     name: string
     key_prefix: string
     key_hash: string
+    is_active?: boolean
     last_used_at?: Date | string | null
     expires_at?: Date | string | null
     revoked_at?: Date | string | null
@@ -35800,6 +35824,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     key_prefix?: StringFieldUpdateOperationsInput | string
     key_hash?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
     last_used_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     expires_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     revoked_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -35812,6 +35837,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     key_prefix?: StringFieldUpdateOperationsInput | string
     key_hash?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
     last_used_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     expires_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     revoked_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -38400,12 +38426,18 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type ApiKeyCountOrderByAggregateInput = {
     id?: SortOrder
     user_id?: SortOrder
     name?: SortOrder
     key_prefix?: SortOrder
     key_hash?: SortOrder
+    is_active?: SortOrder
     last_used_at?: SortOrder
     expires_at?: SortOrder
     revoked_at?: SortOrder
@@ -38418,6 +38450,7 @@ export namespace Prisma {
     name?: SortOrder
     key_prefix?: SortOrder
     key_hash?: SortOrder
+    is_active?: SortOrder
     last_used_at?: SortOrder
     expires_at?: SortOrder
     revoked_at?: SortOrder
@@ -38430,10 +38463,19 @@ export namespace Prisma {
     name?: SortOrder
     key_prefix?: SortOrder
     key_hash?: SortOrder
+    is_active?: SortOrder
     last_used_at?: SortOrder
     expires_at?: SortOrder
     revoked_at?: SortOrder
     created_at?: SortOrder
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -38725,11 +38767,6 @@ export namespace Prisma {
     not?: NestedEnumBlockRuleSourceFilter<$PrismaModel> | $Enums.BlockRuleSource
   }
 
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
   export type WebsiteTargetScalarRelationFilter = {
     is?: WebsiteTargetWhereInput
     isNot?: WebsiteTargetWhereInput
@@ -38803,14 +38840,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumBlockRuleSourceFilter<$PrismaModel>
     _max?: NestedEnumBlockRuleSourceFilter<$PrismaModel>
-  }
-
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type EnumWorkflowTypeFilter<$PrismaModel = never> = {
@@ -40645,6 +40674,10 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
   export type UserUpdateOneRequiredWithoutApi_keysNestedInput = {
     create?: XOR<UserCreateWithoutApi_keysInput, UserUncheckedCreateWithoutApi_keysInput>
     connectOrCreate?: UserCreateOrConnectWithoutApi_keysInput
@@ -41035,10 +41068,6 @@ export namespace Prisma {
 
   export type EnumBlockRuleSourceFieldUpdateOperationsInput = {
     set?: $Enums.BlockRuleSource
-  }
-
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
   }
 
   export type WebsiteTargetUpdateOneRequiredWithoutBlock_rulesNestedInput = {
@@ -42934,6 +42963,19 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type NestedEnumDocumentTypeFilter<$PrismaModel = never> = {
     equals?: $Enums.DocumentType | EnumDocumentTypeFieldRefInput<$PrismaModel>
     in?: $Enums.DocumentType[] | ListEnumDocumentTypeFieldRefInput<$PrismaModel>
@@ -43042,11 +43084,6 @@ export namespace Prisma {
     not?: NestedEnumBlockRuleSourceFilter<$PrismaModel> | $Enums.BlockRuleSource
   }
 
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
   export type NestedEnumBlockSignalWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.BlockSignal | EnumBlockSignalFieldRefInput<$PrismaModel>
     in?: $Enums.BlockSignal[] | ListEnumBlockSignalFieldRefInput<$PrismaModel>
@@ -43065,14 +43102,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumBlockRuleSourceFilter<$PrismaModel>
     _max?: NestedEnumBlockRuleSourceFilter<$PrismaModel>
-  }
-
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedEnumWorkflowTypeFilter<$PrismaModel = never> = {
@@ -43761,6 +43790,7 @@ export namespace Prisma {
     name: string
     key_prefix: string
     key_hash: string
+    is_active?: boolean
     last_used_at?: Date | string | null
     expires_at?: Date | string | null
     revoked_at?: Date | string | null
@@ -43772,6 +43802,7 @@ export namespace Prisma {
     name: string
     key_prefix: string
     key_hash: string
+    is_active?: boolean
     last_used_at?: Date | string | null
     expires_at?: Date | string | null
     revoked_at?: Date | string | null
@@ -44036,6 +44067,7 @@ export namespace Prisma {
     name?: StringFilter<"ApiKey"> | string
     key_prefix?: StringFilter<"ApiKey"> | string
     key_hash?: StringFilter<"ApiKey"> | string
+    is_active?: BoolFilter<"ApiKey"> | boolean
     last_used_at?: DateTimeNullableFilter<"ApiKey"> | Date | string | null
     expires_at?: DateTimeNullableFilter<"ApiKey"> | Date | string | null
     revoked_at?: DateTimeNullableFilter<"ApiKey"> | Date | string | null
@@ -51134,6 +51166,7 @@ export namespace Prisma {
     name: string
     key_prefix: string
     key_hash: string
+    is_active?: boolean
     last_used_at?: Date | string | null
     expires_at?: Date | string | null
     revoked_at?: Date | string | null
@@ -51496,6 +51529,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     key_prefix?: StringFieldUpdateOperationsInput | string
     key_hash?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
     last_used_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     expires_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     revoked_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -51507,6 +51541,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     key_prefix?: StringFieldUpdateOperationsInput | string
     key_hash?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
     last_used_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     expires_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     revoked_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -51518,6 +51553,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     key_prefix?: StringFieldUpdateOperationsInput | string
     key_hash?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
     last_used_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     expires_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     revoked_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null

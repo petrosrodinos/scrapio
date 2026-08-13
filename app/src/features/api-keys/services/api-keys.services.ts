@@ -25,12 +25,12 @@ export const createApiKey = async (payload: CreateApiKeyPayload): Promise<ApiKey
   }
 };
 
-export const renameApiKey = async (id: string, payload: UpdateApiKeyPayload): Promise<ApiKey> => {
+export const updateApiKey = async (id: string, payload: UpdateApiKeyPayload): Promise<ApiKey> => {
   try {
     const response = await axiosInstance.patch<ApiKey>(ApiRoutes.apiKeys.detail(id), payload);
     return response.data;
   } catch (error) {
-    throw new Error("Failed to rename API key. Please try again.");
+    throw new Error("Failed to update API key. Please try again.");
   }
 };
 

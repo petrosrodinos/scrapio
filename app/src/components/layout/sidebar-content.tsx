@@ -38,7 +38,6 @@ const scraperNavItems = [
   { label: 'Generation', icon: Sparkles, href: Routes.generationRuns.list, end: false },
   { label: 'Browser Agent', icon: Bot, href: Routes.browserAgent.list, end: false },
   { label: 'Crawl Runs', icon: Play, href: Routes.crawlRuns.list, end: false },
-  { label: 'Diagnostics', icon: Activity, href: Routes.diagnostics.list, end: false },
   { label: 'Integrations', icon: Plug, href: Routes.integrations.list, end: false },
 ];
 
@@ -48,6 +47,7 @@ const accountNavItems = [
 
 const adminNavItems = [
   { label: 'Jobs', icon: Wrench, href: Routes.admin.jobs.list, end: false },
+  { label: 'Diagnostics', icon: Activity, href: Routes.diagnostics.list, end: false },
   { label: 'Crawler Config', icon: Settings2, href: Routes.admin.crawlerConfig, end: false },
   { label: 'Notifications', icon: Bell, href: Routes.admin.notifications, end: false },
   { label: 'Health', icon: Activity, href: Routes.admin.health, end: true },

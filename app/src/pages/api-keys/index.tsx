@@ -1,7 +1,17 @@
 import { useState } from "react";
 import { useForm, type Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, Chip, Form, Label, Input, FieldError, Modal, useOverlayState } from "@heroui/react";
+import {
+  Button,
+  Chip,
+  Form,
+  Label,
+  Input,
+  FieldError,
+  Modal,
+  Switch,
+  useOverlayState,
+} from "@heroui/react";
 import { KeyRound, Pencil, Trash2 } from "lucide-react";
 import { TableSkeleton } from "@/components/ui/table-skeleton";
 import { ConfirmationDialog } from "@/components/ui/confirmation-dialog";
@@ -11,7 +21,7 @@ import { RevealApiKeyModal } from "./components/reveal-api-key-modal";
 import {
   useApiKeys,
   useCreateApiKey,
-  useRenameApiKey,
+  useUpdateApiKey,
   useRevokeApiKey,
 } from "@/features/api-keys/hooks/use-api-keys";
 import type { ApiKey } from "@/features/api-keys/interfaces/api-keys.interfaces";
@@ -30,6 +40,7 @@ function getStatus(key: ApiKey): {
   if (key.expires_at && new Date(key.expires_at) < new Date()) {
     return { label: "Expired", variant: "soft", color: "danger" };
   }
+  if (!key.is_active) return { label: "Disabled", variant: "secondary" };
   return { label: "Active", variant: "primary" };
 }
 
@@ -89,7 +100,7 @@ export default function ApiKeysPage() {
 
   const { data: apiKeys = [], isPending } = useApiKeys();
   const createApiKey = useCreateApiKey();
-  const renameApiKey = useRenameApiKey();
+  const updateApiKey = useUpdateApiKey();
   const revokeApiKey = useRevokeApiKey();
 
   const handleCreate = async (values: CreateApiKeyFormValues) => {
@@ -104,9 +115,13 @@ export default function ApiKeysPage() {
 
   const handleRename = async (values: RenameApiKeyFormValues) => {
     if (!renamingKey) return;
-    await renameApiKey.mutateAsync({ id: renamingKey.id, payload: values });
+    await updateApiKey.mutateAsync({ id: renamingKey.id, payload: values });
     renameModal.close();
     setRenamingKey(null);
+  };
+
+  const handleToggleActive = (key: ApiKey, isActive: boolean) => {
+    updateApiKey.mutate({ id: key.id, payload: { is_active: isActive } });
   };
 
   return (
@@ -158,7 +173,17 @@ export default function ApiKeysPage() {
                 </div>
 
                 {!isRevoked ? (
-                  <div className="flex shrink-0 gap-2">
+                  <div className="flex shrink-0 items-center gap-3">
+                    <Switch
+                      isSelected={key.is_active}
+                      isDisabled={updateApiKey.isPending}
+                      onChange={(isSelected) => handleToggleActive(key, isSelected)}
+                    >
+                      <Switch.Control>
+                        <Switch.Thumb />
+                      </Switch.Control>
+                      <Switch.Content>Enabled</Switch.Content>
+                    </Switch>
                     <Button
                       variant="secondary"
                       onPress={() => {
@@ -216,7 +241,7 @@ export default function ApiKeysPage() {
       />
 
       <Modal state={renameModal}>
-        <Modal.Backdrop isDismissable={!renameApiKey.isPending}>
+        <Modal.Backdrop isDismissable={!updateApiKey.isPending}>
           <Modal.Container>
             <Modal.Dialog>
               <Modal.Header>
@@ -227,7 +252,7 @@ export default function ApiKeysPage() {
                   <RenameApiKeyForm
                     key={renamingKey.id}
                     apiKey={renamingKey}
-                    isPending={renameApiKey.isPending}
+                    isPending={updateApiKey.isPending}
                     onSubmit={handleRename}
                     onCancel={() => {
                       renameModal.close();
