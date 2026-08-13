@@ -3,7 +3,8 @@ import { AuthGuard } from '@nestjs/passport';
 import { JsonWebTokenError } from 'jsonwebtoken';
 import { GqlExecutionContext } from '@nestjs/graphql';
 
-export class JwtGuard extends AuthGuard('jwt') {
+// Accepts either a JWT (normal login session) or an API key (Authorization: Bearer <key>).
+export class JwtGuard extends AuthGuard(['jwt', 'api-key']) {
     constructor() {
         super();
     }

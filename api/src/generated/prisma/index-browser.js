@@ -140,6 +140,18 @@ exports.Prisma.PasswordResetTokenScalarFieldEnum = {
   created_at: 'created_at'
 };
 
+exports.Prisma.ApiKeyScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  name: 'name',
+  key_prefix: 'key_prefix',
+  key_hash: 'key_hash',
+  last_used_at: 'last_used_at',
+  expires_at: 'expires_at',
+  revoked_at: 'revoked_at',
+  created_at: 'created_at'
+};
+
 exports.Prisma.DocumentScalarFieldEnum = {
   id: 'id',
   user_id: 'user_id',
@@ -675,6 +687,7 @@ exports.ComputerUseModel = exports.$Enums.ComputerUseModel = {
 exports.Prisma.ModelName = {
   User: 'User',
   PasswordResetToken: 'PasswordResetToken',
+  ApiKey: 'ApiKey',
   Document: 'Document',
   WebsiteTarget: 'WebsiteTarget',
   BlockRule: 'BlockRule',

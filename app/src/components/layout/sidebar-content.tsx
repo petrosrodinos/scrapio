@@ -5,6 +5,7 @@ import {
   Bot,
   FileCode2,
   Globe,
+  KeyRound,
   LayoutDashboard,
   Plug,
   Play,
@@ -39,6 +40,10 @@ const scraperNavItems = [
   { label: 'Crawl Runs', icon: Play, href: Routes.crawlRuns.list, end: false },
   { label: 'Diagnostics', icon: Activity, href: Routes.diagnostics.list, end: false },
   { label: 'Integrations', icon: Plug, href: Routes.integrations.list, end: false },
+];
+
+const accountNavItems = [
+  { label: 'API Keys', icon: KeyRound, href: Routes.apiKeys.list, end: false },
 ];
 
 const adminNavItems = [
@@ -161,6 +166,13 @@ export default function SidebarContent({ collapsed, onNavigate }: SidebarContent
       <NavSection
         title="Scrapers"
         items={scraperNavItems}
+        collapsed={collapsed}
+        onNavigate={onNavigate}
+      />
+
+      <NavSection
+        title="Account"
+        items={accountNavItems}
         collapsed={collapsed}
         onNavigate={onNavigate}
       />

@@ -29,6 +29,7 @@ import DiagnosticsDetailPage from "@/pages/admin/diagnostics/detail";
 import CrawlerConfigPage from "@/pages/admin/crawler-config";
 import NotificationsListPage from "@/pages/admin/notifications";
 import IntegrationsPage from "@/pages/integrations";
+import ApiKeysPage from "@/pages/api-keys";
 
 export default function AppRoutes() {
   return (
@@ -72,6 +73,7 @@ export default function AppRoutes() {
         <Route path={Routes.diagnostics.list} element={<DiagnosticsListPage />} />
         <Route path={`${Routes.diagnostics.list}/:id`} element={<DiagnosticsDetailPage />} />
         <Route path={Routes.integrations.list} element={<IntegrationsPage />} />
+        <Route path={Routes.apiKeys.list} element={<ApiKeysPage />} />
         <Route element={<AdminOnlyRoute />}>
           <Route path={Routes.admin.jobs.list} element={<JobsListPage />} />
           <Route path={`${Routes.admin.jobs.list}/:id`} element={<JobDetailPage />} />

@@ -50,6 +50,9 @@ export const Routes = {
     integrations: {
         list: "/integrations",
     },
+    apiKeys: {
+        list: "/api-keys",
+    },
     admin: {
         jobs: {
             list: "/jobs",

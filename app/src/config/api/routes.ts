@@ -109,4 +109,8 @@ export const ApiRoutes = {
         list: "/user-integrations",
         detail: (id: string) => `/user-integrations/${id}`,
     },
+    apiKeys: {
+        list: "/api-keys",
+        detail: (id: string) => `/api-keys/${id}`,
+    },
 };

@@ -19,6 +19,7 @@ import { NotificationsModule } from './modules/notifications/notifications.modul
 import { DashboardModule } from './modules/dashboard/dashboard.module';
 import { IntegrationsModule } from './modules/integrations/integrations.module';
 import { UserIntegrationsModule } from './modules/user-integrations/user-integrations.module';
+import { ApiKeysModule } from './modules/api-keys/api-keys.module';
 import { UsersModule } from './modules/users/users.module';
 import { ExtractionModule } from './modules/extraction/extraction.module';
 import { ExtractionSchemasModule } from './modules/extraction-schemas/extraction-schemas.module';
@@ -49,6 +50,7 @@ import { BrowserAgentModule } from './modules/browser-agent/browser-agent.module
     PlatformConfigModule,
     IntegrationsModule,
     UserIntegrationsModule,
+    ApiKeysModule,
     UsersModule,
   ],
   controllers: [AppController],
