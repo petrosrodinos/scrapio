@@ -1,6 +1,7 @@
 import { useForm, Controller, type Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, Label, TextArea, Input, FieldError, ListBox, Select } from "@heroui/react";
+import { Form, Label, Input, FieldError, ListBox, Select } from "@heroui/react";
+import { Plus, Trash2 } from "lucide-react";
 import { ActionButtonWithPending } from "@/components/ui/action-button-with-pending";
 import { CrawlIntervalField } from "@/components/ui/crawl-interval-field";
 import { OutputDataConfigEditor } from "@/pages/admin/generation-runs/components/output-data-config-editor";
@@ -44,7 +45,7 @@ export function PlainScrapeForm({
     defaultValues: {
       name: defaultValues?.name ?? "",
       description: defaultValues?.description ?? "",
-      urls_text: defaultValues?.urls_text ?? "",
+      urls: defaultValues?.urls ?? [""],
       extraction_scope: defaultValues?.extraction_scope ?? ExtractionScopes.COMBINED,
       schedule_cron: defaultValues?.schedule_cron ?? null,
       output_formats: defaultValues?.output_formats ?? [],
@@ -57,8 +58,8 @@ export function PlainScrapeForm({
   const outputFormats = watch("output_formats");
   const schemaMode = watch("output_schema_mode");
   const schemaJson = watch("output_schema_json");
-  const urlsText = watch("urls_text");
-  const urlCount = urlsText.split("\n").map((line) => line.trim()).filter(Boolean).length;
+  const urls = watch("urls");
+  const urlCount = urls.map((url) => url.trim()).filter(Boolean).length;
 
   const jsonSchemaInvalid =
     outputFormats?.includes(OutputFormats.STRUCTURED_JSON) &&
@@ -89,16 +90,62 @@ export function PlainScrapeForm({
       </div>
 
       <div className="flex flex-col gap-1">
-        <Label htmlFor="plain-scrape-urls">URLs (one per line, up to 200)</Label>
-        <TextArea
-          id="plain-scrape-urls"
-          {...register("urls_text")}
-          placeholder={"https://example.com/page-1\nhttps://example.com/page-2"}
-          rows={6}
-          fullWidth
+        <Label>URLs (up to 200)</Label>
+        <Controller
+          name="urls"
+          control={control}
+          render={({ field }) => {
+            const urlList = field.value;
+            const updateUrl = (index: number, value: string) => {
+              field.onChange(urlList.map((url, i) => (i === index ? value : url)));
+            };
+            const removeUrl = (index: number) => {
+              field.onChange(urlList.filter((_, i) => i !== index));
+            };
+            const addUrl = () => field.onChange([...urlList, ""]);
+
+            return (
+              <div className="flex flex-col gap-2">
+                {urlList.map((url, index) => (
+                  <div key={index} className="flex items-center gap-2">
+                    <Input
+                      aria-label={`URL ${index + 1}`}
+                      value={url}
+                      onChange={(event) => updateUrl(index, event.target.value)}
+                      placeholder="https://example.com/page"
+                      fullWidth
+                    />
+                    <ActionButtonWithPending
+                      type="button"
+                      size="sm"
+                      variant="ghost"
+                      aria-label={`Remove URL ${index + 1}`}
+                      idleLeading={<Trash2 className="h-3.5 w-3.5 text-danger" />}
+                      onPress={() => removeUrl(index)}
+                      isDisabled={urlList.length <= 1}
+                      className="min-w-8 px-0"
+                    >
+                      <span className="sr-only">Remove</span>
+                    </ActionButtonWithPending>
+                  </div>
+                ))}
+                <ActionButtonWithPending
+                  type="button"
+                  size="sm"
+                  variant="secondary"
+                  idleLeading={<Plus className="h-3.5 w-3.5" />}
+                  onPress={addUrl}
+                  isDisabled={urlList.length >= 200}
+                  className="w-fit"
+                >
+                  Add URL
+                </ActionButtonWithPending>
+              </div>
+            );
+          }}
         />
         <span className="text-xs text-muted">{urlCount} URL{urlCount === 1 ? "" : "s"}</span>
-        {errors.urls_text && <FieldError>{errors.urls_text.message}</FieldError>}
+        {errors.urls && <FieldError>{errors.urls.message as string}</FieldError>}
       </div>
 
       {urlCount > 1 && (

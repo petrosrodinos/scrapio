@@ -164,10 +164,13 @@ export class PlainScrapeProcessor extends WorkerHost {
             .map((p) => `=== SOURCE: ${p.url} ===\n${p.content}`)
             .join('\n\n')
             .slice(0, MAX_COMBINED_CONTENT_CHARS);
+          // Not truncated to MAX_COMBINED_CONTENT_CHARS: unlike combinedContent, this is only
+          // used for deterministic regex matching (never sent to the LLM), so there's no
+          // context-window/cost reason to cut it short — doing so was dropping matches that
+          // appear later in the page (e.g. a footer email past the 60k-char mark).
           const combinedRawHtml = successfulPages
             .map((p) => `=== SOURCE: ${p.url} ===\n${p.rawHtml ?? p.content ?? ''}`)
-            .join('\n\n')
-            .slice(0, MAX_COMBINED_CONTENT_CHARS);
+            .join('\n\n');
 
           const outcome = await this.extractionService.extract({
             userId: run.user_id,

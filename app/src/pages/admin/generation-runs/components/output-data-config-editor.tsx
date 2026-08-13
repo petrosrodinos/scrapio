@@ -4,11 +4,15 @@ import { ActionButtonWithPending } from "@/components/ui/action-button-with-pend
 import { cn } from "@/lib/utils";
 import { OutputFormatFormOptions } from "@/config/constants/dropdowns/scrapers/output-format-form.options";
 import { SchemaFieldTypeFormOptions } from "@/config/constants/dropdowns/scrapers/schema-field-type-form.options";
+import { RegexPresetFormOptions } from "@/config/constants/dropdowns/scrapers/regex-preset-form.options";
+import { RegexFlagsFormOptions } from "@/config/constants/dropdowns/scrapers/regex-flags-form.options";
 import {
   OUTPUT_DATA_CONFIG_EXAMPLE,
   OutputFormats,
   OutputSchemaEditorModes,
+  RegexPresets,
   SchemaFieldTypes,
+  isBuiltInRegexPreset,
   isComplexSchemaFieldType,
   isEnumSchemaFieldType,
   isRegexSchemaFieldType,
@@ -16,6 +20,7 @@ import {
   type OutputSchemaEditorMode,
   type OutputSchemaEnumValue,
   type OutputSchemaField,
+  type RegexPreset,
   type SchemaFieldType,
 } from "@/features/scraper-generation/interfaces/output-config.interfaces";
 import {
@@ -88,6 +93,9 @@ function SchemaFieldList({
         const complex = isComplexSchemaFieldType(field.type);
         const isEnum = isEnumSchemaFieldType(field.type);
         const isRegex = isRegexSchemaFieldType(field.type);
+        const regexPreset: RegexPreset = isBuiltInRegexPreset(field.pattern)
+          ? field.pattern
+          : RegexPresets.CUSTOM;
         const enumValues = field.enumValues ?? [createEmptyEnumValue(field.type)];
 
         const updateEnumValue = (valueIndex: number, raw: string) => {
@@ -224,29 +232,79 @@ function SchemaFieldList({
             ) : null}
 
             {isRegex ? (
-              <div className="grid grid-cols-[minmax(0,1fr)_8rem] items-start gap-2 rounded-lg bg-surface-secondary/60 p-2.5">
-                <div className="flex flex-col gap-1">
+              <div className="flex flex-col gap-1.5 rounded-lg bg-surface-secondary/60 p-2.5">
+                <div className="grid grid-cols-2 items-center gap-2">
+                  <Select
+                    aria-label={`Regex preset depth ${depth} index ${index + 1}`}
+                    selectedKey={regexPreset}
+                    isDisabled={isDisabled}
+                    onSelectionChange={(key) => {
+                      if (!key) return;
+                      const preset = String(key) as RegexPreset;
+                      updateField(index, {
+                        ...field,
+                        pattern:
+                          preset === RegexPresets.CUSTOM
+                            ? isBuiltInRegexPreset(field.pattern)
+                              ? ""
+                              : field.pattern ?? ""
+                            : preset,
+                      });
+                    }}
+                  >
+                    <Select.Trigger>
+                      <Select.Value>{({ selectedText }) => selectedText}</Select.Value>
+                      <Select.Indicator />
+                    </Select.Trigger>
+                    <Select.Popover>
+                      <ListBox items={RegexPresetFormOptions}>
+                        {(option) => (
+                          <ListBox.Item id={option.id} textValue={option.label}>
+                            {option.label}
+                          </ListBox.Item>
+                        )}
+                      </ListBox>
+                    </Select.Popover>
+                  </Select>
+                  <Select
+                    aria-label={`Regex flags depth ${depth} index ${index + 1}`}
+                    selectedKey={field.flags ?? ""}
+                    isDisabled={isDisabled}
+                    onSelectionChange={(key) =>
+                      updateField(index, { ...field, flags: key ? String(key) : undefined })
+                    }
+                  >
+                    <Select.Trigger>
+                      <Select.Value>{({ selectedText }) => selectedText}</Select.Value>
+                      <Select.Indicator />
+                    </Select.Trigger>
+                    <Select.Popover>
+                      <ListBox items={RegexFlagsFormOptions}>
+                        {(option) => (
+                          <ListBox.Item id={option.id} textValue={option.label}>
+                            <div className="flex flex-col gap-0.5">
+                              <span>{option.label}</span>
+                              <span className="text-xs text-muted">{option.description}</span>
+                            </div>
+                          </ListBox.Item>
+                        )}
+                      </ListBox>
+                    </Select.Popover>
+                  </Select>
+                </div>
+                {regexPreset === RegexPresets.CUSTOM ? (
                   <Input
-                    aria-label={`Regex pattern depth ${depth} index ${index + 1}`}
-                    value={field.pattern ?? ""}
+                    aria-label={`Custom regex pattern depth ${depth} index ${index + 1}`}
+                    value={isBuiltInRegexPreset(field.pattern) ? "" : field.pattern ?? ""}
                     onChange={(event) => updateField(index, { ...field, pattern: event.target.value })}
-                    placeholder="email, phone, url, or a custom regex"
+                    placeholder="Custom regex, e.g. \d{3}-\d{4}"
                     disabled={isDisabled}
                     fullWidth
                   />
-                  <span className="text-xs text-muted">
-                    Built-in presets: email, phone, url. Matches every occurrence deterministically,
-                    without an AI call.
-                  </span>
-                </div>
-                <Input
-                  aria-label={`Regex flags depth ${depth} index ${index + 1}`}
-                  value={field.flags ?? ""}
-                  onChange={(event) => updateField(index, { ...field, flags: event.target.value })}
-                  placeholder="flags (optional)"
-                  disabled={isDisabled}
-                  fullWidth
-                />
+                ) : null}
+                <span className="text-xs text-muted">
+                  Matches every occurrence deterministically, without an AI call.
+                </span>
               </div>
             ) : null}
 

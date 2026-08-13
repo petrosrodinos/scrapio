@@ -18,42 +18,39 @@ export const plainScrapeFormSchema = z
   .object({
     name: z.string().min(1, "Name is required"),
     description: z.string().optional(),
-    urls_text: z.string().min(1, "Add at least one URL"),
+    urls: z.array(z.string()),
     extraction_scope: z.enum([ExtractionScopes.COMBINED, ExtractionScopes.PER_URL]),
     schedule_cron: z.string().nullable(),
   })
   .and(plainScrapeOutputConfigSchema)
   .superRefine((values, ctx) => {
-    const lines = values.urls_text
-      .split("\n")
-      .map((line) => line.trim())
-      .filter(Boolean);
+    const urls = sanitizeUrls(values.urls);
 
-    if (lines.length === 0) {
+    if (urls.length === 0) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         message: "Add at least one URL",
-        path: ["urls_text"],
+        path: ["urls"],
       });
       return;
     }
 
-    if (lines.length > 200) {
+    if (urls.length > 200) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         message: "A maximum of 200 URLs is allowed",
-        path: ["urls_text"],
+        path: ["urls"],
       });
       return;
     }
 
-    for (const line of lines) {
-      const result = urlLineSchema.safeParse(line);
+    for (const url of urls) {
+      const result = urlLineSchema.safeParse(url);
       if (!result.success) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: `Invalid URL: ${line}`,
-          path: ["urls_text"],
+          message: `Invalid URL: ${url}`,
+          path: ["urls"],
         });
         return;
       }
@@ -62,18 +59,15 @@ export const plainScrapeFormSchema = z
 
 export type PlainScrapeFormValues = z.infer<typeof plainScrapeFormSchema>;
 
-export function parseUrlsText(urlsText: string): string[] {
-  return urlsText
-    .split("\n")
-    .map((line) => line.trim())
-    .filter(Boolean);
+export function sanitizeUrls(urls: string[]): string[] {
+  return urls.map((url) => url.trim()).filter(Boolean);
 }
 
 export function defaultPlainScrapeFormValues(): PlainScrapeFormValues {
   return {
     name: "",
     description: "",
-    urls_text: "",
+    urls: [""],
     extraction_scope: ExtractionScopes.COMBINED,
     schedule_cron: null,
     ...defaultOutputDataConfigValues(),
@@ -88,7 +82,7 @@ export function plainScrapeConfigToFormValues(config: PlainScrapeConfig): PlainS
   return {
     name: config.name,
     description: config.description ?? "",
-    urls_text: config.urls.join("\n"),
+    urls: config.urls.length > 0 ? config.urls : [""],
     extraction_scope: config.extraction_scope,
     schedule_cron: config.schedule_cron,
     output_formats: config.output_formats,
@@ -102,7 +96,7 @@ export function plainScrapeFormValuesToPayload(values: PlainScrapeFormValues) {
   return {
     name: values.name,
     description: values.description || null,
-    urls: parseUrlsText(values.urls_text),
+    urls: sanitizeUrls(values.urls),
     extraction_scope: values.extraction_scope,
     output_formats: values.output_formats,
     output_schema: resolveOutputSchemaFromForm(values),

@@ -42,20 +42,27 @@ export class HtmlFetcherService {
         url;
       const httpStatus = response.status;
       const rawHtml =
-        typeof response.data === 'string' ? response.data : String(response.data);
+        typeof response.data === 'string'
+          ? response.data
+          : String(response.data);
       const success = httpStatus >= 200 && httpStatus < 400;
 
       const $ = cheerio.load(rawHtml);
       const title = $('title').first().text().trim() || null;
       const metaDescription =
         $('meta[name="description"]').attr('content')?.trim() || null;
-      const ogTitle = $('meta[property="og:title"]').attr('content')?.trim() || null;
+      const ogTitle =
+        $('meta[property="og:title"]').attr('content')?.trim() || null;
       const canonical = $('link[rel="canonical"]').attr('href')?.trim() || null;
 
       $('script, style, noscript, svg').remove();
       const cleanedContent =
-        $('body').text().replace(/[ \t]+/g, ' ').replace(/\n{3,}/g, '\n\n').trim() ||
-        null;
+        $('body')
+          .text()
+          .split('\n')
+          .map((line) => line.replace(/[ \t]+/g, ' ').trim())
+          .filter(Boolean)
+          .join('\n') || null;
 
       return {
         finalUrl,
@@ -69,7 +76,9 @@ export class HtmlFetcherService {
           og_title: ogTitle,
           canonical_url: canonical,
         },
-        errorMessage: success ? null : `Request failed with status ${httpStatus}`,
+        errorMessage: success
+          ? null
+          : `Request failed with status ${httpStatus}`,
       };
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);

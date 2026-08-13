@@ -57,6 +57,19 @@ export function isRegexSchemaFieldType(type: SchemaFieldType | string): boolean 
   return type === SchemaFieldTypes.REGEX;
 }
 
+export const RegexPresets = {
+  EMAIL: "email",
+  PHONE: "phone",
+  URL: "url",
+  CUSTOM: "custom",
+} as const;
+
+export type RegexPreset = (typeof RegexPresets)[keyof typeof RegexPresets];
+
+export function isBuiltInRegexPreset(pattern: string | undefined): pattern is Exclude<RegexPreset, "custom"> {
+  return pattern === RegexPresets.EMAIL || pattern === RegexPresets.PHONE || pattern === RegexPresets.URL;
+}
+
 export const OUTPUT_DATA_CONFIG_EXAMPLE = {
   output_formats: [OutputFormats.STRUCTURED_JSON, OutputFormats.MARKDOWN],
   output_schema: {
