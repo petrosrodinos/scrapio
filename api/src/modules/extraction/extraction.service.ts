@@ -5,6 +5,10 @@ import { AiService } from '@/integrations/ai/services/ai.service';
 import { AiGenerationError, AICostResponse } from '@/integrations/ai/interfaces/ai.interface';
 import { buildOutputZodSchema } from '@/shared/utils/schema/schema-definition-to-zod.util';
 import {
+  extractRegexFieldValues,
+  splitRegexFields,
+} from '@/shared/utils/schema/regex-schema-fields.util';
+import {
   buildMarkdownFromRawContentPrompt,
   buildMarkdownFromStructuredPrompt,
   buildStructuredCorrectionPrompt,
@@ -153,7 +157,25 @@ export class ExtractionService {
       };
     }
 
-    const zodSchema = buildOutputZodSchema(request.schemaDefinition);
+    const { regexFields, remainingDefinition } = splitRegexFields(request.schemaDefinition);
+    const regexData =
+      Object.keys(regexFields).length > 0
+        ? extractRegexFieldValues(regexFields, request.regexContent ?? request.content)
+        : {};
+
+    if (Object.keys(remainingDefinition).length === 0) {
+      // Every field was a "regex" descriptor — extracted deterministically above,
+      // no LLM call needed.
+      return {
+        status: ExtractionFormatStatus.VALID,
+        data: regexData,
+        rawAiOutput: null,
+        validationErrors: null,
+        attempts: 0,
+      };
+    }
+
+    const zodSchema = buildOutputZodSchema(remainingDefinition);
     const basePrompt = buildStructuredExtractionPrompt({
       content: request.content,
       contentLabel,
@@ -192,7 +214,7 @@ export class ExtractionService {
 
         return {
           status: ExtractionFormatStatus.VALID,
-          data: response,
+          data: { ...regexData, ...(response as Record<string, unknown>) },
           rawAiOutput: JSON.stringify(response),
           validationErrors: null,
           attempts,

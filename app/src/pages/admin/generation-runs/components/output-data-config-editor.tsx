@@ -11,6 +11,7 @@ import {
   SchemaFieldTypes,
   isComplexSchemaFieldType,
   isEnumSchemaFieldType,
+  isRegexSchemaFieldType,
   type OutputFormat,
   type OutputSchemaEditorMode,
   type OutputSchemaEnumValue,
@@ -86,6 +87,7 @@ function SchemaFieldList({
       {fields.map((field, index) => {
         const complex = isComplexSchemaFieldType(field.type);
         const isEnum = isEnumSchemaFieldType(field.type);
+        const isRegex = isRegexSchemaFieldType(field.type);
         const enumValues = field.enumValues ?? [createEmptyEnumValue(field.type)];
 
         const updateEnumValue = (valueIndex: number, raw: string) => {
@@ -218,6 +220,33 @@ function SchemaFieldList({
                     </div>
                   ))}
                 </div>
+              </div>
+            ) : null}
+
+            {isRegex ? (
+              <div className="grid grid-cols-[minmax(0,1fr)_8rem] items-start gap-2 rounded-lg bg-surface-secondary/60 p-2.5">
+                <div className="flex flex-col gap-1">
+                  <Input
+                    aria-label={`Regex pattern depth ${depth} index ${index + 1}`}
+                    value={field.pattern ?? ""}
+                    onChange={(event) => updateField(index, { ...field, pattern: event.target.value })}
+                    placeholder="email, phone, url, or a custom regex"
+                    disabled={isDisabled}
+                    fullWidth
+                  />
+                  <span className="text-xs text-muted">
+                    Built-in presets: email, phone, url. Matches every occurrence deterministically,
+                    without an AI call.
+                  </span>
+                </div>
+                <Input
+                  aria-label={`Regex flags depth ${depth} index ${index + 1}`}
+                  value={field.flags ?? ""}
+                  onChange={(event) => updateField(index, { ...field, flags: event.target.value })}
+                  placeholder="flags (optional)"
+                  disabled={isDisabled}
+                  fullWidth
+                />
               </div>
             ) : null}
 

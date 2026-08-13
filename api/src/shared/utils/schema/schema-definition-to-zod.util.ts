@@ -128,6 +128,12 @@ function buildRichDescriptorZod(
         (descriptor.properties ?? {}) as Record<string, unknown>,
       );
       break;
+    case 'regex':
+      // Only extracted deterministically at the top level (see
+      // splitRegexFields); nested here just as a schema fallback so the LLM
+      // still produces a coherent string[] shape for it.
+      base = z.array(z.string());
+      break;
     default:
       base = z.unknown();
   }

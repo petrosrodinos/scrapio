@@ -100,7 +100,13 @@ export class PlainScrapeProcessor extends WorkerHost {
         | null
         | undefined;
 
-      const pages: { id: string; url: string; success: boolean; content: string | null }[] = [];
+      const pages: {
+        id: string;
+        url: string;
+        success: boolean;
+        content: string | null;
+        rawHtml: string | null;
+      }[] = [];
 
       for (const url of urls) {
         const currentRun = await this.prisma.workflowRun.findUnique({
@@ -129,13 +135,14 @@ export class PlainScrapeProcessor extends WorkerHost {
         });
 
         const content = fetched.cleanedContent ?? fetched.rawHtml;
-        pages.push({ id: page.id, url, success: fetched.success, content });
+        pages.push({ id: page.id, url, success: fetched.success, content, rawHtml: fetched.rawHtml });
 
         if (wantsExtraction && scope === ExtractionScope.PER_URL && fetched.success && content) {
           const outcome = await this.extractionService.extract({
             userId: run.user_id,
             outputFormats,
             content,
+            regexContent: fetched.rawHtml,
             contentLabel: `HTML content of ${url}`,
             instructions: run.workflow_config?.description,
             schemaDefinition,
@@ -157,11 +164,16 @@ export class PlainScrapeProcessor extends WorkerHost {
             .map((p) => `=== SOURCE: ${p.url} ===\n${p.content}`)
             .join('\n\n')
             .slice(0, MAX_COMBINED_CONTENT_CHARS);
+          const combinedRawHtml = successfulPages
+            .map((p) => `=== SOURCE: ${p.url} ===\n${p.rawHtml ?? p.content ?? ''}`)
+            .join('\n\n')
+            .slice(0, MAX_COMBINED_CONTENT_CHARS);
 
           const outcome = await this.extractionService.extract({
             userId: run.user_id,
             outputFormats,
             content: combinedContent,
+            regexContent: combinedRawHtml,
             contentLabel: `combined HTML content of ${successfulPages.length} page(s)`,
             instructions: run.workflow_config?.description,
             schemaDefinition,

@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Locator } from 'playwright';
 import { FieldDef } from '../interfaces/scraper-config.interface';
+import { resolveRegexPattern } from '@/shared/constants/regex-presets.constants';
 
 const FIELD_TIMEOUT = 2000;
 
@@ -11,16 +12,18 @@ export class FieldExtractionService {
       return { selector: def, type: 'text' };
     }
     return {
-      selector: def.selector ?? String(def),
+      selector: def.selector,
       type: def.type ?? 'text',
+      pattern: def.pattern,
+      flags: def.flags,
     };
   }
 
   async extractField(
     element: Locator,
     def: string | FieldDef,
-  ): Promise<string | null> {
-    const { selector, type } = this.normalizeFieldDef(def);
+  ): Promise<string | string[] | null> {
+    const { selector, type, pattern, flags } = this.normalizeFieldDef(def);
 
     try {
       const el = selector ? element.locator(selector).first() : element;
@@ -40,6 +43,9 @@ export class FieldExtractionService {
           (await el.getAttribute('style', { timeout: FIELD_TIMEOUT })) ?? '';
         const match = style.match(/background-image:\s*url\(['"]?(.*?)['"]?\)/);
         return match ? match[1] : null;
+      }
+      if (type === 'regex') {
+        return this.extractRegexMatches(el, pattern, flags);
       }
 
       await el.waitFor({ state: 'attached', timeout: FIELD_TIMEOUT });
@@ -65,5 +71,28 @@ export class FieldExtractionService {
     } catch {
       return null;
     }
+  }
+
+  private async extractRegexMatches(
+    el: Locator,
+    pattern: string | undefined,
+    flags: string | undefined,
+  ): Promise<string[] | null> {
+    if (!pattern) return null;
+
+    let regex: RegExp;
+    try {
+      const source = resolveRegexPattern(pattern);
+      const finalFlags = flags?.includes('g') ? flags : `${flags ?? ''}g`;
+      regex = new RegExp(source, finalFlags);
+    } catch {
+      return null;
+    }
+
+    const html =
+      (await el.innerHTML({ timeout: FIELD_TIMEOUT }).catch(() => '')) ?? '';
+    const matches = [...html.matchAll(regex)].map((m) => (m[1] ?? m[0]).trim());
+    const unique = [...new Set(matches)].filter(Boolean);
+    return unique.length ? unique : null;
   }
 }

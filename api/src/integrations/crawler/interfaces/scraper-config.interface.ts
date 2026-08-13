@@ -1,8 +1,13 @@
-export type FieldType = 'text' | 'href' | 'src' | 'background_image';
+export type FieldType = 'text' | 'href' | 'src' | 'background_image' | 'regex';
 
 export interface FieldDef {
-  selector: string;
+  /** Omit to run against the whole card/element (mainly useful with type "regex"). */
+  selector?: string;
   type: FieldType;
+  /** Required when type is "regex". Either a built-in preset name (see REGEX_PRESETS, e.g. "email", "phone", "url") or a raw regex source string. */
+  pattern?: string;
+  /** Optional regex flags for type "regex" (e.g. "i"). "g" is always applied regardless of what's passed. */
+  flags?: string;
 }
 
 export type PaginationType =

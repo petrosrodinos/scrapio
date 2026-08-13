@@ -5,6 +5,7 @@ import {
   waitForBotChallengeClearance,
 } from '@/integrations/crawler/block-handling/block-handling.utils';
 import { BlockHandlingConfig } from '@/integrations/crawler/block-handling/block-handling.interface';
+import { resolveRegexPattern } from '@/shared/constants/regex-presets.constants';
 import {
   ACCESS_BARRIER_VERIFY_PREFIX,
   VERIFY_TIMEOUT_MS,
@@ -12,7 +13,9 @@ import {
 
 interface FieldDef {
   selector?: string;
-  type?: 'text' | 'href' | 'src' | 'background_image';
+  type?: 'text' | 'href' | 'src' | 'background_image' | 'regex';
+  pattern?: string;
+  flags?: string;
 }
 
 interface DetailPageDef {
@@ -121,6 +124,25 @@ export class ScraperConfigVerificationService {
         typeof rawDef === 'string' ? { selector: rawDef } : rawDef;
       const selector = def?.selector;
       const type = def?.type ?? 'text';
+
+      if (type === 'regex') {
+        const rawPattern = def?.pattern;
+        if (!rawPattern) {
+          errors.push(`field "${field}" has type "regex" but no pattern`);
+          continue;
+        }
+        try {
+          new RegExp(resolveRegexPattern(rawPattern));
+        } catch (e) {
+          errors.push(
+            `field "${field}" has an invalid regex pattern "${rawPattern}": ${(e as Error).message}`,
+          );
+        }
+        // A regex field legitimately matching 0 times on the first card (e.g. no
+        // email on this particular listing) isn't a config error the way a broken
+        // CSS selector is, so we don't require a non-empty match here.
+        continue;
+      }
 
       if (!selector) {
         errors.push(`field "${field}" has no selector`);

@@ -63,7 +63,7 @@ Tab behaviour:
   "start_url": "full URL of the listings/index page you actually used",
   "listing_selector": "CSS selector matching EACH item card/row container",
   "fields": {
-    "<field_name>": { "selector": "selector WITHIN a card", "type": "text" | "href" | "src" | "background_image" }
+    "<field_name>": { "selector": "selector WITHIN a card", "type": "text" | "href" | "src" | "background_image" | "regex", "pattern": "only for type regex — preset name or raw regex source", "flags": "optional regex flags, only for type regex" }
   },
   "pagination": {
     "type": "next_button" | "infinite_scroll" | "load_more" | "url_param" | "none",
@@ -86,6 +86,7 @@ Field types:
 - "href"             — <a> href attribute
 - "src"              — <img> src attribute
 - "background_image" — URL from CSS background-image: url(...)
+- "regex"            — all matches of "pattern" found in the element's HTML (omit "selector" to scan the whole card), returned as an array. Use this when Additional instructions ask to extract things like emails or phone numbers rather than a specific labeled field. "pattern" is either a preset name ("email", "phone", "url") or a raw regex source string; a capture group in a custom pattern is used as the match instead of the whole match.
 
 ## Critical rules
 - SCROLL before choosing selectors — cards/images may not be in the initial viewport

@@ -17,6 +17,7 @@ export const SchemaFieldTypes = {
   NUMBER_ENUM: "number_enum",
   OBJECT: "object",
   OBJECT_ARRAY: "object[]",
+  REGEX: "regex",
 } as const;
 
 export type SchemaFieldType = (typeof SchemaFieldTypes)[keyof typeof SchemaFieldTypes];
@@ -28,6 +29,10 @@ export interface OutputSchemaField {
   type: SchemaFieldType;
   children?: OutputSchemaField[];
   enumValues?: OutputSchemaEnumValue[];
+  /** For type "regex": a built-in preset name ("email", "phone", "url") or a raw regex source string. */
+  pattern?: string;
+  /** For type "regex": optional regex flags. */
+  flags?: string;
 }
 
 export type OutputSchemaDefinition = Record<string, unknown>;
@@ -46,6 +51,10 @@ export function isComplexSchemaFieldType(type: SchemaFieldType | string): boolea
 
 export function isEnumSchemaFieldType(type: SchemaFieldType | string): boolean {
   return type === SchemaFieldTypes.STRING_ENUM || type === SchemaFieldTypes.NUMBER_ENUM;
+}
+
+export function isRegexSchemaFieldType(type: SchemaFieldType | string): boolean {
+  return type === SchemaFieldTypes.REGEX;
 }
 
 export const OUTPUT_DATA_CONFIG_EXAMPLE = {
@@ -69,5 +78,6 @@ export const OUTPUT_DATA_CONFIG_EXAMPLE = {
       },
     ],
     features: "string[]",
+    emails: { type: "regex", pattern: "email" },
   },
 } as const;

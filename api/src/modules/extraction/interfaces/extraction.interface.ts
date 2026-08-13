@@ -6,6 +6,13 @@ export interface ExtractionRequest {
   outputFormats: OutputFormat[];
   /** Raw evidence to extract from: HTML, cleaned text, or serialized browser-agent findings. */
   content: string;
+  /**
+   * Source text for "regex" schema fields, matched deterministically without an
+   * LLM call. Defaults to `content` when omitted; pass raw HTML here when
+   * `content` is a stripped/cleaned version, so patterns can still match things
+   * like emails only present in `mailto:` hrefs.
+   */
+  regexContent?: string | null;
   /** Human-readable label for what `content` is, used to phrase the prompt (e.g. "page HTML"). */
   contentLabel?: string;
   /** Free-text task context appended to the prompt (e.g. generation_prompt, user task description). */

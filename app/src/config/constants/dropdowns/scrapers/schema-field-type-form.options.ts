@@ -15,6 +15,7 @@ export const SchemaFieldTypeFormOptions: { id: SchemaFieldType; label: string }[
   { id: SchemaFieldTypes.NUMBER_ENUM, label: "Enum (numbers)" },
   { id: SchemaFieldTypes.OBJECT, label: "Nested object" },
   { id: SchemaFieldTypes.OBJECT_ARRAY, label: "Object list (object[])" },
+  { id: SchemaFieldTypes.REGEX, label: "Regex matches (string[])" },
 ];
 
 export function getSchemaFieldTypeLabel(type: SchemaFieldType | string): string {

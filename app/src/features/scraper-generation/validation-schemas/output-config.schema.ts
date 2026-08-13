@@ -4,6 +4,7 @@ import {
   SchemaFieldTypes,
   isComplexSchemaFieldType,
   isEnumSchemaFieldType,
+  isRegexSchemaFieldType,
   type OutputFormat,
   type OutputSchemaDefinition,
   type OutputSchemaEnumValue,
@@ -27,6 +28,12 @@ export const EmptyOutputSchemaField = createEmptyOutputSchemaField();
 function fieldValueToDefinition(field: OutputSchemaField): unknown {
   if (isEnumSchemaFieldType(field.type)) {
     return field.enumValues ?? [];
+  }
+
+  if (isRegexSchemaFieldType(field.type)) {
+    const definition: Record<string, unknown> = { type: "regex", pattern: field.pattern ?? "" };
+    if (field.flags) definition.flags = field.flags;
+    return definition;
   }
 
   if (!isComplexSchemaFieldType(field.type)) {
@@ -59,6 +66,17 @@ function isNumberEnumArray(value: unknown[]): value is number[] {
   );
 }
 
+function isRegexDescriptor(
+  value: unknown,
+): value is { type: "regex"; pattern?: unknown; flags?: unknown } {
+  return (
+    !!value &&
+    typeof value === "object" &&
+    !Array.isArray(value) &&
+    (value as Record<string, unknown>).type === "regex"
+  );
+}
+
 function inferSchemaFieldType(value: unknown): SchemaFieldType {
   if (typeof value === "string") {
     return value as SchemaFieldType;
@@ -71,6 +89,9 @@ function inferSchemaFieldType(value: unknown): SchemaFieldType {
       return SchemaFieldTypes.NUMBER_ENUM;
     }
     return SchemaFieldTypes.OBJECT_ARRAY;
+  }
+  if (isRegexDescriptor(value)) {
+    return SchemaFieldTypes.REGEX;
   }
   if (value && typeof value === "object") {
     return SchemaFieldTypes.OBJECT;
@@ -87,6 +108,15 @@ function definitionValueToField(name: string, value: unknown): OutputSchemaField
 
   if (type === SchemaFieldTypes.NUMBER_ENUM && Array.isArray(value)) {
     return { name, type, enumValues: [...value] as number[] };
+  }
+
+  if (type === SchemaFieldTypes.REGEX && isRegexDescriptor(value)) {
+    return {
+      name,
+      type,
+      pattern: typeof value.pattern === "string" ? value.pattern : "",
+      flags: typeof value.flags === "string" ? value.flags : undefined,
+    };
   }
 
   if (type === SchemaFieldTypes.OBJECT && value && typeof value === "object" && !Array.isArray(value)) {
@@ -140,7 +170,7 @@ type PrimitiveSchemaType = (typeof PRIMITIVE_SCHEMA_TYPES)[number];
 
 const PRIMITIVE_SCHEMA_TYPE_SET = new Set<string>(PRIMITIVE_SCHEMA_TYPES);
 
-const SUPPORTED_SCHEMA_TYPE_HINT = `${PRIMITIVE_SCHEMA_TYPES.join(", ")}, a string enum (["a", "b"]), a number enum ([1, 2]), a nested object ({ ... }), or an object array ([{ ... }])`;
+const SUPPORTED_SCHEMA_TYPE_HINT = `${PRIMITIVE_SCHEMA_TYPES.join(", ")}, a string enum (["a", "b"]), a number enum ([1, 2]), a nested object ({ ... }), an object array ([{ ... }]), or a regex descriptor ({ type: "regex", pattern, flags? })`;
 
 function isPrimitiveSchemaType(value: string): value is PrimitiveSchemaType {
   return PRIMITIVE_SCHEMA_TYPE_SET.has(value);
@@ -148,6 +178,42 @@ function isPrimitiveSchemaType(value: string): value is PrimitiveSchemaType {
 
 function formatSchemaPath(path: PropertyKey[]): string {
   return path.map(String).join(".");
+}
+
+function validateRegexDescriptorValue(
+  value: Record<string, unknown> & { type: "regex" },
+  path: PropertyKey[],
+): string | null {
+  const label = path.length > 0 ? `"${formatSchemaPath(path)}"` : "root";
+  const allowedKeys = new Set(["type", "pattern", "flags"]);
+
+  for (const key of Object.keys(value)) {
+    if (!allowedKeys.has(key)) {
+      return `Invalid schema at ${label}: unknown descriptor field "${key}"`;
+    }
+  }
+
+  if (typeof value.pattern !== "string" || !value.pattern.trim()) {
+    return `Invalid schema at ${label}: "regex" descriptor requires "pattern"`;
+  }
+  try {
+    new RegExp(value.pattern);
+  } catch {
+    return `Invalid schema at ${label}: "pattern" is not a valid regular expression`;
+  }
+
+  if (value.flags !== undefined) {
+    if (typeof value.flags !== "string") {
+      return `Invalid schema at ${label}: "flags" must be a string`;
+    }
+    try {
+      new RegExp("", value.flags);
+    } catch {
+      return `Invalid schema at ${label}: "flags" is not a valid set of regex flags`;
+    }
+  }
+
+  return null;
 }
 
 function validateEnumArray(
@@ -202,7 +268,11 @@ function validateOutputSchemaDefinitionValue(
   }
 
   if (value && typeof value === "object") {
-    return validateOutputSchemaDefinitionObject(value as Record<string, unknown>, path);
+    const record = value as Record<string, unknown>;
+    if (record.type === "regex") {
+      return validateRegexDescriptorValue(record as Record<string, unknown> & { type: "regex" }, path);
+    }
+    return validateOutputSchemaDefinitionObject(record, path);
   }
 
   return `Invalid schema at ${label}: expected ${SUPPORTED_SCHEMA_TYPE_HINT}`;
@@ -377,6 +447,38 @@ function validateSchemaFields(
       return;
     }
 
+    if (isRegexSchemaFieldType(field.type)) {
+      if (!field.pattern || !field.pattern.trim()) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Enter a regex pattern or preset name (email, phone, url)",
+          path: [...path, index, "pattern"],
+        });
+      } else {
+        try {
+          new RegExp(field.pattern);
+        } catch {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: "Not a valid regular expression",
+            path: [...path, index, "pattern"],
+          });
+        }
+      }
+      if (field.flags) {
+        try {
+          new RegExp("", field.flags);
+        } catch {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: "Not a valid set of regex flags",
+            path: [...path, index, "flags"],
+          });
+        }
+      }
+      return;
+    }
+
     if (isComplexSchemaFieldType(field.type)) {
       validateSchemaFields(field.children ?? [], [...path, index, "children"], ctx);
     }
@@ -394,6 +496,8 @@ export const outputSchemaFieldSchema: z.ZodType<OutputSchemaField> = z.lazy(() =
     type: z.string().min(1),
     children: z.array(outputSchemaFieldSchema).optional(),
     enumValues: z.array(z.union([z.string(), z.number()])).optional(),
+    pattern: z.string().optional(),
+    flags: z.string().optional(),
   }),
 ) as z.ZodType<OutputSchemaField>;
 
@@ -491,6 +595,10 @@ export function withSchemaFieldType(
             )
           : [createEmptyEnumValue(type)],
     };
+  }
+
+  if (type === SchemaFieldTypes.REGEX) {
+    return { name: field.name, type, pattern: field.pattern ?? "", flags: field.flags };
   }
 
   if (!isComplexSchemaFieldType(type)) {

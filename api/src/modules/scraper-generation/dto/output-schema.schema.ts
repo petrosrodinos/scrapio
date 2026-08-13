@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { resolveRegexPattern } from '@/shared/constants/regex-presets.constants';
 
 const PRIMITIVE_SCHEMA_TYPES = [
   'string',
@@ -19,11 +20,12 @@ const DESCRIPTOR_BASE_TYPES = [
   'boolean',
   'object',
   'array',
+  'regex',
 ] as const;
 
 const DESCRIPTOR_BASE_TYPE_SET = new Set<string>(DESCRIPTOR_BASE_TYPES);
 
-const SUPPORTED_SCHEMA_TYPE_HINT = `${PRIMITIVE_SCHEMA_TYPES.join(', ')}, a string enum (["a", "b"]), a number enum ([1, 2]), a nested object ({ ... }), an object array ([{ ... }]), or a rich descriptor ({ type, description?, required?, nullable?, enum?, pattern?, minimum?, maximum?, minLength?, maxLength?, items?, properties? })`;
+const SUPPORTED_SCHEMA_TYPE_HINT = `${PRIMITIVE_SCHEMA_TYPES.join(', ')}, a string enum (["a", "b"]), a number enum ([1, 2]), a nested object ({ ... }), an object array ([{ ... }]), or a rich descriptor ({ type, description?, required?, nullable?, enum?, pattern?, flags?, minimum?, maximum?, minLength?, maxLength?, items?, properties? })`;
 
 function formatSchemaPath(path: PropertyKey[]): string {
   return path.map(String).join('.');
@@ -101,6 +103,7 @@ function validateRichDescriptor(
     'nullable',
     'enum',
     'pattern',
+    'flags',
     'minimum',
     'maximum',
     'minLength',
@@ -135,17 +138,35 @@ function validateRichDescriptor(
     if (enumError) return enumError;
   }
 
+  if (type === 'regex' && value.pattern === undefined) {
+    return `Invalid schema at ${label}: "regex" descriptor requires "pattern"`;
+  }
+
   if (value.pattern !== undefined) {
-    if (type !== 'string') {
-      return `Invalid schema at ${label}: "pattern" is only supported for string type`;
+    if (type !== 'string' && type !== 'regex') {
+      return `Invalid schema at ${label}: "pattern" is only supported for string/regex types`;
     }
     if (typeof value.pattern !== 'string') {
       return `Invalid schema at ${label}: "pattern" must be a string`;
     }
     try {
-      new RegExp(value.pattern);
+      new RegExp(type === 'regex' ? resolveRegexPattern(value.pattern) : value.pattern);
     } catch {
       return `Invalid schema at ${label}: "pattern" is not a valid regular expression`;
+    }
+  }
+
+  if (value.flags !== undefined) {
+    if (type !== 'regex') {
+      return `Invalid schema at ${label}: "flags" is only supported for regex type`;
+    }
+    if (typeof value.flags !== 'string') {
+      return `Invalid schema at ${label}: "flags" must be a string`;
+    }
+    try {
+      new RegExp('', value.flags);
+    } catch {
+      return `Invalid schema at ${label}: "flags" is not a valid set of regex flags`;
     }
   }
 
