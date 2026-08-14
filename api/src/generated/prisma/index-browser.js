@@ -251,6 +251,7 @@ exports.Prisma.WorkflowConfigScalarFieldEnum = {
   schedule_cron: 'schedule_cron',
   schedule_timezone: 'schedule_timezone',
   schedule_enabled: 'schedule_enabled',
+  persist_results: 'persist_results',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
@@ -334,6 +335,8 @@ exports.Prisma.WorkflowRunScalarFieldEnum = {
   ai_usage: 'ai_usage',
   error_message: 'error_message',
   metadata: 'metadata',
+  persist_results: 'persist_results',
+  results_purged_at: 'results_purged_at',
   started_at: 'started_at',
   finished_at: 'finished_at',
   duration_ms: 'duration_ms',

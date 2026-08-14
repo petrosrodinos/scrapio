@@ -432,6 +432,10 @@ model WorkflowConfig {
   schedule_timezone String?
   schedule_enabled  Boolean @default(false)
 
+  // When false, runs of this config ("scrape and forget") have their result payloads deleted
+  // once a subscribed webhook endpoint confirms delivery — see WorkflowRun.persist_results.
+  persist_results Boolean @default(true)
+
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
@@ -605,6 +609,12 @@ model WorkflowRun {
   ai_usage      Json?
   error_message String?
   metadata      Json?
+
+  // Snapshotted from WorkflowConfig.persist_results at enqueue time. When false, result
+  // payloads (raw_html, structured_data, markdown, collected_data) are deleted once a
+  // subscribed webhook endpoint confirms delivery, or by the fallback retention cron.
+  persist_results   Boolean   @default(true)
+  results_purged_at DateTime?
 
   started_at  DateTime?
   finished_at DateTime?

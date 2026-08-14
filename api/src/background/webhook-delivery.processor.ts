@@ -4,6 +4,8 @@ import { Job } from 'bullmq';
 import { PrismaService } from '@/core/databases/prisma/prisma.service';
 import { WEBHOOK_DELIVERY_CONCURRENCY, WEBHOOK_DELIVERY_QUEUE } from '@/core/queues/queues.constants';
 import { WebhookDeliveryService } from '@/modules/webhooks/services/webhook-delivery.service';
+import { WorkflowRunPurgeService } from '@/modules/crawl-runs/services/workflow-run-purge.service';
+import { TERMINAL_WEBHOOK_EVENT_TYPES } from '@/modules/webhooks/constants/webhook-event-catalog.constant';
 import { WebhookEventType } from 'generated/prisma';
 
 interface WebhookDeliveryJobData {
@@ -20,6 +22,7 @@ export class WebhookDeliveryProcessor extends WorkerHost {
   constructor(
     private readonly prisma: PrismaService,
     private readonly delivery: WebhookDeliveryService,
+    private readonly purgeService: WorkflowRunPurgeService,
   ) {
     super();
   }
@@ -48,6 +51,10 @@ export class WebhookDeliveryProcessor extends WorkerHost {
 
     if (!success) {
       throw new Error(`Webhook delivery to ${endpoint.url} failed`);
+    }
+
+    if (workflowRunId && TERMINAL_WEBHOOK_EVENT_TYPES.includes(eventType)) {
+      await this.purgeService.purgeIfForgettable(workflowRunId);
     }
   }
 }

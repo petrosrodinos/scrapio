@@ -43,6 +43,13 @@ export class BrowserAgentConfig {
   @ApiProperty()
   schedule_enabled: boolean;
 
+  @ApiProperty({
+    default: true,
+    description:
+      'When false ("scrape and forget"), each run\'s result payload is deleted once a subscribed webhook endpoint confirms delivery.',
+  })
+  persist_results: boolean;
+
   @ApiProperty()
   created_at: Date;
 

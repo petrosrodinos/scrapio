@@ -107,6 +107,7 @@ export class BrowserAgentProcessor extends WorkerHost {
       workflowConfigId: run.workflow_config_id,
       type: run.type,
       status: RunStatus.RUNNING,
+      persistResults: run.persist_results,
       startedAt,
     });
 
@@ -158,6 +159,7 @@ export class BrowserAgentProcessor extends WorkerHost {
           workflowConfigId: run.workflow_config_id,
           type: run.type,
           status: RunStatus.FAILED,
+          persistResults: run.persist_results,
           errorMessage,
           startedAt,
           finishedAt,
@@ -245,6 +247,7 @@ export class BrowserAgentProcessor extends WorkerHost {
         workflowConfigId: run.workflow_config_id,
         type: run.type,
         status: runStatus,
+        persistResults: run.persist_results,
         errorMessage:
           runStatus === RunStatus.FAILED ? 'Extraction did not produce a valid result' : null,
         startedAt,
@@ -322,6 +325,7 @@ export class BrowserAgentProcessor extends WorkerHost {
           workflowConfigId: run.workflow_config_id,
           type: run.type,
           status: RunStatus.FAILED,
+          persistResults: run.persist_results,
           errorMessage: message,
           startedAt,
           finishedAt,

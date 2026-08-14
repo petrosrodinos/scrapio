@@ -13623,6 +13623,7 @@ export namespace Prisma {
     schedule_cron: string | null
     schedule_timezone: string | null
     schedule_enabled: boolean | null
+    persist_results: boolean | null
     created_at: Date | null
     updated_at: Date | null
   }
@@ -13652,6 +13653,7 @@ export namespace Prisma {
     schedule_cron: string | null
     schedule_timezone: string | null
     schedule_enabled: boolean | null
+    persist_results: boolean | null
     created_at: Date | null
     updated_at: Date | null
   }
@@ -13683,6 +13685,7 @@ export namespace Prisma {
     schedule_cron: number
     schedule_timezone: number
     schedule_enabled: number
+    persist_results: number
     created_at: number
     updated_at: number
     _all: number
@@ -13730,6 +13733,7 @@ export namespace Prisma {
     schedule_cron?: true
     schedule_timezone?: true
     schedule_enabled?: true
+    persist_results?: true
     created_at?: true
     updated_at?: true
   }
@@ -13759,6 +13763,7 @@ export namespace Prisma {
     schedule_cron?: true
     schedule_timezone?: true
     schedule_enabled?: true
+    persist_results?: true
     created_at?: true
     updated_at?: true
   }
@@ -13790,6 +13795,7 @@ export namespace Prisma {
     schedule_cron?: true
     schedule_timezone?: true
     schedule_enabled?: true
+    persist_results?: true
     created_at?: true
     updated_at?: true
     _all?: true
@@ -13908,6 +13914,7 @@ export namespace Prisma {
     schedule_cron: string | null
     schedule_timezone: string | null
     schedule_enabled: boolean
+    persist_results: boolean
     created_at: Date
     updated_at: Date
     _count: WorkflowConfigCountAggregateOutputType | null
@@ -13958,6 +13965,7 @@ export namespace Prisma {
     schedule_cron?: boolean
     schedule_timezone?: boolean
     schedule_enabled?: boolean
+    persist_results?: boolean
     created_at?: boolean
     updated_at?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -14000,6 +14008,7 @@ export namespace Prisma {
     schedule_cron?: boolean
     schedule_timezone?: boolean
     schedule_enabled?: boolean
+    persist_results?: boolean
     created_at?: boolean
     updated_at?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -14035,6 +14044,7 @@ export namespace Prisma {
     schedule_cron?: boolean
     schedule_timezone?: boolean
     schedule_enabled?: boolean
+    persist_results?: boolean
     created_at?: boolean
     updated_at?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -14070,11 +14080,12 @@ export namespace Prisma {
     schedule_cron?: boolean
     schedule_timezone?: boolean
     schedule_enabled?: boolean
+    persist_results?: boolean
     created_at?: boolean
     updated_at?: boolean
   }
 
-  export type WorkflowConfigOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "type" | "name" | "description" | "website_target_id" | "active_version_id" | "version_count" | "status" | "self_healing_enabled" | "diagnostics_mode" | "health" | "success_rate" | "avg_runtime_ms" | "consecutive_failures" | "last_success_at" | "last_failure_at" | "url" | "max_steps" | "urls" | "extraction_scope" | "output_formats" | "extraction_schema_version_id" | "schedule_cron" | "schedule_timezone" | "schedule_enabled" | "created_at" | "updated_at", ExtArgs["result"]["workflowConfig"]>
+  export type WorkflowConfigOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "type" | "name" | "description" | "website_target_id" | "active_version_id" | "version_count" | "status" | "self_healing_enabled" | "diagnostics_mode" | "health" | "success_rate" | "avg_runtime_ms" | "consecutive_failures" | "last_success_at" | "last_failure_at" | "url" | "max_steps" | "urls" | "extraction_scope" | "output_formats" | "extraction_schema_version_id" | "schedule_cron" | "schedule_timezone" | "schedule_enabled" | "persist_results" | "created_at" | "updated_at", ExtArgs["result"]["workflowConfig"]>
   export type WorkflowConfigInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     website_target?: boolean | WorkflowConfig$website_targetArgs<ExtArgs>
@@ -14142,6 +14153,7 @@ export namespace Prisma {
       schedule_cron: string | null
       schedule_timezone: string | null
       schedule_enabled: boolean
+      persist_results: boolean
       created_at: Date
       updated_at: Date
     }, ExtArgs["result"]["workflowConfig"]>
@@ -14603,6 +14615,7 @@ export namespace Prisma {
     readonly schedule_cron: FieldRef<"WorkflowConfig", 'String'>
     readonly schedule_timezone: FieldRef<"WorkflowConfig", 'String'>
     readonly schedule_enabled: FieldRef<"WorkflowConfig", 'Boolean'>
+    readonly persist_results: FieldRef<"WorkflowConfig", 'Boolean'>
     readonly created_at: FieldRef<"WorkflowConfig", 'DateTime'>
     readonly updated_at: FieldRef<"WorkflowConfig", 'DateTime'>
   }
@@ -20218,6 +20231,8 @@ export namespace Prisma {
     extraction_scope: $Enums.ExtractionScope | null
     extraction_schema_version_id: string | null
     error_message: string | null
+    persist_results: boolean | null
+    results_purged_at: Date | null
     started_at: Date | null
     finished_at: Date | null
     duration_ms: number | null
@@ -20239,6 +20254,8 @@ export namespace Prisma {
     extraction_scope: $Enums.ExtractionScope | null
     extraction_schema_version_id: string | null
     error_message: string | null
+    persist_results: boolean | null
+    results_purged_at: Date | null
     started_at: Date | null
     finished_at: Date | null
     duration_ms: number | null
@@ -20267,6 +20284,8 @@ export namespace Prisma {
     ai_usage: number
     error_message: number
     metadata: number
+    persist_results: number
+    results_purged_at: number
     started_at: number
     finished_at: number
     duration_ms: number
@@ -20300,6 +20319,8 @@ export namespace Prisma {
     extraction_scope?: true
     extraction_schema_version_id?: true
     error_message?: true
+    persist_results?: true
+    results_purged_at?: true
     started_at?: true
     finished_at?: true
     duration_ms?: true
@@ -20321,6 +20342,8 @@ export namespace Prisma {
     extraction_scope?: true
     extraction_schema_version_id?: true
     error_message?: true
+    persist_results?: true
+    results_purged_at?: true
     started_at?: true
     finished_at?: true
     duration_ms?: true
@@ -20349,6 +20372,8 @@ export namespace Prisma {
     ai_usage?: true
     error_message?: true
     metadata?: true
+    persist_results?: true
+    results_purged_at?: true
     started_at?: true
     finished_at?: true
     duration_ms?: true
@@ -20464,6 +20489,8 @@ export namespace Prisma {
     ai_usage: JsonValue | null
     error_message: string | null
     metadata: JsonValue | null
+    persist_results: boolean
+    results_purged_at: Date | null
     started_at: Date | null
     finished_at: Date | null
     duration_ms: number | null
@@ -20511,6 +20538,8 @@ export namespace Prisma {
     ai_usage?: boolean
     error_message?: boolean
     metadata?: boolean
+    persist_results?: boolean
+    results_purged_at?: boolean
     started_at?: boolean
     finished_at?: boolean
     duration_ms?: boolean
@@ -20553,6 +20582,8 @@ export namespace Prisma {
     ai_usage?: boolean
     error_message?: boolean
     metadata?: boolean
+    persist_results?: boolean
+    results_purged_at?: boolean
     started_at?: boolean
     finished_at?: boolean
     duration_ms?: boolean
@@ -20586,6 +20617,8 @@ export namespace Prisma {
     ai_usage?: boolean
     error_message?: boolean
     metadata?: boolean
+    persist_results?: boolean
+    results_purged_at?: boolean
     started_at?: boolean
     finished_at?: boolean
     duration_ms?: boolean
@@ -20619,6 +20652,8 @@ export namespace Prisma {
     ai_usage?: boolean
     error_message?: boolean
     metadata?: boolean
+    persist_results?: boolean
+    results_purged_at?: boolean
     started_at?: boolean
     finished_at?: boolean
     duration_ms?: boolean
@@ -20626,7 +20661,7 @@ export namespace Prisma {
     updated_at?: boolean
   }
 
-  export type WorkflowRunOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "workflow_config_id" | "user_id" | "type" | "trigger" | "status" | "website_target_id" | "scraper_version_id" | "url" | "max_steps" | "visited_urls" | "browser_actions" | "collected_data" | "urls" | "extraction_scope" | "output_formats" | "extraction_schema_version_id" | "ai_usage" | "error_message" | "metadata" | "started_at" | "finished_at" | "duration_ms" | "created_at" | "updated_at", ExtArgs["result"]["workflowRun"]>
+  export type WorkflowRunOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "workflow_config_id" | "user_id" | "type" | "trigger" | "status" | "website_target_id" | "scraper_version_id" | "url" | "max_steps" | "visited_urls" | "browser_actions" | "collected_data" | "urls" | "extraction_scope" | "output_formats" | "extraction_schema_version_id" | "ai_usage" | "error_message" | "metadata" | "persist_results" | "results_purged_at" | "started_at" | "finished_at" | "duration_ms" | "created_at" | "updated_at", ExtArgs["result"]["workflowRun"]>
   export type WorkflowRunInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workflow_config?: boolean | WorkflowConfigDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -20696,6 +20731,8 @@ export namespace Prisma {
       ai_usage: Prisma.JsonValue | null
       error_message: string | null
       metadata: Prisma.JsonValue | null
+      persist_results: boolean
+      results_purged_at: Date | null
       started_at: Date | null
       finished_at: Date | null
       duration_ms: number | null
@@ -21157,6 +21194,8 @@ export namespace Prisma {
     readonly ai_usage: FieldRef<"WorkflowRun", 'Json'>
     readonly error_message: FieldRef<"WorkflowRun", 'String'>
     readonly metadata: FieldRef<"WorkflowRun", 'Json'>
+    readonly persist_results: FieldRef<"WorkflowRun", 'Boolean'>
+    readonly results_purged_at: FieldRef<"WorkflowRun", 'DateTime'>
     readonly started_at: FieldRef<"WorkflowRun", 'DateTime'>
     readonly finished_at: FieldRef<"WorkflowRun", 'DateTime'>
     readonly duration_ms: FieldRef<"WorkflowRun", 'Int'>
@@ -35179,6 +35218,7 @@ export namespace Prisma {
     schedule_cron: 'schedule_cron',
     schedule_timezone: 'schedule_timezone',
     schedule_enabled: 'schedule_enabled',
+    persist_results: 'persist_results',
     created_at: 'created_at',
     updated_at: 'updated_at'
   };
@@ -35277,6 +35317,8 @@ export namespace Prisma {
     ai_usage: 'ai_usage',
     error_message: 'error_message',
     metadata: 'metadata',
+    persist_results: 'persist_results',
+    results_purged_at: 'results_purged_at',
     started_at: 'started_at',
     finished_at: 'finished_at',
     duration_ms: 'duration_ms',
@@ -36698,6 +36740,7 @@ export namespace Prisma {
     schedule_cron?: StringNullableFilter<"WorkflowConfig"> | string | null
     schedule_timezone?: StringNullableFilter<"WorkflowConfig"> | string | null
     schedule_enabled?: BoolFilter<"WorkflowConfig"> | boolean
+    persist_results?: BoolFilter<"WorkflowConfig"> | boolean
     created_at?: DateTimeFilter<"WorkflowConfig"> | Date | string
     updated_at?: DateTimeFilter<"WorkflowConfig"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -36739,6 +36782,7 @@ export namespace Prisma {
     schedule_cron?: SortOrderInput | SortOrder
     schedule_timezone?: SortOrderInput | SortOrder
     schedule_enabled?: SortOrder
+    persist_results?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     user?: UserOrderByWithRelationInput
@@ -36783,6 +36827,7 @@ export namespace Prisma {
     schedule_cron?: StringNullableFilter<"WorkflowConfig"> | string | null
     schedule_timezone?: StringNullableFilter<"WorkflowConfig"> | string | null
     schedule_enabled?: BoolFilter<"WorkflowConfig"> | boolean
+    persist_results?: BoolFilter<"WorkflowConfig"> | boolean
     created_at?: DateTimeFilter<"WorkflowConfig"> | Date | string
     updated_at?: DateTimeFilter<"WorkflowConfig"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -36824,6 +36869,7 @@ export namespace Prisma {
     schedule_cron?: SortOrderInput | SortOrder
     schedule_timezone?: SortOrderInput | SortOrder
     schedule_enabled?: SortOrder
+    persist_results?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     _count?: WorkflowConfigCountOrderByAggregateInput
@@ -36863,6 +36909,7 @@ export namespace Prisma {
     schedule_cron?: StringNullableWithAggregatesFilter<"WorkflowConfig"> | string | null
     schedule_timezone?: StringNullableWithAggregatesFilter<"WorkflowConfig"> | string | null
     schedule_enabled?: BoolWithAggregatesFilter<"WorkflowConfig"> | boolean
+    persist_results?: BoolWithAggregatesFilter<"WorkflowConfig"> | boolean
     created_at?: DateTimeWithAggregatesFilter<"WorkflowConfig"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"WorkflowConfig"> | Date | string
   }
@@ -37281,6 +37328,8 @@ export namespace Prisma {
     ai_usage?: JsonNullableFilter<"WorkflowRun">
     error_message?: StringNullableFilter<"WorkflowRun"> | string | null
     metadata?: JsonNullableFilter<"WorkflowRun">
+    persist_results?: BoolFilter<"WorkflowRun"> | boolean
+    results_purged_at?: DateTimeNullableFilter<"WorkflowRun"> | Date | string | null
     started_at?: DateTimeNullableFilter<"WorkflowRun"> | Date | string | null
     finished_at?: DateTimeNullableFilter<"WorkflowRun"> | Date | string | null
     duration_ms?: IntNullableFilter<"WorkflowRun"> | number | null
@@ -37322,6 +37371,8 @@ export namespace Prisma {
     ai_usage?: SortOrderInput | SortOrder
     error_message?: SortOrderInput | SortOrder
     metadata?: SortOrderInput | SortOrder
+    persist_results?: SortOrder
+    results_purged_at?: SortOrderInput | SortOrder
     started_at?: SortOrderInput | SortOrder
     finished_at?: SortOrderInput | SortOrder
     duration_ms?: SortOrderInput | SortOrder
@@ -37366,6 +37417,8 @@ export namespace Prisma {
     ai_usage?: JsonNullableFilter<"WorkflowRun">
     error_message?: StringNullableFilter<"WorkflowRun"> | string | null
     metadata?: JsonNullableFilter<"WorkflowRun">
+    persist_results?: BoolFilter<"WorkflowRun"> | boolean
+    results_purged_at?: DateTimeNullableFilter<"WorkflowRun"> | Date | string | null
     started_at?: DateTimeNullableFilter<"WorkflowRun"> | Date | string | null
     finished_at?: DateTimeNullableFilter<"WorkflowRun"> | Date | string | null
     duration_ms?: IntNullableFilter<"WorkflowRun"> | number | null
@@ -37407,6 +37460,8 @@ export namespace Prisma {
     ai_usage?: SortOrderInput | SortOrder
     error_message?: SortOrderInput | SortOrder
     metadata?: SortOrderInput | SortOrder
+    persist_results?: SortOrder
+    results_purged_at?: SortOrderInput | SortOrder
     started_at?: SortOrderInput | SortOrder
     finished_at?: SortOrderInput | SortOrder
     duration_ms?: SortOrderInput | SortOrder
@@ -37443,6 +37498,8 @@ export namespace Prisma {
     ai_usage?: JsonNullableWithAggregatesFilter<"WorkflowRun">
     error_message?: StringNullableWithAggregatesFilter<"WorkflowRun"> | string | null
     metadata?: JsonNullableWithAggregatesFilter<"WorkflowRun">
+    persist_results?: BoolWithAggregatesFilter<"WorkflowRun"> | boolean
+    results_purged_at?: DateTimeNullableWithAggregatesFilter<"WorkflowRun"> | Date | string | null
     started_at?: DateTimeNullableWithAggregatesFilter<"WorkflowRun"> | Date | string | null
     finished_at?: DateTimeNullableWithAggregatesFilter<"WorkflowRun"> | Date | string | null
     duration_ms?: IntNullableWithAggregatesFilter<"WorkflowRun"> | number | null
@@ -39274,6 +39331,7 @@ export namespace Prisma {
     schedule_cron?: string | null
     schedule_timezone?: string | null
     schedule_enabled?: boolean
+    persist_results?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     user: UserCreateNestedOneWithoutWorkflow_configsInput
@@ -39315,6 +39373,7 @@ export namespace Prisma {
     schedule_cron?: string | null
     schedule_timezone?: string | null
     schedule_enabled?: boolean
+    persist_results?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     runs?: WorkflowRunUncheckedCreateNestedManyWithoutWorkflow_configInput
@@ -39348,6 +39407,7 @@ export namespace Prisma {
     schedule_cron?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_timezone?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_enabled?: BoolFieldUpdateOperationsInput | boolean
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutWorkflow_configsNestedInput
@@ -39389,6 +39449,7 @@ export namespace Prisma {
     schedule_cron?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_timezone?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_enabled?: BoolFieldUpdateOperationsInput | boolean
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     runs?: WorkflowRunUncheckedUpdateManyWithoutWorkflow_configNestedInput
@@ -39426,6 +39487,7 @@ export namespace Prisma {
     schedule_cron?: string | null
     schedule_timezone?: string | null
     schedule_enabled?: boolean
+    persist_results?: boolean
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -39453,6 +39515,7 @@ export namespace Prisma {
     schedule_cron?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_timezone?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_enabled?: BoolFieldUpdateOperationsInput | boolean
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -39484,6 +39547,7 @@ export namespace Prisma {
     schedule_cron?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_timezone?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_enabled?: BoolFieldUpdateOperationsInput | boolean
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -39915,6 +39979,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: boolean
+    results_purged_at?: Date | string | null
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
@@ -39956,6 +40022,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: boolean
+    results_purged_at?: Date | string | null
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
@@ -39987,6 +40055,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
+    results_purged_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
@@ -40028,6 +40098,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
+    results_purged_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
@@ -40064,6 +40136,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: boolean
+    results_purged_at?: Date | string | null
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
@@ -40087,6 +40161,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
+    results_purged_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
@@ -40115,6 +40191,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
+    results_purged_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
@@ -42270,6 +42348,7 @@ export namespace Prisma {
     schedule_cron?: SortOrder
     schedule_timezone?: SortOrder
     schedule_enabled?: SortOrder
+    persist_results?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -42307,6 +42386,7 @@ export namespace Prisma {
     schedule_cron?: SortOrder
     schedule_timezone?: SortOrder
     schedule_enabled?: SortOrder
+    persist_results?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -42336,6 +42416,7 @@ export namespace Prisma {
     schedule_cron?: SortOrder
     schedule_timezone?: SortOrder
     schedule_enabled?: SortOrder
+    persist_results?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -42770,6 +42851,8 @@ export namespace Prisma {
     ai_usage?: SortOrder
     error_message?: SortOrder
     metadata?: SortOrder
+    persist_results?: SortOrder
+    results_purged_at?: SortOrder
     started_at?: SortOrder
     finished_at?: SortOrder
     duration_ms?: SortOrder
@@ -42796,6 +42879,8 @@ export namespace Prisma {
     extraction_scope?: SortOrder
     extraction_schema_version_id?: SortOrder
     error_message?: SortOrder
+    persist_results?: SortOrder
+    results_purged_at?: SortOrder
     started_at?: SortOrder
     finished_at?: SortOrder
     duration_ms?: SortOrder
@@ -42817,6 +42902,8 @@ export namespace Prisma {
     extraction_scope?: SortOrder
     extraction_schema_version_id?: SortOrder
     error_message?: SortOrder
+    persist_results?: SortOrder
+    results_purged_at?: SortOrder
     started_at?: SortOrder
     finished_at?: SortOrder
     duration_ms?: SortOrder
@@ -46986,6 +47073,7 @@ export namespace Prisma {
     schedule_cron?: string | null
     schedule_timezone?: string | null
     schedule_enabled?: boolean
+    persist_results?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     website_target?: WebsiteTargetCreateNestedOneWithoutWorkflow_configsInput
@@ -47025,6 +47113,7 @@ export namespace Prisma {
     schedule_cron?: string | null
     schedule_timezone?: string | null
     schedule_enabled?: boolean
+    persist_results?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     runs?: WorkflowRunUncheckedCreateNestedManyWithoutWorkflow_configInput
@@ -47061,6 +47150,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: boolean
+    results_purged_at?: Date | string | null
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
@@ -47100,6 +47191,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: boolean
+    results_purged_at?: Date | string | null
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
@@ -47372,6 +47465,7 @@ export namespace Prisma {
     schedule_cron?: StringNullableFilter<"WorkflowConfig"> | string | null
     schedule_timezone?: StringNullableFilter<"WorkflowConfig"> | string | null
     schedule_enabled?: BoolFilter<"WorkflowConfig"> | boolean
+    persist_results?: BoolFilter<"WorkflowConfig"> | boolean
     created_at?: DateTimeFilter<"WorkflowConfig"> | Date | string
     updated_at?: DateTimeFilter<"WorkflowConfig"> | Date | string
   }
@@ -47416,6 +47510,8 @@ export namespace Prisma {
     ai_usage?: JsonNullableFilter<"WorkflowRun">
     error_message?: StringNullableFilter<"WorkflowRun"> | string | null
     metadata?: JsonNullableFilter<"WorkflowRun">
+    persist_results?: BoolFilter<"WorkflowRun"> | boolean
+    results_purged_at?: DateTimeNullableFilter<"WorkflowRun"> | Date | string | null
     started_at?: DateTimeNullableFilter<"WorkflowRun"> | Date | string | null
     finished_at?: DateTimeNullableFilter<"WorkflowRun"> | Date | string | null
     duration_ms?: IntNullableFilter<"WorkflowRun"> | number | null
@@ -48137,6 +48233,7 @@ export namespace Prisma {
     schedule_cron?: string | null
     schedule_timezone?: string | null
     schedule_enabled?: boolean
+    persist_results?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     user: UserCreateNestedOneWithoutWorkflow_configsInput
@@ -48176,6 +48273,7 @@ export namespace Prisma {
     schedule_cron?: string | null
     schedule_timezone?: string | null
     schedule_enabled?: boolean
+    persist_results?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     runs?: WorkflowRunUncheckedCreateNestedManyWithoutWorkflow_configInput
@@ -48262,6 +48360,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: boolean
+    results_purged_at?: Date | string | null
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
@@ -48301,6 +48401,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: boolean
+    results_purged_at?: Date | string | null
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
@@ -48918,6 +49020,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: boolean
+    results_purged_at?: Date | string | null
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
@@ -48957,6 +49061,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: boolean
+    results_purged_at?: Date | string | null
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
@@ -49583,6 +49689,7 @@ export namespace Prisma {
     schedule_cron?: string | null
     schedule_timezone?: string | null
     schedule_enabled?: boolean
+    persist_results?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     user: UserCreateNestedOneWithoutWorkflow_configsInput
@@ -49623,6 +49730,7 @@ export namespace Prisma {
     schedule_cron?: string | null
     schedule_timezone?: string | null
     schedule_enabled?: boolean
+    persist_results?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     runs?: WorkflowRunUncheckedCreateNestedManyWithoutWorkflow_configInput
@@ -49795,6 +49903,7 @@ export namespace Prisma {
     schedule_cron?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_timezone?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_enabled?: BoolFieldUpdateOperationsInput | boolean
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutWorkflow_configsNestedInput
@@ -49835,6 +49944,7 @@ export namespace Prisma {
     schedule_cron?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_timezone?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_enabled?: BoolFieldUpdateOperationsInput | boolean
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     runs?: WorkflowRunUncheckedUpdateManyWithoutWorkflow_configNestedInput
@@ -49964,6 +50074,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: boolean
+    results_purged_at?: Date | string | null
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
@@ -50004,6 +50116,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: boolean
+    results_purged_at?: Date | string | null
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
@@ -50163,6 +50277,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
+    results_purged_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
@@ -50203,6 +50319,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
+    results_purged_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
@@ -50314,6 +50432,7 @@ export namespace Prisma {
     schedule_cron?: string | null
     schedule_timezone?: string | null
     schedule_enabled?: boolean
+    persist_results?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     user: UserCreateNestedOneWithoutWorkflow_configsInput
@@ -50354,6 +50473,7 @@ export namespace Prisma {
     schedule_cron?: string | null
     schedule_timezone?: string | null
     schedule_enabled?: boolean
+    persist_results?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     runs?: WorkflowRunUncheckedCreateNestedManyWithoutWorkflow_configInput
@@ -50420,6 +50540,7 @@ export namespace Prisma {
     schedule_cron?: string | null
     schedule_timezone?: string | null
     schedule_enabled?: boolean
+    persist_results?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     user: UserCreateNestedOneWithoutWorkflow_configsInput
@@ -50459,6 +50580,7 @@ export namespace Prisma {
     schedule_cron?: string | null
     schedule_timezone?: string | null
     schedule_enabled?: boolean
+    persist_results?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     runs?: WorkflowRunUncheckedCreateNestedManyWithoutWorkflow_configInput
@@ -50535,6 +50657,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: boolean
+    results_purged_at?: Date | string | null
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
@@ -50574,6 +50698,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: boolean
+    results_purged_at?: Date | string | null
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
@@ -50633,6 +50759,7 @@ export namespace Prisma {
     schedule_cron?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_timezone?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_enabled?: BoolFieldUpdateOperationsInput | boolean
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutWorkflow_configsNestedInput
@@ -50673,6 +50800,7 @@ export namespace Prisma {
     schedule_cron?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_timezone?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_enabled?: BoolFieldUpdateOperationsInput | boolean
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     runs?: WorkflowRunUncheckedUpdateManyWithoutWorkflow_configNestedInput
@@ -50751,6 +50879,7 @@ export namespace Prisma {
     schedule_cron?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_timezone?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_enabled?: BoolFieldUpdateOperationsInput | boolean
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutWorkflow_configsNestedInput
@@ -50790,6 +50919,7 @@ export namespace Prisma {
     schedule_cron?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_timezone?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_enabled?: BoolFieldUpdateOperationsInput | boolean
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     runs?: WorkflowRunUncheckedUpdateManyWithoutWorkflow_configNestedInput
@@ -50890,6 +51020,7 @@ export namespace Prisma {
     schedule_cron?: string | null
     schedule_timezone?: string | null
     schedule_enabled?: boolean
+    persist_results?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     user: UserCreateNestedOneWithoutWorkflow_configsInput
@@ -50930,6 +51061,7 @@ export namespace Prisma {
     schedule_cron?: string | null
     schedule_timezone?: string | null
     schedule_enabled?: boolean
+    persist_results?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     runs?: WorkflowRunUncheckedCreateNestedManyWithoutWorkflow_configInput
@@ -50960,6 +51092,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: boolean
+    results_purged_at?: Date | string | null
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
@@ -51000,6 +51134,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: boolean
+    results_purged_at?: Date | string | null
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
@@ -51053,6 +51189,7 @@ export namespace Prisma {
     schedule_cron?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_timezone?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_enabled?: BoolFieldUpdateOperationsInput | boolean
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutWorkflow_configsNestedInput
@@ -51093,6 +51230,7 @@ export namespace Prisma {
     schedule_cron?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_timezone?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_enabled?: BoolFieldUpdateOperationsInput | boolean
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     runs?: WorkflowRunUncheckedUpdateManyWithoutWorkflow_configNestedInput
@@ -51129,6 +51267,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
+    results_purged_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
@@ -51169,6 +51309,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
+    results_purged_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
@@ -51206,6 +51348,7 @@ export namespace Prisma {
     schedule_cron?: string | null
     schedule_timezone?: string | null
     schedule_enabled?: boolean
+    persist_results?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     user: UserCreateNestedOneWithoutWorkflow_configsInput
@@ -51246,6 +51389,7 @@ export namespace Prisma {
     schedule_cron?: string | null
     schedule_timezone?: string | null
     schedule_enabled?: boolean
+    persist_results?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     versions?: ScraperVersionUncheckedCreateNestedManyWithoutWorkflow_configInput
@@ -51752,6 +51896,7 @@ export namespace Prisma {
     schedule_cron?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_timezone?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_enabled?: BoolFieldUpdateOperationsInput | boolean
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutWorkflow_configsNestedInput
@@ -51792,6 +51937,7 @@ export namespace Prisma {
     schedule_cron?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_timezone?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_enabled?: BoolFieldUpdateOperationsInput | boolean
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     versions?: ScraperVersionUncheckedUpdateManyWithoutWorkflow_configNestedInput
@@ -52273,6 +52419,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: boolean
+    results_purged_at?: Date | string | null
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
@@ -52313,6 +52461,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: boolean
+    results_purged_at?: Date | string | null
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
@@ -52412,6 +52562,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
+    results_purged_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
@@ -52452,6 +52604,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
+    results_purged_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
@@ -52798,6 +52952,7 @@ export namespace Prisma {
     schedule_cron?: string | null
     schedule_timezone?: string | null
     schedule_enabled?: boolean
+    persist_results?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     user: UserCreateNestedOneWithoutWorkflow_configsInput
@@ -52837,6 +52992,7 @@ export namespace Prisma {
     schedule_cron?: string | null
     schedule_timezone?: string | null
     schedule_enabled?: boolean
+    persist_results?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     runs?: WorkflowRunUncheckedCreateNestedManyWithoutWorkflow_configInput
@@ -52873,6 +53029,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: boolean
+    results_purged_at?: Date | string | null
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
@@ -52912,6 +53070,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: boolean
+    results_purged_at?: Date | string | null
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
@@ -53148,6 +53308,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: boolean
+    results_purged_at?: Date | string | null
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
@@ -53188,6 +53350,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: boolean
+    results_purged_at?: Date | string | null
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
@@ -53273,6 +53437,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
+    results_purged_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
@@ -53313,6 +53479,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
+    results_purged_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
@@ -53388,6 +53556,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: boolean
+    results_purged_at?: Date | string | null
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
@@ -53428,6 +53598,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: boolean
+    results_purged_at?: Date | string | null
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
@@ -53538,6 +53710,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
+    results_purged_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
@@ -53578,6 +53752,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
+    results_purged_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
@@ -53684,6 +53860,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: boolean
+    results_purged_at?: Date | string | null
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
@@ -53724,6 +53902,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: boolean
+    results_purged_at?: Date | string | null
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
@@ -53766,6 +53946,7 @@ export namespace Prisma {
     schedule_cron?: string | null
     schedule_timezone?: string | null
     schedule_enabled?: boolean
+    persist_results?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     user: UserCreateNestedOneWithoutWorkflow_configsInput
@@ -53806,6 +53987,7 @@ export namespace Prisma {
     schedule_cron?: string | null
     schedule_timezone?: string | null
     schedule_enabled?: boolean
+    persist_results?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     runs?: WorkflowRunUncheckedCreateNestedManyWithoutWorkflow_configInput
@@ -53875,6 +54057,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
+    results_purged_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
@@ -53915,6 +54099,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
+    results_purged_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
@@ -53963,6 +54149,7 @@ export namespace Prisma {
     schedule_cron?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_timezone?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_enabled?: BoolFieldUpdateOperationsInput | boolean
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutWorkflow_configsNestedInput
@@ -54003,6 +54190,7 @@ export namespace Prisma {
     schedule_cron?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_timezone?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_enabled?: BoolFieldUpdateOperationsInput | boolean
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     runs?: WorkflowRunUncheckedUpdateManyWithoutWorkflow_configNestedInput
@@ -54149,6 +54337,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: boolean
+    results_purged_at?: Date | string | null
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
@@ -54189,6 +54379,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: boolean
+    results_purged_at?: Date | string | null
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
@@ -54235,6 +54427,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
+    results_purged_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
@@ -54275,6 +54469,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
+    results_purged_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
@@ -54359,6 +54555,7 @@ export namespace Prisma {
     schedule_cron?: string | null
     schedule_timezone?: string | null
     schedule_enabled?: boolean
+    persist_results?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     user: UserCreateNestedOneWithoutWorkflow_configsInput
@@ -54399,6 +54596,7 @@ export namespace Prisma {
     schedule_cron?: string | null
     schedule_timezone?: string | null
     schedule_enabled?: boolean
+    persist_results?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     runs?: WorkflowRunUncheckedCreateNestedManyWithoutWorkflow_configInput
@@ -54429,6 +54627,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: boolean
+    results_purged_at?: Date | string | null
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
@@ -54469,6 +54669,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: boolean
+    results_purged_at?: Date | string | null
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
@@ -54575,6 +54777,7 @@ export namespace Prisma {
     schedule_cron?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_timezone?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_enabled?: BoolFieldUpdateOperationsInput | boolean
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutWorkflow_configsNestedInput
@@ -54615,6 +54818,7 @@ export namespace Prisma {
     schedule_cron?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_timezone?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_enabled?: BoolFieldUpdateOperationsInput | boolean
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     runs?: WorkflowRunUncheckedUpdateManyWithoutWorkflow_configNestedInput
@@ -54651,6 +54855,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
+    results_purged_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
@@ -54691,6 +54897,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
+    results_purged_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
@@ -54842,6 +55050,7 @@ export namespace Prisma {
     schedule_cron?: string | null
     schedule_timezone?: string | null
     schedule_enabled?: boolean
+    persist_results?: boolean
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -54866,6 +55075,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: boolean
+    results_purged_at?: Date | string | null
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
@@ -55024,6 +55235,7 @@ export namespace Prisma {
     schedule_cron?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_timezone?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_enabled?: BoolFieldUpdateOperationsInput | boolean
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     website_target?: WebsiteTargetUpdateOneWithoutWorkflow_configsNestedInput
@@ -55063,6 +55275,7 @@ export namespace Prisma {
     schedule_cron?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_timezone?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_enabled?: BoolFieldUpdateOperationsInput | boolean
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     runs?: WorkflowRunUncheckedUpdateManyWithoutWorkflow_configNestedInput
@@ -55099,6 +55312,7 @@ export namespace Prisma {
     schedule_cron?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_timezone?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_enabled?: BoolFieldUpdateOperationsInput | boolean
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -55119,6 +55333,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
+    results_purged_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
@@ -55158,6 +55374,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
+    results_purged_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
@@ -55193,6 +55411,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
+    results_purged_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
@@ -55527,6 +55747,7 @@ export namespace Prisma {
     schedule_cron?: string | null
     schedule_timezone?: string | null
     schedule_enabled?: boolean
+    persist_results?: boolean
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -55570,6 +55791,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: boolean
+    results_purged_at?: Date | string | null
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
@@ -55638,6 +55861,7 @@ export namespace Prisma {
     schedule_cron?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_timezone?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_enabled?: BoolFieldUpdateOperationsInput | boolean
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutWorkflow_configsNestedInput
@@ -55677,6 +55901,7 @@ export namespace Prisma {
     schedule_cron?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_timezone?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_enabled?: BoolFieldUpdateOperationsInput | boolean
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     runs?: WorkflowRunUncheckedUpdateManyWithoutWorkflow_configNestedInput
@@ -55713,6 +55938,7 @@ export namespace Prisma {
     schedule_cron?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_timezone?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_enabled?: BoolFieldUpdateOperationsInput | boolean
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -55792,6 +56018,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
+    results_purged_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
@@ -55831,6 +56059,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
+    results_purged_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
@@ -55866,6 +56096,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
+    results_purged_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
@@ -56007,6 +56239,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: boolean
+    results_purged_at?: Date | string | null
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
@@ -56102,6 +56336,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
+    results_purged_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
@@ -56141,6 +56377,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
+    results_purged_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
@@ -56176,6 +56414,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
+    results_purged_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
@@ -56477,6 +56717,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: boolean
+    results_purged_at?: Date | string | null
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
@@ -56500,6 +56742,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
+    results_purged_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
@@ -56539,6 +56783,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
+    results_purged_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
@@ -56574,6 +56820,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
+    results_purged_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
@@ -56980,6 +57228,7 @@ export namespace Prisma {
     schedule_cron?: string | null
     schedule_timezone?: string | null
     schedule_enabled?: boolean
+    persist_results?: boolean
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -57004,6 +57253,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: boolean
+    results_purged_at?: Date | string | null
     started_at?: Date | string | null
     finished_at?: Date | string | null
     duration_ms?: number | null
@@ -57096,6 +57347,7 @@ export namespace Prisma {
     schedule_cron?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_timezone?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_enabled?: BoolFieldUpdateOperationsInput | boolean
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutWorkflow_configsNestedInput
@@ -57135,6 +57387,7 @@ export namespace Prisma {
     schedule_cron?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_timezone?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_enabled?: BoolFieldUpdateOperationsInput | boolean
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     runs?: WorkflowRunUncheckedUpdateManyWithoutWorkflow_configNestedInput
@@ -57171,6 +57424,7 @@ export namespace Prisma {
     schedule_cron?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_timezone?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_enabled?: BoolFieldUpdateOperationsInput | boolean
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -57191,6 +57445,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
+    results_purged_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
@@ -57230,6 +57486,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
+    results_purged_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
@@ -57265,6 +57523,8 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
+    results_purged_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null

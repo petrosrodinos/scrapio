@@ -8,6 +8,30 @@ export interface WebhookEventCatalogEntry {
   sample_payload: object;
 }
 
+// Shape of data.result on a succeeded/partial_success payload for a persist_results: false
+// config — mirrors what WorkflowRunPurgeService is about to delete (see webhooks-event-listener
+// .service.ts#loadUnpersistedResult). Only present when the run's config opted into forget mode.
+const SAMPLE_FORGET_MODE_RESULT = {
+  extraction_result: {
+    structured_status: 'VALID',
+    structured_data: { title: 'Example listing', price: 250000 },
+    markdown_status: null,
+    markdown: null,
+  },
+  pages: [
+    {
+      requested_url: 'https://example.com/pricing',
+      final_url: 'https://example.com/pricing',
+      http_status: 200,
+      success: true,
+      title: 'Pricing',
+      raw_html: '<html>...</html>',
+      cleaned_content: 'Pricing\n...',
+      error_message: null,
+    },
+  ],
+};
+
 function buildSamplePayload(name: string, status: RunStatus, extra: Record<string, unknown> = {}) {
   return {
     event: name,
@@ -45,20 +69,27 @@ export const WEBHOOK_EVENT_CATALOG: WebhookEventCatalogEntry[] = [
     event_type: WebhookEventType.WORKFLOW_RUN_SUCCEEDED,
     name: 'workflow_run.succeeded',
     label: 'Run succeeded',
-    description: 'A run finished successfully with no errors.',
+    description:
+      'A run finished successfully with no errors. For configs with persist_results: false ' +
+      '("scrape and forget"), the payload also carries the full result under data.result — ' +
+      'the config never stores it, so this delivery is the only place to get it.',
     sample_payload: buildSamplePayload('workflow_run.succeeded', RunStatus.SUCCESS, {
       finished_at: '2026-08-13T15:00:00.000Z',
       duration_ms: 10000,
+      result: SAMPLE_FORGET_MODE_RESULT,
     }),
   },
   {
     event_type: WebhookEventType.WORKFLOW_RUN_PARTIAL_SUCCESS,
     name: 'workflow_run.partial_success',
     label: 'Run partially succeeded',
-    description: 'A run finished, but some pages or items failed to extract.',
+    description:
+      'A run finished, but some pages or items failed to extract. Also carries data.result for ' +
+      'persist_results: false configs — see workflow_run.succeeded.',
     sample_payload: buildSamplePayload('workflow_run.partial_success', RunStatus.PARTIAL_SUCCESS, {
       finished_at: '2026-08-13T15:00:00.000Z',
       duration_ms: 10000,
+      result: SAMPLE_FORGET_MODE_RESULT,
     }),
   },
   {
@@ -97,3 +128,15 @@ export const RUN_STATUS_TO_WEBHOOK_EVENT: Record<RunStatus, WebhookEventType> = 
 export const WEBHOOK_EVENT_NAME_BY_TYPE: Record<WebhookEventType, string> = Object.fromEntries(
   WEBHOOK_EVENT_CATALOG.map((entry) => [entry.event_type, entry.name]),
 ) as Record<WebhookEventType, string>;
+
+// A run reaching any of these statuses/events is final — used to gate scrape-and-forget result
+// embedding/purging (see WorkflowRunPurgeService, WebhooksEventListenerService).
+export const TERMINAL_RUN_STATUSES: RunStatus[] = [
+  RunStatus.SUCCESS,
+  RunStatus.PARTIAL_SUCCESS,
+  RunStatus.FAILED,
+  RunStatus.CANCELLED,
+];
+
+export const TERMINAL_WEBHOOK_EVENT_TYPES: WebhookEventType[] =
+  TERMINAL_RUN_STATUSES.map((status) => RUN_STATUS_TO_WEBHOOK_EVENT[status]);

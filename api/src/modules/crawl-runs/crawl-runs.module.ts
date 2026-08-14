@@ -13,12 +13,14 @@ import { CrawlProcessor } from '@/background/crawl.processor';
 import { CrawlSchedulerCron } from '@/background/crawl-scheduler.cron';
 import { ScraperHealthCron } from '@/background/scraper-health.cron';
 import { CrawlRunWatchdogCron } from '@/background/crawl-run-watchdog.cron';
+import { ForgottenRunPurgeCron } from '@/background/forgotten-run-purge.cron';
 import { ScraperFailureHandlerService } from '@/background/scraper-failure-handler.service';
 import { ScraperGenerationModule } from '@/modules/scraper-generation/scraper-generation.module';
 import { NotificationsModule } from '@/modules/notifications/notifications.module';
 import { ExtractionModule } from '@/modules/extraction/extraction.module';
 import { CrawlRunsController } from './crawl-runs.controller';
 import { CrawlRunsService } from './crawl-runs.service';
+import { WorkflowRunPurgeService } from './services/workflow-run-purge.service';
 
 @Module({
   imports: [
@@ -42,8 +44,10 @@ import { CrawlRunsService } from './crawl-runs.service';
     CrawlSchedulerCron,
     ScraperHealthCron,
     CrawlRunWatchdogCron,
+    ForgottenRunPurgeCron,
     ScraperFailureHandlerService,
+    WorkflowRunPurgeService,
   ],
-  exports: [CrawlRunsService],
+  exports: [CrawlRunsService, WorkflowRunPurgeService],
 })
 export class CrawlRunsModule {}

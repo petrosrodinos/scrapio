@@ -93,7 +93,8 @@ export class PlainScrapeConfigsController {
   @ApiResponse({
     status: 400,
     description:
-      'output_schema is missing/invalid while output_formats includes STRUCTURED_JSON',
+      'output_schema is missing/invalid while output_formats includes STRUCTURED_JSON, or ' +
+      'persist_results is false with no active webhook endpoint subscribed to a run-finished event',
   })
   create(
     @CurrentUser() authUser: AuthUser,
@@ -110,7 +111,8 @@ export class PlainScrapeConfigsController {
   @ApiResponse({
     status: 400,
     description:
-      'output_schema is missing/invalid while output_formats includes STRUCTURED_JSON',
+      'output_schema is missing/invalid while output_formats includes STRUCTURED_JSON, or ' +
+      'persist_results is false with no active webhook endpoint subscribed to a run-finished event',
   })
   @ApiResponse({ status: 404, description: 'Config not found' })
   update(

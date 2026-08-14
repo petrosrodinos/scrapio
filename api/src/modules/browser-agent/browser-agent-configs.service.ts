@@ -7,6 +7,7 @@ import { PrismaService } from '@/core/databases/prisma/prisma.service';
 import { CrawlRunsService } from '@/modules/crawl-runs/crawl-runs.service';
 import { ExtractionSchemaVersioningService } from '@/modules/extraction-schemas/extraction-schema-versioning.service';
 import { getOutputSchemaDefinitionError } from '@/modules/scraper-generation/dto/output-schema.schema';
+import { TERMINAL_WEBHOOK_EVENT_TYPES } from '@/modules/webhooks/constants/webhook-event-catalog.constant';
 import { AuthUser } from '@/shared/interfaces/auth-user.interface';
 import { workflowConfigUserWhere } from '@/shared/utils/user/user-scope.utils';
 import { PaginatedResult } from '@/shared/interfaces/paginated-result.interface';
@@ -79,6 +80,10 @@ export class BrowserAgentConfigsService {
     const outputFormats = dto.output_formats ?? [];
     this.validateOutputFormats(outputFormats, dto.output_schema);
 
+    if (dto.persist_results === false) {
+      await this.ensureForgetModeHasSubscriber(authUser.id);
+    }
+
     const extractionSchemaVersionId =
       await this.schemaVersioning.syncForConfig({
         userId: authUser.id,
@@ -98,6 +103,7 @@ export class BrowserAgentConfigsService {
         urls: [],
         output_formats: outputFormats,
         extraction_schema_version_id: extractionSchemaVersionId,
+        persist_results: dto.persist_results ?? true,
         ...this.toScheduleData(dto.schedule_cron),
       },
     });
@@ -105,6 +111,10 @@ export class BrowserAgentConfigsService {
 
   async update(authUser: AuthUser, id: string, dto: UpdateBrowserAgentConfigDto) {
     const config = await this.ensureExists(authUser, id);
+
+    if (dto.persist_results === false) {
+      await this.ensureForgetModeHasSubscriber(authUser.id);
+    }
 
     const outputFormats =
       dto.output_formats ?? (config.output_formats as OutputFormat[]);
@@ -141,6 +151,7 @@ export class BrowserAgentConfigsService {
         ...(dto.max_steps !== undefined && { max_steps: dto.max_steps }),
         ...(dto.output_formats !== undefined && { output_formats: outputFormats }),
         extraction_schema_version_id: extractionSchemaVersionId,
+        ...(dto.persist_results !== undefined && { persist_results: dto.persist_results }),
         ...schedule,
       },
     });
@@ -228,6 +239,22 @@ export class BrowserAgentConfigsService {
     if (activeRun) {
       throw new BadRequestException(
         'Cancel active runs for this config before deleting it',
+      );
+    }
+  }
+
+  private async ensureForgetModeHasSubscriber(userId: string): Promise<void> {
+    const subscriberCount = await this.prisma.webhookEndpoint.count({
+      where: {
+        user_id: userId,
+        is_active: true,
+        subscribed_events: { hasSome: TERMINAL_WEBHOOK_EVENT_TYPES },
+      },
+    });
+
+    if (subscriberCount === 0) {
+      throw new BadRequestException(
+        'persist_results: false requires an active webhook endpoint subscribed to a run-finished event (succeeded, partial_success, failed, or cancelled)',
       );
     }
   }

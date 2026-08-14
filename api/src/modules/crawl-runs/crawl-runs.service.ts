@@ -82,14 +82,13 @@ export class CrawlRunsService {
       select: { user_id: true },
     });
 
-    const activeVersion = workflowConfigId
-      ? await this.prisma.workflowConfig
-          .findUnique({
-            where: { id: workflowConfigId },
-            select: { active_version: true },
-          })
-          .then((c) => c?.active_version ?? null)
+    const config = workflowConfigId
+      ? await this.prisma.workflowConfig.findUnique({
+          where: { id: workflowConfigId },
+          select: { active_version: true, persist_results: true },
+        })
       : null;
+    const activeVersion = config?.active_version ?? null;
 
     const run = await this.prisma.workflowRun.create({
       data: {
@@ -102,6 +101,7 @@ export class CrawlRunsService {
         output_formats: activeVersion?.output_formats ?? [],
         extraction_schema_version_id:
           activeVersion?.extraction_schema_version_id ?? null,
+        persist_results: config?.persist_results ?? true,
         status: RunStatus.QUEUED,
       },
     });
@@ -124,6 +124,7 @@ export class CrawlRunsService {
       workflowConfigId: run.workflow_config_id,
       type: run.type,
       status: RunStatus.QUEUED,
+      persistResults: run.persist_results,
     });
 
     return run;
@@ -139,6 +140,7 @@ export class CrawlRunsService {
         extraction_scope: true,
         output_formats: true,
         extraction_schema_version_id: true,
+        persist_results: true,
       },
     });
 
@@ -157,6 +159,7 @@ export class CrawlRunsService {
         extraction_scope: config.extraction_scope,
         output_formats: config.output_formats,
         extraction_schema_version_id: config.extraction_schema_version_id,
+        persist_results: config.persist_results,
         status: RunStatus.QUEUED,
       },
     });
@@ -179,6 +182,7 @@ export class CrawlRunsService {
       workflowConfigId: run.workflow_config_id,
       type: run.type,
       status: RunStatus.QUEUED,
+      persistResults: run.persist_results,
     });
 
     return run;
@@ -194,6 +198,7 @@ export class CrawlRunsService {
         max_steps: true,
         output_formats: true,
         extraction_schema_version_id: true,
+        persist_results: true,
       },
     });
 
@@ -213,6 +218,7 @@ export class CrawlRunsService {
         urls: [],
         output_formats: config.output_formats,
         extraction_schema_version_id: config.extraction_schema_version_id,
+        persist_results: config.persist_results,
         status: RunStatus.QUEUED,
       },
     });
@@ -235,6 +241,7 @@ export class CrawlRunsService {
       workflowConfigId: run.workflow_config_id,
       type: run.type,
       status: RunStatus.QUEUED,
+      persistResults: run.persist_results,
     });
 
     return run;
@@ -409,6 +416,7 @@ export class CrawlRunsService {
       workflowConfigId: run.workflow_config_id,
       type: run.type,
       status: RunStatus.CANCELLED,
+      persistResults: run.persist_results,
       errorMessage: 'Cancelled by admin',
       startedAt: run.started_at,
       finishedAt,

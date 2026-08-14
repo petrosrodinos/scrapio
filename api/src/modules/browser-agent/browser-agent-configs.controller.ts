@@ -95,7 +95,9 @@ export class BrowserAgentConfigsController {
   @ApiResponse({
     status: 400,
     description:
-      'output_formats is empty, or output_schema is missing/invalid while output_formats includes STRUCTURED_JSON',
+      'output_formats is empty, output_schema is missing/invalid while output_formats includes ' +
+      'STRUCTURED_JSON, or persist_results is false with no active webhook endpoint subscribed to ' +
+      'a run-finished event',
   })
   create(
     @CurrentUser() authUser: AuthUser,
@@ -112,7 +114,9 @@ export class BrowserAgentConfigsController {
   @ApiResponse({
     status: 400,
     description:
-      'output_formats is empty, or output_schema is missing/invalid while output_formats includes STRUCTURED_JSON',
+      'output_formats is empty, output_schema is missing/invalid while output_formats includes ' +
+      'STRUCTURED_JSON, or persist_results is false with no active webhook endpoint subscribed to ' +
+      'a run-finished event',
   })
   @ApiResponse({ status: 404, description: 'Config not found' })
   update(

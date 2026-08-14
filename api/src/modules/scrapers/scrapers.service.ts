@@ -5,6 +5,7 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from '@/core/databases/prisma/prisma.service';
 import { CrawlRunsService } from '@/modules/crawl-runs/crawl-runs.service';
+import { TERMINAL_WEBHOOK_EVENT_TYPES } from '@/modules/webhooks/constants/webhook-event-catalog.constant';
 import { AuthUser } from '@/shared/interfaces/auth-user.interface';
 import {
   workflowConfigUserWhere,
@@ -95,7 +96,12 @@ export class ScrapersService {
       dto.website_target_id,
     );
 
+    if (dto.persist_results === false) {
+      await this.ensureForgetModeHasSubscriber(authUser.id);
+    }
+
     const schedule = this.toScheduleData(dto.schedule_cron);
+    const persistResults = dto.persist_results ?? true;
 
     if (dto.config === undefined) {
       return this.prisma.workflowConfig.create({
@@ -107,6 +113,7 @@ export class ScrapersService {
           status: ScraperStatus.TESTING,
           urls: [],
           output_formats: [],
+          persist_results: persistResults,
           ...schedule,
         },
         include: {
@@ -126,6 +133,7 @@ export class ScrapersService {
           status: ScraperStatus.TESTING,
           urls: [],
           output_formats: [],
+          persist_results: persistResults,
           ...schedule,
         },
       });
@@ -224,6 +232,10 @@ export class ScrapersService {
   async update(authUser: AuthUser, id: string, dto: UpdateScraperDto) {
     const scraper = await this.ensureExists(authUser, id);
 
+    if (dto.persist_results === false) {
+      await this.ensureForgetModeHasSubscriber(authUser.id);
+    }
+
     const schedule =
       dto.schedule_cron !== undefined
         ? this.toScheduleData(dto.schedule_cron)
@@ -239,6 +251,9 @@ export class ScrapersService {
           }),
           ...(dto.diagnostics_mode !== undefined && {
             diagnostics_mode: dto.diagnostics_mode,
+          }),
+          ...(dto.persist_results !== undefined && {
+            persist_results: dto.persist_results,
           }),
           ...schedule,
         },
@@ -285,6 +300,9 @@ export class ScrapersService {
           }),
           ...(dto.diagnostics_mode !== undefined && {
             diagnostics_mode: dto.diagnostics_mode,
+          }),
+          ...(dto.persist_results !== undefined && {
+            persist_results: dto.persist_results,
           }),
           ...schedule,
         },
@@ -371,6 +389,22 @@ export class ScrapersService {
     if (activeRun) {
       throw new BadRequestException(
         'Cancel active runs for this scraper before deleting it',
+      );
+    }
+  }
+
+  private async ensureForgetModeHasSubscriber(userId: string): Promise<void> {
+    const subscriberCount = await this.prisma.webhookEndpoint.count({
+      where: {
+        user_id: userId,
+        is_active: true,
+        subscribed_events: { hasSome: TERMINAL_WEBHOOK_EVENT_TYPES },
+      },
+    });
+
+    if (subscriberCount === 0) {
+      throw new BadRequestException(
+        'persist_results: false requires an active webhook endpoint subscribed to a run-finished event (succeeded, partial_success, failed, or cancelled)',
       );
     }
   }

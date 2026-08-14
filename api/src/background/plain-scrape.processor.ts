@@ -99,6 +99,7 @@ export class PlainScrapeProcessor extends WorkerHost {
       workflowConfigId: run.workflow_config_id,
       type: run.type,
       status: RunStatus.RUNNING,
+      persistResults: run.persist_results,
       startedAt,
     });
 
@@ -235,6 +236,7 @@ export class PlainScrapeProcessor extends WorkerHost {
         workflowConfigId: run.workflow_config_id,
         type: run.type,
         status: allFailed ? RunStatus.FAILED : RunStatus.SUCCESS,
+        persistResults: run.persist_results,
         errorMessage: allFailed ? 'All URLs failed to fetch' : null,
         startedAt,
         finishedAt,
@@ -305,6 +307,7 @@ export class PlainScrapeProcessor extends WorkerHost {
           workflowConfigId: run.workflow_config_id,
           type: run.type,
           status: RunStatus.FAILED,
+          persistResults: run.persist_results,
           errorMessage: message,
           startedAt,
           finishedAt,

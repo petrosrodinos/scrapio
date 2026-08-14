@@ -15,6 +15,7 @@ import {
 import { WebhookEventType } from 'generated/prisma';
 import {
   RUN_STATUS_TO_WEBHOOK_EVENT,
+  TERMINAL_RUN_STATUSES,
   WEBHOOK_EVENT_NAME_BY_TYPE,
 } from './constants/webhook-event-catalog.constant';
 
@@ -52,6 +53,11 @@ export class WebhooksEventListenerService {
         return;
       }
 
+      const result =
+        !event.persistResults && TERMINAL_RUN_STATUSES.includes(event.status)
+          ? await this.loadUnpersistedResult(event.workflowRunId)
+          : null;
+
       const payload = {
         event: WEBHOOK_EVENT_NAME_BY_TYPE[eventType],
         created_at: new Date().toISOString(),
@@ -64,6 +70,7 @@ export class WebhooksEventListenerService {
           started_at: event.startedAt ?? null,
           finished_at: event.finishedAt ?? null,
           duration_ms: event.durationMs ?? null,
+          ...(result && { result }),
         },
       };
 
@@ -88,5 +95,43 @@ export class WebhooksEventListenerService {
       const message = error instanceof Error ? error.message : String(error);
       this.logger.error(`Failed to dispatch webhook deliveries: ${message}`);
     }
+  }
+
+  // Result content this run's WorkflowRunPurgeService is about to delete (see
+  // WorkflowRunPurgeService.purgeIfForgettable) — the delivered payload is the only place a
+  // forget-mode subscriber can still get it after that.
+  private async loadUnpersistedResult(workflowRunId: string) {
+    const run = await this.prisma.workflowRun.findUnique({
+      where: { id: workflowRunId },
+      select: {
+        collected_data: true,
+        extraction_result: true,
+        pages: {
+          orderBy: { created_at: 'asc' },
+          select: {
+            requested_url: true,
+            final_url: true,
+            http_status: true,
+            success: true,
+            title: true,
+            raw_html: true,
+            cleaned_content: true,
+            error_message: true,
+            extraction_result: true,
+          },
+        },
+      },
+    });
+
+    if (!run) return null;
+    if (!run.extraction_result && !run.collected_data && run.pages.length === 0) {
+      return null;
+    }
+
+    return {
+      collected_data: run.collected_data ?? undefined,
+      extraction_result: run.extraction_result ?? undefined,
+      pages: run.pages.length > 0 ? run.pages : undefined,
+    };
   }
 }

@@ -3,6 +3,7 @@ import {
   ArrayMaxSize,
   ArrayMinSize,
   IsArray,
+  IsBoolean,
   IsEnum,
   IsObject,
   IsOptional,
@@ -99,4 +100,16 @@ export class CreatePlainScrapeConfigDto {
     message: 'schedule_cron must be a valid 5-field cron expression',
   })
   schedule_cron?: string | null;
+
+  @ApiProperty({
+    required: false,
+    default: true,
+    description:
+      'Scrape-and-forget mode: set false to delete each run\'s result payload once a subscribed ' +
+      'webhook endpoint confirms delivery, instead of keeping it. Requires an active webhook ' +
+      'endpoint subscribed to a run-finished event.',
+  })
+  @IsOptional()
+  @IsBoolean()
+  persist_results?: boolean;
 }

@@ -8,6 +8,9 @@ export interface WorkflowRunStatusChangedEvent {
   workflowConfigId: string;
   type: WorkflowType;
   status: RunStatus;
+  // Snapshot of WorkflowRun.persist_results. When false and status is terminal, the webhook
+  // listener embeds the full result in the delivered payload since it's about to be purged.
+  persistResults: boolean;
   errorMessage?: string | null;
   startedAt?: Date | null;
   finishedAt?: Date | null;

@@ -94,6 +94,11 @@ export class ScrapersController {
     summary: 'Create a scraper with an initial active version (version 1)',
   })
   @ApiResponse({ status: 201, type: Scraper })
+  @ApiResponse({
+    status: 400,
+    description:
+      'persist_results is false with no active webhook endpoint subscribed to a run-finished event',
+  })
   @ApiResponse({ status: 404, description: 'Website target not found' })
   create(@CurrentUser() authUser: AuthUser, @Body() dto: CreateScraperDto) {
     return this.scrapersService.create(authUser, dto);
@@ -148,6 +153,11 @@ export class ScrapersController {
       'Toggle self_healing_enabled and/or update validation_rules (creates a new version)',
   })
   @ApiResponse({ status: 200, type: Scraper })
+  @ApiResponse({
+    status: 400,
+    description:
+      'persist_results is false with no active webhook endpoint subscribed to a run-finished event',
+  })
   @ApiResponse({ status: 404, description: 'Scraper not found' })
   update(
     @CurrentUser() authUser: AuthUser,

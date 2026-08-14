@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
+  IsBoolean,
   IsObject,
   IsOptional,
   IsString,
@@ -46,4 +47,16 @@ export class CreateScraperDto {
   @IsOptional()
   @IsObject()
   config?: Record<string, unknown>;
+
+  @ApiProperty({
+    required: false,
+    default: true,
+    description:
+      'Scrape-and-forget mode: set false to delete each run\'s result payload once a subscribed ' +
+      'webhook endpoint confirms delivery, instead of keeping it. Requires an active webhook ' +
+      'endpoint subscribed to a run-finished event.',
+  })
+  @IsOptional()
+  @IsBoolean()
+  persist_results?: boolean;
 }

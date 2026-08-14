@@ -178,6 +178,7 @@ export class CrawlProcessor extends WorkerHost implements OnModuleInit {
       workflowConfigId: run.workflow_config_id,
       type: run.type,
       status: RunStatus.RUNNING,
+      persistResults: run.persist_results,
       startedAt,
     });
 
@@ -261,6 +262,14 @@ export class CrawlProcessor extends WorkerHost implements OnModuleInit {
           url: item.source_url,
           raw,
         });
+
+        // Forget-mode runs (persist_results: false) skip ExtractedItem entirely — its whole
+        // purpose is durable per-website_target dedup tracking across runs, the opposite of
+        // scrape-and-forget semantics.
+        if (!run.persist_results) {
+          totalCreated++;
+          continue;
+        }
 
         const existing = await this.prisma.extractedItem.findUnique({
           where: {
@@ -388,6 +397,7 @@ export class CrawlProcessor extends WorkerHost implements OnModuleInit {
         workflowConfigId: workflowConfig.id,
         type: run.type,
         status: runStatus,
+        persistResults: run.persist_results,
         errorMessage,
         startedAt,
         finishedAt,
@@ -509,6 +519,7 @@ export class CrawlProcessor extends WorkerHost implements OnModuleInit {
             workflowConfigId: currentRun.workflow_config_id,
             type: run.type,
             status: RunStatus.FAILED,
+            persistResults: run.persist_results,
             errorMessage: message,
             startedAt,
             finishedAt,
