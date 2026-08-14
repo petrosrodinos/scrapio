@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
-import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JwtGuard } from '@/shared/guards/jwt.guard';
 import { RolesGuard } from '@/shared/guards/roles.guard';
 import { Roles } from '@/shared/decorators/roles.decorator';
@@ -28,15 +28,21 @@ export class ApiKeysController {
   }
 
   @Post()
-  @ApiOperation({ summary: 'Generate a new API key' })
+  @ApiOperation({
+    summary: 'Generate a new API key (the raw key value is returned only in this response)',
+  })
   @ApiResponse({ status: 201, type: ApiKeyCreatedEntity })
+  @ApiResponse({ status: 400, description: 'expires_at must be a future date' })
   create(@CurrentUser() authUser: AuthUser, @Body() dto: CreateApiKeyDto) {
     return this.apiKeysService.create(authUser, dto);
   }
 
   @Patch(':id')
   @ApiOperation({ summary: 'Rename or enable/disable an API key' })
+  @ApiParam({ name: 'id', description: 'API key ID' })
   @ApiResponse({ status: 200, type: ApiKeyEntity })
+  @ApiResponse({ status: 400, description: 'A revoked API key cannot be re-enabled' })
+  @ApiResponse({ status: 404, description: 'API key not found' })
   update(
     @CurrentUser() authUser: AuthUser,
     @Param('id') id: string,
@@ -47,7 +53,9 @@ export class ApiKeysController {
 
   @Delete(':id')
   @ApiOperation({ summary: 'Revoke an API key' })
-  @ApiResponse({ status: 200 })
+  @ApiParam({ name: 'id', description: 'API key ID' })
+  @ApiResponse({ status: 200, description: 'API key revoked' })
+  @ApiResponse({ status: 404, description: 'API key not found' })
   revoke(@CurrentUser() authUser: AuthUser, @Param('id') id: string) {
     return this.apiKeysService.revoke(authUser, id);
   }

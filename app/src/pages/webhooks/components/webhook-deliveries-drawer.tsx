@@ -9,12 +9,15 @@ import {
   type useOverlayState,
 } from "@heroui/react";
 import { TableSkeleton } from "@/components/ui/table-skeleton";
+import { WebhookDeliveryStatusFilterOptions } from "@/config/constants/dropdowns/webhooks/webhook-delivery-status-filter.options";
+import { WebhookEventFilterOptions } from "@/config/constants/dropdowns/webhooks/webhook-event-filter.options";
 import { formatDateTime } from "@/lib/date";
 import { useWebhookDeliveries } from "@/features/webhooks/hooks/use-webhooks";
 import {
   WebhookDeliveryStatuses,
   type WebhookDeliveryStatus,
   type WebhookEndpoint,
+  type WebhookEventType,
 } from "@/features/webhooks/interfaces/webhooks.interfaces";
 
 const statusColor: Record<WebhookDeliveryStatus, "success" | "danger" | "warning"> = {
@@ -37,11 +40,13 @@ interface WebhookDeliveriesDrawerProps {
 export function WebhookDeliveriesDrawer({ state, endpoint }: WebhookDeliveriesDrawerProps) {
   const [page, setPage] = useState(1);
   const [status, setStatus] = useState<WebhookDeliveryStatus | "all">("all");
+  const [eventType, setEventType] = useState<WebhookEventType | "all">("all");
 
   const { data, isPending } = useWebhookDeliveries(endpoint?.id ?? "", {
     page,
     limit: 20,
     ...(status !== "all" && { status }),
+    ...(eventType !== "all" && { event_type: eventType }),
   });
 
   const deliveries = data?.data ?? [];
@@ -49,39 +54,59 @@ export function WebhookDeliveriesDrawer({ state, endpoint }: WebhookDeliveriesDr
 
   return (
     <Drawer state={state}>
-      <Drawer.Backdrop>
-        <Drawer.Content placement="right" className="w-full max-w-2xl">
-          <Drawer.Dialog>
+      <Drawer.Backdrop isDismissable>
+        <Drawer.Content placement="right">
+          <Drawer.Dialog className="w-[min(42rem,100%)] max-w-2xl sm:w-[min(42rem,100%)]">
             <Drawer.Header>
               <Drawer.Heading>Delivery history</Drawer.Heading>
+              <Drawer.CloseTrigger />
             </Drawer.Header>
             <Drawer.Body className="flex flex-col gap-4">
               <p className="text-sm text-muted truncate" title={endpoint?.url}>
                 {endpoint?.url}
               </p>
 
-              <Select
-                aria-label="Filter by status"
-                selectedKey={status}
-                onSelectionChange={(key) => {
-                  setPage(1);
-                  setStatus(key as WebhookDeliveryStatus | "all");
-                }}
-                className="w-40"
-              >
-                <Select.Trigger>
-                  <Select.Value />
-                  <Select.Indicator />
-                </Select.Trigger>
-                <Select.Popover>
-                  <ListBox>
-                    <ListBox.Item id="all">All statuses</ListBox.Item>
-                    <ListBox.Item id={WebhookDeliveryStatuses.SUCCESS}>Success</ListBox.Item>
-                    <ListBox.Item id={WebhookDeliveryStatuses.FAILED}>Failed</ListBox.Item>
-                    <ListBox.Item id={WebhookDeliveryStatuses.PENDING}>Pending</ListBox.Item>
-                  </ListBox>
-                </Select.Popover>
-              </Select>
+              <div className="flex flex-wrap gap-2">
+                <Select
+                  aria-label="Filter by status"
+                  selectedKey={status}
+                  onSelectionChange={(key) => {
+                    setPage(1);
+                    setStatus(key as WebhookDeliveryStatus | "all");
+                  }}
+                  className="w-40"
+                >
+                  <Select.Trigger>
+                    <Select.Value />
+                    <Select.Indicator />
+                  </Select.Trigger>
+                  <Select.Popover>
+                    <ListBox items={WebhookDeliveryStatusFilterOptions}>
+                      {(option) => <ListBox.Item id={option.id}>{option.label}</ListBox.Item>}
+                    </ListBox>
+                  </Select.Popover>
+                </Select>
+
+                <Select
+                  aria-label="Filter by event"
+                  selectedKey={eventType}
+                  onSelectionChange={(key) => {
+                    setPage(1);
+                    setEventType(key as WebhookEventType | "all");
+                  }}
+                  className="min-w-48"
+                >
+                  <Select.Trigger>
+                    <Select.Value />
+                    <Select.Indicator />
+                  </Select.Trigger>
+                  <Select.Popover>
+                    <ListBox items={WebhookEventFilterOptions}>
+                      {(option) => <ListBox.Item id={option.id}>{option.label}</ListBox.Item>}
+                    </ListBox>
+                  </Select.Popover>
+                </Select>
+              </div>
 
               {isPending ? (
                 <TableSkeleton rows={6} columns={5} />

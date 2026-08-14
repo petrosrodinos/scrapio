@@ -16,7 +16,10 @@ import {
 import { OutputFormat } from 'generated/prisma';
 
 export class CreateBrowserAgentConfigDto {
-  @ApiProperty({ description: 'Browser agent config display name' })
+  @ApiProperty({
+    description: 'Browser agent config display name',
+    example: 'Acme checkout flow agent',
+  })
   @IsString()
   @MinLength(1)
   name: string;
@@ -25,12 +28,16 @@ export class CreateBrowserAgentConfigDto {
     required: false,
     nullable: true,
     description: 'Optional extra instructions to guide the browsing agent',
+    example: 'Add the first product to the cart and extract the total price',
   })
   @IsOptional()
   @IsString()
   description?: string | null;
 
-  @ApiProperty({ description: 'Website URL the agent should explore' })
+  @ApiProperty({
+    description: 'Website URL the agent should explore',
+    example: 'https://example.com',
+  })
   @IsUrl()
   url: string;
 

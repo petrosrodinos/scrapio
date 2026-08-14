@@ -16,6 +16,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { ApiPaginatedResponse } from '@/shared/decorators/api-paginated-response.decorator';
 import { JwtGuard } from '@/shared/guards/jwt.guard';
 import { RolesGuard } from '@/shared/guards/roles.guard';
 import { Roles } from '@/shared/decorators/roles.decorator';
@@ -50,13 +51,13 @@ export class ScraperGenerationController {
 
   @Get()
   @ApiOperation({ summary: 'List generation runs (paginated, filterable)' })
-  @ApiResponse({ status: 200, description: 'Paginated generation run list' })
+  @ApiPaginatedResponse(ScraperGenerationRun, 'Paginated generation run list')
   @ApiQuery({ name: 'page', required: false, type: Number })
   @ApiQuery({ name: 'limit', required: false, type: Number })
   @ApiQuery({ name: 'status', required: false, enum: GenerationRunStatus })
   @ApiQuery({ name: 'trigger', required: false, enum: GenerationTrigger })
   @ApiQuery({ name: 'website_target_id', required: false, type: String })
-  @ApiQuery({ name: 'scraper_id', required: false, type: String })
+  @ApiQuery({ name: 'workflow_config_id', required: false, type: String })
   @ApiQuery({ name: 'user_id', required: false, type: String })
   findAll(
     @CurrentUser() authUser: AuthUser,
@@ -85,6 +86,10 @@ export class ScraperGenerationController {
     status: 400,
     description:
       'Invalid output config, or no Anthropic integration when starting',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Website target not found, or scraper not found',
   })
   create(
     @CurrentUser() authUser: AuthUser,
@@ -121,6 +126,7 @@ export class ScraperGenerationController {
     status: 400,
     description: 'Run is not DRAFT, or no Anthropic integration configured',
   })
+  @ApiResponse({ status: 404, description: 'Website target not found' })
   start(@CurrentUser() authUser: AuthUser, @Param('id') id: string) {
     return this.scraperGenerationService.start(authUser, id);
   }
@@ -175,6 +181,7 @@ export class ScraperGenerationController {
     status: 400,
     description: 'Run is not FAILED or CANCELLED, or self-healing is disabled',
   })
+  @ApiResponse({ status: 404, description: 'Generation run not found' })
   retry(
     @CurrentUser() authUser: AuthUser,
     @Param('id') id: string,

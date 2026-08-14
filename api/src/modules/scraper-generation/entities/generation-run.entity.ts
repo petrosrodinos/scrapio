@@ -1,5 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { GenerationRunStatus, GenerationTrigger } from 'generated/prisma';
+import {
+  GenerationRunStatus,
+  GenerationTrigger,
+  OutputFormat,
+} from 'generated/prisma';
 import { ComputerUseStep } from './computer-use-step.entity';
 
 export class ScraperGenerationRun {
@@ -9,8 +13,11 @@ export class ScraperGenerationRun {
   @ApiProperty()
   website_target_id: string;
 
-  @ApiProperty({ nullable: true })
-  scraper_id: string | null;
+  @ApiProperty({
+    nullable: true,
+    description: 'Set when this run is fixing/updating an existing scraper',
+  })
+  workflow_config_id: string | null;
 
   @ApiProperty({ enum: GenerationTrigger, example: GenerationTrigger.MANUAL })
   trigger: GenerationTrigger;
@@ -31,6 +38,23 @@ export class ScraperGenerationRun {
     example: 15,
   })
   max_steps: number | null;
+
+  @ApiProperty({
+    enum: OutputFormat,
+    isArray: true,
+    description:
+      'Output formats the generated scraper should produce',
+    example: [OutputFormat.STRUCTURED_JSON],
+  })
+  output_formats: OutputFormat[];
+
+  @ApiProperty({
+    nullable: true,
+    description:
+      'App-level output schema definition this run was generated against. Dynamic/polymorphic JSON shape (see CreateGenerationRunDto.output_schema); only present when STRUCTURED_JSON is included in output_formats.',
+    example: { title: 'string', price: 'number' },
+  })
+  output_schema: Record<string, unknown> | null;
 
   @ApiProperty({
     nullable: true,
@@ -76,8 +100,9 @@ export class ScraperGenerationRun {
 
   @ApiProperty({
     required: false,
-    description: 'Present on list/detail views when scraper_id is set',
+    description:
+      'Present on list/detail views when workflow_config_id is set',
     example: { name: 'Acme listing scraper' },
   })
-  scraper?: { name: string } | null;
+  workflow_config?: { name: string } | null;
 }

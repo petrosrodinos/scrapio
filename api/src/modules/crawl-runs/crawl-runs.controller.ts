@@ -15,12 +15,13 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { ApiPaginatedResponse } from '@/shared/decorators/api-paginated-response.decorator';
 import { JwtGuard } from '@/shared/guards/jwt.guard';
 import { RolesGuard } from '@/shared/guards/roles.guard';
 import { Roles } from '@/shared/decorators/roles.decorator';
 import { CurrentUser } from '@/shared/decorators/current-user.decorator';
 import { AuthUser } from '@/shared/interfaces/auth-user.interface';
-import { AuthRole, RunStatus } from 'generated/prisma';
+import { AuthRole, RunStatus, WorkflowType } from 'generated/prisma';
 import { ZodValidationPipe } from '@/shared/pipes/zod.validation.pipe';
 import { CrawlRunsService } from './crawl-runs.service';
 import {
@@ -40,10 +41,11 @@ export class CrawlRunsController {
 
   @Get()
   @ApiOperation({ summary: 'List crawl runs (paginated, filterable)' })
-  @ApiResponse({ status: 200, description: 'Paginated crawl run list' })
+  @ApiPaginatedResponse(CrawlRun, 'Paginated crawl run list')
   @ApiQuery({ name: 'page', required: false, type: Number })
   @ApiQuery({ name: 'limit', required: false, type: Number })
   @ApiQuery({ name: 'status', required: false, enum: RunStatus })
+  @ApiQuery({ name: 'type', required: false, enum: WorkflowType })
   @ApiQuery({ name: 'website_target_id', required: false, type: String })
   @ApiQuery({ name: 'workflow_config_id', required: false, type: String })
   @ApiQuery({ name: 'user_id', required: false, type: String })

@@ -15,6 +15,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { ApiPaginatedResponse } from '@/shared/decorators/api-paginated-response.decorator';
 import { JwtGuard } from '@/shared/guards/jwt.guard';
 import { RolesGuard } from '@/shared/guards/roles.guard';
 import { Roles } from '@/shared/decorators/roles.decorator';
@@ -37,7 +38,7 @@ export class JobsController {
 
   @Get()
   @ApiOperation({ summary: 'List job logs (paginated, filterable)' })
-  @ApiResponse({ status: 200, description: 'Paginated job log list' })
+  @ApiPaginatedResponse(JobLog, 'Paginated job log list')
   @ApiQuery({ name: 'page', required: false, type: Number })
   @ApiQuery({ name: 'limit', required: false, type: Number })
   @ApiQuery({ name: 'status', required: false, enum: JobStatus })
@@ -76,6 +77,7 @@ export class JobsController {
   @Roles(AuthRole.ADMIN)
   @ApiOperation({ summary: 'Retry a failed or completed job' })
   @ApiResponse({ status: 200, type: JobLog })
+  @ApiResponse({ status: 400, description: 'Job log has no payload to retry' })
   @ApiResponse({ status: 404, description: 'Job log not found' })
   retry(@CurrentUser() authUser: AuthUser, @Param('id') id: string) {
     return this.jobsService.retry(authUser, id);

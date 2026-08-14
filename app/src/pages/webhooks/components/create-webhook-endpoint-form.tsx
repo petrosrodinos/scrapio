@@ -36,7 +36,7 @@ export function CreateWebhookEndpointForm({
   });
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)} className="grid gap-4">
+    <Form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
       <div className="flex flex-col gap-1">
         <Label htmlFor="webhook-name">Name (optional)</Label>
         <Input

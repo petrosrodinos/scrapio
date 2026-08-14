@@ -89,6 +89,7 @@ export class WebhooksService {
     const where = {
       webhook_endpoint_id: endpoint.id,
       ...(query.status && { status: query.status }),
+      ...(query.event_type && { event_type: query.event_type }),
     };
 
     const [items, total] = await Promise.all([

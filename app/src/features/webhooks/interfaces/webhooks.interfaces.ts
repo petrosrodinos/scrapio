@@ -71,6 +71,7 @@ export interface WebhookDeliveryListQuery {
   page?: number;
   limit?: number;
   status?: WebhookDeliveryStatus;
+  event_type?: WebhookEventType;
 }
 
 export interface PaginationMeta {

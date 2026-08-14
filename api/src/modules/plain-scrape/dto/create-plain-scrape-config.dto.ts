@@ -17,12 +17,20 @@ import { ExtractionScope, OutputFormat } from 'generated/prisma';
 const MAX_URLS_PER_CONFIG = 200;
 
 export class CreatePlainScrapeConfigDto {
-  @ApiProperty({ description: 'Plain scrape config display name' })
+  @ApiProperty({
+    description: 'Plain scrape config display name',
+    example: 'Acme pricing pages',
+  })
   @IsString()
   @MinLength(1)
   name: string;
 
-  @ApiProperty({ required: false, nullable: true })
+  @ApiProperty({
+    required: false,
+    nullable: true,
+    description: 'Optional notes about this config',
+    example: 'Nightly check of competitor pricing pages',
+  })
   @IsOptional()
   @IsString()
   description?: string | null;
@@ -32,6 +40,7 @@ export class CreatePlainScrapeConfigDto {
     description: 'URLs to fetch as plain HTML',
     minItems: 1,
     maxItems: MAX_URLS_PER_CONFIG,
+    example: ['https://example.com/pricing'],
   })
   @IsArray()
   @ArrayMinSize(1)

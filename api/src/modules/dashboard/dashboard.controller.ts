@@ -29,9 +29,19 @@ export class DashboardController {
 
   @Get('dashboard')
   @Roles(AuthRole.USER, AuthRole.ADMIN, AuthRole.SUPPORT)
-  @ApiOperation({ summary: 'Get user-scoped dashboard KPIs and activity feed' })
-  @ApiResponse({ status: 200, type: Dashboard })
-  @ApiQuery({ name: 'user_id', required: false, type: String })
+  @ApiOperation({
+    summary: 'Get user-scoped dashboard KPIs and activity feed',
+    description:
+      'Returns scraper/crawl/queue KPIs and a recent activity feed scoped to the caller.',
+  })
+  @ApiResponse({ status: 200, description: 'Dashboard KPIs and activity feed', type: Dashboard })
+  @ApiQuery({
+    name: 'user_id',
+    required: false,
+    type: String,
+    description:
+      'Admin/Support only: view another user\'s dashboard by their user id. Ignored (always scoped to the caller) for regular users.',
+  })
   getDashboard(
     @CurrentUser() authUser: AuthUser,
     @Query(new ZodValidationPipe(DashboardQuerySchema)) query: DashboardQueryType,
@@ -41,9 +51,18 @@ export class DashboardController {
 
   @Get('admin/dashboard')
   @Roles(AuthRole.ADMIN, AuthRole.SUPPORT)
-  @ApiOperation({ summary: 'Get admin dashboard KPIs and activity feed' })
-  @ApiResponse({ status: 200, type: Dashboard })
-  @ApiQuery({ name: 'user_id', required: false, type: String })
+  @ApiOperation({
+    summary: 'Get admin dashboard KPIs and activity feed',
+    description:
+      "Same payload as GET /dashboard. Defaults to platform-wide KPIs for admins/support (no user scoping) unless `user_id` narrows it to one user.",
+  })
+  @ApiResponse({ status: 200, description: 'Dashboard KPIs and activity feed', type: Dashboard })
+  @ApiQuery({
+    name: 'user_id',
+    required: false,
+    type: String,
+    description: "Scope the dashboard to a single user's data by their user id.",
+  })
   getAdminDashboard(
     @CurrentUser() authUser: AuthUser,
     @Query(new ZodValidationPipe(DashboardQuerySchema)) query: DashboardQueryType,

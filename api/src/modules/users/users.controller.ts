@@ -30,6 +30,7 @@ export class UsersController {
   @Get('me')
   @ApiOperation({ summary: 'Get current user profile' })
   @ApiResponse({ status: 200, type: UserProfile })
+  @ApiResponse({ status: 404, description: 'User not found' })
   getMe(@CurrentUser() authUser: AuthUser) {
     return this.usersService.getProfile(authUser);
   }
@@ -37,6 +38,11 @@ export class UsersController {
   @Patch('me')
   @ApiOperation({ summary: 'Update current user profile' })
   @ApiResponse({ status: 200, type: UserProfile })
+  @ApiResponse({
+    status: 400,
+    description:
+      'No profile fields to update, or unsupported crawl schedule timezone',
+  })
   updateMe(
     @CurrentUser() authUser: AuthUser,
     @Body() dto: UpdateUserProfileDto,

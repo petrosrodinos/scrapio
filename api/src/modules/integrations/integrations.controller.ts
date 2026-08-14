@@ -2,6 +2,7 @@ import { Controller, Get, Param, UseGuards } from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiOperation,
+  ApiParam,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
@@ -21,7 +22,7 @@ export class IntegrationsController {
   constructor(private readonly integrationsService: IntegrationsService) {}
 
   @Get()
-  @ApiOperation({ summary: 'List available integration connectors' })
+  @ApiOperation({ summary: 'List available (visible) integration connectors, with their config fields and supported models' })
   @ApiResponse({ status: 200, type: [Integration] })
   findAll() {
     return this.integrationsService.findAll(true);
@@ -29,6 +30,7 @@ export class IntegrationsController {
 
   @Get(':type')
   @ApiOperation({ summary: 'Get one integration connector by type' })
+  @ApiParam({ name: 'type', enum: IntegrationType, description: 'Integration type identifier' })
   @ApiResponse({ status: 200, type: Integration })
   @ApiResponse({ status: 404, description: 'Integration not found' })
   findOne(@Param('type') type: IntegrationType) {

@@ -12,6 +12,7 @@ import {
 import {
   ApiBearerAuth,
   ApiOperation,
+  ApiParam,
   ApiQuery,
   ApiResponse,
   ApiTags,
@@ -25,6 +26,7 @@ import {
   NotificationType,
 } from 'generated/prisma';
 import { ZodValidationPipe } from '@/shared/pipes/zod.validation.pipe';
+import { ApiPaginatedResponse } from '@/shared/decorators/api-paginated-response.decorator';
 import { NotificationsService } from './notifications.service';
 import {
   NotificationQuerySchema,
@@ -43,12 +45,12 @@ export class NotificationsController {
 
   @Get()
   @ApiOperation({ summary: 'List notifications (paginated, filterable)' })
-  @ApiResponse({ status: 200, description: 'Paginated notification list' })
-  @ApiQuery({ name: 'page', required: false, type: Number })
-  @ApiQuery({ name: 'limit', required: false, type: Number })
-  @ApiQuery({ name: 'type', required: false, enum: NotificationType })
-  @ApiQuery({ name: 'severity', required: false, enum: NotificationSeverity })
-  @ApiQuery({ name: 'is_read', required: false, enum: ['true', 'false'] })
+  @ApiQuery({ name: 'page', required: false, type: Number, description: 'Page number (1-indexed)' })
+  @ApiQuery({ name: 'limit', required: false, type: Number, description: 'Records per page (max 100)' })
+  @ApiQuery({ name: 'type', required: false, enum: NotificationType, description: 'Filter by notification type' })
+  @ApiQuery({ name: 'severity', required: false, enum: NotificationSeverity, description: 'Filter by severity' })
+  @ApiQuery({ name: 'is_read', required: false, enum: ['true', 'false'], description: 'Filter by read status' })
+  @ApiPaginatedResponse(Notification, 'Paginated notification list')
   findAll(
     @Query(new ZodValidationPipe(NotificationQuerySchema))
     query: NotificationQueryType,
@@ -75,6 +77,7 @@ export class NotificationsController {
   @Patch(':id/read')
   @Roles(AuthRole.ADMIN)
   @ApiOperation({ summary: 'Mark a notification as read' })
+  @ApiParam({ name: 'id', description: 'Notification ID' })
   @ApiResponse({ status: 200, type: Notification })
   @ApiResponse({ status: 404, description: 'Notification not found' })
   markRead(@Param('id') id: string) {
@@ -84,6 +87,7 @@ export class NotificationsController {
   @Delete(':id')
   @Roles(AuthRole.ADMIN)
   @ApiOperation({ summary: 'Delete a notification' })
+  @ApiParam({ name: 'id', description: 'Notification ID' })
   @ApiResponse({ status: 200, description: 'Deleted' })
   @ApiResponse({ status: 404, description: 'Notification not found' })
   remove(@Param('id') id: string) {

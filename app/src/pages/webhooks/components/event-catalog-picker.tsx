@@ -1,4 +1,6 @@
-import { Accordion, Checkbox, FieldError } from "@heroui/react";
+import { useState } from "react";
+import { Checkbox, FieldError } from "@heroui/react";
+import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { WebhookEventCatalogEntry, WebhookEventType } from "@/features/webhooks/interfaces/webhooks.interfaces";
 
@@ -28,6 +30,20 @@ export function EventCatalogPicker({
   isDisabled,
   error,
 }: EventCatalogPickerProps) {
+  const [expandedPayloads, setExpandedPayloads] = useState<Set<string>>(() => new Set());
+
+  const togglePayload = (eventType: string) => {
+    setExpandedPayloads((current) => {
+      const next = new Set(current);
+      if (next.has(eventType)) {
+        next.delete(eventType);
+      } else {
+        next.add(eventType);
+      }
+      return next;
+    });
+  };
+
   return (
     <div className="flex flex-col gap-2">
       <div className="flex flex-col gap-0.5">
@@ -37,9 +53,10 @@ export function EventCatalogPicker({
         </span>
       </div>
 
-      <div className="flex flex-col gap-2">
+      <div className="flex max-h-[min(24rem,40vh)] flex-col gap-2 overflow-y-auto pe-1">
         {catalog.map((entry) => {
           const selected = value.includes(entry.event_type);
+          const payloadExpanded = expandedPayloads.has(entry.event_type);
           return (
             <div
               key={entry.event_type}
@@ -72,23 +89,23 @@ export function EventCatalogPicker({
                 </span>
               </label>
 
-              <Accordion defaultExpandedKeys={[]} hideSeparator>
-                <Accordion.Item id={`payload-${entry.event_type}`}>
-                  <Accordion.Heading>
-                    <Accordion.Trigger className="px-3 pb-2 text-xs font-medium text-muted">
-                      Sample payload
-                      <Accordion.Indicator />
-                    </Accordion.Trigger>
-                  </Accordion.Heading>
-                  <Accordion.Panel>
-                    <Accordion.Body>
-                      <pre className="mx-3 mb-3 rounded-lg border border-border bg-background p-3 text-xs overflow-auto max-h-60">
-                        {JSON.stringify(entry.sample_payload, null, 2)}
-                      </pre>
-                    </Accordion.Body>
-                  </Accordion.Panel>
-                </Accordion.Item>
-              </Accordion>
+              <button
+                type="button"
+                className="flex w-full items-center gap-1 px-3 pb-2 text-xs font-medium text-muted"
+                onClick={() => togglePayload(entry.event_type)}
+                aria-expanded={payloadExpanded}
+              >
+                Sample payload
+                <ChevronDown
+                  className={cn("size-3.5 transition-transform", payloadExpanded && "rotate-180")}
+                />
+              </button>
+
+              {payloadExpanded ? (
+                <pre className="mx-3 mb-3 max-h-60 overflow-auto rounded-lg border border-border bg-background p-3 text-xs">
+                  {JSON.stringify(entry.sample_payload, null, 2)}
+                </pre>
+              ) : null}
             </div>
           );
         })}

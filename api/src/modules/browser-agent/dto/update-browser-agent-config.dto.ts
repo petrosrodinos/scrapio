@@ -16,18 +16,31 @@ import {
 import { OutputFormat } from 'generated/prisma';
 
 export class UpdateBrowserAgentConfigDto {
-  @ApiProperty({ required: false })
+  @ApiProperty({
+    required: false,
+    description: 'Browser agent config display name',
+    example: 'Acme checkout flow agent',
+  })
   @IsOptional()
   @IsString()
   @MinLength(1)
   name?: string;
 
-  @ApiProperty({ required: false, nullable: true })
+  @ApiProperty({
+    required: false,
+    nullable: true,
+    description: 'Optional extra instructions to guide the browsing agent',
+    example: 'Add the first product to the cart and extract the total price',
+  })
   @IsOptional()
   @IsString()
   description?: string | null;
 
-  @ApiProperty({ required: false })
+  @ApiProperty({
+    required: false,
+    description: 'Website URL the agent should explore',
+    example: 'https://example.com',
+  })
   @IsOptional()
   @IsUrl()
   url?: string;
@@ -36,6 +49,7 @@ export class UpdateBrowserAgentConfigDto {
     required: false,
     description: 'Hard cap on computer-use steps for runs of this config',
     minimum: 1,
+    example: 25,
   })
   @IsOptional()
   @Type(() => Number)
@@ -43,7 +57,13 @@ export class UpdateBrowserAgentConfigDto {
   @Min(1)
   max_steps?: number;
 
-  @ApiProperty({ type: [String], enum: OutputFormat, required: false })
+  @ApiProperty({
+    type: [String],
+    enum: OutputFormat,
+    required: false,
+    description:
+      'STRUCTURED_JSON and/or MARKDOWN. At least one is required for a browser agent run.',
+  })
   @IsOptional()
   @IsArray()
   @IsEnum(OutputFormat, { each: true })
@@ -51,7 +71,9 @@ export class UpdateBrowserAgentConfigDto {
 
   @ApiProperty({
     required: false,
-    description: 'Required when output_formats includes STRUCTURED_JSON.',
+    description:
+      'Required when output_formats includes STRUCTURED_JSON. Field-name to type-descriptor map.',
+    example: { title: 'string', price: 'number' },
   })
   @ValidateIf(
     (dto: UpdateBrowserAgentConfigDto) =>
@@ -60,7 +82,13 @@ export class UpdateBrowserAgentConfigDto {
   @IsObject()
   output_schema?: Record<string, unknown>;
 
-  @ApiProperty({ required: false, nullable: true })
+  @ApiProperty({
+    required: false,
+    nullable: true,
+    description:
+      'Cron schedule for automatic runs. Null/empty disables scheduling.',
+    example: '0 */6 * * *',
+  })
   @IsOptional()
   @ValidateIf((_, value) => value != null && value !== '')
   @IsString()

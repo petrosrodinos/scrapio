@@ -16,6 +16,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { ApiPaginatedResponse } from '@/shared/decorators/api-paginated-response.decorator';
 import { JwtGuard } from '@/shared/guards/jwt.guard';
 import { RolesGuard } from '@/shared/guards/roles.guard';
 import { Roles } from '@/shared/decorators/roles.decorator';
@@ -48,7 +49,7 @@ export class ScrapersController {
   @ApiOperation({
     summary: 'List scrapers (paginated, searchable, filterable)',
   })
-  @ApiResponse({ status: 200, description: 'Paginated scraper list' })
+  @ApiPaginatedResponse(Scraper, 'Paginated scraper list')
   @ApiQuery({ name: 'page', required: false, type: Number })
   @ApiQuery({ name: 'limit', required: false, type: Number })
   @ApiQuery({ name: 'search', required: false, type: String })
@@ -93,6 +94,7 @@ export class ScrapersController {
     summary: 'Create a scraper with an initial active version (version 1)',
   })
   @ApiResponse({ status: 201, type: Scraper })
+  @ApiResponse({ status: 404, description: 'Website target not found' })
   create(@CurrentUser() authUser: AuthUser, @Body() dto: CreateScraperDto) {
     return this.scrapersService.create(authUser, dto);
   }
@@ -100,6 +102,7 @@ export class ScrapersController {
   @Get(':id/versions')
   @ApiOperation({ summary: "List a scraper's versions (newest first)" })
   @ApiResponse({ status: 200, type: [ScraperVersion] })
+  @ApiResponse({ status: 404, description: 'Scraper not found' })
   listVersions(@CurrentUser() authUser: AuthUser, @Param('id') id: string) {
     return this.scrapersService.listVersions(authUser, id);
   }
@@ -110,6 +113,7 @@ export class ScrapersController {
     summary: 'Create a new scraper version (does not activate it)',
   })
   @ApiResponse({ status: 201, type: ScraperVersion })
+  @ApiResponse({ status: 404, description: 'Scraper not found' })
   createVersion(
     @CurrentUser() authUser: AuthUser,
     @Param('id') id: string,
@@ -144,6 +148,7 @@ export class ScrapersController {
       'Toggle self_healing_enabled and/or update validation_rules (creates a new version)',
   })
   @ApiResponse({ status: 200, type: Scraper })
+  @ApiResponse({ status: 404, description: 'Scraper not found' })
   update(
     @CurrentUser() authUser: AuthUser,
     @Param('id') id: string,

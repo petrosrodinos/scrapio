@@ -54,7 +54,7 @@ function EditWebhookEndpointForm({
   });
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)} className="grid gap-4">
+    <Form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
       <div className="flex flex-col gap-1">
         <Label htmlFor="edit-webhook-name">Name</Label>
         <Input id="edit-webhook-name" {...register("name")} disabled={isPending} fullWidth />
@@ -264,7 +264,7 @@ export default function WebhooksPage() {
 
       <Modal state={createModal}>
         <Modal.Backdrop isDismissable={!createEndpoint.isPending}>
-          <Modal.Container size="lg" scroll="inside">
+          <Modal.Container size="lg" scroll="outside">
             <Modal.Dialog>
               <Modal.Header>
                 <Modal.Heading>Add webhook endpoint</Modal.Heading>
@@ -284,7 +284,7 @@ export default function WebhooksPage() {
 
       <Modal state={editModal}>
         <Modal.Backdrop isDismissable={!updateEndpoint.isPending}>
-          <Modal.Container size="lg" scroll="inside">
+          <Modal.Container size="lg" scroll="outside">
             <Modal.Dialog>
               <Modal.Header>
                 <Modal.Heading>Edit webhook endpoint</Modal.Heading>

@@ -28,7 +28,11 @@ export class CreateWebsiteTargetDto {
   @IsUrl()
   base_url: string;
 
-  @ApiProperty({ required: false })
+  @ApiProperty({
+    required: false,
+    description: 'Free-form notes about this target',
+    example: 'Primary storefront, checked nightly',
+  })
   @IsOptional()
   @IsString()
   notes?: string;
@@ -37,6 +41,7 @@ export class CreateWebsiteTargetDto {
     required: false,
     description:
       'Override for the default page-ready wait budget used by block/challenge checks (ms).',
+    example: 15000,
   })
   @IsOptional()
   @IsInt()
@@ -47,6 +52,7 @@ export class CreateWebsiteTargetDto {
     required: false,
     description:
       'Override for the page-ready body-length heuristic (characters).',
+    example: 500,
   })
   @IsOptional()
   @IsInt()

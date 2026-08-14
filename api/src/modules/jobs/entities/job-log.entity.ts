@@ -24,7 +24,7 @@ export class JobLog {
   max_attempts: number | null;
 
   @ApiProperty({ nullable: true })
-  crawl_run_id: string | null;
+  workflow_run_id: string | null;
 
   @ApiProperty({ nullable: true })
   payload: Record<string, unknown> | null;

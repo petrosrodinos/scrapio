@@ -3,7 +3,7 @@ import { EmailAuthService } from '../services/email.service';
 import { RegisterEmailDto } from '../dto/register-email.dto';
 import { LoginEmailDto } from '../dto/login-email.dto';
 import { ApiTags, ApiOperation, ApiResponse, ApiBody } from '@nestjs/swagger';
-import { AuthResponse } from '../entities/auth-response.entity';
+import { AuthResponse, WaitlistResponse } from '../entities/auth-response.entity';
 import { WaitlistDto } from '../dto/waitlist.dto';
 
 @ApiTags('Email Authentication')
@@ -20,8 +20,8 @@ export class EmailAuthController {
         type: AuthResponse
     })
     @ApiResponse({
-        status: 409,
-        description: 'Conflict - User with this email already exists'
+        status: 400,
+        description: 'Bad Request - user with this email already exists, or registration could not be processed'
     })
     async registerWithEmail(@Body() dto: RegisterEmailDto) {
         try {
@@ -39,6 +39,10 @@ export class EmailAuthController {
         description: 'User logged in successfully',
         type: AuthResponse
     })
+    @ApiResponse({
+        status: 400,
+        description: 'Bad Request - invalid credentials'
+    })
     async loginWithEmail(@Body() dto: LoginEmailDto) {
         return this.authService.loginWithEmail(dto);
     }
@@ -48,8 +52,12 @@ export class EmailAuthController {
     @ApiBody({ type: WaitlistDto })
     @ApiResponse({
         status: 200,
-        description: 'User referred successfully',
-        type: AuthResponse
+        description: 'User added to the waitlist (or already on it)',
+        type: WaitlistResponse
+    })
+    @ApiResponse({
+        status: 400,
+        description: 'Bad Request - failed to waitlist user'
     })
     async waitlist(@Body() dto: WaitlistDto) {
         return this.authService.waitlist(dto);
