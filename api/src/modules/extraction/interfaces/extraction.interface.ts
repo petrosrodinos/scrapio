@@ -28,6 +28,18 @@ export interface AiUsageEntry {
   usage: AICostResponse;
 }
 
+/** One structured-extraction request to submit as a line item in an OpenAI batch. */
+export interface BatchExtractionItem {
+  content: string;
+  regexContent?: string | null;
+  contentLabel?: string;
+  instructions?: string | null;
+  sourceUrl?: string | null;
+  /** Set only for a PLAIN_SCRAPE PER_URL page-level item; omitted for run-level items. */
+  plainScrapedPageId?: string | null;
+  wantsMarkdown: boolean;
+}
+
 export interface ExtractionOutcome {
   structured_status: ExtractionFormatStatus | null;
   structured_data: Prisma.InputJsonValue | typeof Prisma.JsonNull;

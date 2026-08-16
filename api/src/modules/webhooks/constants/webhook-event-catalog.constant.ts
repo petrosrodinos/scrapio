@@ -66,6 +66,19 @@ export const WEBHOOK_EVENT_CATALOG: WebhookEventCatalogEntry[] = [
     sample_payload: buildSamplePayload('workflow_run.running', RunStatus.RUNNING),
   },
   {
+    event_type: WebhookEventType.WORKFLOW_RUN_AI_BATCH_SUBMITTED,
+    name: 'workflow_run.ai_batch_submitted',
+    label: 'AI batch submitted',
+    description:
+      'Structured-JSON extraction for this run was handed off to an OpenAI batch job (config has ' +
+      'ai_batch_mode enabled) instead of running immediately. Non-terminal — the run finishes, ' +
+      'and the succeeded/partial_success/failed event fires, once the batch completes.',
+    sample_payload: buildSamplePayload(
+      'workflow_run.ai_batch_submitted',
+      RunStatus.AWAITING_AI_BATCH,
+    ),
+  },
+  {
     event_type: WebhookEventType.WORKFLOW_RUN_SUCCEEDED,
     name: 'workflow_run.succeeded',
     label: 'Run succeeded',
@@ -119,6 +132,7 @@ export const WEBHOOK_EVENT_CATALOG: WebhookEventCatalogEntry[] = [
 export const RUN_STATUS_TO_WEBHOOK_EVENT: Record<RunStatus, WebhookEventType> = {
   [RunStatus.QUEUED]: WebhookEventType.WORKFLOW_RUN_QUEUED,
   [RunStatus.RUNNING]: WebhookEventType.WORKFLOW_RUN_RUNNING,
+  [RunStatus.AWAITING_AI_BATCH]: WebhookEventType.WORKFLOW_RUN_AI_BATCH_SUBMITTED,
   [RunStatus.SUCCESS]: WebhookEventType.WORKFLOW_RUN_SUCCEEDED,
   [RunStatus.PARTIAL_SUCCESS]: WebhookEventType.WORKFLOW_RUN_PARTIAL_SUCCESS,
   [RunStatus.FAILED]: WebhookEventType.WORKFLOW_RUN_FAILED,

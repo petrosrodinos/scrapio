@@ -92,6 +92,10 @@ export class BrowserAgentConfigsService {
         definition: dto.output_schema ?? null,
       });
 
+    if (dto.ai_batch_mode === true) {
+      this.validateAiBatchMode(outputFormats, extractionSchemaVersionId);
+    }
+
     return this.prisma.workflowConfig.create({
       data: {
         user_id: authUser.id,
@@ -104,6 +108,7 @@ export class BrowserAgentConfigsService {
         output_formats: outputFormats,
         extraction_schema_version_id: extractionSchemaVersionId,
         persist_results: dto.persist_results ?? true,
+        ai_batch_mode: dto.ai_batch_mode ?? false,
         ...this.toScheduleData(dto.schedule_cron),
       },
     });
@@ -137,6 +142,11 @@ export class BrowserAgentConfigsService {
       extractionSchemaVersionId = null;
     }
 
+    const effectiveAiBatchMode = dto.ai_batch_mode ?? config.ai_batch_mode;
+    if (effectiveAiBatchMode) {
+      this.validateAiBatchMode(outputFormats, extractionSchemaVersionId);
+    }
+
     const schedule =
       dto.schedule_cron !== undefined
         ? this.toScheduleData(dto.schedule_cron)
@@ -152,6 +162,7 @@ export class BrowserAgentConfigsService {
         ...(dto.output_formats !== undefined && { output_formats: outputFormats }),
         extraction_schema_version_id: extractionSchemaVersionId,
         ...(dto.persist_results !== undefined && { persist_results: dto.persist_results }),
+        ...(dto.ai_batch_mode !== undefined && { ai_batch_mode: dto.ai_batch_mode }),
         ...schedule,
       },
     });
@@ -214,6 +225,17 @@ export class BrowserAgentConfigsService {
     const error = getOutputSchemaDefinitionError(schema);
     if (error) {
       throw new BadRequestException(error);
+    }
+  }
+
+  private validateAiBatchMode(
+    outputFormats: OutputFormat[],
+    extractionSchemaVersionId: string | null,
+  ): void {
+    if (!outputFormats.includes(OutputFormat.STRUCTURED_JSON) || !extractionSchemaVersionId) {
+      throw new BadRequestException(
+        'AI batch mode requires a structured JSON output schema',
+      );
     }
   }
 

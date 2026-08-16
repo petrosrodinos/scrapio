@@ -252,6 +252,7 @@ exports.Prisma.WorkflowConfigScalarFieldEnum = {
   schedule_timezone: 'schedule_timezone',
   schedule_enabled: 'schedule_enabled',
   persist_results: 'persist_results',
+  ai_batch_mode: 'ai_batch_mode',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
@@ -332,6 +333,7 @@ exports.Prisma.WorkflowRunScalarFieldEnum = {
   extraction_scope: 'extraction_scope',
   output_formats: 'output_formats',
   extraction_schema_version_id: 'extraction_schema_version_id',
+  ai_batch_mode: 'ai_batch_mode',
   ai_usage: 'ai_usage',
   error_message: 'error_message',
   metadata: 'metadata',
@@ -408,6 +410,39 @@ exports.Prisma.ExtractionResultScalarFieldEnum = {
   ai_usage: 'ai_usage',
   created_at: 'created_at',
   updated_at: 'updated_at'
+};
+
+exports.Prisma.AiBatchJobScalarFieldEnum = {
+  id: 'id',
+  workflow_run_id: 'workflow_run_id',
+  user_id: 'user_id',
+  external_batch_id: 'external_batch_id',
+  input_file_id: 'input_file_id',
+  output_file_id: 'output_file_id',
+  error_file_id: 'error_file_id',
+  status: 'status',
+  request_count: 'request_count',
+  error_message: 'error_message',
+  submitted_at: 'submitted_at',
+  completed_at: 'completed_at',
+  last_polled_at: 'last_polled_at',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.AiBatchRequestItemScalarFieldEnum = {
+  id: 'id',
+  ai_batch_job_id: 'ai_batch_job_id',
+  custom_id: 'custom_id',
+  plain_scraped_page_id: 'plain_scraped_page_id',
+  source_url: 'source_url',
+  content_label: 'content_label',
+  content: 'content',
+  instructions: 'instructions',
+  wants_markdown: 'wants_markdown',
+  regex_data: 'regex_data',
+  status: 'status',
+  created_at: 'created_at'
 };
 
 exports.Prisma.DiagnosticsPackageScalarFieldEnum = {
@@ -540,6 +575,7 @@ exports.AuthRole = exports.$Enums.AuthRole = {
 exports.WebhookEventType = exports.$Enums.WebhookEventType = {
   WORKFLOW_RUN_QUEUED: 'WORKFLOW_RUN_QUEUED',
   WORKFLOW_RUN_RUNNING: 'WORKFLOW_RUN_RUNNING',
+  WORKFLOW_RUN_AI_BATCH_SUBMITTED: 'WORKFLOW_RUN_AI_BATCH_SUBMITTED',
   WORKFLOW_RUN_SUCCEEDED: 'WORKFLOW_RUN_SUCCEEDED',
   WORKFLOW_RUN_PARTIAL_SUCCESS: 'WORKFLOW_RUN_PARTIAL_SUCCESS',
   WORKFLOW_RUN_FAILED: 'WORKFLOW_RUN_FAILED',
@@ -661,6 +697,7 @@ exports.RunTrigger = exports.$Enums.RunTrigger = {
 exports.RunStatus = exports.$Enums.RunStatus = {
   QUEUED: 'QUEUED',
   RUNNING: 'RUNNING',
+  AWAITING_AI_BATCH: 'AWAITING_AI_BATCH',
   SUCCESS: 'SUCCESS',
   PARTIAL_SUCCESS: 'PARTIAL_SUCCESS',
   FAILED: 'FAILED',
@@ -671,6 +708,15 @@ exports.ExtractionFormatStatus = exports.$Enums.ExtractionFormatStatus = {
   VALID: 'VALID',
   INVALID: 'INVALID',
   FAILED: 'FAILED'
+};
+
+exports.AiBatchJobStatus = exports.$Enums.AiBatchJobStatus = {
+  SUBMITTED: 'SUBMITTED',
+  IN_PROGRESS: 'IN_PROGRESS',
+  COMPLETED: 'COMPLETED',
+  FAILED: 'FAILED',
+  EXPIRED: 'EXPIRED',
+  CANCELLED: 'CANCELLED'
 };
 
 exports.DiagnosticsArtifactKind = exports.$Enums.DiagnosticsArtifactKind = {
@@ -752,6 +798,8 @@ exports.Prisma.ModelName = {
   ExtractionSchemaVersion: 'ExtractionSchemaVersion',
   PlainScrapedPage: 'PlainScrapedPage',
   ExtractionResult: 'ExtractionResult',
+  AiBatchJob: 'AiBatchJob',
+  AiBatchRequestItem: 'AiBatchRequestItem',
   DiagnosticsPackage: 'DiagnosticsPackage',
   DiagnosticsArtifact: 'DiagnosticsArtifact',
   JobLog: 'JobLog',

@@ -12,6 +12,7 @@ import {
   websiteTargetUserWhere,
 } from '@/shared/utils/user/user-scope.utils';
 import {
+  OutputFormat,
   Prisma,
   RunStatus,
   ScraperStatus,
@@ -98,6 +99,14 @@ export class ScrapersService {
 
     if (dto.persist_results === false) {
       await this.ensureForgetModeHasSubscriber(authUser.id);
+    }
+
+    if (dto.ai_batch_mode === true) {
+      // A new scraper has no version yet, so output_formats/extraction_schema_version_id (set
+      // via the scraper-generation flow, not this endpoint) can never satisfy the requirement.
+      throw new BadRequestException(
+        'AI batch mode requires an active version with a STRUCTURED_JSON output schema; enable it via update once one exists',
+      );
     }
 
     const schedule = this.toScheduleData(dto.schedule_cron);
@@ -236,6 +245,10 @@ export class ScrapersService {
       await this.ensureForgetModeHasSubscriber(authUser.id);
     }
 
+    if (dto.ai_batch_mode === true) {
+      await this.ensureAiBatchModeSupported(scraper.active_version_id);
+    }
+
     const schedule =
       dto.schedule_cron !== undefined
         ? this.toScheduleData(dto.schedule_cron)
@@ -254,6 +267,9 @@ export class ScrapersService {
           }),
           ...(dto.persist_results !== undefined && {
             persist_results: dto.persist_results,
+          }),
+          ...(dto.ai_batch_mode !== undefined && {
+            ai_batch_mode: dto.ai_batch_mode,
           }),
           ...schedule,
         },
@@ -303,6 +319,9 @@ export class ScrapersService {
           }),
           ...(dto.persist_results !== undefined && {
             persist_results: dto.persist_results,
+          }),
+          ...(dto.ai_batch_mode !== undefined && {
+            ai_batch_mode: dto.ai_batch_mode,
           }),
           ...schedule,
         },
@@ -405,6 +424,27 @@ export class ScrapersService {
     if (subscriberCount === 0) {
       throw new BadRequestException(
         'persist_results: false requires an active webhook endpoint subscribed to a run-finished event (succeeded, partial_success, failed, or cancelled)',
+      );
+    }
+  }
+
+  private async ensureAiBatchModeSupported(
+    activeVersionId: string | null,
+  ): Promise<void> {
+    const activeVersion = activeVersionId
+      ? await this.prisma.scraperVersion.findUnique({
+          where: { id: activeVersionId },
+          select: { output_formats: true, extraction_schema_version_id: true },
+        })
+      : null;
+
+    const hasStructuredSchema =
+      !!activeVersion?.output_formats.includes(OutputFormat.STRUCTURED_JSON) &&
+      !!activeVersion?.extraction_schema_version_id;
+
+    if (!hasStructuredSchema) {
+      throw new BadRequestException(
+        'AI batch mode requires the active version to have STRUCTURED_JSON output with a linked schema',
       );
     }
   }

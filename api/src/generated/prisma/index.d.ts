@@ -109,6 +109,16 @@ export type PlainScrapedPage = $Result.DefaultSelection<Prisma.$PlainScrapedPage
  */
 export type ExtractionResult = $Result.DefaultSelection<Prisma.$ExtractionResultPayload>
 /**
+ * Model AiBatchJob
+ * 
+ */
+export type AiBatchJob = $Result.DefaultSelection<Prisma.$AiBatchJobPayload>
+/**
+ * Model AiBatchRequestItem
+ * 
+ */
+export type AiBatchRequestItem = $Result.DefaultSelection<Prisma.$AiBatchRequestItemPayload>
+/**
  * Model DiagnosticsPackage
  * 
  */
@@ -234,6 +244,7 @@ export type ScraperHealth = (typeof ScraperHealth)[keyof typeof ScraperHealth]
 export const RunStatus: {
   QUEUED: 'QUEUED',
   RUNNING: 'RUNNING',
+  AWAITING_AI_BATCH: 'AWAITING_AI_BATCH',
   SUCCESS: 'SUCCESS',
   PARTIAL_SUCCESS: 'PARTIAL_SUCCESS',
   FAILED: 'FAILED',
@@ -241,6 +252,18 @@ export const RunStatus: {
 };
 
 export type RunStatus = (typeof RunStatus)[keyof typeof RunStatus]
+
+
+export const AiBatchJobStatus: {
+  SUBMITTED: 'SUBMITTED',
+  IN_PROGRESS: 'IN_PROGRESS',
+  COMPLETED: 'COMPLETED',
+  FAILED: 'FAILED',
+  EXPIRED: 'EXPIRED',
+  CANCELLED: 'CANCELLED'
+};
+
+export type AiBatchJobStatus = (typeof AiBatchJobStatus)[keyof typeof AiBatchJobStatus]
 
 
 export const DiagnosticsMode: {
@@ -381,6 +404,7 @@ export type IntegrationType = (typeof IntegrationType)[keyof typeof IntegrationT
 export const WebhookEventType: {
   WORKFLOW_RUN_QUEUED: 'WORKFLOW_RUN_QUEUED',
   WORKFLOW_RUN_RUNNING: 'WORKFLOW_RUN_RUNNING',
+  WORKFLOW_RUN_AI_BATCH_SUBMITTED: 'WORKFLOW_RUN_AI_BATCH_SUBMITTED',
   WORKFLOW_RUN_SUCCEEDED: 'WORKFLOW_RUN_SUCCEEDED',
   WORKFLOW_RUN_PARTIAL_SUCCESS: 'WORKFLOW_RUN_PARTIAL_SUCCESS',
   WORKFLOW_RUN_FAILED: 'WORKFLOW_RUN_FAILED',
@@ -460,6 +484,10 @@ export const ScraperHealth: typeof $Enums.ScraperHealth
 export type RunStatus = $Enums.RunStatus
 
 export const RunStatus: typeof $Enums.RunStatus
+
+export type AiBatchJobStatus = $Enums.AiBatchJobStatus
+
+export const AiBatchJobStatus: typeof $Enums.AiBatchJobStatus
 
 export type DiagnosticsMode = $Enums.DiagnosticsMode
 
@@ -827,6 +855,26 @@ export class PrismaClient<
     * ```
     */
   get extractionResult(): Prisma.ExtractionResultDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.aiBatchJob`: Exposes CRUD operations for the **AiBatchJob** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AiBatchJobs
+    * const aiBatchJobs = await prisma.aiBatchJob.findMany()
+    * ```
+    */
+  get aiBatchJob(): Prisma.AiBatchJobDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.aiBatchRequestItem`: Exposes CRUD operations for the **AiBatchRequestItem** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AiBatchRequestItems
+    * const aiBatchRequestItems = await prisma.aiBatchRequestItem.findMany()
+    * ```
+    */
+  get aiBatchRequestItem(): Prisma.AiBatchRequestItemDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.diagnosticsPackage`: Exposes CRUD operations for the **DiagnosticsPackage** model.
@@ -1340,6 +1388,8 @@ export namespace Prisma {
     ExtractionSchemaVersion: 'ExtractionSchemaVersion',
     PlainScrapedPage: 'PlainScrapedPage',
     ExtractionResult: 'ExtractionResult',
+    AiBatchJob: 'AiBatchJob',
+    AiBatchRequestItem: 'AiBatchRequestItem',
     DiagnosticsPackage: 'DiagnosticsPackage',
     DiagnosticsArtifact: 'DiagnosticsArtifact',
     JobLog: 'JobLog',
@@ -1361,7 +1411,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "passwordResetToken" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "document" | "websiteTarget" | "blockRule" | "workflowConfig" | "scraperGenerationRun" | "computerUseStep" | "scraperVersion" | "scraperExecutionTrace" | "workflowRun" | "extractedItem" | "extractionSchema" | "extractionSchemaVersion" | "plainScrapedPage" | "extractionResult" | "diagnosticsPackage" | "diagnosticsArtifact" | "jobLog" | "notification" | "userIntegration" | "platformConfig"
+      modelProps: "user" | "passwordResetToken" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "document" | "websiteTarget" | "blockRule" | "workflowConfig" | "scraperGenerationRun" | "computerUseStep" | "scraperVersion" | "scraperExecutionTrace" | "workflowRun" | "extractedItem" | "extractionSchema" | "extractionSchemaVersion" | "plainScrapedPage" | "extractionResult" | "aiBatchJob" | "aiBatchRequestItem" | "diagnosticsPackage" | "diagnosticsArtifact" | "jobLog" | "notification" | "userIntegration" | "platformConfig"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2771,6 +2821,154 @@ export namespace Prisma {
           }
         }
       }
+      AiBatchJob: {
+        payload: Prisma.$AiBatchJobPayload<ExtArgs>
+        fields: Prisma.AiBatchJobFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AiBatchJobFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AiBatchJobPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AiBatchJobFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AiBatchJobPayload>
+          }
+          findFirst: {
+            args: Prisma.AiBatchJobFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AiBatchJobPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AiBatchJobFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AiBatchJobPayload>
+          }
+          findMany: {
+            args: Prisma.AiBatchJobFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AiBatchJobPayload>[]
+          }
+          create: {
+            args: Prisma.AiBatchJobCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AiBatchJobPayload>
+          }
+          createMany: {
+            args: Prisma.AiBatchJobCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AiBatchJobCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AiBatchJobPayload>[]
+          }
+          delete: {
+            args: Prisma.AiBatchJobDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AiBatchJobPayload>
+          }
+          update: {
+            args: Prisma.AiBatchJobUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AiBatchJobPayload>
+          }
+          deleteMany: {
+            args: Prisma.AiBatchJobDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AiBatchJobUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.AiBatchJobUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AiBatchJobPayload>[]
+          }
+          upsert: {
+            args: Prisma.AiBatchJobUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AiBatchJobPayload>
+          }
+          aggregate: {
+            args: Prisma.AiBatchJobAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAiBatchJob>
+          }
+          groupBy: {
+            args: Prisma.AiBatchJobGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AiBatchJobGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AiBatchJobCountArgs<ExtArgs>
+            result: $Utils.Optional<AiBatchJobCountAggregateOutputType> | number
+          }
+        }
+      }
+      AiBatchRequestItem: {
+        payload: Prisma.$AiBatchRequestItemPayload<ExtArgs>
+        fields: Prisma.AiBatchRequestItemFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AiBatchRequestItemFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AiBatchRequestItemPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AiBatchRequestItemFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AiBatchRequestItemPayload>
+          }
+          findFirst: {
+            args: Prisma.AiBatchRequestItemFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AiBatchRequestItemPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AiBatchRequestItemFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AiBatchRequestItemPayload>
+          }
+          findMany: {
+            args: Prisma.AiBatchRequestItemFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AiBatchRequestItemPayload>[]
+          }
+          create: {
+            args: Prisma.AiBatchRequestItemCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AiBatchRequestItemPayload>
+          }
+          createMany: {
+            args: Prisma.AiBatchRequestItemCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AiBatchRequestItemCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AiBatchRequestItemPayload>[]
+          }
+          delete: {
+            args: Prisma.AiBatchRequestItemDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AiBatchRequestItemPayload>
+          }
+          update: {
+            args: Prisma.AiBatchRequestItemUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AiBatchRequestItemPayload>
+          }
+          deleteMany: {
+            args: Prisma.AiBatchRequestItemDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AiBatchRequestItemUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.AiBatchRequestItemUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AiBatchRequestItemPayload>[]
+          }
+          upsert: {
+            args: Prisma.AiBatchRequestItemUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AiBatchRequestItemPayload>
+          }
+          aggregate: {
+            args: Prisma.AiBatchRequestItemAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAiBatchRequestItem>
+          }
+          groupBy: {
+            args: Prisma.AiBatchRequestItemGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AiBatchRequestItemGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AiBatchRequestItemCountArgs<ExtArgs>
+            result: $Utils.Optional<AiBatchRequestItemCountAggregateOutputType> | number
+          }
+        }
+      }
       DiagnosticsPackage: {
         payload: Prisma.$DiagnosticsPackagePayload<ExtArgs>
         fields: Prisma.DiagnosticsPackageFieldRefs
@@ -3342,6 +3540,8 @@ export namespace Prisma {
     extractionSchemaVersion?: ExtractionSchemaVersionOmit
     plainScrapedPage?: PlainScrapedPageOmit
     extractionResult?: ExtractionResultOmit
+    aiBatchJob?: AiBatchJobOmit
+    aiBatchRequestItem?: AiBatchRequestItemOmit
     diagnosticsPackage?: DiagnosticsPackageOmit
     diagnosticsArtifact?: DiagnosticsArtifactOmit
     jobLog?: JobLogOmit
@@ -3964,6 +4164,68 @@ export namespace Prisma {
    */
   export type ExtractionSchemaVersionCountOutputTypeCountExtraction_resultsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ExtractionResultWhereInput
+  }
+
+
+  /**
+   * Count Type PlainScrapedPageCountOutputType
+   */
+
+  export type PlainScrapedPageCountOutputType = {
+    ai_batch_request_items: number
+  }
+
+  export type PlainScrapedPageCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    ai_batch_request_items?: boolean | PlainScrapedPageCountOutputTypeCountAi_batch_request_itemsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * PlainScrapedPageCountOutputType without action
+   */
+  export type PlainScrapedPageCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlainScrapedPageCountOutputType
+     */
+    select?: PlainScrapedPageCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * PlainScrapedPageCountOutputType without action
+   */
+  export type PlainScrapedPageCountOutputTypeCountAi_batch_request_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AiBatchRequestItemWhereInput
+  }
+
+
+  /**
+   * Count Type AiBatchJobCountOutputType
+   */
+
+  export type AiBatchJobCountOutputType = {
+    items: number
+  }
+
+  export type AiBatchJobCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    items?: boolean | AiBatchJobCountOutputTypeCountItemsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * AiBatchJobCountOutputType without action
+   */
+  export type AiBatchJobCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiBatchJobCountOutputType
+     */
+    select?: AiBatchJobCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * AiBatchJobCountOutputType without action
+   */
+  export type AiBatchJobCountOutputTypeCountItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AiBatchRequestItemWhereInput
   }
 
 
@@ -13624,6 +13886,7 @@ export namespace Prisma {
     schedule_timezone: string | null
     schedule_enabled: boolean | null
     persist_results: boolean | null
+    ai_batch_mode: boolean | null
     created_at: Date | null
     updated_at: Date | null
   }
@@ -13654,6 +13917,7 @@ export namespace Prisma {
     schedule_timezone: string | null
     schedule_enabled: boolean | null
     persist_results: boolean | null
+    ai_batch_mode: boolean | null
     created_at: Date | null
     updated_at: Date | null
   }
@@ -13686,6 +13950,7 @@ export namespace Prisma {
     schedule_timezone: number
     schedule_enabled: number
     persist_results: number
+    ai_batch_mode: number
     created_at: number
     updated_at: number
     _all: number
@@ -13734,6 +13999,7 @@ export namespace Prisma {
     schedule_timezone?: true
     schedule_enabled?: true
     persist_results?: true
+    ai_batch_mode?: true
     created_at?: true
     updated_at?: true
   }
@@ -13764,6 +14030,7 @@ export namespace Prisma {
     schedule_timezone?: true
     schedule_enabled?: true
     persist_results?: true
+    ai_batch_mode?: true
     created_at?: true
     updated_at?: true
   }
@@ -13796,6 +14063,7 @@ export namespace Prisma {
     schedule_timezone?: true
     schedule_enabled?: true
     persist_results?: true
+    ai_batch_mode?: true
     created_at?: true
     updated_at?: true
     _all?: true
@@ -13915,6 +14183,7 @@ export namespace Prisma {
     schedule_timezone: string | null
     schedule_enabled: boolean
     persist_results: boolean
+    ai_batch_mode: boolean
     created_at: Date
     updated_at: Date
     _count: WorkflowConfigCountAggregateOutputType | null
@@ -13966,6 +14235,7 @@ export namespace Prisma {
     schedule_timezone?: boolean
     schedule_enabled?: boolean
     persist_results?: boolean
+    ai_batch_mode?: boolean
     created_at?: boolean
     updated_at?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -14009,6 +14279,7 @@ export namespace Prisma {
     schedule_timezone?: boolean
     schedule_enabled?: boolean
     persist_results?: boolean
+    ai_batch_mode?: boolean
     created_at?: boolean
     updated_at?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -14045,6 +14316,7 @@ export namespace Prisma {
     schedule_timezone?: boolean
     schedule_enabled?: boolean
     persist_results?: boolean
+    ai_batch_mode?: boolean
     created_at?: boolean
     updated_at?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -14081,11 +14353,12 @@ export namespace Prisma {
     schedule_timezone?: boolean
     schedule_enabled?: boolean
     persist_results?: boolean
+    ai_batch_mode?: boolean
     created_at?: boolean
     updated_at?: boolean
   }
 
-  export type WorkflowConfigOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "type" | "name" | "description" | "website_target_id" | "active_version_id" | "version_count" | "status" | "self_healing_enabled" | "diagnostics_mode" | "health" | "success_rate" | "avg_runtime_ms" | "consecutive_failures" | "last_success_at" | "last_failure_at" | "url" | "max_steps" | "urls" | "extraction_scope" | "output_formats" | "extraction_schema_version_id" | "schedule_cron" | "schedule_timezone" | "schedule_enabled" | "persist_results" | "created_at" | "updated_at", ExtArgs["result"]["workflowConfig"]>
+  export type WorkflowConfigOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "type" | "name" | "description" | "website_target_id" | "active_version_id" | "version_count" | "status" | "self_healing_enabled" | "diagnostics_mode" | "health" | "success_rate" | "avg_runtime_ms" | "consecutive_failures" | "last_success_at" | "last_failure_at" | "url" | "max_steps" | "urls" | "extraction_scope" | "output_formats" | "extraction_schema_version_id" | "schedule_cron" | "schedule_timezone" | "schedule_enabled" | "persist_results" | "ai_batch_mode" | "created_at" | "updated_at", ExtArgs["result"]["workflowConfig"]>
   export type WorkflowConfigInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     website_target?: boolean | WorkflowConfig$website_targetArgs<ExtArgs>
@@ -14154,6 +14427,7 @@ export namespace Prisma {
       schedule_timezone: string | null
       schedule_enabled: boolean
       persist_results: boolean
+      ai_batch_mode: boolean
       created_at: Date
       updated_at: Date
     }, ExtArgs["result"]["workflowConfig"]>
@@ -14616,6 +14890,7 @@ export namespace Prisma {
     readonly schedule_timezone: FieldRef<"WorkflowConfig", 'String'>
     readonly schedule_enabled: FieldRef<"WorkflowConfig", 'Boolean'>
     readonly persist_results: FieldRef<"WorkflowConfig", 'Boolean'>
+    readonly ai_batch_mode: FieldRef<"WorkflowConfig", 'Boolean'>
     readonly created_at: FieldRef<"WorkflowConfig", 'DateTime'>
     readonly updated_at: FieldRef<"WorkflowConfig", 'DateTime'>
   }
@@ -20230,6 +20505,7 @@ export namespace Prisma {
     max_steps: number | null
     extraction_scope: $Enums.ExtractionScope | null
     extraction_schema_version_id: string | null
+    ai_batch_mode: boolean | null
     error_message: string | null
     persist_results: boolean | null
     results_purged_at: Date | null
@@ -20253,6 +20529,7 @@ export namespace Prisma {
     max_steps: number | null
     extraction_scope: $Enums.ExtractionScope | null
     extraction_schema_version_id: string | null
+    ai_batch_mode: boolean | null
     error_message: string | null
     persist_results: boolean | null
     results_purged_at: Date | null
@@ -20281,6 +20558,7 @@ export namespace Prisma {
     extraction_scope: number
     output_formats: number
     extraction_schema_version_id: number
+    ai_batch_mode: number
     ai_usage: number
     error_message: number
     metadata: number
@@ -20318,6 +20596,7 @@ export namespace Prisma {
     max_steps?: true
     extraction_scope?: true
     extraction_schema_version_id?: true
+    ai_batch_mode?: true
     error_message?: true
     persist_results?: true
     results_purged_at?: true
@@ -20341,6 +20620,7 @@ export namespace Prisma {
     max_steps?: true
     extraction_scope?: true
     extraction_schema_version_id?: true
+    ai_batch_mode?: true
     error_message?: true
     persist_results?: true
     results_purged_at?: true
@@ -20369,6 +20649,7 @@ export namespace Prisma {
     extraction_scope?: true
     output_formats?: true
     extraction_schema_version_id?: true
+    ai_batch_mode?: true
     ai_usage?: true
     error_message?: true
     metadata?: true
@@ -20486,6 +20767,7 @@ export namespace Prisma {
     extraction_scope: $Enums.ExtractionScope | null
     output_formats: $Enums.OutputFormat[]
     extraction_schema_version_id: string | null
+    ai_batch_mode: boolean
     ai_usage: JsonValue | null
     error_message: string | null
     metadata: JsonValue | null
@@ -20535,6 +20817,7 @@ export namespace Prisma {
     extraction_scope?: boolean
     output_formats?: boolean
     extraction_schema_version_id?: boolean
+    ai_batch_mode?: boolean
     ai_usage?: boolean
     error_message?: boolean
     metadata?: boolean
@@ -20558,6 +20841,7 @@ export namespace Prisma {
     execution_traces?: boolean | WorkflowRun$execution_tracesArgs<ExtArgs>
     pages?: boolean | WorkflowRun$pagesArgs<ExtArgs>
     extraction_result?: boolean | WorkflowRun$extraction_resultArgs<ExtArgs>
+    ai_batch_job?: boolean | WorkflowRun$ai_batch_jobArgs<ExtArgs>
     _count?: boolean | WorkflowRunCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["workflowRun"]>
 
@@ -20579,6 +20863,7 @@ export namespace Prisma {
     extraction_scope?: boolean
     output_formats?: boolean
     extraction_schema_version_id?: boolean
+    ai_batch_mode?: boolean
     ai_usage?: boolean
     error_message?: boolean
     metadata?: boolean
@@ -20614,6 +20899,7 @@ export namespace Prisma {
     extraction_scope?: boolean
     output_formats?: boolean
     extraction_schema_version_id?: boolean
+    ai_batch_mode?: boolean
     ai_usage?: boolean
     error_message?: boolean
     metadata?: boolean
@@ -20649,6 +20935,7 @@ export namespace Prisma {
     extraction_scope?: boolean
     output_formats?: boolean
     extraction_schema_version_id?: boolean
+    ai_batch_mode?: boolean
     ai_usage?: boolean
     error_message?: boolean
     metadata?: boolean
@@ -20661,7 +20948,7 @@ export namespace Prisma {
     updated_at?: boolean
   }
 
-  export type WorkflowRunOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "workflow_config_id" | "user_id" | "type" | "trigger" | "status" | "website_target_id" | "scraper_version_id" | "url" | "max_steps" | "visited_urls" | "browser_actions" | "collected_data" | "urls" | "extraction_scope" | "output_formats" | "extraction_schema_version_id" | "ai_usage" | "error_message" | "metadata" | "persist_results" | "results_purged_at" | "started_at" | "finished_at" | "duration_ms" | "created_at" | "updated_at", ExtArgs["result"]["workflowRun"]>
+  export type WorkflowRunOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "workflow_config_id" | "user_id" | "type" | "trigger" | "status" | "website_target_id" | "scraper_version_id" | "url" | "max_steps" | "visited_urls" | "browser_actions" | "collected_data" | "urls" | "extraction_scope" | "output_formats" | "extraction_schema_version_id" | "ai_batch_mode" | "ai_usage" | "error_message" | "metadata" | "persist_results" | "results_purged_at" | "started_at" | "finished_at" | "duration_ms" | "created_at" | "updated_at", ExtArgs["result"]["workflowRun"]>
   export type WorkflowRunInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workflow_config?: boolean | WorkflowConfigDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -20676,6 +20963,7 @@ export namespace Prisma {
     execution_traces?: boolean | WorkflowRun$execution_tracesArgs<ExtArgs>
     pages?: boolean | WorkflowRun$pagesArgs<ExtArgs>
     extraction_result?: boolean | WorkflowRun$extraction_resultArgs<ExtArgs>
+    ai_batch_job?: boolean | WorkflowRun$ai_batch_jobArgs<ExtArgs>
     _count?: boolean | WorkflowRunCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type WorkflowRunIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -20709,6 +20997,7 @@ export namespace Prisma {
       execution_traces: Prisma.$ScraperExecutionTracePayload<ExtArgs>[]
       pages: Prisma.$PlainScrapedPagePayload<ExtArgs>[]
       extraction_result: Prisma.$ExtractionResultPayload<ExtArgs> | null
+      ai_batch_job: Prisma.$AiBatchJobPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -20728,6 +21017,7 @@ export namespace Prisma {
       extraction_scope: $Enums.ExtractionScope | null
       output_formats: $Enums.OutputFormat[]
       extraction_schema_version_id: string | null
+      ai_batch_mode: boolean
       ai_usage: Prisma.JsonValue | null
       error_message: string | null
       metadata: Prisma.JsonValue | null
@@ -21145,6 +21435,7 @@ export namespace Prisma {
     execution_traces<T extends WorkflowRun$execution_tracesArgs<ExtArgs> = {}>(args?: Subset<T, WorkflowRun$execution_tracesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ScraperExecutionTracePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     pages<T extends WorkflowRun$pagesArgs<ExtArgs> = {}>(args?: Subset<T, WorkflowRun$pagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlainScrapedPagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     extraction_result<T extends WorkflowRun$extraction_resultArgs<ExtArgs> = {}>(args?: Subset<T, WorkflowRun$extraction_resultArgs<ExtArgs>>): Prisma__ExtractionResultClient<$Result.GetResult<Prisma.$ExtractionResultPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    ai_batch_job<T extends WorkflowRun$ai_batch_jobArgs<ExtArgs> = {}>(args?: Subset<T, WorkflowRun$ai_batch_jobArgs<ExtArgs>>): Prisma__AiBatchJobClient<$Result.GetResult<Prisma.$AiBatchJobPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -21191,6 +21482,7 @@ export namespace Prisma {
     readonly extraction_scope: FieldRef<"WorkflowRun", 'ExtractionScope'>
     readonly output_formats: FieldRef<"WorkflowRun", 'OutputFormat[]'>
     readonly extraction_schema_version_id: FieldRef<"WorkflowRun", 'String'>
+    readonly ai_batch_mode: FieldRef<"WorkflowRun", 'Boolean'>
     readonly ai_usage: FieldRef<"WorkflowRun", 'Json'>
     readonly error_message: FieldRef<"WorkflowRun", 'String'>
     readonly metadata: FieldRef<"WorkflowRun", 'Json'>
@@ -21833,6 +22125,25 @@ export namespace Prisma {
      */
     include?: ExtractionResultInclude<ExtArgs> | null
     where?: ExtractionResultWhereInput
+  }
+
+  /**
+   * WorkflowRun.ai_batch_job
+   */
+  export type WorkflowRun$ai_batch_jobArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiBatchJob
+     */
+    select?: AiBatchJobSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiBatchJob
+     */
+    omit?: AiBatchJobOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiBatchJobInclude<ExtArgs> | null
+    where?: AiBatchJobWhereInput
   }
 
   /**
@@ -25678,6 +25989,8 @@ export namespace Prisma {
     created_at?: boolean
     workflow_run?: boolean | WorkflowRunDefaultArgs<ExtArgs>
     extraction_result?: boolean | PlainScrapedPage$extraction_resultArgs<ExtArgs>
+    ai_batch_request_items?: boolean | PlainScrapedPage$ai_batch_request_itemsArgs<ExtArgs>
+    _count?: boolean | PlainScrapedPageCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["plainScrapedPage"]>
 
   export type PlainScrapedPageSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -25731,6 +26044,8 @@ export namespace Prisma {
   export type PlainScrapedPageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workflow_run?: boolean | WorkflowRunDefaultArgs<ExtArgs>
     extraction_result?: boolean | PlainScrapedPage$extraction_resultArgs<ExtArgs>
+    ai_batch_request_items?: boolean | PlainScrapedPage$ai_batch_request_itemsArgs<ExtArgs>
+    _count?: boolean | PlainScrapedPageCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type PlainScrapedPageIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workflow_run?: boolean | WorkflowRunDefaultArgs<ExtArgs>
@@ -25744,6 +26059,7 @@ export namespace Prisma {
     objects: {
       workflow_run: Prisma.$WorkflowRunPayload<ExtArgs>
       extraction_result: Prisma.$ExtractionResultPayload<ExtArgs> | null
+      ai_batch_request_items: Prisma.$AiBatchRequestItemPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -26154,6 +26470,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     workflow_run<T extends WorkflowRunDefaultArgs<ExtArgs> = {}>(args?: Subset<T, WorkflowRunDefaultArgs<ExtArgs>>): Prisma__WorkflowRunClient<$Result.GetResult<Prisma.$WorkflowRunPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     extraction_result<T extends PlainScrapedPage$extraction_resultArgs<ExtArgs> = {}>(args?: Subset<T, PlainScrapedPage$extraction_resultArgs<ExtArgs>>): Prisma__ExtractionResultClient<$Result.GetResult<Prisma.$ExtractionResultPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    ai_batch_request_items<T extends PlainScrapedPage$ai_batch_request_itemsArgs<ExtArgs> = {}>(args?: Subset<T, PlainScrapedPage$ai_batch_request_itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AiBatchRequestItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -26607,6 +26924,30 @@ export namespace Prisma {
      */
     include?: ExtractionResultInclude<ExtArgs> | null
     where?: ExtractionResultWhereInput
+  }
+
+  /**
+   * PlainScrapedPage.ai_batch_request_items
+   */
+  export type PlainScrapedPage$ai_batch_request_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiBatchRequestItem
+     */
+    select?: AiBatchRequestItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiBatchRequestItem
+     */
+    omit?: AiBatchRequestItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiBatchRequestItemInclude<ExtArgs> | null
+    where?: AiBatchRequestItemWhereInput
+    orderBy?: AiBatchRequestItemOrderByWithRelationInput | AiBatchRequestItemOrderByWithRelationInput[]
+    cursor?: AiBatchRequestItemWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AiBatchRequestItemScalarFieldEnum | AiBatchRequestItemScalarFieldEnum[]
   }
 
   /**
@@ -27900,6 +28241,2430 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: ExtractionResultInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model AiBatchJob
+   */
+
+  export type AggregateAiBatchJob = {
+    _count: AiBatchJobCountAggregateOutputType | null
+    _avg: AiBatchJobAvgAggregateOutputType | null
+    _sum: AiBatchJobSumAggregateOutputType | null
+    _min: AiBatchJobMinAggregateOutputType | null
+    _max: AiBatchJobMaxAggregateOutputType | null
+  }
+
+  export type AiBatchJobAvgAggregateOutputType = {
+    request_count: number | null
+  }
+
+  export type AiBatchJobSumAggregateOutputType = {
+    request_count: number | null
+  }
+
+  export type AiBatchJobMinAggregateOutputType = {
+    id: string | null
+    workflow_run_id: string | null
+    user_id: string | null
+    external_batch_id: string | null
+    input_file_id: string | null
+    output_file_id: string | null
+    error_file_id: string | null
+    status: $Enums.AiBatchJobStatus | null
+    request_count: number | null
+    error_message: string | null
+    submitted_at: Date | null
+    completed_at: Date | null
+    last_polled_at: Date | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type AiBatchJobMaxAggregateOutputType = {
+    id: string | null
+    workflow_run_id: string | null
+    user_id: string | null
+    external_batch_id: string | null
+    input_file_id: string | null
+    output_file_id: string | null
+    error_file_id: string | null
+    status: $Enums.AiBatchJobStatus | null
+    request_count: number | null
+    error_message: string | null
+    submitted_at: Date | null
+    completed_at: Date | null
+    last_polled_at: Date | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type AiBatchJobCountAggregateOutputType = {
+    id: number
+    workflow_run_id: number
+    user_id: number
+    external_batch_id: number
+    input_file_id: number
+    output_file_id: number
+    error_file_id: number
+    status: number
+    request_count: number
+    error_message: number
+    submitted_at: number
+    completed_at: number
+    last_polled_at: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type AiBatchJobAvgAggregateInputType = {
+    request_count?: true
+  }
+
+  export type AiBatchJobSumAggregateInputType = {
+    request_count?: true
+  }
+
+  export type AiBatchJobMinAggregateInputType = {
+    id?: true
+    workflow_run_id?: true
+    user_id?: true
+    external_batch_id?: true
+    input_file_id?: true
+    output_file_id?: true
+    error_file_id?: true
+    status?: true
+    request_count?: true
+    error_message?: true
+    submitted_at?: true
+    completed_at?: true
+    last_polled_at?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type AiBatchJobMaxAggregateInputType = {
+    id?: true
+    workflow_run_id?: true
+    user_id?: true
+    external_batch_id?: true
+    input_file_id?: true
+    output_file_id?: true
+    error_file_id?: true
+    status?: true
+    request_count?: true
+    error_message?: true
+    submitted_at?: true
+    completed_at?: true
+    last_polled_at?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type AiBatchJobCountAggregateInputType = {
+    id?: true
+    workflow_run_id?: true
+    user_id?: true
+    external_batch_id?: true
+    input_file_id?: true
+    output_file_id?: true
+    error_file_id?: true
+    status?: true
+    request_count?: true
+    error_message?: true
+    submitted_at?: true
+    completed_at?: true
+    last_polled_at?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type AiBatchJobAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AiBatchJob to aggregate.
+     */
+    where?: AiBatchJobWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AiBatchJobs to fetch.
+     */
+    orderBy?: AiBatchJobOrderByWithRelationInput | AiBatchJobOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AiBatchJobWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AiBatchJobs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AiBatchJobs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AiBatchJobs
+    **/
+    _count?: true | AiBatchJobCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AiBatchJobAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AiBatchJobSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AiBatchJobMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AiBatchJobMaxAggregateInputType
+  }
+
+  export type GetAiBatchJobAggregateType<T extends AiBatchJobAggregateArgs> = {
+        [P in keyof T & keyof AggregateAiBatchJob]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAiBatchJob[P]>
+      : GetScalarType<T[P], AggregateAiBatchJob[P]>
+  }
+
+
+
+
+  export type AiBatchJobGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AiBatchJobWhereInput
+    orderBy?: AiBatchJobOrderByWithAggregationInput | AiBatchJobOrderByWithAggregationInput[]
+    by: AiBatchJobScalarFieldEnum[] | AiBatchJobScalarFieldEnum
+    having?: AiBatchJobScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AiBatchJobCountAggregateInputType | true
+    _avg?: AiBatchJobAvgAggregateInputType
+    _sum?: AiBatchJobSumAggregateInputType
+    _min?: AiBatchJobMinAggregateInputType
+    _max?: AiBatchJobMaxAggregateInputType
+  }
+
+  export type AiBatchJobGroupByOutputType = {
+    id: string
+    workflow_run_id: string
+    user_id: string
+    external_batch_id: string
+    input_file_id: string
+    output_file_id: string | null
+    error_file_id: string | null
+    status: $Enums.AiBatchJobStatus
+    request_count: number
+    error_message: string | null
+    submitted_at: Date
+    completed_at: Date | null
+    last_polled_at: Date | null
+    created_at: Date
+    updated_at: Date
+    _count: AiBatchJobCountAggregateOutputType | null
+    _avg: AiBatchJobAvgAggregateOutputType | null
+    _sum: AiBatchJobSumAggregateOutputType | null
+    _min: AiBatchJobMinAggregateOutputType | null
+    _max: AiBatchJobMaxAggregateOutputType | null
+  }
+
+  type GetAiBatchJobGroupByPayload<T extends AiBatchJobGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AiBatchJobGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AiBatchJobGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AiBatchJobGroupByOutputType[P]>
+            : GetScalarType<T[P], AiBatchJobGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AiBatchJobSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    workflow_run_id?: boolean
+    user_id?: boolean
+    external_batch_id?: boolean
+    input_file_id?: boolean
+    output_file_id?: boolean
+    error_file_id?: boolean
+    status?: boolean
+    request_count?: boolean
+    error_message?: boolean
+    submitted_at?: boolean
+    completed_at?: boolean
+    last_polled_at?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    workflow_run?: boolean | WorkflowRunDefaultArgs<ExtArgs>
+    items?: boolean | AiBatchJob$itemsArgs<ExtArgs>
+    _count?: boolean | AiBatchJobCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["aiBatchJob"]>
+
+  export type AiBatchJobSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    workflow_run_id?: boolean
+    user_id?: boolean
+    external_batch_id?: boolean
+    input_file_id?: boolean
+    output_file_id?: boolean
+    error_file_id?: boolean
+    status?: boolean
+    request_count?: boolean
+    error_message?: boolean
+    submitted_at?: boolean
+    completed_at?: boolean
+    last_polled_at?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    workflow_run?: boolean | WorkflowRunDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["aiBatchJob"]>
+
+  export type AiBatchJobSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    workflow_run_id?: boolean
+    user_id?: boolean
+    external_batch_id?: boolean
+    input_file_id?: boolean
+    output_file_id?: boolean
+    error_file_id?: boolean
+    status?: boolean
+    request_count?: boolean
+    error_message?: boolean
+    submitted_at?: boolean
+    completed_at?: boolean
+    last_polled_at?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    workflow_run?: boolean | WorkflowRunDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["aiBatchJob"]>
+
+  export type AiBatchJobSelectScalar = {
+    id?: boolean
+    workflow_run_id?: boolean
+    user_id?: boolean
+    external_batch_id?: boolean
+    input_file_id?: boolean
+    output_file_id?: boolean
+    error_file_id?: boolean
+    status?: boolean
+    request_count?: boolean
+    error_message?: boolean
+    submitted_at?: boolean
+    completed_at?: boolean
+    last_polled_at?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type AiBatchJobOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "workflow_run_id" | "user_id" | "external_batch_id" | "input_file_id" | "output_file_id" | "error_file_id" | "status" | "request_count" | "error_message" | "submitted_at" | "completed_at" | "last_polled_at" | "created_at" | "updated_at", ExtArgs["result"]["aiBatchJob"]>
+  export type AiBatchJobInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    workflow_run?: boolean | WorkflowRunDefaultArgs<ExtArgs>
+    items?: boolean | AiBatchJob$itemsArgs<ExtArgs>
+    _count?: boolean | AiBatchJobCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type AiBatchJobIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    workflow_run?: boolean | WorkflowRunDefaultArgs<ExtArgs>
+  }
+  export type AiBatchJobIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    workflow_run?: boolean | WorkflowRunDefaultArgs<ExtArgs>
+  }
+
+  export type $AiBatchJobPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AiBatchJob"
+    objects: {
+      workflow_run: Prisma.$WorkflowRunPayload<ExtArgs>
+      items: Prisma.$AiBatchRequestItemPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      workflow_run_id: string
+      user_id: string
+      external_batch_id: string
+      input_file_id: string
+      output_file_id: string | null
+      error_file_id: string | null
+      status: $Enums.AiBatchJobStatus
+      request_count: number
+      error_message: string | null
+      submitted_at: Date
+      completed_at: Date | null
+      last_polled_at: Date | null
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["aiBatchJob"]>
+    composites: {}
+  }
+
+  type AiBatchJobGetPayload<S extends boolean | null | undefined | AiBatchJobDefaultArgs> = $Result.GetResult<Prisma.$AiBatchJobPayload, S>
+
+  type AiBatchJobCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AiBatchJobFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AiBatchJobCountAggregateInputType | true
+    }
+
+  export interface AiBatchJobDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AiBatchJob'], meta: { name: 'AiBatchJob' } }
+    /**
+     * Find zero or one AiBatchJob that matches the filter.
+     * @param {AiBatchJobFindUniqueArgs} args - Arguments to find a AiBatchJob
+     * @example
+     * // Get one AiBatchJob
+     * const aiBatchJob = await prisma.aiBatchJob.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AiBatchJobFindUniqueArgs>(args: SelectSubset<T, AiBatchJobFindUniqueArgs<ExtArgs>>): Prisma__AiBatchJobClient<$Result.GetResult<Prisma.$AiBatchJobPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one AiBatchJob that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AiBatchJobFindUniqueOrThrowArgs} args - Arguments to find a AiBatchJob
+     * @example
+     * // Get one AiBatchJob
+     * const aiBatchJob = await prisma.aiBatchJob.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AiBatchJobFindUniqueOrThrowArgs>(args: SelectSubset<T, AiBatchJobFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AiBatchJobClient<$Result.GetResult<Prisma.$AiBatchJobPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AiBatchJob that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AiBatchJobFindFirstArgs} args - Arguments to find a AiBatchJob
+     * @example
+     * // Get one AiBatchJob
+     * const aiBatchJob = await prisma.aiBatchJob.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AiBatchJobFindFirstArgs>(args?: SelectSubset<T, AiBatchJobFindFirstArgs<ExtArgs>>): Prisma__AiBatchJobClient<$Result.GetResult<Prisma.$AiBatchJobPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AiBatchJob that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AiBatchJobFindFirstOrThrowArgs} args - Arguments to find a AiBatchJob
+     * @example
+     * // Get one AiBatchJob
+     * const aiBatchJob = await prisma.aiBatchJob.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AiBatchJobFindFirstOrThrowArgs>(args?: SelectSubset<T, AiBatchJobFindFirstOrThrowArgs<ExtArgs>>): Prisma__AiBatchJobClient<$Result.GetResult<Prisma.$AiBatchJobPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more AiBatchJobs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AiBatchJobFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AiBatchJobs
+     * const aiBatchJobs = await prisma.aiBatchJob.findMany()
+     * 
+     * // Get first 10 AiBatchJobs
+     * const aiBatchJobs = await prisma.aiBatchJob.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const aiBatchJobWithIdOnly = await prisma.aiBatchJob.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AiBatchJobFindManyArgs>(args?: SelectSubset<T, AiBatchJobFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AiBatchJobPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a AiBatchJob.
+     * @param {AiBatchJobCreateArgs} args - Arguments to create a AiBatchJob.
+     * @example
+     * // Create one AiBatchJob
+     * const AiBatchJob = await prisma.aiBatchJob.create({
+     *   data: {
+     *     // ... data to create a AiBatchJob
+     *   }
+     * })
+     * 
+     */
+    create<T extends AiBatchJobCreateArgs>(args: SelectSubset<T, AiBatchJobCreateArgs<ExtArgs>>): Prisma__AiBatchJobClient<$Result.GetResult<Prisma.$AiBatchJobPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many AiBatchJobs.
+     * @param {AiBatchJobCreateManyArgs} args - Arguments to create many AiBatchJobs.
+     * @example
+     * // Create many AiBatchJobs
+     * const aiBatchJob = await prisma.aiBatchJob.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AiBatchJobCreateManyArgs>(args?: SelectSubset<T, AiBatchJobCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many AiBatchJobs and returns the data saved in the database.
+     * @param {AiBatchJobCreateManyAndReturnArgs} args - Arguments to create many AiBatchJobs.
+     * @example
+     * // Create many AiBatchJobs
+     * const aiBatchJob = await prisma.aiBatchJob.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many AiBatchJobs and only return the `id`
+     * const aiBatchJobWithIdOnly = await prisma.aiBatchJob.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AiBatchJobCreateManyAndReturnArgs>(args?: SelectSubset<T, AiBatchJobCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AiBatchJobPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a AiBatchJob.
+     * @param {AiBatchJobDeleteArgs} args - Arguments to delete one AiBatchJob.
+     * @example
+     * // Delete one AiBatchJob
+     * const AiBatchJob = await prisma.aiBatchJob.delete({
+     *   where: {
+     *     // ... filter to delete one AiBatchJob
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AiBatchJobDeleteArgs>(args: SelectSubset<T, AiBatchJobDeleteArgs<ExtArgs>>): Prisma__AiBatchJobClient<$Result.GetResult<Prisma.$AiBatchJobPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one AiBatchJob.
+     * @param {AiBatchJobUpdateArgs} args - Arguments to update one AiBatchJob.
+     * @example
+     * // Update one AiBatchJob
+     * const aiBatchJob = await prisma.aiBatchJob.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AiBatchJobUpdateArgs>(args: SelectSubset<T, AiBatchJobUpdateArgs<ExtArgs>>): Prisma__AiBatchJobClient<$Result.GetResult<Prisma.$AiBatchJobPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more AiBatchJobs.
+     * @param {AiBatchJobDeleteManyArgs} args - Arguments to filter AiBatchJobs to delete.
+     * @example
+     * // Delete a few AiBatchJobs
+     * const { count } = await prisma.aiBatchJob.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AiBatchJobDeleteManyArgs>(args?: SelectSubset<T, AiBatchJobDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AiBatchJobs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AiBatchJobUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AiBatchJobs
+     * const aiBatchJob = await prisma.aiBatchJob.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AiBatchJobUpdateManyArgs>(args: SelectSubset<T, AiBatchJobUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AiBatchJobs and returns the data updated in the database.
+     * @param {AiBatchJobUpdateManyAndReturnArgs} args - Arguments to update many AiBatchJobs.
+     * @example
+     * // Update many AiBatchJobs
+     * const aiBatchJob = await prisma.aiBatchJob.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more AiBatchJobs and only return the `id`
+     * const aiBatchJobWithIdOnly = await prisma.aiBatchJob.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AiBatchJobUpdateManyAndReturnArgs>(args: SelectSubset<T, AiBatchJobUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AiBatchJobPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one AiBatchJob.
+     * @param {AiBatchJobUpsertArgs} args - Arguments to update or create a AiBatchJob.
+     * @example
+     * // Update or create a AiBatchJob
+     * const aiBatchJob = await prisma.aiBatchJob.upsert({
+     *   create: {
+     *     // ... data to create a AiBatchJob
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AiBatchJob we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AiBatchJobUpsertArgs>(args: SelectSubset<T, AiBatchJobUpsertArgs<ExtArgs>>): Prisma__AiBatchJobClient<$Result.GetResult<Prisma.$AiBatchJobPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of AiBatchJobs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AiBatchJobCountArgs} args - Arguments to filter AiBatchJobs to count.
+     * @example
+     * // Count the number of AiBatchJobs
+     * const count = await prisma.aiBatchJob.count({
+     *   where: {
+     *     // ... the filter for the AiBatchJobs we want to count
+     *   }
+     * })
+    **/
+    count<T extends AiBatchJobCountArgs>(
+      args?: Subset<T, AiBatchJobCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AiBatchJobCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AiBatchJob.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AiBatchJobAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AiBatchJobAggregateArgs>(args: Subset<T, AiBatchJobAggregateArgs>): Prisma.PrismaPromise<GetAiBatchJobAggregateType<T>>
+
+    /**
+     * Group by AiBatchJob.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AiBatchJobGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AiBatchJobGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AiBatchJobGroupByArgs['orderBy'] }
+        : { orderBy?: AiBatchJobGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AiBatchJobGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAiBatchJobGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AiBatchJob model
+   */
+  readonly fields: AiBatchJobFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AiBatchJob.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AiBatchJobClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    workflow_run<T extends WorkflowRunDefaultArgs<ExtArgs> = {}>(args?: Subset<T, WorkflowRunDefaultArgs<ExtArgs>>): Prisma__WorkflowRunClient<$Result.GetResult<Prisma.$WorkflowRunPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    items<T extends AiBatchJob$itemsArgs<ExtArgs> = {}>(args?: Subset<T, AiBatchJob$itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AiBatchRequestItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AiBatchJob model
+   */
+  interface AiBatchJobFieldRefs {
+    readonly id: FieldRef<"AiBatchJob", 'String'>
+    readonly workflow_run_id: FieldRef<"AiBatchJob", 'String'>
+    readonly user_id: FieldRef<"AiBatchJob", 'String'>
+    readonly external_batch_id: FieldRef<"AiBatchJob", 'String'>
+    readonly input_file_id: FieldRef<"AiBatchJob", 'String'>
+    readonly output_file_id: FieldRef<"AiBatchJob", 'String'>
+    readonly error_file_id: FieldRef<"AiBatchJob", 'String'>
+    readonly status: FieldRef<"AiBatchJob", 'AiBatchJobStatus'>
+    readonly request_count: FieldRef<"AiBatchJob", 'Int'>
+    readonly error_message: FieldRef<"AiBatchJob", 'String'>
+    readonly submitted_at: FieldRef<"AiBatchJob", 'DateTime'>
+    readonly completed_at: FieldRef<"AiBatchJob", 'DateTime'>
+    readonly last_polled_at: FieldRef<"AiBatchJob", 'DateTime'>
+    readonly created_at: FieldRef<"AiBatchJob", 'DateTime'>
+    readonly updated_at: FieldRef<"AiBatchJob", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AiBatchJob findUnique
+   */
+  export type AiBatchJobFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiBatchJob
+     */
+    select?: AiBatchJobSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiBatchJob
+     */
+    omit?: AiBatchJobOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiBatchJobInclude<ExtArgs> | null
+    /**
+     * Filter, which AiBatchJob to fetch.
+     */
+    where: AiBatchJobWhereUniqueInput
+  }
+
+  /**
+   * AiBatchJob findUniqueOrThrow
+   */
+  export type AiBatchJobFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiBatchJob
+     */
+    select?: AiBatchJobSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiBatchJob
+     */
+    omit?: AiBatchJobOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiBatchJobInclude<ExtArgs> | null
+    /**
+     * Filter, which AiBatchJob to fetch.
+     */
+    where: AiBatchJobWhereUniqueInput
+  }
+
+  /**
+   * AiBatchJob findFirst
+   */
+  export type AiBatchJobFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiBatchJob
+     */
+    select?: AiBatchJobSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiBatchJob
+     */
+    omit?: AiBatchJobOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiBatchJobInclude<ExtArgs> | null
+    /**
+     * Filter, which AiBatchJob to fetch.
+     */
+    where?: AiBatchJobWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AiBatchJobs to fetch.
+     */
+    orderBy?: AiBatchJobOrderByWithRelationInput | AiBatchJobOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AiBatchJobs.
+     */
+    cursor?: AiBatchJobWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AiBatchJobs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AiBatchJobs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AiBatchJobs.
+     */
+    distinct?: AiBatchJobScalarFieldEnum | AiBatchJobScalarFieldEnum[]
+  }
+
+  /**
+   * AiBatchJob findFirstOrThrow
+   */
+  export type AiBatchJobFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiBatchJob
+     */
+    select?: AiBatchJobSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiBatchJob
+     */
+    omit?: AiBatchJobOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiBatchJobInclude<ExtArgs> | null
+    /**
+     * Filter, which AiBatchJob to fetch.
+     */
+    where?: AiBatchJobWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AiBatchJobs to fetch.
+     */
+    orderBy?: AiBatchJobOrderByWithRelationInput | AiBatchJobOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AiBatchJobs.
+     */
+    cursor?: AiBatchJobWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AiBatchJobs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AiBatchJobs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AiBatchJobs.
+     */
+    distinct?: AiBatchJobScalarFieldEnum | AiBatchJobScalarFieldEnum[]
+  }
+
+  /**
+   * AiBatchJob findMany
+   */
+  export type AiBatchJobFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiBatchJob
+     */
+    select?: AiBatchJobSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiBatchJob
+     */
+    omit?: AiBatchJobOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiBatchJobInclude<ExtArgs> | null
+    /**
+     * Filter, which AiBatchJobs to fetch.
+     */
+    where?: AiBatchJobWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AiBatchJobs to fetch.
+     */
+    orderBy?: AiBatchJobOrderByWithRelationInput | AiBatchJobOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AiBatchJobs.
+     */
+    cursor?: AiBatchJobWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AiBatchJobs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AiBatchJobs.
+     */
+    skip?: number
+    distinct?: AiBatchJobScalarFieldEnum | AiBatchJobScalarFieldEnum[]
+  }
+
+  /**
+   * AiBatchJob create
+   */
+  export type AiBatchJobCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiBatchJob
+     */
+    select?: AiBatchJobSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiBatchJob
+     */
+    omit?: AiBatchJobOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiBatchJobInclude<ExtArgs> | null
+    /**
+     * The data needed to create a AiBatchJob.
+     */
+    data: XOR<AiBatchJobCreateInput, AiBatchJobUncheckedCreateInput>
+  }
+
+  /**
+   * AiBatchJob createMany
+   */
+  export type AiBatchJobCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AiBatchJobs.
+     */
+    data: AiBatchJobCreateManyInput | AiBatchJobCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AiBatchJob createManyAndReturn
+   */
+  export type AiBatchJobCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiBatchJob
+     */
+    select?: AiBatchJobSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiBatchJob
+     */
+    omit?: AiBatchJobOmit<ExtArgs> | null
+    /**
+     * The data used to create many AiBatchJobs.
+     */
+    data: AiBatchJobCreateManyInput | AiBatchJobCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiBatchJobIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AiBatchJob update
+   */
+  export type AiBatchJobUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiBatchJob
+     */
+    select?: AiBatchJobSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiBatchJob
+     */
+    omit?: AiBatchJobOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiBatchJobInclude<ExtArgs> | null
+    /**
+     * The data needed to update a AiBatchJob.
+     */
+    data: XOR<AiBatchJobUpdateInput, AiBatchJobUncheckedUpdateInput>
+    /**
+     * Choose, which AiBatchJob to update.
+     */
+    where: AiBatchJobWhereUniqueInput
+  }
+
+  /**
+   * AiBatchJob updateMany
+   */
+  export type AiBatchJobUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AiBatchJobs.
+     */
+    data: XOR<AiBatchJobUpdateManyMutationInput, AiBatchJobUncheckedUpdateManyInput>
+    /**
+     * Filter which AiBatchJobs to update
+     */
+    where?: AiBatchJobWhereInput
+    /**
+     * Limit how many AiBatchJobs to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * AiBatchJob updateManyAndReturn
+   */
+  export type AiBatchJobUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiBatchJob
+     */
+    select?: AiBatchJobSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiBatchJob
+     */
+    omit?: AiBatchJobOmit<ExtArgs> | null
+    /**
+     * The data used to update AiBatchJobs.
+     */
+    data: XOR<AiBatchJobUpdateManyMutationInput, AiBatchJobUncheckedUpdateManyInput>
+    /**
+     * Filter which AiBatchJobs to update
+     */
+    where?: AiBatchJobWhereInput
+    /**
+     * Limit how many AiBatchJobs to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiBatchJobIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AiBatchJob upsert
+   */
+  export type AiBatchJobUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiBatchJob
+     */
+    select?: AiBatchJobSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiBatchJob
+     */
+    omit?: AiBatchJobOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiBatchJobInclude<ExtArgs> | null
+    /**
+     * The filter to search for the AiBatchJob to update in case it exists.
+     */
+    where: AiBatchJobWhereUniqueInput
+    /**
+     * In case the AiBatchJob found by the `where` argument doesn't exist, create a new AiBatchJob with this data.
+     */
+    create: XOR<AiBatchJobCreateInput, AiBatchJobUncheckedCreateInput>
+    /**
+     * In case the AiBatchJob was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AiBatchJobUpdateInput, AiBatchJobUncheckedUpdateInput>
+  }
+
+  /**
+   * AiBatchJob delete
+   */
+  export type AiBatchJobDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiBatchJob
+     */
+    select?: AiBatchJobSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiBatchJob
+     */
+    omit?: AiBatchJobOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiBatchJobInclude<ExtArgs> | null
+    /**
+     * Filter which AiBatchJob to delete.
+     */
+    where: AiBatchJobWhereUniqueInput
+  }
+
+  /**
+   * AiBatchJob deleteMany
+   */
+  export type AiBatchJobDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AiBatchJobs to delete
+     */
+    where?: AiBatchJobWhereInput
+    /**
+     * Limit how many AiBatchJobs to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * AiBatchJob.items
+   */
+  export type AiBatchJob$itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiBatchRequestItem
+     */
+    select?: AiBatchRequestItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiBatchRequestItem
+     */
+    omit?: AiBatchRequestItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiBatchRequestItemInclude<ExtArgs> | null
+    where?: AiBatchRequestItemWhereInput
+    orderBy?: AiBatchRequestItemOrderByWithRelationInput | AiBatchRequestItemOrderByWithRelationInput[]
+    cursor?: AiBatchRequestItemWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AiBatchRequestItemScalarFieldEnum | AiBatchRequestItemScalarFieldEnum[]
+  }
+
+  /**
+   * AiBatchJob without action
+   */
+  export type AiBatchJobDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiBatchJob
+     */
+    select?: AiBatchJobSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiBatchJob
+     */
+    omit?: AiBatchJobOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiBatchJobInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model AiBatchRequestItem
+   */
+
+  export type AggregateAiBatchRequestItem = {
+    _count: AiBatchRequestItemCountAggregateOutputType | null
+    _min: AiBatchRequestItemMinAggregateOutputType | null
+    _max: AiBatchRequestItemMaxAggregateOutputType | null
+  }
+
+  export type AiBatchRequestItemMinAggregateOutputType = {
+    id: string | null
+    ai_batch_job_id: string | null
+    custom_id: string | null
+    plain_scraped_page_id: string | null
+    source_url: string | null
+    content_label: string | null
+    content: string | null
+    instructions: string | null
+    wants_markdown: boolean | null
+    status: $Enums.ExtractionFormatStatus | null
+    created_at: Date | null
+  }
+
+  export type AiBatchRequestItemMaxAggregateOutputType = {
+    id: string | null
+    ai_batch_job_id: string | null
+    custom_id: string | null
+    plain_scraped_page_id: string | null
+    source_url: string | null
+    content_label: string | null
+    content: string | null
+    instructions: string | null
+    wants_markdown: boolean | null
+    status: $Enums.ExtractionFormatStatus | null
+    created_at: Date | null
+  }
+
+  export type AiBatchRequestItemCountAggregateOutputType = {
+    id: number
+    ai_batch_job_id: number
+    custom_id: number
+    plain_scraped_page_id: number
+    source_url: number
+    content_label: number
+    content: number
+    instructions: number
+    wants_markdown: number
+    regex_data: number
+    status: number
+    created_at: number
+    _all: number
+  }
+
+
+  export type AiBatchRequestItemMinAggregateInputType = {
+    id?: true
+    ai_batch_job_id?: true
+    custom_id?: true
+    plain_scraped_page_id?: true
+    source_url?: true
+    content_label?: true
+    content?: true
+    instructions?: true
+    wants_markdown?: true
+    status?: true
+    created_at?: true
+  }
+
+  export type AiBatchRequestItemMaxAggregateInputType = {
+    id?: true
+    ai_batch_job_id?: true
+    custom_id?: true
+    plain_scraped_page_id?: true
+    source_url?: true
+    content_label?: true
+    content?: true
+    instructions?: true
+    wants_markdown?: true
+    status?: true
+    created_at?: true
+  }
+
+  export type AiBatchRequestItemCountAggregateInputType = {
+    id?: true
+    ai_batch_job_id?: true
+    custom_id?: true
+    plain_scraped_page_id?: true
+    source_url?: true
+    content_label?: true
+    content?: true
+    instructions?: true
+    wants_markdown?: true
+    regex_data?: true
+    status?: true
+    created_at?: true
+    _all?: true
+  }
+
+  export type AiBatchRequestItemAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AiBatchRequestItem to aggregate.
+     */
+    where?: AiBatchRequestItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AiBatchRequestItems to fetch.
+     */
+    orderBy?: AiBatchRequestItemOrderByWithRelationInput | AiBatchRequestItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AiBatchRequestItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AiBatchRequestItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AiBatchRequestItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AiBatchRequestItems
+    **/
+    _count?: true | AiBatchRequestItemCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AiBatchRequestItemMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AiBatchRequestItemMaxAggregateInputType
+  }
+
+  export type GetAiBatchRequestItemAggregateType<T extends AiBatchRequestItemAggregateArgs> = {
+        [P in keyof T & keyof AggregateAiBatchRequestItem]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAiBatchRequestItem[P]>
+      : GetScalarType<T[P], AggregateAiBatchRequestItem[P]>
+  }
+
+
+
+
+  export type AiBatchRequestItemGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AiBatchRequestItemWhereInput
+    orderBy?: AiBatchRequestItemOrderByWithAggregationInput | AiBatchRequestItemOrderByWithAggregationInput[]
+    by: AiBatchRequestItemScalarFieldEnum[] | AiBatchRequestItemScalarFieldEnum
+    having?: AiBatchRequestItemScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AiBatchRequestItemCountAggregateInputType | true
+    _min?: AiBatchRequestItemMinAggregateInputType
+    _max?: AiBatchRequestItemMaxAggregateInputType
+  }
+
+  export type AiBatchRequestItemGroupByOutputType = {
+    id: string
+    ai_batch_job_id: string
+    custom_id: string
+    plain_scraped_page_id: string | null
+    source_url: string | null
+    content_label: string | null
+    content: string
+    instructions: string | null
+    wants_markdown: boolean
+    regex_data: JsonValue | null
+    status: $Enums.ExtractionFormatStatus | null
+    created_at: Date
+    _count: AiBatchRequestItemCountAggregateOutputType | null
+    _min: AiBatchRequestItemMinAggregateOutputType | null
+    _max: AiBatchRequestItemMaxAggregateOutputType | null
+  }
+
+  type GetAiBatchRequestItemGroupByPayload<T extends AiBatchRequestItemGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AiBatchRequestItemGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AiBatchRequestItemGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AiBatchRequestItemGroupByOutputType[P]>
+            : GetScalarType<T[P], AiBatchRequestItemGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AiBatchRequestItemSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    ai_batch_job_id?: boolean
+    custom_id?: boolean
+    plain_scraped_page_id?: boolean
+    source_url?: boolean
+    content_label?: boolean
+    content?: boolean
+    instructions?: boolean
+    wants_markdown?: boolean
+    regex_data?: boolean
+    status?: boolean
+    created_at?: boolean
+    ai_batch_job?: boolean | AiBatchJobDefaultArgs<ExtArgs>
+    plain_scraped_page?: boolean | AiBatchRequestItem$plain_scraped_pageArgs<ExtArgs>
+  }, ExtArgs["result"]["aiBatchRequestItem"]>
+
+  export type AiBatchRequestItemSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    ai_batch_job_id?: boolean
+    custom_id?: boolean
+    plain_scraped_page_id?: boolean
+    source_url?: boolean
+    content_label?: boolean
+    content?: boolean
+    instructions?: boolean
+    wants_markdown?: boolean
+    regex_data?: boolean
+    status?: boolean
+    created_at?: boolean
+    ai_batch_job?: boolean | AiBatchJobDefaultArgs<ExtArgs>
+    plain_scraped_page?: boolean | AiBatchRequestItem$plain_scraped_pageArgs<ExtArgs>
+  }, ExtArgs["result"]["aiBatchRequestItem"]>
+
+  export type AiBatchRequestItemSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    ai_batch_job_id?: boolean
+    custom_id?: boolean
+    plain_scraped_page_id?: boolean
+    source_url?: boolean
+    content_label?: boolean
+    content?: boolean
+    instructions?: boolean
+    wants_markdown?: boolean
+    regex_data?: boolean
+    status?: boolean
+    created_at?: boolean
+    ai_batch_job?: boolean | AiBatchJobDefaultArgs<ExtArgs>
+    plain_scraped_page?: boolean | AiBatchRequestItem$plain_scraped_pageArgs<ExtArgs>
+  }, ExtArgs["result"]["aiBatchRequestItem"]>
+
+  export type AiBatchRequestItemSelectScalar = {
+    id?: boolean
+    ai_batch_job_id?: boolean
+    custom_id?: boolean
+    plain_scraped_page_id?: boolean
+    source_url?: boolean
+    content_label?: boolean
+    content?: boolean
+    instructions?: boolean
+    wants_markdown?: boolean
+    regex_data?: boolean
+    status?: boolean
+    created_at?: boolean
+  }
+
+  export type AiBatchRequestItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "ai_batch_job_id" | "custom_id" | "plain_scraped_page_id" | "source_url" | "content_label" | "content" | "instructions" | "wants_markdown" | "regex_data" | "status" | "created_at", ExtArgs["result"]["aiBatchRequestItem"]>
+  export type AiBatchRequestItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    ai_batch_job?: boolean | AiBatchJobDefaultArgs<ExtArgs>
+    plain_scraped_page?: boolean | AiBatchRequestItem$plain_scraped_pageArgs<ExtArgs>
+  }
+  export type AiBatchRequestItemIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    ai_batch_job?: boolean | AiBatchJobDefaultArgs<ExtArgs>
+    plain_scraped_page?: boolean | AiBatchRequestItem$plain_scraped_pageArgs<ExtArgs>
+  }
+  export type AiBatchRequestItemIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    ai_batch_job?: boolean | AiBatchJobDefaultArgs<ExtArgs>
+    plain_scraped_page?: boolean | AiBatchRequestItem$plain_scraped_pageArgs<ExtArgs>
+  }
+
+  export type $AiBatchRequestItemPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AiBatchRequestItem"
+    objects: {
+      ai_batch_job: Prisma.$AiBatchJobPayload<ExtArgs>
+      plain_scraped_page: Prisma.$PlainScrapedPagePayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      ai_batch_job_id: string
+      custom_id: string
+      plain_scraped_page_id: string | null
+      source_url: string | null
+      content_label: string | null
+      content: string
+      instructions: string | null
+      wants_markdown: boolean
+      regex_data: Prisma.JsonValue | null
+      status: $Enums.ExtractionFormatStatus | null
+      created_at: Date
+    }, ExtArgs["result"]["aiBatchRequestItem"]>
+    composites: {}
+  }
+
+  type AiBatchRequestItemGetPayload<S extends boolean | null | undefined | AiBatchRequestItemDefaultArgs> = $Result.GetResult<Prisma.$AiBatchRequestItemPayload, S>
+
+  type AiBatchRequestItemCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AiBatchRequestItemFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AiBatchRequestItemCountAggregateInputType | true
+    }
+
+  export interface AiBatchRequestItemDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AiBatchRequestItem'], meta: { name: 'AiBatchRequestItem' } }
+    /**
+     * Find zero or one AiBatchRequestItem that matches the filter.
+     * @param {AiBatchRequestItemFindUniqueArgs} args - Arguments to find a AiBatchRequestItem
+     * @example
+     * // Get one AiBatchRequestItem
+     * const aiBatchRequestItem = await prisma.aiBatchRequestItem.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AiBatchRequestItemFindUniqueArgs>(args: SelectSubset<T, AiBatchRequestItemFindUniqueArgs<ExtArgs>>): Prisma__AiBatchRequestItemClient<$Result.GetResult<Prisma.$AiBatchRequestItemPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one AiBatchRequestItem that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AiBatchRequestItemFindUniqueOrThrowArgs} args - Arguments to find a AiBatchRequestItem
+     * @example
+     * // Get one AiBatchRequestItem
+     * const aiBatchRequestItem = await prisma.aiBatchRequestItem.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AiBatchRequestItemFindUniqueOrThrowArgs>(args: SelectSubset<T, AiBatchRequestItemFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AiBatchRequestItemClient<$Result.GetResult<Prisma.$AiBatchRequestItemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AiBatchRequestItem that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AiBatchRequestItemFindFirstArgs} args - Arguments to find a AiBatchRequestItem
+     * @example
+     * // Get one AiBatchRequestItem
+     * const aiBatchRequestItem = await prisma.aiBatchRequestItem.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AiBatchRequestItemFindFirstArgs>(args?: SelectSubset<T, AiBatchRequestItemFindFirstArgs<ExtArgs>>): Prisma__AiBatchRequestItemClient<$Result.GetResult<Prisma.$AiBatchRequestItemPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AiBatchRequestItem that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AiBatchRequestItemFindFirstOrThrowArgs} args - Arguments to find a AiBatchRequestItem
+     * @example
+     * // Get one AiBatchRequestItem
+     * const aiBatchRequestItem = await prisma.aiBatchRequestItem.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AiBatchRequestItemFindFirstOrThrowArgs>(args?: SelectSubset<T, AiBatchRequestItemFindFirstOrThrowArgs<ExtArgs>>): Prisma__AiBatchRequestItemClient<$Result.GetResult<Prisma.$AiBatchRequestItemPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more AiBatchRequestItems that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AiBatchRequestItemFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AiBatchRequestItems
+     * const aiBatchRequestItems = await prisma.aiBatchRequestItem.findMany()
+     * 
+     * // Get first 10 AiBatchRequestItems
+     * const aiBatchRequestItems = await prisma.aiBatchRequestItem.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const aiBatchRequestItemWithIdOnly = await prisma.aiBatchRequestItem.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AiBatchRequestItemFindManyArgs>(args?: SelectSubset<T, AiBatchRequestItemFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AiBatchRequestItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a AiBatchRequestItem.
+     * @param {AiBatchRequestItemCreateArgs} args - Arguments to create a AiBatchRequestItem.
+     * @example
+     * // Create one AiBatchRequestItem
+     * const AiBatchRequestItem = await prisma.aiBatchRequestItem.create({
+     *   data: {
+     *     // ... data to create a AiBatchRequestItem
+     *   }
+     * })
+     * 
+     */
+    create<T extends AiBatchRequestItemCreateArgs>(args: SelectSubset<T, AiBatchRequestItemCreateArgs<ExtArgs>>): Prisma__AiBatchRequestItemClient<$Result.GetResult<Prisma.$AiBatchRequestItemPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many AiBatchRequestItems.
+     * @param {AiBatchRequestItemCreateManyArgs} args - Arguments to create many AiBatchRequestItems.
+     * @example
+     * // Create many AiBatchRequestItems
+     * const aiBatchRequestItem = await prisma.aiBatchRequestItem.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AiBatchRequestItemCreateManyArgs>(args?: SelectSubset<T, AiBatchRequestItemCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many AiBatchRequestItems and returns the data saved in the database.
+     * @param {AiBatchRequestItemCreateManyAndReturnArgs} args - Arguments to create many AiBatchRequestItems.
+     * @example
+     * // Create many AiBatchRequestItems
+     * const aiBatchRequestItem = await prisma.aiBatchRequestItem.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many AiBatchRequestItems and only return the `id`
+     * const aiBatchRequestItemWithIdOnly = await prisma.aiBatchRequestItem.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AiBatchRequestItemCreateManyAndReturnArgs>(args?: SelectSubset<T, AiBatchRequestItemCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AiBatchRequestItemPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a AiBatchRequestItem.
+     * @param {AiBatchRequestItemDeleteArgs} args - Arguments to delete one AiBatchRequestItem.
+     * @example
+     * // Delete one AiBatchRequestItem
+     * const AiBatchRequestItem = await prisma.aiBatchRequestItem.delete({
+     *   where: {
+     *     // ... filter to delete one AiBatchRequestItem
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AiBatchRequestItemDeleteArgs>(args: SelectSubset<T, AiBatchRequestItemDeleteArgs<ExtArgs>>): Prisma__AiBatchRequestItemClient<$Result.GetResult<Prisma.$AiBatchRequestItemPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one AiBatchRequestItem.
+     * @param {AiBatchRequestItemUpdateArgs} args - Arguments to update one AiBatchRequestItem.
+     * @example
+     * // Update one AiBatchRequestItem
+     * const aiBatchRequestItem = await prisma.aiBatchRequestItem.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AiBatchRequestItemUpdateArgs>(args: SelectSubset<T, AiBatchRequestItemUpdateArgs<ExtArgs>>): Prisma__AiBatchRequestItemClient<$Result.GetResult<Prisma.$AiBatchRequestItemPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more AiBatchRequestItems.
+     * @param {AiBatchRequestItemDeleteManyArgs} args - Arguments to filter AiBatchRequestItems to delete.
+     * @example
+     * // Delete a few AiBatchRequestItems
+     * const { count } = await prisma.aiBatchRequestItem.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AiBatchRequestItemDeleteManyArgs>(args?: SelectSubset<T, AiBatchRequestItemDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AiBatchRequestItems.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AiBatchRequestItemUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AiBatchRequestItems
+     * const aiBatchRequestItem = await prisma.aiBatchRequestItem.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AiBatchRequestItemUpdateManyArgs>(args: SelectSubset<T, AiBatchRequestItemUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AiBatchRequestItems and returns the data updated in the database.
+     * @param {AiBatchRequestItemUpdateManyAndReturnArgs} args - Arguments to update many AiBatchRequestItems.
+     * @example
+     * // Update many AiBatchRequestItems
+     * const aiBatchRequestItem = await prisma.aiBatchRequestItem.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more AiBatchRequestItems and only return the `id`
+     * const aiBatchRequestItemWithIdOnly = await prisma.aiBatchRequestItem.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AiBatchRequestItemUpdateManyAndReturnArgs>(args: SelectSubset<T, AiBatchRequestItemUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AiBatchRequestItemPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one AiBatchRequestItem.
+     * @param {AiBatchRequestItemUpsertArgs} args - Arguments to update or create a AiBatchRequestItem.
+     * @example
+     * // Update or create a AiBatchRequestItem
+     * const aiBatchRequestItem = await prisma.aiBatchRequestItem.upsert({
+     *   create: {
+     *     // ... data to create a AiBatchRequestItem
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AiBatchRequestItem we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AiBatchRequestItemUpsertArgs>(args: SelectSubset<T, AiBatchRequestItemUpsertArgs<ExtArgs>>): Prisma__AiBatchRequestItemClient<$Result.GetResult<Prisma.$AiBatchRequestItemPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of AiBatchRequestItems.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AiBatchRequestItemCountArgs} args - Arguments to filter AiBatchRequestItems to count.
+     * @example
+     * // Count the number of AiBatchRequestItems
+     * const count = await prisma.aiBatchRequestItem.count({
+     *   where: {
+     *     // ... the filter for the AiBatchRequestItems we want to count
+     *   }
+     * })
+    **/
+    count<T extends AiBatchRequestItemCountArgs>(
+      args?: Subset<T, AiBatchRequestItemCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AiBatchRequestItemCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AiBatchRequestItem.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AiBatchRequestItemAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AiBatchRequestItemAggregateArgs>(args: Subset<T, AiBatchRequestItemAggregateArgs>): Prisma.PrismaPromise<GetAiBatchRequestItemAggregateType<T>>
+
+    /**
+     * Group by AiBatchRequestItem.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AiBatchRequestItemGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AiBatchRequestItemGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AiBatchRequestItemGroupByArgs['orderBy'] }
+        : { orderBy?: AiBatchRequestItemGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AiBatchRequestItemGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAiBatchRequestItemGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AiBatchRequestItem model
+   */
+  readonly fields: AiBatchRequestItemFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AiBatchRequestItem.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AiBatchRequestItemClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    ai_batch_job<T extends AiBatchJobDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AiBatchJobDefaultArgs<ExtArgs>>): Prisma__AiBatchJobClient<$Result.GetResult<Prisma.$AiBatchJobPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    plain_scraped_page<T extends AiBatchRequestItem$plain_scraped_pageArgs<ExtArgs> = {}>(args?: Subset<T, AiBatchRequestItem$plain_scraped_pageArgs<ExtArgs>>): Prisma__PlainScrapedPageClient<$Result.GetResult<Prisma.$PlainScrapedPagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AiBatchRequestItem model
+   */
+  interface AiBatchRequestItemFieldRefs {
+    readonly id: FieldRef<"AiBatchRequestItem", 'String'>
+    readonly ai_batch_job_id: FieldRef<"AiBatchRequestItem", 'String'>
+    readonly custom_id: FieldRef<"AiBatchRequestItem", 'String'>
+    readonly plain_scraped_page_id: FieldRef<"AiBatchRequestItem", 'String'>
+    readonly source_url: FieldRef<"AiBatchRequestItem", 'String'>
+    readonly content_label: FieldRef<"AiBatchRequestItem", 'String'>
+    readonly content: FieldRef<"AiBatchRequestItem", 'String'>
+    readonly instructions: FieldRef<"AiBatchRequestItem", 'String'>
+    readonly wants_markdown: FieldRef<"AiBatchRequestItem", 'Boolean'>
+    readonly regex_data: FieldRef<"AiBatchRequestItem", 'Json'>
+    readonly status: FieldRef<"AiBatchRequestItem", 'ExtractionFormatStatus'>
+    readonly created_at: FieldRef<"AiBatchRequestItem", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AiBatchRequestItem findUnique
+   */
+  export type AiBatchRequestItemFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiBatchRequestItem
+     */
+    select?: AiBatchRequestItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiBatchRequestItem
+     */
+    omit?: AiBatchRequestItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiBatchRequestItemInclude<ExtArgs> | null
+    /**
+     * Filter, which AiBatchRequestItem to fetch.
+     */
+    where: AiBatchRequestItemWhereUniqueInput
+  }
+
+  /**
+   * AiBatchRequestItem findUniqueOrThrow
+   */
+  export type AiBatchRequestItemFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiBatchRequestItem
+     */
+    select?: AiBatchRequestItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiBatchRequestItem
+     */
+    omit?: AiBatchRequestItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiBatchRequestItemInclude<ExtArgs> | null
+    /**
+     * Filter, which AiBatchRequestItem to fetch.
+     */
+    where: AiBatchRequestItemWhereUniqueInput
+  }
+
+  /**
+   * AiBatchRequestItem findFirst
+   */
+  export type AiBatchRequestItemFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiBatchRequestItem
+     */
+    select?: AiBatchRequestItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiBatchRequestItem
+     */
+    omit?: AiBatchRequestItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiBatchRequestItemInclude<ExtArgs> | null
+    /**
+     * Filter, which AiBatchRequestItem to fetch.
+     */
+    where?: AiBatchRequestItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AiBatchRequestItems to fetch.
+     */
+    orderBy?: AiBatchRequestItemOrderByWithRelationInput | AiBatchRequestItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AiBatchRequestItems.
+     */
+    cursor?: AiBatchRequestItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AiBatchRequestItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AiBatchRequestItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AiBatchRequestItems.
+     */
+    distinct?: AiBatchRequestItemScalarFieldEnum | AiBatchRequestItemScalarFieldEnum[]
+  }
+
+  /**
+   * AiBatchRequestItem findFirstOrThrow
+   */
+  export type AiBatchRequestItemFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiBatchRequestItem
+     */
+    select?: AiBatchRequestItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiBatchRequestItem
+     */
+    omit?: AiBatchRequestItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiBatchRequestItemInclude<ExtArgs> | null
+    /**
+     * Filter, which AiBatchRequestItem to fetch.
+     */
+    where?: AiBatchRequestItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AiBatchRequestItems to fetch.
+     */
+    orderBy?: AiBatchRequestItemOrderByWithRelationInput | AiBatchRequestItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AiBatchRequestItems.
+     */
+    cursor?: AiBatchRequestItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AiBatchRequestItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AiBatchRequestItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AiBatchRequestItems.
+     */
+    distinct?: AiBatchRequestItemScalarFieldEnum | AiBatchRequestItemScalarFieldEnum[]
+  }
+
+  /**
+   * AiBatchRequestItem findMany
+   */
+  export type AiBatchRequestItemFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiBatchRequestItem
+     */
+    select?: AiBatchRequestItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiBatchRequestItem
+     */
+    omit?: AiBatchRequestItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiBatchRequestItemInclude<ExtArgs> | null
+    /**
+     * Filter, which AiBatchRequestItems to fetch.
+     */
+    where?: AiBatchRequestItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AiBatchRequestItems to fetch.
+     */
+    orderBy?: AiBatchRequestItemOrderByWithRelationInput | AiBatchRequestItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AiBatchRequestItems.
+     */
+    cursor?: AiBatchRequestItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AiBatchRequestItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AiBatchRequestItems.
+     */
+    skip?: number
+    distinct?: AiBatchRequestItemScalarFieldEnum | AiBatchRequestItemScalarFieldEnum[]
+  }
+
+  /**
+   * AiBatchRequestItem create
+   */
+  export type AiBatchRequestItemCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiBatchRequestItem
+     */
+    select?: AiBatchRequestItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiBatchRequestItem
+     */
+    omit?: AiBatchRequestItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiBatchRequestItemInclude<ExtArgs> | null
+    /**
+     * The data needed to create a AiBatchRequestItem.
+     */
+    data: XOR<AiBatchRequestItemCreateInput, AiBatchRequestItemUncheckedCreateInput>
+  }
+
+  /**
+   * AiBatchRequestItem createMany
+   */
+  export type AiBatchRequestItemCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AiBatchRequestItems.
+     */
+    data: AiBatchRequestItemCreateManyInput | AiBatchRequestItemCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AiBatchRequestItem createManyAndReturn
+   */
+  export type AiBatchRequestItemCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiBatchRequestItem
+     */
+    select?: AiBatchRequestItemSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiBatchRequestItem
+     */
+    omit?: AiBatchRequestItemOmit<ExtArgs> | null
+    /**
+     * The data used to create many AiBatchRequestItems.
+     */
+    data: AiBatchRequestItemCreateManyInput | AiBatchRequestItemCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiBatchRequestItemIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AiBatchRequestItem update
+   */
+  export type AiBatchRequestItemUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiBatchRequestItem
+     */
+    select?: AiBatchRequestItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiBatchRequestItem
+     */
+    omit?: AiBatchRequestItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiBatchRequestItemInclude<ExtArgs> | null
+    /**
+     * The data needed to update a AiBatchRequestItem.
+     */
+    data: XOR<AiBatchRequestItemUpdateInput, AiBatchRequestItemUncheckedUpdateInput>
+    /**
+     * Choose, which AiBatchRequestItem to update.
+     */
+    where: AiBatchRequestItemWhereUniqueInput
+  }
+
+  /**
+   * AiBatchRequestItem updateMany
+   */
+  export type AiBatchRequestItemUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AiBatchRequestItems.
+     */
+    data: XOR<AiBatchRequestItemUpdateManyMutationInput, AiBatchRequestItemUncheckedUpdateManyInput>
+    /**
+     * Filter which AiBatchRequestItems to update
+     */
+    where?: AiBatchRequestItemWhereInput
+    /**
+     * Limit how many AiBatchRequestItems to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * AiBatchRequestItem updateManyAndReturn
+   */
+  export type AiBatchRequestItemUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiBatchRequestItem
+     */
+    select?: AiBatchRequestItemSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiBatchRequestItem
+     */
+    omit?: AiBatchRequestItemOmit<ExtArgs> | null
+    /**
+     * The data used to update AiBatchRequestItems.
+     */
+    data: XOR<AiBatchRequestItemUpdateManyMutationInput, AiBatchRequestItemUncheckedUpdateManyInput>
+    /**
+     * Filter which AiBatchRequestItems to update
+     */
+    where?: AiBatchRequestItemWhereInput
+    /**
+     * Limit how many AiBatchRequestItems to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiBatchRequestItemIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AiBatchRequestItem upsert
+   */
+  export type AiBatchRequestItemUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiBatchRequestItem
+     */
+    select?: AiBatchRequestItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiBatchRequestItem
+     */
+    omit?: AiBatchRequestItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiBatchRequestItemInclude<ExtArgs> | null
+    /**
+     * The filter to search for the AiBatchRequestItem to update in case it exists.
+     */
+    where: AiBatchRequestItemWhereUniqueInput
+    /**
+     * In case the AiBatchRequestItem found by the `where` argument doesn't exist, create a new AiBatchRequestItem with this data.
+     */
+    create: XOR<AiBatchRequestItemCreateInput, AiBatchRequestItemUncheckedCreateInput>
+    /**
+     * In case the AiBatchRequestItem was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AiBatchRequestItemUpdateInput, AiBatchRequestItemUncheckedUpdateInput>
+  }
+
+  /**
+   * AiBatchRequestItem delete
+   */
+  export type AiBatchRequestItemDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiBatchRequestItem
+     */
+    select?: AiBatchRequestItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiBatchRequestItem
+     */
+    omit?: AiBatchRequestItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiBatchRequestItemInclude<ExtArgs> | null
+    /**
+     * Filter which AiBatchRequestItem to delete.
+     */
+    where: AiBatchRequestItemWhereUniqueInput
+  }
+
+  /**
+   * AiBatchRequestItem deleteMany
+   */
+  export type AiBatchRequestItemDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AiBatchRequestItems to delete
+     */
+    where?: AiBatchRequestItemWhereInput
+    /**
+     * Limit how many AiBatchRequestItems to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * AiBatchRequestItem.plain_scraped_page
+   */
+  export type AiBatchRequestItem$plain_scraped_pageArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlainScrapedPage
+     */
+    select?: PlainScrapedPageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlainScrapedPage
+     */
+    omit?: PlainScrapedPageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlainScrapedPageInclude<ExtArgs> | null
+    where?: PlainScrapedPageWhereInput
+  }
+
+  /**
+   * AiBatchRequestItem without action
+   */
+  export type AiBatchRequestItemDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiBatchRequestItem
+     */
+    select?: AiBatchRequestItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiBatchRequestItem
+     */
+    omit?: AiBatchRequestItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiBatchRequestItemInclude<ExtArgs> | null
   }
 
 
@@ -35219,6 +37984,7 @@ export namespace Prisma {
     schedule_timezone: 'schedule_timezone',
     schedule_enabled: 'schedule_enabled',
     persist_results: 'persist_results',
+    ai_batch_mode: 'ai_batch_mode',
     created_at: 'created_at',
     updated_at: 'updated_at'
   };
@@ -35314,6 +38080,7 @@ export namespace Prisma {
     extraction_scope: 'extraction_scope',
     output_formats: 'output_formats',
     extraction_schema_version_id: 'extraction_schema_version_id',
+    ai_batch_mode: 'ai_batch_mode',
     ai_usage: 'ai_usage',
     error_message: 'error_message',
     metadata: 'metadata',
@@ -35408,6 +38175,45 @@ export namespace Prisma {
   };
 
   export type ExtractionResultScalarFieldEnum = (typeof ExtractionResultScalarFieldEnum)[keyof typeof ExtractionResultScalarFieldEnum]
+
+
+  export const AiBatchJobScalarFieldEnum: {
+    id: 'id',
+    workflow_run_id: 'workflow_run_id',
+    user_id: 'user_id',
+    external_batch_id: 'external_batch_id',
+    input_file_id: 'input_file_id',
+    output_file_id: 'output_file_id',
+    error_file_id: 'error_file_id',
+    status: 'status',
+    request_count: 'request_count',
+    error_message: 'error_message',
+    submitted_at: 'submitted_at',
+    completed_at: 'completed_at',
+    last_polled_at: 'last_polled_at',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type AiBatchJobScalarFieldEnum = (typeof AiBatchJobScalarFieldEnum)[keyof typeof AiBatchJobScalarFieldEnum]
+
+
+  export const AiBatchRequestItemScalarFieldEnum: {
+    id: 'id',
+    ai_batch_job_id: 'ai_batch_job_id',
+    custom_id: 'custom_id',
+    plain_scraped_page_id: 'plain_scraped_page_id',
+    source_url: 'source_url',
+    content_label: 'content_label',
+    content: 'content',
+    instructions: 'instructions',
+    wants_markdown: 'wants_markdown',
+    regex_data: 'regex_data',
+    status: 'status',
+    created_at: 'created_at'
+  };
+
+  export type AiBatchRequestItemScalarFieldEnum = (typeof AiBatchRequestItemScalarFieldEnum)[keyof typeof AiBatchRequestItemScalarFieldEnum]
 
 
   export const DiagnosticsPackageScalarFieldEnum: {
@@ -35912,6 +38718,20 @@ export namespace Prisma {
    * Reference to a field of type 'ExtractionFormatStatus[]'
    */
   export type ListEnumExtractionFormatStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ExtractionFormatStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'AiBatchJobStatus'
+   */
+  export type EnumAiBatchJobStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AiBatchJobStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'AiBatchJobStatus[]'
+   */
+  export type ListEnumAiBatchJobStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AiBatchJobStatus[]'>
     
 
 
@@ -36741,6 +39561,7 @@ export namespace Prisma {
     schedule_timezone?: StringNullableFilter<"WorkflowConfig"> | string | null
     schedule_enabled?: BoolFilter<"WorkflowConfig"> | boolean
     persist_results?: BoolFilter<"WorkflowConfig"> | boolean
+    ai_batch_mode?: BoolFilter<"WorkflowConfig"> | boolean
     created_at?: DateTimeFilter<"WorkflowConfig"> | Date | string
     updated_at?: DateTimeFilter<"WorkflowConfig"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -36783,6 +39604,7 @@ export namespace Prisma {
     schedule_timezone?: SortOrderInput | SortOrder
     schedule_enabled?: SortOrder
     persist_results?: SortOrder
+    ai_batch_mode?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     user?: UserOrderByWithRelationInput
@@ -36828,6 +39650,7 @@ export namespace Prisma {
     schedule_timezone?: StringNullableFilter<"WorkflowConfig"> | string | null
     schedule_enabled?: BoolFilter<"WorkflowConfig"> | boolean
     persist_results?: BoolFilter<"WorkflowConfig"> | boolean
+    ai_batch_mode?: BoolFilter<"WorkflowConfig"> | boolean
     created_at?: DateTimeFilter<"WorkflowConfig"> | Date | string
     updated_at?: DateTimeFilter<"WorkflowConfig"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -36870,6 +39693,7 @@ export namespace Prisma {
     schedule_timezone?: SortOrderInput | SortOrder
     schedule_enabled?: SortOrder
     persist_results?: SortOrder
+    ai_batch_mode?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     _count?: WorkflowConfigCountOrderByAggregateInput
@@ -36910,6 +39734,7 @@ export namespace Prisma {
     schedule_timezone?: StringNullableWithAggregatesFilter<"WorkflowConfig"> | string | null
     schedule_enabled?: BoolWithAggregatesFilter<"WorkflowConfig"> | boolean
     persist_results?: BoolWithAggregatesFilter<"WorkflowConfig"> | boolean
+    ai_batch_mode?: BoolWithAggregatesFilter<"WorkflowConfig"> | boolean
     created_at?: DateTimeWithAggregatesFilter<"WorkflowConfig"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"WorkflowConfig"> | Date | string
   }
@@ -37325,6 +40150,7 @@ export namespace Prisma {
     extraction_scope?: EnumExtractionScopeNullableFilter<"WorkflowRun"> | $Enums.ExtractionScope | null
     output_formats?: EnumOutputFormatNullableListFilter<"WorkflowRun">
     extraction_schema_version_id?: StringNullableFilter<"WorkflowRun"> | string | null
+    ai_batch_mode?: BoolFilter<"WorkflowRun"> | boolean
     ai_usage?: JsonNullableFilter<"WorkflowRun">
     error_message?: StringNullableFilter<"WorkflowRun"> | string | null
     metadata?: JsonNullableFilter<"WorkflowRun">
@@ -37348,6 +40174,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceListRelationFilter
     pages?: PlainScrapedPageListRelationFilter
     extraction_result?: XOR<ExtractionResultNullableScalarRelationFilter, ExtractionResultWhereInput> | null
+    ai_batch_job?: XOR<AiBatchJobNullableScalarRelationFilter, AiBatchJobWhereInput> | null
   }
 
   export type WorkflowRunOrderByWithRelationInput = {
@@ -37368,6 +40195,7 @@ export namespace Prisma {
     extraction_scope?: SortOrderInput | SortOrder
     output_formats?: SortOrder
     extraction_schema_version_id?: SortOrderInput | SortOrder
+    ai_batch_mode?: SortOrder
     ai_usage?: SortOrderInput | SortOrder
     error_message?: SortOrderInput | SortOrder
     metadata?: SortOrderInput | SortOrder
@@ -37391,6 +40219,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceOrderByRelationAggregateInput
     pages?: PlainScrapedPageOrderByRelationAggregateInput
     extraction_result?: ExtractionResultOrderByWithRelationInput
+    ai_batch_job?: AiBatchJobOrderByWithRelationInput
   }
 
   export type WorkflowRunWhereUniqueInput = Prisma.AtLeast<{
@@ -37414,6 +40243,7 @@ export namespace Prisma {
     extraction_scope?: EnumExtractionScopeNullableFilter<"WorkflowRun"> | $Enums.ExtractionScope | null
     output_formats?: EnumOutputFormatNullableListFilter<"WorkflowRun">
     extraction_schema_version_id?: StringNullableFilter<"WorkflowRun"> | string | null
+    ai_batch_mode?: BoolFilter<"WorkflowRun"> | boolean
     ai_usage?: JsonNullableFilter<"WorkflowRun">
     error_message?: StringNullableFilter<"WorkflowRun"> | string | null
     metadata?: JsonNullableFilter<"WorkflowRun">
@@ -37437,6 +40267,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceListRelationFilter
     pages?: PlainScrapedPageListRelationFilter
     extraction_result?: XOR<ExtractionResultNullableScalarRelationFilter, ExtractionResultWhereInput> | null
+    ai_batch_job?: XOR<AiBatchJobNullableScalarRelationFilter, AiBatchJobWhereInput> | null
   }, "id">
 
   export type WorkflowRunOrderByWithAggregationInput = {
@@ -37457,6 +40288,7 @@ export namespace Prisma {
     extraction_scope?: SortOrderInput | SortOrder
     output_formats?: SortOrder
     extraction_schema_version_id?: SortOrderInput | SortOrder
+    ai_batch_mode?: SortOrder
     ai_usage?: SortOrderInput | SortOrder
     error_message?: SortOrderInput | SortOrder
     metadata?: SortOrderInput | SortOrder
@@ -37495,6 +40327,7 @@ export namespace Prisma {
     extraction_scope?: EnumExtractionScopeNullableWithAggregatesFilter<"WorkflowRun"> | $Enums.ExtractionScope | null
     output_formats?: EnumOutputFormatNullableListFilter<"WorkflowRun">
     extraction_schema_version_id?: StringNullableWithAggregatesFilter<"WorkflowRun"> | string | null
+    ai_batch_mode?: BoolWithAggregatesFilter<"WorkflowRun"> | boolean
     ai_usage?: JsonNullableWithAggregatesFilter<"WorkflowRun">
     error_message?: StringNullableWithAggregatesFilter<"WorkflowRun"> | string | null
     metadata?: JsonNullableWithAggregatesFilter<"WorkflowRun">
@@ -37765,6 +40598,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"PlainScrapedPage"> | Date | string
     workflow_run?: XOR<WorkflowRunScalarRelationFilter, WorkflowRunWhereInput>
     extraction_result?: XOR<ExtractionResultNullableScalarRelationFilter, ExtractionResultWhereInput> | null
+    ai_batch_request_items?: AiBatchRequestItemListRelationFilter
   }
 
   export type PlainScrapedPageOrderByWithRelationInput = {
@@ -37782,6 +40616,7 @@ export namespace Prisma {
     created_at?: SortOrder
     workflow_run?: WorkflowRunOrderByWithRelationInput
     extraction_result?: ExtractionResultOrderByWithRelationInput
+    ai_batch_request_items?: AiBatchRequestItemOrderByRelationAggregateInput
   }
 
   export type PlainScrapedPageWhereUniqueInput = Prisma.AtLeast<{
@@ -37802,6 +40637,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"PlainScrapedPage"> | Date | string
     workflow_run?: XOR<WorkflowRunScalarRelationFilter, WorkflowRunWhereInput>
     extraction_result?: XOR<ExtractionResultNullableScalarRelationFilter, ExtractionResultWhereInput> | null
+    ai_batch_request_items?: AiBatchRequestItemListRelationFilter
   }, "id">
 
   export type PlainScrapedPageOrderByWithAggregationInput = {
@@ -37953,6 +40789,210 @@ export namespace Prisma {
     ai_usage?: JsonNullableWithAggregatesFilter<"ExtractionResult">
     created_at?: DateTimeWithAggregatesFilter<"ExtractionResult"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"ExtractionResult"> | Date | string
+  }
+
+  export type AiBatchJobWhereInput = {
+    AND?: AiBatchJobWhereInput | AiBatchJobWhereInput[]
+    OR?: AiBatchJobWhereInput[]
+    NOT?: AiBatchJobWhereInput | AiBatchJobWhereInput[]
+    id?: StringFilter<"AiBatchJob"> | string
+    workflow_run_id?: StringFilter<"AiBatchJob"> | string
+    user_id?: StringFilter<"AiBatchJob"> | string
+    external_batch_id?: StringFilter<"AiBatchJob"> | string
+    input_file_id?: StringFilter<"AiBatchJob"> | string
+    output_file_id?: StringNullableFilter<"AiBatchJob"> | string | null
+    error_file_id?: StringNullableFilter<"AiBatchJob"> | string | null
+    status?: EnumAiBatchJobStatusFilter<"AiBatchJob"> | $Enums.AiBatchJobStatus
+    request_count?: IntFilter<"AiBatchJob"> | number
+    error_message?: StringNullableFilter<"AiBatchJob"> | string | null
+    submitted_at?: DateTimeFilter<"AiBatchJob"> | Date | string
+    completed_at?: DateTimeNullableFilter<"AiBatchJob"> | Date | string | null
+    last_polled_at?: DateTimeNullableFilter<"AiBatchJob"> | Date | string | null
+    created_at?: DateTimeFilter<"AiBatchJob"> | Date | string
+    updated_at?: DateTimeFilter<"AiBatchJob"> | Date | string
+    workflow_run?: XOR<WorkflowRunScalarRelationFilter, WorkflowRunWhereInput>
+    items?: AiBatchRequestItemListRelationFilter
+  }
+
+  export type AiBatchJobOrderByWithRelationInput = {
+    id?: SortOrder
+    workflow_run_id?: SortOrder
+    user_id?: SortOrder
+    external_batch_id?: SortOrder
+    input_file_id?: SortOrder
+    output_file_id?: SortOrderInput | SortOrder
+    error_file_id?: SortOrderInput | SortOrder
+    status?: SortOrder
+    request_count?: SortOrder
+    error_message?: SortOrderInput | SortOrder
+    submitted_at?: SortOrder
+    completed_at?: SortOrderInput | SortOrder
+    last_polled_at?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    workflow_run?: WorkflowRunOrderByWithRelationInput
+    items?: AiBatchRequestItemOrderByRelationAggregateInput
+  }
+
+  export type AiBatchJobWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    workflow_run_id?: string
+    AND?: AiBatchJobWhereInput | AiBatchJobWhereInput[]
+    OR?: AiBatchJobWhereInput[]
+    NOT?: AiBatchJobWhereInput | AiBatchJobWhereInput[]
+    user_id?: StringFilter<"AiBatchJob"> | string
+    external_batch_id?: StringFilter<"AiBatchJob"> | string
+    input_file_id?: StringFilter<"AiBatchJob"> | string
+    output_file_id?: StringNullableFilter<"AiBatchJob"> | string | null
+    error_file_id?: StringNullableFilter<"AiBatchJob"> | string | null
+    status?: EnumAiBatchJobStatusFilter<"AiBatchJob"> | $Enums.AiBatchJobStatus
+    request_count?: IntFilter<"AiBatchJob"> | number
+    error_message?: StringNullableFilter<"AiBatchJob"> | string | null
+    submitted_at?: DateTimeFilter<"AiBatchJob"> | Date | string
+    completed_at?: DateTimeNullableFilter<"AiBatchJob"> | Date | string | null
+    last_polled_at?: DateTimeNullableFilter<"AiBatchJob"> | Date | string | null
+    created_at?: DateTimeFilter<"AiBatchJob"> | Date | string
+    updated_at?: DateTimeFilter<"AiBatchJob"> | Date | string
+    workflow_run?: XOR<WorkflowRunScalarRelationFilter, WorkflowRunWhereInput>
+    items?: AiBatchRequestItemListRelationFilter
+  }, "id" | "workflow_run_id">
+
+  export type AiBatchJobOrderByWithAggregationInput = {
+    id?: SortOrder
+    workflow_run_id?: SortOrder
+    user_id?: SortOrder
+    external_batch_id?: SortOrder
+    input_file_id?: SortOrder
+    output_file_id?: SortOrderInput | SortOrder
+    error_file_id?: SortOrderInput | SortOrder
+    status?: SortOrder
+    request_count?: SortOrder
+    error_message?: SortOrderInput | SortOrder
+    submitted_at?: SortOrder
+    completed_at?: SortOrderInput | SortOrder
+    last_polled_at?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: AiBatchJobCountOrderByAggregateInput
+    _avg?: AiBatchJobAvgOrderByAggregateInput
+    _max?: AiBatchJobMaxOrderByAggregateInput
+    _min?: AiBatchJobMinOrderByAggregateInput
+    _sum?: AiBatchJobSumOrderByAggregateInput
+  }
+
+  export type AiBatchJobScalarWhereWithAggregatesInput = {
+    AND?: AiBatchJobScalarWhereWithAggregatesInput | AiBatchJobScalarWhereWithAggregatesInput[]
+    OR?: AiBatchJobScalarWhereWithAggregatesInput[]
+    NOT?: AiBatchJobScalarWhereWithAggregatesInput | AiBatchJobScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"AiBatchJob"> | string
+    workflow_run_id?: StringWithAggregatesFilter<"AiBatchJob"> | string
+    user_id?: StringWithAggregatesFilter<"AiBatchJob"> | string
+    external_batch_id?: StringWithAggregatesFilter<"AiBatchJob"> | string
+    input_file_id?: StringWithAggregatesFilter<"AiBatchJob"> | string
+    output_file_id?: StringNullableWithAggregatesFilter<"AiBatchJob"> | string | null
+    error_file_id?: StringNullableWithAggregatesFilter<"AiBatchJob"> | string | null
+    status?: EnumAiBatchJobStatusWithAggregatesFilter<"AiBatchJob"> | $Enums.AiBatchJobStatus
+    request_count?: IntWithAggregatesFilter<"AiBatchJob"> | number
+    error_message?: StringNullableWithAggregatesFilter<"AiBatchJob"> | string | null
+    submitted_at?: DateTimeWithAggregatesFilter<"AiBatchJob"> | Date | string
+    completed_at?: DateTimeNullableWithAggregatesFilter<"AiBatchJob"> | Date | string | null
+    last_polled_at?: DateTimeNullableWithAggregatesFilter<"AiBatchJob"> | Date | string | null
+    created_at?: DateTimeWithAggregatesFilter<"AiBatchJob"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"AiBatchJob"> | Date | string
+  }
+
+  export type AiBatchRequestItemWhereInput = {
+    AND?: AiBatchRequestItemWhereInput | AiBatchRequestItemWhereInput[]
+    OR?: AiBatchRequestItemWhereInput[]
+    NOT?: AiBatchRequestItemWhereInput | AiBatchRequestItemWhereInput[]
+    id?: StringFilter<"AiBatchRequestItem"> | string
+    ai_batch_job_id?: StringFilter<"AiBatchRequestItem"> | string
+    custom_id?: StringFilter<"AiBatchRequestItem"> | string
+    plain_scraped_page_id?: StringNullableFilter<"AiBatchRequestItem"> | string | null
+    source_url?: StringNullableFilter<"AiBatchRequestItem"> | string | null
+    content_label?: StringNullableFilter<"AiBatchRequestItem"> | string | null
+    content?: StringFilter<"AiBatchRequestItem"> | string
+    instructions?: StringNullableFilter<"AiBatchRequestItem"> | string | null
+    wants_markdown?: BoolFilter<"AiBatchRequestItem"> | boolean
+    regex_data?: JsonNullableFilter<"AiBatchRequestItem">
+    status?: EnumExtractionFormatStatusNullableFilter<"AiBatchRequestItem"> | $Enums.ExtractionFormatStatus | null
+    created_at?: DateTimeFilter<"AiBatchRequestItem"> | Date | string
+    ai_batch_job?: XOR<AiBatchJobScalarRelationFilter, AiBatchJobWhereInput>
+    plain_scraped_page?: XOR<PlainScrapedPageNullableScalarRelationFilter, PlainScrapedPageWhereInput> | null
+  }
+
+  export type AiBatchRequestItemOrderByWithRelationInput = {
+    id?: SortOrder
+    ai_batch_job_id?: SortOrder
+    custom_id?: SortOrder
+    plain_scraped_page_id?: SortOrderInput | SortOrder
+    source_url?: SortOrderInput | SortOrder
+    content_label?: SortOrderInput | SortOrder
+    content?: SortOrder
+    instructions?: SortOrderInput | SortOrder
+    wants_markdown?: SortOrder
+    regex_data?: SortOrderInput | SortOrder
+    status?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    ai_batch_job?: AiBatchJobOrderByWithRelationInput
+    plain_scraped_page?: PlainScrapedPageOrderByWithRelationInput
+  }
+
+  export type AiBatchRequestItemWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    ai_batch_job_id_custom_id?: AiBatchRequestItemAi_batch_job_idCustom_idCompoundUniqueInput
+    AND?: AiBatchRequestItemWhereInput | AiBatchRequestItemWhereInput[]
+    OR?: AiBatchRequestItemWhereInput[]
+    NOT?: AiBatchRequestItemWhereInput | AiBatchRequestItemWhereInput[]
+    ai_batch_job_id?: StringFilter<"AiBatchRequestItem"> | string
+    custom_id?: StringFilter<"AiBatchRequestItem"> | string
+    plain_scraped_page_id?: StringNullableFilter<"AiBatchRequestItem"> | string | null
+    source_url?: StringNullableFilter<"AiBatchRequestItem"> | string | null
+    content_label?: StringNullableFilter<"AiBatchRequestItem"> | string | null
+    content?: StringFilter<"AiBatchRequestItem"> | string
+    instructions?: StringNullableFilter<"AiBatchRequestItem"> | string | null
+    wants_markdown?: BoolFilter<"AiBatchRequestItem"> | boolean
+    regex_data?: JsonNullableFilter<"AiBatchRequestItem">
+    status?: EnumExtractionFormatStatusNullableFilter<"AiBatchRequestItem"> | $Enums.ExtractionFormatStatus | null
+    created_at?: DateTimeFilter<"AiBatchRequestItem"> | Date | string
+    ai_batch_job?: XOR<AiBatchJobScalarRelationFilter, AiBatchJobWhereInput>
+    plain_scraped_page?: XOR<PlainScrapedPageNullableScalarRelationFilter, PlainScrapedPageWhereInput> | null
+  }, "id" | "ai_batch_job_id_custom_id">
+
+  export type AiBatchRequestItemOrderByWithAggregationInput = {
+    id?: SortOrder
+    ai_batch_job_id?: SortOrder
+    custom_id?: SortOrder
+    plain_scraped_page_id?: SortOrderInput | SortOrder
+    source_url?: SortOrderInput | SortOrder
+    content_label?: SortOrderInput | SortOrder
+    content?: SortOrder
+    instructions?: SortOrderInput | SortOrder
+    wants_markdown?: SortOrder
+    regex_data?: SortOrderInput | SortOrder
+    status?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    _count?: AiBatchRequestItemCountOrderByAggregateInput
+    _max?: AiBatchRequestItemMaxOrderByAggregateInput
+    _min?: AiBatchRequestItemMinOrderByAggregateInput
+  }
+
+  export type AiBatchRequestItemScalarWhereWithAggregatesInput = {
+    AND?: AiBatchRequestItemScalarWhereWithAggregatesInput | AiBatchRequestItemScalarWhereWithAggregatesInput[]
+    OR?: AiBatchRequestItemScalarWhereWithAggregatesInput[]
+    NOT?: AiBatchRequestItemScalarWhereWithAggregatesInput | AiBatchRequestItemScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"AiBatchRequestItem"> | string
+    ai_batch_job_id?: StringWithAggregatesFilter<"AiBatchRequestItem"> | string
+    custom_id?: StringWithAggregatesFilter<"AiBatchRequestItem"> | string
+    plain_scraped_page_id?: StringNullableWithAggregatesFilter<"AiBatchRequestItem"> | string | null
+    source_url?: StringNullableWithAggregatesFilter<"AiBatchRequestItem"> | string | null
+    content_label?: StringNullableWithAggregatesFilter<"AiBatchRequestItem"> | string | null
+    content?: StringWithAggregatesFilter<"AiBatchRequestItem"> | string
+    instructions?: StringNullableWithAggregatesFilter<"AiBatchRequestItem"> | string | null
+    wants_markdown?: BoolWithAggregatesFilter<"AiBatchRequestItem"> | boolean
+    regex_data?: JsonNullableWithAggregatesFilter<"AiBatchRequestItem">
+    status?: EnumExtractionFormatStatusNullableWithAggregatesFilter<"AiBatchRequestItem"> | $Enums.ExtractionFormatStatus | null
+    created_at?: DateTimeWithAggregatesFilter<"AiBatchRequestItem"> | Date | string
   }
 
   export type DiagnosticsPackageWhereInput = {
@@ -39332,6 +42372,7 @@ export namespace Prisma {
     schedule_timezone?: string | null
     schedule_enabled?: boolean
     persist_results?: boolean
+    ai_batch_mode?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     user: UserCreateNestedOneWithoutWorkflow_configsInput
@@ -39374,6 +42415,7 @@ export namespace Prisma {
     schedule_timezone?: string | null
     schedule_enabled?: boolean
     persist_results?: boolean
+    ai_batch_mode?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     runs?: WorkflowRunUncheckedCreateNestedManyWithoutWorkflow_configInput
@@ -39408,6 +42450,7 @@ export namespace Prisma {
     schedule_timezone?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_enabled?: BoolFieldUpdateOperationsInput | boolean
     persist_results?: BoolFieldUpdateOperationsInput | boolean
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutWorkflow_configsNestedInput
@@ -39450,6 +42493,7 @@ export namespace Prisma {
     schedule_timezone?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_enabled?: BoolFieldUpdateOperationsInput | boolean
     persist_results?: BoolFieldUpdateOperationsInput | boolean
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     runs?: WorkflowRunUncheckedUpdateManyWithoutWorkflow_configNestedInput
@@ -39488,6 +42532,7 @@ export namespace Prisma {
     schedule_timezone?: string | null
     schedule_enabled?: boolean
     persist_results?: boolean
+    ai_batch_mode?: boolean
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -39516,6 +42561,7 @@ export namespace Prisma {
     schedule_timezone?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_enabled?: BoolFieldUpdateOperationsInput | boolean
     persist_results?: BoolFieldUpdateOperationsInput | boolean
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -39548,6 +42594,7 @@ export namespace Prisma {
     schedule_timezone?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_enabled?: BoolFieldUpdateOperationsInput | boolean
     persist_results?: BoolFieldUpdateOperationsInput | boolean
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -39976,6 +43023,7 @@ export namespace Prisma {
     urls?: WorkflowRunCreateurlsInput | string[]
     extraction_scope?: $Enums.ExtractionScope | null
     output_formats?: WorkflowRunCreateoutput_formatsInput | $Enums.OutputFormat[]
+    ai_batch_mode?: boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -39999,6 +43047,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceCreateNestedManyWithoutWorkflow_runInput
     pages?: PlainScrapedPageCreateNestedManyWithoutWorkflow_runInput
     extraction_result?: ExtractionResultCreateNestedOneWithoutWorkflow_runInput
+    ai_batch_job?: AiBatchJobCreateNestedOneWithoutWorkflow_runInput
   }
 
   export type WorkflowRunUncheckedCreateInput = {
@@ -40019,6 +43068,7 @@ export namespace Prisma {
     extraction_scope?: $Enums.ExtractionScope | null
     output_formats?: WorkflowRunCreateoutput_formatsInput | $Enums.OutputFormat[]
     extraction_schema_version_id?: string | null
+    ai_batch_mode?: boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -40037,6 +43087,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceUncheckedCreateNestedManyWithoutWorkflow_runInput
     pages?: PlainScrapedPageUncheckedCreateNestedManyWithoutWorkflow_runInput
     extraction_result?: ExtractionResultUncheckedCreateNestedOneWithoutWorkflow_runInput
+    ai_batch_job?: AiBatchJobUncheckedCreateNestedOneWithoutWorkflow_runInput
   }
 
   export type WorkflowRunUpdateInput = {
@@ -40052,6 +43103,7 @@ export namespace Prisma {
     urls?: WorkflowRunUpdateurlsInput | string[]
     extraction_scope?: NullableEnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope | null
     output_formats?: WorkflowRunUpdateoutput_formatsInput | $Enums.OutputFormat[]
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -40075,6 +43127,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceUpdateManyWithoutWorkflow_runNestedInput
     pages?: PlainScrapedPageUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUpdateOneWithoutWorkflow_runNestedInput
+    ai_batch_job?: AiBatchJobUpdateOneWithoutWorkflow_runNestedInput
   }
 
   export type WorkflowRunUncheckedUpdateInput = {
@@ -40095,6 +43148,7 @@ export namespace Prisma {
     extraction_scope?: NullableEnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope | null
     output_formats?: WorkflowRunUpdateoutput_formatsInput | $Enums.OutputFormat[]
     extraction_schema_version_id?: NullableStringFieldUpdateOperationsInput | string | null
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -40113,6 +43167,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceUncheckedUpdateManyWithoutWorkflow_runNestedInput
     pages?: PlainScrapedPageUncheckedUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUncheckedUpdateOneWithoutWorkflow_runNestedInput
+    ai_batch_job?: AiBatchJobUncheckedUpdateOneWithoutWorkflow_runNestedInput
   }
 
   export type WorkflowRunCreateManyInput = {
@@ -40133,6 +43188,7 @@ export namespace Prisma {
     extraction_scope?: $Enums.ExtractionScope | null
     output_formats?: WorkflowRunCreateoutput_formatsInput | $Enums.OutputFormat[]
     extraction_schema_version_id?: string | null
+    ai_batch_mode?: boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -40158,6 +43214,7 @@ export namespace Prisma {
     urls?: WorkflowRunUpdateurlsInput | string[]
     extraction_scope?: NullableEnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope | null
     output_formats?: WorkflowRunUpdateoutput_formatsInput | $Enums.OutputFormat[]
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -40188,6 +43245,7 @@ export namespace Prisma {
     extraction_scope?: NullableEnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope | null
     output_formats?: WorkflowRunUpdateoutput_formatsInput | $Enums.OutputFormat[]
     extraction_schema_version_id?: NullableStringFieldUpdateOperationsInput | string | null
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -40464,6 +43522,7 @@ export namespace Prisma {
     created_at?: Date | string
     workflow_run: WorkflowRunCreateNestedOneWithoutPagesInput
     extraction_result?: ExtractionResultCreateNestedOneWithoutPlain_scraped_pageInput
+    ai_batch_request_items?: AiBatchRequestItemCreateNestedManyWithoutPlain_scraped_pageInput
   }
 
   export type PlainScrapedPageUncheckedCreateInput = {
@@ -40480,6 +43539,7 @@ export namespace Prisma {
     error_message?: string | null
     created_at?: Date | string
     extraction_result?: ExtractionResultUncheckedCreateNestedOneWithoutPlain_scraped_pageInput
+    ai_batch_request_items?: AiBatchRequestItemUncheckedCreateNestedManyWithoutPlain_scraped_pageInput
   }
 
   export type PlainScrapedPageUpdateInput = {
@@ -40496,6 +43556,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     workflow_run?: WorkflowRunUpdateOneRequiredWithoutPagesNestedInput
     extraction_result?: ExtractionResultUpdateOneWithoutPlain_scraped_pageNestedInput
+    ai_batch_request_items?: AiBatchRequestItemUpdateManyWithoutPlain_scraped_pageNestedInput
   }
 
   export type PlainScrapedPageUncheckedUpdateInput = {
@@ -40512,6 +43573,7 @@ export namespace Prisma {
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     extraction_result?: ExtractionResultUncheckedUpdateOneWithoutPlain_scraped_pageNestedInput
+    ai_batch_request_items?: AiBatchRequestItemUncheckedUpdateManyWithoutPlain_scraped_pageNestedInput
   }
 
   export type PlainScrapedPageCreateManyInput = {
@@ -40679,6 +43741,238 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AiBatchJobCreateInput = {
+    id?: string
+    user_id: string
+    external_batch_id: string
+    input_file_id: string
+    output_file_id?: string | null
+    error_file_id?: string | null
+    status?: $Enums.AiBatchJobStatus
+    request_count: number
+    error_message?: string | null
+    submitted_at?: Date | string
+    completed_at?: Date | string | null
+    last_polled_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    workflow_run: WorkflowRunCreateNestedOneWithoutAi_batch_jobInput
+    items?: AiBatchRequestItemCreateNestedManyWithoutAi_batch_jobInput
+  }
+
+  export type AiBatchJobUncheckedCreateInput = {
+    id?: string
+    workflow_run_id: string
+    user_id: string
+    external_batch_id: string
+    input_file_id: string
+    output_file_id?: string | null
+    error_file_id?: string | null
+    status?: $Enums.AiBatchJobStatus
+    request_count: number
+    error_message?: string | null
+    submitted_at?: Date | string
+    completed_at?: Date | string | null
+    last_polled_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    items?: AiBatchRequestItemUncheckedCreateNestedManyWithoutAi_batch_jobInput
+  }
+
+  export type AiBatchJobUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    external_batch_id?: StringFieldUpdateOperationsInput | string
+    input_file_id?: StringFieldUpdateOperationsInput | string
+    output_file_id?: NullableStringFieldUpdateOperationsInput | string | null
+    error_file_id?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAiBatchJobStatusFieldUpdateOperationsInput | $Enums.AiBatchJobStatus
+    request_count?: IntFieldUpdateOperationsInput | number
+    error_message?: NullableStringFieldUpdateOperationsInput | string | null
+    submitted_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    completed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    last_polled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    workflow_run?: WorkflowRunUpdateOneRequiredWithoutAi_batch_jobNestedInput
+    items?: AiBatchRequestItemUpdateManyWithoutAi_batch_jobNestedInput
+  }
+
+  export type AiBatchJobUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    workflow_run_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    external_batch_id?: StringFieldUpdateOperationsInput | string
+    input_file_id?: StringFieldUpdateOperationsInput | string
+    output_file_id?: NullableStringFieldUpdateOperationsInput | string | null
+    error_file_id?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAiBatchJobStatusFieldUpdateOperationsInput | $Enums.AiBatchJobStatus
+    request_count?: IntFieldUpdateOperationsInput | number
+    error_message?: NullableStringFieldUpdateOperationsInput | string | null
+    submitted_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    completed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    last_polled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    items?: AiBatchRequestItemUncheckedUpdateManyWithoutAi_batch_jobNestedInput
+  }
+
+  export type AiBatchJobCreateManyInput = {
+    id?: string
+    workflow_run_id: string
+    user_id: string
+    external_batch_id: string
+    input_file_id: string
+    output_file_id?: string | null
+    error_file_id?: string | null
+    status?: $Enums.AiBatchJobStatus
+    request_count: number
+    error_message?: string | null
+    submitted_at?: Date | string
+    completed_at?: Date | string | null
+    last_polled_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type AiBatchJobUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    external_batch_id?: StringFieldUpdateOperationsInput | string
+    input_file_id?: StringFieldUpdateOperationsInput | string
+    output_file_id?: NullableStringFieldUpdateOperationsInput | string | null
+    error_file_id?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAiBatchJobStatusFieldUpdateOperationsInput | $Enums.AiBatchJobStatus
+    request_count?: IntFieldUpdateOperationsInput | number
+    error_message?: NullableStringFieldUpdateOperationsInput | string | null
+    submitted_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    completed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    last_polled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AiBatchJobUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    workflow_run_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    external_batch_id?: StringFieldUpdateOperationsInput | string
+    input_file_id?: StringFieldUpdateOperationsInput | string
+    output_file_id?: NullableStringFieldUpdateOperationsInput | string | null
+    error_file_id?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAiBatchJobStatusFieldUpdateOperationsInput | $Enums.AiBatchJobStatus
+    request_count?: IntFieldUpdateOperationsInput | number
+    error_message?: NullableStringFieldUpdateOperationsInput | string | null
+    submitted_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    completed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    last_polled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AiBatchRequestItemCreateInput = {
+    id?: string
+    custom_id: string
+    source_url?: string | null
+    content_label?: string | null
+    content: string
+    instructions?: string | null
+    wants_markdown?: boolean
+    regex_data?: NullableJsonNullValueInput | InputJsonValue
+    status?: $Enums.ExtractionFormatStatus | null
+    created_at?: Date | string
+    ai_batch_job: AiBatchJobCreateNestedOneWithoutItemsInput
+    plain_scraped_page?: PlainScrapedPageCreateNestedOneWithoutAi_batch_request_itemsInput
+  }
+
+  export type AiBatchRequestItemUncheckedCreateInput = {
+    id?: string
+    ai_batch_job_id: string
+    custom_id: string
+    plain_scraped_page_id?: string | null
+    source_url?: string | null
+    content_label?: string | null
+    content: string
+    instructions?: string | null
+    wants_markdown?: boolean
+    regex_data?: NullableJsonNullValueInput | InputJsonValue
+    status?: $Enums.ExtractionFormatStatus | null
+    created_at?: Date | string
+  }
+
+  export type AiBatchRequestItemUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    custom_id?: StringFieldUpdateOperationsInput | string
+    source_url?: NullableStringFieldUpdateOperationsInput | string | null
+    content_label?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: StringFieldUpdateOperationsInput | string
+    instructions?: NullableStringFieldUpdateOperationsInput | string | null
+    wants_markdown?: BoolFieldUpdateOperationsInput | boolean
+    regex_data?: NullableJsonNullValueInput | InputJsonValue
+    status?: NullableEnumExtractionFormatStatusFieldUpdateOperationsInput | $Enums.ExtractionFormatStatus | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ai_batch_job?: AiBatchJobUpdateOneRequiredWithoutItemsNestedInput
+    plain_scraped_page?: PlainScrapedPageUpdateOneWithoutAi_batch_request_itemsNestedInput
+  }
+
+  export type AiBatchRequestItemUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ai_batch_job_id?: StringFieldUpdateOperationsInput | string
+    custom_id?: StringFieldUpdateOperationsInput | string
+    plain_scraped_page_id?: NullableStringFieldUpdateOperationsInput | string | null
+    source_url?: NullableStringFieldUpdateOperationsInput | string | null
+    content_label?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: StringFieldUpdateOperationsInput | string
+    instructions?: NullableStringFieldUpdateOperationsInput | string | null
+    wants_markdown?: BoolFieldUpdateOperationsInput | boolean
+    regex_data?: NullableJsonNullValueInput | InputJsonValue
+    status?: NullableEnumExtractionFormatStatusFieldUpdateOperationsInput | $Enums.ExtractionFormatStatus | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AiBatchRequestItemCreateManyInput = {
+    id?: string
+    ai_batch_job_id: string
+    custom_id: string
+    plain_scraped_page_id?: string | null
+    source_url?: string | null
+    content_label?: string | null
+    content: string
+    instructions?: string | null
+    wants_markdown?: boolean
+    regex_data?: NullableJsonNullValueInput | InputJsonValue
+    status?: $Enums.ExtractionFormatStatus | null
+    created_at?: Date | string
+  }
+
+  export type AiBatchRequestItemUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    custom_id?: StringFieldUpdateOperationsInput | string
+    source_url?: NullableStringFieldUpdateOperationsInput | string | null
+    content_label?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: StringFieldUpdateOperationsInput | string
+    instructions?: NullableStringFieldUpdateOperationsInput | string | null
+    wants_markdown?: BoolFieldUpdateOperationsInput | boolean
+    regex_data?: NullableJsonNullValueInput | InputJsonValue
+    status?: NullableEnumExtractionFormatStatusFieldUpdateOperationsInput | $Enums.ExtractionFormatStatus | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AiBatchRequestItemUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ai_batch_job_id?: StringFieldUpdateOperationsInput | string
+    custom_id?: StringFieldUpdateOperationsInput | string
+    plain_scraped_page_id?: NullableStringFieldUpdateOperationsInput | string | null
+    source_url?: NullableStringFieldUpdateOperationsInput | string | null
+    content_label?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: StringFieldUpdateOperationsInput | string
+    instructions?: NullableStringFieldUpdateOperationsInput | string | null
+    wants_markdown?: BoolFieldUpdateOperationsInput | boolean
+    regex_data?: NullableJsonNullValueInput | InputJsonValue
+    status?: NullableEnumExtractionFormatStatusFieldUpdateOperationsInput | $Enums.ExtractionFormatStatus | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type DiagnosticsPackageCreateInput = {
@@ -42349,6 +45643,7 @@ export namespace Prisma {
     schedule_timezone?: SortOrder
     schedule_enabled?: SortOrder
     persist_results?: SortOrder
+    ai_batch_mode?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -42387,6 +45682,7 @@ export namespace Prisma {
     schedule_timezone?: SortOrder
     schedule_enabled?: SortOrder
     persist_results?: SortOrder
+    ai_batch_mode?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -42417,6 +45713,7 @@ export namespace Prisma {
     schedule_timezone?: SortOrder
     schedule_enabled?: SortOrder
     persist_results?: SortOrder
+    ai_batch_mode?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -42822,6 +46119,11 @@ export namespace Prisma {
     isNot?: ExtractionResultWhereInput | null
   }
 
+  export type AiBatchJobNullableScalarRelationFilter = {
+    is?: AiBatchJobWhereInput | null
+    isNot?: AiBatchJobWhereInput | null
+  }
+
   export type JobLogOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -42848,6 +46150,7 @@ export namespace Prisma {
     extraction_scope?: SortOrder
     output_formats?: SortOrder
     extraction_schema_version_id?: SortOrder
+    ai_batch_mode?: SortOrder
     ai_usage?: SortOrder
     error_message?: SortOrder
     metadata?: SortOrder
@@ -42878,6 +46181,7 @@ export namespace Prisma {
     max_steps?: SortOrder
     extraction_scope?: SortOrder
     extraction_schema_version_id?: SortOrder
+    ai_batch_mode?: SortOrder
     error_message?: SortOrder
     persist_results?: SortOrder
     results_purged_at?: SortOrder
@@ -42901,6 +46205,7 @@ export namespace Prisma {
     max_steps?: SortOrder
     extraction_scope?: SortOrder
     extraction_schema_version_id?: SortOrder
+    ai_batch_mode?: SortOrder
     error_message?: SortOrder
     persist_results?: SortOrder
     results_purged_at?: SortOrder
@@ -43102,6 +46407,16 @@ export namespace Prisma {
     isNot?: WorkflowRunWhereInput
   }
 
+  export type AiBatchRequestItemListRelationFilter = {
+    every?: AiBatchRequestItemWhereInput
+    some?: AiBatchRequestItemWhereInput
+    none?: AiBatchRequestItemWhereInput
+  }
+
+  export type AiBatchRequestItemOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type PlainScrapedPageCountOrderByAggregateInput = {
     id?: SortOrder
     workflow_run_id?: SortOrder
@@ -43225,6 +46540,138 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedEnumExtractionFormatStatusNullableFilter<$PrismaModel>
     _max?: NestedEnumExtractionFormatStatusNullableFilter<$PrismaModel>
+  }
+
+  export type EnumAiBatchJobStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.AiBatchJobStatus | EnumAiBatchJobStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.AiBatchJobStatus[] | ListEnumAiBatchJobStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AiBatchJobStatus[] | ListEnumAiBatchJobStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumAiBatchJobStatusFilter<$PrismaModel> | $Enums.AiBatchJobStatus
+  }
+
+  export type AiBatchJobCountOrderByAggregateInput = {
+    id?: SortOrder
+    workflow_run_id?: SortOrder
+    user_id?: SortOrder
+    external_batch_id?: SortOrder
+    input_file_id?: SortOrder
+    output_file_id?: SortOrder
+    error_file_id?: SortOrder
+    status?: SortOrder
+    request_count?: SortOrder
+    error_message?: SortOrder
+    submitted_at?: SortOrder
+    completed_at?: SortOrder
+    last_polled_at?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type AiBatchJobAvgOrderByAggregateInput = {
+    request_count?: SortOrder
+  }
+
+  export type AiBatchJobMaxOrderByAggregateInput = {
+    id?: SortOrder
+    workflow_run_id?: SortOrder
+    user_id?: SortOrder
+    external_batch_id?: SortOrder
+    input_file_id?: SortOrder
+    output_file_id?: SortOrder
+    error_file_id?: SortOrder
+    status?: SortOrder
+    request_count?: SortOrder
+    error_message?: SortOrder
+    submitted_at?: SortOrder
+    completed_at?: SortOrder
+    last_polled_at?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type AiBatchJobMinOrderByAggregateInput = {
+    id?: SortOrder
+    workflow_run_id?: SortOrder
+    user_id?: SortOrder
+    external_batch_id?: SortOrder
+    input_file_id?: SortOrder
+    output_file_id?: SortOrder
+    error_file_id?: SortOrder
+    status?: SortOrder
+    request_count?: SortOrder
+    error_message?: SortOrder
+    submitted_at?: SortOrder
+    completed_at?: SortOrder
+    last_polled_at?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type AiBatchJobSumOrderByAggregateInput = {
+    request_count?: SortOrder
+  }
+
+  export type EnumAiBatchJobStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AiBatchJobStatus | EnumAiBatchJobStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.AiBatchJobStatus[] | ListEnumAiBatchJobStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AiBatchJobStatus[] | ListEnumAiBatchJobStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumAiBatchJobStatusWithAggregatesFilter<$PrismaModel> | $Enums.AiBatchJobStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAiBatchJobStatusFilter<$PrismaModel>
+    _max?: NestedEnumAiBatchJobStatusFilter<$PrismaModel>
+  }
+
+  export type AiBatchJobScalarRelationFilter = {
+    is?: AiBatchJobWhereInput
+    isNot?: AiBatchJobWhereInput
+  }
+
+  export type AiBatchRequestItemAi_batch_job_idCustom_idCompoundUniqueInput = {
+    ai_batch_job_id: string
+    custom_id: string
+  }
+
+  export type AiBatchRequestItemCountOrderByAggregateInput = {
+    id?: SortOrder
+    ai_batch_job_id?: SortOrder
+    custom_id?: SortOrder
+    plain_scraped_page_id?: SortOrder
+    source_url?: SortOrder
+    content_label?: SortOrder
+    content?: SortOrder
+    instructions?: SortOrder
+    wants_markdown?: SortOrder
+    regex_data?: SortOrder
+    status?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type AiBatchRequestItemMaxOrderByAggregateInput = {
+    id?: SortOrder
+    ai_batch_job_id?: SortOrder
+    custom_id?: SortOrder
+    plain_scraped_page_id?: SortOrder
+    source_url?: SortOrder
+    content_label?: SortOrder
+    content?: SortOrder
+    instructions?: SortOrder
+    wants_markdown?: SortOrder
+    status?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type AiBatchRequestItemMinOrderByAggregateInput = {
+    id?: SortOrder
+    ai_batch_job_id?: SortOrder
+    custom_id?: SortOrder
+    plain_scraped_page_id?: SortOrder
+    source_url?: SortOrder
+    content_label?: SortOrder
+    content?: SortOrder
+    instructions?: SortOrder
+    wants_markdown?: SortOrder
+    status?: SortOrder
+    created_at?: SortOrder
   }
 
   export type DiagnosticsArtifactListRelationFilter = {
@@ -45343,6 +48790,12 @@ export namespace Prisma {
     connect?: ExtractionResultWhereUniqueInput
   }
 
+  export type AiBatchJobCreateNestedOneWithoutWorkflow_runInput = {
+    create?: XOR<AiBatchJobCreateWithoutWorkflow_runInput, AiBatchJobUncheckedCreateWithoutWorkflow_runInput>
+    connectOrCreate?: AiBatchJobCreateOrConnectWithoutWorkflow_runInput
+    connect?: AiBatchJobWhereUniqueInput
+  }
+
   export type ComputerUseStepUncheckedCreateNestedManyWithoutWorkflow_runInput = {
     create?: XOR<ComputerUseStepCreateWithoutWorkflow_runInput, ComputerUseStepUncheckedCreateWithoutWorkflow_runInput> | ComputerUseStepCreateWithoutWorkflow_runInput[] | ComputerUseStepUncheckedCreateWithoutWorkflow_runInput[]
     connectOrCreate?: ComputerUseStepCreateOrConnectWithoutWorkflow_runInput | ComputerUseStepCreateOrConnectWithoutWorkflow_runInput[]
@@ -45395,6 +48848,12 @@ export namespace Prisma {
     create?: XOR<ExtractionResultCreateWithoutWorkflow_runInput, ExtractionResultUncheckedCreateWithoutWorkflow_runInput>
     connectOrCreate?: ExtractionResultCreateOrConnectWithoutWorkflow_runInput
     connect?: ExtractionResultWhereUniqueInput
+  }
+
+  export type AiBatchJobUncheckedCreateNestedOneWithoutWorkflow_runInput = {
+    create?: XOR<AiBatchJobCreateWithoutWorkflow_runInput, AiBatchJobUncheckedCreateWithoutWorkflow_runInput>
+    connectOrCreate?: AiBatchJobCreateOrConnectWithoutWorkflow_runInput
+    connect?: AiBatchJobWhereUniqueInput
   }
 
   export type EnumRunTriggerFieldUpdateOperationsInput = {
@@ -45569,6 +49028,16 @@ export namespace Prisma {
     update?: XOR<XOR<ExtractionResultUpdateToOneWithWhereWithoutWorkflow_runInput, ExtractionResultUpdateWithoutWorkflow_runInput>, ExtractionResultUncheckedUpdateWithoutWorkflow_runInput>
   }
 
+  export type AiBatchJobUpdateOneWithoutWorkflow_runNestedInput = {
+    create?: XOR<AiBatchJobCreateWithoutWorkflow_runInput, AiBatchJobUncheckedCreateWithoutWorkflow_runInput>
+    connectOrCreate?: AiBatchJobCreateOrConnectWithoutWorkflow_runInput
+    upsert?: AiBatchJobUpsertWithoutWorkflow_runInput
+    disconnect?: AiBatchJobWhereInput | boolean
+    delete?: AiBatchJobWhereInput | boolean
+    connect?: AiBatchJobWhereUniqueInput
+    update?: XOR<XOR<AiBatchJobUpdateToOneWithWhereWithoutWorkflow_runInput, AiBatchJobUpdateWithoutWorkflow_runInput>, AiBatchJobUncheckedUpdateWithoutWorkflow_runInput>
+  }
+
   export type ComputerUseStepUncheckedUpdateManyWithoutWorkflow_runNestedInput = {
     create?: XOR<ComputerUseStepCreateWithoutWorkflow_runInput, ComputerUseStepUncheckedCreateWithoutWorkflow_runInput> | ComputerUseStepCreateWithoutWorkflow_runInput[] | ComputerUseStepUncheckedCreateWithoutWorkflow_runInput[]
     connectOrCreate?: ComputerUseStepCreateOrConnectWithoutWorkflow_runInput | ComputerUseStepCreateOrConnectWithoutWorkflow_runInput[]
@@ -45671,6 +49140,16 @@ export namespace Prisma {
     delete?: ExtractionResultWhereInput | boolean
     connect?: ExtractionResultWhereUniqueInput
     update?: XOR<XOR<ExtractionResultUpdateToOneWithWhereWithoutWorkflow_runInput, ExtractionResultUpdateWithoutWorkflow_runInput>, ExtractionResultUncheckedUpdateWithoutWorkflow_runInput>
+  }
+
+  export type AiBatchJobUncheckedUpdateOneWithoutWorkflow_runNestedInput = {
+    create?: XOR<AiBatchJobCreateWithoutWorkflow_runInput, AiBatchJobUncheckedCreateWithoutWorkflow_runInput>
+    connectOrCreate?: AiBatchJobCreateOrConnectWithoutWorkflow_runInput
+    upsert?: AiBatchJobUpsertWithoutWorkflow_runInput
+    disconnect?: AiBatchJobWhereInput | boolean
+    delete?: AiBatchJobWhereInput | boolean
+    connect?: AiBatchJobWhereUniqueInput
+    update?: XOR<XOR<AiBatchJobUpdateToOneWithWhereWithoutWorkflow_runInput, AiBatchJobUpdateWithoutWorkflow_runInput>, AiBatchJobUncheckedUpdateWithoutWorkflow_runInput>
   }
 
   export type WebsiteTargetCreateNestedOneWithoutExtracted_itemsInput = {
@@ -46001,10 +49480,24 @@ export namespace Prisma {
     connect?: ExtractionResultWhereUniqueInput
   }
 
+  export type AiBatchRequestItemCreateNestedManyWithoutPlain_scraped_pageInput = {
+    create?: XOR<AiBatchRequestItemCreateWithoutPlain_scraped_pageInput, AiBatchRequestItemUncheckedCreateWithoutPlain_scraped_pageInput> | AiBatchRequestItemCreateWithoutPlain_scraped_pageInput[] | AiBatchRequestItemUncheckedCreateWithoutPlain_scraped_pageInput[]
+    connectOrCreate?: AiBatchRequestItemCreateOrConnectWithoutPlain_scraped_pageInput | AiBatchRequestItemCreateOrConnectWithoutPlain_scraped_pageInput[]
+    createMany?: AiBatchRequestItemCreateManyPlain_scraped_pageInputEnvelope
+    connect?: AiBatchRequestItemWhereUniqueInput | AiBatchRequestItemWhereUniqueInput[]
+  }
+
   export type ExtractionResultUncheckedCreateNestedOneWithoutPlain_scraped_pageInput = {
     create?: XOR<ExtractionResultCreateWithoutPlain_scraped_pageInput, ExtractionResultUncheckedCreateWithoutPlain_scraped_pageInput>
     connectOrCreate?: ExtractionResultCreateOrConnectWithoutPlain_scraped_pageInput
     connect?: ExtractionResultWhereUniqueInput
+  }
+
+  export type AiBatchRequestItemUncheckedCreateNestedManyWithoutPlain_scraped_pageInput = {
+    create?: XOR<AiBatchRequestItemCreateWithoutPlain_scraped_pageInput, AiBatchRequestItemUncheckedCreateWithoutPlain_scraped_pageInput> | AiBatchRequestItemCreateWithoutPlain_scraped_pageInput[] | AiBatchRequestItemUncheckedCreateWithoutPlain_scraped_pageInput[]
+    connectOrCreate?: AiBatchRequestItemCreateOrConnectWithoutPlain_scraped_pageInput | AiBatchRequestItemCreateOrConnectWithoutPlain_scraped_pageInput[]
+    createMany?: AiBatchRequestItemCreateManyPlain_scraped_pageInputEnvelope
+    connect?: AiBatchRequestItemWhereUniqueInput | AiBatchRequestItemWhereUniqueInput[]
   }
 
   export type WorkflowRunUpdateOneRequiredWithoutPagesNestedInput = {
@@ -46025,6 +49518,20 @@ export namespace Prisma {
     update?: XOR<XOR<ExtractionResultUpdateToOneWithWhereWithoutPlain_scraped_pageInput, ExtractionResultUpdateWithoutPlain_scraped_pageInput>, ExtractionResultUncheckedUpdateWithoutPlain_scraped_pageInput>
   }
 
+  export type AiBatchRequestItemUpdateManyWithoutPlain_scraped_pageNestedInput = {
+    create?: XOR<AiBatchRequestItemCreateWithoutPlain_scraped_pageInput, AiBatchRequestItemUncheckedCreateWithoutPlain_scraped_pageInput> | AiBatchRequestItemCreateWithoutPlain_scraped_pageInput[] | AiBatchRequestItemUncheckedCreateWithoutPlain_scraped_pageInput[]
+    connectOrCreate?: AiBatchRequestItemCreateOrConnectWithoutPlain_scraped_pageInput | AiBatchRequestItemCreateOrConnectWithoutPlain_scraped_pageInput[]
+    upsert?: AiBatchRequestItemUpsertWithWhereUniqueWithoutPlain_scraped_pageInput | AiBatchRequestItemUpsertWithWhereUniqueWithoutPlain_scraped_pageInput[]
+    createMany?: AiBatchRequestItemCreateManyPlain_scraped_pageInputEnvelope
+    set?: AiBatchRequestItemWhereUniqueInput | AiBatchRequestItemWhereUniqueInput[]
+    disconnect?: AiBatchRequestItemWhereUniqueInput | AiBatchRequestItemWhereUniqueInput[]
+    delete?: AiBatchRequestItemWhereUniqueInput | AiBatchRequestItemWhereUniqueInput[]
+    connect?: AiBatchRequestItemWhereUniqueInput | AiBatchRequestItemWhereUniqueInput[]
+    update?: AiBatchRequestItemUpdateWithWhereUniqueWithoutPlain_scraped_pageInput | AiBatchRequestItemUpdateWithWhereUniqueWithoutPlain_scraped_pageInput[]
+    updateMany?: AiBatchRequestItemUpdateManyWithWhereWithoutPlain_scraped_pageInput | AiBatchRequestItemUpdateManyWithWhereWithoutPlain_scraped_pageInput[]
+    deleteMany?: AiBatchRequestItemScalarWhereInput | AiBatchRequestItemScalarWhereInput[]
+  }
+
   export type ExtractionResultUncheckedUpdateOneWithoutPlain_scraped_pageNestedInput = {
     create?: XOR<ExtractionResultCreateWithoutPlain_scraped_pageInput, ExtractionResultUncheckedCreateWithoutPlain_scraped_pageInput>
     connectOrCreate?: ExtractionResultCreateOrConnectWithoutPlain_scraped_pageInput
@@ -46033,6 +49540,20 @@ export namespace Prisma {
     delete?: ExtractionResultWhereInput | boolean
     connect?: ExtractionResultWhereUniqueInput
     update?: XOR<XOR<ExtractionResultUpdateToOneWithWhereWithoutPlain_scraped_pageInput, ExtractionResultUpdateWithoutPlain_scraped_pageInput>, ExtractionResultUncheckedUpdateWithoutPlain_scraped_pageInput>
+  }
+
+  export type AiBatchRequestItemUncheckedUpdateManyWithoutPlain_scraped_pageNestedInput = {
+    create?: XOR<AiBatchRequestItemCreateWithoutPlain_scraped_pageInput, AiBatchRequestItemUncheckedCreateWithoutPlain_scraped_pageInput> | AiBatchRequestItemCreateWithoutPlain_scraped_pageInput[] | AiBatchRequestItemUncheckedCreateWithoutPlain_scraped_pageInput[]
+    connectOrCreate?: AiBatchRequestItemCreateOrConnectWithoutPlain_scraped_pageInput | AiBatchRequestItemCreateOrConnectWithoutPlain_scraped_pageInput[]
+    upsert?: AiBatchRequestItemUpsertWithWhereUniqueWithoutPlain_scraped_pageInput | AiBatchRequestItemUpsertWithWhereUniqueWithoutPlain_scraped_pageInput[]
+    createMany?: AiBatchRequestItemCreateManyPlain_scraped_pageInputEnvelope
+    set?: AiBatchRequestItemWhereUniqueInput | AiBatchRequestItemWhereUniqueInput[]
+    disconnect?: AiBatchRequestItemWhereUniqueInput | AiBatchRequestItemWhereUniqueInput[]
+    delete?: AiBatchRequestItemWhereUniqueInput | AiBatchRequestItemWhereUniqueInput[]
+    connect?: AiBatchRequestItemWhereUniqueInput | AiBatchRequestItemWhereUniqueInput[]
+    update?: AiBatchRequestItemUpdateWithWhereUniqueWithoutPlain_scraped_pageInput | AiBatchRequestItemUpdateWithWhereUniqueWithoutPlain_scraped_pageInput[]
+    updateMany?: AiBatchRequestItemUpdateManyWithWhereWithoutPlain_scraped_pageInput | AiBatchRequestItemUpdateManyWithWhereWithoutPlain_scraped_pageInput[]
+    deleteMany?: AiBatchRequestItemScalarWhereInput | AiBatchRequestItemScalarWhereInput[]
   }
 
   export type WorkflowRunCreateNestedOneWithoutExtraction_resultInput = {
@@ -46085,6 +49606,96 @@ export namespace Prisma {
     delete?: ExtractionSchemaVersionWhereInput | boolean
     connect?: ExtractionSchemaVersionWhereUniqueInput
     update?: XOR<XOR<ExtractionSchemaVersionUpdateToOneWithWhereWithoutExtraction_resultsInput, ExtractionSchemaVersionUpdateWithoutExtraction_resultsInput>, ExtractionSchemaVersionUncheckedUpdateWithoutExtraction_resultsInput>
+  }
+
+  export type WorkflowRunCreateNestedOneWithoutAi_batch_jobInput = {
+    create?: XOR<WorkflowRunCreateWithoutAi_batch_jobInput, WorkflowRunUncheckedCreateWithoutAi_batch_jobInput>
+    connectOrCreate?: WorkflowRunCreateOrConnectWithoutAi_batch_jobInput
+    connect?: WorkflowRunWhereUniqueInput
+  }
+
+  export type AiBatchRequestItemCreateNestedManyWithoutAi_batch_jobInput = {
+    create?: XOR<AiBatchRequestItemCreateWithoutAi_batch_jobInput, AiBatchRequestItemUncheckedCreateWithoutAi_batch_jobInput> | AiBatchRequestItemCreateWithoutAi_batch_jobInput[] | AiBatchRequestItemUncheckedCreateWithoutAi_batch_jobInput[]
+    connectOrCreate?: AiBatchRequestItemCreateOrConnectWithoutAi_batch_jobInput | AiBatchRequestItemCreateOrConnectWithoutAi_batch_jobInput[]
+    createMany?: AiBatchRequestItemCreateManyAi_batch_jobInputEnvelope
+    connect?: AiBatchRequestItemWhereUniqueInput | AiBatchRequestItemWhereUniqueInput[]
+  }
+
+  export type AiBatchRequestItemUncheckedCreateNestedManyWithoutAi_batch_jobInput = {
+    create?: XOR<AiBatchRequestItemCreateWithoutAi_batch_jobInput, AiBatchRequestItemUncheckedCreateWithoutAi_batch_jobInput> | AiBatchRequestItemCreateWithoutAi_batch_jobInput[] | AiBatchRequestItemUncheckedCreateWithoutAi_batch_jobInput[]
+    connectOrCreate?: AiBatchRequestItemCreateOrConnectWithoutAi_batch_jobInput | AiBatchRequestItemCreateOrConnectWithoutAi_batch_jobInput[]
+    createMany?: AiBatchRequestItemCreateManyAi_batch_jobInputEnvelope
+    connect?: AiBatchRequestItemWhereUniqueInput | AiBatchRequestItemWhereUniqueInput[]
+  }
+
+  export type EnumAiBatchJobStatusFieldUpdateOperationsInput = {
+    set?: $Enums.AiBatchJobStatus
+  }
+
+  export type WorkflowRunUpdateOneRequiredWithoutAi_batch_jobNestedInput = {
+    create?: XOR<WorkflowRunCreateWithoutAi_batch_jobInput, WorkflowRunUncheckedCreateWithoutAi_batch_jobInput>
+    connectOrCreate?: WorkflowRunCreateOrConnectWithoutAi_batch_jobInput
+    upsert?: WorkflowRunUpsertWithoutAi_batch_jobInput
+    connect?: WorkflowRunWhereUniqueInput
+    update?: XOR<XOR<WorkflowRunUpdateToOneWithWhereWithoutAi_batch_jobInput, WorkflowRunUpdateWithoutAi_batch_jobInput>, WorkflowRunUncheckedUpdateWithoutAi_batch_jobInput>
+  }
+
+  export type AiBatchRequestItemUpdateManyWithoutAi_batch_jobNestedInput = {
+    create?: XOR<AiBatchRequestItemCreateWithoutAi_batch_jobInput, AiBatchRequestItemUncheckedCreateWithoutAi_batch_jobInput> | AiBatchRequestItemCreateWithoutAi_batch_jobInput[] | AiBatchRequestItemUncheckedCreateWithoutAi_batch_jobInput[]
+    connectOrCreate?: AiBatchRequestItemCreateOrConnectWithoutAi_batch_jobInput | AiBatchRequestItemCreateOrConnectWithoutAi_batch_jobInput[]
+    upsert?: AiBatchRequestItemUpsertWithWhereUniqueWithoutAi_batch_jobInput | AiBatchRequestItemUpsertWithWhereUniqueWithoutAi_batch_jobInput[]
+    createMany?: AiBatchRequestItemCreateManyAi_batch_jobInputEnvelope
+    set?: AiBatchRequestItemWhereUniqueInput | AiBatchRequestItemWhereUniqueInput[]
+    disconnect?: AiBatchRequestItemWhereUniqueInput | AiBatchRequestItemWhereUniqueInput[]
+    delete?: AiBatchRequestItemWhereUniqueInput | AiBatchRequestItemWhereUniqueInput[]
+    connect?: AiBatchRequestItemWhereUniqueInput | AiBatchRequestItemWhereUniqueInput[]
+    update?: AiBatchRequestItemUpdateWithWhereUniqueWithoutAi_batch_jobInput | AiBatchRequestItemUpdateWithWhereUniqueWithoutAi_batch_jobInput[]
+    updateMany?: AiBatchRequestItemUpdateManyWithWhereWithoutAi_batch_jobInput | AiBatchRequestItemUpdateManyWithWhereWithoutAi_batch_jobInput[]
+    deleteMany?: AiBatchRequestItemScalarWhereInput | AiBatchRequestItemScalarWhereInput[]
+  }
+
+  export type AiBatchRequestItemUncheckedUpdateManyWithoutAi_batch_jobNestedInput = {
+    create?: XOR<AiBatchRequestItemCreateWithoutAi_batch_jobInput, AiBatchRequestItemUncheckedCreateWithoutAi_batch_jobInput> | AiBatchRequestItemCreateWithoutAi_batch_jobInput[] | AiBatchRequestItemUncheckedCreateWithoutAi_batch_jobInput[]
+    connectOrCreate?: AiBatchRequestItemCreateOrConnectWithoutAi_batch_jobInput | AiBatchRequestItemCreateOrConnectWithoutAi_batch_jobInput[]
+    upsert?: AiBatchRequestItemUpsertWithWhereUniqueWithoutAi_batch_jobInput | AiBatchRequestItemUpsertWithWhereUniqueWithoutAi_batch_jobInput[]
+    createMany?: AiBatchRequestItemCreateManyAi_batch_jobInputEnvelope
+    set?: AiBatchRequestItemWhereUniqueInput | AiBatchRequestItemWhereUniqueInput[]
+    disconnect?: AiBatchRequestItemWhereUniqueInput | AiBatchRequestItemWhereUniqueInput[]
+    delete?: AiBatchRequestItemWhereUniqueInput | AiBatchRequestItemWhereUniqueInput[]
+    connect?: AiBatchRequestItemWhereUniqueInput | AiBatchRequestItemWhereUniqueInput[]
+    update?: AiBatchRequestItemUpdateWithWhereUniqueWithoutAi_batch_jobInput | AiBatchRequestItemUpdateWithWhereUniqueWithoutAi_batch_jobInput[]
+    updateMany?: AiBatchRequestItemUpdateManyWithWhereWithoutAi_batch_jobInput | AiBatchRequestItemUpdateManyWithWhereWithoutAi_batch_jobInput[]
+    deleteMany?: AiBatchRequestItemScalarWhereInput | AiBatchRequestItemScalarWhereInput[]
+  }
+
+  export type AiBatchJobCreateNestedOneWithoutItemsInput = {
+    create?: XOR<AiBatchJobCreateWithoutItemsInput, AiBatchJobUncheckedCreateWithoutItemsInput>
+    connectOrCreate?: AiBatchJobCreateOrConnectWithoutItemsInput
+    connect?: AiBatchJobWhereUniqueInput
+  }
+
+  export type PlainScrapedPageCreateNestedOneWithoutAi_batch_request_itemsInput = {
+    create?: XOR<PlainScrapedPageCreateWithoutAi_batch_request_itemsInput, PlainScrapedPageUncheckedCreateWithoutAi_batch_request_itemsInput>
+    connectOrCreate?: PlainScrapedPageCreateOrConnectWithoutAi_batch_request_itemsInput
+    connect?: PlainScrapedPageWhereUniqueInput
+  }
+
+  export type AiBatchJobUpdateOneRequiredWithoutItemsNestedInput = {
+    create?: XOR<AiBatchJobCreateWithoutItemsInput, AiBatchJobUncheckedCreateWithoutItemsInput>
+    connectOrCreate?: AiBatchJobCreateOrConnectWithoutItemsInput
+    upsert?: AiBatchJobUpsertWithoutItemsInput
+    connect?: AiBatchJobWhereUniqueInput
+    update?: XOR<XOR<AiBatchJobUpdateToOneWithWhereWithoutItemsInput, AiBatchJobUpdateWithoutItemsInput>, AiBatchJobUncheckedUpdateWithoutItemsInput>
+  }
+
+  export type PlainScrapedPageUpdateOneWithoutAi_batch_request_itemsNestedInput = {
+    create?: XOR<PlainScrapedPageCreateWithoutAi_batch_request_itemsInput, PlainScrapedPageUncheckedCreateWithoutAi_batch_request_itemsInput>
+    connectOrCreate?: PlainScrapedPageCreateOrConnectWithoutAi_batch_request_itemsInput
+    upsert?: PlainScrapedPageUpsertWithoutAi_batch_request_itemsInput
+    disconnect?: PlainScrapedPageWhereInput | boolean
+    delete?: PlainScrapedPageWhereInput | boolean
+    connect?: PlainScrapedPageWhereUniqueInput
+    update?: XOR<XOR<PlainScrapedPageUpdateToOneWithWhereWithoutAi_batch_request_itemsInput, PlainScrapedPageUpdateWithoutAi_batch_request_itemsInput>, PlainScrapedPageUncheckedUpdateWithoutAi_batch_request_itemsInput>
   }
 
   export type WorkflowRunCreateNestedOneWithoutDiagnostics_packageInput = {
@@ -46870,6 +50481,23 @@ export namespace Prisma {
     _max?: NestedEnumExtractionFormatStatusNullableFilter<$PrismaModel>
   }
 
+  export type NestedEnumAiBatchJobStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.AiBatchJobStatus | EnumAiBatchJobStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.AiBatchJobStatus[] | ListEnumAiBatchJobStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AiBatchJobStatus[] | ListEnumAiBatchJobStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumAiBatchJobStatusFilter<$PrismaModel> | $Enums.AiBatchJobStatus
+  }
+
+  export type NestedEnumAiBatchJobStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AiBatchJobStatus | EnumAiBatchJobStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.AiBatchJobStatus[] | ListEnumAiBatchJobStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AiBatchJobStatus[] | ListEnumAiBatchJobStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumAiBatchJobStatusWithAggregatesFilter<$PrismaModel> | $Enums.AiBatchJobStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAiBatchJobStatusFilter<$PrismaModel>
+    _max?: NestedEnumAiBatchJobStatusFilter<$PrismaModel>
+  }
+
   export type NestedEnumDiagnosticsArtifactKindFilter<$PrismaModel = never> = {
     equals?: $Enums.DiagnosticsArtifactKind | EnumDiagnosticsArtifactKindFieldRefInput<$PrismaModel>
     in?: $Enums.DiagnosticsArtifactKind[] | ListEnumDiagnosticsArtifactKindFieldRefInput<$PrismaModel>
@@ -47074,6 +50702,7 @@ export namespace Prisma {
     schedule_timezone?: string | null
     schedule_enabled?: boolean
     persist_results?: boolean
+    ai_batch_mode?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     website_target?: WebsiteTargetCreateNestedOneWithoutWorkflow_configsInput
@@ -47114,6 +50743,7 @@ export namespace Prisma {
     schedule_timezone?: string | null
     schedule_enabled?: boolean
     persist_results?: boolean
+    ai_batch_mode?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     runs?: WorkflowRunUncheckedCreateNestedManyWithoutWorkflow_configInput
@@ -47147,6 +50777,7 @@ export namespace Prisma {
     urls?: WorkflowRunCreateurlsInput | string[]
     extraction_scope?: $Enums.ExtractionScope | null
     output_formats?: WorkflowRunCreateoutput_formatsInput | $Enums.OutputFormat[]
+    ai_batch_mode?: boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -47169,6 +50800,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceCreateNestedManyWithoutWorkflow_runInput
     pages?: PlainScrapedPageCreateNestedManyWithoutWorkflow_runInput
     extraction_result?: ExtractionResultCreateNestedOneWithoutWorkflow_runInput
+    ai_batch_job?: AiBatchJobCreateNestedOneWithoutWorkflow_runInput
   }
 
   export type WorkflowRunUncheckedCreateWithoutUserInput = {
@@ -47188,6 +50820,7 @@ export namespace Prisma {
     extraction_scope?: $Enums.ExtractionScope | null
     output_formats?: WorkflowRunCreateoutput_formatsInput | $Enums.OutputFormat[]
     extraction_schema_version_id?: string | null
+    ai_batch_mode?: boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -47206,6 +50839,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceUncheckedCreateNestedManyWithoutWorkflow_runInput
     pages?: PlainScrapedPageUncheckedCreateNestedManyWithoutWorkflow_runInput
     extraction_result?: ExtractionResultUncheckedCreateNestedOneWithoutWorkflow_runInput
+    ai_batch_job?: AiBatchJobUncheckedCreateNestedOneWithoutWorkflow_runInput
   }
 
   export type WorkflowRunCreateOrConnectWithoutUserInput = {
@@ -47466,6 +51100,7 @@ export namespace Prisma {
     schedule_timezone?: StringNullableFilter<"WorkflowConfig"> | string | null
     schedule_enabled?: BoolFilter<"WorkflowConfig"> | boolean
     persist_results?: BoolFilter<"WorkflowConfig"> | boolean
+    ai_batch_mode?: BoolFilter<"WorkflowConfig"> | boolean
     created_at?: DateTimeFilter<"WorkflowConfig"> | Date | string
     updated_at?: DateTimeFilter<"WorkflowConfig"> | Date | string
   }
@@ -47507,6 +51142,7 @@ export namespace Prisma {
     extraction_scope?: EnumExtractionScopeNullableFilter<"WorkflowRun"> | $Enums.ExtractionScope | null
     output_formats?: EnumOutputFormatNullableListFilter<"WorkflowRun">
     extraction_schema_version_id?: StringNullableFilter<"WorkflowRun"> | string | null
+    ai_batch_mode?: BoolFilter<"WorkflowRun"> | boolean
     ai_usage?: JsonNullableFilter<"WorkflowRun">
     error_message?: StringNullableFilter<"WorkflowRun"> | string | null
     metadata?: JsonNullableFilter<"WorkflowRun">
@@ -48234,6 +51870,7 @@ export namespace Prisma {
     schedule_timezone?: string | null
     schedule_enabled?: boolean
     persist_results?: boolean
+    ai_batch_mode?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     user: UserCreateNestedOneWithoutWorkflow_configsInput
@@ -48274,6 +51911,7 @@ export namespace Prisma {
     schedule_timezone?: string | null
     schedule_enabled?: boolean
     persist_results?: boolean
+    ai_batch_mode?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     runs?: WorkflowRunUncheckedCreateNestedManyWithoutWorkflow_configInput
@@ -48357,6 +51995,7 @@ export namespace Prisma {
     urls?: WorkflowRunCreateurlsInput | string[]
     extraction_scope?: $Enums.ExtractionScope | null
     output_formats?: WorkflowRunCreateoutput_formatsInput | $Enums.OutputFormat[]
+    ai_batch_mode?: boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -48379,6 +52018,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceCreateNestedManyWithoutWorkflow_runInput
     pages?: PlainScrapedPageCreateNestedManyWithoutWorkflow_runInput
     extraction_result?: ExtractionResultCreateNestedOneWithoutWorkflow_runInput
+    ai_batch_job?: AiBatchJobCreateNestedOneWithoutWorkflow_runInput
   }
 
   export type WorkflowRunUncheckedCreateWithoutWebsite_targetInput = {
@@ -48398,6 +52038,7 @@ export namespace Prisma {
     extraction_scope?: $Enums.ExtractionScope | null
     output_formats?: WorkflowRunCreateoutput_formatsInput | $Enums.OutputFormat[]
     extraction_schema_version_id?: string | null
+    ai_batch_mode?: boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -48416,6 +52057,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceUncheckedCreateNestedManyWithoutWorkflow_runInput
     pages?: PlainScrapedPageUncheckedCreateNestedManyWithoutWorkflow_runInput
     extraction_result?: ExtractionResultUncheckedCreateNestedOneWithoutWorkflow_runInput
+    ai_batch_job?: AiBatchJobUncheckedCreateNestedOneWithoutWorkflow_runInput
   }
 
   export type WorkflowRunCreateOrConnectWithoutWebsite_targetInput = {
@@ -49017,6 +52659,7 @@ export namespace Prisma {
     urls?: WorkflowRunCreateurlsInput | string[]
     extraction_scope?: $Enums.ExtractionScope | null
     output_formats?: WorkflowRunCreateoutput_formatsInput | $Enums.OutputFormat[]
+    ai_batch_mode?: boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -49039,6 +52682,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceCreateNestedManyWithoutWorkflow_runInput
     pages?: PlainScrapedPageCreateNestedManyWithoutWorkflow_runInput
     extraction_result?: ExtractionResultCreateNestedOneWithoutWorkflow_runInput
+    ai_batch_job?: AiBatchJobCreateNestedOneWithoutWorkflow_runInput
   }
 
   export type WorkflowRunUncheckedCreateWithoutWorkflow_configInput = {
@@ -49058,6 +52702,7 @@ export namespace Prisma {
     extraction_scope?: $Enums.ExtractionScope | null
     output_formats?: WorkflowRunCreateoutput_formatsInput | $Enums.OutputFormat[]
     extraction_schema_version_id?: string | null
+    ai_batch_mode?: boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -49076,6 +52721,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceUncheckedCreateNestedManyWithoutWorkflow_runInput
     pages?: PlainScrapedPageUncheckedCreateNestedManyWithoutWorkflow_runInput
     extraction_result?: ExtractionResultUncheckedCreateNestedOneWithoutWorkflow_runInput
+    ai_batch_job?: AiBatchJobUncheckedCreateNestedOneWithoutWorkflow_runInput
   }
 
   export type WorkflowRunCreateOrConnectWithoutWorkflow_configInput = {
@@ -49690,6 +53336,7 @@ export namespace Prisma {
     schedule_timezone?: string | null
     schedule_enabled?: boolean
     persist_results?: boolean
+    ai_batch_mode?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     user: UserCreateNestedOneWithoutWorkflow_configsInput
@@ -49731,6 +53378,7 @@ export namespace Prisma {
     schedule_timezone?: string | null
     schedule_enabled?: boolean
     persist_results?: boolean
+    ai_batch_mode?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     runs?: WorkflowRunUncheckedCreateNestedManyWithoutWorkflow_configInput
@@ -49904,6 +53552,7 @@ export namespace Prisma {
     schedule_timezone?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_enabled?: BoolFieldUpdateOperationsInput | boolean
     persist_results?: BoolFieldUpdateOperationsInput | boolean
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutWorkflow_configsNestedInput
@@ -49945,6 +53594,7 @@ export namespace Prisma {
     schedule_timezone?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_enabled?: BoolFieldUpdateOperationsInput | boolean
     persist_results?: BoolFieldUpdateOperationsInput | boolean
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     runs?: WorkflowRunUncheckedUpdateManyWithoutWorkflow_configNestedInput
@@ -50071,6 +53721,7 @@ export namespace Prisma {
     urls?: WorkflowRunCreateurlsInput | string[]
     extraction_scope?: $Enums.ExtractionScope | null
     output_formats?: WorkflowRunCreateoutput_formatsInput | $Enums.OutputFormat[]
+    ai_batch_mode?: boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -50093,6 +53744,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceCreateNestedManyWithoutWorkflow_runInput
     pages?: PlainScrapedPageCreateNestedManyWithoutWorkflow_runInput
     extraction_result?: ExtractionResultCreateNestedOneWithoutWorkflow_runInput
+    ai_batch_job?: AiBatchJobCreateNestedOneWithoutWorkflow_runInput
   }
 
   export type WorkflowRunUncheckedCreateWithoutStepsInput = {
@@ -50113,6 +53765,7 @@ export namespace Prisma {
     extraction_scope?: $Enums.ExtractionScope | null
     output_formats?: WorkflowRunCreateoutput_formatsInput | $Enums.OutputFormat[]
     extraction_schema_version_id?: string | null
+    ai_batch_mode?: boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -50130,6 +53783,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceUncheckedCreateNestedManyWithoutWorkflow_runInput
     pages?: PlainScrapedPageUncheckedCreateNestedManyWithoutWorkflow_runInput
     extraction_result?: ExtractionResultUncheckedCreateNestedOneWithoutWorkflow_runInput
+    ai_batch_job?: AiBatchJobUncheckedCreateNestedOneWithoutWorkflow_runInput
   }
 
   export type WorkflowRunCreateOrConnectWithoutStepsInput = {
@@ -50274,6 +53928,7 @@ export namespace Prisma {
     urls?: WorkflowRunUpdateurlsInput | string[]
     extraction_scope?: NullableEnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope | null
     output_formats?: WorkflowRunUpdateoutput_formatsInput | $Enums.OutputFormat[]
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -50296,6 +53951,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceUpdateManyWithoutWorkflow_runNestedInput
     pages?: PlainScrapedPageUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUpdateOneWithoutWorkflow_runNestedInput
+    ai_batch_job?: AiBatchJobUpdateOneWithoutWorkflow_runNestedInput
   }
 
   export type WorkflowRunUncheckedUpdateWithoutStepsInput = {
@@ -50316,6 +53972,7 @@ export namespace Prisma {
     extraction_scope?: NullableEnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope | null
     output_formats?: WorkflowRunUpdateoutput_formatsInput | $Enums.OutputFormat[]
     extraction_schema_version_id?: NullableStringFieldUpdateOperationsInput | string | null
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -50333,6 +53990,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceUncheckedUpdateManyWithoutWorkflow_runNestedInput
     pages?: PlainScrapedPageUncheckedUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUncheckedUpdateOneWithoutWorkflow_runNestedInput
+    ai_batch_job?: AiBatchJobUncheckedUpdateOneWithoutWorkflow_runNestedInput
   }
 
   export type DocumentUpsertWithoutComputer_use_steps_beforeInput = {
@@ -50433,6 +54091,7 @@ export namespace Prisma {
     schedule_timezone?: string | null
     schedule_enabled?: boolean
     persist_results?: boolean
+    ai_batch_mode?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     user: UserCreateNestedOneWithoutWorkflow_configsInput
@@ -50474,6 +54133,7 @@ export namespace Prisma {
     schedule_timezone?: string | null
     schedule_enabled?: boolean
     persist_results?: boolean
+    ai_batch_mode?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     runs?: WorkflowRunUncheckedCreateNestedManyWithoutWorkflow_configInput
@@ -50541,6 +54201,7 @@ export namespace Prisma {
     schedule_timezone?: string | null
     schedule_enabled?: boolean
     persist_results?: boolean
+    ai_batch_mode?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     user: UserCreateNestedOneWithoutWorkflow_configsInput
@@ -50581,6 +54242,7 @@ export namespace Prisma {
     schedule_timezone?: string | null
     schedule_enabled?: boolean
     persist_results?: boolean
+    ai_batch_mode?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     runs?: WorkflowRunUncheckedCreateNestedManyWithoutWorkflow_configInput
@@ -50654,6 +54316,7 @@ export namespace Prisma {
     urls?: WorkflowRunCreateurlsInput | string[]
     extraction_scope?: $Enums.ExtractionScope | null
     output_formats?: WorkflowRunCreateoutput_formatsInput | $Enums.OutputFormat[]
+    ai_batch_mode?: boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -50676,6 +54339,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceCreateNestedManyWithoutWorkflow_runInput
     pages?: PlainScrapedPageCreateNestedManyWithoutWorkflow_runInput
     extraction_result?: ExtractionResultCreateNestedOneWithoutWorkflow_runInput
+    ai_batch_job?: AiBatchJobCreateNestedOneWithoutWorkflow_runInput
   }
 
   export type WorkflowRunUncheckedCreateWithoutScraper_versionInput = {
@@ -50695,6 +54359,7 @@ export namespace Prisma {
     extraction_scope?: $Enums.ExtractionScope | null
     output_formats?: WorkflowRunCreateoutput_formatsInput | $Enums.OutputFormat[]
     extraction_schema_version_id?: string | null
+    ai_batch_mode?: boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -50713,6 +54378,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceUncheckedCreateNestedManyWithoutWorkflow_runInput
     pages?: PlainScrapedPageUncheckedCreateNestedManyWithoutWorkflow_runInput
     extraction_result?: ExtractionResultUncheckedCreateNestedOneWithoutWorkflow_runInput
+    ai_batch_job?: AiBatchJobUncheckedCreateNestedOneWithoutWorkflow_runInput
   }
 
   export type WorkflowRunCreateOrConnectWithoutScraper_versionInput = {
@@ -50760,6 +54426,7 @@ export namespace Prisma {
     schedule_timezone?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_enabled?: BoolFieldUpdateOperationsInput | boolean
     persist_results?: BoolFieldUpdateOperationsInput | boolean
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutWorkflow_configsNestedInput
@@ -50801,6 +54468,7 @@ export namespace Prisma {
     schedule_timezone?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_enabled?: BoolFieldUpdateOperationsInput | boolean
     persist_results?: BoolFieldUpdateOperationsInput | boolean
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     runs?: WorkflowRunUncheckedUpdateManyWithoutWorkflow_configNestedInput
@@ -50880,6 +54548,7 @@ export namespace Prisma {
     schedule_timezone?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_enabled?: BoolFieldUpdateOperationsInput | boolean
     persist_results?: BoolFieldUpdateOperationsInput | boolean
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutWorkflow_configsNestedInput
@@ -50920,6 +54589,7 @@ export namespace Prisma {
     schedule_timezone?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_enabled?: BoolFieldUpdateOperationsInput | boolean
     persist_results?: BoolFieldUpdateOperationsInput | boolean
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     runs?: WorkflowRunUncheckedUpdateManyWithoutWorkflow_configNestedInput
@@ -51021,6 +54691,7 @@ export namespace Prisma {
     schedule_timezone?: string | null
     schedule_enabled?: boolean
     persist_results?: boolean
+    ai_batch_mode?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     user: UserCreateNestedOneWithoutWorkflow_configsInput
@@ -51062,6 +54733,7 @@ export namespace Prisma {
     schedule_timezone?: string | null
     schedule_enabled?: boolean
     persist_results?: boolean
+    ai_batch_mode?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     runs?: WorkflowRunUncheckedCreateNestedManyWithoutWorkflow_configInput
@@ -51089,6 +54761,7 @@ export namespace Prisma {
     urls?: WorkflowRunCreateurlsInput | string[]
     extraction_scope?: $Enums.ExtractionScope | null
     output_formats?: WorkflowRunCreateoutput_formatsInput | $Enums.OutputFormat[]
+    ai_batch_mode?: boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -51111,6 +54784,7 @@ export namespace Prisma {
     extracted_items?: ExtractedItemCreateNestedManyWithoutWorkflow_runInput
     pages?: PlainScrapedPageCreateNestedManyWithoutWorkflow_runInput
     extraction_result?: ExtractionResultCreateNestedOneWithoutWorkflow_runInput
+    ai_batch_job?: AiBatchJobCreateNestedOneWithoutWorkflow_runInput
   }
 
   export type WorkflowRunUncheckedCreateWithoutExecution_tracesInput = {
@@ -51131,6 +54805,7 @@ export namespace Prisma {
     extraction_scope?: $Enums.ExtractionScope | null
     output_formats?: WorkflowRunCreateoutput_formatsInput | $Enums.OutputFormat[]
     extraction_schema_version_id?: string | null
+    ai_batch_mode?: boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -51148,6 +54823,7 @@ export namespace Prisma {
     extracted_items?: ExtractedItemUncheckedCreateNestedManyWithoutWorkflow_runInput
     pages?: PlainScrapedPageUncheckedCreateNestedManyWithoutWorkflow_runInput
     extraction_result?: ExtractionResultUncheckedCreateNestedOneWithoutWorkflow_runInput
+    ai_batch_job?: AiBatchJobUncheckedCreateNestedOneWithoutWorkflow_runInput
   }
 
   export type WorkflowRunCreateOrConnectWithoutExecution_tracesInput = {
@@ -51190,6 +54866,7 @@ export namespace Prisma {
     schedule_timezone?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_enabled?: BoolFieldUpdateOperationsInput | boolean
     persist_results?: BoolFieldUpdateOperationsInput | boolean
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutWorkflow_configsNestedInput
@@ -51231,6 +54908,7 @@ export namespace Prisma {
     schedule_timezone?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_enabled?: BoolFieldUpdateOperationsInput | boolean
     persist_results?: BoolFieldUpdateOperationsInput | boolean
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     runs?: WorkflowRunUncheckedUpdateManyWithoutWorkflow_configNestedInput
@@ -51264,6 +54942,7 @@ export namespace Prisma {
     urls?: WorkflowRunUpdateurlsInput | string[]
     extraction_scope?: NullableEnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope | null
     output_formats?: WorkflowRunUpdateoutput_formatsInput | $Enums.OutputFormat[]
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -51286,6 +54965,7 @@ export namespace Prisma {
     extracted_items?: ExtractedItemUpdateManyWithoutWorkflow_runNestedInput
     pages?: PlainScrapedPageUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUpdateOneWithoutWorkflow_runNestedInput
+    ai_batch_job?: AiBatchJobUpdateOneWithoutWorkflow_runNestedInput
   }
 
   export type WorkflowRunUncheckedUpdateWithoutExecution_tracesInput = {
@@ -51306,6 +54986,7 @@ export namespace Prisma {
     extraction_scope?: NullableEnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope | null
     output_formats?: WorkflowRunUpdateoutput_formatsInput | $Enums.OutputFormat[]
     extraction_schema_version_id?: NullableStringFieldUpdateOperationsInput | string | null
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -51323,6 +55004,7 @@ export namespace Prisma {
     extracted_items?: ExtractedItemUncheckedUpdateManyWithoutWorkflow_runNestedInput
     pages?: PlainScrapedPageUncheckedUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUncheckedUpdateOneWithoutWorkflow_runNestedInput
+    ai_batch_job?: AiBatchJobUncheckedUpdateOneWithoutWorkflow_runNestedInput
   }
 
   export type WorkflowConfigCreateWithoutRunsInput = {
@@ -51349,6 +55031,7 @@ export namespace Prisma {
     schedule_timezone?: string | null
     schedule_enabled?: boolean
     persist_results?: boolean
+    ai_batch_mode?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     user: UserCreateNestedOneWithoutWorkflow_configsInput
@@ -51390,6 +55073,7 @@ export namespace Prisma {
     schedule_timezone?: string | null
     schedule_enabled?: boolean
     persist_results?: boolean
+    ai_batch_mode?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     versions?: ScraperVersionUncheckedCreateNestedManyWithoutWorkflow_configInput
@@ -51796,6 +55480,7 @@ export namespace Prisma {
     error_message?: string | null
     created_at?: Date | string
     extraction_result?: ExtractionResultCreateNestedOneWithoutPlain_scraped_pageInput
+    ai_batch_request_items?: AiBatchRequestItemCreateNestedManyWithoutPlain_scraped_pageInput
   }
 
   export type PlainScrapedPageUncheckedCreateWithoutWorkflow_runInput = {
@@ -51811,6 +55496,7 @@ export namespace Prisma {
     error_message?: string | null
     created_at?: Date | string
     extraction_result?: ExtractionResultUncheckedCreateNestedOneWithoutPlain_scraped_pageInput
+    ai_batch_request_items?: AiBatchRequestItemUncheckedCreateNestedManyWithoutPlain_scraped_pageInput
   }
 
   export type PlainScrapedPageCreateOrConnectWithoutWorkflow_runInput = {
@@ -51862,6 +55548,47 @@ export namespace Prisma {
     create: XOR<ExtractionResultCreateWithoutWorkflow_runInput, ExtractionResultUncheckedCreateWithoutWorkflow_runInput>
   }
 
+  export type AiBatchJobCreateWithoutWorkflow_runInput = {
+    id?: string
+    user_id: string
+    external_batch_id: string
+    input_file_id: string
+    output_file_id?: string | null
+    error_file_id?: string | null
+    status?: $Enums.AiBatchJobStatus
+    request_count: number
+    error_message?: string | null
+    submitted_at?: Date | string
+    completed_at?: Date | string | null
+    last_polled_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    items?: AiBatchRequestItemCreateNestedManyWithoutAi_batch_jobInput
+  }
+
+  export type AiBatchJobUncheckedCreateWithoutWorkflow_runInput = {
+    id?: string
+    user_id: string
+    external_batch_id: string
+    input_file_id: string
+    output_file_id?: string | null
+    error_file_id?: string | null
+    status?: $Enums.AiBatchJobStatus
+    request_count: number
+    error_message?: string | null
+    submitted_at?: Date | string
+    completed_at?: Date | string | null
+    last_polled_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    items?: AiBatchRequestItemUncheckedCreateNestedManyWithoutAi_batch_jobInput
+  }
+
+  export type AiBatchJobCreateOrConnectWithoutWorkflow_runInput = {
+    where: AiBatchJobWhereUniqueInput
+    create: XOR<AiBatchJobCreateWithoutWorkflow_runInput, AiBatchJobUncheckedCreateWithoutWorkflow_runInput>
+  }
+
   export type WorkflowConfigUpsertWithoutRunsInput = {
     update: XOR<WorkflowConfigUpdateWithoutRunsInput, WorkflowConfigUncheckedUpdateWithoutRunsInput>
     create: XOR<WorkflowConfigCreateWithoutRunsInput, WorkflowConfigUncheckedCreateWithoutRunsInput>
@@ -51897,6 +55624,7 @@ export namespace Prisma {
     schedule_timezone?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_enabled?: BoolFieldUpdateOperationsInput | boolean
     persist_results?: BoolFieldUpdateOperationsInput | boolean
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutWorkflow_configsNestedInput
@@ -51938,6 +55666,7 @@ export namespace Prisma {
     schedule_timezone?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_enabled?: BoolFieldUpdateOperationsInput | boolean
     persist_results?: BoolFieldUpdateOperationsInput | boolean
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     versions?: ScraperVersionUncheckedUpdateManyWithoutWorkflow_configNestedInput
@@ -52356,6 +56085,53 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type AiBatchJobUpsertWithoutWorkflow_runInput = {
+    update: XOR<AiBatchJobUpdateWithoutWorkflow_runInput, AiBatchJobUncheckedUpdateWithoutWorkflow_runInput>
+    create: XOR<AiBatchJobCreateWithoutWorkflow_runInput, AiBatchJobUncheckedCreateWithoutWorkflow_runInput>
+    where?: AiBatchJobWhereInput
+  }
+
+  export type AiBatchJobUpdateToOneWithWhereWithoutWorkflow_runInput = {
+    where?: AiBatchJobWhereInput
+    data: XOR<AiBatchJobUpdateWithoutWorkflow_runInput, AiBatchJobUncheckedUpdateWithoutWorkflow_runInput>
+  }
+
+  export type AiBatchJobUpdateWithoutWorkflow_runInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    external_batch_id?: StringFieldUpdateOperationsInput | string
+    input_file_id?: StringFieldUpdateOperationsInput | string
+    output_file_id?: NullableStringFieldUpdateOperationsInput | string | null
+    error_file_id?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAiBatchJobStatusFieldUpdateOperationsInput | $Enums.AiBatchJobStatus
+    request_count?: IntFieldUpdateOperationsInput | number
+    error_message?: NullableStringFieldUpdateOperationsInput | string | null
+    submitted_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    completed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    last_polled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    items?: AiBatchRequestItemUpdateManyWithoutAi_batch_jobNestedInput
+  }
+
+  export type AiBatchJobUncheckedUpdateWithoutWorkflow_runInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    external_batch_id?: StringFieldUpdateOperationsInput | string
+    input_file_id?: StringFieldUpdateOperationsInput | string
+    output_file_id?: NullableStringFieldUpdateOperationsInput | string | null
+    error_file_id?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAiBatchJobStatusFieldUpdateOperationsInput | $Enums.AiBatchJobStatus
+    request_count?: IntFieldUpdateOperationsInput | number
+    error_message?: NullableStringFieldUpdateOperationsInput | string | null
+    submitted_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    completed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    last_polled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    items?: AiBatchRequestItemUncheckedUpdateManyWithoutAi_batch_jobNestedInput
+  }
+
   export type WebsiteTargetCreateWithoutExtracted_itemsInput = {
     id?: string
     name: string
@@ -52416,6 +56192,7 @@ export namespace Prisma {
     urls?: WorkflowRunCreateurlsInput | string[]
     extraction_scope?: $Enums.ExtractionScope | null
     output_formats?: WorkflowRunCreateoutput_formatsInput | $Enums.OutputFormat[]
+    ai_batch_mode?: boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -52438,6 +56215,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceCreateNestedManyWithoutWorkflow_runInput
     pages?: PlainScrapedPageCreateNestedManyWithoutWorkflow_runInput
     extraction_result?: ExtractionResultCreateNestedOneWithoutWorkflow_runInput
+    ai_batch_job?: AiBatchJobCreateNestedOneWithoutWorkflow_runInput
   }
 
   export type WorkflowRunUncheckedCreateWithoutExtracted_itemsInput = {
@@ -52458,6 +56236,7 @@ export namespace Prisma {
     extraction_scope?: $Enums.ExtractionScope | null
     output_formats?: WorkflowRunCreateoutput_formatsInput | $Enums.OutputFormat[]
     extraction_schema_version_id?: string | null
+    ai_batch_mode?: boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -52475,6 +56254,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceUncheckedCreateNestedManyWithoutWorkflow_runInput
     pages?: PlainScrapedPageUncheckedCreateNestedManyWithoutWorkflow_runInput
     extraction_result?: ExtractionResultUncheckedCreateNestedOneWithoutWorkflow_runInput
+    ai_batch_job?: AiBatchJobUncheckedCreateNestedOneWithoutWorkflow_runInput
   }
 
   export type WorkflowRunCreateOrConnectWithoutExtracted_itemsInput = {
@@ -52559,6 +56339,7 @@ export namespace Prisma {
     urls?: WorkflowRunUpdateurlsInput | string[]
     extraction_scope?: NullableEnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope | null
     output_formats?: WorkflowRunUpdateoutput_formatsInput | $Enums.OutputFormat[]
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -52581,6 +56362,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceUpdateManyWithoutWorkflow_runNestedInput
     pages?: PlainScrapedPageUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUpdateOneWithoutWorkflow_runNestedInput
+    ai_batch_job?: AiBatchJobUpdateOneWithoutWorkflow_runNestedInput
   }
 
   export type WorkflowRunUncheckedUpdateWithoutExtracted_itemsInput = {
@@ -52601,6 +56383,7 @@ export namespace Prisma {
     extraction_scope?: NullableEnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope | null
     output_formats?: WorkflowRunUpdateoutput_formatsInput | $Enums.OutputFormat[]
     extraction_schema_version_id?: NullableStringFieldUpdateOperationsInput | string | null
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -52618,6 +56401,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceUncheckedUpdateManyWithoutWorkflow_runNestedInput
     pages?: PlainScrapedPageUncheckedUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUncheckedUpdateOneWithoutWorkflow_runNestedInput
+    ai_batch_job?: AiBatchJobUncheckedUpdateOneWithoutWorkflow_runNestedInput
   }
 
   export type UserCreateWithoutExtraction_schemasInput = {
@@ -52953,6 +56737,7 @@ export namespace Prisma {
     schedule_timezone?: string | null
     schedule_enabled?: boolean
     persist_results?: boolean
+    ai_batch_mode?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     user: UserCreateNestedOneWithoutWorkflow_configsInput
@@ -52993,6 +56778,7 @@ export namespace Prisma {
     schedule_timezone?: string | null
     schedule_enabled?: boolean
     persist_results?: boolean
+    ai_batch_mode?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     runs?: WorkflowRunUncheckedCreateNestedManyWithoutWorkflow_configInput
@@ -53026,6 +56812,7 @@ export namespace Prisma {
     urls?: WorkflowRunCreateurlsInput | string[]
     extraction_scope?: $Enums.ExtractionScope | null
     output_formats?: WorkflowRunCreateoutput_formatsInput | $Enums.OutputFormat[]
+    ai_batch_mode?: boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -53048,6 +56835,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceCreateNestedManyWithoutWorkflow_runInput
     pages?: PlainScrapedPageCreateNestedManyWithoutWorkflow_runInput
     extraction_result?: ExtractionResultCreateNestedOneWithoutWorkflow_runInput
+    ai_batch_job?: AiBatchJobCreateNestedOneWithoutWorkflow_runInput
   }
 
   export type WorkflowRunUncheckedCreateWithoutExtraction_schema_versionInput = {
@@ -53067,6 +56855,7 @@ export namespace Prisma {
     urls?: WorkflowRunCreateurlsInput | string[]
     extraction_scope?: $Enums.ExtractionScope | null
     output_formats?: WorkflowRunCreateoutput_formatsInput | $Enums.OutputFormat[]
+    ai_batch_mode?: boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -53085,6 +56874,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceUncheckedCreateNestedManyWithoutWorkflow_runInput
     pages?: PlainScrapedPageUncheckedCreateNestedManyWithoutWorkflow_runInput
     extraction_result?: ExtractionResultUncheckedCreateNestedOneWithoutWorkflow_runInput
+    ai_batch_job?: AiBatchJobUncheckedCreateNestedOneWithoutWorkflow_runInput
   }
 
   export type WorkflowRunCreateOrConnectWithoutExtraction_schema_versionInput = {
@@ -53305,6 +57095,7 @@ export namespace Prisma {
     urls?: WorkflowRunCreateurlsInput | string[]
     extraction_scope?: $Enums.ExtractionScope | null
     output_formats?: WorkflowRunCreateoutput_formatsInput | $Enums.OutputFormat[]
+    ai_batch_mode?: boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -53327,6 +57118,7 @@ export namespace Prisma {
     extracted_items?: ExtractedItemCreateNestedManyWithoutWorkflow_runInput
     execution_traces?: ScraperExecutionTraceCreateNestedManyWithoutWorkflow_runInput
     extraction_result?: ExtractionResultCreateNestedOneWithoutWorkflow_runInput
+    ai_batch_job?: AiBatchJobCreateNestedOneWithoutWorkflow_runInput
   }
 
   export type WorkflowRunUncheckedCreateWithoutPagesInput = {
@@ -53347,6 +57139,7 @@ export namespace Prisma {
     extraction_scope?: $Enums.ExtractionScope | null
     output_formats?: WorkflowRunCreateoutput_formatsInput | $Enums.OutputFormat[]
     extraction_schema_version_id?: string | null
+    ai_batch_mode?: boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -53364,6 +57157,7 @@ export namespace Prisma {
     extracted_items?: ExtractedItemUncheckedCreateNestedManyWithoutWorkflow_runInput
     execution_traces?: ScraperExecutionTraceUncheckedCreateNestedManyWithoutWorkflow_runInput
     extraction_result?: ExtractionResultUncheckedCreateNestedOneWithoutWorkflow_runInput
+    ai_batch_job?: AiBatchJobUncheckedCreateNestedOneWithoutWorkflow_runInput
   }
 
   export type WorkflowRunCreateOrConnectWithoutPagesInput = {
@@ -53410,6 +57204,44 @@ export namespace Prisma {
     create: XOR<ExtractionResultCreateWithoutPlain_scraped_pageInput, ExtractionResultUncheckedCreateWithoutPlain_scraped_pageInput>
   }
 
+  export type AiBatchRequestItemCreateWithoutPlain_scraped_pageInput = {
+    id?: string
+    custom_id: string
+    source_url?: string | null
+    content_label?: string | null
+    content: string
+    instructions?: string | null
+    wants_markdown?: boolean
+    regex_data?: NullableJsonNullValueInput | InputJsonValue
+    status?: $Enums.ExtractionFormatStatus | null
+    created_at?: Date | string
+    ai_batch_job: AiBatchJobCreateNestedOneWithoutItemsInput
+  }
+
+  export type AiBatchRequestItemUncheckedCreateWithoutPlain_scraped_pageInput = {
+    id?: string
+    ai_batch_job_id: string
+    custom_id: string
+    source_url?: string | null
+    content_label?: string | null
+    content: string
+    instructions?: string | null
+    wants_markdown?: boolean
+    regex_data?: NullableJsonNullValueInput | InputJsonValue
+    status?: $Enums.ExtractionFormatStatus | null
+    created_at?: Date | string
+  }
+
+  export type AiBatchRequestItemCreateOrConnectWithoutPlain_scraped_pageInput = {
+    where: AiBatchRequestItemWhereUniqueInput
+    create: XOR<AiBatchRequestItemCreateWithoutPlain_scraped_pageInput, AiBatchRequestItemUncheckedCreateWithoutPlain_scraped_pageInput>
+  }
+
+  export type AiBatchRequestItemCreateManyPlain_scraped_pageInputEnvelope = {
+    data: AiBatchRequestItemCreateManyPlain_scraped_pageInput | AiBatchRequestItemCreateManyPlain_scraped_pageInput[]
+    skipDuplicates?: boolean
+  }
+
   export type WorkflowRunUpsertWithoutPagesInput = {
     update: XOR<WorkflowRunUpdateWithoutPagesInput, WorkflowRunUncheckedUpdateWithoutPagesInput>
     create: XOR<WorkflowRunCreateWithoutPagesInput, WorkflowRunUncheckedCreateWithoutPagesInput>
@@ -53434,6 +57266,7 @@ export namespace Prisma {
     urls?: WorkflowRunUpdateurlsInput | string[]
     extraction_scope?: NullableEnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope | null
     output_formats?: WorkflowRunUpdateoutput_formatsInput | $Enums.OutputFormat[]
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -53456,6 +57289,7 @@ export namespace Prisma {
     extracted_items?: ExtractedItemUpdateManyWithoutWorkflow_runNestedInput
     execution_traces?: ScraperExecutionTraceUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUpdateOneWithoutWorkflow_runNestedInput
+    ai_batch_job?: AiBatchJobUpdateOneWithoutWorkflow_runNestedInput
   }
 
   export type WorkflowRunUncheckedUpdateWithoutPagesInput = {
@@ -53476,6 +57310,7 @@ export namespace Prisma {
     extraction_scope?: NullableEnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope | null
     output_formats?: WorkflowRunUpdateoutput_formatsInput | $Enums.OutputFormat[]
     extraction_schema_version_id?: NullableStringFieldUpdateOperationsInput | string | null
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -53493,6 +57328,7 @@ export namespace Prisma {
     extracted_items?: ExtractedItemUncheckedUpdateManyWithoutWorkflow_runNestedInput
     execution_traces?: ScraperExecutionTraceUncheckedUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUncheckedUpdateOneWithoutWorkflow_runNestedInput
+    ai_batch_job?: AiBatchJobUncheckedUpdateOneWithoutWorkflow_runNestedInput
   }
 
   export type ExtractionResultUpsertWithoutPlain_scraped_pageInput = {
@@ -53540,6 +57376,40 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type AiBatchRequestItemUpsertWithWhereUniqueWithoutPlain_scraped_pageInput = {
+    where: AiBatchRequestItemWhereUniqueInput
+    update: XOR<AiBatchRequestItemUpdateWithoutPlain_scraped_pageInput, AiBatchRequestItemUncheckedUpdateWithoutPlain_scraped_pageInput>
+    create: XOR<AiBatchRequestItemCreateWithoutPlain_scraped_pageInput, AiBatchRequestItemUncheckedCreateWithoutPlain_scraped_pageInput>
+  }
+
+  export type AiBatchRequestItemUpdateWithWhereUniqueWithoutPlain_scraped_pageInput = {
+    where: AiBatchRequestItemWhereUniqueInput
+    data: XOR<AiBatchRequestItemUpdateWithoutPlain_scraped_pageInput, AiBatchRequestItemUncheckedUpdateWithoutPlain_scraped_pageInput>
+  }
+
+  export type AiBatchRequestItemUpdateManyWithWhereWithoutPlain_scraped_pageInput = {
+    where: AiBatchRequestItemScalarWhereInput
+    data: XOR<AiBatchRequestItemUpdateManyMutationInput, AiBatchRequestItemUncheckedUpdateManyWithoutPlain_scraped_pageInput>
+  }
+
+  export type AiBatchRequestItemScalarWhereInput = {
+    AND?: AiBatchRequestItemScalarWhereInput | AiBatchRequestItemScalarWhereInput[]
+    OR?: AiBatchRequestItemScalarWhereInput[]
+    NOT?: AiBatchRequestItemScalarWhereInput | AiBatchRequestItemScalarWhereInput[]
+    id?: StringFilter<"AiBatchRequestItem"> | string
+    ai_batch_job_id?: StringFilter<"AiBatchRequestItem"> | string
+    custom_id?: StringFilter<"AiBatchRequestItem"> | string
+    plain_scraped_page_id?: StringNullableFilter<"AiBatchRequestItem"> | string | null
+    source_url?: StringNullableFilter<"AiBatchRequestItem"> | string | null
+    content_label?: StringNullableFilter<"AiBatchRequestItem"> | string | null
+    content?: StringFilter<"AiBatchRequestItem"> | string
+    instructions?: StringNullableFilter<"AiBatchRequestItem"> | string | null
+    wants_markdown?: BoolFilter<"AiBatchRequestItem"> | boolean
+    regex_data?: JsonNullableFilter<"AiBatchRequestItem">
+    status?: EnumExtractionFormatStatusNullableFilter<"AiBatchRequestItem"> | $Enums.ExtractionFormatStatus | null
+    created_at?: DateTimeFilter<"AiBatchRequestItem"> | Date | string
+  }
+
   export type WorkflowRunCreateWithoutExtraction_resultInput = {
     id?: string
     type: $Enums.WorkflowType
@@ -53553,6 +57423,7 @@ export namespace Prisma {
     urls?: WorkflowRunCreateurlsInput | string[]
     extraction_scope?: $Enums.ExtractionScope | null
     output_formats?: WorkflowRunCreateoutput_formatsInput | $Enums.OutputFormat[]
+    ai_batch_mode?: boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -53575,6 +57446,7 @@ export namespace Prisma {
     extracted_items?: ExtractedItemCreateNestedManyWithoutWorkflow_runInput
     execution_traces?: ScraperExecutionTraceCreateNestedManyWithoutWorkflow_runInput
     pages?: PlainScrapedPageCreateNestedManyWithoutWorkflow_runInput
+    ai_batch_job?: AiBatchJobCreateNestedOneWithoutWorkflow_runInput
   }
 
   export type WorkflowRunUncheckedCreateWithoutExtraction_resultInput = {
@@ -53595,6 +57467,7 @@ export namespace Prisma {
     extraction_scope?: $Enums.ExtractionScope | null
     output_formats?: WorkflowRunCreateoutput_formatsInput | $Enums.OutputFormat[]
     extraction_schema_version_id?: string | null
+    ai_batch_mode?: boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -53612,6 +57485,7 @@ export namespace Prisma {
     extracted_items?: ExtractedItemUncheckedCreateNestedManyWithoutWorkflow_runInput
     execution_traces?: ScraperExecutionTraceUncheckedCreateNestedManyWithoutWorkflow_runInput
     pages?: PlainScrapedPageUncheckedCreateNestedManyWithoutWorkflow_runInput
+    ai_batch_job?: AiBatchJobUncheckedCreateNestedOneWithoutWorkflow_runInput
   }
 
   export type WorkflowRunCreateOrConnectWithoutExtraction_resultInput = {
@@ -53632,6 +57506,7 @@ export namespace Prisma {
     error_message?: string | null
     created_at?: Date | string
     workflow_run: WorkflowRunCreateNestedOneWithoutPagesInput
+    ai_batch_request_items?: AiBatchRequestItemCreateNestedManyWithoutPlain_scraped_pageInput
   }
 
   export type PlainScrapedPageUncheckedCreateWithoutExtraction_resultInput = {
@@ -53647,6 +57522,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     created_at?: Date | string
+    ai_batch_request_items?: AiBatchRequestItemUncheckedCreateNestedManyWithoutPlain_scraped_pageInput
   }
 
   export type PlainScrapedPageCreateOrConnectWithoutExtraction_resultInput = {
@@ -53707,6 +57583,7 @@ export namespace Prisma {
     urls?: WorkflowRunUpdateurlsInput | string[]
     extraction_scope?: NullableEnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope | null
     output_formats?: WorkflowRunUpdateoutput_formatsInput | $Enums.OutputFormat[]
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -53729,6 +57606,7 @@ export namespace Prisma {
     extracted_items?: ExtractedItemUpdateManyWithoutWorkflow_runNestedInput
     execution_traces?: ScraperExecutionTraceUpdateManyWithoutWorkflow_runNestedInput
     pages?: PlainScrapedPageUpdateManyWithoutWorkflow_runNestedInput
+    ai_batch_job?: AiBatchJobUpdateOneWithoutWorkflow_runNestedInput
   }
 
   export type WorkflowRunUncheckedUpdateWithoutExtraction_resultInput = {
@@ -53749,6 +57627,7 @@ export namespace Prisma {
     extraction_scope?: NullableEnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope | null
     output_formats?: WorkflowRunUpdateoutput_formatsInput | $Enums.OutputFormat[]
     extraction_schema_version_id?: NullableStringFieldUpdateOperationsInput | string | null
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -53766,6 +57645,7 @@ export namespace Prisma {
     extracted_items?: ExtractedItemUncheckedUpdateManyWithoutWorkflow_runNestedInput
     execution_traces?: ScraperExecutionTraceUncheckedUpdateManyWithoutWorkflow_runNestedInput
     pages?: PlainScrapedPageUncheckedUpdateManyWithoutWorkflow_runNestedInput
+    ai_batch_job?: AiBatchJobUncheckedUpdateOneWithoutWorkflow_runNestedInput
   }
 
   export type PlainScrapedPageUpsertWithoutExtraction_resultInput = {
@@ -53792,6 +57672,7 @@ export namespace Prisma {
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     workflow_run?: WorkflowRunUpdateOneRequiredWithoutPagesNestedInput
+    ai_batch_request_items?: AiBatchRequestItemUpdateManyWithoutPlain_scraped_pageNestedInput
   }
 
   export type PlainScrapedPageUncheckedUpdateWithoutExtraction_resultInput = {
@@ -53807,6 +57688,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ai_batch_request_items?: AiBatchRequestItemUncheckedUpdateManyWithoutPlain_scraped_pageNestedInput
   }
 
   export type ExtractionSchemaVersionUpsertWithoutExtraction_resultsInput = {
@@ -53844,6 +57726,400 @@ export namespace Prisma {
     workflow_runs?: WorkflowRunUncheckedUpdateManyWithoutExtraction_schema_versionNestedInput
   }
 
+  export type WorkflowRunCreateWithoutAi_batch_jobInput = {
+    id?: string
+    type: $Enums.WorkflowType
+    trigger?: $Enums.RunTrigger
+    status?: $Enums.RunStatus
+    url?: string | null
+    max_steps?: number | null
+    visited_urls?: NullableJsonNullValueInput | InputJsonValue
+    browser_actions?: NullableJsonNullValueInput | InputJsonValue
+    collected_data?: NullableJsonNullValueInput | InputJsonValue
+    urls?: WorkflowRunCreateurlsInput | string[]
+    extraction_scope?: $Enums.ExtractionScope | null
+    output_formats?: WorkflowRunCreateoutput_formatsInput | $Enums.OutputFormat[]
+    ai_batch_mode?: boolean
+    ai_usage?: NullableJsonNullValueInput | InputJsonValue
+    error_message?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: boolean
+    results_purged_at?: Date | string | null
+    started_at?: Date | string | null
+    finished_at?: Date | string | null
+    duration_ms?: number | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    workflow_config: WorkflowConfigCreateNestedOneWithoutRunsInput
+    user: UserCreateNestedOneWithoutWorkflow_runsInput
+    website_target?: WebsiteTargetCreateNestedOneWithoutWorkflow_runsInput
+    scraper_version?: ScraperVersionCreateNestedOneWithoutWorkflow_runsInput
+    extraction_schema_version?: ExtractionSchemaVersionCreateNestedOneWithoutWorkflow_runsInput
+    steps?: ComputerUseStepCreateNestedManyWithoutWorkflow_runInput
+    job_logs?: JobLogCreateNestedManyWithoutWorkflow_runInput
+    notifications?: NotificationCreateNestedManyWithoutWorkflow_runInput
+    diagnostics_package?: DiagnosticsPackageCreateNestedOneWithoutWorkflow_runInput
+    extracted_items?: ExtractedItemCreateNestedManyWithoutWorkflow_runInput
+    execution_traces?: ScraperExecutionTraceCreateNestedManyWithoutWorkflow_runInput
+    pages?: PlainScrapedPageCreateNestedManyWithoutWorkflow_runInput
+    extraction_result?: ExtractionResultCreateNestedOneWithoutWorkflow_runInput
+  }
+
+  export type WorkflowRunUncheckedCreateWithoutAi_batch_jobInput = {
+    id?: string
+    workflow_config_id: string
+    user_id: string
+    type: $Enums.WorkflowType
+    trigger?: $Enums.RunTrigger
+    status?: $Enums.RunStatus
+    website_target_id?: string | null
+    scraper_version_id?: string | null
+    url?: string | null
+    max_steps?: number | null
+    visited_urls?: NullableJsonNullValueInput | InputJsonValue
+    browser_actions?: NullableJsonNullValueInput | InputJsonValue
+    collected_data?: NullableJsonNullValueInput | InputJsonValue
+    urls?: WorkflowRunCreateurlsInput | string[]
+    extraction_scope?: $Enums.ExtractionScope | null
+    output_formats?: WorkflowRunCreateoutput_formatsInput | $Enums.OutputFormat[]
+    extraction_schema_version_id?: string | null
+    ai_batch_mode?: boolean
+    ai_usage?: NullableJsonNullValueInput | InputJsonValue
+    error_message?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: boolean
+    results_purged_at?: Date | string | null
+    started_at?: Date | string | null
+    finished_at?: Date | string | null
+    duration_ms?: number | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    steps?: ComputerUseStepUncheckedCreateNestedManyWithoutWorkflow_runInput
+    job_logs?: JobLogUncheckedCreateNestedManyWithoutWorkflow_runInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutWorkflow_runInput
+    diagnostics_package?: DiagnosticsPackageUncheckedCreateNestedOneWithoutWorkflow_runInput
+    extracted_items?: ExtractedItemUncheckedCreateNestedManyWithoutWorkflow_runInput
+    execution_traces?: ScraperExecutionTraceUncheckedCreateNestedManyWithoutWorkflow_runInput
+    pages?: PlainScrapedPageUncheckedCreateNestedManyWithoutWorkflow_runInput
+    extraction_result?: ExtractionResultUncheckedCreateNestedOneWithoutWorkflow_runInput
+  }
+
+  export type WorkflowRunCreateOrConnectWithoutAi_batch_jobInput = {
+    where: WorkflowRunWhereUniqueInput
+    create: XOR<WorkflowRunCreateWithoutAi_batch_jobInput, WorkflowRunUncheckedCreateWithoutAi_batch_jobInput>
+  }
+
+  export type AiBatchRequestItemCreateWithoutAi_batch_jobInput = {
+    id?: string
+    custom_id: string
+    source_url?: string | null
+    content_label?: string | null
+    content: string
+    instructions?: string | null
+    wants_markdown?: boolean
+    regex_data?: NullableJsonNullValueInput | InputJsonValue
+    status?: $Enums.ExtractionFormatStatus | null
+    created_at?: Date | string
+    plain_scraped_page?: PlainScrapedPageCreateNestedOneWithoutAi_batch_request_itemsInput
+  }
+
+  export type AiBatchRequestItemUncheckedCreateWithoutAi_batch_jobInput = {
+    id?: string
+    custom_id: string
+    plain_scraped_page_id?: string | null
+    source_url?: string | null
+    content_label?: string | null
+    content: string
+    instructions?: string | null
+    wants_markdown?: boolean
+    regex_data?: NullableJsonNullValueInput | InputJsonValue
+    status?: $Enums.ExtractionFormatStatus | null
+    created_at?: Date | string
+  }
+
+  export type AiBatchRequestItemCreateOrConnectWithoutAi_batch_jobInput = {
+    where: AiBatchRequestItemWhereUniqueInput
+    create: XOR<AiBatchRequestItemCreateWithoutAi_batch_jobInput, AiBatchRequestItemUncheckedCreateWithoutAi_batch_jobInput>
+  }
+
+  export type AiBatchRequestItemCreateManyAi_batch_jobInputEnvelope = {
+    data: AiBatchRequestItemCreateManyAi_batch_jobInput | AiBatchRequestItemCreateManyAi_batch_jobInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type WorkflowRunUpsertWithoutAi_batch_jobInput = {
+    update: XOR<WorkflowRunUpdateWithoutAi_batch_jobInput, WorkflowRunUncheckedUpdateWithoutAi_batch_jobInput>
+    create: XOR<WorkflowRunCreateWithoutAi_batch_jobInput, WorkflowRunUncheckedCreateWithoutAi_batch_jobInput>
+    where?: WorkflowRunWhereInput
+  }
+
+  export type WorkflowRunUpdateToOneWithWhereWithoutAi_batch_jobInput = {
+    where?: WorkflowRunWhereInput
+    data: XOR<WorkflowRunUpdateWithoutAi_batch_jobInput, WorkflowRunUncheckedUpdateWithoutAi_batch_jobInput>
+  }
+
+  export type WorkflowRunUpdateWithoutAi_batch_jobInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumWorkflowTypeFieldUpdateOperationsInput | $Enums.WorkflowType
+    trigger?: EnumRunTriggerFieldUpdateOperationsInput | $Enums.RunTrigger
+    status?: EnumRunStatusFieldUpdateOperationsInput | $Enums.RunStatus
+    url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
+    visited_urls?: NullableJsonNullValueInput | InputJsonValue
+    browser_actions?: NullableJsonNullValueInput | InputJsonValue
+    collected_data?: NullableJsonNullValueInput | InputJsonValue
+    urls?: WorkflowRunUpdateurlsInput | string[]
+    extraction_scope?: NullableEnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope | null
+    output_formats?: WorkflowRunUpdateoutput_formatsInput | $Enums.OutputFormat[]
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
+    ai_usage?: NullableJsonNullValueInput | InputJsonValue
+    error_message?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
+    results_purged_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    workflow_config?: WorkflowConfigUpdateOneRequiredWithoutRunsNestedInput
+    user?: UserUpdateOneRequiredWithoutWorkflow_runsNestedInput
+    website_target?: WebsiteTargetUpdateOneWithoutWorkflow_runsNestedInput
+    scraper_version?: ScraperVersionUpdateOneWithoutWorkflow_runsNestedInput
+    extraction_schema_version?: ExtractionSchemaVersionUpdateOneWithoutWorkflow_runsNestedInput
+    steps?: ComputerUseStepUpdateManyWithoutWorkflow_runNestedInput
+    job_logs?: JobLogUpdateManyWithoutWorkflow_runNestedInput
+    notifications?: NotificationUpdateManyWithoutWorkflow_runNestedInput
+    diagnostics_package?: DiagnosticsPackageUpdateOneWithoutWorkflow_runNestedInput
+    extracted_items?: ExtractedItemUpdateManyWithoutWorkflow_runNestedInput
+    execution_traces?: ScraperExecutionTraceUpdateManyWithoutWorkflow_runNestedInput
+    pages?: PlainScrapedPageUpdateManyWithoutWorkflow_runNestedInput
+    extraction_result?: ExtractionResultUpdateOneWithoutWorkflow_runNestedInput
+  }
+
+  export type WorkflowRunUncheckedUpdateWithoutAi_batch_jobInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    workflow_config_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    type?: EnumWorkflowTypeFieldUpdateOperationsInput | $Enums.WorkflowType
+    trigger?: EnumRunTriggerFieldUpdateOperationsInput | $Enums.RunTrigger
+    status?: EnumRunStatusFieldUpdateOperationsInput | $Enums.RunStatus
+    website_target_id?: NullableStringFieldUpdateOperationsInput | string | null
+    scraper_version_id?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
+    visited_urls?: NullableJsonNullValueInput | InputJsonValue
+    browser_actions?: NullableJsonNullValueInput | InputJsonValue
+    collected_data?: NullableJsonNullValueInput | InputJsonValue
+    urls?: WorkflowRunUpdateurlsInput | string[]
+    extraction_scope?: NullableEnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope | null
+    output_formats?: WorkflowRunUpdateoutput_formatsInput | $Enums.OutputFormat[]
+    extraction_schema_version_id?: NullableStringFieldUpdateOperationsInput | string | null
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
+    ai_usage?: NullableJsonNullValueInput | InputJsonValue
+    error_message?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
+    results_purged_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    steps?: ComputerUseStepUncheckedUpdateManyWithoutWorkflow_runNestedInput
+    job_logs?: JobLogUncheckedUpdateManyWithoutWorkflow_runNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutWorkflow_runNestedInput
+    diagnostics_package?: DiagnosticsPackageUncheckedUpdateOneWithoutWorkflow_runNestedInput
+    extracted_items?: ExtractedItemUncheckedUpdateManyWithoutWorkflow_runNestedInput
+    execution_traces?: ScraperExecutionTraceUncheckedUpdateManyWithoutWorkflow_runNestedInput
+    pages?: PlainScrapedPageUncheckedUpdateManyWithoutWorkflow_runNestedInput
+    extraction_result?: ExtractionResultUncheckedUpdateOneWithoutWorkflow_runNestedInput
+  }
+
+  export type AiBatchRequestItemUpsertWithWhereUniqueWithoutAi_batch_jobInput = {
+    where: AiBatchRequestItemWhereUniqueInput
+    update: XOR<AiBatchRequestItemUpdateWithoutAi_batch_jobInput, AiBatchRequestItemUncheckedUpdateWithoutAi_batch_jobInput>
+    create: XOR<AiBatchRequestItemCreateWithoutAi_batch_jobInput, AiBatchRequestItemUncheckedCreateWithoutAi_batch_jobInput>
+  }
+
+  export type AiBatchRequestItemUpdateWithWhereUniqueWithoutAi_batch_jobInput = {
+    where: AiBatchRequestItemWhereUniqueInput
+    data: XOR<AiBatchRequestItemUpdateWithoutAi_batch_jobInput, AiBatchRequestItemUncheckedUpdateWithoutAi_batch_jobInput>
+  }
+
+  export type AiBatchRequestItemUpdateManyWithWhereWithoutAi_batch_jobInput = {
+    where: AiBatchRequestItemScalarWhereInput
+    data: XOR<AiBatchRequestItemUpdateManyMutationInput, AiBatchRequestItemUncheckedUpdateManyWithoutAi_batch_jobInput>
+  }
+
+  export type AiBatchJobCreateWithoutItemsInput = {
+    id?: string
+    user_id: string
+    external_batch_id: string
+    input_file_id: string
+    output_file_id?: string | null
+    error_file_id?: string | null
+    status?: $Enums.AiBatchJobStatus
+    request_count: number
+    error_message?: string | null
+    submitted_at?: Date | string
+    completed_at?: Date | string | null
+    last_polled_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    workflow_run: WorkflowRunCreateNestedOneWithoutAi_batch_jobInput
+  }
+
+  export type AiBatchJobUncheckedCreateWithoutItemsInput = {
+    id?: string
+    workflow_run_id: string
+    user_id: string
+    external_batch_id: string
+    input_file_id: string
+    output_file_id?: string | null
+    error_file_id?: string | null
+    status?: $Enums.AiBatchJobStatus
+    request_count: number
+    error_message?: string | null
+    submitted_at?: Date | string
+    completed_at?: Date | string | null
+    last_polled_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type AiBatchJobCreateOrConnectWithoutItemsInput = {
+    where: AiBatchJobWhereUniqueInput
+    create: XOR<AiBatchJobCreateWithoutItemsInput, AiBatchJobUncheckedCreateWithoutItemsInput>
+  }
+
+  export type PlainScrapedPageCreateWithoutAi_batch_request_itemsInput = {
+    id?: string
+    requested_url: string
+    final_url?: string | null
+    http_status?: number | null
+    success?: boolean
+    raw_html?: string | null
+    cleaned_content?: string | null
+    title?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    error_message?: string | null
+    created_at?: Date | string
+    workflow_run: WorkflowRunCreateNestedOneWithoutPagesInput
+    extraction_result?: ExtractionResultCreateNestedOneWithoutPlain_scraped_pageInput
+  }
+
+  export type PlainScrapedPageUncheckedCreateWithoutAi_batch_request_itemsInput = {
+    id?: string
+    workflow_run_id: string
+    requested_url: string
+    final_url?: string | null
+    http_status?: number | null
+    success?: boolean
+    raw_html?: string | null
+    cleaned_content?: string | null
+    title?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    error_message?: string | null
+    created_at?: Date | string
+    extraction_result?: ExtractionResultUncheckedCreateNestedOneWithoutPlain_scraped_pageInput
+  }
+
+  export type PlainScrapedPageCreateOrConnectWithoutAi_batch_request_itemsInput = {
+    where: PlainScrapedPageWhereUniqueInput
+    create: XOR<PlainScrapedPageCreateWithoutAi_batch_request_itemsInput, PlainScrapedPageUncheckedCreateWithoutAi_batch_request_itemsInput>
+  }
+
+  export type AiBatchJobUpsertWithoutItemsInput = {
+    update: XOR<AiBatchJobUpdateWithoutItemsInput, AiBatchJobUncheckedUpdateWithoutItemsInput>
+    create: XOR<AiBatchJobCreateWithoutItemsInput, AiBatchJobUncheckedCreateWithoutItemsInput>
+    where?: AiBatchJobWhereInput
+  }
+
+  export type AiBatchJobUpdateToOneWithWhereWithoutItemsInput = {
+    where?: AiBatchJobWhereInput
+    data: XOR<AiBatchJobUpdateWithoutItemsInput, AiBatchJobUncheckedUpdateWithoutItemsInput>
+  }
+
+  export type AiBatchJobUpdateWithoutItemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    external_batch_id?: StringFieldUpdateOperationsInput | string
+    input_file_id?: StringFieldUpdateOperationsInput | string
+    output_file_id?: NullableStringFieldUpdateOperationsInput | string | null
+    error_file_id?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAiBatchJobStatusFieldUpdateOperationsInput | $Enums.AiBatchJobStatus
+    request_count?: IntFieldUpdateOperationsInput | number
+    error_message?: NullableStringFieldUpdateOperationsInput | string | null
+    submitted_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    completed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    last_polled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    workflow_run?: WorkflowRunUpdateOneRequiredWithoutAi_batch_jobNestedInput
+  }
+
+  export type AiBatchJobUncheckedUpdateWithoutItemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    workflow_run_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    external_batch_id?: StringFieldUpdateOperationsInput | string
+    input_file_id?: StringFieldUpdateOperationsInput | string
+    output_file_id?: NullableStringFieldUpdateOperationsInput | string | null
+    error_file_id?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAiBatchJobStatusFieldUpdateOperationsInput | $Enums.AiBatchJobStatus
+    request_count?: IntFieldUpdateOperationsInput | number
+    error_message?: NullableStringFieldUpdateOperationsInput | string | null
+    submitted_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    completed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    last_polled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PlainScrapedPageUpsertWithoutAi_batch_request_itemsInput = {
+    update: XOR<PlainScrapedPageUpdateWithoutAi_batch_request_itemsInput, PlainScrapedPageUncheckedUpdateWithoutAi_batch_request_itemsInput>
+    create: XOR<PlainScrapedPageCreateWithoutAi_batch_request_itemsInput, PlainScrapedPageUncheckedCreateWithoutAi_batch_request_itemsInput>
+    where?: PlainScrapedPageWhereInput
+  }
+
+  export type PlainScrapedPageUpdateToOneWithWhereWithoutAi_batch_request_itemsInput = {
+    where?: PlainScrapedPageWhereInput
+    data: XOR<PlainScrapedPageUpdateWithoutAi_batch_request_itemsInput, PlainScrapedPageUncheckedUpdateWithoutAi_batch_request_itemsInput>
+  }
+
+  export type PlainScrapedPageUpdateWithoutAi_batch_request_itemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    requested_url?: StringFieldUpdateOperationsInput | string
+    final_url?: NullableStringFieldUpdateOperationsInput | string | null
+    http_status?: NullableIntFieldUpdateOperationsInput | number | null
+    success?: BoolFieldUpdateOperationsInput | boolean
+    raw_html?: NullableStringFieldUpdateOperationsInput | string | null
+    cleaned_content?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    error_message?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    workflow_run?: WorkflowRunUpdateOneRequiredWithoutPagesNestedInput
+    extraction_result?: ExtractionResultUpdateOneWithoutPlain_scraped_pageNestedInput
+  }
+
+  export type PlainScrapedPageUncheckedUpdateWithoutAi_batch_request_itemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    workflow_run_id?: StringFieldUpdateOperationsInput | string
+    requested_url?: StringFieldUpdateOperationsInput | string
+    final_url?: NullableStringFieldUpdateOperationsInput | string | null
+    http_status?: NullableIntFieldUpdateOperationsInput | number | null
+    success?: BoolFieldUpdateOperationsInput | boolean
+    raw_html?: NullableStringFieldUpdateOperationsInput | string | null
+    cleaned_content?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    error_message?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    extraction_result?: ExtractionResultUncheckedUpdateOneWithoutPlain_scraped_pageNestedInput
+  }
+
   export type WorkflowRunCreateWithoutDiagnostics_packageInput = {
     id?: string
     type: $Enums.WorkflowType
@@ -53857,6 +58133,7 @@ export namespace Prisma {
     urls?: WorkflowRunCreateurlsInput | string[]
     extraction_scope?: $Enums.ExtractionScope | null
     output_formats?: WorkflowRunCreateoutput_formatsInput | $Enums.OutputFormat[]
+    ai_batch_mode?: boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -53879,6 +58156,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceCreateNestedManyWithoutWorkflow_runInput
     pages?: PlainScrapedPageCreateNestedManyWithoutWorkflow_runInput
     extraction_result?: ExtractionResultCreateNestedOneWithoutWorkflow_runInput
+    ai_batch_job?: AiBatchJobCreateNestedOneWithoutWorkflow_runInput
   }
 
   export type WorkflowRunUncheckedCreateWithoutDiagnostics_packageInput = {
@@ -53899,6 +58177,7 @@ export namespace Prisma {
     extraction_scope?: $Enums.ExtractionScope | null
     output_formats?: WorkflowRunCreateoutput_formatsInput | $Enums.OutputFormat[]
     extraction_schema_version_id?: string | null
+    ai_batch_mode?: boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -53916,6 +58195,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceUncheckedCreateNestedManyWithoutWorkflow_runInput
     pages?: PlainScrapedPageUncheckedCreateNestedManyWithoutWorkflow_runInput
     extraction_result?: ExtractionResultUncheckedCreateNestedOneWithoutWorkflow_runInput
+    ai_batch_job?: AiBatchJobUncheckedCreateNestedOneWithoutWorkflow_runInput
   }
 
   export type WorkflowRunCreateOrConnectWithoutDiagnostics_packageInput = {
@@ -53947,6 +58227,7 @@ export namespace Prisma {
     schedule_timezone?: string | null
     schedule_enabled?: boolean
     persist_results?: boolean
+    ai_batch_mode?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     user: UserCreateNestedOneWithoutWorkflow_configsInput
@@ -53988,6 +58269,7 @@ export namespace Prisma {
     schedule_timezone?: string | null
     schedule_enabled?: boolean
     persist_results?: boolean
+    ai_batch_mode?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     runs?: WorkflowRunUncheckedCreateNestedManyWithoutWorkflow_configInput
@@ -54054,6 +58336,7 @@ export namespace Prisma {
     urls?: WorkflowRunUpdateurlsInput | string[]
     extraction_scope?: NullableEnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope | null
     output_formats?: WorkflowRunUpdateoutput_formatsInput | $Enums.OutputFormat[]
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -54076,6 +58359,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceUpdateManyWithoutWorkflow_runNestedInput
     pages?: PlainScrapedPageUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUpdateOneWithoutWorkflow_runNestedInput
+    ai_batch_job?: AiBatchJobUpdateOneWithoutWorkflow_runNestedInput
   }
 
   export type WorkflowRunUncheckedUpdateWithoutDiagnostics_packageInput = {
@@ -54096,6 +58380,7 @@ export namespace Prisma {
     extraction_scope?: NullableEnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope | null
     output_formats?: WorkflowRunUpdateoutput_formatsInput | $Enums.OutputFormat[]
     extraction_schema_version_id?: NullableStringFieldUpdateOperationsInput | string | null
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -54113,6 +58398,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceUncheckedUpdateManyWithoutWorkflow_runNestedInput
     pages?: PlainScrapedPageUncheckedUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUncheckedUpdateOneWithoutWorkflow_runNestedInput
+    ai_batch_job?: AiBatchJobUncheckedUpdateOneWithoutWorkflow_runNestedInput
   }
 
   export type WorkflowConfigUpsertWithoutDiagnostics_packagesInput = {
@@ -54150,6 +58436,7 @@ export namespace Prisma {
     schedule_timezone?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_enabled?: BoolFieldUpdateOperationsInput | boolean
     persist_results?: BoolFieldUpdateOperationsInput | boolean
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutWorkflow_configsNestedInput
@@ -54191,6 +58478,7 @@ export namespace Prisma {
     schedule_timezone?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_enabled?: BoolFieldUpdateOperationsInput | boolean
     persist_results?: BoolFieldUpdateOperationsInput | boolean
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     runs?: WorkflowRunUncheckedUpdateManyWithoutWorkflow_configNestedInput
@@ -54334,6 +58622,7 @@ export namespace Prisma {
     urls?: WorkflowRunCreateurlsInput | string[]
     extraction_scope?: $Enums.ExtractionScope | null
     output_formats?: WorkflowRunCreateoutput_formatsInput | $Enums.OutputFormat[]
+    ai_batch_mode?: boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -54356,6 +58645,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceCreateNestedManyWithoutWorkflow_runInput
     pages?: PlainScrapedPageCreateNestedManyWithoutWorkflow_runInput
     extraction_result?: ExtractionResultCreateNestedOneWithoutWorkflow_runInput
+    ai_batch_job?: AiBatchJobCreateNestedOneWithoutWorkflow_runInput
   }
 
   export type WorkflowRunUncheckedCreateWithoutJob_logsInput = {
@@ -54376,6 +58666,7 @@ export namespace Prisma {
     extraction_scope?: $Enums.ExtractionScope | null
     output_formats?: WorkflowRunCreateoutput_formatsInput | $Enums.OutputFormat[]
     extraction_schema_version_id?: string | null
+    ai_batch_mode?: boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -54393,6 +58684,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceUncheckedCreateNestedManyWithoutWorkflow_runInput
     pages?: PlainScrapedPageUncheckedCreateNestedManyWithoutWorkflow_runInput
     extraction_result?: ExtractionResultUncheckedCreateNestedOneWithoutWorkflow_runInput
+    ai_batch_job?: AiBatchJobUncheckedCreateNestedOneWithoutWorkflow_runInput
   }
 
   export type WorkflowRunCreateOrConnectWithoutJob_logsInput = {
@@ -54424,6 +58716,7 @@ export namespace Prisma {
     urls?: WorkflowRunUpdateurlsInput | string[]
     extraction_scope?: NullableEnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope | null
     output_formats?: WorkflowRunUpdateoutput_formatsInput | $Enums.OutputFormat[]
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -54446,6 +58739,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceUpdateManyWithoutWorkflow_runNestedInput
     pages?: PlainScrapedPageUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUpdateOneWithoutWorkflow_runNestedInput
+    ai_batch_job?: AiBatchJobUpdateOneWithoutWorkflow_runNestedInput
   }
 
   export type WorkflowRunUncheckedUpdateWithoutJob_logsInput = {
@@ -54466,6 +58760,7 @@ export namespace Prisma {
     extraction_scope?: NullableEnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope | null
     output_formats?: WorkflowRunUpdateoutput_formatsInput | $Enums.OutputFormat[]
     extraction_schema_version_id?: NullableStringFieldUpdateOperationsInput | string | null
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -54483,6 +58778,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceUncheckedUpdateManyWithoutWorkflow_runNestedInput
     pages?: PlainScrapedPageUncheckedUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUncheckedUpdateOneWithoutWorkflow_runNestedInput
+    ai_batch_job?: AiBatchJobUncheckedUpdateOneWithoutWorkflow_runNestedInput
   }
 
   export type WebsiteTargetCreateWithoutNotificationsInput = {
@@ -54556,6 +58852,7 @@ export namespace Prisma {
     schedule_timezone?: string | null
     schedule_enabled?: boolean
     persist_results?: boolean
+    ai_batch_mode?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     user: UserCreateNestedOneWithoutWorkflow_configsInput
@@ -54597,6 +58894,7 @@ export namespace Prisma {
     schedule_timezone?: string | null
     schedule_enabled?: boolean
     persist_results?: boolean
+    ai_batch_mode?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     runs?: WorkflowRunUncheckedCreateNestedManyWithoutWorkflow_configInput
@@ -54624,6 +58922,7 @@ export namespace Prisma {
     urls?: WorkflowRunCreateurlsInput | string[]
     extraction_scope?: $Enums.ExtractionScope | null
     output_formats?: WorkflowRunCreateoutput_formatsInput | $Enums.OutputFormat[]
+    ai_batch_mode?: boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -54646,6 +58945,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceCreateNestedManyWithoutWorkflow_runInput
     pages?: PlainScrapedPageCreateNestedManyWithoutWorkflow_runInput
     extraction_result?: ExtractionResultCreateNestedOneWithoutWorkflow_runInput
+    ai_batch_job?: AiBatchJobCreateNestedOneWithoutWorkflow_runInput
   }
 
   export type WorkflowRunUncheckedCreateWithoutNotificationsInput = {
@@ -54666,6 +58966,7 @@ export namespace Prisma {
     extraction_scope?: $Enums.ExtractionScope | null
     output_formats?: WorkflowRunCreateoutput_formatsInput | $Enums.OutputFormat[]
     extraction_schema_version_id?: string | null
+    ai_batch_mode?: boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -54683,6 +58984,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceUncheckedCreateNestedManyWithoutWorkflow_runInput
     pages?: PlainScrapedPageUncheckedCreateNestedManyWithoutWorkflow_runInput
     extraction_result?: ExtractionResultUncheckedCreateNestedOneWithoutWorkflow_runInput
+    ai_batch_job?: AiBatchJobUncheckedCreateNestedOneWithoutWorkflow_runInput
   }
 
   export type WorkflowRunCreateOrConnectWithoutNotificationsInput = {
@@ -54778,6 +59080,7 @@ export namespace Prisma {
     schedule_timezone?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_enabled?: BoolFieldUpdateOperationsInput | boolean
     persist_results?: BoolFieldUpdateOperationsInput | boolean
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutWorkflow_configsNestedInput
@@ -54819,6 +59122,7 @@ export namespace Prisma {
     schedule_timezone?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_enabled?: BoolFieldUpdateOperationsInput | boolean
     persist_results?: BoolFieldUpdateOperationsInput | boolean
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     runs?: WorkflowRunUncheckedUpdateManyWithoutWorkflow_configNestedInput
@@ -54852,6 +59156,7 @@ export namespace Prisma {
     urls?: WorkflowRunUpdateurlsInput | string[]
     extraction_scope?: NullableEnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope | null
     output_formats?: WorkflowRunUpdateoutput_formatsInput | $Enums.OutputFormat[]
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -54874,6 +59179,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceUpdateManyWithoutWorkflow_runNestedInput
     pages?: PlainScrapedPageUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUpdateOneWithoutWorkflow_runNestedInput
+    ai_batch_job?: AiBatchJobUpdateOneWithoutWorkflow_runNestedInput
   }
 
   export type WorkflowRunUncheckedUpdateWithoutNotificationsInput = {
@@ -54894,6 +59200,7 @@ export namespace Prisma {
     extraction_scope?: NullableEnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope | null
     output_formats?: WorkflowRunUpdateoutput_formatsInput | $Enums.OutputFormat[]
     extraction_schema_version_id?: NullableStringFieldUpdateOperationsInput | string | null
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -54911,6 +59218,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceUncheckedUpdateManyWithoutWorkflow_runNestedInput
     pages?: PlainScrapedPageUncheckedUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUncheckedUpdateOneWithoutWorkflow_runNestedInput
+    ai_batch_job?: AiBatchJobUncheckedUpdateOneWithoutWorkflow_runNestedInput
   }
 
   export type UserCreateWithoutUser_integrationsInput = {
@@ -55051,6 +59359,7 @@ export namespace Prisma {
     schedule_timezone?: string | null
     schedule_enabled?: boolean
     persist_results?: boolean
+    ai_batch_mode?: boolean
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -55072,6 +59381,7 @@ export namespace Prisma {
     extraction_scope?: $Enums.ExtractionScope | null
     output_formats?: WorkflowRunCreateoutput_formatsInput | $Enums.OutputFormat[]
     extraction_schema_version_id?: string | null
+    ai_batch_mode?: boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -55236,6 +59546,7 @@ export namespace Prisma {
     schedule_timezone?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_enabled?: BoolFieldUpdateOperationsInput | boolean
     persist_results?: BoolFieldUpdateOperationsInput | boolean
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     website_target?: WebsiteTargetUpdateOneWithoutWorkflow_configsNestedInput
@@ -55276,6 +59587,7 @@ export namespace Prisma {
     schedule_timezone?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_enabled?: BoolFieldUpdateOperationsInput | boolean
     persist_results?: BoolFieldUpdateOperationsInput | boolean
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     runs?: WorkflowRunUncheckedUpdateManyWithoutWorkflow_configNestedInput
@@ -55313,6 +59625,7 @@ export namespace Prisma {
     schedule_timezone?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_enabled?: BoolFieldUpdateOperationsInput | boolean
     persist_results?: BoolFieldUpdateOperationsInput | boolean
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -55330,6 +59643,7 @@ export namespace Prisma {
     urls?: WorkflowRunUpdateurlsInput | string[]
     extraction_scope?: NullableEnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope | null
     output_formats?: WorkflowRunUpdateoutput_formatsInput | $Enums.OutputFormat[]
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -55352,6 +59666,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceUpdateManyWithoutWorkflow_runNestedInput
     pages?: PlainScrapedPageUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUpdateOneWithoutWorkflow_runNestedInput
+    ai_batch_job?: AiBatchJobUpdateOneWithoutWorkflow_runNestedInput
   }
 
   export type WorkflowRunUncheckedUpdateWithoutUserInput = {
@@ -55371,6 +59686,7 @@ export namespace Prisma {
     extraction_scope?: NullableEnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope | null
     output_formats?: WorkflowRunUpdateoutput_formatsInput | $Enums.OutputFormat[]
     extraction_schema_version_id?: NullableStringFieldUpdateOperationsInput | string | null
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -55389,6 +59705,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceUncheckedUpdateManyWithoutWorkflow_runNestedInput
     pages?: PlainScrapedPageUncheckedUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUncheckedUpdateOneWithoutWorkflow_runNestedInput
+    ai_batch_job?: AiBatchJobUncheckedUpdateOneWithoutWorkflow_runNestedInput
   }
 
   export type WorkflowRunUncheckedUpdateManyWithoutUserInput = {
@@ -55408,6 +59725,7 @@ export namespace Prisma {
     extraction_scope?: NullableEnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope | null
     output_formats?: WorkflowRunUpdateoutput_formatsInput | $Enums.OutputFormat[]
     extraction_schema_version_id?: NullableStringFieldUpdateOperationsInput | string | null
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -55748,6 +60066,7 @@ export namespace Prisma {
     schedule_timezone?: string | null
     schedule_enabled?: boolean
     persist_results?: boolean
+    ai_batch_mode?: boolean
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -55788,6 +60107,7 @@ export namespace Prisma {
     extraction_scope?: $Enums.ExtractionScope | null
     output_formats?: WorkflowRunCreateoutput_formatsInput | $Enums.OutputFormat[]
     extraction_schema_version_id?: string | null
+    ai_batch_mode?: boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -55862,6 +60182,7 @@ export namespace Prisma {
     schedule_timezone?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_enabled?: BoolFieldUpdateOperationsInput | boolean
     persist_results?: BoolFieldUpdateOperationsInput | boolean
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutWorkflow_configsNestedInput
@@ -55902,6 +60223,7 @@ export namespace Prisma {
     schedule_timezone?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_enabled?: BoolFieldUpdateOperationsInput | boolean
     persist_results?: BoolFieldUpdateOperationsInput | boolean
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     runs?: WorkflowRunUncheckedUpdateManyWithoutWorkflow_configNestedInput
@@ -55939,6 +60261,7 @@ export namespace Prisma {
     schedule_timezone?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_enabled?: BoolFieldUpdateOperationsInput | boolean
     persist_results?: BoolFieldUpdateOperationsInput | boolean
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -56015,6 +60338,7 @@ export namespace Prisma {
     urls?: WorkflowRunUpdateurlsInput | string[]
     extraction_scope?: NullableEnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope | null
     output_formats?: WorkflowRunUpdateoutput_formatsInput | $Enums.OutputFormat[]
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -56037,6 +60361,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceUpdateManyWithoutWorkflow_runNestedInput
     pages?: PlainScrapedPageUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUpdateOneWithoutWorkflow_runNestedInput
+    ai_batch_job?: AiBatchJobUpdateOneWithoutWorkflow_runNestedInput
   }
 
   export type WorkflowRunUncheckedUpdateWithoutWebsite_targetInput = {
@@ -56056,6 +60381,7 @@ export namespace Prisma {
     extraction_scope?: NullableEnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope | null
     output_formats?: WorkflowRunUpdateoutput_formatsInput | $Enums.OutputFormat[]
     extraction_schema_version_id?: NullableStringFieldUpdateOperationsInput | string | null
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -56074,6 +60400,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceUncheckedUpdateManyWithoutWorkflow_runNestedInput
     pages?: PlainScrapedPageUncheckedUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUncheckedUpdateOneWithoutWorkflow_runNestedInput
+    ai_batch_job?: AiBatchJobUncheckedUpdateOneWithoutWorkflow_runNestedInput
   }
 
   export type WorkflowRunUncheckedUpdateManyWithoutWebsite_targetInput = {
@@ -56093,6 +60420,7 @@ export namespace Prisma {
     extraction_scope?: NullableEnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope | null
     output_formats?: WorkflowRunUpdateoutput_formatsInput | $Enums.OutputFormat[]
     extraction_schema_version_id?: NullableStringFieldUpdateOperationsInput | string | null
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -56236,6 +60564,7 @@ export namespace Prisma {
     extraction_scope?: $Enums.ExtractionScope | null
     output_formats?: WorkflowRunCreateoutput_formatsInput | $Enums.OutputFormat[]
     extraction_schema_version_id?: string | null
+    ai_batch_mode?: boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -56333,6 +60662,7 @@ export namespace Prisma {
     urls?: WorkflowRunUpdateurlsInput | string[]
     extraction_scope?: NullableEnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope | null
     output_formats?: WorkflowRunUpdateoutput_formatsInput | $Enums.OutputFormat[]
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -56355,6 +60685,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceUpdateManyWithoutWorkflow_runNestedInput
     pages?: PlainScrapedPageUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUpdateOneWithoutWorkflow_runNestedInput
+    ai_batch_job?: AiBatchJobUpdateOneWithoutWorkflow_runNestedInput
   }
 
   export type WorkflowRunUncheckedUpdateWithoutWorkflow_configInput = {
@@ -56374,6 +60705,7 @@ export namespace Prisma {
     extraction_scope?: NullableEnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope | null
     output_formats?: WorkflowRunUpdateoutput_formatsInput | $Enums.OutputFormat[]
     extraction_schema_version_id?: NullableStringFieldUpdateOperationsInput | string | null
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -56392,6 +60724,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceUncheckedUpdateManyWithoutWorkflow_runNestedInput
     pages?: PlainScrapedPageUncheckedUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUncheckedUpdateOneWithoutWorkflow_runNestedInput
+    ai_batch_job?: AiBatchJobUncheckedUpdateOneWithoutWorkflow_runNestedInput
   }
 
   export type WorkflowRunUncheckedUpdateManyWithoutWorkflow_configInput = {
@@ -56411,6 +60744,7 @@ export namespace Prisma {
     extraction_scope?: NullableEnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope | null
     output_formats?: WorkflowRunUpdateoutput_formatsInput | $Enums.OutputFormat[]
     extraction_schema_version_id?: NullableStringFieldUpdateOperationsInput | string | null
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -56714,6 +61048,7 @@ export namespace Prisma {
     extraction_scope?: $Enums.ExtractionScope | null
     output_formats?: WorkflowRunCreateoutput_formatsInput | $Enums.OutputFormat[]
     extraction_schema_version_id?: string | null
+    ai_batch_mode?: boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -56739,6 +61074,7 @@ export namespace Prisma {
     urls?: WorkflowRunUpdateurlsInput | string[]
     extraction_scope?: NullableEnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope | null
     output_formats?: WorkflowRunUpdateoutput_formatsInput | $Enums.OutputFormat[]
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -56761,6 +61097,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceUpdateManyWithoutWorkflow_runNestedInput
     pages?: PlainScrapedPageUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUpdateOneWithoutWorkflow_runNestedInput
+    ai_batch_job?: AiBatchJobUpdateOneWithoutWorkflow_runNestedInput
   }
 
   export type WorkflowRunUncheckedUpdateWithoutScraper_versionInput = {
@@ -56780,6 +61117,7 @@ export namespace Prisma {
     extraction_scope?: NullableEnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope | null
     output_formats?: WorkflowRunUpdateoutput_formatsInput | $Enums.OutputFormat[]
     extraction_schema_version_id?: NullableStringFieldUpdateOperationsInput | string | null
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -56798,6 +61136,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceUncheckedUpdateManyWithoutWorkflow_runNestedInput
     pages?: PlainScrapedPageUncheckedUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUncheckedUpdateOneWithoutWorkflow_runNestedInput
+    ai_batch_job?: AiBatchJobUncheckedUpdateOneWithoutWorkflow_runNestedInput
   }
 
   export type WorkflowRunUncheckedUpdateManyWithoutScraper_versionInput = {
@@ -56817,6 +61156,7 @@ export namespace Prisma {
     extraction_scope?: NullableEnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope | null
     output_formats?: WorkflowRunUpdateoutput_formatsInput | $Enums.OutputFormat[]
     extraction_schema_version_id?: NullableStringFieldUpdateOperationsInput | string | null
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -57120,6 +61460,7 @@ export namespace Prisma {
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     extraction_result?: ExtractionResultUpdateOneWithoutPlain_scraped_pageNestedInput
+    ai_batch_request_items?: AiBatchRequestItemUpdateManyWithoutPlain_scraped_pageNestedInput
   }
 
   export type PlainScrapedPageUncheckedUpdateWithoutWorkflow_runInput = {
@@ -57135,6 +61476,7 @@ export namespace Prisma {
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     extraction_result?: ExtractionResultUncheckedUpdateOneWithoutPlain_scraped_pageNestedInput
+    ai_batch_request_items?: AiBatchRequestItemUncheckedUpdateManyWithoutPlain_scraped_pageNestedInput
   }
 
   export type PlainScrapedPageUncheckedUpdateManyWithoutWorkflow_runInput = {
@@ -57229,6 +61571,7 @@ export namespace Prisma {
     schedule_timezone?: string | null
     schedule_enabled?: boolean
     persist_results?: boolean
+    ai_batch_mode?: boolean
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -57250,6 +61593,7 @@ export namespace Prisma {
     urls?: WorkflowRunCreateurlsInput | string[]
     extraction_scope?: $Enums.ExtractionScope | null
     output_formats?: WorkflowRunCreateoutput_formatsInput | $Enums.OutputFormat[]
+    ai_batch_mode?: boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -57348,6 +61692,7 @@ export namespace Prisma {
     schedule_timezone?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_enabled?: BoolFieldUpdateOperationsInput | boolean
     persist_results?: BoolFieldUpdateOperationsInput | boolean
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutWorkflow_configsNestedInput
@@ -57388,6 +61733,7 @@ export namespace Prisma {
     schedule_timezone?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_enabled?: BoolFieldUpdateOperationsInput | boolean
     persist_results?: BoolFieldUpdateOperationsInput | boolean
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     runs?: WorkflowRunUncheckedUpdateManyWithoutWorkflow_configNestedInput
@@ -57425,6 +61771,7 @@ export namespace Prisma {
     schedule_timezone?: NullableStringFieldUpdateOperationsInput | string | null
     schedule_enabled?: BoolFieldUpdateOperationsInput | boolean
     persist_results?: BoolFieldUpdateOperationsInput | boolean
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -57442,6 +61789,7 @@ export namespace Prisma {
     urls?: WorkflowRunUpdateurlsInput | string[]
     extraction_scope?: NullableEnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope | null
     output_formats?: WorkflowRunUpdateoutput_formatsInput | $Enums.OutputFormat[]
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -57464,6 +61812,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceUpdateManyWithoutWorkflow_runNestedInput
     pages?: PlainScrapedPageUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUpdateOneWithoutWorkflow_runNestedInput
+    ai_batch_job?: AiBatchJobUpdateOneWithoutWorkflow_runNestedInput
   }
 
   export type WorkflowRunUncheckedUpdateWithoutExtraction_schema_versionInput = {
@@ -57483,6 +61832,7 @@ export namespace Prisma {
     urls?: WorkflowRunUpdateurlsInput | string[]
     extraction_scope?: NullableEnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope | null
     output_formats?: WorkflowRunUpdateoutput_formatsInput | $Enums.OutputFormat[]
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -57501,6 +61851,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceUncheckedUpdateManyWithoutWorkflow_runNestedInput
     pages?: PlainScrapedPageUncheckedUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUncheckedUpdateOneWithoutWorkflow_runNestedInput
+    ai_batch_job?: AiBatchJobUncheckedUpdateOneWithoutWorkflow_runNestedInput
   }
 
   export type WorkflowRunUncheckedUpdateManyWithoutExtraction_schema_versionInput = {
@@ -57520,6 +61871,7 @@ export namespace Prisma {
     urls?: WorkflowRunUpdateurlsInput | string[]
     extraction_scope?: NullableEnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope | null
     output_formats?: WorkflowRunUpdateoutput_formatsInput | $Enums.OutputFormat[]
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
@@ -57581,6 +61933,118 @@ export namespace Prisma {
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AiBatchRequestItemCreateManyPlain_scraped_pageInput = {
+    id?: string
+    ai_batch_job_id: string
+    custom_id: string
+    source_url?: string | null
+    content_label?: string | null
+    content: string
+    instructions?: string | null
+    wants_markdown?: boolean
+    regex_data?: NullableJsonNullValueInput | InputJsonValue
+    status?: $Enums.ExtractionFormatStatus | null
+    created_at?: Date | string
+  }
+
+  export type AiBatchRequestItemUpdateWithoutPlain_scraped_pageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    custom_id?: StringFieldUpdateOperationsInput | string
+    source_url?: NullableStringFieldUpdateOperationsInput | string | null
+    content_label?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: StringFieldUpdateOperationsInput | string
+    instructions?: NullableStringFieldUpdateOperationsInput | string | null
+    wants_markdown?: BoolFieldUpdateOperationsInput | boolean
+    regex_data?: NullableJsonNullValueInput | InputJsonValue
+    status?: NullableEnumExtractionFormatStatusFieldUpdateOperationsInput | $Enums.ExtractionFormatStatus | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ai_batch_job?: AiBatchJobUpdateOneRequiredWithoutItemsNestedInput
+  }
+
+  export type AiBatchRequestItemUncheckedUpdateWithoutPlain_scraped_pageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ai_batch_job_id?: StringFieldUpdateOperationsInput | string
+    custom_id?: StringFieldUpdateOperationsInput | string
+    source_url?: NullableStringFieldUpdateOperationsInput | string | null
+    content_label?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: StringFieldUpdateOperationsInput | string
+    instructions?: NullableStringFieldUpdateOperationsInput | string | null
+    wants_markdown?: BoolFieldUpdateOperationsInput | boolean
+    regex_data?: NullableJsonNullValueInput | InputJsonValue
+    status?: NullableEnumExtractionFormatStatusFieldUpdateOperationsInput | $Enums.ExtractionFormatStatus | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AiBatchRequestItemUncheckedUpdateManyWithoutPlain_scraped_pageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ai_batch_job_id?: StringFieldUpdateOperationsInput | string
+    custom_id?: StringFieldUpdateOperationsInput | string
+    source_url?: NullableStringFieldUpdateOperationsInput | string | null
+    content_label?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: StringFieldUpdateOperationsInput | string
+    instructions?: NullableStringFieldUpdateOperationsInput | string | null
+    wants_markdown?: BoolFieldUpdateOperationsInput | boolean
+    regex_data?: NullableJsonNullValueInput | InputJsonValue
+    status?: NullableEnumExtractionFormatStatusFieldUpdateOperationsInput | $Enums.ExtractionFormatStatus | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AiBatchRequestItemCreateManyAi_batch_jobInput = {
+    id?: string
+    custom_id: string
+    plain_scraped_page_id?: string | null
+    source_url?: string | null
+    content_label?: string | null
+    content: string
+    instructions?: string | null
+    wants_markdown?: boolean
+    regex_data?: NullableJsonNullValueInput | InputJsonValue
+    status?: $Enums.ExtractionFormatStatus | null
+    created_at?: Date | string
+  }
+
+  export type AiBatchRequestItemUpdateWithoutAi_batch_jobInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    custom_id?: StringFieldUpdateOperationsInput | string
+    source_url?: NullableStringFieldUpdateOperationsInput | string | null
+    content_label?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: StringFieldUpdateOperationsInput | string
+    instructions?: NullableStringFieldUpdateOperationsInput | string | null
+    wants_markdown?: BoolFieldUpdateOperationsInput | boolean
+    regex_data?: NullableJsonNullValueInput | InputJsonValue
+    status?: NullableEnumExtractionFormatStatusFieldUpdateOperationsInput | $Enums.ExtractionFormatStatus | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    plain_scraped_page?: PlainScrapedPageUpdateOneWithoutAi_batch_request_itemsNestedInput
+  }
+
+  export type AiBatchRequestItemUncheckedUpdateWithoutAi_batch_jobInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    custom_id?: StringFieldUpdateOperationsInput | string
+    plain_scraped_page_id?: NullableStringFieldUpdateOperationsInput | string | null
+    source_url?: NullableStringFieldUpdateOperationsInput | string | null
+    content_label?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: StringFieldUpdateOperationsInput | string
+    instructions?: NullableStringFieldUpdateOperationsInput | string | null
+    wants_markdown?: BoolFieldUpdateOperationsInput | boolean
+    regex_data?: NullableJsonNullValueInput | InputJsonValue
+    status?: NullableEnumExtractionFormatStatusFieldUpdateOperationsInput | $Enums.ExtractionFormatStatus | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AiBatchRequestItemUncheckedUpdateManyWithoutAi_batch_jobInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    custom_id?: StringFieldUpdateOperationsInput | string
+    plain_scraped_page_id?: NullableStringFieldUpdateOperationsInput | string | null
+    source_url?: NullableStringFieldUpdateOperationsInput | string | null
+    content_label?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: StringFieldUpdateOperationsInput | string
+    instructions?: NullableStringFieldUpdateOperationsInput | string | null
+    wants_markdown?: BoolFieldUpdateOperationsInput | boolean
+    regex_data?: NullableJsonNullValueInput | InputJsonValue
+    status?: NullableEnumExtractionFormatStatusFieldUpdateOperationsInput | $Enums.ExtractionFormatStatus | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type DiagnosticsArtifactCreateManyDiagnostics_packageInput = {

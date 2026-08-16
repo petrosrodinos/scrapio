@@ -323,6 +323,53 @@ export class CrawlProcessor extends WorkerHost implements OnModuleInit {
 
       const runFailed = !crawlResult.success;
       const outputFormats = run.output_formats as OutputFormat[];
+      const schemaDefinition = run.extraction_schema_version?.definition as
+        | Record<string, unknown>
+        | null
+        | undefined;
+      const wantsAiBatch =
+        run.ai_batch_mode &&
+        outputFormats.includes(OutputFormat.STRUCTURED_JSON) &&
+        !!schemaDefinition;
+
+      if (!runFailed && wantsAiBatch && crawlResult.items.length > 0) {
+        const combinedContent = crawlResult.items
+          .map((item) => `=== SOURCE: ${item.source_url} ===\n${JSON.stringify(item.raw ?? {})}`)
+          .join('\n\n')
+          .slice(0, MAX_COMBINED_CONTENT_CHARS);
+
+        await this.extractionService.submitStructuredBatch(
+          [
+            {
+              content: combinedContent,
+              contentLabel: `${crawlResult.items.length} extracted item(s) from ${config.start_url}`,
+              instructions: activeVersion.generation_prompt,
+              sourceUrl: config.start_url,
+              wantsMarkdown: outputFormats.includes(OutputFormat.MARKDOWN),
+            },
+          ],
+          { workflowRunId, userId: run.user_id, schemaDefinition },
+        );
+
+        await this.prisma.workflowRun.updateMany({
+          where: { id: workflowRunId, status: RunStatus.RUNNING },
+          data: { status: RunStatus.AWAITING_AI_BATCH },
+        });
+
+        this.eventEmitter.emit(WORKFLOW_RUN_STATUS_CHANGED_EVENT, {
+          workflowRunId,
+          userId: run.user_id,
+          workflowConfigId: workflowConfig.id,
+          type: run.type,
+          status: RunStatus.AWAITING_AI_BATCH,
+          persistResults: run.persist_results,
+          startedAt,
+        });
+
+        // Leave the JobLog ACTIVE (not COMPLETED/FAILED) — AiBatchCompletionProcessor closes it
+        // once the batch resolves, mirroring "the job is still working, just off-process."
+        return;
+      }
 
       let extractionOutcome: ExtractionOutcome | null = null;
       if (!runFailed && outputFormats.length > 0 && crawlResult.items.length > 0) {

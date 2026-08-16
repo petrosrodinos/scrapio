@@ -193,6 +193,48 @@ export class BrowserAgentProcessor extends WorkerHost {
             where: { id: run.extraction_schema_version_id },
           })
         : null;
+      const schemaDefinition = schemaVersion?.definition as
+        | Record<string, unknown>
+        | null
+        | undefined;
+      const wantsAiBatch =
+        run.ai_batch_mode &&
+        outputFormats.includes(OutputFormat.STRUCTURED_JSON) &&
+        !!schemaDefinition;
+
+      if (wantsAiBatch) {
+        await this.extractionService.submitStructuredBatch(
+          [
+            {
+              content: JSON.stringify(outcome.findings, null, 2),
+              contentLabel: `browser agent findings for ${run.url}`,
+              instructions: null,
+              sourceUrl: run.url,
+              wantsMarkdown: outputFormats.includes(OutputFormat.MARKDOWN),
+            },
+          ],
+          { workflowRunId, userId: run.user_id, schemaDefinition },
+        );
+
+        await this.prisma.workflowRun.updateMany({
+          where: { id: workflowRunId, status: RunStatus.RUNNING },
+          data: { status: RunStatus.AWAITING_AI_BATCH },
+        });
+
+        this.eventEmitter.emit(WORKFLOW_RUN_STATUS_CHANGED_EVENT, {
+          workflowRunId,
+          userId: run.user_id,
+          workflowConfigId: run.workflow_config_id,
+          type: run.type,
+          status: RunStatus.AWAITING_AI_BATCH,
+          persistResults: run.persist_results,
+          startedAt,
+        });
+
+        // Leave the JobLog ACTIVE (not COMPLETED/FAILED) — AiBatchCompletionProcessor closes it
+        // once the batch resolves, mirroring "the job is still working, just off-process."
+        return;
+      }
 
       const extractionOutcome = await this.extractionService.extract({
         userId: run.user_id,

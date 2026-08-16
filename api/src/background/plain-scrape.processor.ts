@@ -112,6 +112,10 @@ export class PlainScrapeProcessor extends WorkerHost {
         | Record<string, unknown>
         | null
         | undefined;
+      const wantsAiBatch =
+        run.ai_batch_mode &&
+        outputFormats.includes(OutputFormat.STRUCTURED_JSON) &&
+        !!schemaDefinition;
 
       const pages: {
         id: string;
@@ -150,7 +154,13 @@ export class PlainScrapeProcessor extends WorkerHost {
         const content = fetched.cleanedContent ?? fetched.rawHtml;
         pages.push({ id: page.id, url, success: fetched.success, content, rawHtml: fetched.rawHtml });
 
-        if (wantsExtraction && scope === ExtractionScope.PER_URL && fetched.success && content) {
+        if (
+          !wantsAiBatch &&
+          wantsExtraction &&
+          scope === ExtractionScope.PER_URL &&
+          fetched.success &&
+          content
+        ) {
           const outcome = await this.extractionService.extract({
             userId: run.user_id,
             outputFormats,
@@ -169,7 +179,69 @@ export class PlainScrapeProcessor extends WorkerHost {
         }
       }
 
-      if (wantsExtraction && scope === ExtractionScope.COMBINED) {
+      if (wantsAiBatch) {
+        const successfulPages = pages.filter((p) => p.success && p.content);
+        const wantsMarkdown = outputFormats.includes(OutputFormat.MARKDOWN);
+
+        const batchItems =
+          scope === ExtractionScope.PER_URL
+            ? successfulPages.map((p) => ({
+                content: p.content!,
+                regexContent: p.rawHtml,
+                contentLabel: `HTML content of ${p.url}`,
+                instructions: run.workflow_config?.description,
+                sourceUrl: p.url,
+                plainScrapedPageId: p.id,
+                wantsMarkdown,
+              }))
+            : successfulPages.length > 0
+              ? [
+                  {
+                    content: successfulPages
+                      .map((p) => `=== SOURCE: ${p.url} ===\n${p.content}`)
+                      .join('\n\n')
+                      .slice(0, MAX_COMBINED_CONTENT_CHARS),
+                    // Not truncated to MAX_COMBINED_CONTENT_CHARS: see the immediate-mode
+                    // COMBINED path this mirrors — regex matching is deterministic, never sent
+                    // to the LLM, so there's no context-window/cost reason to cut it short.
+                    regexContent: successfulPages
+                      .map((p) => `=== SOURCE: ${p.url} ===\n${p.rawHtml ?? p.content ?? ''}`)
+                      .join('\n\n'),
+                    contentLabel: `combined HTML content of ${successfulPages.length} page(s)`,
+                    instructions: run.workflow_config?.description,
+                    sourceUrl: successfulPages[0]?.url,
+                    wantsMarkdown,
+                  },
+                ]
+              : [];
+
+        if (batchItems.length > 0) {
+          await this.extractionService.submitStructuredBatch(batchItems, {
+            workflowRunId,
+            userId: run.user_id,
+            schemaDefinition,
+          });
+
+          await this.prisma.workflowRun.updateMany({
+            where: { id: workflowRunId, status: RunStatus.RUNNING },
+            data: { status: RunStatus.AWAITING_AI_BATCH },
+          });
+
+          this.eventEmitter.emit(WORKFLOW_RUN_STATUS_CHANGED_EVENT, {
+            workflowRunId,
+            userId: run.user_id,
+            workflowConfigId: run.workflow_config_id,
+            type: run.type,
+            status: RunStatus.AWAITING_AI_BATCH,
+            persistResults: run.persist_results,
+            startedAt,
+          });
+
+          // Leave the JobLog ACTIVE (not COMPLETED/FAILED) — AiBatchCompletionProcessor closes
+          // it once the batch resolves, mirroring "the job is still working, just off-process."
+          return;
+        }
+      } else if (wantsExtraction && scope === ExtractionScope.COMBINED) {
         const successfulPages = pages.filter((p) => p.success && p.content);
 
         if (successfulPages.length > 0) {

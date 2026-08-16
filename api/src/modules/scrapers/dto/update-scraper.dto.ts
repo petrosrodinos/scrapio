@@ -71,4 +71,17 @@ export class UpdateScraperDto {
   @IsOptional()
   @IsBoolean()
   persist_results?: boolean;
+
+  @ApiProperty({
+    required: false,
+    description:
+      'Submit STRUCTURED_JSON extraction as an OpenAI batch job instead of running it ' +
+      'immediately. The run parks in AWAITING_AI_BATCH until the batch completes (up to 24h), ' +
+      'and the completion webhook fires then instead of at scrape-completion time. Requires the ' +
+      'active version to have STRUCTURED_JSON output with a linked schema, and an OpenAI ' +
+      'integration — batching is not supported for other providers yet.',
+  })
+  @IsOptional()
+  @IsBoolean()
+  ai_batch_mode?: boolean;
 }

@@ -59,4 +59,17 @@ export class CreateScraperDto {
   @IsOptional()
   @IsBoolean()
   persist_results?: boolean;
+
+  @ApiProperty({
+    required: false,
+    default: false,
+    description:
+      'Submit STRUCTURED_JSON extraction as an OpenAI batch job instead of running it ' +
+      'immediately. Requires the active version to have STRUCTURED_JSON output with a linked ' +
+      'schema — since a new scraper has no version yet, this is typically enabled later via ' +
+      'update once a schema-bearing version exists.',
+  })
+  @IsOptional()
+  @IsBoolean()
+  ai_batch_mode?: boolean;
 }

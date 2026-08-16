@@ -77,9 +77,21 @@ enum ScraperHealth {
 enum RunStatus {
   QUEUED
   RUNNING
+  // Raw scrape/crawl/browse finished; structured-JSON extraction was handed off to an AI batch
+  // job (see AiBatchJob) instead of run immediately. Parked here until the batch completes.
+  AWAITING_AI_BATCH
   SUCCESS
   PARTIAL_SUCCESS
   FAILED
+  CANCELLED
+}
+
+enum AiBatchJobStatus {
+  SUBMITTED
+  IN_PROGRESS
+  COMPLETED
+  FAILED
+  EXPIRED
   CANCELLED
 }
 
@@ -186,6 +198,9 @@ enum IntegrationType {
 enum WebhookEventType {
   WORKFLOW_RUN_QUEUED
   WORKFLOW_RUN_RUNNING
+  // Non-terminal: fired when structured-JSON extraction is handed off to an OpenAI batch job
+  // instead of running immediately. The real completion event fires later, at batch completion.
+  WORKFLOW_RUN_AI_BATCH_SUBMITTED
   WORKFLOW_RUN_SUCCEEDED
   WORKFLOW_RUN_PARTIAL_SUCCESS
   WORKFLOW_RUN_FAILED
@@ -436,6 +451,12 @@ model WorkflowConfig {
   // once a subscribed webhook endpoint confirms delivery — see WorkflowRun.persist_results.
   persist_results Boolean @default(true)
 
+  // When true, STRUCTURED_JSON extraction is submitted to an OpenAI batch job instead of run
+  // immediately (see AiBatchJob). Only meaningful when output_formats includes STRUCTURED_JSON
+  // and an extraction schema is linked (WorkflowConfig.extraction_schema_version_id for
+  // BROWSER_AGENT/PLAIN_SCRAPE, or the active ScraperVersion's for SCRAPER); ignored otherwise.
+  ai_batch_mode Boolean @default(false)
+
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
@@ -460,27 +481,27 @@ model WorkflowConfig {
 }
 
 model ScraperGenerationRun {
-  id                 String              @id @default(uuid())
-  website_target_id  String
-  workflow_config_id String?
-  trigger            GenerationTrigger   @default(MANUAL)
-  status             GenerationRunStatus @default(QUEUED)
-  prompt             String?
-  max_steps          Int?
-  output_formats     OutputFormat[]
-  output_schema      Json?
-  staged_config      Json?
-  produced_version_id String?            @unique
-  error_message      String?
-  started_at         DateTime?
-  finished_at        DateTime?
-  duration_ms        Int?
-  created_at         DateTime            @default(now())
-  updated_at         DateTime            @updatedAt
+  id                  String              @id @default(uuid())
+  website_target_id   String
+  workflow_config_id  String?
+  trigger             GenerationTrigger   @default(MANUAL)
+  status              GenerationRunStatus @default(QUEUED)
+  prompt              String?
+  max_steps           Int?
+  output_formats      OutputFormat[]
+  output_schema       Json?
+  staged_config       Json?
+  produced_version_id String?             @unique
+  error_message       String?
+  started_at          DateTime?
+  finished_at         DateTime?
+  duration_ms         Int?
+  created_at          DateTime            @default(now())
+  updated_at          DateTime            @updatedAt
 
-  website_target   WebsiteTarget    @relation(fields: [website_target_id], references: [id], onDelete: Cascade)
-  workflow_config  WorkflowConfig?  @relation(fields: [workflow_config_id], references: [id], onDelete: SetNull)
-  produced_version ScraperVersion?  @relation("ProducedVersion", fields: [produced_version_id], references: [id], onDelete: SetNull)
+  website_target   WebsiteTarget   @relation(fields: [website_target_id], references: [id], onDelete: Cascade)
+  workflow_config  WorkflowConfig? @relation(fields: [workflow_config_id], references: [id], onDelete: SetNull)
+  produced_version ScraperVersion? @relation("ProducedVersion", fields: [produced_version_id], references: [id], onDelete: SetNull)
 
   steps ComputerUseStep[]
 
@@ -584,7 +605,7 @@ model WorkflowRun {
   status             RunStatus    @default(QUEUED)
 
   // ── SCRAPER run ───────────────────────────────────────────────────────────
-  website_target_id String?
+  website_target_id  String?
   // Exact ScraperVersion this run executed against — pins the config, generation_prompt,
   // output_formats, and extraction_schema_version_id for this run, independently of whatever
   // version the WorkflowConfig's active_version_id later points to.
@@ -605,6 +626,9 @@ model WorkflowRun {
   output_formats               OutputFormat[]
   extraction_schema_version_id String?
 
+  // Snapshotted from WorkflowConfig.ai_batch_mode at enqueue time.
+  ai_batch_mode Boolean @default(false)
+
   // ── Common ────────────────────────────────────────────────────────────────
   ai_usage      Json?
   error_message String?
@@ -613,7 +637,7 @@ model WorkflowRun {
   // Snapshotted from WorkflowConfig.persist_results at enqueue time. When false, result
   // payloads (raw_html, structured_data, markdown, collected_data) are deleted once a
   // subscribed webhook endpoint confirms delivery, or by the fallback retention cron.
-  persist_results  Boolean   @default(true)
+  persist_results   Boolean   @default(true)
   results_purged_at DateTime?
 
   started_at  DateTime?
@@ -636,6 +660,7 @@ model WorkflowRun {
   execution_traces    ScraperExecutionTrace[]
   pages               PlainScrapedPage[]
   extraction_result   ExtractionResult?
+  ai_batch_job        AiBatchJob?
 
   @@index([workflow_config_id])
   @@index([user_id])
@@ -738,9 +763,13 @@ model PlainScrapedPage {
   error_message   String?
   created_at      DateTime @default(now())
 
-  workflow_run      WorkflowRun      @relation(fields: [workflow_run_id], references: [id], onDelete: Cascade)
+  workflow_run      WorkflowRun       @relation(fields: [workflow_run_id], references: [id], onDelete: Cascade)
   // Populated when the parent run's extraction_scope is PER_URL (one result per page).
   extraction_result ExtractionResult?
+
+  // Populated when the parent run's extraction_scope is PER_URL and ai_batch_mode is enabled —
+  // one AiBatchRequestItem per page, all submitted together as a single AiBatchJob for the run.
+  ai_batch_request_items AiBatchRequestItem[]
 
   @@index([workflow_run_id])
   @@map("plain_scraped_pages")
@@ -787,6 +816,72 @@ model ExtractionResult {
   @@map("extraction_results")
 }
 
+// ---------------------------------------------------------------------------
+// AI Batch Extraction (OpenAI only)
+//
+// When a config has ai_batch_mode enabled, STRUCTURED_JSON extraction for a run is submitted to
+// an OpenAI batch job (one AiBatchJob per WorkflowRun) instead of run immediately. AiBatchJob
+// tracks the external batch; AiBatchRequestItem tracks each individual line item within it — one
+// per WorkflowRun-level extraction (SCRAPER, BROWSER_AGENT, COMBINED PLAIN_SCRAPE), or one per
+// page for a PER_URL PLAIN_SCRAPE run.
+// ---------------------------------------------------------------------------
+
+model AiBatchJob {
+  id              String @id @default(uuid())
+  workflow_run_id String @unique
+  user_id         String
+
+  external_batch_id String
+  input_file_id     String
+  output_file_id    String?
+  error_file_id     String?
+  status            AiBatchJobStatus @default(SUBMITTED)
+  request_count     Int
+  error_message     String?
+
+  submitted_at   DateTime  @default(now())
+  completed_at   DateTime?
+  last_polled_at DateTime?
+  created_at     DateTime  @default(now())
+  updated_at     DateTime  @updatedAt
+
+  workflow_run WorkflowRun          @relation(fields: [workflow_run_id], references: [id], onDelete: Cascade)
+  items        AiBatchRequestItem[]
+
+  @@index([status])
+  @@index([user_id])
+  @@map("ai_batch_jobs")
+}
+
+model AiBatchRequestItem {
+  id              String @id @default(uuid())
+  ai_batch_job_id String
+  // Matches the "custom_id" of the corresponding line in the OpenAI batch request/response file.
+  custom_id       String
+
+  plain_scraped_page_id String?
+  source_url            String?
+  content_label         String?
+  // Raw evidence sent to the model — same content/cap as the immediate-mode extraction path.
+  content               String
+  instructions          String?
+  wants_markdown        Boolean @default(false)
+  // Deterministically-extracted "regex" schema fields, merged back into the AI's output at
+  // completion time (mirrors ExtractionService.runStructuredExtraction's regex-field handling).
+  regex_data            Json?
+
+  // Null until the batch completes and this item's response has been validated.
+  status ExtractionFormatStatus?
+
+  created_at DateTime @default(now())
+
+  ai_batch_job       AiBatchJob        @relation(fields: [ai_batch_job_id], references: [id], onDelete: Cascade)
+  plain_scraped_page PlainScrapedPage? @relation(fields: [plain_scraped_page_id], references: [id], onDelete: Cascade)
+
+  @@unique([ai_batch_job_id, custom_id])
+  @@map("ai_batch_request_items")
+}
+
 model DiagnosticsPackage {
   id                 String          @id @default(uuid())
   workflow_run_id    String          @unique
@@ -805,8 +900,8 @@ model DiagnosticsPackage {
   exception          String?
   created_at         DateTime        @default(now())
 
-  workflow_run    WorkflowRun    @relation(fields: [workflow_run_id], references: [id], onDelete: Cascade)
-  workflow_config WorkflowConfig @relation(fields: [workflow_config_id], references: [id], onDelete: Cascade)
+  workflow_run    WorkflowRun           @relation(fields: [workflow_run_id], references: [id], onDelete: Cascade)
+  workflow_config WorkflowConfig        @relation(fields: [workflow_config_id], references: [id], onDelete: Cascade)
   artifacts       DiagnosticsArtifact[]
 
   @@index([workflow_config_id])

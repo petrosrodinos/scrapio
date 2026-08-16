@@ -85,7 +85,7 @@ export class CrawlRunsService {
     const config = workflowConfigId
       ? await this.prisma.workflowConfig.findUnique({
           where: { id: workflowConfigId },
-          select: { active_version: true, persist_results: true },
+          select: { active_version: true, persist_results: true, ai_batch_mode: true },
         })
       : null;
     const activeVersion = config?.active_version ?? null;
@@ -102,6 +102,7 @@ export class CrawlRunsService {
         extraction_schema_version_id:
           activeVersion?.extraction_schema_version_id ?? null,
         persist_results: config?.persist_results ?? true,
+        ai_batch_mode: config?.ai_batch_mode ?? false,
         status: RunStatus.QUEUED,
       },
     });
@@ -141,6 +142,7 @@ export class CrawlRunsService {
         output_formats: true,
         extraction_schema_version_id: true,
         persist_results: true,
+        ai_batch_mode: true,
       },
     });
 
@@ -160,6 +162,7 @@ export class CrawlRunsService {
         output_formats: config.output_formats,
         extraction_schema_version_id: config.extraction_schema_version_id,
         persist_results: config.persist_results,
+        ai_batch_mode: config.ai_batch_mode,
         status: RunStatus.QUEUED,
       },
     });
@@ -199,6 +202,7 @@ export class CrawlRunsService {
         output_formats: true,
         extraction_schema_version_id: true,
         persist_results: true,
+        ai_batch_mode: true,
       },
     });
 
@@ -219,6 +223,7 @@ export class CrawlRunsService {
         output_formats: config.output_formats,
         extraction_schema_version_id: config.extraction_schema_version_id,
         persist_results: config.persist_results,
+        ai_batch_mode: config.ai_batch_mode,
         status: RunStatus.QUEUED,
       },
     });
