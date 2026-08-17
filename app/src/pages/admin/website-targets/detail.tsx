@@ -296,7 +296,9 @@ export default function WebsiteTargetDetailPage() {
                     <Table.Row
                       key={scraper.id}
                       id={scraper.id}
-                      onAction={() => navigate(Routes.scrapers.detail(scraper.id))}
+                      onAction={() =>
+                        navigate(Routes.scrapers.detail(scraper.id, websiteTarget.id))
+                      }
                       className="cursor-pointer"
                     >
                       <Table.Cell>

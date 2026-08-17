@@ -25,7 +25,13 @@ export const Routes = {
         },
     },
     scrapers: {
-        detail: (id: string) => `/scrapers/${id}`,
+        list: "/scrapers",
+        legacyDetail: "/scrapers/:id",
+        nestedDetail: "/website-targets/:id/scrapers/:scraperId",
+        detail: (scraperId: string, websiteTargetId?: string | null) =>
+            websiteTargetId
+                ? `/website-targets/${websiteTargetId}/scrapers/${scraperId}`
+                : `/scrapers/${scraperId}`,
     },
     workflows: {
         new: "/workflows/new",

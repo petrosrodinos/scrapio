@@ -1,6 +1,6 @@
 import type { FC } from "react";
 import type { LucideIcon } from "lucide-react";
-import { MousePointerClick, RefreshCw, Braces, Clock, Webhook, KeyRound, ShieldAlert, Gauge } from "lucide-react";
+import { MousePointerClick, RefreshCw, Braces, Clock, Webhook, KeyRound, ShieldAlert, Gauge, FileCode2 } from "lucide-react";
 import { Reveal } from "./reveal";
 
 interface Capability {
@@ -19,6 +19,11 @@ const CAPABILITIES: Capability[] = [
     icon: RefreshCw,
     title: "Self-healing scrapers",
     body: "Health and success rate are tracked per scraper. When it drifts, the agent rebuilds the config — not you.",
+  },
+  {
+    icon: FileCode2,
+    title: "API specs from traffic",
+    body: "Run a browser agent with capture on and every request it makes is distilled into a ready-to-use OpenAPI spec — no manual reverse engineering.",
   },
   {
     icon: Braces,
@@ -65,9 +70,9 @@ export const CapabilitiesSection: FC = () => {
           </h2>
         </Reveal>
 
-        <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {CAPABILITIES.map((cap, i) => (
-            <Reveal key={cap.title} delayMs={(i % 4) * 80}>
+            <Reveal key={cap.title} delayMs={(i % 3) * 80}>
               <div className="h-full rounded-2xl border border-border bg-surface p-5">
                 <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-accent-soft text-accent">
                   <cap.icon className="h-5 w-5" />

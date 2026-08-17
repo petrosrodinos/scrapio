@@ -67,8 +67,9 @@ export default function AppRoutes() {
         <Route path={Routes.dashboard.root} element={<DashboardHome />} />
         <Route path={Routes.websiteTargets.list} element={<WebsiteTargetsListPage />} />
         <Route path={`${Routes.websiteTargets.list}/:id`} element={<WebsiteTargetDetailPage />} />
-        <Route path="/scrapers" element={<Navigate to={Routes.websiteTargets.list} replace />} />
-        <Route path="/scrapers/:id" element={<ScraperDetailPage />} />
+        <Route path={Routes.scrapers.nestedDetail} element={<ScraperDetailPage />} />
+        <Route path={Routes.scrapers.list} element={<Navigate to={Routes.websiteTargets.list} replace />} />
+        <Route path={Routes.scrapers.legacyDetail} element={<ScraperDetailPage />} />
         <Route path={Routes.workflows.new} element={<NewWorkflowPage />} />
         <Route path={Routes.plainScrape.list} element={<PlainScrapeListPage />} />
         <Route path={`${Routes.plainScrape.list}/:id`} element={<PlainScrapeDetailPage />} />

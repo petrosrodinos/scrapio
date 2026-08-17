@@ -42,7 +42,7 @@ function resolveActivityLink(item: ActivityFeedItem): string | null {
     return Routes.generationRuns.detail(item.generation_run_id);
   }
   if (item.scraper_id) {
-    return Routes.scrapers.detail(item.scraper_id);
+    return Routes.scrapers.detail(item.scraper_id, item.website_target_id);
   }
   if (item.website_target_id) {
     return Routes.websiteTargets.detail(item.website_target_id);

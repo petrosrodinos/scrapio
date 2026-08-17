@@ -47,7 +47,7 @@ export function CrawlRunOverview({ run }: CrawlRunOverviewProps) {
   const openConfig = () => {
     if (!run.workflow_config_id) return;
     if (isScraper) {
-      navigate(Routes.scrapers.detail(run.workflow_config_id));
+      navigate(Routes.scrapers.detail(run.workflow_config_id, run.website_target_id));
       return;
     }
     if (isPlainScrape) {

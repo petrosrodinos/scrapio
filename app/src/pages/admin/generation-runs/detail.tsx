@@ -198,7 +198,9 @@ export default function GenerationRunDetailPage() {
           {run.scraper_id ? (
             <button
               className="text-sm text-accent hover:underline text-left"
-              onClick={() => navigate(Routes.scrapers.detail(run.scraper_id!))}
+              onClick={() =>
+                navigate(Routes.scrapers.detail(run.scraper_id!, run.website_target_id))
+              }
             >
               {run.scraper?.name ?? run.scraper_id}
             </button>
@@ -245,7 +247,9 @@ export default function GenerationRunDetailPage() {
           <p className="text-sm text-foreground">Approved — a new scraper version is now active.</p>
           <ActionButtonWithPending
             variant="secondary"
-            onPress={() => navigate(Routes.scrapers.detail(run.scraper_id!))}
+            onPress={() =>
+              navigate(Routes.scrapers.detail(run.scraper_id!, run.website_target_id))
+            }
           >
             View scraper
           </ActionButtonWithPending>

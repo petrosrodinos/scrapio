@@ -40,11 +40,14 @@ import { NotificationSeverityFilterOptions } from "@/config/constants/dropdowns/
 import { ReadFilterOptions } from "@/config/constants/dropdowns/notifications/read-filter.options";
 
 function resolveNotificationLink(notification: Notification): string | null {
+  if (notification.workflow_config_id) {
+    return Routes.scrapers.detail(
+      notification.workflow_config_id,
+      notification.website_target_id,
+    );
+  }
   if (notification.website_target_id) {
     return Routes.websiteTargets.detail(notification.website_target_id);
-  }
-  if (notification.workflow_config_id) {
-    return Routes.scrapers.detail(notification.workflow_config_id);
   }
   if (notification.workflow_run_id) {
     return Routes.crawlRuns.detail(notification.workflow_run_id);
