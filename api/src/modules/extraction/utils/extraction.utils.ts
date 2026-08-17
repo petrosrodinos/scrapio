@@ -6,6 +6,7 @@ const STRUCTURED_ONLY_FIELDS = [
   'structured_raw_ai_output',
   'structured_validation_errors',
   'structured_attempts',
+  'generated_ui_html',
 ] as const;
 
 const MARKDOWN_ONLY_FIELDS = [

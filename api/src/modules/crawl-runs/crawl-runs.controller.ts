@@ -29,6 +29,7 @@ import {
   CrawlRunQueryType,
 } from './dto/crawl-run-query.schema';
 import { DeleteCrawlRunsDto } from './dto/delete-crawl-runs.dto';
+import { GenerateUiDto } from './dto/generate-ui.dto';
 import { CrawlRun } from './entities/crawl-run.entity';
 
 @ApiTags('Crawl Runs')
@@ -98,6 +99,41 @@ export class CrawlRunsController {
   @ApiResponse({ status: 404, description: 'Crawl run not found' })
   cancel(@CurrentUser() authUser: AuthUser, @Param('id') id: string) {
     return this.crawlRunsService.cancel(authUser, id);
+  }
+
+  @Post(':id/generate-ui')
+  @Roles(AuthRole.USER, AuthRole.ADMIN)
+  @ApiOperation({
+    summary:
+      "Generate (or regenerate) an AI-rendered HTML interface for a run's structured data",
+  })
+  @ApiResponse({ status: 201, description: 'Generated interface persisted' })
+  @ApiResponse({ status: 400, description: 'No structured JSON data available yet' })
+  @ApiResponse({ status: 404, description: 'Crawl run not found' })
+  generateUi(
+    @CurrentUser() authUser: AuthUser,
+    @Param('id') id: string,
+    @Body() dto: GenerateUiDto,
+  ) {
+    return this.crawlRunsService.generateUi(authUser, id, dto);
+  }
+
+  @Post(':id/pages/:pageId/generate-ui')
+  @Roles(AuthRole.USER, AuthRole.ADMIN)
+  @ApiOperation({
+    summary:
+      "Generate (or regenerate) an AI-rendered HTML interface for one page's structured data",
+  })
+  @ApiResponse({ status: 201, description: 'Generated interface persisted' })
+  @ApiResponse({ status: 400, description: 'No structured JSON data available yet' })
+  @ApiResponse({ status: 404, description: 'Crawl run or page not found' })
+  generateUiForPage(
+    @CurrentUser() authUser: AuthUser,
+    @Param('id') id: string,
+    @Param('pageId') pageId: string,
+    @Body() dto: GenerateUiDto,
+  ) {
+    return this.crawlRunsService.generateUiForPage(authUser, id, pageId, dto);
   }
 
   @Delete(':id')

@@ -4,6 +4,8 @@ import {
   cancelCrawlRun,
   deleteCrawlRun,
   deleteCrawlRuns,
+  generateCrawlRunPageUi,
+  generateCrawlRunUi,
   getCrawlRun,
   getCrawlRuns,
   rerunCrawlRun,
@@ -67,6 +69,45 @@ export const useCancelCrawlRun = () => {
     onError: (error: any) => {
       toast({
         title: "Could not stop crawl",
+        description: error.message,
+        variant: "error",
+      });
+    },
+  });
+};
+
+export const useGenerateCrawlRunUi = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (id: string) => generateCrawlRunUi(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["crawlRuns"] });
+      toast({ title: "Interface generated", duration: 2000, variant: "success" });
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Could not generate interface",
+        description: error.message,
+        variant: "error",
+      });
+    },
+  });
+};
+
+export const useGenerateCrawlRunPageUi = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ id, pageId }: { id: string; pageId: string }) =>
+      generateCrawlRunPageUi(id, pageId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["crawlRuns"] });
+      toast({ title: "Interface generated", duration: 2000, variant: "success" });
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Could not generate interface",
         description: error.message,
         variant: "error",
       });

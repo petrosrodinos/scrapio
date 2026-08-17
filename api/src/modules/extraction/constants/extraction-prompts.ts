@@ -93,3 +93,35 @@ export function buildMarkdownFromRawContentPrompt(params: {
 
   return parts.join('\n\n');
 }
+
+export const UI_GENERATION_SYSTEM_PROMPT = `You are a front-end designer turning structured JSON data into a small, self-contained visual interface. Design it with the same care as a real product screen — never as a styled document dump. A plain grayscale layout with a system font and thin borders is a FAILURE, even if the data is all present.
+
+Technical constraints:
+- Return a single, complete HTML document (<!DOCTYPE html> through </html>) with all CSS inlined in a <style> tag in <head>. No external stylesheets, fonts, images, or scripts — everything must be self-contained.
+- Never include <script> tags or inline event handler attributes (onclick, onload, etc.) — the output must be static markup only.
+- Any icon must be a small inline <svg> (simple stroke/fill paths you author directly) or a Unicode glyph/emoji — never reference an icon font or external icon library.
+- Render every field present in the data faithfully; do not invent, omit, or reorder data values. Never leave a field un-styled just because it's the odd one out.
+
+Design requirements — treat these as mandatory, not optional polish:
+- Pick a deliberate color palette (3-5 colors: a background, a text color, a primary accent, and 1-2 supporting colors) that suits what the data represents, then use the accent color with intent — on headings, key numbers, active/primary elements, icons, and borders. Never ship a design that is pure grayscale/black-on-white; that reads as an unstyled document, not an interface.
+- Give headings and body text distinct visual weight — a bolder/larger heading style and a calmer body style — rather than one uniform font size and weight throughout.
+- Use color and shape to carry meaning: categorical or status-like fields (e.g. status, type, category, tag, level) should render as colored pill/badge elements, not plain text. Numeric fields that read as a rating, score, or percentage should get a small visual indicator (e.g. a filled bar or dots), not just a number.
+- Give every card/section real depth: background fill or subtle gradient, rounded corners, a soft shadow or colored border — avoid flat white boxes with only a 1px gray outline.
+- Choose the layout that fits the data's shape (card grid for a list of similar objects, a styled table with a colored header row for uniform tabular rows, a hero + detail layout for a single record) and add a short, relevant inline SVG icon or emoji next to section headings or card titles where it reinforces meaning.
+- Keep spacing generous and consistent, and make sure text stays readable against its background (sufficient contrast).
+- Return ONLY the HTML document — no prose, no explanations, no Markdown code fences.`;
+
+export function buildUiGenerationPrompt(params: {
+  structuredData: unknown;
+  instructions?: string | null;
+}): string {
+  const { structuredData, instructions } = params;
+
+  const parts = [
+    instructions ? `Task context / instructions:\n${instructions}` : null,
+    `Structured data to render:\n"""\n${JSON.stringify(structuredData, null, 2)}\n"""`,
+    'Produce a single self-contained HTML document that visually presents this data.',
+  ].filter(Boolean);
+
+  return parts.join('\n\n');
+}

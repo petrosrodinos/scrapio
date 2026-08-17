@@ -242,6 +242,7 @@ enum CostCategory {
   EMBEDDING // AI generates vector embeddings for search indexing
   BROWSER_AGENT_RUN // Computer-use agent autonomously navigates a page to collect findings
   SCRAPER_GENERATION // Computer-use agent builds/verifies a scraper config during generation
+  UI_GENERATION // AI renders structured JSON extraction output as a self-contained HTML/CSS interface
 }
 
 model User {
@@ -834,6 +835,9 @@ model ExtractionResult {
   markdown_status            ExtractionFormatStatus?
   markdown                   String?
   markdown_validation_errors Json?
+
+  // Self-contained HTML+CSS document that renders structured_data as a visual interface.
+  generated_ui_html String? @db.Text
 
   ai_usage   Json?
   created_at DateTime @default(now())

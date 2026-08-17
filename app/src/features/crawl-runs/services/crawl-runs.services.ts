@@ -6,6 +6,8 @@ import type {
   CrawlRunListQuery,
   CrawlRunListResponse,
   DeleteCrawlRunsPayload,
+  ExtractionResult,
+  GenerateUiPayload,
 } from "../interfaces/crawl-runs.interfaces";
 
 export const getCrawlRuns = async (
@@ -44,6 +46,38 @@ export const cancelCrawlRun = async (id: string): Promise<CrawlRunDetail> => {
   } catch (error: any) {
     throw new Error(
       error?.response?.data?.message || "Failed to stop crawl. Please try again.",
+    );
+  }
+};
+
+export const generateCrawlRunUi = async (
+  id: string,
+  payload?: GenerateUiPayload,
+): Promise<ExtractionResult> => {
+  try {
+    const response = await axiosInstance.post(ApiRoutes.crawlRuns.generateUi(id), payload);
+    return response.data;
+  } catch (error: any) {
+    throw new Error(
+      error?.response?.data?.message || "Failed to generate interface. Please try again.",
+    );
+  }
+};
+
+export const generateCrawlRunPageUi = async (
+  id: string,
+  pageId: string,
+  payload?: GenerateUiPayload,
+): Promise<ExtractionResult> => {
+  try {
+    const response = await axiosInstance.post(
+      ApiRoutes.crawlRuns.generateUiPage(id, pageId),
+      payload,
+    );
+    return response.data;
+  } catch (error: any) {
+    throw new Error(
+      error?.response?.data?.message || "Failed to generate interface. Please try again.",
     );
   }
 };

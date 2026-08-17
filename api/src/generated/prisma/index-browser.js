@@ -411,6 +411,7 @@ exports.Prisma.ExtractionResultScalarFieldEnum = {
   markdown_status: 'markdown_status',
   markdown: 'markdown',
   markdown_validation_errors: 'markdown_validation_errors',
+  generated_ui_html: 'generated_ui_html',
   ai_usage: 'ai_usage',
   created_at: 'created_at',
   updated_at: 'updated_at'
@@ -766,7 +767,8 @@ exports.CostCategory = exports.$Enums.CostCategory = {
   MARKDOWN_GENERATION: 'MARKDOWN_GENERATION',
   EMBEDDING: 'EMBEDDING',
   BROWSER_AGENT_RUN: 'BROWSER_AGENT_RUN',
-  SCRAPER_GENERATION: 'SCRAPER_GENERATION'
+  SCRAPER_GENERATION: 'SCRAPER_GENERATION',
+  UI_GENERATION: 'UI_GENERATION'
 };
 
 exports.NotificationType = exports.$Enums.NotificationType = {

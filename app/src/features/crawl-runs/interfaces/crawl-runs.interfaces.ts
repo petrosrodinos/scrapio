@@ -46,9 +46,14 @@ export interface ExtractionResult {
   markdown_status: ExtractionFormatStatus | null;
   markdown: string | null;
   markdown_validation_errors: unknown;
+  generated_ui_html: string | null;
   ai_usage: Record<string, unknown> | null;
   created_at: string;
   updated_at: string;
+}
+
+export interface GenerateUiPayload {
+  instructions?: string;
 }
 
 export interface PlainScrapedPage {

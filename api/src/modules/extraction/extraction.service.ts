@@ -30,8 +30,10 @@ import {
   buildMarkdownFromStructuredPrompt,
   buildStructuredCorrectionPrompt,
   buildStructuredExtractionPrompt,
+  buildUiGenerationPrompt,
   MARKDOWN_NORMALIZATION_SYSTEM_PROMPT,
   STRUCTURED_EXTRACTION_SYSTEM_PROMPT,
+  UI_GENERATION_SYSTEM_PROMPT,
 } from './constants/extraction-prompts';
 import {
   AiUsageEntry,
@@ -154,6 +156,59 @@ export class ExtractionService {
       },
       update: payload,
     });
+  }
+
+  /**
+   * Generates a self-contained HTML+CSS document that visually renders a piece of previously
+   * extracted structured JSON. Synchronous, single AI call — no retry loop (unlike structured
+   * extraction) since there's no schema to validate against; the caller persists the result.
+   */
+  async generateUiHtml(request: {
+    userId: string;
+    structuredData: unknown;
+    instructions?: string | null;
+  }): Promise<{ html: string; usage: AiUsageEntry[] }> {
+    const usageLog: AiUsageEntry[] = [];
+
+    const { response, usage } = await this.aiService.generateTextForUser(
+      request.userId,
+      CostCategory.UI_GENERATION,
+      {
+        prompt: buildUiGenerationPrompt({
+          structuredData: request.structuredData,
+          instructions: request.instructions,
+        }),
+        system: UI_GENERATION_SYSTEM_PROMPT,
+      },
+    );
+
+    if (usage) {
+      usageLog.push({ stage: 'ui_generation', attempt: 1, usage });
+    }
+
+    const html = this.sanitizeGeneratedHtml(response);
+    if (!html) {
+      throw new Error('Model returned an empty HTML document');
+    }
+
+    return { html, usage: usageLog };
+  }
+
+  /**
+   * AI text output is untrusted freeform text, not a schema-validated object — strip a
+   * wrapping ```html ... ``` (or bare ```) code fence if the model added one despite
+   * being told not to, and reject anything that doesn't look like an HTML document.
+   */
+  private sanitizeGeneratedHtml(raw: string): string {
+    const trimmed = raw?.trim() ?? '';
+    const fenceMatch = trimmed.match(/^```(?:html)?\s*\n([\s\S]*?)\n?```$/i);
+    const html = (fenceMatch ? fenceMatch[1] : trimmed).trim();
+
+    if (!html.startsWith('<')) {
+      throw new Error('Model did not return an HTML document');
+    }
+
+    return html;
   }
 
   /**

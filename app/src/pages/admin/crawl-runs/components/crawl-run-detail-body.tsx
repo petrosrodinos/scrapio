@@ -13,8 +13,7 @@ import {
 } from "@/features/crawl-runs/interfaces/crawl-runs.interfaces";
 import type { JobStatus } from "@/features/jobs/interfaces/jobs.interfaces";
 import { CrawlRunOverview } from "./crawl-run-overview";
-import { ExtractionJsonPreview } from "./extraction-json-preview";
-import { ExtractionMarkdownPreview } from "./extraction-markdown-preview";
+import { ExtractionDataView } from "./extraction-data-view";
 import { JobStatusChip } from "./job-status-chip";
 
 const ACTIVE_STATUSES: CrawlRunStatus[] = [
@@ -54,46 +53,29 @@ export function CrawlRunDetailBody({ run }: CrawlRunDetailBodyProps) {
         </div>
       )}
 
-      {extractionResult?.structured_data ? (
-        <ExtractionJsonPreview data={extractionResult.structured_data} />
+      {extractionResult?.structured_data || extractionResult?.markdown ? (
+        <ExtractionDataView
+          runId={run.id}
+          structuredData={extractionResult.structured_data}
+          generatedUiHtml={extractionResult.generated_ui_html}
+          markdown={extractionResult.markdown}
+        />
       ) : (
         pages
-          .filter((page) => page.extraction_result?.structured_data)
+          .filter((page) => page.extraction_result?.structured_data || page.extraction_result?.markdown)
           .map((page) => (
-            <ExtractionJsonPreview
+            <ExtractionDataView
               key={page.id}
-              data={page.extraction_result!.structured_data}
+              runId={run.id}
+              pageId={page.id}
+              structuredData={page.extraction_result!.structured_data}
+              generatedUiHtml={page.extraction_result!.generated_ui_html}
+              markdown={page.extraction_result!.markdown}
             />
           ))
       )}
 
-      {extractionResult?.markdown ? (
-        <ExtractionMarkdownPreview markdown={extractionResult.markdown} />
-      ) : null}
-
       <CrawlRunOverview run={run} />
-
-      {isBrowserAgent && run.collected_data && (
-        <div className="rounded-xl border border-border bg-surface px-6">
-          <Accordion defaultExpandedKeys={[]} hideSeparator>
-            <Accordion.Item id="collected-data">
-              <Accordion.Heading>
-                <Accordion.Trigger className="text-sm font-medium text-foreground">
-                  Collected data
-                  <Accordion.Indicator />
-                </Accordion.Trigger>
-              </Accordion.Heading>
-              <Accordion.Panel>
-                <Accordion.Body>
-                  <pre className="rounded-lg border border-border bg-background p-3 text-xs overflow-auto max-h-96 mb-4">
-                    {JSON.stringify(run.collected_data, null, 2)}
-                  </pre>
-                </Accordion.Body>
-              </Accordion.Panel>
-            </Accordion.Item>
-          </Accordion>
-        </div>
-      )}
 
       {(isScraper || traces.length > 0) && (
         <div className="rounded-xl border border-border bg-surface px-6">

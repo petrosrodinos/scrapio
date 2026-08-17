@@ -59,6 +59,8 @@ export const ApiRoutes = {
         detail: (id: string) => `/crawl-runs/${id}`,
         rerun: (id: string) => `/crawl-runs/${id}/rerun`,
         cancel: (id: string) => `/crawl-runs/${id}/cancel`,
+        generateUi: (id: string) => `/crawl-runs/${id}/generate-ui`,
+        generateUiPage: (id: string, pageId: string) => `/crawl-runs/${id}/pages/${pageId}/generate-ui`,
         bulkDelete: "/crawl-runs/bulk-delete",
     },
     plainScrapeConfigs: {

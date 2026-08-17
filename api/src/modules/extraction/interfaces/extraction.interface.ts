@@ -23,7 +23,7 @@ export interface ExtractionRequest {
 }
 
 export interface AiUsageEntry {
-  stage: 'structured' | 'markdown';
+  stage: 'structured' | 'markdown' | 'ui_generation';
   attempt: number;
   usage: AICostResponse;
 }

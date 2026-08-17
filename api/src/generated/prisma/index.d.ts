@@ -457,7 +457,8 @@ export const CostCategory: {
   MARKDOWN_GENERATION: 'MARKDOWN_GENERATION',
   EMBEDDING: 'EMBEDDING',
   BROWSER_AGENT_RUN: 'BROWSER_AGENT_RUN',
-  SCRAPER_GENERATION: 'SCRAPER_GENERATION'
+  SCRAPER_GENERATION: 'SCRAPER_GENERATION',
+  UI_GENERATION: 'UI_GENERATION'
 };
 
 export type CostCategory = (typeof CostCategory)[keyof typeof CostCategory]
@@ -27404,6 +27405,7 @@ export namespace Prisma {
     structured_attempts: number | null
     markdown_status: $Enums.ExtractionFormatStatus | null
     markdown: string | null
+    generated_ui_html: string | null
     created_at: Date | null
     updated_at: Date | null
   }
@@ -27417,6 +27419,7 @@ export namespace Prisma {
     structured_attempts: number | null
     markdown_status: $Enums.ExtractionFormatStatus | null
     markdown: string | null
+    generated_ui_html: string | null
     created_at: Date | null
     updated_at: Date | null
   }
@@ -27434,6 +27437,7 @@ export namespace Prisma {
     markdown_status: number
     markdown: number
     markdown_validation_errors: number
+    generated_ui_html: number
     ai_usage: number
     created_at: number
     updated_at: number
@@ -27458,6 +27462,7 @@ export namespace Prisma {
     structured_attempts?: true
     markdown_status?: true
     markdown?: true
+    generated_ui_html?: true
     created_at?: true
     updated_at?: true
   }
@@ -27471,6 +27476,7 @@ export namespace Prisma {
     structured_attempts?: true
     markdown_status?: true
     markdown?: true
+    generated_ui_html?: true
     created_at?: true
     updated_at?: true
   }
@@ -27488,6 +27494,7 @@ export namespace Prisma {
     markdown_status?: true
     markdown?: true
     markdown_validation_errors?: true
+    generated_ui_html?: true
     ai_usage?: true
     created_at?: true
     updated_at?: true
@@ -27593,6 +27600,7 @@ export namespace Prisma {
     markdown_status: $Enums.ExtractionFormatStatus | null
     markdown: string | null
     markdown_validation_errors: JsonValue | null
+    generated_ui_html: string | null
     ai_usage: JsonValue | null
     created_at: Date
     updated_at: Date
@@ -27630,6 +27638,7 @@ export namespace Prisma {
     markdown_status?: boolean
     markdown?: boolean
     markdown_validation_errors?: boolean
+    generated_ui_html?: boolean
     ai_usage?: boolean
     created_at?: boolean
     updated_at?: boolean
@@ -27651,6 +27660,7 @@ export namespace Prisma {
     markdown_status?: boolean
     markdown?: boolean
     markdown_validation_errors?: boolean
+    generated_ui_html?: boolean
     ai_usage?: boolean
     created_at?: boolean
     updated_at?: boolean
@@ -27672,6 +27682,7 @@ export namespace Prisma {
     markdown_status?: boolean
     markdown?: boolean
     markdown_validation_errors?: boolean
+    generated_ui_html?: boolean
     ai_usage?: boolean
     created_at?: boolean
     updated_at?: boolean
@@ -27693,12 +27704,13 @@ export namespace Prisma {
     markdown_status?: boolean
     markdown?: boolean
     markdown_validation_errors?: boolean
+    generated_ui_html?: boolean
     ai_usage?: boolean
     created_at?: boolean
     updated_at?: boolean
   }
 
-  export type ExtractionResultOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "workflow_run_id" | "plain_scraped_page_id" | "extraction_schema_version_id" | "structured_status" | "structured_data" | "structured_raw_ai_output" | "structured_validation_errors" | "structured_attempts" | "markdown_status" | "markdown" | "markdown_validation_errors" | "ai_usage" | "created_at" | "updated_at", ExtArgs["result"]["extractionResult"]>
+  export type ExtractionResultOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "workflow_run_id" | "plain_scraped_page_id" | "extraction_schema_version_id" | "structured_status" | "structured_data" | "structured_raw_ai_output" | "structured_validation_errors" | "structured_attempts" | "markdown_status" | "markdown" | "markdown_validation_errors" | "generated_ui_html" | "ai_usage" | "created_at" | "updated_at", ExtArgs["result"]["extractionResult"]>
   export type ExtractionResultInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workflow_run?: boolean | ExtractionResult$workflow_runArgs<ExtArgs>
     plain_scraped_page?: boolean | ExtractionResult$plain_scraped_pageArgs<ExtArgs>
@@ -27735,6 +27747,7 @@ export namespace Prisma {
       markdown_status: $Enums.ExtractionFormatStatus | null
       markdown: string | null
       markdown_validation_errors: Prisma.JsonValue | null
+      generated_ui_html: string | null
       ai_usage: Prisma.JsonValue | null
       created_at: Date
       updated_at: Date
@@ -28176,6 +28189,7 @@ export namespace Prisma {
     readonly markdown_status: FieldRef<"ExtractionResult", 'ExtractionFormatStatus'>
     readonly markdown: FieldRef<"ExtractionResult", 'String'>
     readonly markdown_validation_errors: FieldRef<"ExtractionResult", 'Json'>
+    readonly generated_ui_html: FieldRef<"ExtractionResult", 'String'>
     readonly ai_usage: FieldRef<"ExtractionResult", 'Json'>
     readonly created_at: FieldRef<"ExtractionResult", 'DateTime'>
     readonly updated_at: FieldRef<"ExtractionResult", 'DateTime'>
@@ -39879,6 +39893,7 @@ export namespace Prisma {
     markdown_status: 'markdown_status',
     markdown: 'markdown',
     markdown_validation_errors: 'markdown_validation_errors',
+    generated_ui_html: 'generated_ui_html',
     ai_usage: 'ai_usage',
     created_at: 'created_at',
     updated_at: 'updated_at'
@@ -42478,6 +42493,7 @@ export namespace Prisma {
     markdown_status?: EnumExtractionFormatStatusNullableFilter<"ExtractionResult"> | $Enums.ExtractionFormatStatus | null
     markdown?: StringNullableFilter<"ExtractionResult"> | string | null
     markdown_validation_errors?: JsonNullableFilter<"ExtractionResult">
+    generated_ui_html?: StringNullableFilter<"ExtractionResult"> | string | null
     ai_usage?: JsonNullableFilter<"ExtractionResult">
     created_at?: DateTimeFilter<"ExtractionResult"> | Date | string
     updated_at?: DateTimeFilter<"ExtractionResult"> | Date | string
@@ -42499,6 +42515,7 @@ export namespace Prisma {
     markdown_status?: SortOrderInput | SortOrder
     markdown?: SortOrderInput | SortOrder
     markdown_validation_errors?: SortOrderInput | SortOrder
+    generated_ui_html?: SortOrderInput | SortOrder
     ai_usage?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -42523,6 +42540,7 @@ export namespace Prisma {
     markdown_status?: EnumExtractionFormatStatusNullableFilter<"ExtractionResult"> | $Enums.ExtractionFormatStatus | null
     markdown?: StringNullableFilter<"ExtractionResult"> | string | null
     markdown_validation_errors?: JsonNullableFilter<"ExtractionResult">
+    generated_ui_html?: StringNullableFilter<"ExtractionResult"> | string | null
     ai_usage?: JsonNullableFilter<"ExtractionResult">
     created_at?: DateTimeFilter<"ExtractionResult"> | Date | string
     updated_at?: DateTimeFilter<"ExtractionResult"> | Date | string
@@ -42544,6 +42562,7 @@ export namespace Prisma {
     markdown_status?: SortOrderInput | SortOrder
     markdown?: SortOrderInput | SortOrder
     markdown_validation_errors?: SortOrderInput | SortOrder
+    generated_ui_html?: SortOrderInput | SortOrder
     ai_usage?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -42570,6 +42589,7 @@ export namespace Prisma {
     markdown_status?: EnumExtractionFormatStatusNullableWithAggregatesFilter<"ExtractionResult"> | $Enums.ExtractionFormatStatus | null
     markdown?: StringNullableWithAggregatesFilter<"ExtractionResult"> | string | null
     markdown_validation_errors?: JsonNullableWithAggregatesFilter<"ExtractionResult">
+    generated_ui_html?: StringNullableWithAggregatesFilter<"ExtractionResult"> | string | null
     ai_usage?: JsonNullableWithAggregatesFilter<"ExtractionResult">
     created_at?: DateTimeWithAggregatesFilter<"ExtractionResult"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"ExtractionResult"> | Date | string
@@ -45574,6 +45594,7 @@ export namespace Prisma {
     markdown_status?: $Enums.ExtractionFormatStatus | null
     markdown?: string | null
     markdown_validation_errors?: NullableJsonNullValueInput | InputJsonValue
+    generated_ui_html?: string | null
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
     updated_at?: Date | string
@@ -45595,6 +45616,7 @@ export namespace Prisma {
     markdown_status?: $Enums.ExtractionFormatStatus | null
     markdown?: string | null
     markdown_validation_errors?: NullableJsonNullValueInput | InputJsonValue
+    generated_ui_html?: string | null
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
     updated_at?: Date | string
@@ -45610,6 +45632,7 @@ export namespace Prisma {
     markdown_status?: NullableEnumExtractionFormatStatusFieldUpdateOperationsInput | $Enums.ExtractionFormatStatus | null
     markdown?: NullableStringFieldUpdateOperationsInput | string | null
     markdown_validation_errors?: NullableJsonNullValueInput | InputJsonValue
+    generated_ui_html?: NullableStringFieldUpdateOperationsInput | string | null
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -45631,6 +45654,7 @@ export namespace Prisma {
     markdown_status?: NullableEnumExtractionFormatStatusFieldUpdateOperationsInput | $Enums.ExtractionFormatStatus | null
     markdown?: NullableStringFieldUpdateOperationsInput | string | null
     markdown_validation_errors?: NullableJsonNullValueInput | InputJsonValue
+    generated_ui_html?: NullableStringFieldUpdateOperationsInput | string | null
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -45649,6 +45673,7 @@ export namespace Prisma {
     markdown_status?: $Enums.ExtractionFormatStatus | null
     markdown?: string | null
     markdown_validation_errors?: NullableJsonNullValueInput | InputJsonValue
+    generated_ui_html?: string | null
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
     updated_at?: Date | string
@@ -45664,6 +45689,7 @@ export namespace Prisma {
     markdown_status?: NullableEnumExtractionFormatStatusFieldUpdateOperationsInput | $Enums.ExtractionFormatStatus | null
     markdown?: NullableStringFieldUpdateOperationsInput | string | null
     markdown_validation_errors?: NullableJsonNullValueInput | InputJsonValue
+    generated_ui_html?: NullableStringFieldUpdateOperationsInput | string | null
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -45682,6 +45708,7 @@ export namespace Prisma {
     markdown_status?: NullableEnumExtractionFormatStatusFieldUpdateOperationsInput | $Enums.ExtractionFormatStatus | null
     markdown?: NullableStringFieldUpdateOperationsInput | string | null
     markdown_validation_errors?: NullableJsonNullValueInput | InputJsonValue
+    generated_ui_html?: NullableStringFieldUpdateOperationsInput | string | null
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -48564,6 +48591,7 @@ export namespace Prisma {
     markdown_status?: SortOrder
     markdown?: SortOrder
     markdown_validation_errors?: SortOrder
+    generated_ui_html?: SortOrder
     ai_usage?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -48582,6 +48610,7 @@ export namespace Prisma {
     structured_attempts?: SortOrder
     markdown_status?: SortOrder
     markdown?: SortOrder
+    generated_ui_html?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -48595,6 +48624,7 @@ export namespace Prisma {
     structured_attempts?: SortOrder
     markdown_status?: SortOrder
     markdown?: SortOrder
+    generated_ui_html?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -58714,6 +58744,7 @@ export namespace Prisma {
     markdown_status?: $Enums.ExtractionFormatStatus | null
     markdown?: string | null
     markdown_validation_errors?: NullableJsonNullValueInput | InputJsonValue
+    generated_ui_html?: string | null
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
     updated_at?: Date | string
@@ -58733,6 +58764,7 @@ export namespace Prisma {
     markdown_status?: $Enums.ExtractionFormatStatus | null
     markdown?: string | null
     markdown_validation_errors?: NullableJsonNullValueInput | InputJsonValue
+    generated_ui_html?: string | null
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
     updated_at?: Date | string
@@ -59318,6 +59350,7 @@ export namespace Prisma {
     markdown_status?: NullableEnumExtractionFormatStatusFieldUpdateOperationsInput | $Enums.ExtractionFormatStatus | null
     markdown?: NullableStringFieldUpdateOperationsInput | string | null
     markdown_validation_errors?: NullableJsonNullValueInput | InputJsonValue
+    generated_ui_html?: NullableStringFieldUpdateOperationsInput | string | null
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -59337,6 +59370,7 @@ export namespace Prisma {
     markdown_status?: NullableEnumExtractionFormatStatusFieldUpdateOperationsInput | $Enums.ExtractionFormatStatus | null
     markdown?: NullableStringFieldUpdateOperationsInput | string | null
     markdown_validation_errors?: NullableJsonNullValueInput | InputJsonValue
+    generated_ui_html?: NullableStringFieldUpdateOperationsInput | string | null
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -60212,6 +60246,7 @@ export namespace Prisma {
     markdown_status?: $Enums.ExtractionFormatStatus | null
     markdown?: string | null
     markdown_validation_errors?: NullableJsonNullValueInput | InputJsonValue
+    generated_ui_html?: string | null
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
     updated_at?: Date | string
@@ -60231,6 +60266,7 @@ export namespace Prisma {
     markdown_status?: $Enums.ExtractionFormatStatus | null
     markdown?: string | null
     markdown_validation_errors?: NullableJsonNullValueInput | InputJsonValue
+    generated_ui_html?: string | null
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
     updated_at?: Date | string
@@ -60392,6 +60428,7 @@ export namespace Prisma {
     markdown_status?: EnumExtractionFormatStatusNullableFilter<"ExtractionResult"> | $Enums.ExtractionFormatStatus | null
     markdown?: StringNullableFilter<"ExtractionResult"> | string | null
     markdown_validation_errors?: JsonNullableFilter<"ExtractionResult">
+    generated_ui_html?: StringNullableFilter<"ExtractionResult"> | string | null
     ai_usage?: JsonNullableFilter<"ExtractionResult">
     created_at?: DateTimeFilter<"ExtractionResult"> | Date | string
     updated_at?: DateTimeFilter<"ExtractionResult"> | Date | string
@@ -60498,6 +60535,7 @@ export namespace Prisma {
     markdown_status?: $Enums.ExtractionFormatStatus | null
     markdown?: string | null
     markdown_validation_errors?: NullableJsonNullValueInput | InputJsonValue
+    generated_ui_html?: string | null
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
     updated_at?: Date | string
@@ -60517,6 +60555,7 @@ export namespace Prisma {
     markdown_status?: $Enums.ExtractionFormatStatus | null
     markdown?: string | null
     markdown_validation_errors?: NullableJsonNullValueInput | InputJsonValue
+    generated_ui_html?: string | null
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
     updated_at?: Date | string
@@ -60683,6 +60722,7 @@ export namespace Prisma {
     markdown_status?: NullableEnumExtractionFormatStatusFieldUpdateOperationsInput | $Enums.ExtractionFormatStatus | null
     markdown?: NullableStringFieldUpdateOperationsInput | string | null
     markdown_validation_errors?: NullableJsonNullValueInput | InputJsonValue
+    generated_ui_html?: NullableStringFieldUpdateOperationsInput | string | null
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -60702,6 +60742,7 @@ export namespace Prisma {
     markdown_status?: NullableEnumExtractionFormatStatusFieldUpdateOperationsInput | $Enums.ExtractionFormatStatus | null
     markdown?: NullableStringFieldUpdateOperationsInput | string | null
     markdown_validation_errors?: NullableJsonNullValueInput | InputJsonValue
+    generated_ui_html?: NullableStringFieldUpdateOperationsInput | string | null
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -66207,6 +66248,7 @@ export namespace Prisma {
     markdown_status?: $Enums.ExtractionFormatStatus | null
     markdown?: string | null
     markdown_validation_errors?: NullableJsonNullValueInput | InputJsonValue
+    generated_ui_html?: string | null
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
     updated_at?: Date | string
@@ -66497,6 +66539,7 @@ export namespace Prisma {
     markdown_status?: NullableEnumExtractionFormatStatusFieldUpdateOperationsInput | $Enums.ExtractionFormatStatus | null
     markdown?: NullableStringFieldUpdateOperationsInput | string | null
     markdown_validation_errors?: NullableJsonNullValueInput | InputJsonValue
+    generated_ui_html?: NullableStringFieldUpdateOperationsInput | string | null
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -66516,6 +66559,7 @@ export namespace Prisma {
     markdown_status?: NullableEnumExtractionFormatStatusFieldUpdateOperationsInput | $Enums.ExtractionFormatStatus | null
     markdown?: NullableStringFieldUpdateOperationsInput | string | null
     markdown_validation_errors?: NullableJsonNullValueInput | InputJsonValue
+    generated_ui_html?: NullableStringFieldUpdateOperationsInput | string | null
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -66533,6 +66577,7 @@ export namespace Prisma {
     markdown_status?: NullableEnumExtractionFormatStatusFieldUpdateOperationsInput | $Enums.ExtractionFormatStatus | null
     markdown?: NullableStringFieldUpdateOperationsInput | string | null
     markdown_validation_errors?: NullableJsonNullValueInput | InputJsonValue
+    generated_ui_html?: NullableStringFieldUpdateOperationsInput | string | null
     ai_usage?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string

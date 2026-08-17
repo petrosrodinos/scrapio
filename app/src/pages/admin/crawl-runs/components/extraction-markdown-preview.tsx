@@ -2,6 +2,7 @@ import { useLayoutEffect, useRef, useState, type FC } from "react";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { cn } from "@/lib/utils";
+import { ExpandPreviewModal } from "./expand-preview-modal";
 
 const REMARK_PLUGINS = [remarkGfm];
 const COLLAPSED_MAX_HEIGHT_PX = 320;
@@ -52,7 +53,14 @@ export const ExtractionMarkdownPreview: FC<ExtractionMarkdownPreviewProps> = ({ 
 
   return (
     <div className="rounded-xl border border-border bg-surface p-6 flex flex-col gap-3">
-      <p className="text-sm font-medium text-foreground">Markdown</p>
+      <div className="flex items-center justify-between gap-3">
+        <p className="text-sm font-medium text-foreground">Markdown</p>
+        <ExpandPreviewModal title="Markdown" triggerAriaLabel="Expand markdown">
+          <div className={cn(markdownBodyClass, "max-h-[80vh] overflow-y-auto")}>
+            <Markdown remarkPlugins={REMARK_PLUGINS}>{markdown}</Markdown>
+          </div>
+        </ExpandPreviewModal>
+      </div>
       <div className="relative">
         <div className={cn(expanded ? undefined : "max-h-80 overflow-y-auto")}>
           <div ref={contentRef} className={markdownBodyClass}>

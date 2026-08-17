@@ -23,8 +23,10 @@ import { ScreenshotStorageService } from '@/integrations/computer-use/services/s
 import { NetworkCaptureStorageService } from '@/integrations/api-capture/services/network-capture-storage.service';
 import { JobStatus, Prisma, RunStatus, WorkflowType } from 'generated/prisma';
 import { CrawlRunQueryType } from './dto/crawl-run-query.schema';
+import { GenerateUiDto } from './dto/generate-ui.dto';
 import { PaginatedResult } from '@/shared/interfaces/paginated-result.interface';
 import { sanitizeExtractionResultForOutputFormats } from '@/modules/extraction/utils/extraction.utils';
+import { ExtractionService } from '@/modules/extraction/extraction.service';
 
 interface WorkflowJobData {
   workflowRunId: string;
@@ -52,6 +54,7 @@ export class CrawlRunsService {
     @InjectQueue(BROWSER_AGENT_QUEUE)
     private readonly browserAgentQueue: Queue<WorkflowJobData>,
     private readonly eventEmitter: EventEmitter2,
+    private readonly extractionService: ExtractionService,
   ) {}
 
   private getQueueForType(type: WorkflowType): Queue<WorkflowJobData> {
@@ -483,6 +486,80 @@ export class CrawlRunsService {
     }
 
     return this.findOne(authUser, id);
+  }
+
+  async generateUi(authUser: AuthUser, id: string, dto: GenerateUiDto) {
+    const run = await this.prisma.workflowRun.findFirst({
+      where: { id, ...workflowRunUserWhere(authUser) },
+      select: { id: true, user_id: true },
+    });
+
+    if (!run) {
+      throw new NotFoundException('Workflow run not found');
+    }
+
+    const extractionResult = await this.prisma.extractionResult.findUnique({
+      where: { workflow_run_id: id },
+    });
+
+    if (!extractionResult?.structured_data) {
+      throw new BadRequestException(
+        'No structured JSON data available for this run yet',
+      );
+    }
+
+    const { html } = await this.extractionService.generateUiHtml({
+      userId: run.user_id,
+      structuredData: extractionResult.structured_data,
+      instructions: dto.instructions,
+    });
+
+    return this.prisma.extractionResult.update({
+      where: { workflow_run_id: id },
+      data: { generated_ui_html: html },
+    });
+  }
+
+  async generateUiForPage(
+    authUser: AuthUser,
+    id: string,
+    pageId: string,
+    dto: GenerateUiDto,
+  ) {
+    const run = await this.prisma.workflowRun.findFirst({
+      where: { id, ...workflowRunUserWhere(authUser) },
+      select: { id: true, user_id: true },
+    });
+
+    if (!run) {
+      throw new NotFoundException('Workflow run not found');
+    }
+
+    const page = await this.prisma.plainScrapedPage.findFirst({
+      where: { id: pageId, workflow_run_id: id },
+      include: { extraction_result: true },
+    });
+
+    if (!page) {
+      throw new NotFoundException('Page not found on this crawl run');
+    }
+
+    if (!page.extraction_result?.structured_data) {
+      throw new BadRequestException(
+        'No structured JSON data available for this page yet',
+      );
+    }
+
+    const { html } = await this.extractionService.generateUiHtml({
+      userId: run.user_id,
+      structuredData: page.extraction_result.structured_data,
+      instructions: dto.instructions,
+    });
+
+    return this.prisma.extractionResult.update({
+      where: { plain_scraped_page_id: pageId },
+      data: { generated_ui_html: html },
+    });
   }
 
   async remove(authUser: AuthUser, id: string) {
