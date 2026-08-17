@@ -25,6 +25,7 @@ export class ScraperFailureHandlerService {
     };
     workflowRunId: string;
     websiteTargetId: string;
+    userId: string;
     zeroListingsPage0: boolean;
     networkError: boolean;
     errorMessage: string;
@@ -64,6 +65,7 @@ export class ScraperFailureHandlerService {
         website_target_id: params.websiteTargetId,
         workflow_config_id: params.workflowConfig.id,
         workflow_run_id: params.workflowRunId,
+        user_id: params.userId,
       });
     } else {
       this.notificationsService.create({
@@ -74,6 +76,7 @@ export class ScraperFailureHandlerService {
         website_target_id: params.websiteTargetId,
         workflow_config_id: params.workflowConfig.id,
         workflow_run_id: params.workflowRunId,
+        user_id: params.userId,
       });
     }
 

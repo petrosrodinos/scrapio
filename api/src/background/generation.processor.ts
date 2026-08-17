@@ -38,6 +38,7 @@ export class GenerationProcessor extends WorkerHost {
       const message = error instanceof Error ? error.message : String(error);
       const run = await this.prisma.scraperGenerationRun.findUnique({
         where: { id: job.data.runId },
+        include: { website_target: { select: { user_id: true } } },
       });
 
       this.notificationsService.create({
@@ -47,6 +48,7 @@ export class GenerationProcessor extends WorkerHost {
         message: `Generation job ${job.data.runId} failed: ${message}`,
         website_target_id: run?.website_target_id,
         workflow_config_id: run?.workflow_config_id ?? undefined,
+        user_id: run?.website_target.user_id,
       });
 
       throw error;

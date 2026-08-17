@@ -254,6 +254,7 @@ model User {
   webhook_endpoints     WebhookEndpoint[]
   job_logs              JobLog[]
   diagnostics_packages  DiagnosticsPackage[]
+  notifications         Notification[]
 
   @@index([email])
   @@index([phone])
@@ -987,17 +988,20 @@ model Notification {
   website_target_id  String?
   workflow_config_id String?
   workflow_run_id    String?
+  user_id            String?
   is_read            Boolean              @default(false)
   created_at         DateTime             @default(now())
 
   website_target  WebsiteTarget?  @relation(fields: [website_target_id], references: [id], onDelete: SetNull)
   workflow_config WorkflowConfig? @relation(fields: [workflow_config_id], references: [id], onDelete: SetNull)
   workflow_run    WorkflowRun?    @relation(fields: [workflow_run_id], references: [id], onDelete: SetNull)
+  user            User?           @relation(fields: [user_id], references: [id], onDelete: SetNull)
 
   @@index([type])
   @@index([severity])
   @@index([is_read])
   @@index([created_at])
+  @@index([user_id])
   @@map("notifications")
 }
 

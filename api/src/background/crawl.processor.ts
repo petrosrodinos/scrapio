@@ -78,12 +78,17 @@ export class CrawlProcessor extends WorkerHost implements OnModuleInit {
       await this.processCrawlJob(job);
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
+      const failedRun = await this.prisma.workflowRun.findUnique({
+        where: { id: job.data.workflowRunId },
+        select: { user_id: true },
+      });
       this.notificationsService.create({
         type: NotificationType.QUEUE_FAILURE,
         severity: NotificationSeverity.CRITICAL,
         title: 'Crawl queue job failed',
         message: `Crawl job ${job.data.workflowRunId} failed: ${message}`,
         workflow_run_id: job.data.workflowRunId,
+        user_id: failedRun?.user_id,
       });
       throw error;
     }
@@ -462,12 +467,14 @@ export class CrawlProcessor extends WorkerHost implements OnModuleInit {
           website_target_id: run.website_target_id ?? undefined,
           workflow_config_id: workflowConfig.id,
           workflow_run_id: workflowRunId,
+          user_id: run.user_id,
         });
 
         await this.scraperFailureHandler.handle({
           workflowConfig,
           workflowRunId,
           websiteTargetId: run.website_target_id!,
+          userId: run.user_id,
           zeroListingsPage0: crawlResult.zeroListingsPage0 ?? false,
           networkError: crawlResult.networkError ?? false,
           errorMessage: crawlResult.errorSummary ?? 'Crawl failed',
@@ -500,6 +507,7 @@ export class CrawlProcessor extends WorkerHost implements OnModuleInit {
           website_target_id: run.website_target_id ?? undefined,
           workflow_config_id: workflowConfig.id,
           workflow_run_id: workflowRunId,
+          user_id: run.user_id,
         });
       }
 
@@ -583,6 +591,7 @@ export class CrawlProcessor extends WorkerHost implements OnModuleInit {
             website_target_id: currentRun.website_target_id ?? undefined,
             workflow_config_id: currentRun.workflow_config_id,
             workflow_run_id: workflowRunId,
+            user_id: currentRun.user_id,
           });
         } else {
           this.logger.warn(
@@ -602,6 +611,7 @@ export class CrawlProcessor extends WorkerHost implements OnModuleInit {
           workflowConfig: currentRun.workflow_config,
           workflowRunId,
           websiteTargetId: currentRun.website_target_id!,
+          userId: currentRun.user_id,
           zeroListingsPage0: false,
           networkError: false,
           errorMessage: message,

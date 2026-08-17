@@ -40,6 +40,7 @@ export class GenerationRunWatchdogCron {
         created_at: true,
         website_target_id: true,
         workflow_config_id: true,
+        website_target: { select: { user_id: true } },
         steps: {
           orderBy: { step_index: 'desc' },
           take: 1,
@@ -90,6 +91,7 @@ export class GenerationRunWatchdogCron {
         message: errorMessage,
         website_target_id: run.website_target_id,
         workflow_config_id: run.workflow_config_id ?? undefined,
+        user_id: run.website_target.user_id,
       });
 
       this.logger.warn(`watchdog failed stale generation run ${run.id}`);

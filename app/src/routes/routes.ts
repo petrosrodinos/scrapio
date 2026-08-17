@@ -51,6 +51,9 @@ export const Routes = {
         list: "/diagnostics",
         detail: (id: string) => `/diagnostics/${id}`,
     },
+    notifications: {
+        list: "/notifications",
+    },
     integrations: {
         list: "/integrations",
     },
@@ -70,7 +73,9 @@ export const Routes = {
             detail: (id: string) => `/admin/diagnostics/${id}`,
         },
         crawlerConfig: "/crawler-config",
-        notifications: "/notifications",
+        notifications: {
+            list: "/admin/notifications",
+        },
         health: "/health",
     },
 };

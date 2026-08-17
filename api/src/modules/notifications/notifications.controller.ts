@@ -20,6 +20,8 @@ import {
 import { JwtGuard } from '@/shared/guards/jwt.guard';
 import { RolesGuard } from '@/shared/guards/roles.guard';
 import { Roles } from '@/shared/decorators/roles.decorator';
+import { CurrentUser } from '@/shared/decorators/current-user.decorator';
+import { AuthUser } from '@/shared/interfaces/auth-user.interface';
 import {
   AuthRole,
   NotificationSeverity,
@@ -39,7 +41,7 @@ import { Notification } from './entities/notification.entity';
 @ApiBearerAuth()
 @Controller('notifications')
 @UseGuards(JwtGuard, RolesGuard)
-@Roles(AuthRole.ADMIN, AuthRole.SUPPORT)
+@Roles(AuthRole.USER, AuthRole.ADMIN, AuthRole.SUPPORT)
 export class NotificationsController {
   constructor(private readonly notificationsService: NotificationsService) {}
 
@@ -50,47 +52,52 @@ export class NotificationsController {
   @ApiQuery({ name: 'type', required: false, enum: NotificationType, description: 'Filter by notification type' })
   @ApiQuery({ name: 'severity', required: false, enum: NotificationSeverity, description: 'Filter by severity' })
   @ApiQuery({ name: 'is_read', required: false, enum: ['true', 'false'], description: 'Filter by read status' })
+  @ApiQuery({ name: 'user_id', required: false, type: String, description: 'Filter by user id (admin/support only)' })
   @ApiPaginatedResponse(Notification, 'Paginated notification list')
   findAll(
+    @CurrentUser() authUser: AuthUser,
     @Query(new ZodValidationPipe(NotificationQuerySchema))
     query: NotificationQueryType,
   ) {
-    return this.notificationsService.findAll(query);
+    return this.notificationsService.findAll(authUser, query);
   }
 
   @Patch('read-all')
-  @Roles(AuthRole.ADMIN)
+  @Roles(AuthRole.USER, AuthRole.ADMIN)
   @ApiOperation({ summary: 'Mark all notifications as read' })
   @ApiResponse({ status: 200, description: 'Count of updated notifications' })
-  markAllRead() {
-    return this.notificationsService.markAllRead();
+  markAllRead(@CurrentUser() authUser: AuthUser) {
+    return this.notificationsService.markAllRead(authUser);
   }
 
   @Post('bulk-delete')
-  @Roles(AuthRole.ADMIN)
+  @Roles(AuthRole.USER, AuthRole.ADMIN)
   @ApiOperation({ summary: 'Delete multiple notifications' })
   @ApiResponse({ status: 200, description: 'Count of deleted notifications' })
-  removeMany(@Body() dto: DeleteNotificationsDto) {
-    return this.notificationsService.removeMany(dto.ids);
+  removeMany(
+    @CurrentUser() authUser: AuthUser,
+    @Body() dto: DeleteNotificationsDto,
+  ) {
+    return this.notificationsService.removeMany(authUser, dto.ids);
   }
 
   @Patch(':id/read')
-  @Roles(AuthRole.ADMIN)
+  @Roles(AuthRole.USER, AuthRole.ADMIN)
   @ApiOperation({ summary: 'Mark a notification as read' })
   @ApiParam({ name: 'id', description: 'Notification ID' })
   @ApiResponse({ status: 200, type: Notification })
   @ApiResponse({ status: 404, description: 'Notification not found' })
-  markRead(@Param('id') id: string) {
-    return this.notificationsService.markRead(id);
+  markRead(@CurrentUser() authUser: AuthUser, @Param('id') id: string) {
+    return this.notificationsService.markRead(authUser, id);
   }
 
   @Delete(':id')
-  @Roles(AuthRole.ADMIN)
+  @Roles(AuthRole.USER, AuthRole.ADMIN)
   @ApiOperation({ summary: 'Delete a notification' })
   @ApiParam({ name: 'id', description: 'Notification ID' })
   @ApiResponse({ status: 200, description: 'Deleted' })
   @ApiResponse({ status: 404, description: 'Notification not found' })
-  remove(@Param('id') id: string) {
-    return this.notificationsService.remove(id);
+  remove(@CurrentUser() authUser: AuthUser, @Param('id') id: string) {
+    return this.notificationsService.remove(authUser, id);
   }
 }

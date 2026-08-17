@@ -509,6 +509,7 @@ exports.Prisma.NotificationScalarFieldEnum = {
   website_target_id: 'website_target_id',
   workflow_config_id: 'workflow_config_id',
   workflow_run_id: 'workflow_run_id',
+  user_id: 'user_id',
   is_read: 'is_read',
   created_at: 'created_at'
 };

@@ -31,7 +31,8 @@ import AdminDiagnosticsDetailPage from "@/pages/admin/diagnostics/detail";
 import UserDiagnosticsListPage from "@/pages/diagnostics";
 import UserDiagnosticsDetailPage from "@/pages/diagnostics/detail";
 import CrawlerConfigPage from "@/pages/admin/crawler-config";
-import NotificationsListPage from "@/pages/admin/notifications";
+import AdminNotificationsListPage from "@/pages/admin/notifications";
+import UserNotificationsListPage from "@/pages/notifications";
 import IntegrationsPage from "@/pages/integrations";
 import ApiKeysPage from "@/pages/api-keys";
 import WebhooksPage from "@/pages/webhooks";
@@ -79,6 +80,7 @@ export default function AppRoutes() {
         <Route path={`${Routes.jobs.list}/:id`} element={<UserJobDetailPage />} />
         <Route path={Routes.diagnostics.list} element={<UserDiagnosticsListPage />} />
         <Route path={`${Routes.diagnostics.list}/:id`} element={<UserDiagnosticsDetailPage />} />
+        <Route path={Routes.notifications.list} element={<UserNotificationsListPage />} />
         <Route path={Routes.integrations.list} element={<IntegrationsPage />} />
         <Route path={Routes.apiKeys.list} element={<ApiKeysPage />} />
         <Route path={Routes.webhooks.list} element={<WebhooksPage />} />
@@ -88,7 +90,7 @@ export default function AppRoutes() {
           <Route path={Routes.admin.jobs.list} element={<AdminJobsListPage />} />
           <Route path={`${Routes.admin.jobs.list}/:id`} element={<AdminJobDetailPage />} />
           <Route path={Routes.admin.crawlerConfig} element={<CrawlerConfigPage />} />
-          <Route path={Routes.admin.notifications} element={<NotificationsListPage />} />
+          <Route path={Routes.admin.notifications.list} element={<AdminNotificationsListPage />} />
           <Route path={Routes.admin.health} element={<AdminHealthPage />} />
         </Route>
       </Route>

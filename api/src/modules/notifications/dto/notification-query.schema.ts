@@ -12,6 +12,7 @@ export const NotificationQuerySchema = z.object({
     .transform((v) => (v ? Math.min(parseInt(v, 10), 100) : 20)),
   type: z.nativeEnum(NotificationType).optional(),
   severity: z.nativeEnum(NotificationSeverity).optional(),
+  user_id: z.string().uuid().optional(),
   is_read: z
     .enum(['true', 'false'])
     .optional()

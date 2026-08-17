@@ -1,6 +1,8 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '@/core/databases/prisma/prisma.service';
 import { Notification as NotificationModel, Prisma } from 'generated/prisma';
+import { AuthUser } from '@/shared/interfaces/auth-user.interface';
+import { notificationUserWhere } from '@/shared/utils/user/user-scope.utils';
 import { NotificationQueryType } from './dto/notification-query.schema';
 import {
   CreateNotificationInput,
@@ -25,9 +27,11 @@ export class NotificationsService {
   }
 
   async findAll(
+    authUser: AuthUser,
     query: NotificationQueryType,
   ): Promise<PaginatedResult<NotificationModel>> {
     const where: Prisma.NotificationWhereInput = {
+      ...notificationUserWhere(authUser, query.user_id),
       ...(query.type && { type: query.type }),
       ...(query.severity && { severity: query.severity }),
       ...(query.is_read !== undefined && { is_read: query.is_read }),
@@ -56,9 +60,9 @@ export class NotificationsService {
     };
   }
 
-  async markRead(id: string): Promise<NotificationModel> {
-    const existing = await this.prisma.notification.findUnique({
-      where: { id },
+  async markRead(authUser: AuthUser, id: string): Promise<NotificationModel> {
+    const existing = await this.prisma.notification.findFirst({
+      where: { id, ...notificationUserWhere(authUser) },
     });
 
     if (!existing) {
@@ -75,18 +79,18 @@ export class NotificationsService {
     });
   }
 
-  async markAllRead(): Promise<{ updated: number }> {
+  async markAllRead(authUser: AuthUser): Promise<{ updated: number }> {
     const result = await this.prisma.notification.updateMany({
-      where: { is_read: false },
+      where: { is_read: false, ...notificationUserWhere(authUser) },
       data: { is_read: true },
     });
 
     return { updated: result.count };
   }
 
-  async remove(id: string): Promise<{ deleted: number }> {
-    const existing = await this.prisma.notification.findUnique({
-      where: { id },
+  async remove(authUser: AuthUser, id: string): Promise<{ deleted: number }> {
+    const existing = await this.prisma.notification.findFirst({
+      where: { id, ...notificationUserWhere(authUser) },
     });
 
     if (!existing) {
@@ -98,10 +102,13 @@ export class NotificationsService {
     return { deleted: 1 };
   }
 
-  async removeMany(ids: string[]): Promise<{ deleted: number }> {
+  async removeMany(
+    authUser: AuthUser,
+    ids: string[],
+  ): Promise<{ deleted: number }> {
     const uniqueIds = [...new Set(ids)];
     const result = await this.prisma.notification.deleteMany({
-      where: { id: { in: uniqueIds } },
+      where: { id: { in: uniqueIds }, ...notificationUserWhere(authUser) },
     });
 
     return { deleted: result.count };

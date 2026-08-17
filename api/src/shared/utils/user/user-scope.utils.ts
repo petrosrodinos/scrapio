@@ -65,3 +65,11 @@ export function jobLogUserWhere(
   const scopeId = resolveScopeUserId(authUser, queryUserId);
   return scopeId ? { user_id: scopeId } : {};
 }
+
+export function notificationUserWhere(
+  authUser: AuthUser,
+  queryUserId?: string,
+): Prisma.NotificationWhereInput {
+  const scopeId = resolveScopeUserId(authUser, queryUserId);
+  return scopeId ? { user_id: scopeId } : {};
+}

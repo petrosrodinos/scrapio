@@ -23,8 +23,9 @@ export interface Notification {
   title: string;
   message: string;
   website_target_id: string | null;
-  scraper_id: string | null;
-  crawl_run_id: string | null;
+  workflow_config_id: string | null;
+  workflow_run_id: string | null;
+  user_id: string | null;
   is_read: boolean;
   created_at: string;
 }
@@ -34,6 +35,7 @@ export interface NotificationListQuery {
   limit?: number;
   type?: NotificationType;
   severity?: NotificationSeverity;
+  user_id?: string;
   is_read?: boolean;
 }
 

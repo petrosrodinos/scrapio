@@ -3641,6 +3641,7 @@ export namespace Prisma {
     webhook_endpoints: number
     job_logs: number
     diagnostics_packages: number
+    notifications: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3654,6 +3655,7 @@ export namespace Prisma {
     webhook_endpoints?: boolean | UserCountOutputTypeCountWebhook_endpointsArgs
     job_logs?: boolean | UserCountOutputTypeCountJob_logsArgs
     diagnostics_packages?: boolean | UserCountOutputTypeCountDiagnostics_packagesArgs
+    notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
   }
 
   // Custom InputTypes
@@ -3735,6 +3737,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountDiagnostics_packagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: DiagnosticsPackageWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountNotificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NotificationWhereInput
   }
 
 
@@ -4492,6 +4501,7 @@ export namespace Prisma {
     webhook_endpoints?: boolean | User$webhook_endpointsArgs<ExtArgs>
     job_logs?: boolean | User$job_logsArgs<ExtArgs>
     diagnostics_packages?: boolean | User$diagnostics_packagesArgs<ExtArgs>
+    notifications?: boolean | User$notificationsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -4540,6 +4550,7 @@ export namespace Prisma {
     webhook_endpoints?: boolean | User$webhook_endpointsArgs<ExtArgs>
     job_logs?: boolean | User$job_logsArgs<ExtArgs>
     diagnostics_packages?: boolean | User$diagnostics_packagesArgs<ExtArgs>
+    notifications?: boolean | User$notificationsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -4558,6 +4569,7 @@ export namespace Prisma {
       webhook_endpoints: Prisma.$WebhookEndpointPayload<ExtArgs>[]
       job_logs: Prisma.$JobLogPayload<ExtArgs>[]
       diagnostics_packages: Prisma.$DiagnosticsPackagePayload<ExtArgs>[]
+      notifications: Prisma.$NotificationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -4972,6 +4984,7 @@ export namespace Prisma {
     webhook_endpoints<T extends User$webhook_endpointsArgs<ExtArgs> = {}>(args?: Subset<T, User$webhook_endpointsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WebhookEndpointPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     job_logs<T extends User$job_logsArgs<ExtArgs> = {}>(args?: Subset<T, User$job_logsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JobLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     diagnostics_packages<T extends User$diagnostics_packagesArgs<ExtArgs> = {}>(args?: Subset<T, User$diagnostics_packagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DiagnosticsPackagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    notifications<T extends User$notificationsArgs<ExtArgs> = {}>(args?: Subset<T, User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5634,6 +5647,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: DiagnosticsPackageScalarFieldEnum | DiagnosticsPackageScalarFieldEnum[]
+  }
+
+  /**
+   * User.notifications
+   */
+  export type User$notificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notification
+     */
+    omit?: NotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    where?: NotificationWhereInput
+    orderBy?: NotificationOrderByWithRelationInput | NotificationOrderByWithRelationInput[]
+    cursor?: NotificationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: NotificationScalarFieldEnum | NotificationScalarFieldEnum[]
   }
 
   /**
@@ -34622,6 +34659,7 @@ export namespace Prisma {
     website_target_id: string | null
     workflow_config_id: string | null
     workflow_run_id: string | null
+    user_id: string | null
     is_read: boolean | null
     created_at: Date | null
   }
@@ -34635,6 +34673,7 @@ export namespace Prisma {
     website_target_id: string | null
     workflow_config_id: string | null
     workflow_run_id: string | null
+    user_id: string | null
     is_read: boolean | null
     created_at: Date | null
   }
@@ -34648,6 +34687,7 @@ export namespace Prisma {
     website_target_id: number
     workflow_config_id: number
     workflow_run_id: number
+    user_id: number
     is_read: number
     created_at: number
     _all: number
@@ -34663,6 +34703,7 @@ export namespace Prisma {
     website_target_id?: true
     workflow_config_id?: true
     workflow_run_id?: true
+    user_id?: true
     is_read?: true
     created_at?: true
   }
@@ -34676,6 +34717,7 @@ export namespace Prisma {
     website_target_id?: true
     workflow_config_id?: true
     workflow_run_id?: true
+    user_id?: true
     is_read?: true
     created_at?: true
   }
@@ -34689,6 +34731,7 @@ export namespace Prisma {
     website_target_id?: true
     workflow_config_id?: true
     workflow_run_id?: true
+    user_id?: true
     is_read?: true
     created_at?: true
     _all?: true
@@ -34775,6 +34818,7 @@ export namespace Prisma {
     website_target_id: string | null
     workflow_config_id: string | null
     workflow_run_id: string | null
+    user_id: string | null
     is_read: boolean
     created_at: Date
     _count: NotificationCountAggregateOutputType | null
@@ -34805,11 +34849,13 @@ export namespace Prisma {
     website_target_id?: boolean
     workflow_config_id?: boolean
     workflow_run_id?: boolean
+    user_id?: boolean
     is_read?: boolean
     created_at?: boolean
     website_target?: boolean | Notification$website_targetArgs<ExtArgs>
     workflow_config?: boolean | Notification$workflow_configArgs<ExtArgs>
     workflow_run?: boolean | Notification$workflow_runArgs<ExtArgs>
+    user?: boolean | Notification$userArgs<ExtArgs>
   }, ExtArgs["result"]["notification"]>
 
   export type NotificationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -34821,11 +34867,13 @@ export namespace Prisma {
     website_target_id?: boolean
     workflow_config_id?: boolean
     workflow_run_id?: boolean
+    user_id?: boolean
     is_read?: boolean
     created_at?: boolean
     website_target?: boolean | Notification$website_targetArgs<ExtArgs>
     workflow_config?: boolean | Notification$workflow_configArgs<ExtArgs>
     workflow_run?: boolean | Notification$workflow_runArgs<ExtArgs>
+    user?: boolean | Notification$userArgs<ExtArgs>
   }, ExtArgs["result"]["notification"]>
 
   export type NotificationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -34837,11 +34885,13 @@ export namespace Prisma {
     website_target_id?: boolean
     workflow_config_id?: boolean
     workflow_run_id?: boolean
+    user_id?: boolean
     is_read?: boolean
     created_at?: boolean
     website_target?: boolean | Notification$website_targetArgs<ExtArgs>
     workflow_config?: boolean | Notification$workflow_configArgs<ExtArgs>
     workflow_run?: boolean | Notification$workflow_runArgs<ExtArgs>
+    user?: boolean | Notification$userArgs<ExtArgs>
   }, ExtArgs["result"]["notification"]>
 
   export type NotificationSelectScalar = {
@@ -34853,25 +34903,29 @@ export namespace Prisma {
     website_target_id?: boolean
     workflow_config_id?: boolean
     workflow_run_id?: boolean
+    user_id?: boolean
     is_read?: boolean
     created_at?: boolean
   }
 
-  export type NotificationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "type" | "severity" | "title" | "message" | "website_target_id" | "workflow_config_id" | "workflow_run_id" | "is_read" | "created_at", ExtArgs["result"]["notification"]>
+  export type NotificationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "type" | "severity" | "title" | "message" | "website_target_id" | "workflow_config_id" | "workflow_run_id" | "user_id" | "is_read" | "created_at", ExtArgs["result"]["notification"]>
   export type NotificationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     website_target?: boolean | Notification$website_targetArgs<ExtArgs>
     workflow_config?: boolean | Notification$workflow_configArgs<ExtArgs>
     workflow_run?: boolean | Notification$workflow_runArgs<ExtArgs>
+    user?: boolean | Notification$userArgs<ExtArgs>
   }
   export type NotificationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     website_target?: boolean | Notification$website_targetArgs<ExtArgs>
     workflow_config?: boolean | Notification$workflow_configArgs<ExtArgs>
     workflow_run?: boolean | Notification$workflow_runArgs<ExtArgs>
+    user?: boolean | Notification$userArgs<ExtArgs>
   }
   export type NotificationIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     website_target?: boolean | Notification$website_targetArgs<ExtArgs>
     workflow_config?: boolean | Notification$workflow_configArgs<ExtArgs>
     workflow_run?: boolean | Notification$workflow_runArgs<ExtArgs>
+    user?: boolean | Notification$userArgs<ExtArgs>
   }
 
   export type $NotificationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -34880,6 +34934,7 @@ export namespace Prisma {
       website_target: Prisma.$WebsiteTargetPayload<ExtArgs> | null
       workflow_config: Prisma.$WorkflowConfigPayload<ExtArgs> | null
       workflow_run: Prisma.$WorkflowRunPayload<ExtArgs> | null
+      user: Prisma.$UserPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -34890,6 +34945,7 @@ export namespace Prisma {
       website_target_id: string | null
       workflow_config_id: string | null
       workflow_run_id: string | null
+      user_id: string | null
       is_read: boolean
       created_at: Date
     }, ExtArgs["result"]["notification"]>
@@ -35289,6 +35345,7 @@ export namespace Prisma {
     website_target<T extends Notification$website_targetArgs<ExtArgs> = {}>(args?: Subset<T, Notification$website_targetArgs<ExtArgs>>): Prisma__WebsiteTargetClient<$Result.GetResult<Prisma.$WebsiteTargetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     workflow_config<T extends Notification$workflow_configArgs<ExtArgs> = {}>(args?: Subset<T, Notification$workflow_configArgs<ExtArgs>>): Prisma__WorkflowConfigClient<$Result.GetResult<Prisma.$WorkflowConfigPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     workflow_run<T extends Notification$workflow_runArgs<ExtArgs> = {}>(args?: Subset<T, Notification$workflow_runArgs<ExtArgs>>): Prisma__WorkflowRunClient<$Result.GetResult<Prisma.$WorkflowRunPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    user<T extends Notification$userArgs<ExtArgs> = {}>(args?: Subset<T, Notification$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -35326,6 +35383,7 @@ export namespace Prisma {
     readonly website_target_id: FieldRef<"Notification", 'String'>
     readonly workflow_config_id: FieldRef<"Notification", 'String'>
     readonly workflow_run_id: FieldRef<"Notification", 'String'>
+    readonly user_id: FieldRef<"Notification", 'String'>
     readonly is_read: FieldRef<"Notification", 'Boolean'>
     readonly created_at: FieldRef<"Notification", 'DateTime'>
   }
@@ -35778,6 +35836,25 @@ export namespace Prisma {
      */
     include?: WorkflowRunInclude<ExtArgs> | null
     where?: WorkflowRunWhereInput
+  }
+
+  /**
+   * Notification.user
+   */
+  export type Notification$userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
   }
 
   /**
@@ -38558,6 +38635,7 @@ export namespace Prisma {
     website_target_id: 'website_target_id',
     workflow_config_id: 'workflow_config_id',
     workflow_run_id: 'workflow_run_id',
+    user_id: 'user_id',
     is_read: 'is_read',
     created_at: 'created_at'
   };
@@ -39133,6 +39211,7 @@ export namespace Prisma {
     webhook_endpoints?: WebhookEndpointListRelationFilter
     job_logs?: JobLogListRelationFilter
     diagnostics_packages?: DiagnosticsPackageListRelationFilter
+    notifications?: NotificationListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -39154,6 +39233,7 @@ export namespace Prisma {
     webhook_endpoints?: WebhookEndpointOrderByRelationAggregateInput
     job_logs?: JobLogOrderByRelationAggregateInput
     diagnostics_packages?: DiagnosticsPackageOrderByRelationAggregateInput
+    notifications?: NotificationOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -39178,6 +39258,7 @@ export namespace Prisma {
     webhook_endpoints?: WebhookEndpointListRelationFilter
     job_logs?: JobLogListRelationFilter
     diagnostics_packages?: DiagnosticsPackageListRelationFilter
+    notifications?: NotificationListRelationFilter
   }, "id" | "email" | "phone">
 
   export type UserOrderByWithAggregationInput = {
@@ -41632,11 +41713,13 @@ export namespace Prisma {
     website_target_id?: StringNullableFilter<"Notification"> | string | null
     workflow_config_id?: StringNullableFilter<"Notification"> | string | null
     workflow_run_id?: StringNullableFilter<"Notification"> | string | null
+    user_id?: StringNullableFilter<"Notification"> | string | null
     is_read?: BoolFilter<"Notification"> | boolean
     created_at?: DateTimeFilter<"Notification"> | Date | string
     website_target?: XOR<WebsiteTargetNullableScalarRelationFilter, WebsiteTargetWhereInput> | null
     workflow_config?: XOR<WorkflowConfigNullableScalarRelationFilter, WorkflowConfigWhereInput> | null
     workflow_run?: XOR<WorkflowRunNullableScalarRelationFilter, WorkflowRunWhereInput> | null
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }
 
   export type NotificationOrderByWithRelationInput = {
@@ -41648,11 +41731,13 @@ export namespace Prisma {
     website_target_id?: SortOrderInput | SortOrder
     workflow_config_id?: SortOrderInput | SortOrder
     workflow_run_id?: SortOrderInput | SortOrder
+    user_id?: SortOrderInput | SortOrder
     is_read?: SortOrder
     created_at?: SortOrder
     website_target?: WebsiteTargetOrderByWithRelationInput
     workflow_config?: WorkflowConfigOrderByWithRelationInput
     workflow_run?: WorkflowRunOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
   }
 
   export type NotificationWhereUniqueInput = Prisma.AtLeast<{
@@ -41667,11 +41752,13 @@ export namespace Prisma {
     website_target_id?: StringNullableFilter<"Notification"> | string | null
     workflow_config_id?: StringNullableFilter<"Notification"> | string | null
     workflow_run_id?: StringNullableFilter<"Notification"> | string | null
+    user_id?: StringNullableFilter<"Notification"> | string | null
     is_read?: BoolFilter<"Notification"> | boolean
     created_at?: DateTimeFilter<"Notification"> | Date | string
     website_target?: XOR<WebsiteTargetNullableScalarRelationFilter, WebsiteTargetWhereInput> | null
     workflow_config?: XOR<WorkflowConfigNullableScalarRelationFilter, WorkflowConfigWhereInput> | null
     workflow_run?: XOR<WorkflowRunNullableScalarRelationFilter, WorkflowRunWhereInput> | null
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }, "id">
 
   export type NotificationOrderByWithAggregationInput = {
@@ -41683,6 +41770,7 @@ export namespace Prisma {
     website_target_id?: SortOrderInput | SortOrder
     workflow_config_id?: SortOrderInput | SortOrder
     workflow_run_id?: SortOrderInput | SortOrder
+    user_id?: SortOrderInput | SortOrder
     is_read?: SortOrder
     created_at?: SortOrder
     _count?: NotificationCountOrderByAggregateInput
@@ -41702,6 +41790,7 @@ export namespace Prisma {
     website_target_id?: StringNullableWithAggregatesFilter<"Notification"> | string | null
     workflow_config_id?: StringNullableWithAggregatesFilter<"Notification"> | string | null
     workflow_run_id?: StringNullableWithAggregatesFilter<"Notification"> | string | null
+    user_id?: StringNullableWithAggregatesFilter<"Notification"> | string | null
     is_read?: BoolWithAggregatesFilter<"Notification"> | boolean
     created_at?: DateTimeWithAggregatesFilter<"Notification"> | Date | string
   }
@@ -41900,6 +41989,7 @@ export namespace Prisma {
     webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
     job_logs?: JobLogCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -41921,6 +42011,7 @@ export namespace Prisma {
     webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
     job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -41942,6 +42033,7 @@ export namespace Prisma {
     webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -41963,6 +42055,7 @@ export namespace Prisma {
     webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -44703,6 +44796,7 @@ export namespace Prisma {
     website_target?: WebsiteTargetCreateNestedOneWithoutNotificationsInput
     workflow_config?: WorkflowConfigCreateNestedOneWithoutNotificationsInput
     workflow_run?: WorkflowRunCreateNestedOneWithoutNotificationsInput
+    user?: UserCreateNestedOneWithoutNotificationsInput
   }
 
   export type NotificationUncheckedCreateInput = {
@@ -44714,6 +44808,7 @@ export namespace Prisma {
     website_target_id?: string | null
     workflow_config_id?: string | null
     workflow_run_id?: string | null
+    user_id?: string | null
     is_read?: boolean
     created_at?: Date | string
   }
@@ -44729,6 +44824,7 @@ export namespace Prisma {
     website_target?: WebsiteTargetUpdateOneWithoutNotificationsNestedInput
     workflow_config?: WorkflowConfigUpdateOneWithoutNotificationsNestedInput
     workflow_run?: WorkflowRunUpdateOneWithoutNotificationsNestedInput
+    user?: UserUpdateOneWithoutNotificationsNestedInput
   }
 
   export type NotificationUncheckedUpdateInput = {
@@ -44740,6 +44836,7 @@ export namespace Prisma {
     website_target_id?: NullableStringFieldUpdateOperationsInput | string | null
     workflow_config_id?: NullableStringFieldUpdateOperationsInput | string | null
     workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
     is_read?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -44753,6 +44850,7 @@ export namespace Prisma {
     website_target_id?: string | null
     workflow_config_id?: string | null
     workflow_run_id?: string | null
+    user_id?: string | null
     is_read?: boolean
     created_at?: Date | string
   }
@@ -44776,6 +44874,7 @@ export namespace Prisma {
     website_target_id?: NullableStringFieldUpdateOperationsInput | string | null
     workflow_config_id?: NullableStringFieldUpdateOperationsInput | string | null
     workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
     is_read?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -45090,6 +45189,12 @@ export namespace Prisma {
     none?: DiagnosticsPackageWhereInput
   }
 
+  export type NotificationListRelationFilter = {
+    every?: NotificationWhereInput
+    some?: NotificationWhereInput
+    none?: NotificationWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -45132,6 +45237,10 @@ export namespace Prisma {
   }
 
   export type DiagnosticsPackageOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type NotificationOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -45698,12 +45807,6 @@ export namespace Prisma {
     none?: BlockRuleWhereInput
   }
 
-  export type NotificationListRelationFilter = {
-    every?: NotificationWhereInput
-    some?: NotificationWhereInput
-    none?: NotificationWhereInput
-  }
-
   export type ExtractedItemListRelationFilter = {
     every?: ExtractedItemWhereInput
     some?: ExtractedItemWhereInput
@@ -45715,10 +45818,6 @@ export namespace Prisma {
   }
 
   export type BlockRuleOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type NotificationOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -47316,6 +47415,7 @@ export namespace Prisma {
     website_target_id?: SortOrder
     workflow_config_id?: SortOrder
     workflow_run_id?: SortOrder
+    user_id?: SortOrder
     is_read?: SortOrder
     created_at?: SortOrder
   }
@@ -47329,6 +47429,7 @@ export namespace Prisma {
     website_target_id?: SortOrder
     workflow_config_id?: SortOrder
     workflow_run_id?: SortOrder
+    user_id?: SortOrder
     is_read?: SortOrder
     created_at?: SortOrder
   }
@@ -47342,6 +47443,7 @@ export namespace Prisma {
     website_target_id?: SortOrder
     workflow_config_id?: SortOrder
     workflow_run_id?: SortOrder
+    user_id?: SortOrder
     is_read?: SortOrder
     created_at?: SortOrder
   }
@@ -47584,6 +47686,13 @@ export namespace Prisma {
     connect?: DiagnosticsPackageWhereUniqueInput | DiagnosticsPackageWhereUniqueInput[]
   }
 
+  export type NotificationCreateNestedManyWithoutUserInput = {
+    create?: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput> | NotificationCreateWithoutUserInput[] | NotificationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
+    createMany?: NotificationCreateManyUserInputEnvelope
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+  }
+
   export type PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<PasswordResetTokenCreateWithoutUserInput, PasswordResetTokenUncheckedCreateWithoutUserInput> | PasswordResetTokenCreateWithoutUserInput[] | PasswordResetTokenUncheckedCreateWithoutUserInput[]
     connectOrCreate?: PasswordResetTokenCreateOrConnectWithoutUserInput | PasswordResetTokenCreateOrConnectWithoutUserInput[]
@@ -47652,6 +47761,13 @@ export namespace Prisma {
     connectOrCreate?: DiagnosticsPackageCreateOrConnectWithoutUserInput | DiagnosticsPackageCreateOrConnectWithoutUserInput[]
     createMany?: DiagnosticsPackageCreateManyUserInputEnvelope
     connect?: DiagnosticsPackageWhereUniqueInput | DiagnosticsPackageWhereUniqueInput[]
+  }
+
+  export type NotificationUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput> | NotificationCreateWithoutUserInput[] | NotificationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
+    createMany?: NotificationCreateManyUserInputEnvelope
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -47810,6 +47926,20 @@ export namespace Prisma {
     deleteMany?: DiagnosticsPackageScalarWhereInput | DiagnosticsPackageScalarWhereInput[]
   }
 
+  export type NotificationUpdateManyWithoutUserNestedInput = {
+    create?: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput> | NotificationCreateWithoutUserInput[] | NotificationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
+    upsert?: NotificationUpsertWithWhereUniqueWithoutUserInput | NotificationUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: NotificationCreateManyUserInputEnvelope
+    set?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    disconnect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    delete?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    update?: NotificationUpdateWithWhereUniqueWithoutUserInput | NotificationUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: NotificationUpdateManyWithWhereWithoutUserInput | NotificationUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+  }
+
   export type PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<PasswordResetTokenCreateWithoutUserInput, PasswordResetTokenUncheckedCreateWithoutUserInput> | PasswordResetTokenCreateWithoutUserInput[] | PasswordResetTokenUncheckedCreateWithoutUserInput[]
     connectOrCreate?: PasswordResetTokenCreateOrConnectWithoutUserInput | PasswordResetTokenCreateOrConnectWithoutUserInput[]
@@ -47948,6 +48078,20 @@ export namespace Prisma {
     update?: DiagnosticsPackageUpdateWithWhereUniqueWithoutUserInput | DiagnosticsPackageUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: DiagnosticsPackageUpdateManyWithWhereWithoutUserInput | DiagnosticsPackageUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: DiagnosticsPackageScalarWhereInput | DiagnosticsPackageScalarWhereInput[]
+  }
+
+  export type NotificationUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput> | NotificationCreateWithoutUserInput[] | NotificationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
+    upsert?: NotificationUpsertWithWhereUniqueWithoutUserInput | NotificationUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: NotificationCreateManyUserInputEnvelope
+    set?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    disconnect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    delete?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    update?: NotificationUpdateWithWhereUniqueWithoutUserInput | NotificationUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: NotificationUpdateManyWithWhereWithoutUserInput | NotificationUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutPassword_reset_tokensInput = {
@@ -50393,6 +50537,12 @@ export namespace Prisma {
     connect?: WorkflowRunWhereUniqueInput
   }
 
+  export type UserCreateNestedOneWithoutNotificationsInput = {
+    create?: XOR<UserCreateWithoutNotificationsInput, UserUncheckedCreateWithoutNotificationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutNotificationsInput
+    connect?: UserWhereUniqueInput
+  }
+
   export type EnumNotificationTypeFieldUpdateOperationsInput = {
     set?: $Enums.NotificationType
   }
@@ -50429,6 +50579,16 @@ export namespace Prisma {
     delete?: WorkflowRunWhereInput | boolean
     connect?: WorkflowRunWhereUniqueInput
     update?: XOR<XOR<WorkflowRunUpdateToOneWithWhereWithoutNotificationsInput, WorkflowRunUpdateWithoutNotificationsInput>, WorkflowRunUncheckedUpdateWithoutNotificationsInput>
+  }
+
+  export type UserUpdateOneWithoutNotificationsNestedInput = {
+    create?: XOR<UserCreateWithoutNotificationsInput, UserUncheckedCreateWithoutNotificationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutNotificationsInput
+    upsert?: UserUpsertWithoutNotificationsInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutNotificationsInput, UserUpdateWithoutNotificationsInput>, UserUncheckedUpdateWithoutNotificationsInput>
   }
 
   export type UserCreateNestedOneWithoutUser_integrationsInput = {
@@ -51667,6 +51827,42 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type NotificationCreateWithoutUserInput = {
+    id?: string
+    type: $Enums.NotificationType
+    severity?: $Enums.NotificationSeverity
+    title: string
+    message: string
+    is_read?: boolean
+    created_at?: Date | string
+    website_target?: WebsiteTargetCreateNestedOneWithoutNotificationsInput
+    workflow_config?: WorkflowConfigCreateNestedOneWithoutNotificationsInput
+    workflow_run?: WorkflowRunCreateNestedOneWithoutNotificationsInput
+  }
+
+  export type NotificationUncheckedCreateWithoutUserInput = {
+    id?: string
+    type: $Enums.NotificationType
+    severity?: $Enums.NotificationSeverity
+    title: string
+    message: string
+    website_target_id?: string | null
+    workflow_config_id?: string | null
+    workflow_run_id?: string | null
+    is_read?: boolean
+    created_at?: Date | string
+  }
+
+  export type NotificationCreateOrConnectWithoutUserInput = {
+    where: NotificationWhereUniqueInput
+    create: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput>
+  }
+
+  export type NotificationCreateManyUserInputEnvelope = {
+    data: NotificationCreateManyUserInput | NotificationCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type PasswordResetTokenUpsertWithWhereUniqueWithoutUserInput = {
     where: PasswordResetTokenWhereUniqueInput
     update: XOR<PasswordResetTokenUpdateWithoutUserInput, PasswordResetTokenUncheckedUpdateWithoutUserInput>
@@ -52042,6 +52238,39 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"DiagnosticsPackage"> | Date | string
   }
 
+  export type NotificationUpsertWithWhereUniqueWithoutUserInput = {
+    where: NotificationWhereUniqueInput
+    update: XOR<NotificationUpdateWithoutUserInput, NotificationUncheckedUpdateWithoutUserInput>
+    create: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput>
+  }
+
+  export type NotificationUpdateWithWhereUniqueWithoutUserInput = {
+    where: NotificationWhereUniqueInput
+    data: XOR<NotificationUpdateWithoutUserInput, NotificationUncheckedUpdateWithoutUserInput>
+  }
+
+  export type NotificationUpdateManyWithWhereWithoutUserInput = {
+    where: NotificationScalarWhereInput
+    data: XOR<NotificationUpdateManyMutationInput, NotificationUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type NotificationScalarWhereInput = {
+    AND?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+    OR?: NotificationScalarWhereInput[]
+    NOT?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+    id?: StringFilter<"Notification"> | string
+    type?: EnumNotificationTypeFilter<"Notification"> | $Enums.NotificationType
+    severity?: EnumNotificationSeverityFilter<"Notification"> | $Enums.NotificationSeverity
+    title?: StringFilter<"Notification"> | string
+    message?: StringFilter<"Notification"> | string
+    website_target_id?: StringNullableFilter<"Notification"> | string | null
+    workflow_config_id?: StringNullableFilter<"Notification"> | string | null
+    workflow_run_id?: StringNullableFilter<"Notification"> | string | null
+    user_id?: StringNullableFilter<"Notification"> | string | null
+    is_read?: BoolFilter<"Notification"> | boolean
+    created_at?: DateTimeFilter<"Notification"> | Date | string
+  }
+
   export type UserCreateWithoutPassword_reset_tokensInput = {
     id?: string
     email: string
@@ -52060,6 +52289,7 @@ export namespace Prisma {
     webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
     job_logs?: JobLogCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPassword_reset_tokensInput = {
@@ -52080,6 +52310,7 @@ export namespace Prisma {
     webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
     job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPassword_reset_tokensInput = {
@@ -52116,6 +52347,7 @@ export namespace Prisma {
     webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPassword_reset_tokensInput = {
@@ -52136,6 +52368,7 @@ export namespace Prisma {
     webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutApi_keysInput = {
@@ -52156,6 +52389,7 @@ export namespace Prisma {
     webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
     job_logs?: JobLogCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutApi_keysInput = {
@@ -52176,6 +52410,7 @@ export namespace Prisma {
     webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
     job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutApi_keysInput = {
@@ -52212,6 +52447,7 @@ export namespace Prisma {
     webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutApi_keysInput = {
@@ -52232,6 +52468,7 @@ export namespace Prisma {
     webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutWebhook_endpointsInput = {
@@ -52252,6 +52489,7 @@ export namespace Prisma {
     api_keys?: ApiKeyCreateNestedManyWithoutUserInput
     job_logs?: JobLogCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWebhook_endpointsInput = {
@@ -52272,6 +52510,7 @@ export namespace Prisma {
     api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
     job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWebhook_endpointsInput = {
@@ -52348,6 +52587,7 @@ export namespace Prisma {
     api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWebhook_endpointsInput = {
@@ -52368,6 +52608,7 @@ export namespace Prisma {
     api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WebhookDeliveryUpsertWithWhereUniqueWithoutWebhook_endpointInput = {
@@ -52717,6 +52958,7 @@ export namespace Prisma {
     webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
     job_logs?: JobLogCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWebsite_targetsInput = {
@@ -52737,6 +52979,7 @@ export namespace Prisma {
     webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
     job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWebsite_targetsInput = {
@@ -53022,6 +53265,7 @@ export namespace Prisma {
     created_at?: Date | string
     workflow_config?: WorkflowConfigCreateNestedOneWithoutNotificationsInput
     workflow_run?: WorkflowRunCreateNestedOneWithoutNotificationsInput
+    user?: UserCreateNestedOneWithoutNotificationsInput
   }
 
   export type NotificationUncheckedCreateWithoutWebsite_targetInput = {
@@ -53032,6 +53276,7 @@ export namespace Prisma {
     message: string
     workflow_config_id?: string | null
     workflow_run_id?: string | null
+    user_id?: string | null
     is_read?: boolean
     created_at?: Date | string
   }
@@ -53111,6 +53356,7 @@ export namespace Prisma {
     webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWebsite_targetsInput = {
@@ -53131,6 +53377,7 @@ export namespace Prisma {
     webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WorkflowConfigUpsertWithWhereUniqueWithoutWebsite_targetInput = {
@@ -53251,22 +53498,6 @@ export namespace Prisma {
   export type NotificationUpdateManyWithWhereWithoutWebsite_targetInput = {
     where: NotificationScalarWhereInput
     data: XOR<NotificationUpdateManyMutationInput, NotificationUncheckedUpdateManyWithoutWebsite_targetInput>
-  }
-
-  export type NotificationScalarWhereInput = {
-    AND?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
-    OR?: NotificationScalarWhereInput[]
-    NOT?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
-    id?: StringFilter<"Notification"> | string
-    type?: EnumNotificationTypeFilter<"Notification"> | $Enums.NotificationType
-    severity?: EnumNotificationSeverityFilter<"Notification"> | $Enums.NotificationSeverity
-    title?: StringFilter<"Notification"> | string
-    message?: StringFilter<"Notification"> | string
-    website_target_id?: StringNullableFilter<"Notification"> | string | null
-    workflow_config_id?: StringNullableFilter<"Notification"> | string | null
-    workflow_run_id?: StringNullableFilter<"Notification"> | string | null
-    is_read?: BoolFilter<"Notification"> | boolean
-    created_at?: DateTimeFilter<"Notification"> | Date | string
   }
 
   export type ExtractedItemUpsertWithWhereUniqueWithoutWebsite_targetInput = {
@@ -53420,6 +53651,7 @@ export namespace Prisma {
     webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
     job_logs?: JobLogCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWorkflow_configsInput = {
@@ -53440,6 +53672,7 @@ export namespace Prisma {
     webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
     job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWorkflow_configsInput = {
@@ -53786,6 +54019,7 @@ export namespace Prisma {
     created_at?: Date | string
     website_target?: WebsiteTargetCreateNestedOneWithoutNotificationsInput
     workflow_run?: WorkflowRunCreateNestedOneWithoutNotificationsInput
+    user?: UserCreateNestedOneWithoutNotificationsInput
   }
 
   export type NotificationUncheckedCreateWithoutWorkflow_configInput = {
@@ -53796,6 +54030,7 @@ export namespace Prisma {
     message: string
     website_target_id?: string | null
     workflow_run_id?: string | null
+    user_id?: string | null
     is_read?: boolean
     created_at?: Date | string
   }
@@ -53889,6 +54124,7 @@ export namespace Prisma {
     webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWorkflow_configsInput = {
@@ -53909,6 +54145,7 @@ export namespace Prisma {
     webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WebsiteTargetUpsertWithoutWorkflow_configsInput = {
@@ -56066,6 +56303,7 @@ export namespace Prisma {
     webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
     job_logs?: JobLogCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWorkflow_runsInput = {
@@ -56086,6 +56324,7 @@ export namespace Prisma {
     webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
     job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWorkflow_runsInput = {
@@ -56333,6 +56572,7 @@ export namespace Prisma {
     created_at?: Date | string
     website_target?: WebsiteTargetCreateNestedOneWithoutNotificationsInput
     workflow_config?: WorkflowConfigCreateNestedOneWithoutNotificationsInput
+    user?: UserCreateNestedOneWithoutNotificationsInput
   }
 
   export type NotificationUncheckedCreateWithoutWorkflow_runInput = {
@@ -56343,6 +56583,7 @@ export namespace Prisma {
     message: string
     website_target_id?: string | null
     workflow_config_id?: string | null
+    user_id?: string | null
     is_read?: boolean
     created_at?: Date | string
   }
@@ -56708,6 +56949,7 @@ export namespace Prisma {
     webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWorkflow_runsInput = {
@@ -56728,6 +56970,7 @@ export namespace Prisma {
     webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WebsiteTargetUpsertWithoutWorkflow_runsInput = {
@@ -57459,6 +57702,7 @@ export namespace Prisma {
     webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
     job_logs?: JobLogCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutExtraction_schemasInput = {
@@ -57479,6 +57723,7 @@ export namespace Prisma {
     webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
     job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutExtraction_schemasInput = {
@@ -57578,6 +57823,7 @@ export namespace Prisma {
     webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutExtraction_schemasInput = {
@@ -57598,6 +57844,7 @@ export namespace Prisma {
     webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ExtractionSchemaVersionUpsertWithoutActive_for_schemaInput = {
@@ -59399,6 +59646,7 @@ export namespace Prisma {
     api_keys?: ApiKeyCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
     job_logs?: JobLogCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutDiagnostics_packagesInput = {
@@ -59419,6 +59667,7 @@ export namespace Prisma {
     api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
     job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutDiagnostics_packagesInput = {
@@ -59667,6 +59916,7 @@ export namespace Prisma {
     api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDiagnostics_packagesInput = {
@@ -59687,6 +59937,7 @@ export namespace Prisma {
     api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type DiagnosticsArtifactUpsertWithWhereUniqueWithoutDiagnostics_packageInput = {
@@ -59921,6 +60172,7 @@ export namespace Prisma {
     api_keys?: ApiKeyCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutJob_logsInput = {
@@ -59941,6 +60193,7 @@ export namespace Prisma {
     api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutJob_logsInput = {
@@ -60072,6 +60325,7 @@ export namespace Prisma {
     api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutJob_logsInput = {
@@ -60092,6 +60346,7 @@ export namespace Prisma {
     api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WebsiteTargetCreateWithoutNotificationsInput = {
@@ -60311,6 +60566,53 @@ export namespace Prisma {
   export type WorkflowRunCreateOrConnectWithoutNotificationsInput = {
     where: WorkflowRunWhereUniqueInput
     create: XOR<WorkflowRunCreateWithoutNotificationsInput, WorkflowRunUncheckedCreateWithoutNotificationsInput>
+  }
+
+  export type UserCreateWithoutNotificationsInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    password: string
+    role: $Enums.AuthRole
+    default_schedule_tz?: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    password_reset_tokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    website_targets?: WebsiteTargetCreateNestedManyWithoutUserInput
+    workflow_configs?: WorkflowConfigCreateNestedManyWithoutUserInput
+    workflow_runs?: WorkflowRunCreateNestedManyWithoutUserInput
+    user_integrations?: UserIntegrationCreateNestedManyWithoutUserInput
+    extraction_schemas?: ExtractionSchemaCreateNestedManyWithoutUserInput
+    api_keys?: ApiKeyCreateNestedManyWithoutUserInput
+    webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
+    job_logs?: JobLogCreateNestedManyWithoutUserInput
+    diagnostics_packages?: DiagnosticsPackageCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutNotificationsInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    password: string
+    role: $Enums.AuthRole
+    default_schedule_tz?: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    password_reset_tokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    website_targets?: WebsiteTargetUncheckedCreateNestedManyWithoutUserInput
+    workflow_configs?: WorkflowConfigUncheckedCreateNestedManyWithoutUserInput
+    workflow_runs?: WorkflowRunUncheckedCreateNestedManyWithoutUserInput
+    user_integrations?: UserIntegrationUncheckedCreateNestedManyWithoutUserInput
+    extraction_schemas?: ExtractionSchemaUncheckedCreateNestedManyWithoutUserInput
+    api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
+    webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
+    job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
+    diagnostics_packages?: DiagnosticsPackageUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutNotificationsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutNotificationsInput, UserUncheckedCreateWithoutNotificationsInput>
   }
 
   export type WebsiteTargetUpsertWithoutNotificationsInput = {
@@ -60550,6 +60852,59 @@ export namespace Prisma {
     ai_batch_job?: AiBatchJobUncheckedUpdateOneWithoutWorkflow_runNestedInput
   }
 
+  export type UserUpsertWithoutNotificationsInput = {
+    update: XOR<UserUpdateWithoutNotificationsInput, UserUncheckedUpdateWithoutNotificationsInput>
+    create: XOR<UserCreateWithoutNotificationsInput, UserUncheckedCreateWithoutNotificationsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutNotificationsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutNotificationsInput, UserUncheckedUpdateWithoutNotificationsInput>
+  }
+
+  export type UserUpdateWithoutNotificationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
+    default_schedule_tz?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    password_reset_tokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    website_targets?: WebsiteTargetUpdateManyWithoutUserNestedInput
+    workflow_configs?: WorkflowConfigUpdateManyWithoutUserNestedInput
+    workflow_runs?: WorkflowRunUpdateManyWithoutUserNestedInput
+    user_integrations?: UserIntegrationUpdateManyWithoutUserNestedInput
+    extraction_schemas?: ExtractionSchemaUpdateManyWithoutUserNestedInput
+    api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
+    webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
+    job_logs?: JobLogUpdateManyWithoutUserNestedInput
+    diagnostics_packages?: DiagnosticsPackageUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutNotificationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
+    default_schedule_tz?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    password_reset_tokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    website_targets?: WebsiteTargetUncheckedUpdateManyWithoutUserNestedInput
+    workflow_configs?: WorkflowConfigUncheckedUpdateManyWithoutUserNestedInput
+    workflow_runs?: WorkflowRunUncheckedUpdateManyWithoutUserNestedInput
+    user_integrations?: UserIntegrationUncheckedUpdateManyWithoutUserNestedInput
+    extraction_schemas?: ExtractionSchemaUncheckedUpdateManyWithoutUserNestedInput
+    api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
+    webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
+    job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
+    diagnostics_packages?: DiagnosticsPackageUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type UserCreateWithoutUser_integrationsInput = {
     id?: string
     email: string
@@ -60568,6 +60923,7 @@ export namespace Prisma {
     webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
     job_logs?: JobLogCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutUser_integrationsInput = {
@@ -60588,6 +60944,7 @@ export namespace Prisma {
     webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
     job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutUser_integrationsInput = {
@@ -60624,6 +60981,7 @@ export namespace Prisma {
     webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutUser_integrationsInput = {
@@ -60644,6 +61002,7 @@ export namespace Prisma {
     webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PasswordResetTokenCreateManyUserInput = {
@@ -60818,6 +61177,19 @@ export namespace Prisma {
     duration_ms: number
     failure_reason?: string | null
     exception?: string | null
+    created_at?: Date | string
+  }
+
+  export type NotificationCreateManyUserInput = {
+    id?: string
+    type: $Enums.NotificationType
+    severity?: $Enums.NotificationSeverity
+    title: string
+    message: string
+    website_target_id?: string | null
+    workflow_config_id?: string | null
+    workflow_run_id?: string | null
+    is_read?: boolean
     created_at?: Date | string
   }
 
@@ -61394,6 +61766,45 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type NotificationUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
+    severity?: EnumNotificationSeverityFieldUpdateOperationsInput | $Enums.NotificationSeverity
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    is_read?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    website_target?: WebsiteTargetUpdateOneWithoutNotificationsNestedInput
+    workflow_config?: WorkflowConfigUpdateOneWithoutNotificationsNestedInput
+    workflow_run?: WorkflowRunUpdateOneWithoutNotificationsNestedInput
+  }
+
+  export type NotificationUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
+    severity?: EnumNotificationSeverityFieldUpdateOperationsInput | $Enums.NotificationSeverity
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    website_target_id?: NullableStringFieldUpdateOperationsInput | string | null
+    workflow_config_id?: NullableStringFieldUpdateOperationsInput | string | null
+    workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
+    is_read?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
+    severity?: EnumNotificationSeverityFieldUpdateOperationsInput | $Enums.NotificationSeverity
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    website_target_id?: NullableStringFieldUpdateOperationsInput | string | null
+    workflow_config_id?: NullableStringFieldUpdateOperationsInput | string | null
+    workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
+    is_read?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type WebhookDeliveryCreateManyWebhook_endpointInput = {
     id?: string
     event_type: $Enums.WebhookEventType
@@ -61806,6 +62217,7 @@ export namespace Prisma {
     message: string
     workflow_config_id?: string | null
     workflow_run_id?: string | null
+    user_id?: string | null
     is_read?: boolean
     created_at?: Date | string
   }
@@ -62159,6 +62571,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     workflow_config?: WorkflowConfigUpdateOneWithoutNotificationsNestedInput
     workflow_run?: WorkflowRunUpdateOneWithoutNotificationsNestedInput
+    user?: UserUpdateOneWithoutNotificationsNestedInput
   }
 
   export type NotificationUncheckedUpdateWithoutWebsite_targetInput = {
@@ -62169,6 +62582,7 @@ export namespace Prisma {
     message?: StringFieldUpdateOperationsInput | string
     workflow_config_id?: NullableStringFieldUpdateOperationsInput | string | null
     workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
     is_read?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -62181,6 +62595,7 @@ export namespace Prisma {
     message?: StringFieldUpdateOperationsInput | string
     workflow_config_id?: NullableStringFieldUpdateOperationsInput | string | null
     workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
     is_read?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -62307,6 +62722,7 @@ export namespace Prisma {
     message: string
     website_target_id?: string | null
     workflow_run_id?: string | null
+    user_id?: string | null
     is_read?: boolean
     created_at?: Date | string
   }
@@ -62591,6 +63007,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     website_target?: WebsiteTargetUpdateOneWithoutNotificationsNestedInput
     workflow_run?: WorkflowRunUpdateOneWithoutNotificationsNestedInput
+    user?: UserUpdateOneWithoutNotificationsNestedInput
   }
 
   export type NotificationUncheckedUpdateWithoutWorkflow_configInput = {
@@ -62601,6 +63018,7 @@ export namespace Prisma {
     message?: StringFieldUpdateOperationsInput | string
     website_target_id?: NullableStringFieldUpdateOperationsInput | string | null
     workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
     is_read?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -62613,6 +63031,7 @@ export namespace Prisma {
     message?: StringFieldUpdateOperationsInput | string
     website_target_id?: NullableStringFieldUpdateOperationsInput | string | null
     workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
     is_read?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -62914,6 +63333,7 @@ export namespace Prisma {
     message: string
     website_target_id?: string | null
     workflow_config_id?: string | null
+    user_id?: string | null
     is_read?: boolean
     created_at?: Date | string
   }
@@ -63061,6 +63481,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     website_target?: WebsiteTargetUpdateOneWithoutNotificationsNestedInput
     workflow_config?: WorkflowConfigUpdateOneWithoutNotificationsNestedInput
+    user?: UserUpdateOneWithoutNotificationsNestedInput
   }
 
   export type NotificationUncheckedUpdateWithoutWorkflow_runInput = {
@@ -63071,6 +63492,7 @@ export namespace Prisma {
     message?: StringFieldUpdateOperationsInput | string
     website_target_id?: NullableStringFieldUpdateOperationsInput | string | null
     workflow_config_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
     is_read?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -63083,6 +63505,7 @@ export namespace Prisma {
     message?: StringFieldUpdateOperationsInput | string
     website_target_id?: NullableStringFieldUpdateOperationsInput | string | null
     workflow_config_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
     is_read?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }

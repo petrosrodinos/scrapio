@@ -81,6 +81,7 @@ export class CrawlRunWatchdogCron {
         website_target_id: run.website_target_id ?? undefined,
         workflow_config_id: run.workflow_config_id,
         workflow_run_id: run.id,
+        user_id: run.user_id,
       });
 
       if (run.workflow_config && run.website_target_id) {
@@ -88,6 +89,7 @@ export class CrawlRunWatchdogCron {
           workflowConfig: run.workflow_config,
           workflowRunId: run.id,
           websiteTargetId: run.website_target_id,
+          userId: run.user_id,
           zeroListingsPage0: false,
           networkError: false,
           errorMessage,

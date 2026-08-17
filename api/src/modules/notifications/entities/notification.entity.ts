@@ -41,6 +41,13 @@ export class Notification {
   })
   workflow_run_id: string | null;
 
+  @ApiProperty({
+    description: 'Related user ID, if applicable',
+    nullable: true,
+    example: 'b4a3c2d1-e0f9-4a8b-9c7d-6e5f4a3b2c1d',
+  })
+  user_id: string | null;
+
   @ApiProperty({ description: 'Whether the notification has been marked as read', example: false })
   is_read: boolean;
 

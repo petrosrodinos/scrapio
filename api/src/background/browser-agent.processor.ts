@@ -47,12 +47,17 @@ export class BrowserAgentProcessor extends WorkerHost {
       await this.processJob(job);
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
+      const failedRun = await this.prisma.workflowRun.findUnique({
+        where: { id: job.data.workflowRunId },
+        select: { user_id: true },
+      });
       this.notificationsService.create({
         type: NotificationType.QUEUE_FAILURE,
         severity: NotificationSeverity.CRITICAL,
         title: 'Browser agent queue job failed',
         message: `Browser agent job ${job.data.workflowRunId} failed: ${message}`,
         workflow_run_id: job.data.workflowRunId,
+        user_id: failedRun?.user_id,
       });
       throw error;
     }
@@ -205,6 +210,7 @@ export class BrowserAgentProcessor extends WorkerHost {
           message: errorMessage,
           workflow_config_id: run.workflow_config_id,
           workflow_run_id: workflowRunId,
+          user_id: run.user_id,
         });
 
         await this.prisma.jobLog.update({
@@ -339,6 +345,7 @@ export class BrowserAgentProcessor extends WorkerHost {
           message: 'Extraction did not produce a valid result',
           workflow_config_id: run.workflow_config_id,
           workflow_run_id: workflowRunId,
+          user_id: run.user_id,
         });
       }
 
