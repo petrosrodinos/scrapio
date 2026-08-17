@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useOverlayState } from "@heroui/react";
-import { ArrowLeft, Pencil, Play, Trash2 } from "lucide-react";
+import { ArrowLeft, ExternalLink, Pencil, Play, Trash2 } from "lucide-react";
 import { Routes } from "@/routes/routes";
 import { DetailSkeleton } from "@/components/ui/detail-skeleton";
 import { ConfirmationDialog } from "@/components/ui/confirmation-dialog";
 import { TableRowActionsMenu, type TableRowAction } from "@/components/ui/table-row-actions-menu";
 import { LatestCrawlRun } from "@/pages/admin/crawl-runs/components/latest-crawl-run";
 import { RecentCrawlRuns } from "@/pages/admin/crawl-runs/components/recent-crawl-runs";
+import { useCrawlRuns } from "@/features/crawl-runs/hooks/use-crawl-runs";
 import { PlainScrapeForm } from "./components/plain-scrape-form";
 import {
   usePlainScrapeConfig,
@@ -27,9 +28,11 @@ export default function PlainScrapeDetailPage() {
   const [isEditing, setIsEditing] = useState(false);
 
   const { data: config, isPending } = usePlainScrapeConfig(id!);
+  const { data: runsData } = useCrawlRuns({ workflow_config_id: id!, limit: 10 });
   const updateConfig = useUpdatePlainScrapeConfig();
   const deleteConfig = useDeletePlainScrapeConfig();
   const runNow = useRunPlainScrapeConfigNow();
+  const latestRunId = runsData?.data[0]?.id;
 
   if (isPending || !config) {
     return <DetailSkeleton />;
@@ -44,6 +47,12 @@ export default function PlainScrapeDetailPage() {
       label: "Run now",
       icon: Play,
       isDisabled: runNow.isPending,
+    },
+    {
+      id: "view-run",
+      label: "View run",
+      icon: ExternalLink,
+      isDisabled: !latestRunId,
     },
     {
       id: "delete",
@@ -62,6 +71,9 @@ export default function PlainScrapeDetailPage() {
         runNow.mutate(config.id, {
           onSuccess: (run) => navigate(Routes.crawlRuns.detail(run.id)),
         });
+        return;
+      case "view-run":
+        if (latestRunId) navigate(Routes.crawlRuns.detail(latestRunId));
         return;
       case "delete":
         deleteConfirm.open();

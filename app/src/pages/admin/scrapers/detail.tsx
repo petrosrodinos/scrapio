@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { Modal, Switch, EmptyState, Select, ListBox, Label, useOverlayState } from "@heroui/react";
-import { ArrowLeft, Bot, History, Pencil, Play, Sparkles, Trash2 } from "lucide-react";
+import { ArrowLeft, Bot, ExternalLink, History, Pencil, Play, Sparkles, Trash2 } from "lucide-react";
 import { Routes } from "@/routes/routes";
 import { DetailSkeleton } from "@/components/ui/detail-skeleton";
 import { ActionButtonWithPending } from "@/components/ui/action-button-with-pending";
@@ -39,6 +39,7 @@ import {
 } from "@/features/scraper-generation/hooks/use-scraper-generation";
 import { LatestCrawlRun } from "@/pages/admin/crawl-runs/components/latest-crawl-run";
 import { RecentCrawlRuns } from "@/pages/admin/crawl-runs/components/recent-crawl-runs";
+import { useCrawlRuns } from "@/features/crawl-runs/hooks/use-crawl-runs";
 import { formatDateTime } from "@/lib/date";
 import { formatDuration } from "@/lib/duration";
 
@@ -57,6 +58,7 @@ export default function ScraperDetailPage() {
   const { data: scraper, isPending } = useScraper(resolvedId);
   const { data: versions } = useScraperVersions(resolvedId);
   const { data: generationRunsData } = useGenerationRuns({ scraper_id: resolvedId, limit: 5 });
+  const { data: runsData } = useCrawlRuns({ workflow_config_id: resolvedId, limit: 10 });
   const updateScraper = useUpdateScraper();
   const activateVersion = useActivateScraperVersion();
   const createVersion = useCreateScraperVersion();
@@ -83,6 +85,8 @@ export default function ScraperDetailPage() {
   if (!scraperId || id !== scraper.website_target_id) {
     return <Navigate to={nestedPath} replace />;
   }
+
+  const latestRunId = runsData?.data[0]?.id;
 
   return (
     <div className="flex flex-col gap-6">
@@ -123,6 +127,12 @@ export default function ScraperDetailPage() {
               isDisabled: runNow.isPending || !scraper.active_version_id,
             },
             {
+              id: "view-run",
+              label: "View run",
+              icon: ExternalLink,
+              isDisabled: !latestRunId,
+            },
+            {
               id: "delete",
               label: "Delete",
               variant: "danger",
@@ -143,6 +153,10 @@ export default function ScraperDetailPage() {
               runNow.mutate(scraper.id, {
                 onSuccess: (run) => navigate(Routes.crawlRuns.detail(run.id)),
               });
+              return;
+            }
+            if (actionId === "view-run") {
+              if (latestRunId) navigate(Routes.crawlRuns.detail(latestRunId));
               return;
             }
             if (actionId === "delete") {

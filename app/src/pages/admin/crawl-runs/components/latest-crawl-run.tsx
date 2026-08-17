@@ -1,6 +1,4 @@
-import { useNavigate } from "react-router-dom";
-import { Button, Skeleton } from "@heroui/react";
-import { Routes } from "@/routes/routes";
+import { Skeleton } from "@heroui/react";
 import { useCrawlRun, useCrawlRuns } from "@/features/crawl-runs/hooks/use-crawl-runs";
 import { CrawlRunDetailBody } from "./crawl-run-detail-body";
 import { CrawlRunStatusChip } from "./crawl-run-status-chip";
@@ -10,7 +8,6 @@ interface LatestCrawlRunProps {
 }
 
 export function LatestCrawlRun({ workflowConfigId }: LatestCrawlRunProps) {
-  const navigate = useNavigate();
   const { data: runsData, isPending: isListPending } = useCrawlRuns({
     workflow_config_id: workflowConfigId,
     limit: 10,
@@ -43,18 +40,9 @@ export function LatestCrawlRun({ workflowConfigId }: LatestCrawlRunProps) {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex items-center justify-between gap-3 flex-wrap">
-        <div className="flex items-center gap-3">
-          <p className="text-lg font-semibold text-foreground">Latest crawl run</p>
-          <CrawlRunStatusChip status={run.status} />
-        </div>
-        <Button
-          variant="secondary"
-          size="sm"
-          onPress={() => navigate(Routes.crawlRuns.detail(run.id))}
-        >
-          View run
-        </Button>
+      <div className="flex items-center gap-3">
+        <p className="text-lg font-semibold text-foreground">Latest crawl run</p>
+        <CrawlRunStatusChip status={run.status} />
       </div>
       <CrawlRunDetailBody run={run} />
     </div>
