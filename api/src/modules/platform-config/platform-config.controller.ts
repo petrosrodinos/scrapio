@@ -1,11 +1,12 @@
 import { Body, Controller, Get, Patch, UseGuards } from '@nestjs/common';
 import {
   ApiBearerAuth,
+  ApiExcludeController,
   ApiOperation,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { JwtGuard } from '@/shared/guards/jwt.guard';
+import { JwtOnlyGuard } from '@/shared/guards/jwt.guard';
 import { RolesGuard } from '@/shared/guards/roles.guard';
 import { Roles } from '@/shared/decorators/roles.decorator';
 import { AuthRole } from 'generated/prisma';
@@ -14,10 +15,11 @@ import { UpdatePlatformConfigDto } from './dto/update-platform-config.dto';
 import { PlatformConfig } from './entities/platform-config.entity';
 
 @ApiTags('Platform Config')
+@ApiExcludeController()
 @ApiBearerAuth()
 @Controller('platform-config')
-@UseGuards(JwtGuard, RolesGuard)
-@Roles(AuthRole.ADMIN, AuthRole.SUPPORT)
+@UseGuards(JwtOnlyGuard, RolesGuard)
+@Roles(AuthRole.ADMIN, AuthRole.SUPER_ADMIN)
 export class PlatformConfigController {
   constructor(private readonly platformConfigService: PlatformConfigService) {}
 
@@ -31,7 +33,7 @@ export class PlatformConfigController {
   }
 
   @Patch()
-  @Roles(AuthRole.ADMIN)
+  @Roles(AuthRole.ADMIN, AuthRole.SUPER_ADMIN)
   @ApiOperation({ summary: 'Update platform config' })
   @ApiResponse({ status: 200, type: PlatformConfig })
   update(@Body() dto: UpdatePlatformConfigDto) {
