@@ -1,0 +1,90 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap");
+
+.landing-page {
+  --landing-display: "IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace;
+  --landing-body: "IBM Plex Sans", var(--sans);
+  font-family: var(--landing-body);
+  letter-spacing: 0;
+}
+
+.landing-display {
+  font-family: var(--landing-display);
+}
+
+.landing-page .landing-grid-bg {
+  background-image: radial-gradient(var(--color-border) 1px, transparent 1px);
+  background-size: 28px 28px;
+  -webkit-mask-image: radial-gradient(ellipse 60% 55% at 50% 0%, black 40%, transparent 100%);
+  mask-image: radial-gradient(ellipse 60% 55% at 50% 0%, black 40%, transparent 100%);
+}
+
+/* Scroll reveal: only animates when motion is allowed; otherwise content is simply visible. */
+@media (prefers-reduced-motion: no-preference) {
+  .landing-page .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .landing-page .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Inspector panel: agent cursor drifting between click targets */
+@media (prefers-reduced-motion: no-preference) {
+  .landing-page .agent-cursor {
+    animation: agent-cursor-move 7s ease-in-out infinite;
+  }
+  @keyframes agent-cursor-move {
+    0%, 6%   { top: 64%; left: 71%; opacity: 0; }
+    10%      { opacity: 1; }
+    16%, 44% { top: 64%; left: 71%; opacity: 1; }
+    52%      { top: 22%; left: 30%; opacity: 1; }
+    60%, 92% { top: 22%; left: 30%; opacity: 1; }
+    98%      { opacity: 0; }
+    100%     { top: 64%; left: 71%; opacity: 0; }
+  }
+
+  .landing-page .json-line {
+    opacity: 0;
+    animation: json-line-in 0.5s ease forwards;
+    animation-delay: var(--d, 0s);
+  }
+  @keyframes json-line-in {
+    from { opacity: 0; transform: translateX(-4px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+
+  .landing-page .heal-old {
+    animation: heal-old-cycle 7s ease-in-out infinite;
+  }
+  @keyframes heal-old-cycle {
+    0%, 40%   { opacity: 1; text-decoration-color: transparent; }
+    52%, 100% { opacity: 0.5; text-decoration-color: var(--color-danger); }
+  }
+
+  .landing-page .heal-new {
+    animation: heal-new-cycle 7s ease-in-out infinite;
+  }
+  @keyframes heal-new-cycle {
+    0%, 52%   { opacity: 0; transform: translateY(4px); }
+    64%, 100% { opacity: 1; transform: translateY(0); }
+  }
+
+  .landing-page .heal-note {
+    animation: heal-note-cycle 7s ease-in-out infinite;
+  }
+  @keyframes heal-note-cycle {
+    0%, 58%   { opacity: 0; }
+    70%, 100% { opacity: 1; }
+  }
+}
+
+/* Reduced-motion fallback: show the "healed" end state statically */
+@media (prefers-reduced-motion: reduce) {
+  .landing-page .heal-old { opacity: 0.5; text-decoration-line: line-through; text-decoration-color: var(--color-danger); }
+  .landing-page .heal-new { opacity: 1; }
+  .landing-page .heal-note { opacity: 1; }
+  .landing-page .agent-cursor { top: 22%; left: 30%; opacity: 1; }
+}

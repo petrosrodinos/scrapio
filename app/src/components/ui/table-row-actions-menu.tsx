@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-react";
-import { MoreHorizontal } from "lucide-react";
+import { ChevronDown, MoreHorizontal } from "lucide-react";
 import { Button, Dropdown, Label } from "@heroui/react";
 import { cn } from "@/lib/utils";
 
@@ -18,6 +18,7 @@ export type TableRowActionsMenuProps = {
   onAction: (actionId: string) => void;
   ariaLabel?: string;
   triggerClassName?: string;
+  triggerLabel?: string;
 };
 
 const actionToneClass: Record<TableRowActionVariant, string> = {
@@ -46,6 +47,7 @@ export function TableRowActionsMenu({
   onAction,
   ariaLabel = "Row actions",
   triggerClassName,
+  triggerLabel,
 }: TableRowActionsMenuProps) {
   if (actions.length === 0) {
     return <span className="text-muted text-sm">—</span>;
@@ -56,11 +58,18 @@ export function TableRowActionsMenu({
       <Dropdown>
         <Button
           size="sm"
-          variant="ghost"
+          variant={triggerLabel ? "secondary" : "ghost"}
           aria-label={ariaLabel}
-          className={cn("min-w-8 px-2", triggerClassName)}
+          className={cn(triggerLabel ? "px-3" : "min-w-8 px-2", triggerClassName)}
         >
-          <MoreHorizontal className="h-4 w-4" />
+          {triggerLabel ? (
+            <>
+              {triggerLabel}
+              <ChevronDown className="h-4 w-4" />
+            </>
+          ) : (
+            <MoreHorizontal className="h-4 w-4" />
+          )}
         </Button>
         <Dropdown.Popover>
           <Dropdown.Menu onAction={(key) => onAction(String(key))}>

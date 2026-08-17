@@ -3,14 +3,17 @@
  * ExtractionResult.ai_usage (exact per-call cost, already computed) and WorkflowRun.ai_usage for
  * BROWSER_AGENT runs (token counts only, no price — priced here using each user's currently
  * configured computer-use model as a best-effort proxy for "whichever model was used at the
- * time", since the historical model isn't recorded anywhere). Safe to re-run: every inserted row
- * is tagged with a unique backfill key in metadata and skipped on subsequent runs.
+ * time", since the historical model isn't recorded anywhere). A third pass fills in provider/model
+ * for rows that still lack them (ExtractionResult.ai_usage never recorded which provider/model was
+ * used), same best-effort-proxy caveat. Safe to re-run: every inserted/updated row is tagged with a
+ * unique backfill key or `estimated_model` in metadata and skipped/left alone on subsequent runs.
  */
 import { PrismaClient } from '../src/generated/prisma';
 import { PrismaPg } from '@prisma/adapter-pg';
 import { calculateAiCost } from '../src/integrations/ai/utils/ai-cost';
 import { AiProviders } from '../src/integrations/ai/interfaces/ai.interface';
 import { getComputerUseModelApiId } from '../src/shared/config/integrations/computer-use-models.config';
+import { integrationTypeToAiProvider } from '../src/integrations/ai/utils/integration-type-to-ai-provider';
 
 const adapter = new PrismaPg({
   connectionString: process.env.DATABASE_URL as string,
@@ -244,9 +247,97 @@ async function backfillBrowserAgentCosts() {
   );
 }
 
+/**
+ * extraction_results.ai_usage never recorded which provider/model produced each entry (just
+ * tokens + cost), so the two extraction-based categories land with provider/model = null. Fill
+ * those in using each user's currently configured default AI integration as a best-effort proxy,
+ * same caveat as the browser-agent model backfill above.
+ */
+async function backfillMissingProviderModel() {
+  const rows = await prisma.costEntry.findMany({
+    where: {
+      provider: null,
+      category: { in: ['STRUCTURED_EXTRACTION', 'MARKDOWN_GENERATION'] },
+    },
+    select: { id: true, user_id: true, metadata: true },
+  });
+
+  let updated = 0;
+  let skippedNoIntegration = 0;
+  let errored = 0;
+
+  const integrationCache = new Map<
+    string,
+    { provider: string; model: string } | null
+  >();
+
+  async function resolveUserDefaultAi(userId: string) {
+    if (integrationCache.has(userId)) return integrationCache.get(userId)!;
+
+    const integration = await prisma.userIntegration.findFirst({
+      where: {
+        user_id: userId,
+        is_active: true,
+        ai_model: { not: null },
+        integration_type: { in: ['OPENAI', 'GEMINI', 'DEEPSEEK'] },
+      },
+      orderBy: [{ is_default: 'desc' }, { updated_at: 'desc' }],
+      select: { integration_type: true, ai_model: true },
+    });
+
+    const resolved = integration?.ai_model
+      ? {
+          provider: integrationTypeToAiProvider(integration.integration_type),
+          model: getComputerUseModelApiId(integration.ai_model),
+        }
+      : null;
+
+    integrationCache.set(userId, resolved);
+    return resolved;
+  }
+
+  for (const row of rows) {
+    try {
+      const resolved = await resolveUserDefaultAi(row.user_id);
+      if (!resolved) {
+        skippedNoIntegration += 1;
+        continue;
+      }
+
+      const metadata =
+        row.metadata &&
+        typeof row.metadata === 'object' &&
+        !Array.isArray(row.metadata)
+          ? (row.metadata as Record<string, unknown>)
+          : {};
+
+      await prisma.costEntry.update({
+        where: { id: row.id },
+        data: {
+          provider: resolved.provider,
+          model: resolved.model,
+          metadata: { ...metadata, estimated_model: true },
+        },
+      });
+
+      updated += 1;
+    } catch (error) {
+      errored += 1;
+      console.error(
+        `  failed to backfill provider/model for ${row.id}: ${(error as Error).message}`,
+      );
+    }
+  }
+
+  console.log(
+    `[provider/model backfill] updated=${updated} skipped_no_integration=${skippedNoIntegration} errored=${errored}`,
+  );
+}
+
 async function main() {
   await backfillExtractionResultCosts();
   await backfillBrowserAgentCosts();
+  await backfillMissingProviderModel();
   await prisma.$disconnect();
 }
 

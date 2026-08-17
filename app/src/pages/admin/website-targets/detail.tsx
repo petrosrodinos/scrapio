@@ -6,7 +6,7 @@ import {
   Table,
   useOverlayState,
 } from "@heroui/react";
-import { ArrowLeft, Wrench, Activity, Plus, Trash2 } from "lucide-react";
+import { ArrowLeft, Wrench, Activity, Pencil, Plus, Trash2 } from "lucide-react";
 import { Routes } from "@/routes/routes";
 import { DetailSkeleton } from "@/components/ui/detail-skeleton";
 import { TableSkeleton } from "@/components/ui/table-skeleton";
@@ -135,18 +135,29 @@ export default function WebsiteTargetDetailPage() {
         </div>
         {selectedTab === TargetDetailTabs.TARGET ? (
           <div className="flex flex-col items-end gap-1">
-            <div className="flex items-center gap-2">
-              <ActionButtonWithPending variant="secondary" onPress={editModal.open}>
-                Edit
-              </ActionButtonWithPending>
-              <ActionButtonWithPending
-                variant="danger"
-                isDisabled={!canDelete}
-                onPress={deleteConfirm.open}
-              >
-                Delete
-              </ActionButtonWithPending>
-            </div>
+            <TableRowActionsMenu
+              triggerLabel="Actions"
+              ariaLabel="Website target actions"
+              actions={[
+                { id: "edit", label: "Edit", icon: Pencil },
+                {
+                  id: "delete",
+                  label: "Delete",
+                  variant: "danger",
+                  icon: Trash2,
+                  isDisabled: !canDelete,
+                },
+              ]}
+              onAction={(actionId) => {
+                if (actionId === "edit") {
+                  editModal.open();
+                  return;
+                }
+                if (actionId === "delete") {
+                  deleteConfirm.open();
+                }
+              }}
+            />
             {!canDelete && (
               <span className="text-xs text-muted text-right max-w-xs">
                 Has {dependentCount} dependent record{dependentCount === 1 ? "" : "s"} — remove them

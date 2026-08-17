@@ -169,10 +169,10 @@ export default function GenerationRunDetailPage() {
           </ActionButtonWithPending>
         ) : (
           <TableRowActionsMenu
+            triggerLabel="Actions"
             actions={headerActions}
             onAction={handleHeaderAction}
             ariaLabel="Generation run actions"
-            triggerClassName="bg-surface-secondary hover:bg-surface-secondary/80 border border-border"
           />
         )}
       </div>

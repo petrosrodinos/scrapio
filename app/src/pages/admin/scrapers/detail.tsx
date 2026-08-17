@@ -1,11 +1,12 @@
 import { useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Modal, Switch, EmptyState, Select, ListBox, Label, useOverlayState } from "@heroui/react";
-import { ArrowLeft, Bot, Activity, History, Sparkles } from "lucide-react";
+import { ArrowLeft, Bot, Activity, History, Play, Sparkles, Trash2 } from "lucide-react";
 import { Routes } from "@/routes/routes";
 import { DetailSkeleton } from "@/components/ui/detail-skeleton";
 import { ActionButtonWithPending } from "@/components/ui/action-button-with-pending";
 import { ConfirmationDialog } from "@/components/ui/confirmation-dialog";
+import { TableRowActionsMenu, type TableRowAction } from "@/components/ui/table-row-actions-menu";
 import { ScraperStatusChip } from "./components/scraper-status-chip";
 import { ScraperHealthChip } from "./components/scraper-health-chip";
 import { ScraperVersionForm } from "./components/scraper-version-form";
@@ -98,34 +99,45 @@ export default function ScraperDetailPage() {
           <ScraperStatusChip status={scraper.status} />
           <ScraperHealthChip health={scraper.health} />
         </div>
-        <div className="flex items-center gap-2">
-          <ActionButtonWithPending
-            variant="secondary"
-            idleLeading={<Sparkles className="h-4 w-4" />}
-            onPress={generateModal.open}
-          >
-            {scraper.status === ScraperStatuses.BROKEN ? "Fix with AI" : "Generate with AI"}
-          </ActionButtonWithPending>
-          <ActionButtonWithPending
-            isPending={runNow.isPending}
-            isDisabled={runNow.isPending || !scraper.active_version_id}
-            onPress={() =>
+        <TableRowActionsMenu
+          triggerLabel="Actions"
+          ariaLabel="Scraper actions"
+          actions={[
+            {
+              id: "generate",
+              label: scraper.status === ScraperStatuses.BROKEN ? "Fix with AI" : "Generate with AI",
+              icon: Sparkles,
+            },
+            {
+              id: "run-now",
+              label: "Run now",
+              icon: Play,
+              isDisabled: runNow.isPending || !scraper.active_version_id,
+            },
+            {
+              id: "delete",
+              label: "Delete",
+              variant: "danger",
+              icon: Trash2,
+              isDisabled: deleteScraper.isPending,
+            },
+          ] satisfies TableRowAction[]}
+          onAction={(actionId) => {
+            if (actionId === "generate") {
+              generateModal.open();
+              return;
+            }
+            if (actionId === "run-now") {
               runNow.mutate(scraper.id, {
                 onSuccess: (run) => navigate(Routes.crawlRuns.detail(run.id)),
-              })
+              });
+              return;
             }
-          >
-            Run now
-          </ActionButtonWithPending>
-          <ActionButtonWithPending
-            variant="danger"
-            isPending={deleteScraper.isPending}
-            isDisabled={deleteScraper.isPending}
-            onPress={deleteConfirm.open}
-          >
-            Delete
-          </ActionButtonWithPending>
-        </div>
+            if (actionId === "delete") {
+              deleteConfirm.open();
+            }
+          }}
+        />
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 rounded-xl border border-border bg-surface p-6">

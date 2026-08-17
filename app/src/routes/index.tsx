@@ -7,6 +7,7 @@ import SignUp from "@/pages/auth/pages/sign-up";
 import ForgotPassword from "@/pages/auth/pages/forgot-password";
 import ResetPassword from "@/pages/auth/pages/reset-password";
 import AuthLayout from "@/pages/auth/layout";
+import LandingPage from "@/pages/landing";
 import DashboardLayout from "@/pages/dashboard/layout";
 import DashboardHome from "@/pages/dashboard";
 import AdminHealthPage from "@/pages/admin/pages/health";
@@ -100,8 +101,8 @@ export default function AppRoutes() {
       <Route path="/admin" element={<Navigate to={Routes.admin.jobs.list} replace />} />
       <Route path="/admin/*" element={<Navigate to={Routes.admin.jobs.list} replace />} />
 
-      <Route path="/" element={<Navigate to={Routes.auth.sign_in} replace />} />
-      <Route path="*" element={<Navigate to="/" replace />} />
+      <Route path={Routes.landing.root} element={<LandingPage />} />
+      <Route path="*" element={<Navigate to={Routes.landing.root} replace />} />
     </ReactRoutes>
   );
 }
