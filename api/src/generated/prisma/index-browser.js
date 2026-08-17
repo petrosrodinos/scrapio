@@ -681,6 +681,8 @@ exports.ComputerActionType = exports.$Enums.ComputerActionType = {
   KEYPRESS: 'KEYPRESS',
   SCREENSHOT: 'SCREENSHOT',
   DRAG: 'DRAG',
+  INSPECT_DOM: 'INSPECT_DOM',
+  PROBE_SELECTORS: 'PROBE_SELECTORS',
   DONE: 'DONE'
 };
 

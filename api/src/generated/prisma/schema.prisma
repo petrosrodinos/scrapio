@@ -140,6 +140,8 @@ enum ComputerActionType {
   KEYPRESS
   SCREENSHOT
   DRAG
+  INSPECT_DOM
+  PROBE_SELECTORS
   DONE
 }
 

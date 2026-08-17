@@ -21,6 +21,11 @@ import { StealthBrowserModule } from './stealth-browser.module';
     CrawlerService,
     DetailEnrichmentService,
   ],
-  exports: [StealthBrowserModule, CrawlerService, DetailEnrichmentService],
+  exports: [
+    StealthBrowserModule,
+    CrawlerService,
+    DetailEnrichmentService,
+    FieldExtractionService,
+  ],
 })
 export class CrawlerModule {}

@@ -22,6 +22,8 @@ export function unmapActionType(
     key === 'go_back' ||
     key === 'close_tab' ||
     key === 'wait' ||
+    key === 'inspect_dom' ||
+    key === 'probe_selectors' ||
     key === 'done'
   ) {
     return key;
@@ -44,6 +46,32 @@ export function stepToGenerationAction(
         typeof payload.reasoning === 'string' ? payload.reasoning : undefined,
       action: 'done',
       config: payload.config as Record<string, unknown>,
+    };
+  }
+
+  if (action === 'inspect_dom') {
+    return {
+      reasoning:
+        typeof payload.reasoning === 'string' ? payload.reasoning : undefined,
+      action,
+      scope: payload.scope as GenerationAction['scope'],
+      card_index:
+        typeof payload.card_index === 'number' ? payload.card_index : undefined,
+      selector:
+        typeof payload.selector === 'string' ? payload.selector : undefined,
+    };
+  }
+
+  if (action === 'probe_selectors') {
+    return {
+      reasoning:
+        typeof payload.reasoning === 'string' ? payload.reasoning : undefined,
+      action,
+      config: payload.config as Record<string, unknown>,
+      sample_cards:
+        typeof payload.sample_cards === 'number'
+          ? payload.sample_cards
+          : undefined,
     };
   }
 
@@ -76,6 +104,29 @@ export function stepToAssistantText(
       reasoning: action.reasoning,
       action: 'done',
       config: action.config,
+    });
+  }
+
+  if (action.action === 'inspect_dom') {
+    return JSON.stringify({
+      reasoning: action.reasoning,
+      action: action.action,
+      ...(action.scope ? { scope: action.scope } : {}),
+      ...(action.card_index !== undefined
+        ? { card_index: action.card_index }
+        : {}),
+      ...(action.selector ? { selector: action.selector } : {}),
+    });
+  }
+
+  if (action.action === 'probe_selectors') {
+    return JSON.stringify({
+      reasoning: action.reasoning,
+      action: action.action,
+      config: action.config,
+      ...(action.sample_cards !== undefined
+        ? { sample_cards: action.sample_cards }
+        : {}),
     });
   }
 

@@ -7,15 +7,19 @@ import { ComputerUseClientService } from './services/computer-use-client.service
 import { PlaywrightDriverService } from './services/playwright-driver.service';
 import { ScraperConfigVerificationService } from './services/scraper-config-verification.service';
 import { ScreenshotStorageService } from './services/screenshot-storage.service';
+import { DomInspectionService } from './services/dom-inspection.service';
+import { ScraperConfigProbeService } from './services/scraper-config-probe.service';
 import { GENERATION_SYSTEM_PROMPT } from './constants/generation-prompt';
 import {
   ACCESS_BARRIER_VERIFY_PREFIX,
   MAX_IMAGE_TURNS_IN_CONTEXT,
+  MAX_INSPECT_RESULT_CHARS,
 } from './constants/generation.constants';
 import { extractJSON } from './utils/extract-json.util';
 import { GenerationAction } from './interfaces/computer-use.interface';
 import { GenerationRunOptions } from './interfaces/generation-run-options.interface';
 import { mapActionType } from './utils/generation-action.util';
+import { ScraperConfig } from '@/integrations/crawler/interfaces/scraper-config.interface';
 import {
   buildStepsSummaryText,
   compactImageMessages,
@@ -31,10 +35,7 @@ import {
 const INITIAL_STEP_HINT =
   'Initial page. Follow the mandatory workflow: find the listings page, inspect cards, visit a detail page, test pagination, then call done.';
 
-const ACCESS_BARRIER_STATES = new Set<ClassifyResult>([
-  'blocked',
-  'challenge',
-]);
+const ACCESS_BARRIER_STATES = new Set<ClassifyResult>(['blocked', 'challenge']);
 
 @Injectable()
 export class ComputerUseOrchestratorService {
@@ -46,6 +47,8 @@ export class ComputerUseOrchestratorService {
     private readonly computerUseClient: ComputerUseClientService,
     private readonly verificationService: ScraperConfigVerificationService,
     private readonly screenshotStorage: ScreenshotStorageService,
+    private readonly domInspection: DomInspectionService,
+    private readonly probeService: ScraperConfigProbeService,
   ) {}
 
   async run(
@@ -94,8 +97,7 @@ export class ComputerUseOrchestratorService {
     const targetUrl = run.website_target.base_url;
     const systemPrompt = this.buildSystemPrompt(run.prompt);
     const blockHandlingConfig = buildBlockHandlingConfig(run.website_target);
-    const maxSteps =
-      run.max_steps == null ? null : Math.max(run.max_steps, 1);
+    const maxSteps = run.max_steps == null ? null : Math.max(run.max_steps, 1);
 
     const driver = new PlaywrightDriverService();
     const messages: Anthropic.MessageParam[] = [];
@@ -103,6 +105,8 @@ export class ComputerUseOrchestratorService {
     let failureReason: string | null = null;
     let wasCancelled = false;
     let stepIndex = 0;
+    let hasProbedThisRun = false;
+    let lastProbeOk = false;
     const shouldResume = options.resume === true && run.steps.length > 0;
 
     try {
@@ -169,8 +173,7 @@ export class ComputerUseOrchestratorService {
         if (
           maxSteps != null &&
           modelCallBudget != null &&
-          (stepIndex >= maxSteps ||
-            modelCallsThisSession >= modelCallBudget)
+          (stepIndex >= maxSteps || modelCallsThisSession >= modelCallBudget)
         ) {
           failureReason = `Reached max steps (${maxSteps}) without a verified config`;
           break;
@@ -264,17 +267,68 @@ export class ComputerUseOrchestratorService {
             scraper_generation_run_id: generationRunId,
             step_index: stepIndex,
             action_type: mapActionType(action.action),
-            action_payload: (action.action === 'done'
-              ? { config: action.config }
-              : {
-                  selector: action.selector,
-                  url: action.url,
-                  text: action.text,
-                }) as Prisma.InputJsonValue,
+            action_payload: (action.action === 'done' ||
+            action.action === 'probe_selectors'
+              ? { config: action.config, sample_cards: action.sample_cards }
+              : action.action === 'inspect_dom'
+                ? {
+                    scope: action.scope,
+                    selector: action.selector,
+                    card_index: action.card_index,
+                  }
+                : {
+                    selector: action.selector,
+                    url: action.url,
+                    text: action.text,
+                  }) as Prisma.InputJsonValue,
             screenshot_before_id: screenshotBeforeId,
             model_reasoning: action.reasoning ?? null,
           },
         });
+
+        if (action.action === 'inspect_dom') {
+          const resultText = await this.runDomInspection(driver, action);
+          messages.push({ role: 'user', content: resultText });
+          await this.prisma.computerUseStep.update({
+            where: { id: step.id },
+            data: { screenshot_after_id: screenshotBeforeId },
+          });
+          stepIndex += 1;
+          continue;
+        }
+
+        if (action.action === 'probe_selectors') {
+          const report = await this.probeService.probe(
+            driver.activeContext,
+            driver.currentPage,
+            (action.config ?? {}) as Partial<ScraperConfig>,
+            action.sample_cards,
+          );
+          lastProbeOk = report.ok;
+          hasProbedThisRun = true;
+          messages.push({
+            role: 'user',
+            content: `probe_selectors result (${report.ok ? 'PASSED' : 'FAILED'}):\n${JSON.stringify(report).slice(0, MAX_INSPECT_RESULT_CHARS)}`,
+          });
+          const probeScreenshotAfter = await driver
+            .screenshot()
+            .catch(() => null);
+          const probeScreenshotAfterId = probeScreenshotAfter
+            ? await this.screenshotStorage.store(
+                probeScreenshotAfter,
+                `generation-${generationRunId}-step-${stepIndex}-after.png`,
+              )
+            : screenshotBeforeId;
+          await this.prisma.computerUseStep.update({
+            where: { id: step.id },
+            data: {
+              screenshot_after_id: probeScreenshotAfterId,
+              model_reasoning: `${step.model_reasoning ?? ''} [PROBE ${report.ok ? 'OK' : 'FAILED'}]`,
+            },
+          });
+          stepIndex += 1;
+          continue;
+        }
 
         if (action.action === 'done') {
           if (
@@ -290,6 +344,23 @@ export class ComputerUseOrchestratorService {
             failureReason =
               'Model returned done while page is still access-blocked or bot-challenged. Stopping generation.';
             break;
+          }
+
+          if (!hasProbedThisRun || !lastProbeOk) {
+            await this.prisma.computerUseStep.update({
+              where: { id: step.id },
+              data: {
+                screenshot_after_id: screenshotBeforeId,
+                model_reasoning: `${step.model_reasoning ?? ''} [REJECTED: no passing probe_selectors before done]`,
+              },
+            });
+            messages.push({
+              role: 'user',
+              content:
+                'You called "done" without a passing "probe_selectors" run in this session. Run "probe_selectors" against your proposed config and fix any errors before calling "done" again.',
+            });
+            stepIndex += 1;
+            continue;
           }
 
           const errors = await this.verificationService.verify(
@@ -325,13 +396,14 @@ export class ComputerUseOrchestratorService {
               break;
             }
 
+            lastProbeOk = false;
             const feedback = [
               'Your proposed config was verified against the actual page and FAILED. Do NOT return "done" again with the same selectors.',
               '',
               'Errors:',
               ...errors.map((e) => `- ${e}`),
               '',
-              'Return to the listings page, inspect the actual elements, and return a corrected config.',
+              'Return to the listings page, inspect the actual elements, run "probe_selectors" again with a corrected config, and only call "done" once it passes.',
             ].join('\n');
             messages.push({ role: 'user', content: feedback });
             stepIndex += 1;
@@ -444,6 +516,41 @@ export class ComputerUseOrchestratorService {
             duration_ms: finishedAt.getTime() - startedAt.getTime(),
           },
     });
+  }
+
+  private async runDomInspection(
+    driver: PlaywrightDriverService,
+    action: GenerationAction,
+  ): Promise<string> {
+    const page = driver.currentPage;
+    const scope = action.scope ?? 'listing';
+
+    try {
+      let result: unknown;
+      switch (scope) {
+        case 'card':
+          result = await this.domInspection.inspectCard(
+            page,
+            action.selector ?? '',
+            action.card_index ?? 0,
+          );
+          break;
+        case 'detail':
+          result = await this.domInspection.inspectDetail(page);
+          break;
+        case 'pagination':
+          result = await this.domInspection.inspectPagination(page);
+          break;
+        case 'listing':
+        default:
+          result = await this.domInspection.inspectListing(page);
+          break;
+      }
+
+      return `inspect_dom result (scope: ${scope}):\n${JSON.stringify(result).slice(0, MAX_INSPECT_RESULT_CHARS)}`;
+    } catch (e) {
+      return `inspect_dom (scope: ${scope}) failed: ${(e as Error).message.slice(0, 200)}`;
+    }
   }
 
   private async abortIfAccessBarrier(

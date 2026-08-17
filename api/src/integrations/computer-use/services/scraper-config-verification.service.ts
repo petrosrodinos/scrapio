@@ -6,10 +6,15 @@ import {
 } from '@/integrations/crawler/block-handling/block-handling.utils';
 import { BlockHandlingConfig } from '@/integrations/crawler/block-handling/block-handling.interface';
 import { resolveRegexPattern } from '@/shared/constants/regex-presets.constants';
+import { DEFAULT_SCROLL_PAUSE_MS } from '@/integrations/crawler/constants/crawler.constants';
 import {
   ACCESS_BARRIER_VERIFY_PREFIX,
   VERIFY_TIMEOUT_MS,
 } from '../constants/generation.constants';
+import {
+  findDisjointnessErrors,
+  isBareDataUri,
+} from '../utils/scraper-config-checks.util';
 
 interface FieldDef {
   selector?: string;
@@ -22,6 +27,8 @@ interface DetailPageDef {
   image_selector?: string;
   image_type?: 'src' | 'background_image';
   description_selector?: string;
+  specs_selector?: string;
+  features_selector?: string;
   external_id_source?: 'url_path' | 'selector';
   external_id_selector?: string;
 }
@@ -39,6 +46,9 @@ interface ScraperDraftConfig {
   pagination?: PaginationDef;
   detail_page?: DetailPageDef;
 }
+
+const MAX_SAMPLE_CARDS = 5;
+const MAX_DETAIL_CARDS_CHECKED = 2;
 
 @Injectable()
 export class ScraperConfigVerificationService {
@@ -117,80 +127,111 @@ export class ScraperConfigVerificationService {
       return errors;
     }
 
-    const firstCard = page.locator(config.listing_selector).first();
+    const sampleCount = Math.min(MAX_SAMPLE_CARDS, cardCount);
 
-    for (const [field, rawDef] of Object.entries(config.fields ?? {})) {
-      const def: FieldDef =
-        typeof rawDef === 'string' ? { selector: rawDef } : rawDef;
-      const selector = def?.selector;
-      const type = def?.type ?? 'text';
+    for (let cardIndex = 0; cardIndex < sampleCount; cardIndex++) {
+      const card = page.locator(config.listing_selector).nth(cardIndex);
+      const textFieldValues: Record<string, string | null> = {};
 
-      if (type === 'regex') {
-        const rawPattern = def?.pattern;
-        if (!rawPattern) {
-          errors.push(`field "${field}" has type "regex" but no pattern`);
+      for (const [field, rawDef] of Object.entries(config.fields ?? {})) {
+        const def: FieldDef =
+          typeof rawDef === 'string' ? { selector: rawDef } : rawDef;
+        const selector = def?.selector;
+        const type = def?.type ?? 'text';
+
+        if (type === 'regex') {
+          if (cardIndex === 0) {
+            const rawPattern = def?.pattern;
+            if (!rawPattern) {
+              errors.push(`field "${field}" has type "regex" but no pattern`);
+            } else {
+              try {
+                new RegExp(resolveRegexPattern(rawPattern));
+              } catch (e) {
+                errors.push(
+                  `field "${field}" has an invalid regex pattern "${rawPattern}": ${(e as Error).message}`,
+                );
+              }
+            }
+          }
+          // A regex field legitimately matching 0 times on a given card (e.g. no
+          // email on this particular listing) isn't a config error the way a broken
+          // CSS selector is, so we don't require a non-empty match here.
           continue;
         }
+
+        if (!selector) {
+          if (cardIndex === 0) {
+            errors.push(`field "${field}" has no selector`);
+          }
+          continue;
+        }
+
         try {
-          new RegExp(resolveRegexPattern(rawPattern));
+          const el = card.locator(selector).first();
+          let value: string | null = null;
+
+          if (type === 'href') {
+            value = await el.getAttribute('href', {
+              timeout: VERIFY_TIMEOUT_MS,
+            });
+          } else if (type === 'src') {
+            value = await el.getAttribute('src', {
+              timeout: VERIFY_TIMEOUT_MS,
+            });
+          } else if (type === 'background_image') {
+            const style =
+              (await el.getAttribute('style', {
+                timeout: VERIFY_TIMEOUT_MS,
+              })) ?? '';
+            const m = style.match(/background-image:\s*url\(['"]?(.*?)['"]?\)/);
+            value = m ? m[1] : null;
+          } else {
+            value = await el.textContent({ timeout: VERIFY_TIMEOUT_MS });
+          }
+
+          if (type === 'text') {
+            textFieldValues[field] = value;
+          }
+
+          if (
+            (type === 'src' || type === 'background_image') &&
+            isBareDataUri(value)
+          ) {
+            errors.push(
+              `card ${cardIndex}: field "${field}" resolved to a bare data: URI — resolve the real lazy-load attribute (e.g. data-src) instead`,
+            );
+          }
+
+          if (!value || !String(value).trim()) {
+            const cardText = await card
+              .textContent({ timeout: VERIFY_TIMEOUT_MS })
+              .catch(() => '');
+            const hint = (cardText ?? '')
+              .replace(/\s+/g, ' ')
+              .trim()
+              .slice(0, 200);
+            errors.push(
+              `card ${cardIndex}: field "${field}": selector "${selector}" (type: ${type}) returned empty. Card text: "${hint}"`,
+            );
+          }
         } catch (e) {
           errors.push(
-            `field "${field}" has an invalid regex pattern "${rawPattern}": ${(e as Error).message}`,
+            `card ${cardIndex}: field "${field}": selector "${selector}" not found — ${(e as Error).message.slice(0, 120)}`,
           );
         }
-        // A regex field legitimately matching 0 times on the first card (e.g. no
-        // email on this particular listing) isn't a config error the way a broken
-        // CSS selector is, so we don't require a non-empty match here.
-        continue;
       }
 
-      if (!selector) {
-        errors.push(`field "${field}" has no selector`);
-        continue;
-      }
-
-      try {
-        const el = firstCard.locator(selector).first();
-        let value: string | null = null;
-
-        if (type === 'href') {
-          value = await el.getAttribute('href', { timeout: VERIFY_TIMEOUT_MS });
-        } else if (type === 'src') {
-          value = await el.getAttribute('src', { timeout: VERIFY_TIMEOUT_MS });
-        } else if (type === 'background_image') {
-          const style =
-            (await el.getAttribute('style', { timeout: VERIFY_TIMEOUT_MS })) ??
-            '';
-          const m = style.match(/background-image:\s*url\(['"]?(.*?)['"]?\)/);
-          value = m ? m[1] : null;
-        } else {
-          value = await el.textContent({ timeout: VERIFY_TIMEOUT_MS });
-        }
-
-        if (!value || !String(value).trim()) {
-          const cardText = await firstCard
-            .textContent({ timeout: VERIFY_TIMEOUT_MS })
-            .catch(() => '');
-          const hint = (cardText ?? '')
-            .replace(/\s+/g, ' ')
-            .trim()
-            .slice(0, 200);
-          errors.push(
-            `field "${field}": selector "${selector}" (type: ${type}) returned empty. Card text: "${hint}"`,
-          );
-        }
-      } catch (e) {
-        errors.push(
-          `field "${field}": selector "${selector}" not found in first card — ${(e as Error).message.slice(0, 120)}`,
-        );
-      }
+      errors.push(
+        ...findDisjointnessErrors(textFieldValues, `card ${cardIndex}`),
+      );
     }
 
+    const firstCard = page.locator(config.listing_selector).first();
     const pagination = config.pagination;
-    if (
-      pagination &&
-      (pagination.type === 'next_button' || pagination.type === 'NEXT_BUTTON')
-    ) {
+    const paginationType = (pagination?.type ?? '').toString().toUpperCase();
+
+    if (pagination && paginationType === 'NEXT_BUTTON') {
       const sel = pagination.selector;
       if (!sel) {
         errors.push(
@@ -253,114 +294,214 @@ export class ScraperConfigVerificationService {
           );
         }
       }
+    } else if (pagination && paginationType === 'INFINITE_SCROLL') {
+      const beforeCount = cardCount;
+      await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+      await page.waitForTimeout(DEFAULT_SCROLL_PAUSE_MS);
+      const afterCount = await page
+        .locator(config.listing_selector)
+        .count()
+        .catch(() => beforeCount);
+      if (afterCount <= beforeCount) {
+        errors.push(
+          `pagination.type "infinite_scroll" did not increase the card count after scrolling to the bottom (before: ${beforeCount}, after: ${afterCount})`,
+        );
+      }
+    } else if (pagination && paginationType === 'LOAD_MORE') {
+      const sel = pagination.selector;
+      if (!sel) {
+        errors.push(
+          `pagination.type is "load_more" but pagination.selector is missing`,
+        );
+      } else {
+        const beforeCount = cardCount;
+        const loadMoreControl = page.locator(sel).first();
+        const visible = await loadMoreControl.isVisible().catch(() => false);
+        if (!visible) {
+          errors.push(
+            `pagination.selector "${sel}" ("load_more") is not visible on the listings page`,
+          );
+        } else {
+          try {
+            await loadMoreControl.click({ timeout: 8000 });
+          } catch (e) {
+            errors.push(
+              `pagination.selector "${sel}" could not be clicked — ${(e as Error).message.slice(0, 120)}`,
+            );
+          }
+          await page.waitForTimeout(DEFAULT_SCROLL_PAUSE_MS);
+          const afterCount = await page
+            .locator(config.listing_selector)
+            .count()
+            .catch(() => beforeCount);
+          if (afterCount <= beforeCount) {
+            errors.push(
+              `pagination.type "load_more" did not increase the card count after clicking (before: ${beforeCount}, after: ${afterCount})`,
+            );
+          }
+        }
+      }
     }
 
     const dp = config.detail_page;
     const urlDef = config.fields?.url;
 
     if (dp && urlDef) {
-      const urlSel = typeof urlDef === 'string' ? urlDef : urlDef?.selector;
-      let detailUrl: string | null = null;
-
-      try {
-        detailUrl = await firstCard
-          .locator(urlSel as string)
-          .first()
-          .getAttribute('href', { timeout: VERIFY_TIMEOUT_MS });
-        if (detailUrl && !detailUrl.startsWith('http')) {
-          detailUrl = new URL(detailUrl, page.url()).href;
-        }
-      } catch (e) {
-        errors.push(
-          `Cannot get detail URL for verification: ${(e as Error).message.slice(0, 80)}`,
+      const detailCardsToCheck = Math.min(MAX_DETAIL_CARDS_CHECKED, cardCount);
+      for (let cardIndex = 0; cardIndex < detailCardsToCheck; cardIndex++) {
+        const detailErrors = await this.verifyDetailPageForCard(
+          context,
+          page,
+          config,
+          dp,
+          urlDef,
+          cardIndex,
         );
+        errors.push(...detailErrors);
       }
+    }
 
-      if (detailUrl) {
-        const detailPage = await context.newPage();
+    return errors;
+  }
+
+  private async verifyDetailPageForCard(
+    context: BrowserContext,
+    page: Page,
+    config: ScraperDraftConfig,
+    dp: DetailPageDef,
+    urlDef: string | FieldDef,
+    cardIndex: number,
+  ): Promise<string[]> {
+    const errors: string[] = [];
+    const urlSel = typeof urlDef === 'string' ? urlDef : urlDef?.selector;
+    let detailUrl: string | null = null;
+
+    try {
+      detailUrl = await page
+        .locator(config.listing_selector)
+        .nth(cardIndex)
+        .locator(urlSel as string)
+        .first()
+        .getAttribute('href', { timeout: VERIFY_TIMEOUT_MS });
+      if (detailUrl && !detailUrl.startsWith('http')) {
+        detailUrl = new URL(detailUrl, page.url()).href;
+      }
+    } catch (e) {
+      errors.push(
+        `Cannot get detail URL for card ${cardIndex}: ${(e as Error).message.slice(0, 80)}`,
+      );
+      return errors;
+    }
+
+    if (!detailUrl) {
+      return errors;
+    }
+
+    const detailPage = await context.newPage();
+    try {
+      await detailPage.goto(detailUrl, {
+        waitUntil: 'domcontentloaded',
+        timeout: 20000,
+      });
+      await detailPage.waitForTimeout(1500);
+
+      const textFieldValues: Record<string, string | null> = {};
+
+      const textChecks: {
+        key: 'description_selector' | 'specs_selector' | 'features_selector';
+      }[] = [
+        { key: 'description_selector' },
+        { key: 'specs_selector' },
+        { key: 'features_selector' },
+      ];
+
+      for (const { key } of textChecks) {
+        const selector = dp[key];
+        if (!selector) continue;
         try {
-          await detailPage.goto(detailUrl, {
-            waitUntil: 'domcontentloaded',
-            timeout: 20000,
-          });
-          await detailPage.waitForTimeout(1500);
-
-          if (dp.image_selector) {
-            try {
-              const imgEl = detailPage.locator(dp.image_selector).first();
-              let imgVal: string | null = null;
-              if ((dp.image_type ?? 'src') === 'background_image') {
-                const style =
-                  (await imgEl.getAttribute('style', {
-                    timeout: VERIFY_TIMEOUT_MS,
-                  })) ?? '';
-                const m = style.match(
-                  /background-image:\s*url\(['"]?(.*?)['"]?\)/,
-                );
-                imgVal = m ? m[1] : null;
-              } else {
-                imgVal = await imgEl.getAttribute('src', {
-                  timeout: VERIFY_TIMEOUT_MS,
-                });
-              }
-              if (!imgVal) {
-                errors.push(
-                  `detail_page.image_selector "${dp.image_selector}" matched an element but returned no image value`,
-                );
-              }
-            } catch (e) {
-              const candidates = await detailPage.evaluate(() => {
-                const imgs = [...document.querySelectorAll('img')]
-                  .slice(0, 5)
-                  .map((i) => i.className || i.id || i.src?.split('/').pop())
-                  .join(', ');
-                return imgs || 'none found';
-              });
-              errors.push(
-                `detail_page.image_selector "${dp.image_selector}" not found. Sample <img> elements: ${candidates}`,
-              );
-            }
+          const text = await detailPage
+            .locator(selector)
+            .first()
+            .textContent({ timeout: VERIFY_TIMEOUT_MS });
+          if (!text?.trim()) {
+            errors.push(
+              `card ${cardIndex}: detail_page.${key} "${selector}" matched but returned empty text`,
+            );
+          } else {
+            textFieldValues[key] = text;
           }
-
-          if (dp.description_selector) {
-            try {
-              const text = await detailPage
-                .locator(dp.description_selector)
-                .first()
-                .textContent({ timeout: VERIFY_TIMEOUT_MS });
-              if (!text?.trim()) {
-                errors.push(
-                  `detail_page.description_selector "${dp.description_selector}" matched but returned empty text`,
-                );
-              }
-            } catch (e) {
-              errors.push(
-                `detail_page.description_selector "${dp.description_selector}" not found on detail page — ${(e as Error).message.slice(0, 80)}`,
-              );
-            }
-          }
-
-          if (dp.external_id_source === 'selector' && dp.external_id_selector) {
-            try {
-              const text = await detailPage
-                .locator(dp.external_id_selector)
-                .first()
-                .textContent({ timeout: VERIFY_TIMEOUT_MS });
-              if (!text?.trim()) {
-                errors.push(
-                  `detail_page.external_id_selector "${dp.external_id_selector}" returned empty text`,
-                );
-              }
-            } catch (e) {
-              errors.push(
-                `detail_page.external_id_selector "${dp.external_id_selector}" not found — ${(e as Error).message.slice(0, 80)}`,
-              );
-            }
-          }
-        } finally {
-          await detailPage.close();
+        } catch (e) {
+          errors.push(
+            `card ${cardIndex}: detail_page.${key} "${selector}" not found on detail page — ${(e as Error).message.slice(0, 80)}`,
+          );
         }
       }
+
+      errors.push(
+        ...findDisjointnessErrors(
+          textFieldValues,
+          `card ${cardIndex} detail page`,
+        ),
+      );
+
+      if (dp.image_selector) {
+        try {
+          const imgEl = detailPage.locator(dp.image_selector).first();
+          let imgVal: string | null = null;
+          if ((dp.image_type ?? 'src') === 'background_image') {
+            const style =
+              (await imgEl.getAttribute('style', {
+                timeout: VERIFY_TIMEOUT_MS,
+              })) ?? '';
+            const m = style.match(/background-image:\s*url\(['"]?(.*?)['"]?\)/);
+            imgVal = m ? m[1] : null;
+          } else {
+            imgVal = await imgEl.getAttribute('src', {
+              timeout: VERIFY_TIMEOUT_MS,
+            });
+          }
+          if (!imgVal) {
+            errors.push(
+              `card ${cardIndex}: detail_page.image_selector "${dp.image_selector}" matched an element but returned no image value`,
+            );
+          } else if (isBareDataUri(imgVal)) {
+            errors.push(
+              `card ${cardIndex}: detail_page.image_selector "${dp.image_selector}" resolved to a bare data: URI — resolve the real lazy-load attribute instead`,
+            );
+          }
+        } catch (e) {
+          const candidates = await detailPage.evaluate(() => {
+            const imgs = [...document.querySelectorAll('img')]
+              .slice(0, 5)
+              .map((i) => i.className || i.id || i.src?.split('/').pop())
+              .join(', ');
+            return imgs || 'none found';
+          });
+          errors.push(
+            `card ${cardIndex}: detail_page.image_selector "${dp.image_selector}" not found. Sample <img> elements: ${candidates}`,
+          );
+        }
+      }
+
+      if (dp.external_id_source === 'selector' && dp.external_id_selector) {
+        try {
+          const text = await detailPage
+            .locator(dp.external_id_selector)
+            .first()
+            .textContent({ timeout: VERIFY_TIMEOUT_MS });
+          if (!text?.trim()) {
+            errors.push(
+              `card ${cardIndex}: detail_page.external_id_selector "${dp.external_id_selector}" returned empty text`,
+            );
+          }
+        } catch (e) {
+          errors.push(
+            `card ${cardIndex}: detail_page.external_id_selector "${dp.external_id_selector}" not found — ${(e as Error).message.slice(0, 80)}`,
+          );
+        }
+      }
+    } finally {
+      await detailPage.close();
     }
 
     return errors;

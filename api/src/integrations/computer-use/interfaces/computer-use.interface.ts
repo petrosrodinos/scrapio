@@ -7,7 +7,11 @@ export type GenerationActionType =
   | 'go_back'
   | 'close_tab'
   | 'wait'
+  | 'inspect_dom'
+  | 'probe_selectors'
   | 'done';
+
+export type InspectDomScope = 'listing' | 'card' | 'detail' | 'pagination';
 
 export interface GenerationAction {
   reasoning?: string;
@@ -16,6 +20,9 @@ export interface GenerationAction {
   text?: string;
   url?: string;
   config?: Record<string, unknown>;
+  scope?: InspectDomScope;
+  card_index?: number;
+  sample_cards?: number;
 }
 
 export interface ComputerUseStepResult {
