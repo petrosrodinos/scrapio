@@ -1,4 +1,4 @@
-const APP_NAME = "HeroUI Starter";
+const APP_NAME = "Scrapio";
 const LANDING_URL = import.meta.env.VITE_LANDING_URL;
 const APP_URL = import.meta.env.VITE_APP_URL;
 const rawApiUrl =

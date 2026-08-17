@@ -36,16 +36,19 @@ const workflowNavItems = [
 const scraperNavItems = [
   { label: 'Targets', icon: Globe, href: Routes.websiteTargets.list, end: false },
   { label: 'Plain Scrape', icon: FileCode2, href: Routes.plainScrape.list, end: false },
-  { label: 'Generation', icon: Sparkles, href: Routes.generationRuns.list, end: false },
   { label: 'Browser Agent', icon: Bot, href: Routes.browserAgent.list, end: false },
+  { label: 'Generation', icon: Sparkles, href: Routes.generationRuns.list, end: false },
+];
+
+const monitoringNavItems = [
   { label: 'Crawl Runs', icon: Play, href: Routes.crawlRuns.list, end: false },
   { label: 'Jobs', icon: Wrench, href: Routes.jobs.list, end: false },
   { label: 'Diagnostics', icon: Activity, href: Routes.diagnostics.list, end: false },
-  { label: 'Notifications', icon: Bell, href: Routes.notifications.list, end: false },
-  { label: 'Integrations', icon: Plug, href: Routes.integrations.list, end: false },
 ];
 
 const accountNavItems = [
+  { label: 'Integrations', icon: Plug, href: Routes.integrations.list, end: false },
+  { label: 'Notifications', icon: Bell, href: Routes.notifications.list, end: false },
   { label: 'API Keys', icon: KeyRound, href: Routes.apiKeys.list, end: false },
   { label: 'Webhooks', icon: Webhook, href: Routes.webhooks.list, end: false },
 ];
@@ -171,6 +174,13 @@ export default function SidebarContent({ collapsed, onNavigate }: SidebarContent
       <NavSection
         title="Scrapers"
         items={scraperNavItems}
+        collapsed={collapsed}
+        onNavigate={onNavigate}
+      />
+
+      <NavSection
+        title="Monitoring"
+        items={monitoringNavItems}
         collapsed={collapsed}
         onNavigate={onNavigate}
       />
