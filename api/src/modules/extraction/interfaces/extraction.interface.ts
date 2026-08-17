@@ -42,14 +42,14 @@ export interface BatchExtractionItem {
 
 export interface ExtractionOutcome {
   structured_status: ExtractionFormatStatus | null;
-  structured_data: Prisma.InputJsonValue | typeof Prisma.JsonNull;
-  structured_raw_ai_output: Prisma.InputJsonValue | typeof Prisma.JsonNull;
-  structured_validation_errors: Prisma.InputJsonValue | typeof Prisma.JsonNull;
+  structured_data: Prisma.InputJsonValue | typeof Prisma.DbNull;
+  structured_raw_ai_output: Prisma.InputJsonValue | typeof Prisma.DbNull;
+  structured_validation_errors: Prisma.InputJsonValue | typeof Prisma.DbNull;
   structured_attempts: number;
   markdown_status: ExtractionFormatStatus | null;
   markdown: string | null;
-  markdown_validation_errors: Prisma.InputJsonValue | typeof Prisma.JsonNull;
-  ai_usage: Prisma.InputJsonValue | typeof Prisma.JsonNull;
+  markdown_validation_errors: Prisma.InputJsonValue | typeof Prisma.DbNull;
+  ai_usage: Prisma.InputJsonValue | typeof Prisma.DbNull;
 }
 
 export const MAX_STRUCTURED_ATTEMPTS = 3;

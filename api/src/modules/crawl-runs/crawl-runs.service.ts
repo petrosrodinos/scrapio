@@ -24,6 +24,7 @@ import { NetworkCaptureStorageService } from '@/integrations/api-capture/service
 import { JobStatus, Prisma, RunStatus, WorkflowType } from 'generated/prisma';
 import { CrawlRunQueryType } from './dto/crawl-run-query.schema';
 import { PaginatedResult } from '@/shared/interfaces/paginated-result.interface';
+import { sanitizeExtractionResultForOutputFormats } from '@/modules/extraction/utils/extraction.utils';
 
 interface WorkflowJobData {
   workflowRunId: string;
@@ -356,6 +357,17 @@ export class CrawlRunsService {
       ...run,
       steps,
       openapi_spec_url,
+      extraction_result: sanitizeExtractionResultForOutputFormats(
+        run.extraction_result,
+        run.output_formats,
+      ),
+      pages: run.pages.map((page) => ({
+        ...page,
+        extraction_result: sanitizeExtractionResultForOutputFormats(
+          page.extraction_result,
+          run.output_formats,
+        ),
+      })),
     };
     delete result.openapi_spec_document;
 

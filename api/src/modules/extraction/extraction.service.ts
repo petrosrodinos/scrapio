@@ -672,11 +672,15 @@ export class ExtractionService {
     return error;
   }
 
+  // Uses a real SQL NULL (Prisma.DbNull) rather than a stored JSON "null" literal
+  // (Prisma.JsonNull) — the latter still satisfies `column IS NOT NULL`, which made
+  // unrequested formats (e.g. structured_data when only MARKDOWN was requested) look
+  // populated to anything checking column presence instead of the JS value.
   private toJsonInput(
     value: unknown,
-  ): Prisma.InputJsonValue | typeof Prisma.JsonNull {
+  ): Prisma.InputJsonValue | typeof Prisma.DbNull {
     if (value === null || value === undefined) {
-      return Prisma.JsonNull;
+      return Prisma.DbNull;
     }
     return value as Prisma.InputJsonValue;
   }

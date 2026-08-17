@@ -13,6 +13,7 @@ import {
 } from "@/features/crawl-runs/interfaces/crawl-runs.interfaces";
 import type { JobStatus } from "@/features/jobs/interfaces/jobs.interfaces";
 import { CrawlRunOverview } from "./crawl-run-overview";
+import { ExtractionJsonPreview } from "./extraction-json-preview";
 import { ExtractionMarkdownPreview } from "./extraction-markdown-preview";
 import { JobStatusChip } from "./job-status-chip";
 
@@ -51,6 +52,19 @@ export function CrawlRunDetailBody({ run }: CrawlRunDetailBodyProps) {
           <Loader2 className="h-4 w-4 animate-spin text-accent shrink-0" />
           <p className="text-sm text-foreground">Running — live updates every few seconds.</p>
         </div>
+      )}
+
+      {extractionResult?.structured_data ? (
+        <ExtractionJsonPreview data={extractionResult.structured_data} />
+      ) : (
+        pages
+          .filter((page) => page.extraction_result?.structured_data)
+          .map((page) => (
+            <ExtractionJsonPreview
+              key={page.id}
+              data={page.extraction_result!.structured_data}
+            />
+          ))
       )}
 
       {extractionResult?.markdown ? (

@@ -18,6 +18,7 @@ import {
   TERMINAL_RUN_STATUSES,
   WEBHOOK_EVENT_NAME_BY_TYPE,
 } from './constants/webhook-event-catalog.constant';
+import { sanitizeExtractionResultForOutputFormats } from '@/modules/extraction/utils/extraction.utils';
 
 interface WebhookDeliveryJobData {
   webhookEndpointId: string;
@@ -105,6 +106,7 @@ export class WebhooksEventListenerService {
       where: { id: workflowRunId },
       select: {
         collected_data: true,
+        output_formats: true,
         extraction_result: true,
         pages: {
           orderBy: { created_at: 'asc' },
@@ -130,8 +132,20 @@ export class WebhooksEventListenerService {
 
     return {
       collected_data: run.collected_data ?? undefined,
-      extraction_result: run.extraction_result ?? undefined,
-      pages: run.pages.length > 0 ? run.pages : undefined,
+      extraction_result:
+        sanitizeExtractionResultForOutputFormats(run.extraction_result, run.output_formats) ??
+        undefined,
+      pages:
+        run.pages.length > 0
+          ? run.pages.map((page) => ({
+              ...page,
+              extraction_result:
+                sanitizeExtractionResultForOutputFormats(
+                  page.extraction_result,
+                  run.output_formats,
+                ) ?? undefined,
+            }))
+          : undefined,
     };
   }
 }
