@@ -500,6 +500,19 @@ exports.Prisma.JobLogScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
+exports.Prisma.CostEntryScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  category: 'category',
+  provider: 'provider',
+  model: 'model',
+  amount: 'amount',
+  currency: 'currency',
+  workflow_run_id: 'workflow_run_id',
+  metadata: 'metadata',
+  created_at: 'created_at'
+};
+
 exports.Prisma.NotificationScalarFieldEnum = {
   id: 'id',
   type: 'type',
@@ -748,6 +761,11 @@ exports.JobStatus = exports.$Enums.JobStatus = {
   STALLED: 'STALLED'
 };
 
+exports.CostCategory = exports.$Enums.CostCategory = {
+  AI: 'AI',
+  COMPUTER_USE: 'COMPUTER_USE'
+};
+
 exports.NotificationType = exports.$Enums.NotificationType = {
   QUEUE_FAILURE: 'QUEUE_FAILURE',
   BROKEN_SCRAPER: 'BROKEN_SCRAPER',
@@ -813,6 +831,7 @@ exports.Prisma.ModelName = {
   DiagnosticsPackage: 'DiagnosticsPackage',
   DiagnosticsArtifact: 'DiagnosticsArtifact',
   JobLog: 'JobLog',
+  CostEntry: 'CostEntry',
   Notification: 'Notification',
   UserIntegration: 'UserIntegration',
   PlatformConfig: 'PlatformConfig'

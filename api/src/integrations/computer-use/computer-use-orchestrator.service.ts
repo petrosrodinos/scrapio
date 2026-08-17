@@ -1,8 +1,11 @@
 import { Injectable, Logger } from '@nestjs/common';
 import Anthropic from '@anthropic-ai/sdk';
 import { PrismaService } from '@/core/databases/prisma/prisma.service';
-import { GenerationRunStatus, Prisma } from 'generated/prisma';
+import { CostCategory, GenerationRunStatus, Prisma } from 'generated/prisma';
 import { IntegrationCredentialResolverService } from '@/integrations/credentials/services/integration-credential-resolver.service';
+import { CostsService } from '@/modules/costs/costs.service';
+import { AiProviders } from '@/integrations/ai/interfaces/ai.interface';
+import { calculateAiCost } from '@/integrations/ai/utils/ai-cost';
 import { ComputerUseClientService } from './services/computer-use-client.service';
 import { PlaywrightDriverService } from './services/playwright-driver.service';
 import { ScraperConfigVerificationService } from './services/scraper-config-verification.service';
@@ -49,6 +52,7 @@ export class ComputerUseOrchestratorService {
     private readonly screenshotStorage: ScreenshotStorageService,
     private readonly domInspection: DomInspectionService,
     private readonly probeService: ScraperConfigProbeService,
+    private readonly costsService: CostsService,
   ) {}
 
   async run(
@@ -107,6 +111,9 @@ export class ComputerUseOrchestratorService {
     let stepIndex = 0;
     let hasProbedThisRun = false;
     let lastProbeOk = false;
+    let inputTokens = 0;
+    let outputTokens = 0;
+    let modelCalls = 0;
     const shouldResume = options.resume === true && run.steps.length > 0;
 
     try {
@@ -236,12 +243,15 @@ export class ComputerUseOrchestratorService {
           MAX_IMAGE_TURNS_IN_CONTEXT,
         );
         modelCallsThisSession += 1;
-        const { rawText } = await this.computerUseClient.sendStep(
+        const { rawText, usage } = await this.computerUseClient.sendStep(
           requestMessages,
           systemPrompt,
           model,
           computerUseIntegration.apiKey,
         );
+        modelCalls += 1;
+        inputTokens += usage?.input_tokens ?? 0;
+        outputTokens += usage?.output_tokens ?? 0;
         messages.push({ role: 'assistant', content: rawText });
 
         if (await this.isCancelled(generationRunId)) {
@@ -480,6 +490,15 @@ export class ComputerUseOrchestratorService {
       await driver.close();
     }
 
+    if (modelCalls > 0) {
+      this.recordComputerUseCost(
+        run.website_target.user_id,
+        generationRunId,
+        model,
+        { inputTokens, outputTokens, modelCalls },
+      );
+    }
+
     if (wasCancelled || (await this.isCancelled(generationRunId))) {
       this.logger.log(`generation run ${generationRunId}: stopped by cancel`);
       const finishedAt = new Date();
@@ -571,6 +590,42 @@ export class ComputerUseOrchestratorService {
     const reason = `Website access barrier (${accessState}) ${when} at ${url}. Stopping generation immediately to avoid wasted model spend.`;
     this.logger.warn(`generation run ${generationRunId}: ${reason}`);
     return reason;
+  }
+
+  private recordComputerUseCost(
+    userId: string,
+    generationRunId: string,
+    model: string,
+    usage: { inputTokens: number; outputTokens: number; modelCalls: number },
+  ): void {
+    setImmediate(() => {
+      try {
+        const cost = calculateAiCost({
+          provider: AiProviders.anthropic,
+          model,
+          inputTokens: usage.inputTokens,
+          outputTokens: usage.outputTokens,
+        });
+
+        this.costsService.record({
+          userId,
+          category: CostCategory.COMPUTER_USE,
+          amount: cost.totalCost,
+          provider: AiProviders.anthropic,
+          model,
+          metadata: {
+            scraper_generation_run_id: generationRunId,
+            input_tokens: usage.inputTokens,
+            output_tokens: usage.outputTokens,
+            model_calls: usage.modelCalls,
+          },
+        });
+      } catch (error) {
+        this.logger.error(
+          `Failed to compute generation run cost: ${error.message}`,
+        );
+      }
+    });
   }
 
   private async isCancelled(generationRunId: string): Promise<boolean> {

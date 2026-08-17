@@ -73,3 +73,11 @@ export function notificationUserWhere(
   const scopeId = resolveScopeUserId(authUser, queryUserId);
   return scopeId ? { user_id: scopeId } : {};
 }
+
+export function costEntryUserWhere(
+  authUser: AuthUser,
+  queryUserId?: string,
+): Prisma.CostEntryWhereInput {
+  const scopeId = resolveScopeUserId(authUser, queryUserId);
+  return scopeId ? { user_id: scopeId } : {};
+}

@@ -1,7 +1,8 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { embed, generateObject, generateText, NoObjectGeneratedError, streamText } from 'ai';
 import { IntegrationCredentialResolverService } from '@/integrations/credentials/services/integration-credential-resolver.service';
-import { IntegrationType } from 'generated/prisma';
+import { CostsService } from '@/modules/costs/costs.service';
+import { CostCategory, IntegrationType } from 'generated/prisma';
 import {
     AiGenerationError,
     AIGenerateObjectResponse,
@@ -21,6 +22,7 @@ export class AiService {
     constructor(
         private readonly aiConfig: AiConfig,
         private readonly credentialResolver: IntegrationCredentialResolverService,
+        private readonly costsService: CostsService,
     ) { }
 
     private readonly logger = new Logger(AiService.name);
@@ -30,10 +32,16 @@ export class AiService {
         options: Omit<AIGenerateOptions, 'provider' | 'model' | 'apiKey'>,
     ): Promise<AIGenerateTextResponse> {
         const resolved = await this.resolveDefaultAiOptions(userId);
-        return this.generateText({
+        const result = await this.generateText({
             ...options,
             ...resolved,
         });
+
+        if (result.usage) {
+            this.recordAiCost(userId, resolved, result.usage);
+        }
+
+        return result;
     }
 
     async generateTextWithSchemaForUser<T = unknown>(
@@ -41,9 +49,43 @@ export class AiService {
         options: Omit<AIGenerateOptions, 'provider' | 'model' | 'apiKey'>,
     ): Promise<AIGenerateObjectResponse<T>> {
         const resolved = await this.resolveDefaultAiOptions(userId);
-        return this.generateTextWithSchema<T>({
-            ...options,
-            ...resolved,
+
+        try {
+            const result = await this.generateTextWithSchema<T>({
+                ...options,
+                ...resolved,
+            });
+
+            if (result.usage) {
+                this.recordAiCost(userId, resolved, result.usage);
+            }
+
+            return result;
+        } catch (error) {
+            if (error instanceof AiGenerationError && error.usage) {
+                this.recordAiCost(userId, resolved, error.usage);
+            }
+            throw error;
+        }
+    }
+
+    private recordAiCost(
+        userId: string,
+        resolved: { provider: string; model: string },
+        usage: { totalCost: number; inputTokens: number; outputTokens: number },
+    ): void {
+        setImmediate(() => {
+            this.costsService.record({
+                userId,
+                category: CostCategory.AI,
+                amount: usage.totalCost,
+                provider: resolved.provider,
+                model: resolved.model,
+                metadata: {
+                    input_tokens: usage.inputTokens,
+                    output_tokens: usage.outputTokens,
+                },
+            });
         });
     }
 

@@ -88,6 +88,11 @@ export const ApiRoutes = {
         list: "/diagnostics",
         detail: (id: string) => `/diagnostics/${id}`,
     },
+    costs: {
+        prefix: "/costs",
+        summary: "/costs/summary",
+        list: "/costs",
+    },
     platformConfig: {
         prefix: "/platform-config",
         root: "/platform-config",

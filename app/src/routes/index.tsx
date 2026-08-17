@@ -30,6 +30,7 @@ import AdminDiagnosticsListPage from "@/pages/admin/diagnostics";
 import AdminDiagnosticsDetailPage from "@/pages/admin/diagnostics/detail";
 import UserDiagnosticsListPage from "@/pages/diagnostics";
 import UserDiagnosticsDetailPage from "@/pages/diagnostics/detail";
+import UserCostsListPage from "@/pages/costs";
 import CrawlerConfigPage from "@/pages/admin/crawler-config";
 import AdminNotificationsListPage from "@/pages/admin/notifications";
 import UserNotificationsListPage from "@/pages/notifications";
@@ -80,6 +81,7 @@ export default function AppRoutes() {
         <Route path={`${Routes.jobs.list}/:id`} element={<UserJobDetailPage />} />
         <Route path={Routes.diagnostics.list} element={<UserDiagnosticsListPage />} />
         <Route path={`${Routes.diagnostics.list}/:id`} element={<UserDiagnosticsDetailPage />} />
+        <Route path={Routes.costs.list} element={<UserCostsListPage />} />
         <Route path={Routes.notifications.list} element={<UserNotificationsListPage />} />
         <Route path={Routes.integrations.list} element={<IntegrationsPage />} />
         <Route path={Routes.apiKeys.list} element={<ApiKeysPage />} />

@@ -51,6 +51,9 @@ export const Routes = {
         list: "/diagnostics",
         detail: (id: string) => `/diagnostics/${id}`,
     },
+    costs: {
+        list: "/costs",
+    },
     notifications: {
         list: "/notifications",
     },

@@ -1,11 +1,12 @@
 import { Module } from '@nestjs/common';
 import { CredentialsModule } from '@/integrations/credentials/credentials.module';
+import { CostsModule } from '@/modules/costs/costs.module';
 import { AiService } from './services/ai.service';
 import { AiBatchOpenAiService } from './services/ai-batch-openai.service';
 import { AiConfig } from './utils/ai.config';
 
 @Module({
-    imports: [CredentialsModule],
+    imports: [CredentialsModule, CostsModule],
     providers: [AiService, AiBatchOpenAiService, AiConfig],
     exports: [AiService, AiBatchOpenAiService],
 })

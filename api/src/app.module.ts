@@ -15,6 +15,7 @@ import { ScraperGenerationModule } from './modules/scraper-generation/scraper-ge
 import { CrawlRunsModule } from './modules/crawl-runs/crawl-runs.module';
 import { JobsModule } from './modules/jobs/jobs.module';
 import { DiagnosticsModule } from './modules/diagnostics/diagnostics.module';
+import { CostsModule } from './modules/costs/costs.module';
 import { PlatformConfigModule } from './modules/platform-config/platform-config.module';
 import { NotificationsModule } from './modules/notifications/notifications.module';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
@@ -50,6 +51,7 @@ import { BrowserAgentModule } from './modules/browser-agent/browser-agent.module
     BrowserAgentModule,
     JobsModule,
     DiagnosticsModule,
+    CostsModule,
     PlatformConfigModule,
     IntegrationsModule,
     UserIntegrationsModule,

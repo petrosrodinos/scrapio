@@ -1,8 +1,11 @@
 import { Injectable, Logger } from '@nestjs/common';
 import Anthropic from '@anthropic-ai/sdk';
 import { PrismaService } from '@/core/databases/prisma/prisma.service';
-import { OutputFormat, RunStatus } from 'generated/prisma';
+import { CostCategory, OutputFormat, RunStatus } from 'generated/prisma';
 import { IntegrationCredentialResolverService } from '@/integrations/credentials/services/integration-credential-resolver.service';
+import { CostsService } from '@/modules/costs/costs.service';
+import { AiProviders } from '@/integrations/ai/interfaces/ai.interface';
+import { calculateAiCost } from '@/integrations/ai/utils/ai-cost';
 import { ComputerUseClientService } from './services/computer-use-client.service';
 import { PlaywrightDriverService } from './services/playwright-driver.service';
 import { ScreenshotStorageService } from './services/screenshot-storage.service';
@@ -32,6 +35,7 @@ export class BrowserAgentOrchestratorService {
     private readonly credentialResolver: IntegrationCredentialResolverService,
     private readonly computerUseClient: ComputerUseClientService,
     private readonly screenshotStorage: ScreenshotStorageService,
+    private readonly costsService: CostsService,
   ) {}
 
   async run(workflowRunId: string): Promise<BrowserAgentRunOutcome> {
@@ -241,6 +245,14 @@ export class BrowserAgentOrchestratorService {
       await driver.close();
     }
 
+    if (modelCalls > 0) {
+      this.recordComputerUseCost(run.user_id, workflowRunId, model, {
+        inputTokens,
+        outputTokens,
+        modelCalls,
+      });
+    }
+
     return {
       findings: finalFindings,
       visitedUrls: Array.from(visitedUrls),
@@ -254,6 +266,42 @@ export class BrowserAgentOrchestratorService {
       cancelled: wasCancelled,
       capturedRequests,
     };
+  }
+
+  private recordComputerUseCost(
+    userId: string,
+    workflowRunId: string,
+    model: string,
+    usage: { inputTokens: number; outputTokens: number; modelCalls: number },
+  ): void {
+    setImmediate(() => {
+      try {
+        const cost = calculateAiCost({
+          provider: AiProviders.anthropic,
+          model,
+          inputTokens: usage.inputTokens,
+          outputTokens: usage.outputTokens,
+        });
+
+        this.costsService.record({
+          userId,
+          category: CostCategory.COMPUTER_USE,
+          amount: cost.totalCost,
+          provider: AiProviders.anthropic,
+          model,
+          workflowRunId,
+          metadata: {
+            input_tokens: usage.inputTokens,
+            output_tokens: usage.outputTokens,
+            model_calls: usage.modelCalls,
+          },
+        });
+      } catch (error) {
+        this.logger.error(
+          `Failed to compute browser agent cost: ${error.message}`,
+        );
+      }
+    });
   }
 
   private async isCancelled(workflowRunId: string): Promise<boolean> {

@@ -19,6 +19,12 @@ export const AiPricing = {
         [AiModels.grok.grokBeta]: { input: 0.000015, output: 0.00003 },
     },
 
+    [AiProviders.anthropic]: {
+        // Approximate published per-token rates — revisit if Anthropic pricing changes.
+        [AiModels.anthropic.claudeOpus48]: { input: 0.000015, output: 0.000075 },
+        [AiModels.anthropic.claudeSonnet46]: { input: 0.000003, output: 0.000015 },
+    },
+
     [AiProviders.gemini]: {
         [AiModels.gemini.gemini15Pro]: { input: 0.000009, output: 0.000027 },
         [AiModels.gemini.gemini15Flash]: { input: 0.000003, output: 0.000006 },

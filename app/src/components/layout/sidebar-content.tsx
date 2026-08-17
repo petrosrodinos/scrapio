@@ -3,6 +3,7 @@ import {
   Activity,
   Bell,
   Bot,
+  DollarSign,
   FileCode2,
   Globe,
   KeyRound,
@@ -44,6 +45,7 @@ const monitoringNavItems = [
   { label: 'Crawl Runs', icon: Play, href: Routes.crawlRuns.list, end: false },
   { label: 'Jobs', icon: Wrench, href: Routes.jobs.list, end: false },
   { label: 'Diagnostics', icon: Activity, href: Routes.diagnostics.list, end: false },
+  { label: 'Costs', icon: DollarSign, href: Routes.costs.list, end: false },
 ];
 
 const accountNavItems = [

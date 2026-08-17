@@ -8,6 +8,7 @@ import { ConfirmationDialog } from "@/components/ui/confirmation-dialog";
 import { ComputerUseSessionReplay } from "@/components/ui/computer-use-session-replay";
 import { CrawlRunStatusChip } from "./components/crawl-run-status-chip";
 import { CrawlRunOverview } from "./components/crawl-run-overview";
+import { ExtractionMarkdownPreview } from "./components/extraction-markdown-preview";
 import { WorkflowTypeChip } from "./components/workflow-type-chip";
 import {
   useCancelCrawlRun,
@@ -124,7 +125,87 @@ export default function CrawlRunDetailPage() {
         </div>
       )}
 
+      {extractionResult?.markdown ? (
+        <ExtractionMarkdownPreview markdown={extractionResult.markdown} />
+      ) : null}
+
       <CrawlRunOverview run={run} />
+
+      {isBrowserAgent && run.collected_data && (
+        <div className="rounded-xl border border-border bg-surface px-6">
+          <Accordion defaultExpandedKeys={[]} hideSeparator>
+            <Accordion.Item id="collected-data">
+              <Accordion.Heading>
+                <Accordion.Trigger className="text-sm font-medium text-foreground">
+                  Collected data
+                  <Accordion.Indicator />
+                </Accordion.Trigger>
+              </Accordion.Heading>
+              <Accordion.Panel>
+                <Accordion.Body>
+                  <pre className="rounded-lg border border-border bg-background p-3 text-xs overflow-auto max-h-96 mb-4">
+                    {JSON.stringify(run.collected_data, null, 2)}
+                  </pre>
+                </Accordion.Body>
+              </Accordion.Panel>
+            </Accordion.Item>
+          </Accordion>
+        </div>
+      )}
+
+      {extractionResult && (
+        <div className="rounded-xl border border-border bg-surface px-6">
+          <Accordion defaultExpandedKeys={[]} hideSeparator>
+            <Accordion.Item id="extraction-result">
+              <Accordion.Heading>
+                <Accordion.Trigger className="text-sm font-medium text-foreground">
+                  Extraction result
+                  <Accordion.Indicator />
+                </Accordion.Trigger>
+              </Accordion.Heading>
+              <Accordion.Panel>
+                <Accordion.Body>
+                  <div className="flex flex-col gap-3 pb-4">
+                    <span className="text-xs text-muted">
+                      Structured: {extractionResult.structured_status ?? "—"} · Markdown:{" "}
+                      {extractionResult.markdown_status ?? "—"}
+                    </span>
+                    {extractionResult.structured_data && (
+                      <pre className="rounded-lg border border-border bg-background p-3 text-xs overflow-auto max-h-96">
+                        {JSON.stringify(extractionResult.structured_data, null, 2)}
+                      </pre>
+                    )}
+                    {Boolean(extractionResult.structured_validation_errors) && (
+                      <div className="flex flex-col gap-1">
+                        <span className="text-xs font-medium text-danger">Validation errors</span>
+                        <pre className="rounded-lg border border-danger/30 bg-background p-3 text-xs overflow-auto max-h-60 text-danger">
+                          {JSON.stringify(extractionResult.structured_validation_errors, null, 2)}
+                        </pre>
+                      </div>
+                    )}
+                    {Boolean(extractionResult.structured_raw_ai_output) && (
+                      <div className="flex flex-col gap-1">
+                        <span className="text-xs font-medium text-muted">Raw AI output</span>
+                        <pre className="rounded-lg border border-border bg-background p-3 text-xs overflow-auto max-h-60">
+                          {JSON.stringify(extractionResult.structured_raw_ai_output, null, 2)}
+                        </pre>
+                      </div>
+                    )}
+                    {extractionResult.ai_usage && (
+                      <div className="flex flex-col gap-1">
+                        <span className="text-xs font-medium text-muted">AI usage</span>
+                        <pre className="rounded-lg border border-border bg-background p-3 text-xs overflow-auto max-h-40">
+                          {JSON.stringify(extractionResult.ai_usage, null, 2)}
+                        </pre>
+                      </div>
+                    )}
+                  </div>
+                </Accordion.Body>
+              </Accordion.Panel>
+            </Accordion.Item>
+          </Accordion>
+        </div>
+      )}
 
       {(isScraper || traces.length > 0) && (
         <div className="rounded-xl border border-border bg-surface px-6">
@@ -370,99 +451,6 @@ export default function CrawlRunDetailPage() {
         </div>
       )}
 
-      {isBrowserAgent && (
-        <ComputerUseSessionReplay
-          steps={steps}
-          isActive={isActive}
-          emptyActiveMessage="Waiting for the first agent step..."
-          emptyIdleMessage="No agent steps were recorded for this run."
-        />
-      )}
-
-      {isBrowserAgent && run.collected_data && (
-        <div className="rounded-xl border border-border bg-surface px-6">
-          <Accordion defaultExpandedKeys={[]} hideSeparator>
-            <Accordion.Item id="collected-data">
-              <Accordion.Heading>
-                <Accordion.Trigger className="text-sm font-medium text-foreground">
-                  Collected data
-                  <Accordion.Indicator />
-                </Accordion.Trigger>
-              </Accordion.Heading>
-              <Accordion.Panel>
-                <Accordion.Body>
-                  <pre className="rounded-lg border border-border bg-background p-3 text-xs overflow-auto max-h-96 mb-4">
-                    {JSON.stringify(run.collected_data, null, 2)}
-                  </pre>
-                </Accordion.Body>
-              </Accordion.Panel>
-            </Accordion.Item>
-          </Accordion>
-        </div>
-      )}
-
-      {extractionResult && (
-        <div className="rounded-xl border border-border bg-surface px-6">
-          <Accordion defaultExpandedKeys={[]} hideSeparator>
-            <Accordion.Item id="extraction-result">
-              <Accordion.Heading>
-                <Accordion.Trigger className="text-sm font-medium text-foreground">
-                  Extraction result
-                  <Accordion.Indicator />
-                </Accordion.Trigger>
-              </Accordion.Heading>
-              <Accordion.Panel>
-                <Accordion.Body>
-                  <div className="flex flex-col gap-3 pb-4">
-                    <span className="text-xs text-muted">
-                      Structured: {extractionResult.structured_status ?? "—"} · Markdown:{" "}
-                      {extractionResult.markdown_status ?? "—"}
-                    </span>
-                    {extractionResult.structured_data && (
-                      <pre className="rounded-lg border border-border bg-background p-3 text-xs overflow-auto max-h-96">
-                        {JSON.stringify(extractionResult.structured_data, null, 2)}
-                      </pre>
-                    )}
-                    {Boolean(extractionResult.structured_validation_errors) && (
-                      <div className="flex flex-col gap-1">
-                        <span className="text-xs font-medium text-danger">Validation errors</span>
-                        <pre className="rounded-lg border border-danger/30 bg-background p-3 text-xs overflow-auto max-h-60 text-danger">
-                          {JSON.stringify(extractionResult.structured_validation_errors, null, 2)}
-                        </pre>
-                      </div>
-                    )}
-                    {Boolean(extractionResult.structured_raw_ai_output) && (
-                      <div className="flex flex-col gap-1">
-                        <span className="text-xs font-medium text-muted">Raw AI output</span>
-                        <pre className="rounded-lg border border-border bg-background p-3 text-xs overflow-auto max-h-60">
-                          {JSON.stringify(extractionResult.structured_raw_ai_output, null, 2)}
-                        </pre>
-                      </div>
-                    )}
-                    {extractionResult.markdown && (
-                      <div className="flex flex-col gap-1">
-                        <span className="text-xs font-medium text-muted">Markdown</span>
-                        <pre className="rounded-lg border border-border bg-background p-3 text-xs overflow-auto max-h-96 whitespace-pre-wrap">
-                          {extractionResult.markdown}
-                        </pre>
-                      </div>
-                    )}
-                    {extractionResult.ai_usage && (
-                      <div className="flex flex-col gap-1">
-                        <span className="text-xs font-medium text-muted">AI usage</span>
-                        <pre className="rounded-lg border border-border bg-background p-3 text-xs overflow-auto max-h-40">
-                          {JSON.stringify(extractionResult.ai_usage, null, 2)}
-                        </pre>
-                      </div>
-                    )}
-                  </div>
-                </Accordion.Body>
-              </Accordion.Panel>
-            </Accordion.Item>
-          </Accordion>
-        </div>
-      )}
-
       <div className="rounded-xl border border-border bg-surface px-6">
         <Accordion defaultExpandedKeys={[]} hideSeparator>
           <Accordion.Item id="linked-jobs">
@@ -508,6 +496,34 @@ export default function CrawlRunDetailPage() {
           </Accordion.Item>
         </Accordion>
       </div>
+
+      {isBrowserAgent && (
+        <div className="rounded-xl border border-border bg-surface px-6">
+          <Accordion defaultExpandedKeys={[]} hideSeparator>
+            <Accordion.Item id="session-replay">
+              <Accordion.Heading>
+                <Accordion.Trigger className="text-sm font-medium text-foreground">
+                  Session replay ({steps.length})
+                  <Accordion.Indicator />
+                </Accordion.Trigger>
+              </Accordion.Heading>
+              <Accordion.Panel>
+                <Accordion.Body>
+                  <div className="pb-4">
+                    <ComputerUseSessionReplay
+                      embedded
+                      steps={steps}
+                      isActive={isActive}
+                      emptyActiveMessage="Waiting for the first agent step..."
+                      emptyIdleMessage="No agent steps were recorded for this run."
+                    />
+                  </div>
+                </Accordion.Body>
+              </Accordion.Panel>
+            </Accordion.Item>
+          </Accordion>
+        </div>
+      )}
 
       <ConfirmationDialog
         state={stopConfirm}

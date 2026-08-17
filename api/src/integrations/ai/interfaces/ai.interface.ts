@@ -98,6 +98,7 @@ export const AiProviders = {
     deepseek: 'deepseek',
     grok: 'grok',
     gemini: 'gemini',
+    anthropic: 'anthropic',
 } as const;
 
 export const AiModels = {
@@ -107,6 +108,10 @@ export const AiModels = {
         gpt4Turbo: 'gpt-4-turbo',
         gpt4: 'gpt-4',
         gpt35Turbo: 'gpt-3.5-turbo',
+    },
+    anthropic: {
+        claudeOpus48: 'claude-opus-4-8',
+        claudeSonnet46: 'claude-sonnet-4-6',
     },
     deepseek: {
         chat: 'deepseek-chat',

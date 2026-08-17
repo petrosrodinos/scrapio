@@ -134,6 +134,11 @@ export type DiagnosticsArtifact = $Result.DefaultSelection<Prisma.$DiagnosticsAr
  */
 export type JobLog = $Result.DefaultSelection<Prisma.$JobLogPayload>
 /**
+ * Model CostEntry
+ * 
+ */
+export type CostEntry = $Result.DefaultSelection<Prisma.$CostEntryPayload>
+/**
  * Model Notification
  * 
  */
@@ -446,6 +451,14 @@ export const ComputerUseModel: {
 
 export type ComputerUseModel = (typeof ComputerUseModel)[keyof typeof ComputerUseModel]
 
+
+export const CostCategory: {
+  AI: 'AI',
+  COMPUTER_USE: 'COMPUTER_USE'
+};
+
+export type CostCategory = (typeof CostCategory)[keyof typeof CostCategory]
+
 }
 
 export type AuthRole = $Enums.AuthRole
@@ -551,6 +564,10 @@ export const WebhookDeliveryStatus: typeof $Enums.WebhookDeliveryStatus
 export type ComputerUseModel = $Enums.ComputerUseModel
 
 export const ComputerUseModel: typeof $Enums.ComputerUseModel
+
+export type CostCategory = $Enums.CostCategory
+
+export const CostCategory: typeof $Enums.CostCategory
 
 /**
  * ##  Prisma Client ʲˢ
@@ -908,6 +925,16 @@ export class PrismaClient<
     * ```
     */
   get jobLog(): Prisma.JobLogDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.costEntry`: Exposes CRUD operations for the **CostEntry** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CostEntries
+    * const costEntries = await prisma.costEntry.findMany()
+    * ```
+    */
+  get costEntry(): Prisma.CostEntryDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.notification`: Exposes CRUD operations for the **Notification** model.
@@ -1396,6 +1423,7 @@ export namespace Prisma {
     DiagnosticsPackage: 'DiagnosticsPackage',
     DiagnosticsArtifact: 'DiagnosticsArtifact',
     JobLog: 'JobLog',
+    CostEntry: 'CostEntry',
     Notification: 'Notification',
     UserIntegration: 'UserIntegration',
     PlatformConfig: 'PlatformConfig'
@@ -1414,7 +1442,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "passwordResetToken" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "document" | "websiteTarget" | "blockRule" | "workflowConfig" | "scraperGenerationRun" | "computerUseStep" | "scraperVersion" | "scraperExecutionTrace" | "workflowRun" | "extractedItem" | "extractionSchema" | "extractionSchemaVersion" | "plainScrapedPage" | "extractionResult" | "aiBatchJob" | "aiBatchRequestItem" | "diagnosticsPackage" | "diagnosticsArtifact" | "jobLog" | "notification" | "userIntegration" | "platformConfig"
+      modelProps: "user" | "passwordResetToken" | "apiKey" | "webhookEndpoint" | "webhookDelivery" | "document" | "websiteTarget" | "blockRule" | "workflowConfig" | "scraperGenerationRun" | "computerUseStep" | "scraperVersion" | "scraperExecutionTrace" | "workflowRun" | "extractedItem" | "extractionSchema" | "extractionSchemaVersion" | "plainScrapedPage" | "extractionResult" | "aiBatchJob" | "aiBatchRequestItem" | "diagnosticsPackage" | "diagnosticsArtifact" | "jobLog" | "costEntry" | "notification" | "userIntegration" | "platformConfig"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3194,6 +3222,80 @@ export namespace Prisma {
           }
         }
       }
+      CostEntry: {
+        payload: Prisma.$CostEntryPayload<ExtArgs>
+        fields: Prisma.CostEntryFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CostEntryFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CostEntryPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CostEntryFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CostEntryPayload>
+          }
+          findFirst: {
+            args: Prisma.CostEntryFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CostEntryPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CostEntryFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CostEntryPayload>
+          }
+          findMany: {
+            args: Prisma.CostEntryFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CostEntryPayload>[]
+          }
+          create: {
+            args: Prisma.CostEntryCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CostEntryPayload>
+          }
+          createMany: {
+            args: Prisma.CostEntryCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CostEntryCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CostEntryPayload>[]
+          }
+          delete: {
+            args: Prisma.CostEntryDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CostEntryPayload>
+          }
+          update: {
+            args: Prisma.CostEntryUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CostEntryPayload>
+          }
+          deleteMany: {
+            args: Prisma.CostEntryDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CostEntryUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CostEntryUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CostEntryPayload>[]
+          }
+          upsert: {
+            args: Prisma.CostEntryUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CostEntryPayload>
+          }
+          aggregate: {
+            args: Prisma.CostEntryAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCostEntry>
+          }
+          groupBy: {
+            args: Prisma.CostEntryGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CostEntryGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CostEntryCountArgs<ExtArgs>
+            result: $Utils.Optional<CostEntryCountAggregateOutputType> | number
+          }
+        }
+      }
       Notification: {
         payload: Prisma.$NotificationPayload<ExtArgs>
         fields: Prisma.NotificationFieldRefs
@@ -3548,6 +3650,7 @@ export namespace Prisma {
     diagnosticsPackage?: DiagnosticsPackageOmit
     diagnosticsArtifact?: DiagnosticsArtifactOmit
     jobLog?: JobLogOmit
+    costEntry?: CostEntryOmit
     notification?: NotificationOmit
     userIntegration?: UserIntegrationOmit
     platformConfig?: PlatformConfigOmit
@@ -3642,6 +3745,7 @@ export namespace Prisma {
     job_logs: number
     diagnostics_packages: number
     notifications: number
+    cost_entries: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3656,6 +3760,7 @@ export namespace Prisma {
     job_logs?: boolean | UserCountOutputTypeCountJob_logsArgs
     diagnostics_packages?: boolean | UserCountOutputTypeCountDiagnostics_packagesArgs
     notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
+    cost_entries?: boolean | UserCountOutputTypeCountCost_entriesArgs
   }
 
   // Custom InputTypes
@@ -3744,6 +3849,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountNotificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: NotificationWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountCost_entriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CostEntryWhereInput
   }
 
 
@@ -4052,6 +4164,7 @@ export namespace Prisma {
     extracted_items: number
     execution_traces: number
     pages: number
+    cost_entries: number
   }
 
   export type WorkflowRunCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4061,6 +4174,7 @@ export namespace Prisma {
     extracted_items?: boolean | WorkflowRunCountOutputTypeCountExtracted_itemsArgs
     execution_traces?: boolean | WorkflowRunCountOutputTypeCountExecution_tracesArgs
     pages?: boolean | WorkflowRunCountOutputTypeCountPagesArgs
+    cost_entries?: boolean | WorkflowRunCountOutputTypeCountCost_entriesArgs
   }
 
   // Custom InputTypes
@@ -4114,6 +4228,13 @@ export namespace Prisma {
    */
   export type WorkflowRunCountOutputTypeCountPagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PlainScrapedPageWhereInput
+  }
+
+  /**
+   * WorkflowRunCountOutputType without action
+   */
+  export type WorkflowRunCountOutputTypeCountCost_entriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CostEntryWhereInput
   }
 
 
@@ -4502,6 +4623,7 @@ export namespace Prisma {
     job_logs?: boolean | User$job_logsArgs<ExtArgs>
     diagnostics_packages?: boolean | User$diagnostics_packagesArgs<ExtArgs>
     notifications?: boolean | User$notificationsArgs<ExtArgs>
+    cost_entries?: boolean | User$cost_entriesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -4551,6 +4673,7 @@ export namespace Prisma {
     job_logs?: boolean | User$job_logsArgs<ExtArgs>
     diagnostics_packages?: boolean | User$diagnostics_packagesArgs<ExtArgs>
     notifications?: boolean | User$notificationsArgs<ExtArgs>
+    cost_entries?: boolean | User$cost_entriesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -4570,6 +4693,7 @@ export namespace Prisma {
       job_logs: Prisma.$JobLogPayload<ExtArgs>[]
       diagnostics_packages: Prisma.$DiagnosticsPackagePayload<ExtArgs>[]
       notifications: Prisma.$NotificationPayload<ExtArgs>[]
+      cost_entries: Prisma.$CostEntryPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -4985,6 +5109,7 @@ export namespace Prisma {
     job_logs<T extends User$job_logsArgs<ExtArgs> = {}>(args?: Subset<T, User$job_logsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JobLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     diagnostics_packages<T extends User$diagnostics_packagesArgs<ExtArgs> = {}>(args?: Subset<T, User$diagnostics_packagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DiagnosticsPackagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     notifications<T extends User$notificationsArgs<ExtArgs> = {}>(args?: Subset<T, User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    cost_entries<T extends User$cost_entriesArgs<ExtArgs> = {}>(args?: Subset<T, User$cost_entriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CostEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5671,6 +5796,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: NotificationScalarFieldEnum | NotificationScalarFieldEnum[]
+  }
+
+  /**
+   * User.cost_entries
+   */
+  export type User$cost_entriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CostEntry
+     */
+    select?: CostEntrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CostEntry
+     */
+    omit?: CostEntryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CostEntryInclude<ExtArgs> | null
+    where?: CostEntryWhereInput
+    orderBy?: CostEntryOrderByWithRelationInput | CostEntryOrderByWithRelationInput[]
+    cursor?: CostEntryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CostEntryScalarFieldEnum | CostEntryScalarFieldEnum[]
   }
 
   /**
@@ -21027,6 +21176,7 @@ export namespace Prisma {
     pages?: boolean | WorkflowRun$pagesArgs<ExtArgs>
     extraction_result?: boolean | WorkflowRun$extraction_resultArgs<ExtArgs>
     ai_batch_job?: boolean | WorkflowRun$ai_batch_jobArgs<ExtArgs>
+    cost_entries?: boolean | WorkflowRun$cost_entriesArgs<ExtArgs>
     _count?: boolean | WorkflowRunCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["workflowRun"]>
 
@@ -21161,6 +21311,7 @@ export namespace Prisma {
     pages?: boolean | WorkflowRun$pagesArgs<ExtArgs>
     extraction_result?: boolean | WorkflowRun$extraction_resultArgs<ExtArgs>
     ai_batch_job?: boolean | WorkflowRun$ai_batch_jobArgs<ExtArgs>
+    cost_entries?: boolean | WorkflowRun$cost_entriesArgs<ExtArgs>
     _count?: boolean | WorkflowRunCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type WorkflowRunIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -21198,6 +21349,7 @@ export namespace Prisma {
       pages: Prisma.$PlainScrapedPagePayload<ExtArgs>[]
       extraction_result: Prisma.$ExtractionResultPayload<ExtArgs> | null
       ai_batch_job: Prisma.$AiBatchJobPayload<ExtArgs> | null
+      cost_entries: Prisma.$CostEntryPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -21640,6 +21792,7 @@ export namespace Prisma {
     pages<T extends WorkflowRun$pagesArgs<ExtArgs> = {}>(args?: Subset<T, WorkflowRun$pagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlainScrapedPagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     extraction_result<T extends WorkflowRun$extraction_resultArgs<ExtArgs> = {}>(args?: Subset<T, WorkflowRun$extraction_resultArgs<ExtArgs>>): Prisma__ExtractionResultClient<$Result.GetResult<Prisma.$ExtractionResultPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     ai_batch_job<T extends WorkflowRun$ai_batch_jobArgs<ExtArgs> = {}>(args?: Subset<T, WorkflowRun$ai_batch_jobArgs<ExtArgs>>): Prisma__AiBatchJobClient<$Result.GetResult<Prisma.$AiBatchJobPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    cost_entries<T extends WorkflowRun$cost_entriesArgs<ExtArgs> = {}>(args?: Subset<T, WorkflowRun$cost_entriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CostEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -22370,6 +22523,30 @@ export namespace Prisma {
      */
     include?: AiBatchJobInclude<ExtArgs> | null
     where?: AiBatchJobWhereInput
+  }
+
+  /**
+   * WorkflowRun.cost_entries
+   */
+  export type WorkflowRun$cost_entriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CostEntry
+     */
+    select?: CostEntrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CostEntry
+     */
+    omit?: CostEntryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CostEntryInclude<ExtArgs> | null
+    where?: CostEntryWhereInput
+    orderBy?: CostEntryOrderByWithRelationInput | CostEntryOrderByWithRelationInput[]
+    cursor?: CostEntryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CostEntryScalarFieldEnum | CostEntryScalarFieldEnum[]
   }
 
   /**
@@ -34641,6 +34818,1186 @@ export namespace Prisma {
 
 
   /**
+   * Model CostEntry
+   */
+
+  export type AggregateCostEntry = {
+    _count: CostEntryCountAggregateOutputType | null
+    _avg: CostEntryAvgAggregateOutputType | null
+    _sum: CostEntrySumAggregateOutputType | null
+    _min: CostEntryMinAggregateOutputType | null
+    _max: CostEntryMaxAggregateOutputType | null
+  }
+
+  export type CostEntryAvgAggregateOutputType = {
+    amount: Decimal | null
+  }
+
+  export type CostEntrySumAggregateOutputType = {
+    amount: Decimal | null
+  }
+
+  export type CostEntryMinAggregateOutputType = {
+    id: string | null
+    user_id: string | null
+    category: $Enums.CostCategory | null
+    provider: string | null
+    model: string | null
+    amount: Decimal | null
+    currency: string | null
+    workflow_run_id: string | null
+    created_at: Date | null
+  }
+
+  export type CostEntryMaxAggregateOutputType = {
+    id: string | null
+    user_id: string | null
+    category: $Enums.CostCategory | null
+    provider: string | null
+    model: string | null
+    amount: Decimal | null
+    currency: string | null
+    workflow_run_id: string | null
+    created_at: Date | null
+  }
+
+  export type CostEntryCountAggregateOutputType = {
+    id: number
+    user_id: number
+    category: number
+    provider: number
+    model: number
+    amount: number
+    currency: number
+    workflow_run_id: number
+    metadata: number
+    created_at: number
+    _all: number
+  }
+
+
+  export type CostEntryAvgAggregateInputType = {
+    amount?: true
+  }
+
+  export type CostEntrySumAggregateInputType = {
+    amount?: true
+  }
+
+  export type CostEntryMinAggregateInputType = {
+    id?: true
+    user_id?: true
+    category?: true
+    provider?: true
+    model?: true
+    amount?: true
+    currency?: true
+    workflow_run_id?: true
+    created_at?: true
+  }
+
+  export type CostEntryMaxAggregateInputType = {
+    id?: true
+    user_id?: true
+    category?: true
+    provider?: true
+    model?: true
+    amount?: true
+    currency?: true
+    workflow_run_id?: true
+    created_at?: true
+  }
+
+  export type CostEntryCountAggregateInputType = {
+    id?: true
+    user_id?: true
+    category?: true
+    provider?: true
+    model?: true
+    amount?: true
+    currency?: true
+    workflow_run_id?: true
+    metadata?: true
+    created_at?: true
+    _all?: true
+  }
+
+  export type CostEntryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CostEntry to aggregate.
+     */
+    where?: CostEntryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CostEntries to fetch.
+     */
+    orderBy?: CostEntryOrderByWithRelationInput | CostEntryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CostEntryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CostEntries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CostEntries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CostEntries
+    **/
+    _count?: true | CostEntryCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CostEntryAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CostEntrySumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CostEntryMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CostEntryMaxAggregateInputType
+  }
+
+  export type GetCostEntryAggregateType<T extends CostEntryAggregateArgs> = {
+        [P in keyof T & keyof AggregateCostEntry]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCostEntry[P]>
+      : GetScalarType<T[P], AggregateCostEntry[P]>
+  }
+
+
+
+
+  export type CostEntryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CostEntryWhereInput
+    orderBy?: CostEntryOrderByWithAggregationInput | CostEntryOrderByWithAggregationInput[]
+    by: CostEntryScalarFieldEnum[] | CostEntryScalarFieldEnum
+    having?: CostEntryScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CostEntryCountAggregateInputType | true
+    _avg?: CostEntryAvgAggregateInputType
+    _sum?: CostEntrySumAggregateInputType
+    _min?: CostEntryMinAggregateInputType
+    _max?: CostEntryMaxAggregateInputType
+  }
+
+  export type CostEntryGroupByOutputType = {
+    id: string
+    user_id: string
+    category: $Enums.CostCategory
+    provider: string | null
+    model: string | null
+    amount: Decimal
+    currency: string
+    workflow_run_id: string | null
+    metadata: JsonValue | null
+    created_at: Date
+    _count: CostEntryCountAggregateOutputType | null
+    _avg: CostEntryAvgAggregateOutputType | null
+    _sum: CostEntrySumAggregateOutputType | null
+    _min: CostEntryMinAggregateOutputType | null
+    _max: CostEntryMaxAggregateOutputType | null
+  }
+
+  type GetCostEntryGroupByPayload<T extends CostEntryGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CostEntryGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CostEntryGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CostEntryGroupByOutputType[P]>
+            : GetScalarType<T[P], CostEntryGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CostEntrySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    user_id?: boolean
+    category?: boolean
+    provider?: boolean
+    model?: boolean
+    amount?: boolean
+    currency?: boolean
+    workflow_run_id?: boolean
+    metadata?: boolean
+    created_at?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    workflow_run?: boolean | CostEntry$workflow_runArgs<ExtArgs>
+  }, ExtArgs["result"]["costEntry"]>
+
+  export type CostEntrySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    user_id?: boolean
+    category?: boolean
+    provider?: boolean
+    model?: boolean
+    amount?: boolean
+    currency?: boolean
+    workflow_run_id?: boolean
+    metadata?: boolean
+    created_at?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    workflow_run?: boolean | CostEntry$workflow_runArgs<ExtArgs>
+  }, ExtArgs["result"]["costEntry"]>
+
+  export type CostEntrySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    user_id?: boolean
+    category?: boolean
+    provider?: boolean
+    model?: boolean
+    amount?: boolean
+    currency?: boolean
+    workflow_run_id?: boolean
+    metadata?: boolean
+    created_at?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    workflow_run?: boolean | CostEntry$workflow_runArgs<ExtArgs>
+  }, ExtArgs["result"]["costEntry"]>
+
+  export type CostEntrySelectScalar = {
+    id?: boolean
+    user_id?: boolean
+    category?: boolean
+    provider?: boolean
+    model?: boolean
+    amount?: boolean
+    currency?: boolean
+    workflow_run_id?: boolean
+    metadata?: boolean
+    created_at?: boolean
+  }
+
+  export type CostEntryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "category" | "provider" | "model" | "amount" | "currency" | "workflow_run_id" | "metadata" | "created_at", ExtArgs["result"]["costEntry"]>
+  export type CostEntryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    workflow_run?: boolean | CostEntry$workflow_runArgs<ExtArgs>
+  }
+  export type CostEntryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    workflow_run?: boolean | CostEntry$workflow_runArgs<ExtArgs>
+  }
+  export type CostEntryIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    workflow_run?: boolean | CostEntry$workflow_runArgs<ExtArgs>
+  }
+
+  export type $CostEntryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CostEntry"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      workflow_run: Prisma.$WorkflowRunPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      user_id: string
+      category: $Enums.CostCategory
+      provider: string | null
+      model: string | null
+      amount: Prisma.Decimal
+      currency: string
+      workflow_run_id: string | null
+      metadata: Prisma.JsonValue | null
+      created_at: Date
+    }, ExtArgs["result"]["costEntry"]>
+    composites: {}
+  }
+
+  type CostEntryGetPayload<S extends boolean | null | undefined | CostEntryDefaultArgs> = $Result.GetResult<Prisma.$CostEntryPayload, S>
+
+  type CostEntryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CostEntryFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CostEntryCountAggregateInputType | true
+    }
+
+  export interface CostEntryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CostEntry'], meta: { name: 'CostEntry' } }
+    /**
+     * Find zero or one CostEntry that matches the filter.
+     * @param {CostEntryFindUniqueArgs} args - Arguments to find a CostEntry
+     * @example
+     * // Get one CostEntry
+     * const costEntry = await prisma.costEntry.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CostEntryFindUniqueArgs>(args: SelectSubset<T, CostEntryFindUniqueArgs<ExtArgs>>): Prisma__CostEntryClient<$Result.GetResult<Prisma.$CostEntryPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one CostEntry that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CostEntryFindUniqueOrThrowArgs} args - Arguments to find a CostEntry
+     * @example
+     * // Get one CostEntry
+     * const costEntry = await prisma.costEntry.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CostEntryFindUniqueOrThrowArgs>(args: SelectSubset<T, CostEntryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CostEntryClient<$Result.GetResult<Prisma.$CostEntryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CostEntry that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CostEntryFindFirstArgs} args - Arguments to find a CostEntry
+     * @example
+     * // Get one CostEntry
+     * const costEntry = await prisma.costEntry.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CostEntryFindFirstArgs>(args?: SelectSubset<T, CostEntryFindFirstArgs<ExtArgs>>): Prisma__CostEntryClient<$Result.GetResult<Prisma.$CostEntryPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CostEntry that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CostEntryFindFirstOrThrowArgs} args - Arguments to find a CostEntry
+     * @example
+     * // Get one CostEntry
+     * const costEntry = await prisma.costEntry.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CostEntryFindFirstOrThrowArgs>(args?: SelectSubset<T, CostEntryFindFirstOrThrowArgs<ExtArgs>>): Prisma__CostEntryClient<$Result.GetResult<Prisma.$CostEntryPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more CostEntries that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CostEntryFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CostEntries
+     * const costEntries = await prisma.costEntry.findMany()
+     * 
+     * // Get first 10 CostEntries
+     * const costEntries = await prisma.costEntry.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const costEntryWithIdOnly = await prisma.costEntry.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CostEntryFindManyArgs>(args?: SelectSubset<T, CostEntryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CostEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a CostEntry.
+     * @param {CostEntryCreateArgs} args - Arguments to create a CostEntry.
+     * @example
+     * // Create one CostEntry
+     * const CostEntry = await prisma.costEntry.create({
+     *   data: {
+     *     // ... data to create a CostEntry
+     *   }
+     * })
+     * 
+     */
+    create<T extends CostEntryCreateArgs>(args: SelectSubset<T, CostEntryCreateArgs<ExtArgs>>): Prisma__CostEntryClient<$Result.GetResult<Prisma.$CostEntryPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many CostEntries.
+     * @param {CostEntryCreateManyArgs} args - Arguments to create many CostEntries.
+     * @example
+     * // Create many CostEntries
+     * const costEntry = await prisma.costEntry.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CostEntryCreateManyArgs>(args?: SelectSubset<T, CostEntryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CostEntries and returns the data saved in the database.
+     * @param {CostEntryCreateManyAndReturnArgs} args - Arguments to create many CostEntries.
+     * @example
+     * // Create many CostEntries
+     * const costEntry = await prisma.costEntry.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CostEntries and only return the `id`
+     * const costEntryWithIdOnly = await prisma.costEntry.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CostEntryCreateManyAndReturnArgs>(args?: SelectSubset<T, CostEntryCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CostEntryPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a CostEntry.
+     * @param {CostEntryDeleteArgs} args - Arguments to delete one CostEntry.
+     * @example
+     * // Delete one CostEntry
+     * const CostEntry = await prisma.costEntry.delete({
+     *   where: {
+     *     // ... filter to delete one CostEntry
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CostEntryDeleteArgs>(args: SelectSubset<T, CostEntryDeleteArgs<ExtArgs>>): Prisma__CostEntryClient<$Result.GetResult<Prisma.$CostEntryPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one CostEntry.
+     * @param {CostEntryUpdateArgs} args - Arguments to update one CostEntry.
+     * @example
+     * // Update one CostEntry
+     * const costEntry = await prisma.costEntry.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CostEntryUpdateArgs>(args: SelectSubset<T, CostEntryUpdateArgs<ExtArgs>>): Prisma__CostEntryClient<$Result.GetResult<Prisma.$CostEntryPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more CostEntries.
+     * @param {CostEntryDeleteManyArgs} args - Arguments to filter CostEntries to delete.
+     * @example
+     * // Delete a few CostEntries
+     * const { count } = await prisma.costEntry.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CostEntryDeleteManyArgs>(args?: SelectSubset<T, CostEntryDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CostEntries.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CostEntryUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CostEntries
+     * const costEntry = await prisma.costEntry.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CostEntryUpdateManyArgs>(args: SelectSubset<T, CostEntryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CostEntries and returns the data updated in the database.
+     * @param {CostEntryUpdateManyAndReturnArgs} args - Arguments to update many CostEntries.
+     * @example
+     * // Update many CostEntries
+     * const costEntry = await prisma.costEntry.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more CostEntries and only return the `id`
+     * const costEntryWithIdOnly = await prisma.costEntry.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CostEntryUpdateManyAndReturnArgs>(args: SelectSubset<T, CostEntryUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CostEntryPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one CostEntry.
+     * @param {CostEntryUpsertArgs} args - Arguments to update or create a CostEntry.
+     * @example
+     * // Update or create a CostEntry
+     * const costEntry = await prisma.costEntry.upsert({
+     *   create: {
+     *     // ... data to create a CostEntry
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CostEntry we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CostEntryUpsertArgs>(args: SelectSubset<T, CostEntryUpsertArgs<ExtArgs>>): Prisma__CostEntryClient<$Result.GetResult<Prisma.$CostEntryPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of CostEntries.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CostEntryCountArgs} args - Arguments to filter CostEntries to count.
+     * @example
+     * // Count the number of CostEntries
+     * const count = await prisma.costEntry.count({
+     *   where: {
+     *     // ... the filter for the CostEntries we want to count
+     *   }
+     * })
+    **/
+    count<T extends CostEntryCountArgs>(
+      args?: Subset<T, CostEntryCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CostEntryCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CostEntry.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CostEntryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CostEntryAggregateArgs>(args: Subset<T, CostEntryAggregateArgs>): Prisma.PrismaPromise<GetCostEntryAggregateType<T>>
+
+    /**
+     * Group by CostEntry.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CostEntryGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CostEntryGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CostEntryGroupByArgs['orderBy'] }
+        : { orderBy?: CostEntryGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CostEntryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCostEntryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CostEntry model
+   */
+  readonly fields: CostEntryFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CostEntry.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CostEntryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    workflow_run<T extends CostEntry$workflow_runArgs<ExtArgs> = {}>(args?: Subset<T, CostEntry$workflow_runArgs<ExtArgs>>): Prisma__WorkflowRunClient<$Result.GetResult<Prisma.$WorkflowRunPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CostEntry model
+   */
+  interface CostEntryFieldRefs {
+    readonly id: FieldRef<"CostEntry", 'String'>
+    readonly user_id: FieldRef<"CostEntry", 'String'>
+    readonly category: FieldRef<"CostEntry", 'CostCategory'>
+    readonly provider: FieldRef<"CostEntry", 'String'>
+    readonly model: FieldRef<"CostEntry", 'String'>
+    readonly amount: FieldRef<"CostEntry", 'Decimal'>
+    readonly currency: FieldRef<"CostEntry", 'String'>
+    readonly workflow_run_id: FieldRef<"CostEntry", 'String'>
+    readonly metadata: FieldRef<"CostEntry", 'Json'>
+    readonly created_at: FieldRef<"CostEntry", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CostEntry findUnique
+   */
+  export type CostEntryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CostEntry
+     */
+    select?: CostEntrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CostEntry
+     */
+    omit?: CostEntryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CostEntryInclude<ExtArgs> | null
+    /**
+     * Filter, which CostEntry to fetch.
+     */
+    where: CostEntryWhereUniqueInput
+  }
+
+  /**
+   * CostEntry findUniqueOrThrow
+   */
+  export type CostEntryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CostEntry
+     */
+    select?: CostEntrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CostEntry
+     */
+    omit?: CostEntryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CostEntryInclude<ExtArgs> | null
+    /**
+     * Filter, which CostEntry to fetch.
+     */
+    where: CostEntryWhereUniqueInput
+  }
+
+  /**
+   * CostEntry findFirst
+   */
+  export type CostEntryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CostEntry
+     */
+    select?: CostEntrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CostEntry
+     */
+    omit?: CostEntryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CostEntryInclude<ExtArgs> | null
+    /**
+     * Filter, which CostEntry to fetch.
+     */
+    where?: CostEntryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CostEntries to fetch.
+     */
+    orderBy?: CostEntryOrderByWithRelationInput | CostEntryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CostEntries.
+     */
+    cursor?: CostEntryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CostEntries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CostEntries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CostEntries.
+     */
+    distinct?: CostEntryScalarFieldEnum | CostEntryScalarFieldEnum[]
+  }
+
+  /**
+   * CostEntry findFirstOrThrow
+   */
+  export type CostEntryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CostEntry
+     */
+    select?: CostEntrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CostEntry
+     */
+    omit?: CostEntryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CostEntryInclude<ExtArgs> | null
+    /**
+     * Filter, which CostEntry to fetch.
+     */
+    where?: CostEntryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CostEntries to fetch.
+     */
+    orderBy?: CostEntryOrderByWithRelationInput | CostEntryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CostEntries.
+     */
+    cursor?: CostEntryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CostEntries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CostEntries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CostEntries.
+     */
+    distinct?: CostEntryScalarFieldEnum | CostEntryScalarFieldEnum[]
+  }
+
+  /**
+   * CostEntry findMany
+   */
+  export type CostEntryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CostEntry
+     */
+    select?: CostEntrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CostEntry
+     */
+    omit?: CostEntryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CostEntryInclude<ExtArgs> | null
+    /**
+     * Filter, which CostEntries to fetch.
+     */
+    where?: CostEntryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CostEntries to fetch.
+     */
+    orderBy?: CostEntryOrderByWithRelationInput | CostEntryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CostEntries.
+     */
+    cursor?: CostEntryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CostEntries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CostEntries.
+     */
+    skip?: number
+    distinct?: CostEntryScalarFieldEnum | CostEntryScalarFieldEnum[]
+  }
+
+  /**
+   * CostEntry create
+   */
+  export type CostEntryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CostEntry
+     */
+    select?: CostEntrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CostEntry
+     */
+    omit?: CostEntryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CostEntryInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CostEntry.
+     */
+    data: XOR<CostEntryCreateInput, CostEntryUncheckedCreateInput>
+  }
+
+  /**
+   * CostEntry createMany
+   */
+  export type CostEntryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CostEntries.
+     */
+    data: CostEntryCreateManyInput | CostEntryCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CostEntry createManyAndReturn
+   */
+  export type CostEntryCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CostEntry
+     */
+    select?: CostEntrySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CostEntry
+     */
+    omit?: CostEntryOmit<ExtArgs> | null
+    /**
+     * The data used to create many CostEntries.
+     */
+    data: CostEntryCreateManyInput | CostEntryCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CostEntryIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CostEntry update
+   */
+  export type CostEntryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CostEntry
+     */
+    select?: CostEntrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CostEntry
+     */
+    omit?: CostEntryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CostEntryInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CostEntry.
+     */
+    data: XOR<CostEntryUpdateInput, CostEntryUncheckedUpdateInput>
+    /**
+     * Choose, which CostEntry to update.
+     */
+    where: CostEntryWhereUniqueInput
+  }
+
+  /**
+   * CostEntry updateMany
+   */
+  export type CostEntryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CostEntries.
+     */
+    data: XOR<CostEntryUpdateManyMutationInput, CostEntryUncheckedUpdateManyInput>
+    /**
+     * Filter which CostEntries to update
+     */
+    where?: CostEntryWhereInput
+    /**
+     * Limit how many CostEntries to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CostEntry updateManyAndReturn
+   */
+  export type CostEntryUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CostEntry
+     */
+    select?: CostEntrySelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CostEntry
+     */
+    omit?: CostEntryOmit<ExtArgs> | null
+    /**
+     * The data used to update CostEntries.
+     */
+    data: XOR<CostEntryUpdateManyMutationInput, CostEntryUncheckedUpdateManyInput>
+    /**
+     * Filter which CostEntries to update
+     */
+    where?: CostEntryWhereInput
+    /**
+     * Limit how many CostEntries to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CostEntryIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CostEntry upsert
+   */
+  export type CostEntryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CostEntry
+     */
+    select?: CostEntrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CostEntry
+     */
+    omit?: CostEntryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CostEntryInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CostEntry to update in case it exists.
+     */
+    where: CostEntryWhereUniqueInput
+    /**
+     * In case the CostEntry found by the `where` argument doesn't exist, create a new CostEntry with this data.
+     */
+    create: XOR<CostEntryCreateInput, CostEntryUncheckedCreateInput>
+    /**
+     * In case the CostEntry was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CostEntryUpdateInput, CostEntryUncheckedUpdateInput>
+  }
+
+  /**
+   * CostEntry delete
+   */
+  export type CostEntryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CostEntry
+     */
+    select?: CostEntrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CostEntry
+     */
+    omit?: CostEntryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CostEntryInclude<ExtArgs> | null
+    /**
+     * Filter which CostEntry to delete.
+     */
+    where: CostEntryWhereUniqueInput
+  }
+
+  /**
+   * CostEntry deleteMany
+   */
+  export type CostEntryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CostEntries to delete
+     */
+    where?: CostEntryWhereInput
+    /**
+     * Limit how many CostEntries to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * CostEntry.workflow_run
+   */
+  export type CostEntry$workflow_runArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WorkflowRun
+     */
+    select?: WorkflowRunSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WorkflowRun
+     */
+    omit?: WorkflowRunOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WorkflowRunInclude<ExtArgs> | null
+    where?: WorkflowRunWhereInput
+  }
+
+  /**
+   * CostEntry without action
+   */
+  export type CostEntryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CostEntry
+     */
+    select?: CostEntrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CostEntry
+     */
+    omit?: CostEntryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CostEntryInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model Notification
    */
 
@@ -38626,6 +39983,22 @@ export namespace Prisma {
   export type JobLogScalarFieldEnum = (typeof JobLogScalarFieldEnum)[keyof typeof JobLogScalarFieldEnum]
 
 
+  export const CostEntryScalarFieldEnum: {
+    id: 'id',
+    user_id: 'user_id',
+    category: 'category',
+    provider: 'provider',
+    model: 'model',
+    amount: 'amount',
+    currency: 'currency',
+    workflow_run_id: 'workflow_run_id',
+    metadata: 'metadata',
+    created_at: 'created_at'
+  };
+
+  export type CostEntryScalarFieldEnum = (typeof CostEntryScalarFieldEnum)[keyof typeof CostEntryScalarFieldEnum]
+
+
   export const NotificationScalarFieldEnum: {
     id: 'id',
     type: 'type',
@@ -39117,6 +40490,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'CostCategory'
+   */
+  export type EnumCostCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CostCategory'>
+    
+
+
+  /**
+   * Reference to a field of type 'CostCategory[]'
+   */
+  export type ListEnumCostCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CostCategory[]'>
+    
+
+
+  /**
    * Reference to a field of type 'NotificationType'
    */
   export type EnumNotificationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'NotificationType'>
@@ -39212,6 +40599,7 @@ export namespace Prisma {
     job_logs?: JobLogListRelationFilter
     diagnostics_packages?: DiagnosticsPackageListRelationFilter
     notifications?: NotificationListRelationFilter
+    cost_entries?: CostEntryListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -39234,6 +40622,7 @@ export namespace Prisma {
     job_logs?: JobLogOrderByRelationAggregateInput
     diagnostics_packages?: DiagnosticsPackageOrderByRelationAggregateInput
     notifications?: NotificationOrderByRelationAggregateInput
+    cost_entries?: CostEntryOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -39259,6 +40648,7 @@ export namespace Prisma {
     job_logs?: JobLogListRelationFilter
     diagnostics_packages?: DiagnosticsPackageListRelationFilter
     notifications?: NotificationListRelationFilter
+    cost_entries?: CostEntryListRelationFilter
   }, "id" | "email" | "phone">
 
   export type UserOrderByWithAggregationInput = {
@@ -40549,6 +41939,7 @@ export namespace Prisma {
     pages?: PlainScrapedPageListRelationFilter
     extraction_result?: XOR<ExtractionResultNullableScalarRelationFilter, ExtractionResultWhereInput> | null
     ai_batch_job?: XOR<AiBatchJobNullableScalarRelationFilter, AiBatchJobWhereInput> | null
+    cost_entries?: CostEntryListRelationFilter
   }
 
   export type WorkflowRunOrderByWithRelationInput = {
@@ -40598,6 +41989,7 @@ export namespace Prisma {
     pages?: PlainScrapedPageOrderByRelationAggregateInput
     extraction_result?: ExtractionResultOrderByWithRelationInput
     ai_batch_job?: AiBatchJobOrderByWithRelationInput
+    cost_entries?: CostEntryOrderByRelationAggregateInput
   }
 
   export type WorkflowRunWhereUniqueInput = Prisma.AtLeast<{
@@ -40650,6 +42042,7 @@ export namespace Prisma {
     pages?: PlainScrapedPageListRelationFilter
     extraction_result?: XOR<ExtractionResultNullableScalarRelationFilter, ExtractionResultWhereInput> | null
     ai_batch_job?: XOR<AiBatchJobNullableScalarRelationFilter, AiBatchJobWhereInput> | null
+    cost_entries?: CostEntryListRelationFilter
   }, "id">
 
   export type WorkflowRunOrderByWithAggregationInput = {
@@ -41701,6 +43094,91 @@ export namespace Prisma {
     updated_at?: DateTimeWithAggregatesFilter<"JobLog"> | Date | string
   }
 
+  export type CostEntryWhereInput = {
+    AND?: CostEntryWhereInput | CostEntryWhereInput[]
+    OR?: CostEntryWhereInput[]
+    NOT?: CostEntryWhereInput | CostEntryWhereInput[]
+    id?: StringFilter<"CostEntry"> | string
+    user_id?: StringFilter<"CostEntry"> | string
+    category?: EnumCostCategoryFilter<"CostEntry"> | $Enums.CostCategory
+    provider?: StringNullableFilter<"CostEntry"> | string | null
+    model?: StringNullableFilter<"CostEntry"> | string | null
+    amount?: DecimalFilter<"CostEntry"> | Decimal | DecimalJsLike | number | string
+    currency?: StringFilter<"CostEntry"> | string
+    workflow_run_id?: StringNullableFilter<"CostEntry"> | string | null
+    metadata?: JsonNullableFilter<"CostEntry">
+    created_at?: DateTimeFilter<"CostEntry"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    workflow_run?: XOR<WorkflowRunNullableScalarRelationFilter, WorkflowRunWhereInput> | null
+  }
+
+  export type CostEntryOrderByWithRelationInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    category?: SortOrder
+    provider?: SortOrderInput | SortOrder
+    model?: SortOrderInput | SortOrder
+    amount?: SortOrder
+    currency?: SortOrder
+    workflow_run_id?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    user?: UserOrderByWithRelationInput
+    workflow_run?: WorkflowRunOrderByWithRelationInput
+  }
+
+  export type CostEntryWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: CostEntryWhereInput | CostEntryWhereInput[]
+    OR?: CostEntryWhereInput[]
+    NOT?: CostEntryWhereInput | CostEntryWhereInput[]
+    user_id?: StringFilter<"CostEntry"> | string
+    category?: EnumCostCategoryFilter<"CostEntry"> | $Enums.CostCategory
+    provider?: StringNullableFilter<"CostEntry"> | string | null
+    model?: StringNullableFilter<"CostEntry"> | string | null
+    amount?: DecimalFilter<"CostEntry"> | Decimal | DecimalJsLike | number | string
+    currency?: StringFilter<"CostEntry"> | string
+    workflow_run_id?: StringNullableFilter<"CostEntry"> | string | null
+    metadata?: JsonNullableFilter<"CostEntry">
+    created_at?: DateTimeFilter<"CostEntry"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    workflow_run?: XOR<WorkflowRunNullableScalarRelationFilter, WorkflowRunWhereInput> | null
+  }, "id">
+
+  export type CostEntryOrderByWithAggregationInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    category?: SortOrder
+    provider?: SortOrderInput | SortOrder
+    model?: SortOrderInput | SortOrder
+    amount?: SortOrder
+    currency?: SortOrder
+    workflow_run_id?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    _count?: CostEntryCountOrderByAggregateInput
+    _avg?: CostEntryAvgOrderByAggregateInput
+    _max?: CostEntryMaxOrderByAggregateInput
+    _min?: CostEntryMinOrderByAggregateInput
+    _sum?: CostEntrySumOrderByAggregateInput
+  }
+
+  export type CostEntryScalarWhereWithAggregatesInput = {
+    AND?: CostEntryScalarWhereWithAggregatesInput | CostEntryScalarWhereWithAggregatesInput[]
+    OR?: CostEntryScalarWhereWithAggregatesInput[]
+    NOT?: CostEntryScalarWhereWithAggregatesInput | CostEntryScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"CostEntry"> | string
+    user_id?: StringWithAggregatesFilter<"CostEntry"> | string
+    category?: EnumCostCategoryWithAggregatesFilter<"CostEntry"> | $Enums.CostCategory
+    provider?: StringNullableWithAggregatesFilter<"CostEntry"> | string | null
+    model?: StringNullableWithAggregatesFilter<"CostEntry"> | string | null
+    amount?: DecimalWithAggregatesFilter<"CostEntry"> | Decimal | DecimalJsLike | number | string
+    currency?: StringWithAggregatesFilter<"CostEntry"> | string
+    workflow_run_id?: StringNullableWithAggregatesFilter<"CostEntry"> | string | null
+    metadata?: JsonNullableWithAggregatesFilter<"CostEntry">
+    created_at?: DateTimeWithAggregatesFilter<"CostEntry"> | Date | string
+  }
+
   export type NotificationWhereInput = {
     AND?: NotificationWhereInput | NotificationWhereInput[]
     OR?: NotificationWhereInput[]
@@ -41990,6 +43468,7 @@ export namespace Prisma {
     job_logs?: JobLogCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    cost_entries?: CostEntryCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -42012,6 +43491,7 @@ export namespace Prisma {
     job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    cost_entries?: CostEntryUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -42034,6 +43514,7 @@ export namespace Prisma {
     job_logs?: JobLogUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    cost_entries?: CostEntryUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -42056,6 +43537,7 @@ export namespace Prisma {
     job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    cost_entries?: CostEntryUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -43486,6 +44968,7 @@ export namespace Prisma {
     pages?: PlainScrapedPageCreateNestedManyWithoutWorkflow_runInput
     extraction_result?: ExtractionResultCreateNestedOneWithoutWorkflow_runInput
     ai_batch_job?: AiBatchJobCreateNestedOneWithoutWorkflow_runInput
+    cost_entries?: CostEntryCreateNestedManyWithoutWorkflow_runInput
   }
 
   export type WorkflowRunUncheckedCreateInput = {
@@ -43529,6 +45012,7 @@ export namespace Prisma {
     pages?: PlainScrapedPageUncheckedCreateNestedManyWithoutWorkflow_runInput
     extraction_result?: ExtractionResultUncheckedCreateNestedOneWithoutWorkflow_runInput
     ai_batch_job?: AiBatchJobUncheckedCreateNestedOneWithoutWorkflow_runInput
+    cost_entries?: CostEntryUncheckedCreateNestedManyWithoutWorkflow_runInput
   }
 
   export type WorkflowRunUpdateInput = {
@@ -43572,6 +45056,7 @@ export namespace Prisma {
     pages?: PlainScrapedPageUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUpdateOneWithoutWorkflow_runNestedInput
     ai_batch_job?: AiBatchJobUpdateOneWithoutWorkflow_runNestedInput
+    cost_entries?: CostEntryUpdateManyWithoutWorkflow_runNestedInput
   }
 
   export type WorkflowRunUncheckedUpdateInput = {
@@ -43615,6 +45100,7 @@ export namespace Prisma {
     pages?: PlainScrapedPageUncheckedUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUncheckedUpdateOneWithoutWorkflow_runNestedInput
     ai_batch_job?: AiBatchJobUncheckedUpdateOneWithoutWorkflow_runNestedInput
+    cost_entries?: CostEntryUncheckedUpdateManyWithoutWorkflow_runNestedInput
   }
 
   export type WorkflowRunCreateManyInput = {
@@ -44785,6 +46271,95 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type CostEntryCreateInput = {
+    id?: string
+    category: $Enums.CostCategory
+    provider?: string | null
+    model?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    currency?: string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    user: UserCreateNestedOneWithoutCost_entriesInput
+    workflow_run?: WorkflowRunCreateNestedOneWithoutCost_entriesInput
+  }
+
+  export type CostEntryUncheckedCreateInput = {
+    id?: string
+    user_id: string
+    category: $Enums.CostCategory
+    provider?: string | null
+    model?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    currency?: string
+    workflow_run_id?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+  }
+
+  export type CostEntryUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    category?: EnumCostCategoryFieldUpdateOperationsInput | $Enums.CostCategory
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    model?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutCost_entriesNestedInput
+    workflow_run?: WorkflowRunUpdateOneWithoutCost_entriesNestedInput
+  }
+
+  export type CostEntryUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    category?: EnumCostCategoryFieldUpdateOperationsInput | $Enums.CostCategory
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    model?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CostEntryCreateManyInput = {
+    id?: string
+    user_id: string
+    category: $Enums.CostCategory
+    provider?: string | null
+    model?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    currency?: string
+    workflow_run_id?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+  }
+
+  export type CostEntryUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    category?: EnumCostCategoryFieldUpdateOperationsInput | $Enums.CostCategory
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    model?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CostEntryUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    category?: EnumCostCategoryFieldUpdateOperationsInput | $Enums.CostCategory
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    model?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type NotificationCreateInput = {
     id?: string
     type: $Enums.NotificationType
@@ -45195,6 +46770,12 @@ export namespace Prisma {
     none?: NotificationWhereInput
   }
 
+  export type CostEntryListRelationFilter = {
+    every?: CostEntryWhereInput
+    some?: CostEntryWhereInput
+    none?: CostEntryWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -45241,6 +46822,10 @@ export namespace Prisma {
   }
 
   export type NotificationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CostEntryOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -47392,6 +48977,95 @@ export namespace Prisma {
     _max?: NestedEnumJobStatusFilter<$PrismaModel>
   }
 
+  export type EnumCostCategoryFilter<$PrismaModel = never> = {
+    equals?: $Enums.CostCategory | EnumCostCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.CostCategory[] | ListEnumCostCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CostCategory[] | ListEnumCostCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumCostCategoryFilter<$PrismaModel> | $Enums.CostCategory
+  }
+
+  export type DecimalFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  }
+
+  export type CostEntryCountOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    category?: SortOrder
+    provider?: SortOrder
+    model?: SortOrder
+    amount?: SortOrder
+    currency?: SortOrder
+    workflow_run_id?: SortOrder
+    metadata?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type CostEntryAvgOrderByAggregateInput = {
+    amount?: SortOrder
+  }
+
+  export type CostEntryMaxOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    category?: SortOrder
+    provider?: SortOrder
+    model?: SortOrder
+    amount?: SortOrder
+    currency?: SortOrder
+    workflow_run_id?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type CostEntryMinOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    category?: SortOrder
+    provider?: SortOrder
+    model?: SortOrder
+    amount?: SortOrder
+    currency?: SortOrder
+    workflow_run_id?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type CostEntrySumOrderByAggregateInput = {
+    amount?: SortOrder
+  }
+
+  export type EnumCostCategoryWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CostCategory | EnumCostCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.CostCategory[] | ListEnumCostCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CostCategory[] | ListEnumCostCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumCostCategoryWithAggregatesFilter<$PrismaModel> | $Enums.CostCategory
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCostCategoryFilter<$PrismaModel>
+    _max?: NestedEnumCostCategoryFilter<$PrismaModel>
+  }
+
+  export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedDecimalFilter<$PrismaModel>
+    _sum?: NestedDecimalFilter<$PrismaModel>
+    _min?: NestedDecimalFilter<$PrismaModel>
+    _max?: NestedDecimalFilter<$PrismaModel>
+  }
+
   export type EnumNotificationTypeFilter<$PrismaModel = never> = {
     equals?: $Enums.NotificationType | EnumNotificationTypeFieldRefInput<$PrismaModel>
     in?: $Enums.NotificationType[] | ListEnumNotificationTypeFieldRefInput<$PrismaModel>
@@ -47693,6 +49367,13 @@ export namespace Prisma {
     connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
   }
 
+  export type CostEntryCreateNestedManyWithoutUserInput = {
+    create?: XOR<CostEntryCreateWithoutUserInput, CostEntryUncheckedCreateWithoutUserInput> | CostEntryCreateWithoutUserInput[] | CostEntryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CostEntryCreateOrConnectWithoutUserInput | CostEntryCreateOrConnectWithoutUserInput[]
+    createMany?: CostEntryCreateManyUserInputEnvelope
+    connect?: CostEntryWhereUniqueInput | CostEntryWhereUniqueInput[]
+  }
+
   export type PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<PasswordResetTokenCreateWithoutUserInput, PasswordResetTokenUncheckedCreateWithoutUserInput> | PasswordResetTokenCreateWithoutUserInput[] | PasswordResetTokenUncheckedCreateWithoutUserInput[]
     connectOrCreate?: PasswordResetTokenCreateOrConnectWithoutUserInput | PasswordResetTokenCreateOrConnectWithoutUserInput[]
@@ -47768,6 +49449,13 @@ export namespace Prisma {
     connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
     createMany?: NotificationCreateManyUserInputEnvelope
     connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+  }
+
+  export type CostEntryUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<CostEntryCreateWithoutUserInput, CostEntryUncheckedCreateWithoutUserInput> | CostEntryCreateWithoutUserInput[] | CostEntryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CostEntryCreateOrConnectWithoutUserInput | CostEntryCreateOrConnectWithoutUserInput[]
+    createMany?: CostEntryCreateManyUserInputEnvelope
+    connect?: CostEntryWhereUniqueInput | CostEntryWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -47940,6 +49628,20 @@ export namespace Prisma {
     deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
   }
 
+  export type CostEntryUpdateManyWithoutUserNestedInput = {
+    create?: XOR<CostEntryCreateWithoutUserInput, CostEntryUncheckedCreateWithoutUserInput> | CostEntryCreateWithoutUserInput[] | CostEntryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CostEntryCreateOrConnectWithoutUserInput | CostEntryCreateOrConnectWithoutUserInput[]
+    upsert?: CostEntryUpsertWithWhereUniqueWithoutUserInput | CostEntryUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: CostEntryCreateManyUserInputEnvelope
+    set?: CostEntryWhereUniqueInput | CostEntryWhereUniqueInput[]
+    disconnect?: CostEntryWhereUniqueInput | CostEntryWhereUniqueInput[]
+    delete?: CostEntryWhereUniqueInput | CostEntryWhereUniqueInput[]
+    connect?: CostEntryWhereUniqueInput | CostEntryWhereUniqueInput[]
+    update?: CostEntryUpdateWithWhereUniqueWithoutUserInput | CostEntryUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: CostEntryUpdateManyWithWhereWithoutUserInput | CostEntryUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: CostEntryScalarWhereInput | CostEntryScalarWhereInput[]
+  }
+
   export type PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<PasswordResetTokenCreateWithoutUserInput, PasswordResetTokenUncheckedCreateWithoutUserInput> | PasswordResetTokenCreateWithoutUserInput[] | PasswordResetTokenUncheckedCreateWithoutUserInput[]
     connectOrCreate?: PasswordResetTokenCreateOrConnectWithoutUserInput | PasswordResetTokenCreateOrConnectWithoutUserInput[]
@@ -48092,6 +49794,20 @@ export namespace Prisma {
     update?: NotificationUpdateWithWhereUniqueWithoutUserInput | NotificationUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: NotificationUpdateManyWithWhereWithoutUserInput | NotificationUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+  }
+
+  export type CostEntryUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<CostEntryCreateWithoutUserInput, CostEntryUncheckedCreateWithoutUserInput> | CostEntryCreateWithoutUserInput[] | CostEntryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CostEntryCreateOrConnectWithoutUserInput | CostEntryCreateOrConnectWithoutUserInput[]
+    upsert?: CostEntryUpsertWithWhereUniqueWithoutUserInput | CostEntryUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: CostEntryCreateManyUserInputEnvelope
+    set?: CostEntryWhereUniqueInput | CostEntryWhereUniqueInput[]
+    disconnect?: CostEntryWhereUniqueInput | CostEntryWhereUniqueInput[]
+    delete?: CostEntryWhereUniqueInput | CostEntryWhereUniqueInput[]
+    connect?: CostEntryWhereUniqueInput | CostEntryWhereUniqueInput[]
+    update?: CostEntryUpdateWithWhereUniqueWithoutUserInput | CostEntryUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: CostEntryUpdateManyWithWhereWithoutUserInput | CostEntryUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: CostEntryScalarWhereInput | CostEntryScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutPassword_reset_tokensInput = {
@@ -49467,6 +51183,13 @@ export namespace Prisma {
     connect?: AiBatchJobWhereUniqueInput
   }
 
+  export type CostEntryCreateNestedManyWithoutWorkflow_runInput = {
+    create?: XOR<CostEntryCreateWithoutWorkflow_runInput, CostEntryUncheckedCreateWithoutWorkflow_runInput> | CostEntryCreateWithoutWorkflow_runInput[] | CostEntryUncheckedCreateWithoutWorkflow_runInput[]
+    connectOrCreate?: CostEntryCreateOrConnectWithoutWorkflow_runInput | CostEntryCreateOrConnectWithoutWorkflow_runInput[]
+    createMany?: CostEntryCreateManyWorkflow_runInputEnvelope
+    connect?: CostEntryWhereUniqueInput | CostEntryWhereUniqueInput[]
+  }
+
   export type ComputerUseStepUncheckedCreateNestedManyWithoutWorkflow_runInput = {
     create?: XOR<ComputerUseStepCreateWithoutWorkflow_runInput, ComputerUseStepUncheckedCreateWithoutWorkflow_runInput> | ComputerUseStepCreateWithoutWorkflow_runInput[] | ComputerUseStepUncheckedCreateWithoutWorkflow_runInput[]
     connectOrCreate?: ComputerUseStepCreateOrConnectWithoutWorkflow_runInput | ComputerUseStepCreateOrConnectWithoutWorkflow_runInput[]
@@ -49525,6 +51248,13 @@ export namespace Prisma {
     create?: XOR<AiBatchJobCreateWithoutWorkflow_runInput, AiBatchJobUncheckedCreateWithoutWorkflow_runInput>
     connectOrCreate?: AiBatchJobCreateOrConnectWithoutWorkflow_runInput
     connect?: AiBatchJobWhereUniqueInput
+  }
+
+  export type CostEntryUncheckedCreateNestedManyWithoutWorkflow_runInput = {
+    create?: XOR<CostEntryCreateWithoutWorkflow_runInput, CostEntryUncheckedCreateWithoutWorkflow_runInput> | CostEntryCreateWithoutWorkflow_runInput[] | CostEntryUncheckedCreateWithoutWorkflow_runInput[]
+    connectOrCreate?: CostEntryCreateOrConnectWithoutWorkflow_runInput | CostEntryCreateOrConnectWithoutWorkflow_runInput[]
+    createMany?: CostEntryCreateManyWorkflow_runInputEnvelope
+    connect?: CostEntryWhereUniqueInput | CostEntryWhereUniqueInput[]
   }
 
   export type EnumRunTriggerFieldUpdateOperationsInput = {
@@ -49719,6 +51449,20 @@ export namespace Prisma {
     update?: XOR<XOR<AiBatchJobUpdateToOneWithWhereWithoutWorkflow_runInput, AiBatchJobUpdateWithoutWorkflow_runInput>, AiBatchJobUncheckedUpdateWithoutWorkflow_runInput>
   }
 
+  export type CostEntryUpdateManyWithoutWorkflow_runNestedInput = {
+    create?: XOR<CostEntryCreateWithoutWorkflow_runInput, CostEntryUncheckedCreateWithoutWorkflow_runInput> | CostEntryCreateWithoutWorkflow_runInput[] | CostEntryUncheckedCreateWithoutWorkflow_runInput[]
+    connectOrCreate?: CostEntryCreateOrConnectWithoutWorkflow_runInput | CostEntryCreateOrConnectWithoutWorkflow_runInput[]
+    upsert?: CostEntryUpsertWithWhereUniqueWithoutWorkflow_runInput | CostEntryUpsertWithWhereUniqueWithoutWorkflow_runInput[]
+    createMany?: CostEntryCreateManyWorkflow_runInputEnvelope
+    set?: CostEntryWhereUniqueInput | CostEntryWhereUniqueInput[]
+    disconnect?: CostEntryWhereUniqueInput | CostEntryWhereUniqueInput[]
+    delete?: CostEntryWhereUniqueInput | CostEntryWhereUniqueInput[]
+    connect?: CostEntryWhereUniqueInput | CostEntryWhereUniqueInput[]
+    update?: CostEntryUpdateWithWhereUniqueWithoutWorkflow_runInput | CostEntryUpdateWithWhereUniqueWithoutWorkflow_runInput[]
+    updateMany?: CostEntryUpdateManyWithWhereWithoutWorkflow_runInput | CostEntryUpdateManyWithWhereWithoutWorkflow_runInput[]
+    deleteMany?: CostEntryScalarWhereInput | CostEntryScalarWhereInput[]
+  }
+
   export type ComputerUseStepUncheckedUpdateManyWithoutWorkflow_runNestedInput = {
     create?: XOR<ComputerUseStepCreateWithoutWorkflow_runInput, ComputerUseStepUncheckedCreateWithoutWorkflow_runInput> | ComputerUseStepCreateWithoutWorkflow_runInput[] | ComputerUseStepUncheckedCreateWithoutWorkflow_runInput[]
     connectOrCreate?: ComputerUseStepCreateOrConnectWithoutWorkflow_runInput | ComputerUseStepCreateOrConnectWithoutWorkflow_runInput[]
@@ -49831,6 +51575,20 @@ export namespace Prisma {
     delete?: AiBatchJobWhereInput | boolean
     connect?: AiBatchJobWhereUniqueInput
     update?: XOR<XOR<AiBatchJobUpdateToOneWithWhereWithoutWorkflow_runInput, AiBatchJobUpdateWithoutWorkflow_runInput>, AiBatchJobUncheckedUpdateWithoutWorkflow_runInput>
+  }
+
+  export type CostEntryUncheckedUpdateManyWithoutWorkflow_runNestedInput = {
+    create?: XOR<CostEntryCreateWithoutWorkflow_runInput, CostEntryUncheckedCreateWithoutWorkflow_runInput> | CostEntryCreateWithoutWorkflow_runInput[] | CostEntryUncheckedCreateWithoutWorkflow_runInput[]
+    connectOrCreate?: CostEntryCreateOrConnectWithoutWorkflow_runInput | CostEntryCreateOrConnectWithoutWorkflow_runInput[]
+    upsert?: CostEntryUpsertWithWhereUniqueWithoutWorkflow_runInput | CostEntryUpsertWithWhereUniqueWithoutWorkflow_runInput[]
+    createMany?: CostEntryCreateManyWorkflow_runInputEnvelope
+    set?: CostEntryWhereUniqueInput | CostEntryWhereUniqueInput[]
+    disconnect?: CostEntryWhereUniqueInput | CostEntryWhereUniqueInput[]
+    delete?: CostEntryWhereUniqueInput | CostEntryWhereUniqueInput[]
+    connect?: CostEntryWhereUniqueInput | CostEntryWhereUniqueInput[]
+    update?: CostEntryUpdateWithWhereUniqueWithoutWorkflow_runInput | CostEntryUpdateWithWhereUniqueWithoutWorkflow_runInput[]
+    updateMany?: CostEntryUpdateManyWithWhereWithoutWorkflow_runInput | CostEntryUpdateManyWithWhereWithoutWorkflow_runInput[]
+    deleteMany?: CostEntryScalarWhereInput | CostEntryScalarWhereInput[]
   }
 
   export type WebsiteTargetCreateNestedOneWithoutExtracted_itemsInput = {
@@ -50517,6 +52275,48 @@ export namespace Prisma {
     delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutJob_logsInput, UserUpdateWithoutJob_logsInput>, UserUncheckedUpdateWithoutJob_logsInput>
+  }
+
+  export type UserCreateNestedOneWithoutCost_entriesInput = {
+    create?: XOR<UserCreateWithoutCost_entriesInput, UserUncheckedCreateWithoutCost_entriesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCost_entriesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type WorkflowRunCreateNestedOneWithoutCost_entriesInput = {
+    create?: XOR<WorkflowRunCreateWithoutCost_entriesInput, WorkflowRunUncheckedCreateWithoutCost_entriesInput>
+    connectOrCreate?: WorkflowRunCreateOrConnectWithoutCost_entriesInput
+    connect?: WorkflowRunWhereUniqueInput
+  }
+
+  export type EnumCostCategoryFieldUpdateOperationsInput = {
+    set?: $Enums.CostCategory
+  }
+
+  export type DecimalFieldUpdateOperationsInput = {
+    set?: Decimal | DecimalJsLike | number | string
+    increment?: Decimal | DecimalJsLike | number | string
+    decrement?: Decimal | DecimalJsLike | number | string
+    multiply?: Decimal | DecimalJsLike | number | string
+    divide?: Decimal | DecimalJsLike | number | string
+  }
+
+  export type UserUpdateOneRequiredWithoutCost_entriesNestedInput = {
+    create?: XOR<UserCreateWithoutCost_entriesInput, UserUncheckedCreateWithoutCost_entriesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCost_entriesInput
+    upsert?: UserUpsertWithoutCost_entriesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCost_entriesInput, UserUpdateWithoutCost_entriesInput>, UserUncheckedUpdateWithoutCost_entriesInput>
+  }
+
+  export type WorkflowRunUpdateOneWithoutCost_entriesNestedInput = {
+    create?: XOR<WorkflowRunCreateWithoutCost_entriesInput, WorkflowRunUncheckedCreateWithoutCost_entriesInput>
+    connectOrCreate?: WorkflowRunCreateOrConnectWithoutCost_entriesInput
+    upsert?: WorkflowRunUpsertWithoutCost_entriesInput
+    disconnect?: WorkflowRunWhereInput | boolean
+    delete?: WorkflowRunWhereInput | boolean
+    connect?: WorkflowRunWhereUniqueInput
+    update?: XOR<XOR<WorkflowRunUpdateToOneWithWhereWithoutCost_entriesInput, WorkflowRunUpdateWithoutCost_entriesInput>, WorkflowRunUncheckedUpdateWithoutCost_entriesInput>
   }
 
   export type WebsiteTargetCreateNestedOneWithoutNotificationsInput = {
@@ -51261,6 +53061,50 @@ export namespace Prisma {
     _max?: NestedEnumJobStatusFilter<$PrismaModel>
   }
 
+  export type NestedEnumCostCategoryFilter<$PrismaModel = never> = {
+    equals?: $Enums.CostCategory | EnumCostCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.CostCategory[] | ListEnumCostCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CostCategory[] | ListEnumCostCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumCostCategoryFilter<$PrismaModel> | $Enums.CostCategory
+  }
+
+  export type NestedDecimalFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  }
+
+  export type NestedEnumCostCategoryWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CostCategory | EnumCostCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.CostCategory[] | ListEnumCostCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CostCategory[] | ListEnumCostCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumCostCategoryWithAggregatesFilter<$PrismaModel> | $Enums.CostCategory
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCostCategoryFilter<$PrismaModel>
+    _max?: NestedEnumCostCategoryFilter<$PrismaModel>
+  }
+
+  export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedDecimalFilter<$PrismaModel>
+    _sum?: NestedDecimalFilter<$PrismaModel>
+    _min?: NestedDecimalFilter<$PrismaModel>
+    _max?: NestedDecimalFilter<$PrismaModel>
+  }
+
   export type NestedEnumNotificationTypeFilter<$PrismaModel = never> = {
     equals?: $Enums.NotificationType | EnumNotificationTypeFieldRefInput<$PrismaModel>
     in?: $Enums.NotificationType[] | ListEnumNotificationTypeFieldRefInput<$PrismaModel>
@@ -51535,6 +53379,7 @@ export namespace Prisma {
     pages?: PlainScrapedPageCreateNestedManyWithoutWorkflow_runInput
     extraction_result?: ExtractionResultCreateNestedOneWithoutWorkflow_runInput
     ai_batch_job?: AiBatchJobCreateNestedOneWithoutWorkflow_runInput
+    cost_entries?: CostEntryCreateNestedManyWithoutWorkflow_runInput
   }
 
   export type WorkflowRunUncheckedCreateWithoutUserInput = {
@@ -51577,6 +53422,7 @@ export namespace Prisma {
     pages?: PlainScrapedPageUncheckedCreateNestedManyWithoutWorkflow_runInput
     extraction_result?: ExtractionResultUncheckedCreateNestedOneWithoutWorkflow_runInput
     ai_batch_job?: AiBatchJobUncheckedCreateNestedOneWithoutWorkflow_runInput
+    cost_entries?: CostEntryUncheckedCreateNestedManyWithoutWorkflow_runInput
   }
 
   export type WorkflowRunCreateOrConnectWithoutUserInput = {
@@ -51860,6 +53706,40 @@ export namespace Prisma {
 
   export type NotificationCreateManyUserInputEnvelope = {
     data: NotificationCreateManyUserInput | NotificationCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CostEntryCreateWithoutUserInput = {
+    id?: string
+    category: $Enums.CostCategory
+    provider?: string | null
+    model?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    currency?: string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    workflow_run?: WorkflowRunCreateNestedOneWithoutCost_entriesInput
+  }
+
+  export type CostEntryUncheckedCreateWithoutUserInput = {
+    id?: string
+    category: $Enums.CostCategory
+    provider?: string | null
+    model?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    currency?: string
+    workflow_run_id?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+  }
+
+  export type CostEntryCreateOrConnectWithoutUserInput = {
+    where: CostEntryWhereUniqueInput
+    create: XOR<CostEntryCreateWithoutUserInput, CostEntryUncheckedCreateWithoutUserInput>
+  }
+
+  export type CostEntryCreateManyUserInputEnvelope = {
+    data: CostEntryCreateManyUserInput | CostEntryCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -52271,6 +54151,38 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"Notification"> | Date | string
   }
 
+  export type CostEntryUpsertWithWhereUniqueWithoutUserInput = {
+    where: CostEntryWhereUniqueInput
+    update: XOR<CostEntryUpdateWithoutUserInput, CostEntryUncheckedUpdateWithoutUserInput>
+    create: XOR<CostEntryCreateWithoutUserInput, CostEntryUncheckedCreateWithoutUserInput>
+  }
+
+  export type CostEntryUpdateWithWhereUniqueWithoutUserInput = {
+    where: CostEntryWhereUniqueInput
+    data: XOR<CostEntryUpdateWithoutUserInput, CostEntryUncheckedUpdateWithoutUserInput>
+  }
+
+  export type CostEntryUpdateManyWithWhereWithoutUserInput = {
+    where: CostEntryScalarWhereInput
+    data: XOR<CostEntryUpdateManyMutationInput, CostEntryUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type CostEntryScalarWhereInput = {
+    AND?: CostEntryScalarWhereInput | CostEntryScalarWhereInput[]
+    OR?: CostEntryScalarWhereInput[]
+    NOT?: CostEntryScalarWhereInput | CostEntryScalarWhereInput[]
+    id?: StringFilter<"CostEntry"> | string
+    user_id?: StringFilter<"CostEntry"> | string
+    category?: EnumCostCategoryFilter<"CostEntry"> | $Enums.CostCategory
+    provider?: StringNullableFilter<"CostEntry"> | string | null
+    model?: StringNullableFilter<"CostEntry"> | string | null
+    amount?: DecimalFilter<"CostEntry"> | Decimal | DecimalJsLike | number | string
+    currency?: StringFilter<"CostEntry"> | string
+    workflow_run_id?: StringNullableFilter<"CostEntry"> | string | null
+    metadata?: JsonNullableFilter<"CostEntry">
+    created_at?: DateTimeFilter<"CostEntry"> | Date | string
+  }
+
   export type UserCreateWithoutPassword_reset_tokensInput = {
     id?: string
     email: string
@@ -52290,6 +54202,7 @@ export namespace Prisma {
     job_logs?: JobLogCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    cost_entries?: CostEntryCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPassword_reset_tokensInput = {
@@ -52311,6 +54224,7 @@ export namespace Prisma {
     job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    cost_entries?: CostEntryUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPassword_reset_tokensInput = {
@@ -52348,6 +54262,7 @@ export namespace Prisma {
     job_logs?: JobLogUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    cost_entries?: CostEntryUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPassword_reset_tokensInput = {
@@ -52369,6 +54284,7 @@ export namespace Prisma {
     job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    cost_entries?: CostEntryUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutApi_keysInput = {
@@ -52390,6 +54306,7 @@ export namespace Prisma {
     job_logs?: JobLogCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    cost_entries?: CostEntryCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutApi_keysInput = {
@@ -52411,6 +54328,7 @@ export namespace Prisma {
     job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    cost_entries?: CostEntryUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutApi_keysInput = {
@@ -52448,6 +54366,7 @@ export namespace Prisma {
     job_logs?: JobLogUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    cost_entries?: CostEntryUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutApi_keysInput = {
@@ -52469,6 +54388,7 @@ export namespace Prisma {
     job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    cost_entries?: CostEntryUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutWebhook_endpointsInput = {
@@ -52490,6 +54410,7 @@ export namespace Prisma {
     job_logs?: JobLogCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    cost_entries?: CostEntryCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWebhook_endpointsInput = {
@@ -52511,6 +54432,7 @@ export namespace Prisma {
     job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    cost_entries?: CostEntryUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWebhook_endpointsInput = {
@@ -52588,6 +54510,7 @@ export namespace Prisma {
     job_logs?: JobLogUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    cost_entries?: CostEntryUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWebhook_endpointsInput = {
@@ -52609,6 +54532,7 @@ export namespace Prisma {
     job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    cost_entries?: CostEntryUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WebhookDeliveryUpsertWithWhereUniqueWithoutWebhook_endpointInput = {
@@ -52822,6 +54746,7 @@ export namespace Prisma {
     pages?: PlainScrapedPageCreateNestedManyWithoutWorkflow_runInput
     extraction_result?: ExtractionResultCreateNestedOneWithoutWorkflow_runInput
     ai_batch_job?: AiBatchJobCreateNestedOneWithoutWorkflow_runInput
+    cost_entries?: CostEntryCreateNestedManyWithoutWorkflow_runInput
   }
 
   export type WorkflowRunUncheckedCreateWithoutOpenapi_spec_documentInput = {
@@ -52864,6 +54789,7 @@ export namespace Prisma {
     pages?: PlainScrapedPageUncheckedCreateNestedManyWithoutWorkflow_runInput
     extraction_result?: ExtractionResultUncheckedCreateNestedOneWithoutWorkflow_runInput
     ai_batch_job?: AiBatchJobUncheckedCreateNestedOneWithoutWorkflow_runInput
+    cost_entries?: CostEntryUncheckedCreateNestedManyWithoutWorkflow_runInput
   }
 
   export type WorkflowRunCreateOrConnectWithoutOpenapi_spec_documentInput = {
@@ -52959,6 +54885,7 @@ export namespace Prisma {
     job_logs?: JobLogCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    cost_entries?: CostEntryCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWebsite_targetsInput = {
@@ -52980,6 +54907,7 @@ export namespace Prisma {
     job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    cost_entries?: CostEntryUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWebsite_targetsInput = {
@@ -53165,6 +55093,7 @@ export namespace Prisma {
     pages?: PlainScrapedPageCreateNestedManyWithoutWorkflow_runInput
     extraction_result?: ExtractionResultCreateNestedOneWithoutWorkflow_runInput
     ai_batch_job?: AiBatchJobCreateNestedOneWithoutWorkflow_runInput
+    cost_entries?: CostEntryCreateNestedManyWithoutWorkflow_runInput
   }
 
   export type WorkflowRunUncheckedCreateWithoutWebsite_targetInput = {
@@ -53207,6 +55136,7 @@ export namespace Prisma {
     pages?: PlainScrapedPageUncheckedCreateNestedManyWithoutWorkflow_runInput
     extraction_result?: ExtractionResultUncheckedCreateNestedOneWithoutWorkflow_runInput
     ai_batch_job?: AiBatchJobUncheckedCreateNestedOneWithoutWorkflow_runInput
+    cost_entries?: CostEntryUncheckedCreateNestedManyWithoutWorkflow_runInput
   }
 
   export type WorkflowRunCreateOrConnectWithoutWebsite_targetInput = {
@@ -53357,6 +55287,7 @@ export namespace Prisma {
     job_logs?: JobLogUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    cost_entries?: CostEntryUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWebsite_targetsInput = {
@@ -53378,6 +55309,7 @@ export namespace Prisma {
     job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    cost_entries?: CostEntryUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WorkflowConfigUpsertWithWhereUniqueWithoutWebsite_targetInput = {
@@ -53652,6 +55584,7 @@ export namespace Prisma {
     job_logs?: JobLogCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    cost_entries?: CostEntryCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWorkflow_configsInput = {
@@ -53673,6 +55606,7 @@ export namespace Prisma {
     job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    cost_entries?: CostEntryUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWorkflow_configsInput = {
@@ -53833,6 +55767,7 @@ export namespace Prisma {
     pages?: PlainScrapedPageCreateNestedManyWithoutWorkflow_runInput
     extraction_result?: ExtractionResultCreateNestedOneWithoutWorkflow_runInput
     ai_batch_job?: AiBatchJobCreateNestedOneWithoutWorkflow_runInput
+    cost_entries?: CostEntryCreateNestedManyWithoutWorkflow_runInput
   }
 
   export type WorkflowRunUncheckedCreateWithoutWorkflow_configInput = {
@@ -53875,6 +55810,7 @@ export namespace Prisma {
     pages?: PlainScrapedPageUncheckedCreateNestedManyWithoutWorkflow_runInput
     extraction_result?: ExtractionResultUncheckedCreateNestedOneWithoutWorkflow_runInput
     ai_batch_job?: AiBatchJobUncheckedCreateNestedOneWithoutWorkflow_runInput
+    cost_entries?: CostEntryUncheckedCreateNestedManyWithoutWorkflow_runInput
   }
 
   export type WorkflowRunCreateOrConnectWithoutWorkflow_configInput = {
@@ -54125,6 +56061,7 @@ export namespace Prisma {
     job_logs?: JobLogUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    cost_entries?: CostEntryUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWorkflow_configsInput = {
@@ -54146,6 +56083,7 @@ export namespace Prisma {
     job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    cost_entries?: CostEntryUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WebsiteTargetUpsertWithoutWorkflow_configsInput = {
@@ -54893,6 +56831,7 @@ export namespace Prisma {
     pages?: PlainScrapedPageCreateNestedManyWithoutWorkflow_runInput
     extraction_result?: ExtractionResultCreateNestedOneWithoutWorkflow_runInput
     ai_batch_job?: AiBatchJobCreateNestedOneWithoutWorkflow_runInput
+    cost_entries?: CostEntryCreateNestedManyWithoutWorkflow_runInput
   }
 
   export type WorkflowRunUncheckedCreateWithoutStepsInput = {
@@ -54935,6 +56874,7 @@ export namespace Prisma {
     pages?: PlainScrapedPageUncheckedCreateNestedManyWithoutWorkflow_runInput
     extraction_result?: ExtractionResultUncheckedCreateNestedOneWithoutWorkflow_runInput
     ai_batch_job?: AiBatchJobUncheckedCreateNestedOneWithoutWorkflow_runInput
+    cost_entries?: CostEntryUncheckedCreateNestedManyWithoutWorkflow_runInput
   }
 
   export type WorkflowRunCreateOrConnectWithoutStepsInput = {
@@ -55110,6 +57050,7 @@ export namespace Prisma {
     pages?: PlainScrapedPageUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUpdateOneWithoutWorkflow_runNestedInput
     ai_batch_job?: AiBatchJobUpdateOneWithoutWorkflow_runNestedInput
+    cost_entries?: CostEntryUpdateManyWithoutWorkflow_runNestedInput
   }
 
   export type WorkflowRunUncheckedUpdateWithoutStepsInput = {
@@ -55152,6 +57093,7 @@ export namespace Prisma {
     pages?: PlainScrapedPageUncheckedUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUncheckedUpdateOneWithoutWorkflow_runNestedInput
     ai_batch_job?: AiBatchJobUncheckedUpdateOneWithoutWorkflow_runNestedInput
+    cost_entries?: CostEntryUncheckedUpdateManyWithoutWorkflow_runNestedInput
   }
 
   export type DocumentUpsertWithoutComputer_use_steps_beforeInput = {
@@ -55512,6 +57454,7 @@ export namespace Prisma {
     pages?: PlainScrapedPageCreateNestedManyWithoutWorkflow_runInput
     extraction_result?: ExtractionResultCreateNestedOneWithoutWorkflow_runInput
     ai_batch_job?: AiBatchJobCreateNestedOneWithoutWorkflow_runInput
+    cost_entries?: CostEntryCreateNestedManyWithoutWorkflow_runInput
   }
 
   export type WorkflowRunUncheckedCreateWithoutScraper_versionInput = {
@@ -55554,6 +57497,7 @@ export namespace Prisma {
     pages?: PlainScrapedPageUncheckedCreateNestedManyWithoutWorkflow_runInput
     extraction_result?: ExtractionResultUncheckedCreateNestedOneWithoutWorkflow_runInput
     ai_batch_job?: AiBatchJobUncheckedCreateNestedOneWithoutWorkflow_runInput
+    cost_entries?: CostEntryUncheckedCreateNestedManyWithoutWorkflow_runInput
   }
 
   export type WorkflowRunCreateOrConnectWithoutScraper_versionInput = {
@@ -55969,6 +57913,7 @@ export namespace Prisma {
     pages?: PlainScrapedPageCreateNestedManyWithoutWorkflow_runInput
     extraction_result?: ExtractionResultCreateNestedOneWithoutWorkflow_runInput
     ai_batch_job?: AiBatchJobCreateNestedOneWithoutWorkflow_runInput
+    cost_entries?: CostEntryCreateNestedManyWithoutWorkflow_runInput
   }
 
   export type WorkflowRunUncheckedCreateWithoutExecution_tracesInput = {
@@ -56011,6 +57956,7 @@ export namespace Prisma {
     pages?: PlainScrapedPageUncheckedCreateNestedManyWithoutWorkflow_runInput
     extraction_result?: ExtractionResultUncheckedCreateNestedOneWithoutWorkflow_runInput
     ai_batch_job?: AiBatchJobUncheckedCreateNestedOneWithoutWorkflow_runInput
+    cost_entries?: CostEntryUncheckedCreateNestedManyWithoutWorkflow_runInput
   }
 
   export type WorkflowRunCreateOrConnectWithoutExecution_tracesInput = {
@@ -56158,6 +58104,7 @@ export namespace Prisma {
     pages?: PlainScrapedPageUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUpdateOneWithoutWorkflow_runNestedInput
     ai_batch_job?: AiBatchJobUpdateOneWithoutWorkflow_runNestedInput
+    cost_entries?: CostEntryUpdateManyWithoutWorkflow_runNestedInput
   }
 
   export type WorkflowRunUncheckedUpdateWithoutExecution_tracesInput = {
@@ -56200,6 +58147,7 @@ export namespace Prisma {
     pages?: PlainScrapedPageUncheckedUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUncheckedUpdateOneWithoutWorkflow_runNestedInput
     ai_batch_job?: AiBatchJobUncheckedUpdateOneWithoutWorkflow_runNestedInput
+    cost_entries?: CostEntryUncheckedUpdateManyWithoutWorkflow_runNestedInput
   }
 
   export type WorkflowConfigCreateWithoutRunsInput = {
@@ -56304,6 +58252,7 @@ export namespace Prisma {
     job_logs?: JobLogCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    cost_entries?: CostEntryCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWorkflow_runsInput = {
@@ -56325,6 +58274,7 @@ export namespace Prisma {
     job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    cost_entries?: CostEntryUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWorkflow_runsInput = {
@@ -56831,6 +58781,40 @@ export namespace Prisma {
     create: XOR<AiBatchJobCreateWithoutWorkflow_runInput, AiBatchJobUncheckedCreateWithoutWorkflow_runInput>
   }
 
+  export type CostEntryCreateWithoutWorkflow_runInput = {
+    id?: string
+    category: $Enums.CostCategory
+    provider?: string | null
+    model?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    currency?: string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    user: UserCreateNestedOneWithoutCost_entriesInput
+  }
+
+  export type CostEntryUncheckedCreateWithoutWorkflow_runInput = {
+    id?: string
+    user_id: string
+    category: $Enums.CostCategory
+    provider?: string | null
+    model?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    currency?: string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+  }
+
+  export type CostEntryCreateOrConnectWithoutWorkflow_runInput = {
+    where: CostEntryWhereUniqueInput
+    create: XOR<CostEntryCreateWithoutWorkflow_runInput, CostEntryUncheckedCreateWithoutWorkflow_runInput>
+  }
+
+  export type CostEntryCreateManyWorkflow_runInputEnvelope = {
+    data: CostEntryCreateManyWorkflow_runInput | CostEntryCreateManyWorkflow_runInput[]
+    skipDuplicates?: boolean
+  }
+
   export type WorkflowConfigUpsertWithoutRunsInput = {
     update: XOR<WorkflowConfigUpdateWithoutRunsInput, WorkflowConfigUncheckedUpdateWithoutRunsInput>
     create: XOR<WorkflowConfigCreateWithoutRunsInput, WorkflowConfigUncheckedCreateWithoutRunsInput>
@@ -56950,6 +58934,7 @@ export namespace Prisma {
     job_logs?: JobLogUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    cost_entries?: CostEntryUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWorkflow_runsInput = {
@@ -56971,6 +58956,7 @@ export namespace Prisma {
     job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    cost_entries?: CostEntryUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WebsiteTargetUpsertWithoutWorkflow_runsInput = {
@@ -57400,6 +59386,22 @@ export namespace Prisma {
     items?: AiBatchRequestItemUncheckedUpdateManyWithoutAi_batch_jobNestedInput
   }
 
+  export type CostEntryUpsertWithWhereUniqueWithoutWorkflow_runInput = {
+    where: CostEntryWhereUniqueInput
+    update: XOR<CostEntryUpdateWithoutWorkflow_runInput, CostEntryUncheckedUpdateWithoutWorkflow_runInput>
+    create: XOR<CostEntryCreateWithoutWorkflow_runInput, CostEntryUncheckedCreateWithoutWorkflow_runInput>
+  }
+
+  export type CostEntryUpdateWithWhereUniqueWithoutWorkflow_runInput = {
+    where: CostEntryWhereUniqueInput
+    data: XOR<CostEntryUpdateWithoutWorkflow_runInput, CostEntryUncheckedUpdateWithoutWorkflow_runInput>
+  }
+
+  export type CostEntryUpdateManyWithWhereWithoutWorkflow_runInput = {
+    where: CostEntryScalarWhereInput
+    data: XOR<CostEntryUpdateManyMutationInput, CostEntryUncheckedUpdateManyWithoutWorkflow_runInput>
+  }
+
   export type WebsiteTargetCreateWithoutExtracted_itemsInput = {
     id?: string
     name: string
@@ -57487,6 +59489,7 @@ export namespace Prisma {
     pages?: PlainScrapedPageCreateNestedManyWithoutWorkflow_runInput
     extraction_result?: ExtractionResultCreateNestedOneWithoutWorkflow_runInput
     ai_batch_job?: AiBatchJobCreateNestedOneWithoutWorkflow_runInput
+    cost_entries?: CostEntryCreateNestedManyWithoutWorkflow_runInput
   }
 
   export type WorkflowRunUncheckedCreateWithoutExtracted_itemsInput = {
@@ -57529,6 +59532,7 @@ export namespace Prisma {
     pages?: PlainScrapedPageUncheckedCreateNestedManyWithoutWorkflow_runInput
     extraction_result?: ExtractionResultUncheckedCreateNestedOneWithoutWorkflow_runInput
     ai_batch_job?: AiBatchJobUncheckedCreateNestedOneWithoutWorkflow_runInput
+    cost_entries?: CostEntryUncheckedCreateNestedManyWithoutWorkflow_runInput
   }
 
   export type WorkflowRunCreateOrConnectWithoutExtracted_itemsInput = {
@@ -57640,6 +59644,7 @@ export namespace Prisma {
     pages?: PlainScrapedPageUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUpdateOneWithoutWorkflow_runNestedInput
     ai_batch_job?: AiBatchJobUpdateOneWithoutWorkflow_runNestedInput
+    cost_entries?: CostEntryUpdateManyWithoutWorkflow_runNestedInput
   }
 
   export type WorkflowRunUncheckedUpdateWithoutExtracted_itemsInput = {
@@ -57682,6 +59687,7 @@ export namespace Prisma {
     pages?: PlainScrapedPageUncheckedUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUncheckedUpdateOneWithoutWorkflow_runNestedInput
     ai_batch_job?: AiBatchJobUncheckedUpdateOneWithoutWorkflow_runNestedInput
+    cost_entries?: CostEntryUncheckedUpdateManyWithoutWorkflow_runNestedInput
   }
 
   export type UserCreateWithoutExtraction_schemasInput = {
@@ -57703,6 +59709,7 @@ export namespace Prisma {
     job_logs?: JobLogCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    cost_entries?: CostEntryCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutExtraction_schemasInput = {
@@ -57724,6 +59731,7 @@ export namespace Prisma {
     job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    cost_entries?: CostEntryUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutExtraction_schemasInput = {
@@ -57824,6 +59832,7 @@ export namespace Prisma {
     job_logs?: JobLogUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    cost_entries?: CostEntryUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutExtraction_schemasInput = {
@@ -57845,6 +59854,7 @@ export namespace Prisma {
     job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    cost_entries?: CostEntryUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ExtractionSchemaVersionUpsertWithoutActive_for_schemaInput = {
@@ -58133,6 +60143,7 @@ export namespace Prisma {
     pages?: PlainScrapedPageCreateNestedManyWithoutWorkflow_runInput
     extraction_result?: ExtractionResultCreateNestedOneWithoutWorkflow_runInput
     ai_batch_job?: AiBatchJobCreateNestedOneWithoutWorkflow_runInput
+    cost_entries?: CostEntryCreateNestedManyWithoutWorkflow_runInput
   }
 
   export type WorkflowRunUncheckedCreateWithoutExtraction_schema_versionInput = {
@@ -58175,6 +60186,7 @@ export namespace Prisma {
     pages?: PlainScrapedPageUncheckedCreateNestedManyWithoutWorkflow_runInput
     extraction_result?: ExtractionResultUncheckedCreateNestedOneWithoutWorkflow_runInput
     ai_batch_job?: AiBatchJobUncheckedCreateNestedOneWithoutWorkflow_runInput
+    cost_entries?: CostEntryUncheckedCreateNestedManyWithoutWorkflow_runInput
   }
 
   export type WorkflowRunCreateOrConnectWithoutExtraction_schema_versionInput = {
@@ -58422,6 +60434,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceCreateNestedManyWithoutWorkflow_runInput
     extraction_result?: ExtractionResultCreateNestedOneWithoutWorkflow_runInput
     ai_batch_job?: AiBatchJobCreateNestedOneWithoutWorkflow_runInput
+    cost_entries?: CostEntryCreateNestedManyWithoutWorkflow_runInput
   }
 
   export type WorkflowRunUncheckedCreateWithoutPagesInput = {
@@ -58464,6 +60477,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceUncheckedCreateNestedManyWithoutWorkflow_runInput
     extraction_result?: ExtractionResultUncheckedCreateNestedOneWithoutWorkflow_runInput
     ai_batch_job?: AiBatchJobUncheckedCreateNestedOneWithoutWorkflow_runInput
+    cost_entries?: CostEntryUncheckedCreateNestedManyWithoutWorkflow_runInput
   }
 
   export type WorkflowRunCreateOrConnectWithoutPagesInput = {
@@ -58599,6 +60613,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUpdateOneWithoutWorkflow_runNestedInput
     ai_batch_job?: AiBatchJobUpdateOneWithoutWorkflow_runNestedInput
+    cost_entries?: CostEntryUpdateManyWithoutWorkflow_runNestedInput
   }
 
   export type WorkflowRunUncheckedUpdateWithoutPagesInput = {
@@ -58641,6 +60656,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceUncheckedUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUncheckedUpdateOneWithoutWorkflow_runNestedInput
     ai_batch_job?: AiBatchJobUncheckedUpdateOneWithoutWorkflow_runNestedInput
+    cost_entries?: CostEntryUncheckedUpdateManyWithoutWorkflow_runNestedInput
   }
 
   export type ExtractionResultUpsertWithoutPlain_scraped_pageInput = {
@@ -58762,6 +60778,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceCreateNestedManyWithoutWorkflow_runInput
     pages?: PlainScrapedPageCreateNestedManyWithoutWorkflow_runInput
     ai_batch_job?: AiBatchJobCreateNestedOneWithoutWorkflow_runInput
+    cost_entries?: CostEntryCreateNestedManyWithoutWorkflow_runInput
   }
 
   export type WorkflowRunUncheckedCreateWithoutExtraction_resultInput = {
@@ -58804,6 +60821,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceUncheckedCreateNestedManyWithoutWorkflow_runInput
     pages?: PlainScrapedPageUncheckedCreateNestedManyWithoutWorkflow_runInput
     ai_batch_job?: AiBatchJobUncheckedCreateNestedOneWithoutWorkflow_runInput
+    cost_entries?: CostEntryUncheckedCreateNestedManyWithoutWorkflow_runInput
   }
 
   export type WorkflowRunCreateOrConnectWithoutExtraction_resultInput = {
@@ -58928,6 +60946,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceUpdateManyWithoutWorkflow_runNestedInput
     pages?: PlainScrapedPageUpdateManyWithoutWorkflow_runNestedInput
     ai_batch_job?: AiBatchJobUpdateOneWithoutWorkflow_runNestedInput
+    cost_entries?: CostEntryUpdateManyWithoutWorkflow_runNestedInput
   }
 
   export type WorkflowRunUncheckedUpdateWithoutExtraction_resultInput = {
@@ -58970,6 +60989,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceUncheckedUpdateManyWithoutWorkflow_runNestedInput
     pages?: PlainScrapedPageUncheckedUpdateManyWithoutWorkflow_runNestedInput
     ai_batch_job?: AiBatchJobUncheckedUpdateOneWithoutWorkflow_runNestedInput
+    cost_entries?: CostEntryUncheckedUpdateManyWithoutWorkflow_runNestedInput
   }
 
   export type PlainScrapedPageUpsertWithoutExtraction_resultInput = {
@@ -59090,6 +61110,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceCreateNestedManyWithoutWorkflow_runInput
     pages?: PlainScrapedPageCreateNestedManyWithoutWorkflow_runInput
     extraction_result?: ExtractionResultCreateNestedOneWithoutWorkflow_runInput
+    cost_entries?: CostEntryCreateNestedManyWithoutWorkflow_runInput
   }
 
   export type WorkflowRunUncheckedCreateWithoutAi_batch_jobInput = {
@@ -59132,6 +61153,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceUncheckedCreateNestedManyWithoutWorkflow_runInput
     pages?: PlainScrapedPageUncheckedCreateNestedManyWithoutWorkflow_runInput
     extraction_result?: ExtractionResultUncheckedCreateNestedOneWithoutWorkflow_runInput
+    cost_entries?: CostEntryUncheckedCreateNestedManyWithoutWorkflow_runInput
   }
 
   export type WorkflowRunCreateOrConnectWithoutAi_batch_jobInput = {
@@ -59228,6 +61250,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceUpdateManyWithoutWorkflow_runNestedInput
     pages?: PlainScrapedPageUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUpdateOneWithoutWorkflow_runNestedInput
+    cost_entries?: CostEntryUpdateManyWithoutWorkflow_runNestedInput
   }
 
   export type WorkflowRunUncheckedUpdateWithoutAi_batch_jobInput = {
@@ -59270,6 +61293,7 @@ export namespace Prisma {
     execution_traces?: ScraperExecutionTraceUncheckedUpdateManyWithoutWorkflow_runNestedInput
     pages?: PlainScrapedPageUncheckedUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUncheckedUpdateOneWithoutWorkflow_runNestedInput
+    cost_entries?: CostEntryUncheckedUpdateManyWithoutWorkflow_runNestedInput
   }
 
   export type AiBatchRequestItemUpsertWithWhereUniqueWithoutAi_batch_jobInput = {
@@ -59496,6 +61520,7 @@ export namespace Prisma {
     pages?: PlainScrapedPageCreateNestedManyWithoutWorkflow_runInput
     extraction_result?: ExtractionResultCreateNestedOneWithoutWorkflow_runInput
     ai_batch_job?: AiBatchJobCreateNestedOneWithoutWorkflow_runInput
+    cost_entries?: CostEntryCreateNestedManyWithoutWorkflow_runInput
   }
 
   export type WorkflowRunUncheckedCreateWithoutDiagnostics_packageInput = {
@@ -59538,6 +61563,7 @@ export namespace Prisma {
     pages?: PlainScrapedPageUncheckedCreateNestedManyWithoutWorkflow_runInput
     extraction_result?: ExtractionResultUncheckedCreateNestedOneWithoutWorkflow_runInput
     ai_batch_job?: AiBatchJobUncheckedCreateNestedOneWithoutWorkflow_runInput
+    cost_entries?: CostEntryUncheckedCreateNestedManyWithoutWorkflow_runInput
   }
 
   export type WorkflowRunCreateOrConnectWithoutDiagnostics_packageInput = {
@@ -59647,6 +61673,7 @@ export namespace Prisma {
     webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
     job_logs?: JobLogCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    cost_entries?: CostEntryCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutDiagnostics_packagesInput = {
@@ -59668,6 +61695,7 @@ export namespace Prisma {
     webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
     job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    cost_entries?: CostEntryUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutDiagnostics_packagesInput = {
@@ -59754,6 +61782,7 @@ export namespace Prisma {
     pages?: PlainScrapedPageUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUpdateOneWithoutWorkflow_runNestedInput
     ai_batch_job?: AiBatchJobUpdateOneWithoutWorkflow_runNestedInput
+    cost_entries?: CostEntryUpdateManyWithoutWorkflow_runNestedInput
   }
 
   export type WorkflowRunUncheckedUpdateWithoutDiagnostics_packageInput = {
@@ -59796,6 +61825,7 @@ export namespace Prisma {
     pages?: PlainScrapedPageUncheckedUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUncheckedUpdateOneWithoutWorkflow_runNestedInput
     ai_batch_job?: AiBatchJobUncheckedUpdateOneWithoutWorkflow_runNestedInput
+    cost_entries?: CostEntryUncheckedUpdateManyWithoutWorkflow_runNestedInput
   }
 
   export type WorkflowConfigUpsertWithoutDiagnostics_packagesInput = {
@@ -59917,6 +61947,7 @@ export namespace Prisma {
     webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    cost_entries?: CostEntryUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDiagnostics_packagesInput = {
@@ -59938,6 +61969,7 @@ export namespace Prisma {
     webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    cost_entries?: CostEntryUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type DiagnosticsArtifactUpsertWithWhereUniqueWithoutDiagnostics_packageInput = {
@@ -60105,6 +62137,7 @@ export namespace Prisma {
     pages?: PlainScrapedPageCreateNestedManyWithoutWorkflow_runInput
     extraction_result?: ExtractionResultCreateNestedOneWithoutWorkflow_runInput
     ai_batch_job?: AiBatchJobCreateNestedOneWithoutWorkflow_runInput
+    cost_entries?: CostEntryCreateNestedManyWithoutWorkflow_runInput
   }
 
   export type WorkflowRunUncheckedCreateWithoutJob_logsInput = {
@@ -60147,6 +62180,7 @@ export namespace Prisma {
     pages?: PlainScrapedPageUncheckedCreateNestedManyWithoutWorkflow_runInput
     extraction_result?: ExtractionResultUncheckedCreateNestedOneWithoutWorkflow_runInput
     ai_batch_job?: AiBatchJobUncheckedCreateNestedOneWithoutWorkflow_runInput
+    cost_entries?: CostEntryUncheckedCreateNestedManyWithoutWorkflow_runInput
   }
 
   export type WorkflowRunCreateOrConnectWithoutJob_logsInput = {
@@ -60173,6 +62207,7 @@ export namespace Prisma {
     webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    cost_entries?: CostEntryCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutJob_logsInput = {
@@ -60194,6 +62229,7 @@ export namespace Prisma {
     webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    cost_entries?: CostEntryUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutJob_logsInput = {
@@ -60252,6 +62288,7 @@ export namespace Prisma {
     pages?: PlainScrapedPageUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUpdateOneWithoutWorkflow_runNestedInput
     ai_batch_job?: AiBatchJobUpdateOneWithoutWorkflow_runNestedInput
+    cost_entries?: CostEntryUpdateManyWithoutWorkflow_runNestedInput
   }
 
   export type WorkflowRunUncheckedUpdateWithoutJob_logsInput = {
@@ -60294,6 +62331,7 @@ export namespace Prisma {
     pages?: PlainScrapedPageUncheckedUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUncheckedUpdateOneWithoutWorkflow_runNestedInput
     ai_batch_job?: AiBatchJobUncheckedUpdateOneWithoutWorkflow_runNestedInput
+    cost_entries?: CostEntryUncheckedUpdateManyWithoutWorkflow_runNestedInput
   }
 
   export type UserUpsertWithoutJob_logsInput = {
@@ -60326,6 +62364,7 @@ export namespace Prisma {
     webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    cost_entries?: CostEntryUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutJob_logsInput = {
@@ -60347,6 +62386,299 @@ export namespace Prisma {
     webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    cost_entries?: CostEntryUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutCost_entriesInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    password: string
+    role: $Enums.AuthRole
+    default_schedule_tz?: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    password_reset_tokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    website_targets?: WebsiteTargetCreateNestedManyWithoutUserInput
+    workflow_configs?: WorkflowConfigCreateNestedManyWithoutUserInput
+    workflow_runs?: WorkflowRunCreateNestedManyWithoutUserInput
+    user_integrations?: UserIntegrationCreateNestedManyWithoutUserInput
+    extraction_schemas?: ExtractionSchemaCreateNestedManyWithoutUserInput
+    api_keys?: ApiKeyCreateNestedManyWithoutUserInput
+    webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
+    job_logs?: JobLogCreateNestedManyWithoutUserInput
+    diagnostics_packages?: DiagnosticsPackageCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutCost_entriesInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    password: string
+    role: $Enums.AuthRole
+    default_schedule_tz?: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    password_reset_tokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    website_targets?: WebsiteTargetUncheckedCreateNestedManyWithoutUserInput
+    workflow_configs?: WorkflowConfigUncheckedCreateNestedManyWithoutUserInput
+    workflow_runs?: WorkflowRunUncheckedCreateNestedManyWithoutUserInput
+    user_integrations?: UserIntegrationUncheckedCreateNestedManyWithoutUserInput
+    extraction_schemas?: ExtractionSchemaUncheckedCreateNestedManyWithoutUserInput
+    api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
+    webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
+    job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
+    diagnostics_packages?: DiagnosticsPackageUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutCost_entriesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutCost_entriesInput, UserUncheckedCreateWithoutCost_entriesInput>
+  }
+
+  export type WorkflowRunCreateWithoutCost_entriesInput = {
+    id?: string
+    type: $Enums.WorkflowType
+    trigger?: $Enums.RunTrigger
+    status?: $Enums.RunStatus
+    url?: string | null
+    max_steps?: number | null
+    visited_urls?: NullableJsonNullValueInput | InputJsonValue
+    browser_actions?: NullableJsonNullValueInput | InputJsonValue
+    collected_data?: NullableJsonNullValueInput | InputJsonValue
+    capture_api?: boolean
+    captured_requests?: NullableJsonNullValueInput | InputJsonValue
+    urls?: WorkflowRunCreateurlsInput | string[]
+    extraction_scope?: $Enums.ExtractionScope | null
+    output_formats?: WorkflowRunCreateoutput_formatsInput | $Enums.OutputFormat[]
+    ai_batch_mode?: boolean
+    ai_usage?: NullableJsonNullValueInput | InputJsonValue
+    error_message?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: boolean
+    results_purged_at?: Date | string | null
+    started_at?: Date | string | null
+    finished_at?: Date | string | null
+    duration_ms?: number | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    workflow_config: WorkflowConfigCreateNestedOneWithoutRunsInput
+    user: UserCreateNestedOneWithoutWorkflow_runsInput
+    website_target?: WebsiteTargetCreateNestedOneWithoutWorkflow_runsInput
+    scraper_version?: ScraperVersionCreateNestedOneWithoutWorkflow_runsInput
+    extraction_schema_version?: ExtractionSchemaVersionCreateNestedOneWithoutWorkflow_runsInput
+    openapi_spec_document?: DocumentCreateNestedOneWithoutWorkflow_run_openapi_specInput
+    steps?: ComputerUseStepCreateNestedManyWithoutWorkflow_runInput
+    job_logs?: JobLogCreateNestedManyWithoutWorkflow_runInput
+    notifications?: NotificationCreateNestedManyWithoutWorkflow_runInput
+    diagnostics_package?: DiagnosticsPackageCreateNestedOneWithoutWorkflow_runInput
+    extracted_items?: ExtractedItemCreateNestedManyWithoutWorkflow_runInput
+    execution_traces?: ScraperExecutionTraceCreateNestedManyWithoutWorkflow_runInput
+    pages?: PlainScrapedPageCreateNestedManyWithoutWorkflow_runInput
+    extraction_result?: ExtractionResultCreateNestedOneWithoutWorkflow_runInput
+    ai_batch_job?: AiBatchJobCreateNestedOneWithoutWorkflow_runInput
+  }
+
+  export type WorkflowRunUncheckedCreateWithoutCost_entriesInput = {
+    id?: string
+    workflow_config_id: string
+    user_id: string
+    type: $Enums.WorkflowType
+    trigger?: $Enums.RunTrigger
+    status?: $Enums.RunStatus
+    website_target_id?: string | null
+    scraper_version_id?: string | null
+    url?: string | null
+    max_steps?: number | null
+    visited_urls?: NullableJsonNullValueInput | InputJsonValue
+    browser_actions?: NullableJsonNullValueInput | InputJsonValue
+    collected_data?: NullableJsonNullValueInput | InputJsonValue
+    capture_api?: boolean
+    captured_requests?: NullableJsonNullValueInput | InputJsonValue
+    openapi_spec_document_id?: string | null
+    urls?: WorkflowRunCreateurlsInput | string[]
+    extraction_scope?: $Enums.ExtractionScope | null
+    output_formats?: WorkflowRunCreateoutput_formatsInput | $Enums.OutputFormat[]
+    extraction_schema_version_id?: string | null
+    ai_batch_mode?: boolean
+    ai_usage?: NullableJsonNullValueInput | InputJsonValue
+    error_message?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: boolean
+    results_purged_at?: Date | string | null
+    started_at?: Date | string | null
+    finished_at?: Date | string | null
+    duration_ms?: number | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    steps?: ComputerUseStepUncheckedCreateNestedManyWithoutWorkflow_runInput
+    job_logs?: JobLogUncheckedCreateNestedManyWithoutWorkflow_runInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutWorkflow_runInput
+    diagnostics_package?: DiagnosticsPackageUncheckedCreateNestedOneWithoutWorkflow_runInput
+    extracted_items?: ExtractedItemUncheckedCreateNestedManyWithoutWorkflow_runInput
+    execution_traces?: ScraperExecutionTraceUncheckedCreateNestedManyWithoutWorkflow_runInput
+    pages?: PlainScrapedPageUncheckedCreateNestedManyWithoutWorkflow_runInput
+    extraction_result?: ExtractionResultUncheckedCreateNestedOneWithoutWorkflow_runInput
+    ai_batch_job?: AiBatchJobUncheckedCreateNestedOneWithoutWorkflow_runInput
+  }
+
+  export type WorkflowRunCreateOrConnectWithoutCost_entriesInput = {
+    where: WorkflowRunWhereUniqueInput
+    create: XOR<WorkflowRunCreateWithoutCost_entriesInput, WorkflowRunUncheckedCreateWithoutCost_entriesInput>
+  }
+
+  export type UserUpsertWithoutCost_entriesInput = {
+    update: XOR<UserUpdateWithoutCost_entriesInput, UserUncheckedUpdateWithoutCost_entriesInput>
+    create: XOR<UserCreateWithoutCost_entriesInput, UserUncheckedCreateWithoutCost_entriesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutCost_entriesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutCost_entriesInput, UserUncheckedUpdateWithoutCost_entriesInput>
+  }
+
+  export type UserUpdateWithoutCost_entriesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
+    default_schedule_tz?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    password_reset_tokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    website_targets?: WebsiteTargetUpdateManyWithoutUserNestedInput
+    workflow_configs?: WorkflowConfigUpdateManyWithoutUserNestedInput
+    workflow_runs?: WorkflowRunUpdateManyWithoutUserNestedInput
+    user_integrations?: UserIntegrationUpdateManyWithoutUserNestedInput
+    extraction_schemas?: ExtractionSchemaUpdateManyWithoutUserNestedInput
+    api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
+    webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
+    job_logs?: JobLogUpdateManyWithoutUserNestedInput
+    diagnostics_packages?: DiagnosticsPackageUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutCost_entriesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
+    default_schedule_tz?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    password_reset_tokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    website_targets?: WebsiteTargetUncheckedUpdateManyWithoutUserNestedInput
+    workflow_configs?: WorkflowConfigUncheckedUpdateManyWithoutUserNestedInput
+    workflow_runs?: WorkflowRunUncheckedUpdateManyWithoutUserNestedInput
+    user_integrations?: UserIntegrationUncheckedUpdateManyWithoutUserNestedInput
+    extraction_schemas?: ExtractionSchemaUncheckedUpdateManyWithoutUserNestedInput
+    api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
+    webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
+    job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
+    diagnostics_packages?: DiagnosticsPackageUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type WorkflowRunUpsertWithoutCost_entriesInput = {
+    update: XOR<WorkflowRunUpdateWithoutCost_entriesInput, WorkflowRunUncheckedUpdateWithoutCost_entriesInput>
+    create: XOR<WorkflowRunCreateWithoutCost_entriesInput, WorkflowRunUncheckedCreateWithoutCost_entriesInput>
+    where?: WorkflowRunWhereInput
+  }
+
+  export type WorkflowRunUpdateToOneWithWhereWithoutCost_entriesInput = {
+    where?: WorkflowRunWhereInput
+    data: XOR<WorkflowRunUpdateWithoutCost_entriesInput, WorkflowRunUncheckedUpdateWithoutCost_entriesInput>
+  }
+
+  export type WorkflowRunUpdateWithoutCost_entriesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumWorkflowTypeFieldUpdateOperationsInput | $Enums.WorkflowType
+    trigger?: EnumRunTriggerFieldUpdateOperationsInput | $Enums.RunTrigger
+    status?: EnumRunStatusFieldUpdateOperationsInput | $Enums.RunStatus
+    url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
+    visited_urls?: NullableJsonNullValueInput | InputJsonValue
+    browser_actions?: NullableJsonNullValueInput | InputJsonValue
+    collected_data?: NullableJsonNullValueInput | InputJsonValue
+    capture_api?: BoolFieldUpdateOperationsInput | boolean
+    captured_requests?: NullableJsonNullValueInput | InputJsonValue
+    urls?: WorkflowRunUpdateurlsInput | string[]
+    extraction_scope?: NullableEnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope | null
+    output_formats?: WorkflowRunUpdateoutput_formatsInput | $Enums.OutputFormat[]
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
+    ai_usage?: NullableJsonNullValueInput | InputJsonValue
+    error_message?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
+    results_purged_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    workflow_config?: WorkflowConfigUpdateOneRequiredWithoutRunsNestedInput
+    user?: UserUpdateOneRequiredWithoutWorkflow_runsNestedInput
+    website_target?: WebsiteTargetUpdateOneWithoutWorkflow_runsNestedInput
+    scraper_version?: ScraperVersionUpdateOneWithoutWorkflow_runsNestedInput
+    extraction_schema_version?: ExtractionSchemaVersionUpdateOneWithoutWorkflow_runsNestedInput
+    openapi_spec_document?: DocumentUpdateOneWithoutWorkflow_run_openapi_specNestedInput
+    steps?: ComputerUseStepUpdateManyWithoutWorkflow_runNestedInput
+    job_logs?: JobLogUpdateManyWithoutWorkflow_runNestedInput
+    notifications?: NotificationUpdateManyWithoutWorkflow_runNestedInput
+    diagnostics_package?: DiagnosticsPackageUpdateOneWithoutWorkflow_runNestedInput
+    extracted_items?: ExtractedItemUpdateManyWithoutWorkflow_runNestedInput
+    execution_traces?: ScraperExecutionTraceUpdateManyWithoutWorkflow_runNestedInput
+    pages?: PlainScrapedPageUpdateManyWithoutWorkflow_runNestedInput
+    extraction_result?: ExtractionResultUpdateOneWithoutWorkflow_runNestedInput
+    ai_batch_job?: AiBatchJobUpdateOneWithoutWorkflow_runNestedInput
+  }
+
+  export type WorkflowRunUncheckedUpdateWithoutCost_entriesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    workflow_config_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    type?: EnumWorkflowTypeFieldUpdateOperationsInput | $Enums.WorkflowType
+    trigger?: EnumRunTriggerFieldUpdateOperationsInput | $Enums.RunTrigger
+    status?: EnumRunStatusFieldUpdateOperationsInput | $Enums.RunStatus
+    website_target_id?: NullableStringFieldUpdateOperationsInput | string | null
+    scraper_version_id?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
+    visited_urls?: NullableJsonNullValueInput | InputJsonValue
+    browser_actions?: NullableJsonNullValueInput | InputJsonValue
+    collected_data?: NullableJsonNullValueInput | InputJsonValue
+    capture_api?: BoolFieldUpdateOperationsInput | boolean
+    captured_requests?: NullableJsonNullValueInput | InputJsonValue
+    openapi_spec_document_id?: NullableStringFieldUpdateOperationsInput | string | null
+    urls?: WorkflowRunUpdateurlsInput | string[]
+    extraction_scope?: NullableEnumExtractionScopeFieldUpdateOperationsInput | $Enums.ExtractionScope | null
+    output_formats?: WorkflowRunUpdateoutput_formatsInput | $Enums.OutputFormat[]
+    extraction_schema_version_id?: NullableStringFieldUpdateOperationsInput | string | null
+    ai_batch_mode?: BoolFieldUpdateOperationsInput | boolean
+    ai_usage?: NullableJsonNullValueInput | InputJsonValue
+    error_message?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    persist_results?: BoolFieldUpdateOperationsInput | boolean
+    results_purged_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    steps?: ComputerUseStepUncheckedUpdateManyWithoutWorkflow_runNestedInput
+    job_logs?: JobLogUncheckedUpdateManyWithoutWorkflow_runNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutWorkflow_runNestedInput
+    diagnostics_package?: DiagnosticsPackageUncheckedUpdateOneWithoutWorkflow_runNestedInput
+    extracted_items?: ExtractedItemUncheckedUpdateManyWithoutWorkflow_runNestedInput
+    execution_traces?: ScraperExecutionTraceUncheckedUpdateManyWithoutWorkflow_runNestedInput
+    pages?: PlainScrapedPageUncheckedUpdateManyWithoutWorkflow_runNestedInput
+    extraction_result?: ExtractionResultUncheckedUpdateOneWithoutWorkflow_runNestedInput
+    ai_batch_job?: AiBatchJobUncheckedUpdateOneWithoutWorkflow_runNestedInput
   }
 
   export type WebsiteTargetCreateWithoutNotificationsInput = {
@@ -60519,6 +62851,7 @@ export namespace Prisma {
     pages?: PlainScrapedPageCreateNestedManyWithoutWorkflow_runInput
     extraction_result?: ExtractionResultCreateNestedOneWithoutWorkflow_runInput
     ai_batch_job?: AiBatchJobCreateNestedOneWithoutWorkflow_runInput
+    cost_entries?: CostEntryCreateNestedManyWithoutWorkflow_runInput
   }
 
   export type WorkflowRunUncheckedCreateWithoutNotificationsInput = {
@@ -60561,6 +62894,7 @@ export namespace Prisma {
     pages?: PlainScrapedPageUncheckedCreateNestedManyWithoutWorkflow_runInput
     extraction_result?: ExtractionResultUncheckedCreateNestedOneWithoutWorkflow_runInput
     ai_batch_job?: AiBatchJobUncheckedCreateNestedOneWithoutWorkflow_runInput
+    cost_entries?: CostEntryUncheckedCreateNestedManyWithoutWorkflow_runInput
   }
 
   export type WorkflowRunCreateOrConnectWithoutNotificationsInput = {
@@ -60587,6 +62921,7 @@ export namespace Prisma {
     webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
     job_logs?: JobLogCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageCreateNestedManyWithoutUserInput
+    cost_entries?: CostEntryCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -60608,6 +62943,7 @@ export namespace Prisma {
     webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
     job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageUncheckedCreateNestedManyWithoutUserInput
+    cost_entries?: CostEntryUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -60808,6 +63144,7 @@ export namespace Prisma {
     pages?: PlainScrapedPageUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUpdateOneWithoutWorkflow_runNestedInput
     ai_batch_job?: AiBatchJobUpdateOneWithoutWorkflow_runNestedInput
+    cost_entries?: CostEntryUpdateManyWithoutWorkflow_runNestedInput
   }
 
   export type WorkflowRunUncheckedUpdateWithoutNotificationsInput = {
@@ -60850,6 +63187,7 @@ export namespace Prisma {
     pages?: PlainScrapedPageUncheckedUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUncheckedUpdateOneWithoutWorkflow_runNestedInput
     ai_batch_job?: AiBatchJobUncheckedUpdateOneWithoutWorkflow_runNestedInput
+    cost_entries?: CostEntryUncheckedUpdateManyWithoutWorkflow_runNestedInput
   }
 
   export type UserUpsertWithoutNotificationsInput = {
@@ -60882,6 +63220,7 @@ export namespace Prisma {
     webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUpdateManyWithoutUserNestedInput
+    cost_entries?: CostEntryUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -60903,6 +63242,7 @@ export namespace Prisma {
     webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUncheckedUpdateManyWithoutUserNestedInput
+    cost_entries?: CostEntryUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutUser_integrationsInput = {
@@ -60924,6 +63264,7 @@ export namespace Prisma {
     job_logs?: JobLogCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    cost_entries?: CostEntryCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutUser_integrationsInput = {
@@ -60945,6 +63286,7 @@ export namespace Prisma {
     job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    cost_entries?: CostEntryUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutUser_integrationsInput = {
@@ -60982,6 +63324,7 @@ export namespace Prisma {
     job_logs?: JobLogUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    cost_entries?: CostEntryUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutUser_integrationsInput = {
@@ -61003,6 +63346,7 @@ export namespace Prisma {
     job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    cost_entries?: CostEntryUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PasswordResetTokenCreateManyUserInput = {
@@ -61190,6 +63534,18 @@ export namespace Prisma {
     workflow_config_id?: string | null
     workflow_run_id?: string | null
     is_read?: boolean
+    created_at?: Date | string
+  }
+
+  export type CostEntryCreateManyUserInput = {
+    id?: string
+    category: $Enums.CostCategory
+    provider?: string | null
+    model?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    currency?: string
+    workflow_run_id?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
   }
 
@@ -61425,6 +63781,7 @@ export namespace Prisma {
     pages?: PlainScrapedPageUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUpdateOneWithoutWorkflow_runNestedInput
     ai_batch_job?: AiBatchJobUpdateOneWithoutWorkflow_runNestedInput
+    cost_entries?: CostEntryUpdateManyWithoutWorkflow_runNestedInput
   }
 
   export type WorkflowRunUncheckedUpdateWithoutUserInput = {
@@ -61467,6 +63824,7 @@ export namespace Prisma {
     pages?: PlainScrapedPageUncheckedUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUncheckedUpdateOneWithoutWorkflow_runNestedInput
     ai_batch_job?: AiBatchJobUncheckedUpdateOneWithoutWorkflow_runNestedInput
+    cost_entries?: CostEntryUncheckedUpdateManyWithoutWorkflow_runNestedInput
   }
 
   export type WorkflowRunUncheckedUpdateManyWithoutUserInput = {
@@ -61805,6 +64163,42 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type CostEntryUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    category?: EnumCostCategoryFieldUpdateOperationsInput | $Enums.CostCategory
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    model?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    workflow_run?: WorkflowRunUpdateOneWithoutCost_entriesNestedInput
+  }
+
+  export type CostEntryUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    category?: EnumCostCategoryFieldUpdateOperationsInput | $Enums.CostCategory
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    model?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CostEntryUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    category?: EnumCostCategoryFieldUpdateOperationsInput | $Enums.CostCategory
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    model?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type WebhookDeliveryCreateManyWebhook_endpointInput = {
     id?: string
     event_type: $Enums.WebhookEventType
@@ -62034,6 +64428,7 @@ export namespace Prisma {
     pages?: PlainScrapedPageUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUpdateOneWithoutWorkflow_runNestedInput
     ai_batch_job?: AiBatchJobUpdateOneWithoutWorkflow_runNestedInput
+    cost_entries?: CostEntryUpdateManyWithoutWorkflow_runNestedInput
   }
 
   export type WorkflowRunUncheckedUpdateWithoutOpenapi_spec_documentInput = {
@@ -62076,6 +64471,7 @@ export namespace Prisma {
     pages?: PlainScrapedPageUncheckedUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUncheckedUpdateOneWithoutWorkflow_runNestedInput
     ai_batch_job?: AiBatchJobUncheckedUpdateOneWithoutWorkflow_runNestedInput
+    cost_entries?: CostEntryUncheckedUpdateManyWithoutWorkflow_runNestedInput
   }
 
   export type WorkflowRunUncheckedUpdateManyWithoutOpenapi_spec_documentInput = {
@@ -62445,6 +64841,7 @@ export namespace Prisma {
     pages?: PlainScrapedPageUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUpdateOneWithoutWorkflow_runNestedInput
     ai_batch_job?: AiBatchJobUpdateOneWithoutWorkflow_runNestedInput
+    cost_entries?: CostEntryUpdateManyWithoutWorkflow_runNestedInput
   }
 
   export type WorkflowRunUncheckedUpdateWithoutWebsite_targetInput = {
@@ -62487,6 +64884,7 @@ export namespace Prisma {
     pages?: PlainScrapedPageUncheckedUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUncheckedUpdateOneWithoutWorkflow_runNestedInput
     ai_batch_job?: AiBatchJobUncheckedUpdateOneWithoutWorkflow_runNestedInput
+    cost_entries?: CostEntryUncheckedUpdateManyWithoutWorkflow_runNestedInput
   }
 
   export type WorkflowRunUncheckedUpdateManyWithoutWebsite_targetInput = {
@@ -62786,6 +65184,7 @@ export namespace Prisma {
     pages?: PlainScrapedPageUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUpdateOneWithoutWorkflow_runNestedInput
     ai_batch_job?: AiBatchJobUpdateOneWithoutWorkflow_runNestedInput
+    cost_entries?: CostEntryUpdateManyWithoutWorkflow_runNestedInput
   }
 
   export type WorkflowRunUncheckedUpdateWithoutWorkflow_configInput = {
@@ -62828,6 +65227,7 @@ export namespace Prisma {
     pages?: PlainScrapedPageUncheckedUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUncheckedUpdateOneWithoutWorkflow_runNestedInput
     ai_batch_job?: AiBatchJobUncheckedUpdateOneWithoutWorkflow_runNestedInput
+    cost_entries?: CostEntryUncheckedUpdateManyWithoutWorkflow_runNestedInput
   }
 
   export type WorkflowRunUncheckedUpdateManyWithoutWorkflow_configInput = {
@@ -63216,6 +65616,7 @@ export namespace Prisma {
     pages?: PlainScrapedPageUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUpdateOneWithoutWorkflow_runNestedInput
     ai_batch_job?: AiBatchJobUpdateOneWithoutWorkflow_runNestedInput
+    cost_entries?: CostEntryUpdateManyWithoutWorkflow_runNestedInput
   }
 
   export type WorkflowRunUncheckedUpdateWithoutScraper_versionInput = {
@@ -63258,6 +65659,7 @@ export namespace Prisma {
     pages?: PlainScrapedPageUncheckedUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUncheckedUpdateOneWithoutWorkflow_runNestedInput
     ai_batch_job?: AiBatchJobUncheckedUpdateOneWithoutWorkflow_runNestedInput
+    cost_entries?: CostEntryUncheckedUpdateManyWithoutWorkflow_runNestedInput
   }
 
   export type WorkflowRunUncheckedUpdateManyWithoutScraper_versionInput = {
@@ -63372,6 +65774,18 @@ export namespace Prisma {
     title?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
+    created_at?: Date | string
+  }
+
+  export type CostEntryCreateManyWorkflow_runInput = {
+    id?: string
+    user_id: string
+    category: $Enums.CostCategory
+    provider?: string | null
+    model?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    currency?: string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
   }
 
@@ -63622,6 +66036,42 @@ export namespace Prisma {
     title?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CostEntryUpdateWithoutWorkflow_runInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    category?: EnumCostCategoryFieldUpdateOperationsInput | $Enums.CostCategory
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    model?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutCost_entriesNestedInput
+  }
+
+  export type CostEntryUncheckedUpdateWithoutWorkflow_runInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    category?: EnumCostCategoryFieldUpdateOperationsInput | $Enums.CostCategory
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    model?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CostEntryUncheckedUpdateManyWithoutWorkflow_runInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    category?: EnumCostCategoryFieldUpdateOperationsInput | $Enums.CostCategory
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    model?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -63955,6 +66405,7 @@ export namespace Prisma {
     pages?: PlainScrapedPageUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUpdateOneWithoutWorkflow_runNestedInput
     ai_batch_job?: AiBatchJobUpdateOneWithoutWorkflow_runNestedInput
+    cost_entries?: CostEntryUpdateManyWithoutWorkflow_runNestedInput
   }
 
   export type WorkflowRunUncheckedUpdateWithoutExtraction_schema_versionInput = {
@@ -63997,6 +66448,7 @@ export namespace Prisma {
     pages?: PlainScrapedPageUncheckedUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUncheckedUpdateOneWithoutWorkflow_runNestedInput
     ai_batch_job?: AiBatchJobUncheckedUpdateOneWithoutWorkflow_runNestedInput
+    cost_entries?: CostEntryUncheckedUpdateManyWithoutWorkflow_runNestedInput
   }
 
   export type WorkflowRunUncheckedUpdateManyWithoutExtraction_schema_versionInput = {
