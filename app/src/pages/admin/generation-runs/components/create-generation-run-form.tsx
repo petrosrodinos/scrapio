@@ -5,6 +5,7 @@ import { ActionButtonWithPending } from "@/components/ui/action-button-with-pend
 import { useWebsiteTargets } from "@/features/website-targets/hooks/use-website-targets";
 import {
   createGenerationRunFormSchema,
+  createScraperGenerationRunFormSchema,
   outputConfigDefaults,
   type CreateGenerationRunFormValues,
 } from "@/features/scraper-generation/validation-schemas/scraper-generation.schema";
@@ -23,6 +24,7 @@ interface CreateGenerationRunFormProps {
   defaultWebsiteTargetName?: string;
   lockWebsiteTarget?: boolean;
   defaultScraperId?: string;
+  hideOutputConfig?: boolean;
   isPending: boolean;
   onSubmit: (values: CreateGenerationRunFormValues, start: boolean) => void;
   onCancel?: () => void;
@@ -33,6 +35,7 @@ export function CreateGenerationRunForm({
   defaultWebsiteTargetName,
   lockWebsiteTarget = false,
   defaultScraperId,
+  hideOutputConfig = false,
   isPending,
   onSubmit,
   onCancel,
@@ -50,13 +53,16 @@ export function CreateGenerationRunForm({
     watch,
     formState: { errors },
   } = useForm<CreateGenerationRunFormValues>({
-    resolver: zodResolver(createGenerationRunFormSchema) as Resolver<CreateGenerationRunFormValues>,
+    resolver: zodResolver(
+      hideOutputConfig ? createScraperGenerationRunFormSchema : createGenerationRunFormSchema,
+    ) as Resolver<CreateGenerationRunFormValues>,
     defaultValues: {
       website_target_id: defaultWebsiteTargetId ?? "",
       scraper_id: defaultScraperId,
       prompt: "",
       max_steps: undefined,
       ...outputConfigDefaults,
+      ...(hideOutputConfig ? { output_formats: [] } : {}),
     },
   });
 
@@ -143,46 +149,48 @@ export function CreateGenerationRunForm({
         {errors.max_steps && <FieldError>{errors.max_steps.message}</FieldError>}
       </div>
 
-      <div className="border-t border-border pt-5">
-        <Controller
-          name="output_formats"
-          control={control}
-          render={({ field: formatsField }) => (
-            <Controller
-              name="output_schema_mode"
-              control={control}
-              render={({ field: modeField }) => (
-                <Controller
-                  name="output_schema_fields"
-                  control={control}
-                  render={({ field: fieldsField }) => (
-                    <Controller
-                      name="output_schema_json"
-                      control={control}
-                      render={({ field: jsonField }) => (
-                        <OutputDataConfigEditor
-                          outputFormats={formatsField.value as OutputFormat[]}
-                          schemaMode={modeField.value as OutputSchemaEditorMode}
-                          schemaFields={fieldsField.value as OutputSchemaField[]}
-                          schemaJson={jsonField.value}
-                          onOutputFormatsChange={formatsField.onChange}
-                          onSchemaModeChange={modeField.onChange}
-                          onSchemaFieldsChange={fieldsField.onChange}
-                          onSchemaJsonChange={jsonField.onChange}
-                          formatsError={errors.output_formats?.message}
-                          schemaFieldsError={errors.output_schema_fields?.message}
-                          schemaJsonError={errors.output_schema_json?.message}
-                          isDisabled={isPending}
-                        />
-                      )}
-                    />
-                  )}
-                />
-              )}
-            />
-          )}
-        />
-      </div>
+      {!hideOutputConfig ? (
+        <div className="border-t border-border pt-5">
+          <Controller
+            name="output_formats"
+            control={control}
+            render={({ field: formatsField }) => (
+              <Controller
+                name="output_schema_mode"
+                control={control}
+                render={({ field: modeField }) => (
+                  <Controller
+                    name="output_schema_fields"
+                    control={control}
+                    render={({ field: fieldsField }) => (
+                      <Controller
+                        name="output_schema_json"
+                        control={control}
+                        render={({ field: jsonField }) => (
+                          <OutputDataConfigEditor
+                            outputFormats={formatsField.value as OutputFormat[]}
+                            schemaMode={modeField.value as OutputSchemaEditorMode}
+                            schemaFields={fieldsField.value as OutputSchemaField[]}
+                            schemaJson={jsonField.value}
+                            onOutputFormatsChange={formatsField.onChange}
+                            onSchemaModeChange={modeField.onChange}
+                            onSchemaFieldsChange={fieldsField.onChange}
+                            onSchemaJsonChange={jsonField.onChange}
+                            formatsError={errors.output_formats?.message}
+                            schemaFieldsError={errors.output_schema_fields?.message}
+                            schemaJsonError={errors.output_schema_json?.message}
+                            isDisabled={isPending}
+                          />
+                        )}
+                      />
+                    )}
+                  />
+                )}
+              />
+            )}
+          />
+        </div>
+      ) : null}
 
       <div className="flex justify-end gap-2 border-t border-border pt-4">
         {onCancel && (

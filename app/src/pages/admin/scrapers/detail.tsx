@@ -497,6 +497,7 @@ export default function ScraperDetailPage() {
                   defaultWebsiteTargetId={scraper.website_target_id}
                   defaultWebsiteTargetName={scraper.website_target?.name}
                   lockWebsiteTarget
+                  hideOutputConfig
                   defaultScraperId={scraper.id}
                   isPending={createGenerationRun.isPending}
                   onCancel={generateModal.close}

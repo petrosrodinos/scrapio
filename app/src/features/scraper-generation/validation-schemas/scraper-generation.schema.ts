@@ -1,5 +1,6 @@
 import { z } from "zod";
 import {
+  createOutputDataConfigSchema,
   defaultOutputDataConfigValues,
   outputDataConfigSchema,
   resolveOutputSchemaFromForm,
@@ -14,14 +15,18 @@ const optionalMaxSteps = z.preprocess((value) => {
 
 const outputConfigDefaults = defaultOutputDataConfigValues();
 
-export const createGenerationRunFormSchema = z
-  .object({
-    website_target_id: z.string().min(1, "Website target is required"),
-    scraper_id: z.string().optional(),
-    prompt: z.string().trim().min(1, "Prompt is required"),
-    max_steps: optionalMaxSteps,
-  })
-  .merge(outputDataConfigSchema);
+const createGenerationRunBaseSchema = z.object({
+  website_target_id: z.string().min(1, "Website target is required"),
+  scraper_id: z.string().optional(),
+  prompt: z.string().trim().min(1, "Prompt is required"),
+  max_steps: optionalMaxSteps,
+});
+
+export const createGenerationRunFormSchema = createGenerationRunBaseSchema.merge(outputDataConfigSchema);
+
+export const createScraperGenerationRunFormSchema = createGenerationRunBaseSchema.merge(
+  createOutputDataConfigSchema(false),
+);
 
 export type CreateGenerationRunFormValues = z.infer<typeof createGenerationRunFormSchema>;
 

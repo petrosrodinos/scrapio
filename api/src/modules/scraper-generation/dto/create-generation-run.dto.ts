@@ -1,7 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import {
-  ArrayMinSize,
   IsArray,
   IsBoolean,
   IsEnum,
@@ -50,16 +49,17 @@ export class CreateGenerationRunDto {
   max_steps?: number;
 
   @ApiProperty({
+    required: false,
     enum: OutputFormat,
     isArray: true,
     description:
-      'Output formats the generated scraper should produce (STRUCTURED_JSON, MARKDOWN, or both)',
+      'Output formats the generated scraper should produce (STRUCTURED_JSON, MARKDOWN, or both). Omit or pass an empty array when generating Playwright config only.',
     example: [OutputFormat.STRUCTURED_JSON],
   })
+  @IsOptional()
   @IsArray()
-  @ArrayMinSize(1)
   @IsEnum(OutputFormat, { each: true })
-  output_formats: OutputFormat[];
+  output_formats?: OutputFormat[];
 
   @ApiProperty({
     required: false,

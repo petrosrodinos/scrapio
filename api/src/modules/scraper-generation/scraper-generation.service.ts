@@ -155,7 +155,7 @@ export class ScraperGenerationService {
       await this.ensureWorkflowConfigBelongsToUser(authUser, dto.scraper_id);
     }
 
-    this.validateOutputConfig(dto.output_formats, dto.output_schema);
+    this.validateOutputConfig(dto.output_formats ?? [], dto.output_schema);
 
     if (dto.start) {
       await this.ensureAnthropicComputerUse(websiteTarget.user_id);
@@ -171,7 +171,7 @@ export class ScraperGenerationService {
           : GenerationRunStatus.DRAFT,
         prompt: dto.prompt,
         max_steps: dto.max_steps ?? null,
-        output_formats: dto.output_formats,
+        output_formats: dto.output_formats ?? [],
         output_schema: dto.output_schema
           ? (dto.output_schema as Prisma.InputJsonValue)
           : null,
@@ -749,7 +749,7 @@ export class ScraperGenerationService {
     outputSchema?: Record<string, unknown>,
   ): void {
     if (!outputFormats?.length) {
-      throw new BadRequestException('At least one output format is required');
+      return;
     }
 
     if (!outputFormats.includes(OutputFormat.STRUCTURED_JSON)) {
