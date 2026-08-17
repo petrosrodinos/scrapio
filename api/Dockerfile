@@ -5,7 +5,7 @@ FROM node:20-bookworm-slim AS builder
 WORKDIR /app
 
 COPY package.json package-lock.json ./
-RUN npm ci
+RUN npm ci --include=dev
 
 COPY prisma ./prisma
 COPY prisma.config.ts ./
@@ -16,7 +16,7 @@ COPY src ./src
 
 RUN npm run build
 
-FROM mcr.microsoft.com/playwright:v1.61.1-jammy AS runner
+FROM mcr.microsoft.com/playwright:v1.62.1-jammy AS runner
 
 WORKDIR /app
 
