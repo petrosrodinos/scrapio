@@ -1,0 +1,21 @@
+/* The expand-preview modal clones a preview-panel's INNER content (toolbar +
+   body) into [data-modal-clone-target], which is the .modal__body element
+   itself — so .modal__body becomes the flex container for those two pieces
+   directly (there is no .preview-panel wrapper inside the modal). */
+.modal--full .modal__body {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+.modal--full .preview-panel__toolbar { flex: 0 0 auto; width: 100%; }
+.modal--full .preview-panel__body {
+  display: block;
+  max-height: none;
+  height: calc(88vh - 110px);
+  flex: 1 1 auto;
+  align-self: stretch;
+  width: 100%;
+}
+.modal--full .preview-panel__body--frame { height: calc(88vh - 110px); }
+.modal--full .preview-panel__body--frame iframe { width: 100%; height: 100%; }
+.modal--full pre.code-block { max-height: none; height: 100%; width: 100%; border-radius: 0; box-sizing: border-box; }

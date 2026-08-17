@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>New Scraper · Basics — Scrapio</title>
+<link rel="stylesheet" href="../assets/css/tokens.css" />
+<link rel="stylesheet" href="../assets/css/base.css" />
+<link rel="stylesheet" href="../assets/css/components.css" />
+<link rel="stylesheet" href="../assets/css/wizard.css" />
+</head>
+<body>
+<div class="app-shell">
+
+  <!-- ===================== Sidebar ===================== -->
+  <aside class="sidebar">
+    <div class="brand"><span class="brand__mark">S</span> Scrapio</div>
+    <a class="nav-cta" href="../start.html">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+      Start a scrape
+    </a>
+    <nav class="nav-group">
+      <div class="nav-group__label">Overview</div>
+      <a class="nav-link" href="../index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
+        Dashboard
+      </a>
+    </nav>
+    <nav class="nav-group">
+      <div class="nav-group__label">Build &amp; manage</div>
+      <a class="nav-link" href="../sites/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+        Sites
+      </a>
+      <a class="nav-link" href="index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h6v6H9z"/></svg>
+        Scrapers
+      </a>
+      <a class="nav-link" href="../quick-scrape/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m13 2-9 12h7l-1 8 9-12h-7l1-8Z"/></svg>
+        Quick Scrapes
+      </a>
+      <a class="nav-link" href="../ai-agent/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="7" width="14" height="11" rx="2"/><path d="M9 7V4h6v3M9 12h.01M15 12h.01M9 15.5c.7.6 1.9.6 3 0"/></svg>
+        AI Browsing Agents
+      </a>
+    </nav>
+    <nav class="nav-group">
+      <div class="nav-group__label">Activity</div>
+      <a class="nav-link" href="../runs/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+        Runs
+      </a>
+    </nav>
+    <nav class="nav-group">
+      <div class="nav-group__label">Platform</div>
+      <a class="nav-link" href="../settings/crawler-config.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6V21a2 2 0 1 1-4 0v-.2a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.6-1H3a2 2 0 1 1 0-4h.2a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.6V3a2 2 0 1 1 4 0v.2a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9c.2.6.7 1 1.6 1H21a2 2 0 1 1 0 4h-.2a1.7 1.7 0 0 0-1.5 1Z"/></svg>
+        Settings
+      </a>
+    </nav>
+    <div class="sidebar-foot">
+      <div class="avatar">MK</div>
+      <div class="stack gap-1">
+        <strong class="text-sm">Maria K.</strong>
+        <span class="text-xs text-muted">Acme Retail Co.</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ===================== Main ===================== -->
+  <div class="main-col">
+    <header class="topbar">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="../index.html">Dashboard</a>
+        <span class="breadcrumbs__sep">/</span>
+        <a href="index.html">Scrapers</a>
+        <span class="breadcrumbs__sep">/</span>
+        <span class="breadcrumbs__current">New</span>
+      </nav>
+    </header>
+
+    <main class="page">
+      <div class="container" style="max-width:640px;">
+
+        <div class="wizard-stepper-wrap">
+          <div class="stepper">
+            <div class="stepper__step is-done">
+              <div class="stepper__circle">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+              </div>
+              <div class="stepper__label"><strong>Site</strong><span>Acme Furniture Co.</span></div>
+            </div>
+            <div class="stepper__line"></div>
+            <div class="stepper__step is-active">
+              <div class="stepper__circle">2</div>
+              <div class="stepper__label"><strong>Basics</strong><span>Name &amp; schedule</span></div>
+            </div>
+            <div class="stepper__line"></div>
+            <div class="stepper__step">
+              <div class="stepper__circle">3</div>
+              <div class="stepper__label"><strong>Teach the scraper</strong><span>What to collect</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="wizard-head">
+          <h1>Name it, and choose how often it runs</h1>
+          <p>Give this scraper a name you'll recognize later, then decide how often it should check the site.
+            You can always change this afterwards.</p>
+        </div>
+
+        <form class="card wizard-card">
+          <div class="field">
+            <label for="scraper-name">Scraper name</label>
+            <input class="input" id="scraper-name" type="text" placeholder="e.g. Product Pages" value="Product Pages" />
+            <span class="field__hint">e.g. "Product Pages" or "Weekly Price Check"</span>
+          </div>
+
+          <div style="margin-top:var(--space-6);">
+            <div class="section-label">How often should it run?</div>
+            <div class="site-list" role="radiogroup" aria-label="Schedule">
+              <label class="radio-row">
+                <input type="radio" name="schedule" value="manual" />
+                <div class="radio-row__body">
+                  <strong>Manual</strong>
+                  <span>Only run it when I click "Run now"</span>
+                </div>
+              </label>
+              <label class="radio-row">
+                <input type="radio" name="schedule" value="hourly" />
+                <div class="radio-row__body">
+                  <strong>Hourly</strong>
+                  <span>Good for fast-changing pages like stock levels</span>
+                  <span class="text-xs text-faint font-mono">0 * * * *</span>
+                </div>
+              </label>
+              <label class="radio-row">
+                <input type="radio" name="schedule" value="every-6h" />
+                <div class="radio-row__body">
+                  <strong>Every 6 hours</strong>
+                  <span>A light, regular check-in</span>
+                  <span class="text-xs text-faint font-mono">0 */6 * * *</span>
+                </div>
+              </label>
+              <label class="radio-row is-selected">
+                <input type="radio" name="schedule" value="daily" checked />
+                <div class="radio-row__body">
+                  <strong>Daily, at a set time</strong>
+                  <span>Runs once a day — good for most catalogs</span>
+                  <div class="cluster gap-3" style="margin-top:var(--space-2);">
+                    <input class="input" type="time" value="06:00" style="max-width:140px;" aria-label="Time of day" />
+                    <span class="text-xs text-faint font-mono">0 6 * * *</span>
+                  </div>
+                </div>
+              </label>
+              <label class="radio-row">
+                <input type="radio" name="schedule" value="weekly" />
+                <div class="radio-row__body">
+                  <strong>Weekly</strong>
+                  <span>For content that rarely changes</span>
+                  <span class="text-xs text-faint font-mono">0 6 * * 1</span>
+                </div>
+              </label>
+              <label class="radio-row">
+                <input type="radio" name="schedule" value="weekdays" />
+                <div class="radio-row__body">
+                  <strong>Weekdays only</strong>
+                  <span>Skips weekends</span>
+                  <span class="text-xs text-faint font-mono">0 6 * * 1-5</span>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <div class="disclosure" data-accordion data-open="false" style="margin-top:var(--space-6);">
+            <button type="button" class="disclosure__trigger" data-accordion-trigger>
+              Advanced: edit raw cron
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="disclosure__panel" data-accordion-panel hidden>
+              <div class="field">
+                <label for="cron">Cron expression</label>
+                <input class="input font-mono" id="cron" type="text" value="0 6 * * *" />
+                <span class="field__hint">For when a preset doesn't quite match what you need. Standard 5-field cron syntax.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <a href="new-step1-site.html" class="btn btn--secondary">Back</a>
+            <a href="new-step3-teach.html" class="btn btn--primary">Continue</a>
+          </div>
+        </form>
+
+      </div>
+    </main>
+  </div>
+</div>
+
+<script src="../assets/js/accordion.js"></script>
+</body>
+</html>

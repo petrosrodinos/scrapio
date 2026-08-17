@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sites — Scrapio</title>
+<link rel="stylesheet" href="../assets/css/tokens.css" />
+<link rel="stylesheet" href="../assets/css/base.css" />
+<link rel="stylesheet" href="../assets/css/components.css" />
+<link rel="stylesheet" href="../assets/css/sites.css" />
+</head>
+<body>
+<div class="app-shell">
+
+  <!-- ===================== Sidebar ===================== -->
+  <aside class="sidebar">
+    <div class="brand"><span class="brand__mark">S</span> Scrapio</div>
+    <a class="nav-cta" href="../start.html">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+      Start a scrape
+    </a>
+    <nav class="nav-group">
+      <div class="nav-group__label">Overview</div>
+      <a class="nav-link" href="../index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
+        Dashboard
+      </a>
+    </nav>
+    <nav class="nav-group">
+      <div class="nav-group__label">Build &amp; manage</div>
+      <a class="nav-link is-active" href="index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+        Sites
+      </a>
+      <a class="nav-link" href="../scrapers/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h6v6H9z"/></svg>
+        Scrapers
+      </a>
+      <a class="nav-link" href="../quick-scrape/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m13 2-9 12h7l-1 8 9-12h-7l1-8Z"/></svg>
+        Quick Scrapes
+      </a>
+      <a class="nav-link" href="../ai-agent/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="7" width="14" height="11" rx="2"/><path d="M9 7V4h6v3M9 12h.01M15 12h.01M9 15.5c.7.6 1.9.6 3 0"/></svg>
+        AI Browsing Agents
+      </a>
+    </nav>
+    <nav class="nav-group">
+      <div class="nav-group__label">Activity</div>
+      <a class="nav-link" href="../runs/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+        Runs
+      </a>
+    </nav>
+    <nav class="nav-group">
+      <div class="nav-group__label">Platform</div>
+      <a class="nav-link" href="../settings/crawler-config.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6V21a2 2 0 1 1-4 0v-.2a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.6-1H3a2 2 0 1 1 0-4h.2a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.6V3a2 2 0 1 1 4 0v.2a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9c.2.6.7 1 1.6 1H21a2 2 0 1 1 0 4h-.2a1.7 1.7 0 0 0-1.5 1Z"/></svg>
+        Settings
+      </a>
+    </nav>
+    <div class="sidebar-foot">
+      <div class="avatar">MK</div>
+      <div class="stack gap-1">
+        <strong class="text-sm">Maria K.</strong>
+        <span class="text-xs text-muted">Acme Retail Co.</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ===================== Main ===================== -->
+  <div class="main-col">
+    <header class="topbar">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="../index.html">Dashboard</a>
+        <span class="breadcrumbs__sep">/</span>
+        <span class="breadcrumbs__current">Sites</span>
+      </nav>
+    </header>
+
+    <main class="page">
+      <div class="container--wide">
+
+        <div class="page-header">
+          <div>
+            <h1>Sites</h1>
+            <p class="page-header__sub">
+              A website you want to pull data from — add one, then set up a Scraper, Quick Scrape, or
+              AI Browsing Agent against it.
+              <span class="name-tag__original" style="margin-left:6px;">Website Target</span>
+            </p>
+          </div>
+          <div class="page-header__actions">
+            <button class="btn btn--primary" data-modal-open="new-site">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+              New site
+            </button>
+          </div>
+        </div>
+
+        <div class="search-bar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+          <input class="input" type="text" placeholder="Search sites…" aria-label="Search sites" />
+        </div>
+
+        <div class="card">
+          <div class="table-wrap">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Last success</th>
+                  <th>Last failure</th>
+                  <th class="table__row-actions">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <!-- Acme Furniture Co. — healthy, 2 scrapers bound -->
+                <tr class="is-clickable" onclick="location.href='detail.html'">
+                  <td>
+                    <div class="stack gap-1">
+                      <span class="table__primary">Acme Furniture Co.</span>
+                      <span class="text-xs text-muted font-mono">acmefurniture.example.com</span>
+                    </div>
+                  </td>
+                  <td class="text-sm">12 minutes ago</td>
+                  <td class="text-sm text-muted">—</td>
+                  <td class="table__row-actions" onclick="event.stopPropagation()">
+                    <div class="tooltip-wrap">
+                      <button class="btn btn--danger btn--sm" disabled>Delete</button>
+                      <span class="tooltip-bubble">Can't delete — 2 scrapers depend on this site.</span>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- Northwind Appliances — last run failed -->
+                <tr class="is-clickable" onclick="location.href='detail.html'">
+                  <td>
+                    <div class="stack gap-1">
+                      <span class="table__primary">Northwind Appliances</span>
+                      <span class="text-xs text-muted font-mono">northwind-appliances.example.com</span>
+                    </div>
+                  </td>
+                  <td class="text-sm">2 days ago</td>
+                  <td>
+                    <div class="stack gap-1">
+                      <span class="text-sm">6 hours ago</span>
+                      <span class="text-xs text-danger">Timed out waiting for product grid to load</span>
+                    </div>
+                  </td>
+                  <td class="table__row-actions" onclick="event.stopPropagation()">
+                    <div class="tooltip-wrap">
+                      <button class="btn btn--danger btn--sm" disabled>Delete</button>
+                      <span class="tooltip-bubble">Can't delete — 1 scraper depends on this site.</span>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- Fresh Grocer Direct — brand new, no scrapers, no runs -->
+                <tr class="is-clickable" onclick="location.href='detail.html'">
+                  <td>
+                    <div class="stack gap-1">
+                      <span class="table__primary">Fresh Grocer Direct</span>
+                      <span class="text-xs text-muted font-mono">freshgrocerdirect.example.com</span>
+                    </div>
+                  </td>
+                  <td class="text-sm text-muted">Never</td>
+                  <td class="text-sm text-muted">Never</td>
+                  <td class="table__row-actions" onclick="event.stopPropagation()">
+                    <button class="btn btn--danger btn--sm">Delete</button>
+                  </td>
+                </tr>
+
+                <!-- Bloom & Vine Florists — 2 active scrapers -->
+                <tr class="is-clickable" onclick="location.href='detail.html'">
+                  <td>
+                    <div class="stack gap-1">
+                      <span class="table__primary">Bloom &amp; Vine Florists</span>
+                      <span class="text-xs text-muted font-mono">bloomandvine.example.com</span>
+                    </div>
+                  </td>
+                  <td class="text-sm">3 hours ago</td>
+                  <td class="text-sm text-muted">—</td>
+                  <td class="table__row-actions" onclick="event.stopPropagation()">
+                    <div class="tooltip-wrap">
+                      <button class="btn btn--danger btn--sm" disabled>Delete</button>
+                      <span class="tooltip-bubble">Can't delete — 2 scrapers depend on this site.</span>
+                    </div>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- New site modal -->
+<div class="modal-backdrop" id="new-site" data-modal hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-label="New site">
+    <div class="modal__header">
+      <h2>New site</h2>
+      <button class="modal-close" data-modal-close aria-label="Close">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="modal__body">
+      <p class="text-sm text-secondary" style="margin-bottom:var(--space-5);">
+        Add the website you want data from. You can reuse this site for as many Scrapers, Quick Scrapes,
+        or AI Browsing Agents as you need.
+      </p>
+      <form class="stack">
+        <div class="field">
+          <label for="site-name">Site name</label>
+          <input class="input" id="site-name" type="text" placeholder="e.g. Riverside Home Goods" />
+        </div>
+        <div class="field">
+          <label for="site-url">Base URL</label>
+          <input class="input" id="site-url" type="text" placeholder="https://example.com" />
+          <span class="field__hint">The site's homepage or main entry point.</span>
+        </div>
+        <div class="field">
+          <label for="site-notes">Notes <span class="field__optional">(optional)</span></label>
+          <textarea class="textarea" id="site-notes" placeholder="Anything worth remembering about this site — login requirements, quirks, what you use it for…"></textarea>
+        </div>
+      </form>
+    </div>
+    <div class="modal__footer">
+      <button class="btn btn--secondary" data-modal-close>Cancel</button>
+      <button class="btn btn--primary" data-modal-close>Create site</button>
+    </div>
+  </div>
+</div>
+
+<script src="../assets/js/accordion.js"></script>
+<script src="../assets/js/tabs.js"></script>
+<script src="../assets/js/modal.js"></script>
+</body>
+</html>

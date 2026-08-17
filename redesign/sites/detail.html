@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Acme Furniture Co. — Scrapio</title>
+<link rel="stylesheet" href="../assets/css/tokens.css" />
+<link rel="stylesheet" href="../assets/css/base.css" />
+<link rel="stylesheet" href="../assets/css/components.css" />
+<link rel="stylesheet" href="../assets/css/sites.css" />
+</head>
+<body>
+<div class="app-shell">
+
+  <!-- ===================== Sidebar ===================== -->
+  <aside class="sidebar">
+    <div class="brand"><span class="brand__mark">S</span> Scrapio</div>
+    <a class="nav-cta" href="../start.html">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+      Start a scrape
+    </a>
+    <nav class="nav-group">
+      <div class="nav-group__label">Overview</div>
+      <a class="nav-link" href="../index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
+        Dashboard
+      </a>
+    </nav>
+    <nav class="nav-group">
+      <div class="nav-group__label">Build &amp; manage</div>
+      <a class="nav-link is-active" href="index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+        Sites
+      </a>
+      <a class="nav-link" href="../scrapers/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h6v6H9z"/></svg>
+        Scrapers
+      </a>
+      <a class="nav-link" href="../quick-scrape/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m13 2-9 12h7l-1 8 9-12h-7l1-8Z"/></svg>
+        Quick Scrapes
+      </a>
+      <a class="nav-link" href="../ai-agent/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="7" width="14" height="11" rx="2"/><path d="M9 7V4h6v3M9 12h.01M15 12h.01M9 15.5c.7.6 1.9.6 3 0"/></svg>
+        AI Browsing Agents
+      </a>
+    </nav>
+    <nav class="nav-group">
+      <div class="nav-group__label">Activity</div>
+      <a class="nav-link" href="../runs/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+        Runs
+      </a>
+    </nav>
+    <nav class="nav-group">
+      <div class="nav-group__label">Platform</div>
+      <a class="nav-link" href="../settings/crawler-config.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6V21a2 2 0 1 1-4 0v-.2a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.6-1H3a2 2 0 1 1 0-4h.2a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.6V3a2 2 0 1 1 4 0v.2a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9c.2.6.7 1 1.6 1H21a2 2 0 1 1 0 4h-.2a1.7 1.7 0 0 0-1.5 1Z"/></svg>
+        Settings
+      </a>
+    </nav>
+    <div class="sidebar-foot">
+      <div class="avatar">MK</div>
+      <div class="stack gap-1">
+        <strong class="text-sm">Maria K.</strong>
+        <span class="text-xs text-muted">Acme Retail Co.</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ===================== Main ===================== -->
+  <div class="main-col">
+    <header class="topbar">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="../index.html">Dashboard</a>
+        <span class="breadcrumbs__sep">/</span>
+        <a href="index.html">Sites</a>
+        <span class="breadcrumbs__sep">/</span>
+        <span class="breadcrumbs__current">Acme Furniture Co.</span>
+      </nav>
+    </header>
+
+    <main class="page">
+      <div class="container--wide">
+
+        <div class="page-header">
+          <div>
+            <div class="cluster gap-3">
+              <h1>Acme Furniture Co.</h1>
+              <span class="chip chip--success"><span class="chip__dot"></span>Healthy</span>
+            </div>
+            <p class="page-header__sub">
+              The site itself — the parent record that a Scraper, Quick Scrape, or AI Browsing Agent points at.
+              Add the site once, then reuse it for as many of those as you need.
+              <span class="name-tag__original" style="margin-left:6px;">Website Target</span>
+            </p>
+          </div>
+          <div class="page-header__actions">
+            <a href="../scrapers/new-step1-site.html" class="btn btn--secondary btn--sm">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+              New scraper
+            </a>
+            <div class="tooltip-wrap">
+              <button class="btn btn--danger btn--sm" disabled>Delete</button>
+              <span class="tooltip-bubble">Can't delete — 2 scrapers depend on this site.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card__body" data-tabs>
+            <div class="tabs__list" role="tablist">
+              <button class="tabs__trigger" data-tab-trigger="site-info" aria-selected="true" role="tab">Site info</button>
+              <button class="tabs__trigger" data-tab-trigger="scrapers" aria-selected="false" role="tab">Scrapers</button>
+            </div>
+
+            <!-- ============ Site info tab ============ -->
+            <div class="tabs__panel" data-tab-panel="site-info">
+              <div class="stack gap-6">
+
+                <div>
+                  <span class="text-xs text-muted font-medium">Base URL</span>
+                  <div style="margin-top:4px;">
+                    <a class="link external-link" href="https://acmefurniture.example.com" target="_blank" rel="noopener">
+                      https://acmefurniture.example.com
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/></svg>
+                    </a>
+                  </div>
+                </div>
+
+                <div class="grid grid--3">
+                  <div class="info-item">
+                    <span class="info-item__label">Last success</span>
+                    <span class="text-sm">12 minutes ago</span>
+                  </div>
+                  <div class="info-item">
+                    <span class="info-item__label">Last failure</span>
+                    <span class="text-sm text-muted">—</span>
+                    <!-- When a site's most recent check failed (e.g. Northwind Appliances), this
+                         cell instead shows the timestamp plus the error in danger text, like:
+                         <span class="text-sm">6 hours ago</span>
+                         <span class="text-xs text-danger">Timed out waiting for product grid to load</span> -->
+                  </div>
+                  <div class="info-item">
+                    <span class="info-item__label">Notes</span>
+                    <span class="text-sm text-secondary">Main product catalog, checked daily for price/stock changes.</span>
+                  </div>
+                </div>
+
+                <hr class="divider" />
+
+                <!-- Block rules -->
+                <div>
+                  <div class="cluster" style="justify-content:space-between;margin-bottom:var(--space-3);">
+                    <h3 class="text-sm font-semibold">Block rules</h3>
+                    <span class="text-xs text-muted name-tag__original">Block Detection Rules</span>
+                  </div>
+                  <p class="text-xs text-muted" style="margin-bottom:var(--space-4);">
+                    Extra signals that tell Scrapio this site is challenging or blocking a request, on top of the
+                    built-in defaults (CAPTCHA pages, rate-limit responses, WAF challenge screens, and the like).
+                  </p>
+                  <div class="table-wrap" style="border:1px solid var(--border);border-radius:var(--radius-md);">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Label</th>
+                          <th>Signal</th>
+                          <th>Source</th>
+                          <th>Pattern</th>
+                          <th>Regex</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td class="table__primary">Cloudflare challenge screen</td>
+                          <td><span class="chip chip--warning"><span class="chip__dot"></span>Challenge</span></td>
+                          <td class="text-sm text-muted">Page title</td>
+                          <td class="font-mono text-xs">Just a moment</td>
+                          <td><span class="chip chip--outline">Text match</span></td>
+                        </tr>
+                        <tr>
+                          <td class="table__primary">CAPTCHA / verification page</td>
+                          <td><span class="chip chip--danger"><span class="chip__dot"></span>Blocked</span></td>
+                          <td class="text-sm text-muted">Page HTML</td>
+                          <td class="font-mono text-xs">captcha|verify you</td>
+                          <td><span class="chip chip--outline">Regex · flag i</span></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <!-- A site with no extra rules (e.g. Fresh Grocer Direct) shows this instead of the table:
+                  <div class="empty-state" style="padding:var(--space-6);">
+                    <p class="text-sm text-muted">No extra rules — built-in defaults apply</p>
+                  </div>
+                  -->
+                </div>
+
+                <hr class="divider" />
+
+                <!-- Recent runs -->
+                <div>
+                  <div class="cluster" style="justify-content:space-between;margin-bottom:var(--space-3);">
+                    <h3 class="text-sm font-semibold">Recent runs</h3>
+                    <a href="../runs/index.html" class="link text-xs">View all runs</a>
+                  </div>
+                  <div class="stack gap-2">
+                    <a class="cluster" style="justify-content:space-between;border:1px solid var(--border);border-radius:var(--radius-md);padding:var(--space-3) var(--space-4);" href="../runs/detail.html">
+                      <div class="cluster gap-3">
+                        <span class="text-sm font-medium">Product Pages</span>
+                        <span class="text-xs text-muted">Run #8841</span>
+                      </div>
+                      <div class="cluster gap-3">
+                        <span class="chip chip--success"><span class="chip__dot"></span>Success</span>
+                        <span class="text-xs text-faint">12 minutes ago</span>
+                      </div>
+                    </a>
+                    <a class="cluster" style="justify-content:space-between;border:1px solid var(--border);border-radius:var(--radius-md);padding:var(--space-3) var(--space-4);" href="../runs/detail.html">
+                      <div class="cluster gap-3">
+                        <span class="text-sm font-medium">Category Listings</span>
+                        <span class="text-xs text-muted">Run #8836</span>
+                      </div>
+                      <div class="cluster gap-3">
+                        <span class="chip chip--warning"><span class="chip__dot"></span>Partial success</span>
+                        <span class="text-xs text-faint">2 hours ago</span>
+                      </div>
+                    </a>
+                    <a class="cluster" style="justify-content:space-between;border:1px solid var(--border);border-radius:var(--radius-md);padding:var(--space-3) var(--space-4);" href="../runs/detail.html">
+                      <div class="cluster gap-3">
+                        <span class="text-sm font-medium">Product Pages</span>
+                        <span class="text-xs text-muted">Run #8809</span>
+                      </div>
+                      <div class="cluster gap-3">
+                        <span class="chip chip--success"><span class="chip__dot"></span>Success</span>
+                        <span class="text-xs text-faint">Yesterday, 6:00 AM</span>
+                      </div>
+                    </a>
+                    <a class="cluster" style="justify-content:space-between;border:1px solid var(--border);border-radius:var(--radius-md);padding:var(--space-3) var(--space-4);" href="../runs/detail.html">
+                      <div class="cluster gap-3">
+                        <span class="text-sm font-medium">Product Pages</span>
+                        <span class="text-xs text-muted">Run #8774</span>
+                      </div>
+                      <div class="cluster gap-3">
+                        <span class="chip chip--success"><span class="chip__dot"></span>Success</span>
+                        <span class="text-xs text-faint">3 days ago</span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- ============ Scrapers tab ============ -->
+            <div class="tabs__panel" data-tab-panel="scrapers" hidden>
+              <p class="text-sm text-secondary" style="margin-bottom:var(--space-4);">
+                Every Scraper currently watching this site.
+              </p>
+              <div class="table-wrap" style="border:1px solid var(--border);border-radius:var(--radius-md);">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Status</th>
+                      <th>Health</th>
+                      <th>Success rate</th>
+                      <th>Last success</th>
+                      <th class="table__row-actions">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="is-clickable" onclick="location.href='../scrapers/detail.html'">
+                      <td>
+                        <div class="stack gap-1">
+                          <span class="table__primary">Product Pages</span>
+                          <span class="text-xs text-muted">3 versions</span>
+                        </div>
+                      </td>
+                      <td><span class="chip chip--success"><span class="chip__dot"></span>Active</span></td>
+                      <td><span class="chip chip--success"><span class="chip__dot"></span>Excellent</span></td>
+                      <td class="num">96%</td>
+                      <td class="text-sm">12 minutes ago</td>
+                      <td class="table__row-actions" onclick="event.stopPropagation()">
+                        <a class="btn btn--ghost btn--sm" href="../scrapers/detail.html">View</a>
+                      </td>
+                    </tr>
+                    <tr class="is-clickable" onclick="location.href='../scrapers/detail.html'">
+                      <td>
+                        <div class="stack gap-1">
+                          <span class="table__primary">Category Listings</span>
+                          <span class="text-xs text-muted">1 version</span>
+                        </div>
+                      </td>
+                      <td><span class="chip chip--warning"><span class="chip__dot"></span>Testing</span></td>
+                      <td><span class="chip chip--warning"><span class="chip__dot"></span>Warning</span></td>
+                      <td class="num">78%</td>
+                      <td class="text-sm">2 hours ago</td>
+                      <td class="table__row-actions" onclick="event.stopPropagation()">
+                        <a class="btn btn--ghost btn--sm" href="../scrapers/detail.html">View</a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- A site with zero scrapers (e.g. Fresh Grocer Direct) shows this instead of the table:
+              <div class="empty-state">
+                <div class="empty-state__icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m14.7 6.3-1.4-1.4a4 4 0 1 0-5.4 5.4l1 1L3 17.4a2 2 0 0 0 2.8 2.8L12 14l1 1a4 4 0 0 0 5.4-5.4l-1.4-1.4"/></svg>
+                </div>
+                <h3>No scrapers on this site yet</h3>
+                <p>Set up a Scraper to have Scrapio watch this site on a schedule and keep pulling data from it.</p>
+                <a href="../scrapers/new-step1-site.html" class="btn btn--primary btn--sm" style="margin-top:var(--space-2);">New scraper</a>
+              </div>
+              -->
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+</div>
+
+<script src="../assets/js/accordion.js"></script>
+<script src="../assets/js/tabs.js"></script>
+<script src="../assets/js/modal.js"></script>
+</body>
+</html>

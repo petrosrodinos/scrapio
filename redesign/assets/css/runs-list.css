@@ -1,0 +1,33 @@
+/* Filter bar + table specifics for runs/index.html and runs/progress.html. */
+
+.filter-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+  flex-wrap: wrap;
+}
+.filter-bar .select-wrap { min-width: 168px; }
+.filter-bar .select-wrap .select { padding-top: 8px; padding-bottom: 8px; font-size: var(--text-sm); }
+
+.bulk-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-5);
+  margin-bottom: var(--space-4);
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-soft-border);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  color: var(--accent-700);
+}
+
+.method-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 26px; height: 26px; border-radius: 50%;
+  background: var(--bg-sunken); color: var(--text-secondary);
+  flex-shrink: 0;
+}
+.method-icon svg { width: 13px; height: 13px; }

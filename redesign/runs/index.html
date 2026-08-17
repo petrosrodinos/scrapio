@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Runs — Scrapio</title>
+<link rel="stylesheet" href="../assets/css/tokens.css" />
+<link rel="stylesheet" href="../assets/css/base.css" />
+<link rel="stylesheet" href="../assets/css/components.css" />
+<link rel="stylesheet" href="../assets/css/runs-list.css" />
+</head>
+<body>
+<div class="app-shell">
+
+  <!-- ===================== Sidebar ===================== -->
+  <aside class="sidebar">
+    <div class="brand"><span class="brand__mark">S</span> Scrapio</div>
+    <a class="nav-cta" href="../start.html">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+      Start a scrape
+    </a>
+    <nav class="nav-group">
+      <div class="nav-group__label">Overview</div>
+      <a class="nav-link" href="../index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
+        Dashboard
+      </a>
+    </nav>
+    <nav class="nav-group">
+      <div class="nav-group__label">Build &amp; manage</div>
+      <a class="nav-link" href="../sites/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+        Sites
+      </a>
+      <a class="nav-link" href="../scrapers/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h6v6H9z"/></svg>
+        Scrapers
+      </a>
+      <a class="nav-link" href="../quick-scrape/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m13 2-9 12h7l-1 8 9-12h-7l1-8Z"/></svg>
+        Quick Scrapes
+      </a>
+      <a class="nav-link" href="../ai-agent/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="7" width="14" height="11" rx="2"/><path d="M9 7V4h6v3M9 12h.01M15 12h.01M9 15.5c.7.6 1.9.6 3 0"/></svg>
+        AI Browsing Agents
+      </a>
+    </nav>
+    <nav class="nav-group">
+      <div class="nav-group__label">Activity</div>
+      <a class="nav-link is-active" href="index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+        Runs
+      </a>
+    </nav>
+    <nav class="nav-group">
+      <div class="nav-group__label">Platform</div>
+      <a class="nav-link" href="../settings/crawler-config.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6V21a2 2 0 1 1-4 0v-.2a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.6-1H3a2 2 0 1 1 0-4h.2a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.6V3a2 2 0 1 1 4 0v.2a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9c.2.6.7 1 1.6 1H21a2 2 0 1 1 0 4h-.2a1.7 1.7 0 0 0-1.5 1Z"/></svg>
+        Settings
+      </a>
+    </nav>
+    <div class="sidebar-foot">
+      <div class="avatar">MK</div>
+      <div class="stack gap-1">
+        <strong class="text-sm">Maria K.</strong>
+        <span class="text-xs text-muted">Acme Retail Co.</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ===================== Main ===================== -->
+  <div class="main-col">
+    <header class="topbar">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="../index.html">Dashboard</a>
+        <span class="breadcrumbs__sep">/</span>
+        <span class="breadcrumbs__current">Runs</span>
+      </nav>
+    </header>
+
+    <main class="page">
+      <div class="container--wide">
+
+        <div class="page-header">
+          <div>
+            <h1>Runs</h1>
+            <p class="page-header__sub">
+              Every scrape you run — however you started it — shows up here with the same result view.
+              <span class="name-tag__original" style="display:block;margin-top:4px;">Crawl Runs</span>
+            </p>
+          </div>
+          <div class="page-header__actions">
+            <a href="../start.html" class="btn btn--primary btn--sm">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+              Start a scrape
+            </a>
+          </div>
+        </div>
+
+        <div class="filter-bar">
+          <div class="select-wrap">
+            <select class="select" aria-label="Filter by status">
+              <option>All statuses</option>
+              <option>Queued</option>
+              <option>Running</option>
+              <option>Success</option>
+              <option>Partial success</option>
+              <option>Failed</option>
+              <option>Cancelled</option>
+            </select>
+          </div>
+          <div class="select-wrap">
+            <select class="select" aria-label="Filter by method">
+              <option>All methods</option>
+              <option>Scraper</option>
+              <option>Quick Scrape</option>
+              <option>AI Browsing Agent</option>
+            </select>
+          </div>
+          <div class="select-wrap">
+            <select class="select" aria-label="Filter by date range">
+              <option>Any time</option>
+              <option>Last 24 hours</option>
+              <option>Last 7 days</option>
+              <option>Last 30 days</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Bulk action bar: shown here as a static example of the "2 selected" state
+             (rows #8839 and #8834 below are pre-checked). In the real product this
+             bar only appears once at least one row is selected. -->
+        <div class="bulk-bar">
+          <span><strong>2 selected</strong></span>
+          <button class="btn btn--danger btn--sm" data-modal-open="bulk-delete">Delete selected</button>
+        </div>
+
+        <div class="card">
+          <div class="table-wrap">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th style="width:36px;"><input type="checkbox" aria-label="Select all runs" /></th>
+                  <th style="width:40px;"><span class="sr-only">Method</span></th>
+                  <th>Name</th>
+                  <th>Type</th>
+                  <th>Status</th>
+                  <th>Timing</th>
+                  <th class="num">Cost</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <!-- #8841 — Scraper — SUCCESS — the only row wired to the real detail.html example -->
+                <tr class="is-clickable" onclick="location.href='detail.html'">
+                  <td onclick="event.stopPropagation()"><input type="checkbox" aria-label="Select run #8841" /></td>
+                  <td><span class="method-icon" title="Scraper"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h6v6H9z"/></svg></span></td>
+                  <td>
+                    <div class="stack gap-1">
+                      <span class="table__primary">Product Pages</span>
+                      <span class="text-xs text-muted">Acme Furniture Co. · <span class="font-mono text-faint">#8841</span></span>
+                    </div>
+                  </td>
+                  <td><span class="chip chip--outline">Scraper</span></td>
+                  <td><span class="chip chip--success"><span class="chip__dot"></span>Success</span></td>
+                  <td class="text-muted">Finished 6 minutes ago</td>
+                  <td class="num"><span class="cost-badge">$0.031</span></td>
+                </tr>
+
+                <!-- #8839 — Quick Scrape — PARTIAL_SUCCESS — static row (see note at bottom of file) -->
+                <tr>
+                  <td><input type="checkbox" aria-label="Select run #8839" checked /></td>
+                  <td><span class="method-icon" title="Quick Scrape"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m13 2-9 12h7l-1 8 9-12h-7l1-8Z"/></svg></span></td>
+                  <td>
+                    <div class="stack gap-1">
+                      <span class="table__primary">Weekly Competitor Price Check</span>
+                      <span class="text-xs text-muted"><span class="font-mono text-faint">#8839</span></span>
+                    </div>
+                  </td>
+                  <td><span class="chip chip--outline">Quick Scrape</span></td>
+                  <td><span class="chip chip--warning"><span class="chip__dot"></span>Partial success</span></td>
+                  <td class="text-muted">Finished 2 hours ago</td>
+                  <td class="num"><span class="cost-badge">$0.014</span></td>
+                </tr>
+
+                <!-- #8838 — AI Browsing Agent — RUNNING — wired to progress.html (the running-state demo) -->
+                <tr class="is-clickable" onclick="location.href='progress.html'">
+                  <td onclick="event.stopPropagation()"><input type="checkbox" aria-label="Select run #8838" /></td>
+                  <td><span class="method-icon" title="AI Browsing Agent"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="7" width="14" height="11" rx="2"/><path d="M9 7V4h6v3M9 12h.01M15 12h.01M9 15.5c.7.6 1.9.6 3 0"/></svg></span></td>
+                  <td>
+                    <div class="stack gap-1">
+                      <span class="table__primary">Explore New Marketplace</span>
+                      <span class="text-xs text-muted"><span class="font-mono text-faint">#8838</span></span>
+                    </div>
+                  </td>
+                  <td><span class="chip chip--outline">AI Browsing Agent</span></td>
+                  <td><span class="chip chip--warning chip--pulse"><span class="chip__dot"></span>Running</span></td>
+                  <td class="text-muted">Started 3 minutes ago</td>
+                  <td class="num text-muted">—</td>
+                </tr>
+
+                <!-- #8835 — Scraper — FAILED — static row -->
+                <tr>
+                  <td><input type="checkbox" aria-label="Select run #8835" /></td>
+                  <td><span class="method-icon" title="Scraper"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h6v6H9z"/></svg></span></td>
+                  <td>
+                    <div class="stack gap-1">
+                      <span class="table__primary">Warranty Lookup</span>
+                      <span class="text-xs text-muted">Northwind Appliances · <span class="font-mono text-faint">#8835</span></span>
+                      <span class="text-xs text-danger font-mono">Selector timeout: #warranty-form not found</span>
+                    </div>
+                  </td>
+                  <td><span class="chip chip--outline">Scraper</span></td>
+                  <td><span class="chip chip--danger"><span class="chip__dot"></span>Failed</span></td>
+                  <td class="text-muted">Finished yesterday</td>
+                  <td class="num"><span class="cost-badge">$0.009</span></td>
+                </tr>
+
+                <!-- #8834 — Quick Scrape — SUCCESS — static row -->
+                <tr>
+                  <td><input type="checkbox" aria-label="Select run #8834" checked /></td>
+                  <td><span class="method-icon" title="Quick Scrape"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m13 2-9 12h7l-1 8 9-12h-7l1-8Z"/></svg></span></td>
+                  <td>
+                    <div class="stack gap-1">
+                      <span class="table__primary">Blog Roundup</span>
+                      <span class="text-xs text-muted"><span class="font-mono text-faint">#8834</span></span>
+                    </div>
+                  </td>
+                  <td><span class="chip chip--outline">Quick Scrape</span></td>
+                  <td><span class="chip chip--success"><span class="chip__dot"></span>Success</span></td>
+                  <td class="text-muted">Finished yesterday</td>
+                  <td class="num"><span class="cost-badge">$0.006</span></td>
+                </tr>
+
+                <!-- #8833 — Scraper — QUEUED — wired to progress.html (the queued-state demo) -->
+                <tr class="is-clickable" onclick="location.href='progress.html'">
+                  <td onclick="event.stopPropagation()"><input type="checkbox" aria-label="Select run #8833" /></td>
+                  <td><span class="method-icon" title="Scraper"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h6v6H9z"/></svg></span></td>
+                  <td>
+                    <div class="stack gap-1">
+                      <span class="table__primary">Product Pages</span>
+                      <span class="text-xs text-muted"><span class="font-mono text-faint">#8833</span></span>
+                    </div>
+                  </td>
+                  <td><span class="chip chip--outline">Scraper</span></td>
+                  <td><span class="chip chip--default"><span class="chip__dot"></span>Queued</span></td>
+                  <td class="text-muted">Queued just now</td>
+                  <td class="num text-muted">—</td>
+                </tr>
+
+                <!-- #8830 — AI Browsing Agent — CANCELLED — static row -->
+                <tr>
+                  <td><input type="checkbox" aria-label="Select run #8830" /></td>
+                  <td><span class="method-icon" title="AI Browsing Agent"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="7" width="14" height="11" rx="2"/><path d="M9 7V4h6v3M9 12h.01M15 12h.01M9 15.5c.7.6 1.9.6 3 0"/></svg></span></td>
+                  <td>
+                    <div class="stack gap-1">
+                      <span class="table__primary">Support Docs Crawl</span>
+                      <span class="text-xs text-muted"><span class="font-mono text-faint">#8830</span></span>
+                    </div>
+                  </td>
+                  <td><span class="chip chip--outline">AI Browsing Agent</span></td>
+                  <td><span class="chip chip--default"><span class="chip__dot"></span>Cancelled</span></td>
+                  <td class="text-muted">Cancelled 2 days ago</td>
+                  <td class="num"><span class="cost-badge">$0.002</span></td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- Bulk delete confirmation -->
+<div class="modal-backdrop" id="bulk-delete" data-modal hidden>
+  <div class="modal" role="dialog" aria-modal="true">
+    <div class="modal__header"><h2>Delete 2 runs?</h2><button class="modal-close" data-modal-close aria-label="Close">✕</button></div>
+    <div class="modal__body"><p class="text-sm text-secondary">This removes the selected runs and their results permanently. This can't be undone.</p></div>
+    <div class="modal__footer">
+      <button class="btn btn--secondary" data-modal-close>Cancel</button>
+      <button class="btn btn--danger" data-modal-close>Delete runs</button>
+    </div>
+  </div>
+</div>
+
+<script src="../assets/js/accordion.js"></script>
+<script src="../assets/js/tabs.js"></script>
+<script src="../assets/js/modal.js"></script>
+</body>
+</html>

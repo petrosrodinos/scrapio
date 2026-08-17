@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Weekly Competitor Price Check — Scrapio</title>
+<link rel="stylesheet" href="../assets/css/tokens.css" />
+<link rel="stylesheet" href="../assets/css/base.css" />
+<link rel="stylesheet" href="../assets/css/components.css" />
+<link rel="stylesheet" href="../assets/css/quick-scrape.css" />
+</head>
+<body>
+<div class="app-shell">
+
+  <!-- ===================== Sidebar ===================== -->
+  <aside class="sidebar">
+    <div class="brand"><span class="brand__mark">S</span> Scrapio</div>
+    <a class="nav-cta" href="../start.html">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+      Start a scrape
+    </a>
+    <nav class="nav-group">
+      <div class="nav-group__label">Overview</div>
+      <a class="nav-link" href="../index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
+        Dashboard
+      </a>
+    </nav>
+    <nav class="nav-group">
+      <div class="nav-group__label">Build &amp; manage</div>
+      <a class="nav-link" href="../sites/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+        Sites
+      </a>
+      <a class="nav-link" href="../scrapers/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h6v6H9z"/></svg>
+        Scrapers
+      </a>
+      <a class="nav-link is-active" href="index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m13 2-9 12h7l-1 8 9-12h-7l1-8Z"/></svg>
+        Quick Scrapes
+      </a>
+      <a class="nav-link" href="../ai-agent/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="7" width="14" height="11" rx="2"/><path d="M9 7V4h6v3M9 12h.01M15 12h.01M9 15.5c.7.6 1.9.6 3 0"/></svg>
+        AI Browsing Agents
+      </a>
+    </nav>
+    <nav class="nav-group">
+      <div class="nav-group__label">Activity</div>
+      <a class="nav-link" href="../runs/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+        Runs
+      </a>
+    </nav>
+    <nav class="nav-group">
+      <div class="nav-group__label">Platform</div>
+      <a class="nav-link" href="../settings/crawler-config.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6V21a2 2 0 1 1-4 0v-.2a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.6-1H3a2 2 0 1 1 0-4h.2a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.6V3a2 2 0 1 1 4 0v.2a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9c.2.6.7 1 1.6 1H21a2 2 0 1 1 0 4h-.2a1.7 1.7 0 0 0-1.5 1Z"/></svg>
+        Settings
+      </a>
+    </nav>
+    <div class="sidebar-foot">
+      <div class="avatar">MK</div>
+      <div class="stack gap-1">
+        <strong class="text-sm">Maria K.</strong>
+        <span class="text-xs text-muted">Acme Retail Co.</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ===================== Main ===================== -->
+  <div class="main-col">
+    <header class="topbar">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="../index.html">Dashboard</a>
+        <span class="breadcrumbs__sep">/</span>
+        <a href="index.html">Quick Scrapes</a>
+        <span class="breadcrumbs__sep">/</span>
+        <span class="breadcrumbs__current">Weekly Competitor Price Check</span>
+      </nav>
+    </header>
+
+    <main class="page">
+      <div class="container--wide">
+
+        <div class="page-header">
+          <div>
+            <div class="cluster gap-3">
+              <h1>Weekly Competitor Price Check</h1>
+              <span class="chip chip--warning"><span class="chip__dot"></span>Partial success</span>
+            </div>
+            <div class="page-header__meta">
+              <span class="name-tag__original">Plain Scrape</span>
+              <span class="dot-sep text-sm text-muted">5 URLs · Combined into one result</span>
+              <span class="dot-sep text-sm text-muted">Weekly · Sundays</span>
+            </div>
+          </div>
+          <div class="page-header__actions">
+            <a href="new.html" class="btn btn--secondary btn--sm">Edit</a>
+            <button class="btn btn--secondary btn--sm">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.6-6.4M21 4v5h-5"/></svg>
+              Run now
+            </button>
+            <button class="btn btn--danger btn--sm" data-modal-open="delete-qs">Delete</button>
+          </div>
+        </div>
+
+        <div class="grid grid--sidebar">
+          <div class="stack gap-6">
+
+            <!-- Embedded "Latest run" — links to runs/detail.html. Known simplification of
+                 this static prototype: runs/detail.html is a standalone mock that currently
+                 renders as run #8841 (a Scraper run), not #8839 (this Quick Scrape's run).
+                 We link to it anyway to demonstrate the "latest run" → run detail flow;
+                 we can't edit that file from here since another set of pages links to it too. -->
+            <div class="card">
+              <div class="card__header">
+                <h2>Latest run</h2>
+                <a class="link text-sm" href="../runs/detail.html">View full results →</a>
+              </div>
+              <div class="card__body stack gap-3">
+                <div class="cluster gap-3" style="justify-content:space-between;">
+                  <div class="cluster gap-3">
+                    <span class="chip chip--warning"><span class="chip__dot"></span>Partial success</span>
+                    <span class="text-sm text-muted">Run #8839 · 22 minutes ago</span>
+                  </div>
+                  <div class="cluster gap-2">
+                    <span class="chip chip--success">Structured JSON · Valid</span>
+                    <span class="chip chip--danger">Markdown · Failed</span>
+                  </div>
+                </div>
+                <p class="text-sm text-secondary">Structured data extracted successfully, but the written summary failed — see the run for details.</p>
+              </div>
+            </div>
+
+            <!-- Config summary -->
+            <div class="card">
+              <div class="card__header"><h2>Configuration</h2></div>
+              <div class="card__body stack gap-5">
+
+                <div class="stack gap-2">
+                  <span class="text-xs text-muted font-medium">How multiple pages are combined</span>
+                  <p class="text-sm">Combined — merged into one result.</p>
+                </div>
+
+                <div class="stack gap-2">
+                  <span class="text-xs text-muted font-medium">Output formats</span>
+                  <div class="cluster gap-2">
+                    <span class="chip chip--accent">Structured JSON</span>
+                    <span class="chip chip--accent">Markdown</span>
+                  </div>
+                </div>
+
+                <div class="stack gap-2">
+                  <span class="text-xs text-muted font-medium">URLs (5)</span>
+                  <div class="stack gap-2">
+                    <div class="cluster" style="justify-content:space-between;border:1px solid var(--border);border-radius:var(--radius-md);padding:var(--space-3);">
+                      <span class="text-xs font-mono text-secondary">https://rivalstore.example.com/product/1</span>
+                    </div>
+                    <div class="cluster" style="justify-content:space-between;border:1px solid var(--border);border-radius:var(--radius-md);padding:var(--space-3);">
+                      <span class="text-xs font-mono text-secondary">https://rivalstore.example.com/product/2</span>
+                    </div>
+                    <div class="cluster" style="justify-content:space-between;border:1px solid var(--border);border-radius:var(--radius-md);padding:var(--space-3);">
+                      <span class="text-xs font-mono text-secondary">https://rivalstore.example.com/product/3</span>
+                    </div>
+                    <div class="cluster" style="justify-content:space-between;border:1px solid var(--border);border-radius:var(--radius-md);padding:var(--space-3);">
+                      <span class="text-xs font-mono text-secondary">https://rivalstore.example.com/product/4</span>
+                    </div>
+                    <div class="cluster" style="justify-content:space-between;border:1px solid var(--border);border-radius:var(--radius-md);padding:var(--space-3);">
+                      <span class="text-xs font-mono text-secondary">https://rivalstore.example.com/product/5</span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Recent runs mini-table -->
+            <div class="card">
+              <div class="card__header"><h2>Recent runs</h2></div>
+              <div class="table-wrap">
+                <table class="table">
+                  <thead><tr><th>Run</th><th>Status</th><th>Started</th><th>Duration</th><th>Cost</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="table__primary">#8839</td>
+                      <td><span class="chip chip--warning"><span class="chip__dot"></span>Partial success</span></td>
+                      <td class="text-muted">22 minutes ago</td>
+                      <td>14.8s</td>
+                      <td class="font-mono">$0.019</td>
+                    </tr>
+                    <tr>
+                      <td class="table__primary">#8792</td>
+                      <td><span class="chip chip--success"><span class="chip__dot"></span>Success</span></td>
+                      <td class="text-muted">Last Sunday</td>
+                      <td>13.1s</td>
+                      <td class="font-mono">$0.021</td>
+                    </tr>
+                    <tr>
+                      <td class="table__primary">#8701</td>
+                      <td><span class="chip chip--success"><span class="chip__dot"></span>Success</span></td>
+                      <td class="text-muted">2 weeks ago</td>
+                      <td>12.6s</td>
+                      <td class="font-mono">$0.020</td>
+                    </tr>
+                    <tr>
+                      <td class="table__primary">#8618</td>
+                      <td><span class="chip chip--warning"><span class="chip__dot"></span>Partial success</span></td>
+                      <td class="text-muted">3 weeks ago</td>
+                      <td>15.4s</td>
+                      <td class="font-mono">$0.018</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Overview sidebar -->
+          <aside class="stack gap-5">
+            <div class="card card__pad stack gap-4">
+              <h3 class="text-sm font-semibold">Overview</h3>
+              <div class="stack gap-3 text-sm">
+                <div class="cluster" style="justify-content:space-between;"><span class="text-muted">Method</span><span class="name-tag"><span>Quick Scrape</span><span class="name-tag__original">PLAIN_SCRAPE</span></span></div>
+                <div class="cluster" style="justify-content:space-between;"><span class="text-muted">URLs</span><span>5</span></div>
+                <div class="cluster" style="justify-content:space-between;"><span class="text-muted">Result shape</span><span>Combined</span></div>
+                <div class="cluster" style="justify-content:space-between;"><span class="text-muted">Schedule</span><span>Weekly · Sundays</span></div>
+                <div class="cluster" style="justify-content:space-between;"><span class="text-muted">Created</span><span>6 weeks ago</span></div>
+              </div>
+              <hr class="divider" />
+              <p class="text-xs text-secondary">This Quick Scrape is scheduled to run again <strong>every Sunday</strong>. Results replace nothing — every run is kept in the history above.</p>
+            </div>
+          </aside>
+        </div>
+
+      </div>
+    </main>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="delete-qs" data-modal hidden>
+  <div class="modal" role="dialog" aria-modal="true">
+    <div class="modal__header"><h2>Delete "Weekly Competitor Price Check"?</h2><button class="modal-close" data-modal-close aria-label="Close">✕</button></div>
+    <div class="modal__body"><p class="text-sm text-secondary">This removes the configuration and its run history permanently. This can't be undone.</p></div>
+    <div class="modal__footer">
+      <button class="btn btn--secondary" data-modal-close>Cancel</button>
+      <button class="btn btn--danger" data-modal-close>Delete</button>
+    </div>
+  </div>
+</div>
+
+<script src="../assets/js/accordion.js"></script>
+<script src="../assets/js/tabs.js"></script>
+<script src="../assets/js/modal.js"></script>
+</body>
+</html>

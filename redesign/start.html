@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Start a scrape — Scrapio</title>
+<link rel="stylesheet" href="assets/css/tokens.css" />
+<link rel="stylesheet" href="assets/css/base.css" />
+<link rel="stylesheet" href="assets/css/components.css" />
+<link rel="stylesheet" href="assets/css/start.css" />
+</head>
+<body>
+<div class="app-shell">
+
+  <!-- ===================== Sidebar ===================== -->
+  <aside class="sidebar">
+    <div class="brand"><span class="brand__mark">S</span> Scrapio</div>
+    <a class="nav-cta" href="start.html">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+      Start a scrape
+    </a>
+    <nav class="nav-group">
+      <div class="nav-group__label">Overview</div>
+      <a class="nav-link" href="index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
+        Dashboard
+      </a>
+    </nav>
+    <nav class="nav-group">
+      <div class="nav-group__label">Build &amp; manage</div>
+      <a class="nav-link" href="sites/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+        Sites
+      </a>
+      <a class="nav-link" href="scrapers/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h6v6H9z"/></svg>
+        Scrapers
+      </a>
+      <a class="nav-link" href="quick-scrape/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m13 2-9 12h7l-1 8 9-12h-7l1-8Z"/></svg>
+        Quick Scrapes
+      </a>
+      <a class="nav-link" href="ai-agent/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="7" width="14" height="11" rx="2"/><path d="M9 7V4h6v3M9 12h.01M15 12h.01M9 15.5c.7.6 1.9.6 3 0"/></svg>
+        AI Browsing Agents
+      </a>
+    </nav>
+    <nav class="nav-group">
+      <div class="nav-group__label">Activity</div>
+      <a class="nav-link" href="runs/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+        Runs
+      </a>
+    </nav>
+    <nav class="nav-group">
+      <div class="nav-group__label">Platform</div>
+      <a class="nav-link" href="settings/crawler-config.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6V21a2 2 0 1 1-4 0v-.2a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.6-1H3a2 2 0 1 1 0-4h.2a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.6V3a2 2 0 1 1 4 0v.2a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9c.2.6.7 1 1.6 1H21a2 2 0 1 1 0 4h-.2a1.7 1.7 0 0 0-1.5 1Z"/></svg>
+        Settings
+      </a>
+    </nav>
+    <div class="sidebar-foot">
+      <div class="avatar">MK</div>
+      <div class="stack gap-1">
+        <strong class="text-sm">Maria K.</strong>
+        <span class="text-xs text-muted">Acme Retail Co.</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ===================== Main ===================== -->
+  <div class="main-col">
+    <header class="topbar">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="index.html">Dashboard</a>
+        <span class="breadcrumbs__sep">/</span>
+        <span class="breadcrumbs__current">Start a scrape</span>
+      </nav>
+    </header>
+
+    <main class="page">
+      <div class="container">
+
+        <div class="start-hero">
+          <h1>What do you want to do?</h1>
+          <p class="page-header__sub" style="max-width:56ch;margin-left:auto;margin-right:auto;">
+            Pick the option that matches your goal. You don't need to know any scraping terminology —
+            each option explains what it does and when to use it.
+          </p>
+        </div>
+
+        <div class="grid grid--3" style="align-items:stretch;">
+
+          <!-- Option 1: Scraper -->
+          <a class="choice-card" href="scrapers/new-step1-site.html">
+            <div class="choice-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.6-6.4M21 4v5h-5"/></svg>
+            </div>
+            <h3>Keep watch on a site over time</h3>
+            <p>Set it up once — an AI agent learns how the site is laid out, then it keeps checking it
+              on a schedule and fixes itself automatically if the site changes.</p>
+            <div class="choice-card__examples">Best for: price tracking, inventory monitoring, recurring reports</div>
+            <div class="choice-card__footer">
+              <span class="name-tag"><span>Scraper</span><span class="name-tag__original">Scraper</span></span>
+              <span class="chip chip--outline">Guided setup · a few minutes</span>
+            </div>
+          </a>
+
+          <!-- Option 2: Quick Scrape -->
+          <a class="choice-card" href="quick-scrape/new.html">
+            <div class="choice-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m13 2-9 12h7l-1 8 9-12h-7l1-8Z"/></svg>
+            </div>
+            <h3>Get data from a list of pages right now</h3>
+            <p>Paste in the exact page URLs you already have. No AI setup needed — just fetch and,
+              optionally, tidy the content into structured data.</p>
+            <div class="choice-card__examples">Best for: a known list of product pages, articles, or listings</div>
+            <div class="choice-card__footer">
+              <span class="name-tag"><span>Quick Scrape</span><span class="name-tag__original">Plain Scrape</span></span>
+              <span class="chip chip--outline">2 steps · ready in seconds</span>
+            </div>
+          </a>
+
+          <!-- Option 3: AI Browsing Agent -->
+          <a class="choice-card" href="ai-agent/new.html">
+            <div class="choice-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="7" width="14" height="11" rx="2"/><path d="M9 7V4h6v3M9 12h.01M15 12h.01M9 15.5c.7.6 1.9.6 3 0"/></svg>
+            </div>
+            <h3>Let AI explore a site for you</h3>
+            <p>Don't know the exact pages you need? Give the agent a starting link and instructions —
+              it clicks, scrolls and reads the site like a person would.</p>
+            <div class="choice-card__examples">Best for: exploring unfamiliar sites, dynamic or interactive pages</div>
+            <div class="choice-card__footer">
+              <span class="name-tag"><span>AI Browsing Agent</span><span class="name-tag__original">Browser Agent</span></span>
+              <span class="chip chip--outline">2 steps · a few minutes</span>
+            </div>
+          </a>
+
+        </div>
+
+        <div class="start-help">
+          <div class="card__pad cluster gap-4" style="justify-content:space-between;">
+            <div class="cluster gap-3">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="text-accent"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 2-3 4M12 17h.01"/></svg>
+              <div>
+                <strong class="text-sm">Not sure which one fits?</strong>
+                <p class="text-sm text-muted" style="margin-top:2px;">
+                  Quick Scrape and AI Browsing Agent give you a result in one run. A Scraper is the only option
+                  that remembers how a site works so it can run again automatically — pick it when you'll need the same data repeatedly.
+                </p>
+              </div>
+            </div>
+            <a href="states-gallery.html" class="btn btn--secondary btn--sm">See example results</a>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+</div>
+
+<script src="assets/js/accordion.js"></script>
+<script src="assets/js/tabs.js"></script>
+<script src="assets/js/modal.js"></script>
+</body>
+</html>

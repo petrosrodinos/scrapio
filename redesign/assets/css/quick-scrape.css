@@ -1,0 +1,19 @@
+/* Page-specific additions for quick-scrape/*.html. Everything else reuses
+   shared components from components.css. */
+
+/* Same bulk-action-bar treatment as runs/index.html (defined there in
+   runs-list.css) — duplicated here since it isn't in the shared component
+   sheet and quick-scrape/index.html needs it for its own bulk-select example. */
+.bulk-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-5);
+  margin-bottom: var(--space-4);
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-soft-border);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  color: var(--accent-700);
+}

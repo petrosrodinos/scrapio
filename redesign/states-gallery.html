@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>States gallery — Scrapio</title>
+<link rel="stylesheet" href="assets/css/tokens.css" />
+<link rel="stylesheet" href="assets/css/base.css" />
+<link rel="stylesheet" href="assets/css/components.css" />
+<link rel="stylesheet" href="assets/css/states-gallery.css" />
+</head>
+<body>
+<div class="app-shell">
+
+  <!-- ===================== Sidebar ===================== -->
+  <aside class="sidebar">
+    <div class="brand"><span class="brand__mark">S</span> Scrapio</div>
+    <a class="nav-cta" href="start.html">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+      Start a scrape
+    </a>
+    <nav class="nav-group">
+      <div class="nav-group__label">Overview</div>
+      <a class="nav-link" href="index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
+        Dashboard
+      </a>
+    </nav>
+    <nav class="nav-group">
+      <div class="nav-group__label">Build &amp; manage</div>
+      <a class="nav-link" href="sites/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+        Sites
+      </a>
+      <a class="nav-link" href="scrapers/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h6v6H9z"/></svg>
+        Scrapers
+      </a>
+      <a class="nav-link" href="quick-scrape/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m13 2-9 12h7l-1 8 9-12h-7l1-8Z"/></svg>
+        Quick Scrapes
+      </a>
+      <a class="nav-link" href="ai-agent/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="7" width="14" height="11" rx="2"/><path d="M9 7V4h6v3M9 12h.01M15 12h.01M9 15.5c.7.6 1.9.6 3 0"/></svg>
+        AI Browsing Agents
+      </a>
+    </nav>
+    <nav class="nav-group">
+      <div class="nav-group__label">Activity</div>
+      <a class="nav-link" href="runs/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+        Runs
+      </a>
+    </nav>
+    <nav class="nav-group">
+      <div class="nav-group__label">Platform</div>
+      <a class="nav-link" href="settings/crawler-config.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6V21a2 2 0 1 1-4 0v-.2a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.6-1H3a2 2 0 1 1 0-4h.2a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.6V3a2 2 0 1 1 4 0v.2a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9c.2.6.7 1 1.6 1H21a2 2 0 1 1 0 4h-.2a1.7 1.7 0 0 0-1.5 1Z"/></svg>
+        Settings
+      </a>
+    </nav>
+    <div class="sidebar-foot">
+      <div class="avatar">MK</div>
+      <div class="stack gap-1">
+        <strong class="text-sm">Maria K.</strong>
+        <span class="text-xs text-muted">Acme Retail Co.</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ===================== Main ===================== -->
+  <div class="main-col">
+    <header class="topbar">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="index.html">Dashboard</a>
+        <span class="breadcrumbs__sep">/</span>
+        <span class="breadcrumbs__current">States gallery</span>
+      </nav>
+    </header>
+
+    <main class="page">
+      <div class="container--wide">
+
+        <div class="page-header">
+          <div>
+            <h1>States gallery</h1>
+            <p class="page-header__sub">The flagship pages show one realistic example end-to-end. This page catalogs the other states you'll encounter — statuses, errors, and edge cases — for reference. It isn't part of the normal navigation flow.</p>
+          </div>
+        </div>
+
+        <!-- ===================== Sites ===================== -->
+        <section class="gallery-section">
+          <h2>Sites</h2>
+          <div class="grid grid--3">
+            <div class="card">
+              <div class="empty-state">
+                <div class="empty-state__icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+                </div>
+                <h3>No sites yet</h3>
+                <p>Sites are created automatically the first time you set up a Scraper.</p>
+                <a class="btn btn--primary btn--sm" href="scrapers/new-step1-site.html">Add your first site</a>
+              </div>
+            </div>
+            <div class="card card__pad stack gap-2">
+              <span class="text-xs text-faint font-medium">Site — last_error_message</span>
+              <strong class="text-sm">Northwind Appliances</strong>
+              <span class="chip chip--danger" style="align-self:flex-start;">Last check failed</span>
+              <p class="text-xs text-danger" style="margin-top:2px;">Timed out waiting for the product grid to load (12s).</p>
+            </div>
+            <div class="card card__pad stack gap-2">
+              <span class="text-xs text-faint font-medium">Site — delete blocked</span>
+              <strong class="text-sm">Acme Furniture Co.</strong>
+              <div class="tooltip-wrap" style="align-self:flex-start;">
+                <button class="btn btn--secondary btn--sm" disabled>Delete site</button>
+                <span class="tooltip-bubble">Can't delete — 2 scrapers depend on this site.</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================== Scraper status & health ===================== -->
+        <section class="gallery-section">
+          <h2>Scraper — status chips</h2>
+          <div class="grid grid--3">
+            <div class="card card__pad stack gap-2" style="align-items:center;text-align:center;">
+              <span class="text-xs text-faint font-medium">Scraper — status: ACTIVE</span>
+              <span class="chip chip--success"><span class="chip__dot"></span>Active</span>
+            </div>
+            <div class="card card__pad stack gap-2" style="align-items:center;text-align:center;">
+              <span class="text-xs text-faint font-medium">Scraper — status: INACTIVE</span>
+              <span class="chip chip--default"><span class="chip__dot"></span>Inactive</span>
+            </div>
+            <div class="card card__pad stack gap-2" style="align-items:center;text-align:center;">
+              <span class="text-xs text-faint font-medium">Scraper — status: DEPRECATED</span>
+              <span class="chip chip--default"><span class="chip__dot"></span>Deprecated</span>
+            </div>
+            <div class="card card__pad stack gap-2" style="align-items:center;text-align:center;">
+              <span class="text-xs text-faint font-medium">Scraper — status: TESTING</span>
+              <span class="chip chip--warning"><span class="chip__dot"></span>Testing</span>
+            </div>
+            <div class="card card__pad stack gap-2" style="align-items:center;text-align:center;">
+              <span class="text-xs text-faint font-medium">Scraper — status: BROKEN</span>
+              <span class="chip chip--danger"><span class="chip__dot"></span>Broken</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="gallery-section">
+          <h2>Scraper — health chips</h2>
+          <div class="grid grid--3">
+            <div class="card card__pad stack gap-2" style="align-items:center;text-align:center;">
+              <span class="text-xs text-faint font-medium">Scraper — health: EXCELLENT</span>
+              <span class="chip chip--success"><span class="chip__dot"></span>Excellent</span>
+            </div>
+            <div class="card card__pad stack gap-2" style="align-items:center;text-align:center;">
+              <span class="text-xs text-faint font-medium">Scraper — health: GOOD</span>
+              <span class="chip chip--success"><span class="chip__dot"></span>Good</span>
+            </div>
+            <div class="card card__pad stack gap-2" style="align-items:center;text-align:center;">
+              <span class="text-xs text-faint font-medium">Scraper — health: WARNING</span>
+              <span class="chip chip--warning"><span class="chip__dot"></span>Warning</span>
+            </div>
+            <div class="card card__pad stack gap-2" style="align-items:center;text-align:center;">
+              <span class="text-xs text-faint font-medium">Scraper — health: CRITICAL</span>
+              <span class="chip chip--danger"><span class="chip__dot"></span>Critical</span>
+            </div>
+            <div class="card card__pad stack gap-2" style="align-items:center;text-align:center;">
+              <span class="text-xs text-faint font-medium">Scraper — health: BROKEN</span>
+              <span class="chip chip--danger"><span class="chip__dot"></span>Broken</span>
+            </div>
+            <div class="card card__pad stack gap-2" style="align-items:center;text-align:center;">
+              <span class="text-xs text-faint font-medium">Scraper — health: null</span>
+              <span class="chip chip--default"><span class="chip__dot"></span>Unknown</span>
+            </div>
+          </div>
+          <div class="card card__pad" style="margin-top:var(--space-4);">
+            <div class="banner banner--warning">
+              <span class="spinner"></span>
+              <div class="stack gap-1" style="flex:1;">
+                <div class="banner__title">Warranty Lookup is being fixed automatically</div>
+                <p>This scraper broke after the site's layout changed. An AI self-heal run is currently rewriting its recipe — check back shortly.</p>
+              </div>
+              <span class="chip chip--warning chip--pulse"><span class="chip__dot"></span>Fixing now</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================== Generation Runs ===================== -->
+        <section class="gallery-section">
+          <h2>Teach the scraper — every stage</h2>
+          <p class="text-sm text-muted" style="margin-bottom:var(--space-4);">The AI authoring session behind a Scraper's setup. <span class="name-tag__original">Generation Run</span></p>
+          <div class="grid grid--4">
+            <div class="card card__pad stack gap-2">
+              <span class="text-xs text-faint font-medium">Generation Run — DRAFT</span>
+              <span class="chip chip--default">Draft</span>
+              <p class="text-xs text-muted">Saved, not started yet.</p>
+            </div>
+            <div class="card card__pad stack gap-2">
+              <span class="text-xs text-faint font-medium">Generation Run — QUEUED</span>
+              <span class="chip chip--default">Queued</span>
+              <p class="text-xs text-muted">Waiting for a worker.</p>
+            </div>
+            <div class="card card__pad stack gap-2">
+              <span class="text-xs text-faint font-medium">Generation Run — RUNNING</span>
+              <span class="chip chip--warning chip--pulse"><span class="chip__dot"></span>Running</span>
+              <p class="text-xs text-muted">Agent is browsing the site now.</p>
+            </div>
+            <div class="card card__pad stack gap-2">
+              <span class="text-xs text-faint font-medium">Generation Run — AWAITING_REVIEW</span>
+              <span class="chip chip--warning">Awaiting review</span>
+              <p class="text-xs text-muted">Needs your approval to go live.</p>
+            </div>
+            <div class="card card__pad stack gap-2">
+              <span class="text-xs text-faint font-medium">Generation Run — SUCCESS</span>
+              <span class="chip chip--success">Success</span>
+              <p class="text-xs text-muted">A new scraper version was created.</p>
+            </div>
+            <div class="card card__pad stack gap-2">
+              <span class="text-xs text-faint font-medium">Generation Run — FAILED</span>
+              <span class="chip chip--danger">Failed</span>
+              <p class="text-xs text-danger">Could not find a stable product list after 25 steps.</p>
+            </div>
+            <div class="card card__pad stack gap-2">
+              <span class="text-xs text-faint font-medium">Generation Run — CANCELLED</span>
+              <span class="chip chip--default">Cancelled</span>
+              <p class="text-xs text-muted">Stopped by a person.</p>
+            </div>
+            <div class="card card__pad stack gap-2">
+              <span class="text-xs text-faint font-medium">Generation Run — trigger</span>
+              <div class="cluster gap-2"><span class="chip chip--outline">Manual</span><span class="chip chip--outline">Auto-heal</span><span class="chip chip--outline">Scheduled</span></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================== Quick Scrape ===================== -->
+        <section class="gallery-section">
+          <h2>Quick Scrape — validation errors</h2>
+          <div class="grid grid--3">
+            <div class="card card__pad">
+              <span class="text-xs text-faint font-medium" style="display:block;margin-bottom:var(--space-2);">No URLs entered</span>
+              <div class="field">
+                <label>Page URLs <span class="field__required">*</span></label>
+                <textarea class="textarea has-error" placeholder="https://example.com/page-1"></textarea>
+                <span class="field__error">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16h.01"/></svg>
+                  Enter at least one URL to continue.
+                </span>
+              </div>
+            </div>
+            <div class="card card__pad">
+              <span class="text-xs text-faint font-medium" style="display:block;margin-bottom:var(--space-2);">Too many URLs</span>
+              <div class="field">
+                <label>Page URLs <span class="field__required">*</span></label>
+                <textarea class="textarea has-error">201 URLs pasted…</textarea>
+                <span class="field__error">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16h.01"/></svg>
+                  You've reached the 200 URL limit.
+                </span>
+              </div>
+            </div>
+            <div class="card card__pad stack gap-2">
+              <span class="text-xs text-faint font-medium">No output format selected</span>
+              <div class="banner banner--info" style="margin-top:0;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+                <div>You'll get the raw page content only — no AI tidy-up, no cost. Turn on a format above if you want structured or summarized results.</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================== AI Browsing Agent ===================== -->
+        <section class="gallery-section">
+          <h2>AI Browsing Agent — capture API traffic</h2>
+          <div class="grid grid--2">
+            <div class="card card__pad stack gap-2">
+              <span class="text-xs text-faint font-medium">Explore New Marketplace — capture_api: ON</span>
+              <div class="switch-row">
+                <div class="switch-row__body"><strong>Capture API traffic</strong><span>On — also builds a downloadable API spec</span></div>
+                <label class="switch"><input type="checkbox" checked /><span class="switch__track"><span class="switch__thumb"></span></span></label>
+              </div>
+              <div class="cluster gap-2" style="margin-top:var(--space-2);">
+                <span class="chip chip--accent">18 requests captured</span>
+                <a class="link text-xs" href="#">Download OpenAPI spec</a>
+              </div>
+            </div>
+            <div class="card card__pad stack gap-2">
+              <span class="text-xs text-faint font-medium">Support Docs Crawl — capture_api: OFF</span>
+              <div class="switch-row">
+                <div class="switch-row__body"><strong>Capture API traffic</strong><span>Off — only page content is recorded</span></div>
+                <label class="switch"><input type="checkbox" /><span class="switch__track"><span class="switch__thumb"></span></span></label>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================== Runs ===================== -->
+        <section class="gallery-section">
+          <h2>Run — status</h2>
+          <div class="grid grid--3">
+            <div class="card card__pad stack gap-2">
+              <span class="text-xs text-faint font-medium">Crawl Run — QUEUED</span>
+              <span class="chip chip--default"><span class="chip__dot"></span>Queued</span>
+              <p class="text-xs text-muted">Waiting for a worker to pick this up.</p>
+            </div>
+            <div class="card card__pad stack gap-2">
+              <span class="text-xs text-faint font-medium">Crawl Run — RUNNING</span>
+              <span class="chip chip--warning chip--pulse"><span class="chip__dot"></span>Running</span>
+              <p class="text-xs text-muted">In progress — updates every few seconds.</p>
+            </div>
+            <div class="card card__pad stack gap-2">
+              <span class="text-xs text-faint font-medium">Crawl Run — SUCCESS</span>
+              <span class="chip chip--success"><span class="chip__dot"></span>Success</span>
+              <p class="text-xs text-muted">Every requested format came back valid.</p>
+            </div>
+            <div class="card card__pad stack gap-2">
+              <span class="text-xs text-faint font-medium">Crawl Run — PARTIAL_SUCCESS</span>
+              <span class="chip chip--warning">Partial success</span>
+              <div class="cluster gap-2" style="margin-top:2px;">
+                <span class="chip chip--success">Structured JSON: Valid</span>
+                <span class="chip chip--danger">Markdown: Failed</span>
+              </div>
+            </div>
+            <div class="card card__pad stack gap-2">
+              <span class="text-xs text-faint font-medium">Crawl Run — FAILED</span>
+              <span class="chip chip--danger"><span class="chip__dot"></span>Failed</span>
+              <div class="banner banner--danger" style="margin-top:var(--space-2);padding:var(--space-3);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16h.01"/></svg>
+                <span class="text-xs">The target page returned a 403 (blocked) response.</span>
+              </div>
+            </div>
+            <div class="card card__pad stack gap-2">
+              <span class="text-xs text-faint font-medium">Crawl Run — CANCELLED</span>
+              <span class="chip chip--default"><span class="chip__dot"></span>Cancelled</span>
+              <p class="text-xs text-muted">Stopped before it finished.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================== Global ===================== -->
+        <section class="gallery-section">
+          <h2>Global states</h2>
+          <div class="grid grid--3">
+            <div class="card">
+              <span class="text-xs text-faint font-medium" style="display:block;padding:var(--space-4) var(--space-4) 0;">Empty table</span>
+              <div class="table-wrap">
+                <table class="table">
+                  <thead><tr><th>Name</th><th>Status</th></tr></thead>
+                  <tbody><tr><td colspan="2" class="text-muted text-sm" style="padding:var(--space-7) var(--space-4);text-align:center;">Nothing here yet.</td></tr></tbody>
+                </table>
+              </div>
+            </div>
+            <div class="card card__pad">
+              <span class="text-xs text-faint font-medium" style="display:block;margin-bottom:var(--space-2);">Form validation error</span>
+              <div class="field">
+                <label>Site name <span class="field__required">*</span></label>
+                <input class="input has-error" value="" placeholder="e.g. Acme Furniture Co." />
+                <span class="field__error">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16h.01"/></svg>
+                  This field is required.
+                </span>
+              </div>
+            </div>
+            <div class="card card__pad stack gap-2">
+              <span class="text-xs text-faint font-medium">First-time / empty dashboard</span>
+              <p class="text-xs text-muted">Not shown as a swatch here — built on the flagship Dashboard page. When an account has no Sites, Scrapers, Quick Scrapes or AI Browsing Agents yet, the stat row shows all zeros, "Recent runs" and "Your sites" are replaced with a single empty-state pointing at "Start a scrape," and the cost widget is hidden until the first run completes.</p>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+</div>
+
+<script src="assets/js/accordion.js"></script>
+<script src="assets/js/tabs.js"></script>
+<script src="assets/js/modal.js"></script>
+</body>
+</html>

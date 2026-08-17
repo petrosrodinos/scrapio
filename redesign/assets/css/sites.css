@@ -1,0 +1,19 @@
+/* Sites index + detail — small page-specific layout only.
+   Everything else (cards, tables, chips, tabs, modals, tooltips) reuses
+   assets/css/components.css. */
+
+/* Search box above the sites table (index page) */
+.search-bar { position: relative; max-width: 360px; margin-bottom: var(--space-5); }
+.search-bar svg {
+  position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+  width: 16px; height: 16px; color: var(--text-faint); pointer-events: none;
+}
+.search-bar .input { padding-left: 36px; }
+
+/* External link to a site's base URL (detail page) */
+.external-link { display: inline-flex; align-items: center; gap: 6px; }
+.external-link svg { width: 14px; height: 14px; color: var(--text-faint); }
+
+/* Key/value pairs in the Site info tab overview grid */
+.info-item { display: flex; flex-direction: column; gap: 4px; }
+.info-item__label { font-size: var(--text-xs); color: var(--text-muted); font-weight: var(--weight-medium); }

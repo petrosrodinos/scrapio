@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Teaching in progress · Warranty Lookup — Scrapio</title>
+<link rel="stylesheet" href="../assets/css/tokens.css" />
+<link rel="stylesheet" href="../assets/css/base.css" />
+<link rel="stylesheet" href="../assets/css/components.css" />
+</head>
+<body>
+<div class="app-shell">
+
+  <!-- ===================== Sidebar ===================== -->
+  <aside class="sidebar">
+    <div class="brand"><span class="brand__mark">S</span> Scrapio</div>
+    <a class="nav-cta" href="../start.html">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+      Start a scrape
+    </a>
+    <nav class="nav-group">
+      <div class="nav-group__label">Overview</div>
+      <a class="nav-link" href="../index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
+        Dashboard
+      </a>
+    </nav>
+    <nav class="nav-group">
+      <div class="nav-group__label">Build &amp; manage</div>
+      <a class="nav-link" href="../sites/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+        Sites
+      </a>
+      <a class="nav-link" href="index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h6v6H9z"/></svg>
+        Scrapers
+      </a>
+      <a class="nav-link" href="../quick-scrape/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m13 2-9 12h7l-1 8 9-12h-7l1-8Z"/></svg>
+        Quick Scrapes
+      </a>
+      <a class="nav-link" href="../ai-agent/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="7" width="14" height="11" rx="2"/><path d="M9 7V4h6v3M9 12h.01M15 12h.01M9 15.5c.7.6 1.9.6 3 0"/></svg>
+        AI Browsing Agents
+      </a>
+    </nav>
+    <nav class="nav-group">
+      <div class="nav-group__label">Activity</div>
+      <a class="nav-link" href="../runs/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+        Runs
+      </a>
+    </nav>
+    <nav class="nav-group">
+      <div class="nav-group__label">Platform</div>
+      <a class="nav-link" href="../settings/crawler-config.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6V21a2 2 0 1 1-4 0v-.2a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.6-1H3a2 2 0 1 1 0-4h.2a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.6V3a2 2 0 1 1 4 0v.2a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9c.2.6.7 1 1.6 1H21a2 2 0 1 1 0 4h-.2a1.7 1.7 0 0 0-1.5 1Z"/></svg>
+        Settings
+      </a>
+    </nav>
+    <div class="sidebar-foot">
+      <div class="avatar">MK</div>
+      <div class="stack gap-1">
+        <strong class="text-sm">Maria K.</strong>
+        <span class="text-xs text-muted">Acme Retail Co.</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ===================== Main ===================== -->
+  <div class="main-col">
+    <header class="topbar">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="../index.html">Dashboard</a>
+        <span class="breadcrumbs__sep">/</span>
+        <a href="index.html">Scrapers</a>
+        <span class="breadcrumbs__sep">/</span>
+        <span class="breadcrumbs__current">Teaching in progress</span>
+      </nav>
+    </header>
+
+    <main class="page">
+      <div class="container">
+
+        <div class="page-header">
+          <div>
+            <div class="cluster gap-3">
+              <span class="name-tag"><h1>Teaching in progress</h1><span class="name-tag__original">Generation Run</span></span>
+              <span class="chip chip--warning chip--pulse"><span class="chip__dot"></span>Running</span>
+            </div>
+            <p class="page-header__sub" style="margin-top:6px;">Warranty Lookup · Northwind Appliances (northwind-appliances.example.com)</p>
+            <div class="page-header__meta">
+              <span class="chip chip--danger">Broken</span>
+              <span class="chip chip--default">Self-heal</span>
+              <span class="dot-sep text-sm text-muted">Started 2 minutes ago</span>
+            </div>
+          </div>
+          <div class="page-header__actions">
+            <button class="btn btn--danger btn--sm" type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>
+              Cancel
+            </button>
+          </div>
+        </div>
+
+        <div class="banner banner--running" style="margin-bottom:var(--space-6);">
+          <span class="spinner"></span>
+          <div>
+            <div class="banner__title">This scraper broke, so we're automatically trying to fix it.</div>
+            Warranty Lookup started failing repeatedly on Northwind Appliances, so Scrapio kicked off a new teaching run on its own — nobody had to ask it to. Teaching in progress — the agent is exploring the page now.
+          </div>
+        </div>
+
+        <div class="cluster" style="justify-content:space-between;margin-bottom:var(--space-3);">
+          <span class="text-sm font-medium" data-sim-label>Step 6 of 6</span>
+          <span class="text-xs text-muted">This can take a few minutes — you can navigate away and come back.</span>
+        </div>
+
+        <div class="card card__pad">
+          <div class="replay" data-simulate-progress data-sim-revealed="5">
+
+            <div class="replay-step" data-sim-step>
+              <div class="replay-step__index">1</div>
+              <div class="replay-step__body">
+                <div class="replay-step__head"><span class="replay-step__action">Navigate to warranty lookup page</span><span class="text-faint text-xs">0:02</span></div>
+                <p class="replay-step__reasoning">Started at the homepage and found the "Warranty Lookup" link in the main navigation.</p>
+                <p class="text-xs text-muted font-mono">Opened https://northwind-appliances.example.com/support/warranty-lookup</p>
+                <div class="replay-step__shots">
+                  <div class="replay-shot"><div class="replay-shot__frame"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div><span>Before</span></div>
+                  <div class="replay-shot"><div class="replay-shot__frame"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div><span>After</span></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="replay-step" data-sim-step>
+              <div class="replay-step__index">2</div>
+              <div class="replay-step__body">
+                <div class="replay-step__head"><span class="replay-step__action">Wait for form to load</span><span class="text-faint text-xs">0:09</span></div>
+                <p class="replay-step__reasoning">The lookup form loads its fields asynchronously, so I waited rather than risk interacting before it's ready.</p>
+                <div class="replay-step__shots">
+                  <div class="replay-shot"><div class="replay-shot__frame"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div><span>Before</span></div>
+                  <div class="replay-shot"><div class="replay-shot__frame"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div><span>After</span></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="replay-step" data-sim-step>
+              <div class="replay-step__index">3</div>
+              <div class="replay-step__body">
+                <div class="replay-step__head"><span class="replay-step__action">Click "Search by serial number"</span><span class="text-faint text-xs">0:15</span></div>
+                <p class="replay-step__reasoning">This site offers two lookup modes — email or serial number. Serial number is the more reliable path, so I used that.</p>
+                <div class="replay-step__shots">
+                  <div class="replay-shot"><div class="replay-shot__frame"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div><span>Before</span></div>
+                  <div class="replay-shot"><div class="replay-shot__frame"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div><span>After</span></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="replay-step" data-sim-step>
+              <div class="replay-step__index">4</div>
+              <div class="replay-step__body">
+                <div class="replay-step__head"><span class="replay-step__action">Type sample serial number</span><span class="text-faint text-xs">0:24</span></div>
+                <p class="replay-step__reasoning">Entered a sample serial number from a known warranty record to test the form end-to-end.</p>
+                <div class="replay-step__shots">
+                  <div class="replay-shot"><div class="replay-shot__frame"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div><span>Before</span></div>
+                  <div class="replay-shot"><div class="replay-shot__frame"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div><span>After</span></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="replay-step" data-sim-step>
+              <div class="replay-step__index">5</div>
+              <div class="replay-step__body">
+                <div class="replay-step__head"><span class="replay-step__action">Scroll to results</span><span class="text-faint text-xs">0:33</span></div>
+                <p class="replay-step__reasoning">Results render below the fold on this template, so I scrolled down to bring the results table into view.</p>
+                <div class="replay-step__shots">
+                  <div class="replay-shot"><div class="replay-shot__frame"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div><span>Before</span></div>
+                  <div class="replay-shot"><div class="replay-shot__frame"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div><span>After</span></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="replay-step is-active" data-sim-step>
+              <div class="replay-step__index">6</div>
+              <div class="replay-step__body">
+                <div class="replay-step__head"><span class="replay-step__action">Extract result fields</span><span class="text-faint text-xs">Working…</span></div>
+                <p class="replay-step__reasoning">The results table appeared after a short delay, so I'll wait before extracting.</p>
+                <div class="replay-step__shots">
+                  <div class="replay-shot"><div class="replay-shot__frame"><span class="spinner"></span></div><span>Working…</span></div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="banner banner--success" data-sim-complete-banner hidden style="margin-top:var(--space-5);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+          <div>
+            <div class="banner__title">Done exploring</div>
+            The agent finished and put together a fix. <a class="link" href="generation-review.html">Review it now →</a>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+</div>
+
+<script src="../assets/js/simulate-progress.js"></script>
+</body>
+</html>

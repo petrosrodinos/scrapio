@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Generated interface</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: #f7f5f2;
+    color: #221d16;
+    padding: 28px;
+  }
+  .hero {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 22px;
+  }
+  .hero h1 { font-size: 20px; margin: 0 0 4px; }
+  .hero p { margin: 0; color: #6b6155; font-size: 13px; }
+  .badge {
+    background: #eae2d6; color: #6b5a3d; font-size: 11px; font-weight: 700;
+    padding: 4px 10px; border-radius: 999px; letter-spacing: .03em;
+  }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .card {
+    background: #fff; border-radius: 14px; overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,.06), 0 8px 20px rgba(34,29,22,.06);
+  }
+  .card__img {
+    height: 120px;
+    background: linear-gradient(135deg,#e6ceac,#c9a876);
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,.85); font-size: 12px; font-weight: 600;
+  }
+  .card__body { padding: 14px 16px 16px; }
+  .card__body h3 { margin: 0 0 6px; font-size: 14px; }
+  .price { font-size: 16px; font-weight: 700; color: #221d16; }
+  .row { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; }
+  .pill {
+    font-size: 10.5px; font-weight: 700; padding: 3px 8px; border-radius: 999px;
+  }
+  .pill--stock { background: #e4f5eb; color: #0f7a4b; }
+  .pill--low { background: #fdf1de; color: #92640f; }
+  .meta { font-size: 11.5px; color: #8a7f70; margin-top: 8px; }
+  .stars { color: #c9932c; font-size: 12px; }
+</style>
+</head>
+<body>
+  <div class="hero">
+    <div>
+      <h1>Acme Furniture Co. — Dining Tables</h1>
+      <p>3 products found · generated from structured extraction results</p>
+    </div>
+    <span class="badge">AI-generated interface</span>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="card__img">Oakwood Dining Table</div>
+      <div class="card__body">
+        <h3>Oakwood Dining Table</h3>
+        <div class="price">$549.00</div>
+        <div class="row">
+          <span class="stars">★★★★★ 4.6 (128)</span>
+          <span class="pill pill--stock">In stock</span>
+        </div>
+        <div class="meta">SKU OWT-5521 · Solid oak · 180×90×75 cm</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card__img">Birchline Extendable Table</div>
+      <div class="card__body">
+        <h3>Birchline Extendable Table</h3>
+        <div class="price">$729.00</div>
+        <div class="row">
+          <span class="stars">★★★★☆ 4.2 (54)</span>
+          <span class="pill pill--low">Only 3 left</span>
+        </div>
+        <div class="meta">SKU BXT-1187 · Birch veneer · 160–210×90×75 cm</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card__img">Nordic Round Table</div>
+      <div class="card__body">
+        <h3>Nordic Round Table</h3>
+        <div class="price">$389.00</div>
+        <div class="row">
+          <span class="stars">★★★★★ 4.8 (211)</span>
+          <span class="pill pill--stock">In stock</span>
+        </div>
+        <div class="meta">SKU NRT-3302 · Ash wood · Ø110×75 cm</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

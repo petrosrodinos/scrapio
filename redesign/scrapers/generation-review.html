@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Review what the AI learned · Warranty Lookup — Scrapio</title>
+<link rel="stylesheet" href="../assets/css/tokens.css" />
+<link rel="stylesheet" href="../assets/css/base.css" />
+<link rel="stylesheet" href="../assets/css/components.css" />
+</head>
+<body>
+<div class="app-shell">
+
+  <!-- ===================== Sidebar ===================== -->
+  <aside class="sidebar">
+    <div class="brand"><span class="brand__mark">S</span> Scrapio</div>
+    <a class="nav-cta" href="../start.html">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+      Start a scrape
+    </a>
+    <nav class="nav-group">
+      <div class="nav-group__label">Overview</div>
+      <a class="nav-link" href="../index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
+        Dashboard
+      </a>
+    </nav>
+    <nav class="nav-group">
+      <div class="nav-group__label">Build &amp; manage</div>
+      <a class="nav-link" href="../sites/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+        Sites
+      </a>
+      <a class="nav-link" href="index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h6v6H9z"/></svg>
+        Scrapers
+      </a>
+      <a class="nav-link" href="../quick-scrape/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m13 2-9 12h7l-1 8 9-12h-7l1-8Z"/></svg>
+        Quick Scrapes
+      </a>
+      <a class="nav-link" href="../ai-agent/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="7" width="14" height="11" rx="2"/><path d="M9 7V4h6v3M9 12h.01M15 12h.01M9 15.5c.7.6 1.9.6 3 0"/></svg>
+        AI Browsing Agents
+      </a>
+    </nav>
+    <nav class="nav-group">
+      <div class="nav-group__label">Activity</div>
+      <a class="nav-link" href="../runs/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+        Runs
+      </a>
+    </nav>
+    <nav class="nav-group">
+      <div class="nav-group__label">Platform</div>
+      <a class="nav-link" href="../settings/crawler-config.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6V21a2 2 0 1 1-4 0v-.2a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.6-1H3a2 2 0 1 1 0-4h.2a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.6V3a2 2 0 1 1 4 0v.2a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9c.2.6.7 1 1.6 1H21a2 2 0 1 1 0 4h-.2a1.7 1.7 0 0 0-1.5 1Z"/></svg>
+        Settings
+      </a>
+    </nav>
+    <div class="sidebar-foot">
+      <div class="avatar">MK</div>
+      <div class="stack gap-1">
+        <strong class="text-sm">Maria K.</strong>
+        <span class="text-xs text-muted">Acme Retail Co.</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ===================== Main ===================== -->
+  <div class="main-col">
+    <header class="topbar">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="../index.html">Dashboard</a>
+        <span class="breadcrumbs__sep">/</span>
+        <a href="index.html">Scrapers</a>
+        <span class="breadcrumbs__sep">/</span>
+        <span class="breadcrumbs__current">Review what the AI learned</span>
+      </nav>
+    </header>
+
+    <main class="page">
+      <div class="container">
+
+        <div class="page-header">
+          <div>
+            <div class="cluster gap-3">
+              <span class="name-tag"><h1>Review what the AI learned</h1><span class="name-tag__original">Generation Run</span></span>
+              <span class="chip chip--warning"><span class="chip__dot"></span>Awaiting review</span>
+            </div>
+            <p class="page-header__sub" style="margin-top:6px;">Warranty Lookup · Northwind Appliances (northwind-appliances.example.com)</p>
+            <div class="page-header__meta">
+              <span class="chip chip--danger">Broken</span>
+              <span class="chip chip--default">Self-heal</span>
+              <span class="dot-sep text-sm text-muted">Finished 3 minutes ago</span>
+            </div>
+          </div>
+          <div class="page-header__actions">
+            <a href="generation-progress.html" class="btn btn--ghost btn--sm">← Step-by-step replay</a>
+          </div>
+        </div>
+
+        <div class="banner banner--info" style="margin-bottom:var(--space-6);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 2-3 4M12 17h.01"/></svg>
+          <div>
+            <div class="banner__title">The agent finished — review what it learned before this becomes the live scraper.</div>
+            This was an automatic fix attempt: Warranty Lookup started failing on Northwind Appliances, so Scrapio explored the page again on its own and put together a fix. Nothing goes live until you approve it below.
+          </div>
+        </div>
+
+        <div class="card" style="padding:0 var(--space-2);margin-bottom:var(--space-6);">
+          <div class="accordion-item" data-accordion data-open="false">
+            <button class="accordion__trigger" data-accordion-trigger>
+              How it explored the site (6 steps)
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="accordion__panel" data-accordion-panel hidden>
+              <p class="text-xs text-muted" style="margin-bottom:2px;">A condensed replay of this run — the full step-by-step version is linked above. <span class="name-tag__original">Generation Run steps</span></p>
+              <div class="replay">
+
+                <div class="replay-step" data-sim-step>
+                  <div class="replay-step__index">1</div>
+                  <div class="replay-step__body">
+                    <div class="replay-step__head"><span class="replay-step__action">Navigate to warranty lookup page</span><span class="text-faint text-xs">0:02</span></div>
+                    <p class="replay-step__reasoning">Started at the homepage and found the "Warranty Lookup" link in the main navigation.</p>
+                    <div class="replay-step__shots">
+                      <div class="replay-shot"><div class="replay-shot__frame"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div><span>Before</span></div>
+                      <div class="replay-shot"><div class="replay-shot__frame"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div><span>After</span></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="replay-step" data-sim-step>
+                  <div class="replay-step__index">2</div>
+                  <div class="replay-step__body">
+                    <div class="replay-step__head"><span class="replay-step__action">Click "Search by serial number"</span><span class="text-faint text-xs">0:15</span></div>
+                    <p class="replay-step__reasoning">This site offers two lookup modes — email or serial number. Serial number is the more reliable path, so I used that.</p>
+                    <div class="replay-step__shots">
+                      <div class="replay-shot"><div class="replay-shot__frame"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div><span>Before</span></div>
+                      <div class="replay-shot"><div class="replay-shot__frame"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div><span>After</span></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="replay-step" data-sim-step>
+                  <div class="replay-step__index">3</div>
+                  <div class="replay-step__body">
+                    <div class="replay-step__head"><span class="replay-step__action">Scroll to results</span><span class="text-faint text-xs">0:33</span></div>
+                    <p class="replay-step__reasoning">Results render below the fold on this template, so I scrolled down to bring the results table into view.</p>
+                    <div class="replay-step__shots">
+                      <div class="replay-shot"><div class="replay-shot__frame"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div><span>Before</span></div>
+                      <div class="replay-shot"><div class="replay-shot__frame"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div><span>After</span></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="replay-step" data-sim-step>
+                  <div class="replay-step__index">4</div>
+                  <div class="replay-step__body">
+                    <div class="replay-step__head"><span class="replay-step__action">Extract result fields</span><span class="text-faint text-xs">0:47</span></div>
+                    <p class="replay-step__reasoning">The results table appeared after a short delay; waited for it before extracting, then confirmed the new field layout against the old config.</p>
+                    <div class="replay-step__shots">
+                      <div class="replay-shot"><div class="replay-shot__frame"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div><span>Before</span></div>
+                      <div class="replay-shot"><div class="replay-shot__frame"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div><span>After</span></div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom:var(--space-6);">
+          <div class="card__header"><h2>What it will extract</h2></div>
+          <div class="card__body stack gap-6">
+
+            <div>
+              <p class="text-xs text-muted" style="margin-bottom:var(--space-2);">Staged config — replaces the scraper's current recipe if you approve. <span class="name-tag__original">Staged config JSON</span></p>
+<pre class="code-block">{
+  "selectors": {
+    "serial_input": "#serial-lookup",
+    "results_table": ".warranty-results"
+  },
+  "flow": ["search_by_serial", "extract_table"]
+}</pre>
+              <p class="text-xs text-secondary" style="margin-top:var(--space-3);">What changed: the <code>results_table</code> selector moved from <code>.warranty-table</code> (no longer on the page) to <code>.warranty-results</code> — that's what broke the scraper, and what this run fixed.</p>
+            </div>
+
+            <div>
+              <p class="text-xs text-muted" style="margin-bottom:var(--space-2);">Sample result from the trial run</p>
+              <div class="stack gap-3 text-sm" style="border:1px solid var(--border);border-radius:var(--radius-md);padding:var(--space-4);">
+                <div class="cluster" style="justify-content:space-between;"><span class="text-muted">Product name</span><span class="font-medium">Aria 8-Cup Coffee Maker</span></div>
+                <div class="cluster" style="justify-content:space-between;"><span class="text-muted">Warranty status</span><span class="chip chip--success">Active</span></div>
+                <div class="cluster" style="justify-content:space-between;"><span class="text-muted">Expiry date</span><span class="font-medium">March 14, 2027</span></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="cluster" style="justify-content:space-between;align-items:center;">
+          <p class="text-xs text-secondary" style="max-width:46ch;">Approving replaces the scraper's saved recipe. You can always roll back to a previous version later.</p>
+          <div class="cluster gap-3">
+            <button class="btn btn--danger" data-modal-open="reject-modal">Reject</button>
+            <a href="detail.html" class="btn btn--primary">Approve — make this the live scraper</a>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- Reject confirmation -->
+<div class="modal-backdrop" id="reject-modal" data-modal hidden>
+  <div class="modal" role="dialog" aria-modal="true">
+    <div class="modal__header"><h2>Reject this fix?</h2><button class="modal-close" data-modal-close aria-label="Close">✕</button></div>
+    <div class="modal__body stack gap-3">
+      <p class="text-sm text-secondary">Nothing goes live and Warranty Lookup stays broken. You can trigger another attempt, or teach it again yourself with more specific instructions.</p>
+      <div class="field">
+        <label for="reject-reason">Reason <span class="field__optional">(optional)</span></label>
+        <textarea id="reject-reason" class="textarea" placeholder="e.g. Missed the expiry date field"></textarea>
+      </div>
+    </div>
+    <div class="modal__footer">
+      <button class="btn btn--secondary" data-modal-close>Cancel</button>
+      <button class="btn btn--danger" data-modal-close>Reject</button>
+    </div>
+  </div>
+</div>
+
+<script src="../assets/js/accordion.js"></script>
+<script src="../assets/js/modal.js"></script>
+</body>
+</html>

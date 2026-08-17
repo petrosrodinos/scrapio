@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AI Browsing Agents — Scrapio</title>
+<link rel="stylesheet" href="../assets/css/tokens.css" />
+<link rel="stylesheet" href="../assets/css/base.css" />
+<link rel="stylesheet" href="../assets/css/components.css" />
+</head>
+<body>
+<div class="app-shell">
+
+  <!-- ===================== Sidebar ===================== -->
+  <aside class="sidebar">
+    <div class="brand"><span class="brand__mark">S</span> Scrapio</div>
+    <a class="nav-cta" href="../start.html">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+      Start a scrape
+    </a>
+    <nav class="nav-group">
+      <div class="nav-group__label">Overview</div>
+      <a class="nav-link" href="../index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
+        Dashboard
+      </a>
+    </nav>
+    <nav class="nav-group">
+      <div class="nav-group__label">Build &amp; manage</div>
+      <a class="nav-link" href="../sites/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+        Sites
+      </a>
+      <a class="nav-link" href="../scrapers/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h6v6H9z"/></svg>
+        Scrapers
+      </a>
+      <a class="nav-link" href="../quick-scrape/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m13 2-9 12h7l-1 8 9-12h-7l1-8Z"/></svg>
+        Quick Scrapes
+      </a>
+      <a class="nav-link is-active" href="index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="7" width="14" height="11" rx="2"/><path d="M9 7V4h6v3M9 12h.01M15 12h.01M9 15.5c.7.6 1.9.6 3 0"/></svg>
+        AI Browsing Agents
+      </a>
+    </nav>
+    <nav class="nav-group">
+      <div class="nav-group__label">Activity</div>
+      <a class="nav-link" href="../runs/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+        Runs
+      </a>
+    </nav>
+    <nav class="nav-group">
+      <div class="nav-group__label">Platform</div>
+      <a class="nav-link" href="../settings/crawler-config.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6V21a2 2 0 1 1-4 0v-.2a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.6-1H3a2 2 0 1 1 0-4h.2a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.6V3a2 2 0 1 1 4 0v.2a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9c.2.6.7 1 1.6 1H21a2 2 0 1 1 0 4h-.2a1.7 1.7 0 0 0-1.5 1Z"/></svg>
+        Settings
+      </a>
+    </nav>
+    <div class="sidebar-foot">
+      <div class="avatar">MK</div>
+      <div class="stack gap-1">
+        <strong class="text-sm">Maria K.</strong>
+        <span class="text-xs text-muted">Acme Retail Co.</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ===================== Main ===================== -->
+  <div class="main-col">
+    <header class="topbar">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="../index.html">Dashboard</a>
+        <span class="breadcrumbs__sep">/</span>
+        <span class="breadcrumbs__current">AI Browsing Agents</span>
+      </nav>
+    </header>
+
+    <main class="page">
+      <div class="container--wide">
+
+        <div class="page-header">
+          <div>
+            <span class="name-tag"><h1>AI Browsing Agents</h1><span class="name-tag__original">Browser Agent</span></span>
+            <p class="page-header__sub">Give it a starting link and instructions — it clicks, scrolls, and reads the site like a person, so you don't need to know the exact pages or any selectors.</p>
+          </div>
+          <div class="page-header__actions">
+            <a href="new.html" class="btn btn--primary">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+              New AI Browsing Agent
+            </a>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="table-wrap">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Starting URL</th>
+                  <th>Capture API traffic</th>
+                  <th>Last run</th>
+                  <th class="table__row-actions">Actions</th>
+                </tr>
+              </thead>
+              <!-- Static prototype simplification: every row below links through to the
+                   same detail.html (the "Explore New Marketplace" example). In the real
+                   product each row would open its own agent's detail page. -->
+              <tbody>
+                <tr class="is-clickable" onclick="window.location.href='detail.html'">
+                  <td>
+                    <span class="name-tag"><span class="table__primary">Explore New Marketplace</span><span class="name-tag__original">Browser Agent</span></span>
+                  </td>
+                  <td class="text-muted text-xs font-mono">newmarket.example.com</td>
+                  <td><span class="chip chip--accent">Yes</span></td>
+                  <td>
+                    <div class="stack gap-1">
+                      <span class="chip chip--warning chip--pulse"><span class="chip__dot"></span>Running</span>
+                      <span class="text-xs text-faint">started 3 min ago</span>
+                    </div>
+                  </td>
+                  <td class="table__row-actions">
+                    <button class="btn btn--ghost btn--sm" onclick="event.stopPropagation()">⋯</button>
+                  </td>
+                </tr>
+                <tr class="is-clickable" onclick="window.location.href='detail.html'">
+                  <td><span class="table__primary">Product Catalog Sweep</span></td>
+                  <td class="text-muted text-xs font-mono">shop.example.com/catalog</td>
+                  <td><span class="chip chip--outline">No</span></td>
+                  <td>
+                    <div class="stack gap-1">
+                      <span class="chip chip--success"><span class="chip__dot"></span>Success</span>
+                      <span class="text-xs text-faint">2 hours ago</span>
+                    </div>
+                  </td>
+                  <td class="table__row-actions">
+                    <button class="btn btn--ghost btn--sm" onclick="event.stopPropagation()">⋯</button>
+                  </td>
+                </tr>
+                <tr class="is-clickable" onclick="window.location.href='detail.html'">
+                  <td><span class="table__primary">Careers Page Watch</span></td>
+                  <td class="text-muted text-xs font-mono">brightlogistics.example.com/careers</td>
+                  <td><span class="chip chip--outline">No</span></td>
+                  <td>
+                    <div class="stack gap-1">
+                      <span class="chip chip--default"><span class="chip__dot"></span>Never run</span>
+                      <span class="text-xs text-faint">created 4 days ago</span>
+                    </div>
+                  </td>
+                  <td class="table__row-actions">
+                    <button class="btn btn--ghost btn--sm" onclick="event.stopPropagation()">⋯</button>
+                  </td>
+                </tr>
+                <tr class="is-clickable" onclick="window.location.href='detail.html'">
+                  <td>
+                    <span class="name-tag"><span class="table__primary">Support Docs Crawl</span><span class="name-tag__original">Browser Agent</span></span>
+                  </td>
+                  <td class="text-muted text-xs font-mono">docs.example.com</td>
+                  <td><span class="chip chip--outline">No</span></td>
+                  <td>
+                    <div class="stack gap-1">
+                      <span class="chip chip--default"><span class="chip__dot"></span>Cancelled</span>
+                      <span class="text-xs text-faint">2 days ago</span>
+                    </div>
+                  </td>
+                  <td class="table__row-actions">
+                    <button class="btn btn--ghost btn--sm" onclick="event.stopPropagation()">⋯</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+</div>
+
+<script src="../assets/js/accordion.js"></script>
+<script src="../assets/js/tabs.js"></script>
+<script src="../assets/js/modal.js"></script>
+</body>
+</html>

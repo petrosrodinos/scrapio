@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Run · Product Pages — Scrapio</title>
+<link rel="stylesheet" href="../assets/css/tokens.css" />
+<link rel="stylesheet" href="../assets/css/base.css" />
+<link rel="stylesheet" href="../assets/css/components.css" />
+<link rel="stylesheet" href="../assets/css/runs-detail.css" />
+</head>
+<body>
+<div class="app-shell">
+
+  <!-- ===================== Sidebar ===================== -->
+  <aside class="sidebar">
+    <div class="brand"><span class="brand__mark">S</span> Scrapio</div>
+    <a class="nav-cta" href="../start.html">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+      Start a scrape
+    </a>
+    <nav class="nav-group">
+      <div class="nav-group__label">Overview</div>
+      <a class="nav-link" href="../index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
+        Dashboard
+      </a>
+    </nav>
+    <nav class="nav-group">
+      <div class="nav-group__label">Build &amp; manage</div>
+      <a class="nav-link" href="../sites/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+        Sites
+      </a>
+      <a class="nav-link" href="../scrapers/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h6v6H9z"/></svg>
+        Scrapers
+      </a>
+      <a class="nav-link" href="../quick-scrape/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m13 2-9 12h7l-1 8 9-12h-7l1-8Z"/></svg>
+        Quick Scrapes
+      </a>
+      <a class="nav-link" href="../ai-agent/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="7" width="14" height="11" rx="2"/><path d="M9 7V4h6v3M9 12h.01M15 12h.01M9 15.5c.7.6 1.9.6 3 0"/></svg>
+        AI Browsing Agents
+      </a>
+    </nav>
+    <nav class="nav-group">
+      <div class="nav-group__label">Activity</div>
+      <a class="nav-link is-active" href="index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+        Runs
+      </a>
+    </nav>
+    <nav class="nav-group">
+      <div class="nav-group__label">Platform</div>
+      <a class="nav-link" href="../settings/crawler-config.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6V21a2 2 0 1 1-4 0v-.2a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.6-1H3a2 2 0 1 1 0-4h.2a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.6V3a2 2 0 1 1 4 0v.2a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9c.2.6.7 1 1.6 1H21a2 2 0 1 1 0 4h-.2a1.7 1.7 0 0 0-1.5 1Z"/></svg>
+        Settings
+      </a>
+    </nav>
+    <div class="sidebar-foot">
+      <div class="avatar">MK</div>
+      <div class="stack gap-1">
+        <strong class="text-sm">Maria K.</strong>
+        <span class="text-xs text-muted">Acme Retail Co.</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ===================== Main ===================== -->
+  <div class="main-col">
+    <header class="topbar">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="../index.html">Dashboard</a>
+        <span class="breadcrumbs__sep">/</span>
+        <a href="../scrapers/detail.html">Product Pages</a>
+        <span class="breadcrumbs__sep">/</span>
+        <span class="breadcrumbs__current">Run #8841</span>
+      </nav>
+    </header>
+
+    <main class="page">
+      <div class="container--wide">
+
+        <div class="page-header">
+          <div>
+            <div class="cluster gap-3">
+              <h1>Run #8841</h1>
+              <span class="chip chip--success"><span class="chip__dot"></span>Success</span>
+            </div>
+            <div class="page-header__meta">
+              <span class="name-tag"><span class="text-sm font-medium">Product Pages</span><span class="name-tag__original">Scraper run · Crawl Run</span></span>
+              <span class="dot-sep text-sm text-muted">Acme Furniture Co.</span>
+              <span class="dot-sep text-sm text-muted">Finished 6 minutes ago</span>
+              <span class="cost-badge">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+                $0.031 · 4 AI calls
+              </span>
+            </div>
+          </div>
+          <div class="page-header__actions">
+            <button class="btn btn--secondary btn--sm">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.6-6.4M21 4v5h-5"/></svg>
+              Run again
+            </button>
+            <button class="btn btn--danger btn--sm" data-modal-open="delete-run">Delete</button>
+          </div>
+        </div>
+
+        <div class="grid grid--sidebar">
+          <div class="stack gap-6">
+
+            <!-- Result tabs: JSON / Interface / Markdown -->
+            <div class="card">
+              <div class="card__header">
+                <h2>Results</h2>
+                <button class="btn btn--primary btn--sm">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 1.9 4.3L18 9l-4.1 1.7L12 15l-1.9-4.3L6 9l4.1-1.7L12 3ZM19 15l.9 2 2 .9-2 .9-.9 2-.9-2-2-.9 2-.9.9-2Z"/></svg>
+                  Regenerate interface
+                </button>
+              </div>
+              <div class="card__body" style="padding-top:var(--space-4);" data-tabs>
+                <div class="tabs__list" role="tablist">
+                  <button class="tabs__trigger" data-tab-trigger="interface" aria-selected="true" role="tab">Interface</button>
+                  <button class="tabs__trigger" data-tab-trigger="json" aria-selected="false" role="tab">JSON</button>
+                  <button class="tabs__trigger" data-tab-trigger="markdown" aria-selected="false" role="tab">Markdown</button>
+                </div>
+
+                <div class="tabs__panel" data-tab-panel="interface">
+                  <p class="text-xs text-muted" style="margin-bottom:var(--space-3);">
+                    An AI-designed preview built from the structured data below — shown in a locked, script-free frame.
+                    <span class="name-tag__original">Generated UI</span>
+                  </p>
+                  <div class="preview-panel" id="src-interface">
+                    <div class="preview-panel__toolbar">
+                      <span class="text-xs text-muted">Sandboxed preview — scripts disabled</span>
+                      <button class="btn btn--ghost btn--icon" data-modal-open="expand-modal" data-modal-source="#src-interface" data-modal-title="Interface preview" title="Expand">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H3v5M16 3h5v5M3 16v5h5M21 16v5h-5"/></svg>
+                      </button>
+                    </div>
+                    <div class="preview-panel__body preview-panel__body--frame">
+                      <iframe src="../assets/generated-ui-sample.html" sandbox="allow-same-origin" title="Generated interface preview"></iframe>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="tabs__panel" data-tab-panel="json" hidden>
+                  <div class="preview-panel" id="src-json">
+                    <div class="preview-panel__toolbar">
+                      <span class="text-xs text-muted">Structured JSON · valid</span>
+                      <button class="btn btn--ghost btn--icon" data-modal-open="expand-modal" data-modal-source="#src-json" data-modal-title="Structured JSON" title="Expand">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H3v5M16 3h5v5M3 16v5h5M21 16v5h-5"/></svg>
+                      </button>
+                    </div>
+                    <div class="preview-panel__body">
+<pre class="code-block" style="border-radius:0;max-height:none;">{
+  "products": [
+    {
+      "name": "Oakwood Dining Table",
+      "sku": "OWT-5521",
+      "price": { "amount": 549.00, "currency": "USD" },
+      "availability": "in_stock",
+      "rating": { "value": 4.6, "count": 128 },
+      "specifications": { "material": "Solid oak", "dimensions": "180 x 90 x 75 cm" }
+    },
+    {
+      "name": "Birchline Extendable Table",
+      "sku": "BXT-1187",
+      "price": { "amount": 729.00, "currency": "USD" },
+      "availability": "low_stock",
+      "rating": { "value": 4.2, "count": 54 },
+      "specifications": { "material": "Birch veneer", "dimensions": "160-210 x 90 x 75 cm" }
+    },
+    {
+      "name": "Nordic Round Table",
+      "sku": "NRT-3302",
+      "price": { "amount": 389.00, "currency": "USD" },
+      "availability": "in_stock",
+      "rating": { "value": 4.8, "count": 211 },
+      "specifications": { "material": "Ash wood", "dimensions": "Ø110 x 75 cm" }
+    }
+  ]
+}</pre>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="tabs__panel" data-tab-panel="markdown" hidden>
+                  <div class="preview-panel" id="src-markdown">
+                    <div class="preview-panel__toolbar">
+                      <span class="text-xs text-muted">Markdown · valid</span>
+                      <button class="btn btn--ghost btn--icon" data-modal-open="expand-modal" data-modal-source="#src-markdown" data-modal-title="Markdown" title="Expand">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H3v5M16 3h5v5M3 16v5h5M21 16v5h-5"/></svg>
+                      </button>
+                    </div>
+                    <div class="preview-panel__body" style="padding:var(--space-5);">
+                      <h3 style="font-size:var(--text-base);margin-bottom:var(--space-2);">Acme Furniture Co. — Dining Tables</h3>
+                      <p class="text-sm text-secondary" style="margin-bottom:var(--space-3);">3 products found across the listing.</p>
+                      <p class="text-sm" style="margin-bottom:2px;"><strong>Oakwood Dining Table</strong> — $549.00 · in stock · 4.6★ (128 reviews)</p>
+                      <p class="text-xs text-muted" style="margin-bottom:var(--space-3);">Solid oak, 180 × 90 × 75 cm — SKU OWT-5521</p>
+                      <p class="text-sm" style="margin-bottom:2px;"><strong>Birchline Extendable Table</strong> — $729.00 · only 3 left · 4.2★ (54 reviews)</p>
+                      <p class="text-xs text-muted" style="margin-bottom:var(--space-3);">Birch veneer, 160–210 × 90 × 75 cm — SKU BXT-1187</p>
+                      <p class="text-sm" style="margin-bottom:2px;"><strong>Nordic Round Table</strong> — $389.00 · in stock · 4.8★ (211 reviews)</p>
+                      <p class="text-xs text-muted">Ash wood, Ø110 × 75 cm — SKU NRT-3302</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Accordions: type-conditional sections, in the verified real order -->
+            <div class="card" style="padding: 0 var(--space-2);">
+              <div class="accordion-item" data-accordion data-open="true">
+                <button class="accordion__trigger" data-accordion-trigger>
+                  Execution steps (6)
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                </button>
+                <div class="accordion__panel" data-accordion-panel>
+                  <p class="text-xs text-muted" style="margin-bottom:2px;">How the scraper's saved recipe executed this time. <span class="name-tag__original">Execution traces</span></p>
+                  <div class="stack gap-3">
+                    <div class="cluster gap-2 text-sm"><span class="text-success font-medium">Success</span><span class="text-muted text-xs">Open listing page</span><span class="text-faint text-xs">640ms</span></div>
+                    <div class="cluster gap-2 text-sm"><span class="text-success font-medium">Success</span><span class="text-muted text-xs">Wait for product grid</span><span class="text-faint text-xs">210ms</span></div>
+                    <div class="cluster gap-2 text-sm"><span class="text-success font-medium">Success</span><span class="text-muted text-xs">Extract 3 product cards</span><span class="text-faint text-xs">340ms</span></div>
+                    <div class="cluster gap-2 text-sm"><span class="text-success font-medium">Success</span><span class="text-muted text-xs">Normalize into structured JSON</span><span class="text-faint text-xs">1.9s</span></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item" data-accordion data-open="false">
+                <button class="accordion__trigger" data-accordion-trigger>
+                  Linked background jobs (2)
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                </button>
+                <div class="accordion__panel" data-accordion-panel hidden>
+                  <div class="stack gap-2">
+                    <div class="cluster" style="justify-content:space-between;border:1px solid var(--border);border-radius:var(--radius-md);padding:var(--space-3);">
+                      <div class="stack gap-1"><strong class="text-sm">crawl-run.execute</strong><span class="text-xs text-muted">attempt 1 / 3 · 4.2s</span></div>
+                      <span class="chip chip--success">Completed</span>
+                    </div>
+                    <div class="cluster" style="justify-content:space-between;border:1px solid var(--border);border-radius:var(--radius-md);padding:var(--space-3);">
+                      <div class="stack gap-1"><strong class="text-sm">extraction.run</strong><span class="text-xs text-muted">attempt 1 / 3 · 2.1s</span></div>
+                      <span class="chip chip--success">Completed</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Overview sidebar -->
+          <aside class="stack gap-5">
+            <div class="card card__pad stack gap-4">
+              <h3 class="text-sm font-semibold">Overview</h3>
+              <div class="stack gap-3 text-sm">
+                <div class="cluster" style="justify-content:space-between;"><span class="text-muted">Method</span><span class="name-tag"><span>Scraper</span><span class="name-tag__original">SCRAPER</span></span></div>
+                <div class="cluster" style="justify-content:space-between;"><span class="text-muted">Site</span><a class="link" href="../sites/detail.html">Acme Furniture Co.</a></div>
+                <div class="cluster" style="justify-content:space-between;"><span class="text-muted">Scraper</span><a class="link" href="../scrapers/detail.html">Product Pages</a></div>
+                <div class="cluster" style="justify-content:space-between;"><span class="text-muted">Started</span><span>10:41:02 AM</span></div>
+                <div class="cluster" style="justify-content:space-between;"><span class="text-muted">Finished</span><span>10:41:11 AM</span></div>
+                <div class="cluster" style="justify-content:space-between;"><span class="text-muted">Duration</span><span>9.4s</span></div>
+                <div class="cluster" style="justify-content:space-between;"><span class="text-muted">Cost</span><span class="font-mono">$0.031</span></div>
+              </div>
+              <hr class="divider" />
+              <div class="stack gap-2">
+                <span class="text-xs text-muted font-medium">Output formats</span>
+                <div class="cluster gap-2">
+                  <span class="chip chip--success">Structured JSON · Valid</span>
+                  <span class="chip chip--success">Markdown · Valid</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="card card__pad stack gap-3">
+              <h3 class="text-sm font-semibold">What happens next</h3>
+              <p class="text-xs text-secondary">This scraper is scheduled to run again <strong>daily at 6:00 AM</strong>. Results replace nothing — every run is kept in the history below.</p>
+              <a href="index.html" class="btn btn--secondary btn--sm btn--full">View run history</a>
+            </div>
+          </aside>
+        </div>
+
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- Shared expand-preview modal -->
+<div class="modal-backdrop" id="expand-modal" data-modal hidden>
+  <div class="modal modal--full" role="dialog" aria-modal="true" aria-label="Expanded preview">
+    <div class="modal__header">
+      <h2 data-modal-title-target>Preview</h2>
+      <button class="modal-close" data-modal-close aria-label="Close">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="modal__body" data-modal-clone-target></div>
+  </div>
+</div>
+
+<!-- Delete confirmation -->
+<div class="modal-backdrop" id="delete-run" data-modal hidden>
+  <div class="modal" role="dialog" aria-modal="true">
+    <div class="modal__header"><h2>Delete this run?</h2><button class="modal-close" data-modal-close aria-label="Close">✕</button></div>
+    <div class="modal__body"><p class="text-sm text-secondary">This removes the run and its results permanently. This can't be undone.</p></div>
+    <div class="modal__footer">
+      <button class="btn btn--secondary" data-modal-close>Cancel</button>
+      <button class="btn btn--danger" data-modal-close>Delete run</button>
+    </div>
+  </div>
+</div>
+
+<script src="../assets/js/accordion.js"></script>
+<script src="../assets/js/tabs.js"></script>
+<script src="../assets/js/modal.js"></script>
+</body>
+</html>

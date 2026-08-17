@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Dashboard — Scrapio</title>
+<link rel="stylesheet" href="assets/css/tokens.css" />
+<link rel="stylesheet" href="assets/css/base.css" />
+<link rel="stylesheet" href="assets/css/components.css" />
+<link rel="stylesheet" href="assets/css/dashboard.css" />
+</head>
+<body>
+<div class="app-shell">
+
+  <!-- ===================== Sidebar ===================== -->
+  <aside class="sidebar">
+    <div class="brand"><span class="brand__mark">S</span> Scrapio</div>
+    <a class="nav-cta" href="start.html">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+      Start a scrape
+    </a>
+    <nav class="nav-group">
+      <div class="nav-group__label">Overview</div>
+      <a class="nav-link is-active" href="index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
+        Dashboard
+      </a>
+    </nav>
+    <nav class="nav-group">
+      <div class="nav-group__label">Build &amp; manage</div>
+      <a class="nav-link" href="sites/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+        Sites
+      </a>
+      <a class="nav-link" href="scrapers/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h6v6H9z"/></svg>
+        Scrapers
+      </a>
+      <a class="nav-link" href="quick-scrape/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m13 2-9 12h7l-1 8 9-12h-7l1-8Z"/></svg>
+        Quick Scrapes
+      </a>
+      <a class="nav-link" href="ai-agent/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="7" width="14" height="11" rx="2"/><path d="M9 7V4h6v3M9 12h.01M15 12h.01M9 15.5c.7.6 1.9.6 3 0"/></svg>
+        AI Browsing Agents
+      </a>
+    </nav>
+    <nav class="nav-group">
+      <div class="nav-group__label">Activity</div>
+      <a class="nav-link" href="runs/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+        Runs
+      </a>
+    </nav>
+    <nav class="nav-group">
+      <div class="nav-group__label">Platform</div>
+      <a class="nav-link" href="settings/crawler-config.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6V21a2 2 0 1 1-4 0v-.2a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.6-1H3a2 2 0 1 1 0-4h.2a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.6V3a2 2 0 1 1 4 0v.2a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9c.2.6.7 1 1.6 1H21a2 2 0 1 1 0 4h-.2a1.7 1.7 0 0 0-1.5 1Z"/></svg>
+        Settings
+      </a>
+    </nav>
+    <div class="sidebar-foot">
+      <div class="avatar">MK</div>
+      <div class="stack gap-1">
+        <strong class="text-sm">Maria K.</strong>
+        <span class="text-xs text-muted">Acme Retail Co.</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ===================== Main ===================== -->
+  <div class="main-col">
+    <header class="topbar">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <span class="breadcrumbs__current">Dashboard</span>
+      </nav>
+    </header>
+
+    <main class="page">
+      <div class="container--wide">
+
+        <div class="page-header">
+          <div>
+            <h1>Welcome back, Maria</h1>
+            <p class="page-header__sub">Here's what's happening across your sites and scrapes.</p>
+          </div>
+          <div class="page-header__actions">
+            <a href="start.html" class="btn btn--primary btn--lg">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+              Start a scrape
+            </a>
+          </div>
+        </div>
+
+        <div class="grid grid--4" style="margin-bottom:var(--space-6);">
+          <a class="card stat-card" href="sites/index.html">
+            <span class="stat-card__label">Sites</span>
+            <span class="stat-card__value">4</span>
+            <span class="stat-card__delta text-muted">being watched</span>
+          </a>
+          <a class="card stat-card" href="scrapers/index.html">
+            <span class="stat-card__label">Scrapers</span>
+            <span class="stat-card__value">5</span>
+            <span class="stat-card__delta text-muted">across all sites</span>
+          </a>
+          <a class="card stat-card" href="quick-scrape/index.html">
+            <span class="stat-card__label">Quick Scrapes</span>
+            <span class="stat-card__value">3</span>
+            <span class="stat-card__delta text-muted">saved configs</span>
+          </a>
+          <a class="card stat-card" href="ai-agent/index.html">
+            <span class="stat-card__label">AI Browsing Agents</span>
+            <span class="stat-card__value">2</span>
+            <span class="stat-card__delta text-muted">saved configs</span>
+          </a>
+        </div>
+
+        <div class="grid grid--sidebar">
+          <div class="stack gap-6">
+
+            <div class="card">
+              <div class="card__header">
+                <h2>Recent runs</h2>
+                <a href="runs/index.html" class="link text-sm">View all runs</a>
+              </div>
+              <div class="table-wrap">
+                <table class="table">
+                  <thead>
+                    <tr><th>Run</th><th>Method</th><th>Status</th><th>Started</th><th>Cost</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr class="is-clickable" onclick="location.href='runs/detail.html'">
+                      <td class="table__primary">Product Pages · #8841</td>
+                      <td><span class="text-sm">Scraper</span></td>
+                      <td><span class="chip chip--success"><span class="chip__dot"></span>Success</span></td>
+                      <td class="text-muted">6 min ago</td>
+                      <td class="num font-mono text-xs">$0.031</td>
+                    </tr>
+                    <tr class="is-clickable" onclick="location.href='runs/progress.html'">
+                      <td class="table__primary">Explore New Marketplace · #8838</td>
+                      <td><span class="text-sm">AI Browsing Agent</span></td>
+                      <td><span class="chip chip--warning chip--pulse"><span class="chip__dot"></span>Running</span></td>
+                      <td class="text-muted">18 min ago</td>
+                      <td class="num font-mono text-xs">—</td>
+                    </tr>
+                    <tr class="is-clickable" onclick="location.href='runs/index.html'">
+                      <td class="table__primary">Weekly Competitor Price Check · #8839</td>
+                      <td><span class="text-sm">Quick Scrape</span></td>
+                      <td><span class="chip chip--warning">Partial success</span></td>
+                      <td class="text-muted">41 min ago</td>
+                      <td class="num font-mono text-xs">$0.006</td>
+                    </tr>
+                    <tr class="is-clickable" onclick="location.href='runs/index.html'">
+                      <td class="table__primary">Warranty Lookup · #8835</td>
+                      <td><span class="text-sm">Scraper</span></td>
+                      <td><span class="chip chip--danger">Failed</span></td>
+                      <td class="text-muted">2 hours ago</td>
+                      <td class="num font-mono text-xs">$0.014</td>
+                    </tr>
+                    <tr class="is-clickable" onclick="location.href='runs/index.html'">
+                      <td class="table__primary">Blog Roundup · #8834</td>
+                      <td><span class="text-sm">Quick Scrape</span></td>
+                      <td><span class="chip chip--success"><span class="chip__dot"></span>Success</span></td>
+                      <td class="text-muted">3 hours ago</td>
+                      <td class="num font-mono text-xs">$0.000</td>
+                    </tr>
+                    <tr class="is-clickable" onclick="location.href='runs/progress.html'">
+                      <td class="table__primary">Product Pages · #8833</td>
+                      <td><span class="text-sm">Scraper</span></td>
+                      <td><span class="chip chip--default"><span class="chip__dot"></span>Queued</span></td>
+                      <td class="text-muted">5 hours ago</td>
+                      <td class="num font-mono text-xs">—</td>
+                    </tr>
+                    <tr class="is-clickable" onclick="location.href='runs/index.html'">
+                      <td class="table__primary">Support Docs Crawl · #8830</td>
+                      <td><span class="text-sm">AI Browsing Agent</span></td>
+                      <td><span class="chip chip--default"><span class="chip__dot"></span>Cancelled</span></td>
+                      <td class="text-muted">Yesterday</td>
+                      <td class="num font-mono text-xs">$0.009</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card__header">
+                <h2>Your sites</h2>
+                <a href="sites/index.html" class="link text-sm">View all sites</a>
+              </div>
+              <div class="table-wrap">
+                <table class="table">
+                  <thead>
+                    <tr><th>Site</th><th>Status</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr class="is-clickable" onclick="location.href='sites/detail.html'">
+                      <td class="table__primary">Acme Furniture Co.</td>
+                      <td><span class="chip chip--success"><span class="chip__dot"></span>Last success 6 min ago</span></td>
+                    </tr>
+                    <tr class="is-clickable" onclick="location.href='sites/detail.html'">
+                      <td class="table__primary">Northwind Appliances</td>
+                      <td><span class="chip chip--danger">Last check failed · 2 hours ago</span></td>
+                    </tr>
+                    <tr class="is-clickable" onclick="location.href='sites/detail.html'">
+                      <td class="table__primary">Bloom &amp; Vine Florists</td>
+                      <td><span class="chip chip--success"><span class="chip__dot"></span>Last success 4 days ago</span></td>
+                    </tr>
+                    <tr class="is-clickable" onclick="location.href='sites/detail.html'">
+                      <td class="table__primary">Fresh Grocer Direct</td>
+                      <td><span class="chip chip--outline">No runs yet</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+          </div>
+
+          <aside class="stack gap-5">
+            <div class="card card__pad stack gap-4">
+              <div class="cluster" style="justify-content:space-between;">
+                <h3 class="text-sm font-semibold">This month</h3>
+                <span class="chip chip--outline">Costs</span>
+              </div>
+              <div>
+                <span class="stat-card__value" style="font-size:var(--text-2xl);">$4.82</span>
+                <p class="text-xs text-muted" style="margin-top:2px;">spent this month</p>
+              </div>
+              <hr class="divider" />
+              <div class="stack gap-2 text-xs">
+                <div class="cluster" style="justify-content:space-between;"><span class="text-muted">Scrapers</span><span class="font-mono">$2.10</span></div>
+                <div class="cluster" style="justify-content:space-between;"><span class="text-muted">Quick Scrapes</span><span class="font-mono">$0.40</span></div>
+                <div class="cluster" style="justify-content:space-between;"><span class="text-muted">AI Browsing Agents</span><span class="font-mono">$2.32</span></div>
+              </div>
+              <p class="text-xs text-faint">AI-driven methods cost more per run than Quick Scrape, which needs no AI unless you ask for structured output.</p>
+            </div>
+
+            <div class="card card__pad stack gap-3">
+              <h3 class="text-sm font-semibold">Needs attention</h3>
+              <div class="cluster gap-2" style="align-items:flex-start;">
+                <span class="chip chip--danger" style="margin-top:1px;">Broken</span>
+                <div>
+                  <a class="link text-sm" href="scrapers/detail.html">Warranty Lookup</a>
+                  <p class="text-xs text-muted">Site layout changed — AI is mid-way through fixing it automatically.</p>
+                </div>
+              </div>
+            </div>
+          </aside>
+        </div>
+
+      </div>
+    </main>
+  </div>
+</div>
+
+<script src="assets/js/accordion.js"></script>
+<script src="assets/js/tabs.js"></script>
+<script src="assets/js/modal.js"></script>
+</body>
+</html>

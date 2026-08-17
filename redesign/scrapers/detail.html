@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Product Pages — Scrapio</title>
+<link rel="stylesheet" href="../assets/css/tokens.css" />
+<link rel="stylesheet" href="../assets/css/base.css" />
+<link rel="stylesheet" href="../assets/css/components.css" />
+</head>
+<body>
+<div class="app-shell">
+
+  <!-- ===================== Sidebar ===================== -->
+  <aside class="sidebar">
+    <div class="brand"><span class="brand__mark">S</span> Scrapio</div>
+    <a class="nav-cta" href="../start.html">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+      Start a scrape
+    </a>
+    <nav class="nav-group">
+      <div class="nav-group__label">Overview</div>
+      <a class="nav-link" href="../index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
+        Dashboard
+      </a>
+    </nav>
+    <nav class="nav-group">
+      <div class="nav-group__label">Build &amp; manage</div>
+      <a class="nav-link" href="../sites/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+        Sites
+      </a>
+      <a class="nav-link is-active" href="index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h6v6H9z"/></svg>
+        Scrapers
+      </a>
+      <a class="nav-link" href="../quick-scrape/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m13 2-9 12h7l-1 8 9-12h-7l1-8Z"/></svg>
+        Quick Scrapes
+      </a>
+      <a class="nav-link" href="../ai-agent/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="7" width="14" height="11" rx="2"/><path d="M9 7V4h6v3M9 12h.01M15 12h.01M9 15.5c.7.6 1.9.6 3 0"/></svg>
+        AI Browsing Agents
+      </a>
+    </nav>
+    <nav class="nav-group">
+      <div class="nav-group__label">Activity</div>
+      <a class="nav-link" href="../runs/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+        Runs
+      </a>
+    </nav>
+    <nav class="nav-group">
+      <div class="nav-group__label">Platform</div>
+      <a class="nav-link" href="../settings/crawler-config.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6V21a2 2 0 1 1-4 0v-.2a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.6-1H3a2 2 0 1 1 0-4h.2a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.6V3a2 2 0 1 1 4 0v.2a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9c.2.6.7 1 1.6 1H21a2 2 0 1 1 0 4h-.2a1.7 1.7 0 0 0-1.5 1Z"/></svg>
+        Settings
+      </a>
+    </nav>
+    <div class="sidebar-foot">
+      <div class="avatar">MK</div>
+      <div class="stack gap-1">
+        <strong class="text-sm">Maria K.</strong>
+        <span class="text-xs text-muted">Acme Retail Co.</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ===================== Main ===================== -->
+  <div class="main-col">
+    <header class="topbar">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="../index.html">Dashboard</a>
+        <span class="breadcrumbs__sep">/</span>
+        <a href="index.html">Scrapers</a>
+        <span class="breadcrumbs__sep">/</span>
+        <span class="breadcrumbs__current">Product Pages</span>
+      </nav>
+    </header>
+
+    <main class="page">
+      <div class="container--wide">
+
+        <div class="page-header">
+          <div>
+            <div class="cluster gap-3">
+              <h1>Product Pages</h1>
+              <span class="chip chip--success"><span class="chip__dot"></span>Active</span>
+              <span class="chip chip--success"><span class="chip__dot"></span>Excellent health</span>
+            </div>
+            <p class="page-header__sub">
+              Watches <a class="link" href="../sites/detail.html">Acme Furniture Co.</a> and re-checks its product listing pages daily.
+              This Scraper remembers how the site is laid out, so it can run again on its own — unlike a
+              Quick Scrape or AI Browsing Agent, which only give you a result once and don't remember anything
+              about the site afterwards.
+              <span class="name-tag__original" style="margin-left:6px;">Scraper</span>
+            </p>
+          </div>
+          <div class="page-header__actions">
+            <button class="btn btn--secondary btn--sm">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+              Edit
+            </button>
+            <!-- The label swaps to "Fix with AI" when a scraper's status is BROKEN (e.g. Warranty
+                 Lookup) and links straight to its in-progress self-heal review. Product Pages is
+                 healthy, so it keeps the standard label and starts a fresh Generation Run. -->
+            <button class="btn btn--secondary btn--sm">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 1.9 4.3L18 9l-4.1 1.7L12 15l-1.9-4.3L6 9l4.1-1.7L12 3ZM19 15l.9 2 2 .9-2 .9-.9 2-.9-2-2-.9 2-.9.9-2Z"/></svg>
+              Generate with AI
+            </button>
+            <button class="btn btn--primary btn--sm">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3v18l15-9L5 3Z"/></svg>
+              Run now
+            </button>
+            <button class="btn btn--danger btn--sm" data-modal-open="delete-scraper">Delete</button>
+          </div>
+        </div>
+
+        <div class="grid grid--sidebar">
+          <div class="stack gap-6">
+
+            <!-- Inline stats / edit panel -->
+            <div class="card">
+              <div class="card__header"><h2>Settings</h2></div>
+              <div class="card__body stack gap-5">
+                <div class="switch-row">
+                  <div class="switch-row__body">
+                    <strong>Self-healing</strong>
+                    <span>If this scraper breaks, automatically try to fix it with AI before alerting you.</span>
+                  </div>
+                  <label class="switch">
+                    <input type="checkbox" checked />
+                    <span class="switch__track"><span class="switch__thumb"></span></span>
+                  </label>
+                </div>
+                <hr class="divider" />
+                <div class="field" style="max-width:340px;">
+                  <label for="diag-mode">Failure recording</label>
+                  <div class="select-wrap">
+                    <select class="select" id="diag-mode">
+                      <option selected>Production — no extra recording</option>
+                      <option>Trace — record a replay if a run fails</option>
+                      <option>Full debug — record video + full trace on failure</option>
+                    </select>
+                  </div>
+                  <span class="field__hint name-tag__original">Diagnostics mode</span>
+                </div>
+                <hr class="divider" />
+                <div class="grid grid--4">
+                  <div class="stack gap-1">
+                    <span class="text-xs text-muted">Success rate</span>
+                    <strong class="text-md">96%</strong>
+                  </div>
+                  <div class="stack gap-1">
+                    <span class="text-xs text-muted">Avg. runtime</span>
+                    <strong class="text-md">9.4s</strong>
+                  </div>
+                  <div class="stack gap-1">
+                    <span class="text-xs text-muted">Consecutive failures</span>
+                    <strong class="text-md">0</strong>
+                  </div>
+                  <div class="stack gap-1">
+                    <span class="text-xs text-muted">Last success</span>
+                    <strong class="text-md">6 minutes ago</strong>
+                  </div>
+                </div>
+                <div class="text-xs text-faint">Last failure: 6 weeks ago — fixed automatically by self-healing.</div>
+              </div>
+            </div>
+
+            <!-- Schedule panel -->
+            <div class="card">
+              <div class="card__header"><h2>Schedule</h2></div>
+              <div class="card__body">
+                <div class="cluster" style="justify-content:space-between;">
+                  <div>
+                    <div class="text-sm font-medium">Daily at 6:00 AM</div>
+                    <div class="text-xs text-faint font-mono" style="margin-top:2px;">0 6 * * *</div>
+                  </div>
+                  <button class="btn btn--secondary btn--sm">Edit schedule</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Version history -->
+            <div class="card">
+              <div class="card__header">
+                <h2>Versions</h2>
+                <button class="btn btn--ghost btn--sm" data-modal-open="compare-versions">Compare versions</button>
+              </div>
+              <div class="card__body stack gap-3">
+                <div class="cluster" style="justify-content:space-between;border:1px solid var(--border);border-radius:var(--radius-md);padding:var(--space-4);">
+                  <div class="stack gap-1">
+                    <div class="cluster gap-2"><strong class="text-sm">Version 4</strong><span class="chip chip--accent">Active</span><span class="chip chip--outline">AI</span></div>
+                    <span class="text-xs text-muted">Adjusted price selector after site redesign · 2 days ago</span>
+                  </div>
+                </div>
+                <div class="cluster" style="justify-content:space-between;border:1px solid var(--border);border-radius:var(--radius-md);padding:var(--space-4);">
+                  <div class="stack gap-1">
+                    <div class="cluster gap-2"><strong class="text-sm">Version 3</strong><span class="chip chip--outline">You</span></div>
+                    <span class="text-xs text-muted">Added rating and specifications fields · 5 weeks ago</span>
+                  </div>
+                  <button class="btn btn--ghost btn--sm">Rollback to this version</button>
+                </div>
+                <div class="cluster" style="justify-content:space-between;border:1px solid var(--border);border-radius:var(--radius-md);padding:var(--space-4);">
+                  <div class="stack gap-1">
+                    <div class="cluster gap-2"><strong class="text-sm">Version 2</strong><span class="chip chip--outline">AI</span></div>
+                    <span class="text-xs text-muted">Fixed selector after a minor layout change · 6 weeks ago</span>
+                  </div>
+                  <button class="btn btn--ghost btn--sm">Rollback to this version</button>
+                </div>
+                <div class="cluster" style="justify-content:space-between;border:1px solid var(--border);border-radius:var(--radius-md);padding:var(--space-4);">
+                  <div class="stack gap-1">
+                    <div class="cluster gap-2"><strong class="text-sm">Version 1</strong><span class="chip chip--outline">You</span></div>
+                    <span class="text-xs text-muted">Initial version · 4 months ago</span>
+                  </div>
+                  <button class="btn btn--ghost btn--sm">Rollback to this version</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Generation history -->
+            <div class="card">
+              <div class="card__header">
+                <h2>Teaching history</h2>
+                <span class="text-xs text-muted name-tag__original">Generation runs</span>
+              </div>
+              <div class="card__body stack gap-3">
+                <div class="cluster" style="justify-content:space-between;border:1px solid var(--border);border-radius:var(--radius-md);padding:var(--space-4);">
+                  <div class="cluster gap-3">
+                    <span class="chip chip--default">Manual</span>
+                    <span class="text-sm">Taught the agent to also collect rating and specifications — produced Version 4</span>
+                  </div>
+                  <div class="cluster gap-3">
+                    <span class="chip chip--success"><span class="chip__dot"></span>Success</span>
+                    <span class="text-xs text-faint">2 days ago</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Sidebar: run history -->
+          <aside class="stack gap-5">
+            <div class="card card__pad stack gap-4">
+              <h3 class="text-sm font-semibold">Latest run</h3>
+              <a href="../runs/detail.html" class="stack gap-2" style="border:1px solid var(--border);border-radius:var(--radius-md);padding:var(--space-4);">
+                <div class="cluster" style="justify-content:space-between;">
+                  <strong class="text-sm">Run #8841</strong>
+                  <span class="chip chip--success"><span class="chip__dot"></span>Success</span>
+                </div>
+                <span class="text-xs text-muted">6 minutes ago · 9.4s · $0.031</span>
+              </a>
+            </div>
+
+            <div class="card card__pad stack gap-3">
+              <h3 class="text-sm font-semibold">Recent runs</h3>
+              <div class="cluster" style="justify-content:space-between;">
+                <span class="text-sm">Yesterday, 6:00 AM</span>
+                <span class="chip chip--success"><span class="chip__dot"></span>Success</span>
+              </div>
+              <div class="cluster" style="justify-content:space-between;">
+                <span class="text-sm">2 days ago, 6:00 AM</span>
+                <span class="chip chip--success"><span class="chip__dot"></span>Success</span>
+              </div>
+              <div class="cluster" style="justify-content:space-between;">
+                <span class="text-sm">3 days ago, 6:00 AM</span>
+                <span class="chip chip--success"><span class="chip__dot"></span>Success</span>
+              </div>
+              <a href="../runs/index.html" class="btn btn--secondary btn--sm btn--full" style="margin-top:var(--space-2);">View all runs</a>
+            </div>
+          </aside>
+        </div>
+
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- Compare versions modal -->
+<div class="modal-backdrop" id="compare-versions" data-modal hidden>
+  <div class="modal modal--wide" role="dialog" aria-modal="true">
+    <div class="modal__header"><h2>Compare Version 3 vs Version 4</h2><button class="modal-close" data-modal-close aria-label="Close">✕</button></div>
+    <div class="modal__body">
+      <div class="grid grid--2">
+        <div>
+          <div class="section-label">Version 3</div>
+          <pre class="code-block">{
+  "list_page": "/products",
+  "selectors": {
+    "listItem": ".product-tile",
+    "name": ".product-tile__title",
+    "price": ".price-now",
+    "rating": ".stars[aria-label]"
+  },
+  "pagination": { "type": "none" }
+}</pre>
+        </div>
+        <div>
+          <div class="section-label">Version 4 · Active</div>
+          <pre class="code-block">{
+  "list_page": "/products",
+  "selectors": {
+    "listItem": "[data-testid='product-card']",
+    "name": "h3.product-card__title",
+    "price": ".product-price",
+    "rating": ".stars[aria-label]",
+    "specifications": ".product-card__specs li"
+  },
+  "pagination": { "type": "load-more", "maxClicks": 5 }
+}</pre>
+        </div>
+      </div>
+    </div>
+    <div class="modal__footer"><button class="btn btn--secondary" data-modal-close>Close</button></div>
+  </div>
+</div>
+
+<!-- Delete confirmation -->
+<div class="modal-backdrop" id="delete-scraper" data-modal hidden>
+  <div class="modal" role="dialog" aria-modal="true">
+    <div class="modal__header"><h2>Delete this scraper?</h2><button class="modal-close" data-modal-close aria-label="Close">✕</button></div>
+    <div class="modal__body"><p class="text-sm text-secondary">This removes the scraper, its versions, and its schedule. Past run results are kept in your run history. This can't be undone.</p></div>
+    <div class="modal__footer">
+      <button class="btn btn--secondary" data-modal-close>Cancel</button>
+      <button class="btn btn--danger" data-modal-close>Delete scraper</button>
+    </div>
+  </div>
+</div>
+
+<script src="../assets/js/accordion.js"></script>
+<script src="../assets/js/tabs.js"></script>
+<script src="../assets/js/modal.js"></script>
+</body>
+</html>

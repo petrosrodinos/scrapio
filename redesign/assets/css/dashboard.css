@@ -1,0 +1,2 @@
+.stat-card { transition: border-color var(--duration-base) var(--ease), transform var(--duration-base) var(--ease); }
+.stat-card:hover { border-color: var(--accent-300); transform: translateY(-1px); }

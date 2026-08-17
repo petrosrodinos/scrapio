@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>New AI Browsing Agent — Scrapio</title>
+<link rel="stylesheet" href="../assets/css/tokens.css" />
+<link rel="stylesheet" href="../assets/css/base.css" />
+<link rel="stylesheet" href="../assets/css/components.css" />
+</head>
+<body>
+<div class="app-shell">
+
+  <!-- ===================== Sidebar ===================== -->
+  <aside class="sidebar">
+    <div class="brand"><span class="brand__mark">S</span> Scrapio</div>
+    <a class="nav-cta" href="../start.html">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+      Start a scrape
+    </a>
+    <nav class="nav-group">
+      <div class="nav-group__label">Overview</div>
+      <a class="nav-link" href="../index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
+        Dashboard
+      </a>
+    </nav>
+    <nav class="nav-group">
+      <div class="nav-group__label">Build &amp; manage</div>
+      <a class="nav-link" href="../sites/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+        Sites
+      </a>
+      <a class="nav-link" href="../scrapers/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h6v6H9z"/></svg>
+        Scrapers
+      </a>
+      <a class="nav-link" href="../quick-scrape/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m13 2-9 12h7l-1 8 9-12h-7l1-8Z"/></svg>
+        Quick Scrapes
+      </a>
+      <a class="nav-link" href="index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="7" width="14" height="11" rx="2"/><path d="M9 7V4h6v3M9 12h.01M15 12h.01M9 15.5c.7.6 1.9.6 3 0"/></svg>
+        AI Browsing Agents
+      </a>
+    </nav>
+    <nav class="nav-group">
+      <div class="nav-group__label">Activity</div>
+      <a class="nav-link" href="../runs/index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+        Runs
+      </a>
+    </nav>
+    <nav class="nav-group">
+      <div class="nav-group__label">Platform</div>
+      <a class="nav-link" href="../settings/crawler-config.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6V21a2 2 0 1 1-4 0v-.2a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.6-1H3a2 2 0 1 1 0-4h.2a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.6V3a2 2 0 1 1 4 0v.2a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9c.2.6.7 1 1.6 1H21a2 2 0 1 1 0 4h-.2a1.7 1.7 0 0 0-1.5 1Z"/></svg>
+        Settings
+      </a>
+    </nav>
+    <div class="sidebar-foot">
+      <div class="avatar">MK</div>
+      <div class="stack gap-1">
+        <strong class="text-sm">Maria K.</strong>
+        <span class="text-xs text-muted">Acme Retail Co.</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ===================== Main ===================== -->
+  <div class="main-col">
+    <header class="topbar">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="../index.html">Dashboard</a>
+        <span class="breadcrumbs__sep">/</span>
+        <a href="index.html">AI Browsing Agents</a>
+        <span class="breadcrumbs__sep">/</span>
+        <span class="breadcrumbs__current">New</span>
+      </nav>
+    </header>
+
+    <main class="page">
+      <div class="container" style="max-width:680px;">
+
+        <div class="page-header">
+          <div>
+            <span class="name-tag"><h1>New AI Browsing Agent</h1><span class="name-tag__original">Browser Agent</span></span>
+            <p class="page-header__sub">Give it a starting link and instructions — it clicks, scrolls, and reads the site like a person, so you don't need to know the exact pages or any selectors.</p>
+          </div>
+        </div>
+
+        <form class="card card__pad" onsubmit="event.preventDefault();">
+
+          <div class="field">
+            <label for="name">Name <span class="field__required">*</span></label>
+            <input class="input" id="name" type="text" placeholder="e.g. Explore New Marketplace" value="Store Locator Audit" />
+          </div>
+
+          <div class="field">
+            <label for="url">Starting URL <span class="field__required">*</span></label>
+            <input class="input" id="url" type="url" placeholder="https://example.com" value="https://retailer.example.com/stores" />
+            <span class="field__hint">The agent starts here and follows links or clicks around as needed — you don't need to list every page.</span>
+          </div>
+
+          <div class="field">
+            <label for="instructions">Instructions <span class="field__optional">(optional)</span></label>
+            <textarea class="textarea" id="instructions" rows="4" placeholder="Find every product category and collect typical price ranges.">Check each store locator result for hours, address, and phone number accuracy across a few regions.</textarea>
+            <span class="field__hint">Tell the agent what to look for or do. It's optional — leave it blank and the agent will just explore the site on its own and report back what it finds.</span>
+          </div>
+
+          <div class="field">
+            <label>What should it return?</label>
+            <!-- DESIGN RECONCILIATION (traceability note for review): the real Browser Agent
+                 config today disables the submit button whenever zero output formats are
+                 selected. Quick Scrape's config already treats "no format" as a valid choice
+                 that just returns raw findings. This redesign unifies the two: "Run now"
+                 below stays enabled with nothing checked, and we surface the consequence as
+                 an inline note instead of a hard block. Shown here with both boxes unchecked
+                 (the state that made this inconsistency visible in the real app) so the note
+                 is live, not hypothetical. -->
+            <div class="stack gap-2">
+              <label class="checkbox-row">
+                <input type="checkbox" />
+                <span class="checkbox-row__body">
+                  <strong>Structured data (JSON)</strong>
+                  <span>Clean, predictable fields you can use in code or a spreadsheet.</span>
+                </span>
+              </label>
+              <label class="checkbox-row">
+                <input type="checkbox" />
+                <span class="checkbox-row__body">
+                  <strong>Readable summary (Markdown)</strong>
+                  <span>A tidy written summary of what the agent found.</span>
+                </span>
+              </label>
+            </div>
+            <span class="field__hint">No format selected — you'll get the agent's raw findings only.</span>
+          </div>
+
+          <div class="field">
+            <div class="disclosure" data-accordion data-open="false">
+              <button type="button" class="disclosure__trigger" data-accordion-trigger>
+                Advanced settings
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+              </button>
+              <div class="disclosure__panel" data-accordion-panel hidden>
+
+                <div class="field">
+                  <label for="max-steps">Max steps</label>
+                  <input class="input" id="max-steps" type="number" value="25" style="max-width:140px;" />
+                  <span class="field__hint">Caps how many actions the agent can take, to control cost and runtime</span>
+                </div>
+
+                <div class="field">
+                  <label class="switch-row">
+                    <span class="switch-row__body">
+                      <strong>Capture API traffic &amp; generate an API spec</strong>
+                      <span>Useful for developers — records the site's background network requests and turns them into a downloadable OpenAPI spec.</span>
+                    </span>
+                    <span class="switch">
+                      <input type="checkbox" />
+                      <span class="switch__track"><span class="switch__thumb"></span></span>
+                    </span>
+                  </label>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <a href="index.html" class="btn btn--secondary">Cancel</a>
+            <button type="submit" class="btn btn--primary btn--lg">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3v18l15-9L5 3Z"/></svg>
+              Run now
+            </button>
+          </div>
+        </form>
+
+      </div>
+    </main>
+  </div>
+</div>
+
+<script src="../assets/js/accordion.js"></script>
+<script src="../assets/js/tabs.js"></script>
+<script src="../assets/js/modal.js"></script>
+</body>
+</html>
