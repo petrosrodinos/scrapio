@@ -84,13 +84,14 @@ export class BrowserAgentConfigsService {
       await this.ensureForgetModeHasSubscriber(authUser.id);
     }
 
-    const extractionSchemaVersionId =
-      await this.schemaVersioning.syncForConfig({
+    const extractionSchemaVersionId = await this.schemaVersioning.syncForConfig(
+      {
         userId: authUser.id,
         schemaName: `${dto.name} schema`,
         wantsStructured: outputFormats.includes(OutputFormat.STRUCTURED_JSON),
         definition: dto.output_schema ?? null,
-      });
+      },
+    );
 
     if (dto.ai_batch_mode === true) {
       this.validateAiBatchMode(outputFormats, extractionSchemaVersionId);
@@ -104,6 +105,7 @@ export class BrowserAgentConfigsService {
         description: dto.description ?? null,
         url: dto.url,
         max_steps: dto.max_steps,
+        capture_api: dto.capture_api ?? false,
         urls: [],
         output_formats: outputFormats,
         extraction_schema_version_id: extractionSchemaVersionId,
@@ -114,7 +116,11 @@ export class BrowserAgentConfigsService {
     });
   }
 
-  async update(authUser: AuthUser, id: string, dto: UpdateBrowserAgentConfigDto) {
+  async update(
+    authUser: AuthUser,
+    id: string,
+    dto: UpdateBrowserAgentConfigDto,
+  ) {
     const config = await this.ensureExists(authUser, id);
 
     if (dto.persist_results === false) {
@@ -123,7 +129,9 @@ export class BrowserAgentConfigsService {
 
     const outputFormats =
       dto.output_formats ?? (config.output_formats as OutputFormat[]);
-    const wantsStructured = outputFormats.includes(OutputFormat.STRUCTURED_JSON);
+    const wantsStructured = outputFormats.includes(
+      OutputFormat.STRUCTURED_JSON,
+    );
 
     if (dto.output_formats !== undefined) {
       this.validateOutputFormats(outputFormats, dto.output_schema);
@@ -159,10 +167,17 @@ export class BrowserAgentConfigsService {
         ...(dto.description !== undefined && { description: dto.description }),
         ...(dto.url !== undefined && { url: dto.url }),
         ...(dto.max_steps !== undefined && { max_steps: dto.max_steps }),
-        ...(dto.output_formats !== undefined && { output_formats: outputFormats }),
+        ...(dto.capture_api !== undefined && { capture_api: dto.capture_api }),
+        ...(dto.output_formats !== undefined && {
+          output_formats: outputFormats,
+        }),
         extraction_schema_version_id: extractionSchemaVersionId,
-        ...(dto.persist_results !== undefined && { persist_results: dto.persist_results }),
-        ...(dto.ai_batch_mode !== undefined && { ai_batch_mode: dto.ai_batch_mode }),
+        ...(dto.persist_results !== undefined && {
+          persist_results: dto.persist_results,
+        }),
+        ...(dto.ai_batch_mode !== undefined && {
+          ai_batch_mode: dto.ai_batch_mode,
+        }),
         ...schedule,
       },
     });
@@ -190,7 +205,9 @@ export class BrowserAgentConfigsService {
     });
 
     if (count !== uniqueIds.length) {
-      throw new NotFoundException('One or more browser agent configs not found');
+      throw new NotFoundException(
+        'One or more browser agent configs not found',
+      );
     }
 
     await this.ensureNoActiveRuns(uniqueIds);
@@ -232,7 +249,10 @@ export class BrowserAgentConfigsService {
     outputFormats: OutputFormat[],
     extractionSchemaVersionId: string | null,
   ): void {
-    if (!outputFormats.includes(OutputFormat.STRUCTURED_JSON) || !extractionSchemaVersionId) {
+    if (
+      !outputFormats.includes(OutputFormat.STRUCTURED_JSON) ||
+      !extractionSchemaVersionId
+    ) {
       throw new BadRequestException(
         'AI batch mode requires a structured JSON output schema',
       );

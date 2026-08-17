@@ -8,6 +8,8 @@ import { BrowserAgentOrchestratorService } from '@/integrations/computer-use/bro
 import { ExtractionService } from '@/modules/extraction/extraction.service';
 import { NotificationsService } from '@/modules/notifications/notifications.service';
 import { WORKFLOW_RUN_STATUS_CHANGED_EVENT } from '@/shared/interfaces/workflow-run-status-changed.event';
+import { OpenApiSpecBuilderService } from '@/integrations/api-capture/services/openapi-spec-builder.service';
+import { NetworkCaptureStorageService } from '@/integrations/api-capture/services/network-capture-storage.service';
 import {
   ExtractionFormatStatus,
   JobStatus,
@@ -34,6 +36,8 @@ export class BrowserAgentProcessor extends WorkerHost {
     private readonly extractionService: ExtractionService,
     private readonly notificationsService: NotificationsService,
     private readonly eventEmitter: EventEmitter2,
+    private readonly openApiSpecBuilder: OpenApiSpecBuilderService,
+    private readonly networkCaptureStorage: NetworkCaptureStorageService,
   ) {
     super();
   }
@@ -114,19 +118,46 @@ export class BrowserAgentProcessor extends WorkerHost {
     try {
       const outcome = await this.orchestrator.run(workflowRunId);
 
+      let openapiSpecDocumentId: string | null = null;
+      if (outcome.capturedRequests?.length) {
+        try {
+          const spec = this.openApiSpecBuilder.build(outcome.capturedRequests, {
+            title: run.url ?? 'Browser Agent Capture',
+          });
+          openapiSpecDocumentId = await this.networkCaptureStorage.storeSpec(
+            spec,
+            `openapi-${workflowRunId}.json`,
+          );
+        } catch (error) {
+          this.logger.warn(
+            `browser agent job ${workflowRunId}: failed to build/store OpenAPI spec: ${error instanceof Error ? error.message : String(error)}`,
+          );
+        }
+      }
+
       await this.prisma.workflowRun.update({
         where: { id: workflowRunId },
         data: {
           visited_urls: outcome.visitedUrls as Prisma.InputJsonValue,
-          browser_actions: outcome.browserActions as unknown as Prisma.InputJsonValue,
+          browser_actions:
+            outcome.browserActions as unknown as Prisma.InputJsonValue,
           collected_data: (outcome.findings ??
             Prisma.JsonNull) as Prisma.InputJsonValue,
           ai_usage: outcome.aiUsage as unknown as Prisma.InputJsonValue,
+          ...(outcome.capturedRequests?.length && {
+            captured_requests:
+              outcome.capturedRequests as unknown as Prisma.InputJsonValue,
+          }),
+          ...(openapiSpecDocumentId && {
+            openapi_spec_document_id: openapiSpecDocumentId,
+          }),
         },
       });
 
       if (outcome.cancelled) {
-        this.logger.log(`browser agent job ${workflowRunId}: cancelled mid-run`);
+        this.logger.log(
+          `browser agent job ${workflowRunId}: cancelled mid-run`,
+        );
         await this.prisma.jobLog.update({
           where: { id: logId },
           data: {
@@ -291,7 +322,9 @@ export class BrowserAgentProcessor extends WorkerHost {
         status: runStatus,
         persistResults: run.persist_results,
         errorMessage:
-          runStatus === RunStatus.FAILED ? 'Extraction did not produce a valid result' : null,
+          runStatus === RunStatus.FAILED
+            ? 'Extraction did not produce a valid result'
+            : null,
         startedAt,
         finishedAt,
         durationMs: finishedAt.getTime() - startedAt.getTime(),
@@ -394,13 +427,17 @@ export class BrowserAgentProcessor extends WorkerHost {
     outcome: ExtractionOutcome,
     outputFormats: OutputFormat[],
   ): RunStatus {
-    const wantsStructured = outputFormats.includes(OutputFormat.STRUCTURED_JSON);
+    const wantsStructured = outputFormats.includes(
+      OutputFormat.STRUCTURED_JSON,
+    );
     const wantsMarkdown = outputFormats.includes(OutputFormat.MARKDOWN);
 
     const structuredOk =
-      !wantsStructured || outcome.structured_status === ExtractionFormatStatus.VALID;
+      !wantsStructured ||
+      outcome.structured_status === ExtractionFormatStatus.VALID;
     const markdownOk =
-      !wantsMarkdown || outcome.markdown_status === ExtractionFormatStatus.VALID;
+      !wantsMarkdown ||
+      outcome.markdown_status === ExtractionFormatStatus.VALID;
 
     if (structuredOk && markdownOk) {
       return RunStatus.SUCCESS;

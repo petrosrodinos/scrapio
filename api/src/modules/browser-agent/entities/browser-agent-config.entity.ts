@@ -20,8 +20,20 @@ export class BrowserAgentConfig {
   @ApiProperty({ example: 'https://example.com' })
   url: string;
 
-  @ApiProperty({ nullable: true, example: 25, description: 'Max computer-use steps before the run is stopped' })
+  @ApiProperty({
+    nullable: true,
+    example: 25,
+    description: 'Max computer-use steps before the run is stopped',
+  })
   max_steps: number | null;
+
+  @ApiProperty({
+    default: false,
+    description:
+      "When true, every HTTP request/response the agent's browser makes during the run is " +
+      'recorded and, on completion, distilled into a downloadable OpenAPI spec.',
+  })
+  capture_api: boolean;
 
   @ApiProperty({
     enum: OutputFormat,
@@ -31,10 +43,18 @@ export class BrowserAgentConfig {
   })
   output_formats: OutputFormat[];
 
-  @ApiProperty({ nullable: true, description: 'Active extraction schema version id, when output includes STRUCTURED_JSON' })
+  @ApiProperty({
+    nullable: true,
+    description:
+      'Active extraction schema version id, when output includes STRUCTURED_JSON',
+  })
   extraction_schema_version_id: string | null;
 
-  @ApiProperty({ nullable: true, example: '0 * * * *', description: 'Cron expression for scheduled runs' })
+  @ApiProperty({
+    nullable: true,
+    example: '0 * * * *',
+    description: 'Cron expression for scheduled runs',
+  })
   schedule_cron: string | null;
 
   @ApiProperty({ nullable: true, example: 'Europe/Athens' })
@@ -59,7 +79,15 @@ export class BrowserAgentConfig {
   @ApiProperty({
     required: false,
     description: 'Present on the get-one response',
-    example: { id: '123e4567-e89b-12d3-a456-426614174000', version: 3, definition: {} },
+    example: {
+      id: '123e4567-e89b-12d3-a456-426614174000',
+      version: 3,
+      definition: {},
+    },
   })
-  extraction_schema_version?: { id: string; version: number; definition: unknown } | null;
+  extraction_schema_version?: {
+    id: string;
+    version: number;
+    definition: unknown;
+  } | null;
 }

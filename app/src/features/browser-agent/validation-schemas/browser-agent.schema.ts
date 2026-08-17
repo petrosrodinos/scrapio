@@ -19,6 +19,7 @@ export const browserAgentFormSchema = z
     description: z.string().optional(),
     url: z.string().url("Enter a valid URL"),
     max_steps: maxSteps,
+    capture_api: z.boolean(),
     schedule_cron: z.string().nullable(),
   })
   .and(outputDataConfigSchema);
@@ -31,6 +32,7 @@ export function defaultBrowserAgentFormValues(): BrowserAgentFormValues {
     description: "",
     url: "",
     max_steps: DEFAULT_BROWSER_AGENT_MAX_STEPS,
+    capture_api: false,
     schedule_cron: null,
     ...defaultOutputDataConfigValues(),
   };
@@ -45,6 +47,7 @@ export function browserAgentConfigToFormValues(config: BrowserAgentConfig): Brow
     description: config.description ?? "",
     url: config.url,
     max_steps: config.max_steps,
+    capture_api: config.capture_api,
     schedule_cron: config.schedule_cron,
     output_formats: config.output_formats,
     output_schema_mode: OutputSchemaEditorModes.BUILDER,
@@ -59,6 +62,7 @@ export function browserAgentFormValuesToPayload(values: BrowserAgentFormValues) 
     description: values.description || null,
     url: values.url,
     max_steps: values.max_steps,
+    capture_api: values.capture_api,
     output_formats: values.output_formats,
     output_schema: resolveOutputSchemaFromForm(values),
     schedule_cron: values.schedule_cron,

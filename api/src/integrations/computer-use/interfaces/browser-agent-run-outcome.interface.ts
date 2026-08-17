@@ -1,3 +1,5 @@
+import { CaptureEntry } from '@/integrations/api-capture/interfaces/capture-entry.interface';
+
 export interface BrowserAgentAiUsage {
   input_tokens: number;
   output_tokens: number;
@@ -20,4 +22,6 @@ export interface BrowserAgentRunOutcome {
   aiUsage: BrowserAgentAiUsage;
   failureReason: string | null;
   cancelled: boolean;
+  /** Present only when the run's config had capture_api enabled. */
+  capturedRequests?: CaptureEntry[];
 }

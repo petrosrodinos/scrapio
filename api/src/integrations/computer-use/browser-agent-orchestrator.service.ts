@@ -16,6 +16,9 @@ import { GenerationAction } from './interfaces/computer-use.interface';
 import { mapActionType } from './utils/generation-action.util';
 import { compactImageMessages } from './utils/generation-message.util';
 import { BrowserAgentRunOutcome } from './interfaces/browser-agent-run-outcome.interface';
+import { NetworkCaptureRecorder } from '@/integrations/api-capture/network-capture-recorder';
+import { CaptureEntry } from '@/integrations/api-capture/interfaces/capture-entry.interface';
+import { DEFAULT_CAPTURE_CONFIG } from '@/integrations/api-capture/config/capture-defaults.config';
 
 const INITIAL_STEP_HINT =
   'Initial page. Explore as needed to complete the task, then call done with your findings.';
@@ -51,9 +54,7 @@ export class BrowserAgentOrchestratorService {
     const maxSteps = run.max_steps ?? MAX_BROWSER_AGENT_STEPS;
 
     const computerUseIntegration =
-      await this.credentialResolver.resolveComputerUseIntegration(
-        run.user_id,
-      );
+      await this.credentialResolver.resolveComputerUseIntegration(run.user_id);
     const model = computerUseIntegration.model;
     const targetUrl = run.url;
     const outputFormats = run.output_formats;
@@ -71,6 +72,9 @@ export class BrowserAgentOrchestratorService {
     );
 
     const driver = new PlaywrightDriverService();
+    const captureRecorder = run.capture_api
+      ? new NetworkCaptureRecorder(DEFAULT_CAPTURE_CONFIG)
+      : null;
     const messages: Anthropic.MessageParam[] = [];
     const visitedUrls = new Set<string>([targetUrl]);
     const browserActions: BrowserAgentRunOutcome['browserActions'] = [];
@@ -81,9 +85,11 @@ export class BrowserAgentOrchestratorService {
     let inputTokens = 0;
     let outputTokens = 0;
     let modelCalls = 0;
+    let capturedRequests: CaptureEntry[] | undefined;
 
     try {
       await driver.launch(targetUrl);
+      captureRecorder?.attach(driver.activeContext);
 
       while (
         !finalFindings &&
@@ -231,6 +237,7 @@ export class BrowserAgentOrchestratorService {
         `browser agent run ${workflowRunId} failed: ${failureReason}`,
       );
     } finally {
+      capturedRequests = captureRecorder?.getEntries();
       await driver.close();
     }
 
@@ -245,6 +252,7 @@ export class BrowserAgentOrchestratorService {
       },
       failureReason,
       cancelled: wasCancelled,
+      capturedRequests,
     };
   }
 

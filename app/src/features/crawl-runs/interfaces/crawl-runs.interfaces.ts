@@ -101,6 +101,21 @@ export interface ScraperExecutionTrace {
   updated_at: string;
 }
 
+export interface CapturedRequestEntry {
+  id: string;
+  sequence: number;
+  duplicate: boolean;
+  failed: boolean;
+  request: {
+    method: string;
+    path: string;
+    resourceType: string;
+  };
+  response: {
+    status: number;
+  } | null;
+}
+
 export interface WorkflowRunJobLogSummary {
   id: string;
   queue_name: string;
@@ -123,6 +138,7 @@ export interface WorkflowRun {
   scraper_version_id: string | null;
   url: string | null;
   max_steps: number | null;
+  capture_api: boolean | null;
   urls: string[] | null;
   extraction_scope: ExtractionScope | null;
   output_formats: string[] | null;
@@ -150,6 +166,8 @@ export interface WorkflowRunDetail extends WorkflowRun {
   extraction_result?: ExtractionResult | null;
   pages?: PlainScrapedPage[];
   steps?: ComputerUseStep[];
+  captured_requests?: CapturedRequestEntry[] | null;
+  openapi_spec_url?: string | null;
 }
 
 export interface WorkflowRunListQuery {

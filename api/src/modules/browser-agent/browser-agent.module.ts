@@ -7,6 +7,7 @@ import { ExtractionSchemasModule } from '@/modules/extraction-schemas/extraction
 import { ExtractionModule } from '@/modules/extraction/extraction.module';
 import { NotificationsModule } from '@/modules/notifications/notifications.module';
 import { ComputerUseModule } from '@/integrations/computer-use/computer-use.module';
+import { ApiCaptureModule } from '@/integrations/api-capture/api-capture.module';
 import { BrowserAgentConfigsController } from './browser-agent-configs.controller';
 import { BrowserAgentConfigsService } from './browser-agent-configs.service';
 import { BrowserAgentProcessor } from '../../background/browser-agent.processor';
@@ -20,6 +21,7 @@ import { BrowserAgentProcessor } from '../../background/browser-agent.processor'
     ExtractionModule,
     NotificationsModule,
     ComputerUseModule,
+    ApiCaptureModule,
   ],
   controllers: [BrowserAgentConfigsController],
   providers: [BrowserAgentConfigsService, BrowserAgentProcessor],

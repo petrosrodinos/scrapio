@@ -23,6 +23,7 @@ import { AiBatchCompletionProcessor } from '@/background/ai-batch-completion.pro
 import { ScraperGenerationModule } from '@/modules/scraper-generation/scraper-generation.module';
 import { NotificationsModule } from '@/modules/notifications/notifications.module';
 import { ExtractionModule } from '@/modules/extraction/extraction.module';
+import { ApiCaptureModule } from '@/integrations/api-capture/api-capture.module';
 import { CrawlRunsController } from './crawl-runs.controller';
 import { CrawlRunsService } from './crawl-runs.service';
 import { WorkflowRunPurgeService } from './services/workflow-run-purge.service';
@@ -38,6 +39,7 @@ import { WorkflowRunPurgeService } from './services/workflow-run-purge.service';
     ScraperGenerationModule,
     NotificationsModule,
     ExtractionModule,
+    ApiCaptureModule,
     BullModule.registerQueue(
       { name: CRAWL_QUEUE },
       { name: PLAIN_SCRAPE_QUEUE },

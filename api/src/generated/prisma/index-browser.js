@@ -244,6 +244,7 @@ exports.Prisma.WorkflowConfigScalarFieldEnum = {
   last_failure_at: 'last_failure_at',
   url: 'url',
   max_steps: 'max_steps',
+  capture_api: 'capture_api',
   urls: 'urls',
   extraction_scope: 'extraction_scope',
   output_formats: 'output_formats',
@@ -329,6 +330,9 @@ exports.Prisma.WorkflowRunScalarFieldEnum = {
   visited_urls: 'visited_urls',
   browser_actions: 'browser_actions',
   collected_data: 'collected_data',
+  capture_api: 'capture_api',
+  captured_requests: 'captured_requests',
+  openapi_spec_document_id: 'openapi_spec_document_id',
   urls: 'urls',
   extraction_scope: 'extraction_scope',
   output_formats: 'output_formats',
@@ -596,6 +600,7 @@ exports.DocumentType = exports.$Enums.DocumentType = {
   AUDIO: 'AUDIO',
   PDF: 'PDF',
   DOCUMENT: 'DOCUMENT',
+  OPENAPI_SPEC: 'OPENAPI_SPEC',
   OTHER: 'OTHER'
 };
 

@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { ArrowLeft, Loader2 } from "lucide-react";
+import { ArrowLeft, Loader2, Download } from "lucide-react";
 import { Accordion, useOverlayState } from "@heroui/react";
 import { Routes } from "@/routes/routes";
 import { DetailSkeleton } from "@/components/ui/detail-skeleton";
@@ -314,6 +314,60 @@ export default function CrawlRunDetailPage() {
                           {index + 1}. {visitedUrl}
                         </span>
                       ))
+                    )}
+                  </div>
+                </Accordion.Body>
+              </Accordion.Panel>
+            </Accordion.Item>
+          </Accordion>
+        </div>
+      )}
+
+      {isBrowserAgent && run.capture_api && (
+        <div className="rounded-xl border border-border bg-surface px-6">
+          <Accordion defaultExpandedKeys={[]} hideSeparator>
+            <Accordion.Item id="captured-api-traffic">
+              <Accordion.Heading>
+                <Accordion.Trigger className="text-sm font-medium text-foreground">
+                  Captured API traffic ({run.captured_requests?.length ?? 0})
+                  <Accordion.Indicator />
+                </Accordion.Trigger>
+              </Accordion.Heading>
+              <Accordion.Panel>
+                <Accordion.Body>
+                  <div className="flex flex-col gap-3 pb-4">
+                    {run.openapi_spec_url ? (
+                      <a
+                        href={run.openapi_spec_url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="flex items-center gap-1.5 text-sm text-accent hover:underline self-start"
+                      >
+                        <Download className="h-4 w-4" />
+                        Download OpenAPI spec
+                      </a>
+                    ) : (
+                      <p className="text-sm text-muted">
+                        {isActive
+                          ? "The OpenAPI spec is generated once the run finishes."
+                          : "No OpenAPI spec was generated for this run."}
+                      </p>
+                    )}
+                    {!run.captured_requests || run.captured_requests.length === 0 ? (
+                      <p className="text-sm text-muted">No requests captured yet.</p>
+                    ) : (
+                      <div className="flex flex-col gap-1">
+                        {run.captured_requests.map((entry) => (
+                          <span
+                            key={entry.id}
+                            className="text-sm text-foreground truncate font-mono"
+                            title={entry.request.path}
+                          >
+                            {entry.request.method} {entry.request.path}
+                            {entry.response ? ` — ${entry.response.status}` : entry.failed ? " — failed" : ""}
+                          </span>
+                        ))}
+                      </div>
                     )}
                   </div>
                 </Accordion.Body>

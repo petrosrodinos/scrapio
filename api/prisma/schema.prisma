@@ -22,6 +22,7 @@ enum DocumentType {
   AUDIO
   PDF
   DOCUMENT
+  OPENAPI_SPEC
   OTHER
 }
 
@@ -351,6 +352,7 @@ model Document {
 
   computer_use_steps_before ComputerUseStep[] @relation("ComputerUseStepScreenshotBefore")
   computer_use_steps_after  ComputerUseStep[] @relation("ComputerUseStepScreenshotAfter")
+  workflow_run_openapi_spec WorkflowRun[]     @relation("WorkflowRunOpenApiSpec")
 
   @@index([user_id])
   @@index([id])
@@ -433,8 +435,12 @@ model WorkflowConfig {
   last_failure_at      DateTime?
 
   // ── BROWSER_AGENT only ────────────────────────────────────────────────────
-  url       String?
-  max_steps Int?    @default(25)
+  url          String?
+  max_steps    Int?    @default(25)
+  // When true, every HTTP request/response the agent's browser makes during the run is
+  // recorded and, on completion, distilled into an OpenAPI spec (see WorkflowRun.captured_requests
+  // / openapi_spec_document_id).
+  capture_api  Boolean @default(false)
 
   // ── PLAIN_SCRAPE only ─────────────────────────────────────────────────────
   urls             String[]
@@ -620,6 +626,13 @@ model WorkflowRun {
   browser_actions Json?
   collected_data  Json?
 
+  // Snapshotted from WorkflowConfig.capture_api at enqueue time. When true, captured_requests
+  // holds every recorded HTTP request/response and openapi_spec_document_id points at the
+  // Document generated from them once the run finishes.
+  capture_api             Boolean @default(false)
+  captured_requests       Json?
+  openapi_spec_document_id String?
+
   // ── PLAIN_SCRAPE run ──────────────────────────────────────────────────────
   urls             String[]
   extraction_scope ExtractionScope?
@@ -653,6 +666,7 @@ model WorkflowRun {
   website_target            WebsiteTarget?           @relation(fields: [website_target_id], references: [id], onDelete: SetNull)
   scraper_version           ScraperVersion?          @relation(fields: [scraper_version_id], references: [id], onDelete: Cascade)
   extraction_schema_version ExtractionSchemaVersion? @relation(fields: [extraction_schema_version_id], references: [id], onDelete: SetNull)
+  openapi_spec_document     Document?                @relation("WorkflowRunOpenApiSpec", fields: [openapi_spec_document_id], references: [id], onDelete: SetNull)
 
   steps               ComputerUseStep[]
   job_logs            JobLog[]

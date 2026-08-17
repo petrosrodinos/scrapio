@@ -20,6 +20,7 @@ import {
   DEFAULT_CRAWL_JOB_BACKOFF_MS,
 } from '@/integrations/crawler/constants/crawler.constants';
 import { ScreenshotStorageService } from '@/integrations/computer-use/services/screenshot-storage.service';
+import { NetworkCaptureStorageService } from '@/integrations/api-capture/services/network-capture-storage.service';
 import { JobStatus, Prisma, RunStatus, WorkflowType } from 'generated/prisma';
 import { CrawlRunQueryType } from './dto/crawl-run-query.schema';
 import { PaginatedResult } from '@/shared/interfaces/paginated-result.interface';
@@ -35,16 +36,14 @@ const STOPPABLE_JOB_STATUSES: JobStatus[] = [
   JobStatus.PAUSED,
 ];
 
-const ACTIVE_RUN_STATUSES: RunStatus[] = [
-  RunStatus.QUEUED,
-  RunStatus.RUNNING,
-];
+const ACTIVE_RUN_STATUSES: RunStatus[] = [RunStatus.QUEUED, RunStatus.RUNNING];
 
 @Injectable()
 export class CrawlRunsService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly screenshotStorage: ScreenshotStorageService,
+    private readonly networkCaptureStorage: NetworkCaptureStorageService,
     @InjectQueue(CRAWL_QUEUE)
     private readonly crawlQueue: Queue<WorkflowJobData>,
     @InjectQueue(PLAIN_SCRAPE_QUEUE)
@@ -85,7 +84,11 @@ export class CrawlRunsService {
     const config = workflowConfigId
       ? await this.prisma.workflowConfig.findUnique({
           where: { id: workflowConfigId },
-          select: { active_version: true, persist_results: true, ai_batch_mode: true },
+          select: {
+            active_version: true,
+            persist_results: true,
+            ai_batch_mode: true,
+          },
         })
       : null;
     const activeVersion = config?.active_version ?? null;
@@ -199,6 +202,7 @@ export class CrawlRunsService {
         type: true,
         url: true,
         max_steps: true,
+        capture_api: true,
         output_formats: true,
         extraction_schema_version_id: true,
         persist_results: true,
@@ -219,6 +223,7 @@ export class CrawlRunsService {
         workflow_config_id: workflowConfigId,
         url: config.url,
         max_steps: config.max_steps,
+        capture_api: config.capture_api,
         urls: [],
         output_formats: config.output_formats,
         extraction_schema_version_id: config.extraction_schema_version_id,
@@ -260,8 +265,12 @@ export class CrawlRunsService {
       ...workflowRunUserWhere(authUser, query.user_id),
       ...(query.type && { type: query.type }),
       ...(query.status && { status: query.status }),
-      ...(query.website_target_id && { website_target_id: query.website_target_id }),
-      ...(query.workflow_config_id && { workflow_config_id: query.workflow_config_id }),
+      ...(query.website_target_id && {
+        website_target_id: query.website_target_id,
+      }),
+      ...(query.workflow_config_id && {
+        workflow_config_id: query.workflow_config_id,
+      }),
       ...(query.date_from || query.date_to
         ? {
             created_at: {
@@ -326,6 +335,7 @@ export class CrawlRunsService {
             screenshot_after: { select: { path: true } },
           },
         },
+        openapi_spec_document: { select: { path: true } },
       },
     });
 
@@ -333,12 +343,23 @@ export class CrawlRunsService {
       throw new NotFoundException('Workflow run not found');
     }
 
-    const steps = await this.screenshotStorage.attachSignedUrls(run.steps);
+    const [steps, openapi_spec_url] = await Promise.all([
+      this.screenshotStorage.attachSignedUrls(run.steps),
+      run.openapi_spec_document?.path
+        ? this.networkCaptureStorage.getSignedUrl(
+            run.openapi_spec_document.path,
+          )
+        : Promise.resolve(null),
+    ]);
 
-    return {
+    const result: Record<string, unknown> = {
       ...run,
       steps,
+      openapi_spec_url,
     };
+    delete result.openapi_spec_document;
+
+    return result;
   }
 
   async rerun(authUser: AuthUser, id: string) {
@@ -481,9 +502,7 @@ export class CrawlRunsService {
     }
 
     if (runs.some((run) => ACTIVE_RUN_STATUSES.includes(run.status))) {
-      throw new BadRequestException(
-        'Cancel active runs before deleting them',
-      );
+      throw new BadRequestException('Cancel active runs before deleting them');
     }
 
     await this.prisma.workflowRun.deleteMany({
@@ -493,7 +512,9 @@ export class CrawlRunsService {
     return { deleted: uniqueIds.length };
   }
 
-  async hasActiveRunForWebsiteTarget(websiteTargetId: string): Promise<boolean> {
+  async hasActiveRunForWebsiteTarget(
+    websiteTargetId: string,
+  ): Promise<boolean> {
     const active = await this.prisma.workflowRun.findFirst({
       where: {
         website_target_id: websiteTargetId,
@@ -505,7 +526,9 @@ export class CrawlRunsService {
     return active !== null;
   }
 
-  async hasActiveRunForWorkflowConfig(workflowConfigId: string): Promise<boolean> {
+  async hasActiveRunForWorkflowConfig(
+    workflowConfigId: string,
+  ): Promise<boolean> {
     const active = await this.prisma.workflowRun.findFirst({
       where: {
         workflow_config_id: workflowConfigId,

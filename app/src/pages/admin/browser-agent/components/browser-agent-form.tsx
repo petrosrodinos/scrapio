@@ -1,6 +1,6 @@
 import { useForm, Controller, type Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, Label, TextArea, Input, FieldError } from "@heroui/react";
+import { Form, Label, TextArea, Input, FieldError, Switch } from "@heroui/react";
 import { ActionButtonWithPending } from "@/components/ui/action-button-with-pending";
 import { CrawlIntervalField } from "@/components/ui/crawl-interval-field";
 import { OutputDataConfigEditor } from "@/pages/admin/generation-runs/components/output-data-config-editor";
@@ -46,6 +46,7 @@ export function BrowserAgentForm({
       description: defaultValues?.description ?? "",
       url: defaultValues?.url ?? "",
       max_steps: defaultValues?.max_steps ?? DEFAULT_BROWSER_AGENT_MAX_STEPS,
+      capture_api: defaultValues?.capture_api ?? false,
       schedule_cron: defaultValues?.schedule_cron ?? null,
       output_formats: defaultValues?.output_formats ?? [OutputFormats.STRUCTURED_JSON],
       output_schema_mode: defaultValues?.output_schema_mode ?? OutputSchemaEditorModes.BUILDER,
@@ -118,6 +119,25 @@ export function BrowserAgentForm({
           Hard cap on computer-use steps per run, to bound cost and runtime.
         </span>
         {errors.max_steps && <FieldError>{errors.max_steps.message}</FieldError>}
+      </div>
+
+      <div className="flex flex-col gap-1">
+        <Controller
+          name="capture_api"
+          control={control}
+          render={({ field }) => (
+            <Switch isSelected={field.value} onChange={field.onChange} isDisabled={isPending}>
+              <Switch.Control>
+                <Switch.Thumb />
+              </Switch.Control>
+              <Switch.Content>Capture API traffic &amp; generate OpenAPI spec</Switch.Content>
+            </Switch>
+          )}
+        />
+        <span className="text-xs text-muted">
+          Records every HTTP request the agent's browser makes during the run and, once it
+          finishes, distills them into a downloadable OpenAPI spec.
+        </span>
       </div>
 
       <div className="border-t border-border pt-5">

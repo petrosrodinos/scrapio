@@ -101,7 +101,7 @@ export class UpdateBrowserAgentConfigDto {
   @ApiProperty({
     required: false,
     description:
-      'Scrape-and-forget mode: set false to delete each run\'s result payload once a subscribed ' +
+      "Scrape-and-forget mode: set false to delete each run's result payload once a subscribed " +
       'webhook endpoint confirms delivery, instead of keeping it. Requires an active webhook ' +
       'endpoint subscribed to a run-finished event.',
   })
@@ -121,4 +121,14 @@ export class UpdateBrowserAgentConfigDto {
   @IsOptional()
   @IsBoolean()
   ai_batch_mode?: boolean;
+
+  @ApiProperty({
+    required: false,
+    description:
+      "When true, every HTTP request/response the agent's browser makes during the run is " +
+      'recorded and, on completion, distilled into a downloadable OpenAPI spec.',
+  })
+  @IsOptional()
+  @IsBoolean()
+  capture_api?: boolean;
 }
