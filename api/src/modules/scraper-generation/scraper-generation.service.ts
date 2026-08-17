@@ -165,6 +165,7 @@ export class ScraperGenerationService {
       data: {
         website_target_id: dto.website_target_id,
         workflow_config_id: dto.scraper_id ?? null,
+        user_id: websiteTarget.user_id,
         trigger: GenerationTrigger.MANUAL,
         status: dto.start
           ? GenerationRunStatus.QUEUED
@@ -318,6 +319,7 @@ export class ScraperGenerationService {
     websiteTargetId: string,
     workflowConfigId: string | null,
     trigger: GenerationTrigger,
+    userId: string,
     prompt?: string,
     maxSteps?: number,
   ) {
@@ -325,6 +327,7 @@ export class ScraperGenerationService {
       data: {
         website_target_id: websiteTargetId,
         workflow_config_id: workflowConfigId,
+        user_id: userId,
         trigger,
         status: GenerationRunStatus.QUEUED,
         prompt,
@@ -410,6 +413,7 @@ export class ScraperGenerationService {
       const version = await tx.scraperVersion.create({
         data: {
           workflow_config_id: workflowConfigId,
+          user_id: websiteTarget.user_id,
           version: (latestVersion?.version ?? 0) + 1,
           config: run.staged_config as Prisma.InputJsonValue,
           created_by: ScraperVersionCreatedBy.AI,

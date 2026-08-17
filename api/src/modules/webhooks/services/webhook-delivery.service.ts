@@ -75,6 +75,7 @@ export class WebhookDeliveryService {
     const delivery = await this.prisma.webhookDelivery.create({
       data: {
         webhook_endpoint_id: endpoint.id,
+        user_id: endpoint.user_id,
         event_type: eventType,
         workflow_run_id: workflowRunId ?? null,
         is_test: isTest ?? false,

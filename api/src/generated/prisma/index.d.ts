@@ -3746,10 +3746,20 @@ export namespace Prisma {
     extraction_schemas: number
     api_keys: number
     webhook_endpoints: number
+    webhook_deliveries: number
     job_logs: number
     diagnostics_packages: number
     notifications: number
     cost_entries: number
+    scraper_versions: number
+    scraper_generation_runs: number
+    computer_use_steps: number
+    scraper_execution_traces: number
+    extracted_items: number
+    plain_scraped_pages: number
+    extraction_results: number
+    ai_batch_request_items: number
+    block_rules: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3761,10 +3771,20 @@ export namespace Prisma {
     extraction_schemas?: boolean | UserCountOutputTypeCountExtraction_schemasArgs
     api_keys?: boolean | UserCountOutputTypeCountApi_keysArgs
     webhook_endpoints?: boolean | UserCountOutputTypeCountWebhook_endpointsArgs
+    webhook_deliveries?: boolean | UserCountOutputTypeCountWebhook_deliveriesArgs
     job_logs?: boolean | UserCountOutputTypeCountJob_logsArgs
     diagnostics_packages?: boolean | UserCountOutputTypeCountDiagnostics_packagesArgs
     notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
     cost_entries?: boolean | UserCountOutputTypeCountCost_entriesArgs
+    scraper_versions?: boolean | UserCountOutputTypeCountScraper_versionsArgs
+    scraper_generation_runs?: boolean | UserCountOutputTypeCountScraper_generation_runsArgs
+    computer_use_steps?: boolean | UserCountOutputTypeCountComputer_use_stepsArgs
+    scraper_execution_traces?: boolean | UserCountOutputTypeCountScraper_execution_tracesArgs
+    extracted_items?: boolean | UserCountOutputTypeCountExtracted_itemsArgs
+    plain_scraped_pages?: boolean | UserCountOutputTypeCountPlain_scraped_pagesArgs
+    extraction_results?: boolean | UserCountOutputTypeCountExtraction_resultsArgs
+    ai_batch_request_items?: boolean | UserCountOutputTypeCountAi_batch_request_itemsArgs
+    block_rules?: boolean | UserCountOutputTypeCountBlock_rulesArgs
   }
 
   // Custom InputTypes
@@ -3837,6 +3857,13 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
+  export type UserCountOutputTypeCountWebhook_deliveriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: WebhookDeliveryWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
   export type UserCountOutputTypeCountJob_logsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: JobLogWhereInput
   }
@@ -3860,6 +3887,69 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountCost_entriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: CostEntryWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountScraper_versionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ScraperVersionWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountScraper_generation_runsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ScraperGenerationRunWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountComputer_use_stepsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ComputerUseStepWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountScraper_execution_tracesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ScraperExecutionTraceWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountExtracted_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ExtractedItemWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountPlain_scraped_pagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PlainScrapedPageWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountExtraction_resultsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ExtractionResultWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountAi_batch_request_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AiBatchRequestItemWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountBlock_rulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BlockRuleWhereInput
   }
 
 
@@ -4624,10 +4714,20 @@ export namespace Prisma {
     extraction_schemas?: boolean | User$extraction_schemasArgs<ExtArgs>
     api_keys?: boolean | User$api_keysArgs<ExtArgs>
     webhook_endpoints?: boolean | User$webhook_endpointsArgs<ExtArgs>
+    webhook_deliveries?: boolean | User$webhook_deliveriesArgs<ExtArgs>
     job_logs?: boolean | User$job_logsArgs<ExtArgs>
     diagnostics_packages?: boolean | User$diagnostics_packagesArgs<ExtArgs>
     notifications?: boolean | User$notificationsArgs<ExtArgs>
     cost_entries?: boolean | User$cost_entriesArgs<ExtArgs>
+    scraper_versions?: boolean | User$scraper_versionsArgs<ExtArgs>
+    scraper_generation_runs?: boolean | User$scraper_generation_runsArgs<ExtArgs>
+    computer_use_steps?: boolean | User$computer_use_stepsArgs<ExtArgs>
+    scraper_execution_traces?: boolean | User$scraper_execution_tracesArgs<ExtArgs>
+    extracted_items?: boolean | User$extracted_itemsArgs<ExtArgs>
+    plain_scraped_pages?: boolean | User$plain_scraped_pagesArgs<ExtArgs>
+    extraction_results?: boolean | User$extraction_resultsArgs<ExtArgs>
+    ai_batch_request_items?: boolean | User$ai_batch_request_itemsArgs<ExtArgs>
+    block_rules?: boolean | User$block_rulesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -4674,10 +4774,20 @@ export namespace Prisma {
     extraction_schemas?: boolean | User$extraction_schemasArgs<ExtArgs>
     api_keys?: boolean | User$api_keysArgs<ExtArgs>
     webhook_endpoints?: boolean | User$webhook_endpointsArgs<ExtArgs>
+    webhook_deliveries?: boolean | User$webhook_deliveriesArgs<ExtArgs>
     job_logs?: boolean | User$job_logsArgs<ExtArgs>
     diagnostics_packages?: boolean | User$diagnostics_packagesArgs<ExtArgs>
     notifications?: boolean | User$notificationsArgs<ExtArgs>
     cost_entries?: boolean | User$cost_entriesArgs<ExtArgs>
+    scraper_versions?: boolean | User$scraper_versionsArgs<ExtArgs>
+    scraper_generation_runs?: boolean | User$scraper_generation_runsArgs<ExtArgs>
+    computer_use_steps?: boolean | User$computer_use_stepsArgs<ExtArgs>
+    scraper_execution_traces?: boolean | User$scraper_execution_tracesArgs<ExtArgs>
+    extracted_items?: boolean | User$extracted_itemsArgs<ExtArgs>
+    plain_scraped_pages?: boolean | User$plain_scraped_pagesArgs<ExtArgs>
+    extraction_results?: boolean | User$extraction_resultsArgs<ExtArgs>
+    ai_batch_request_items?: boolean | User$ai_batch_request_itemsArgs<ExtArgs>
+    block_rules?: boolean | User$block_rulesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -4694,10 +4804,20 @@ export namespace Prisma {
       extraction_schemas: Prisma.$ExtractionSchemaPayload<ExtArgs>[]
       api_keys: Prisma.$ApiKeyPayload<ExtArgs>[]
       webhook_endpoints: Prisma.$WebhookEndpointPayload<ExtArgs>[]
+      webhook_deliveries: Prisma.$WebhookDeliveryPayload<ExtArgs>[]
       job_logs: Prisma.$JobLogPayload<ExtArgs>[]
       diagnostics_packages: Prisma.$DiagnosticsPackagePayload<ExtArgs>[]
       notifications: Prisma.$NotificationPayload<ExtArgs>[]
       cost_entries: Prisma.$CostEntryPayload<ExtArgs>[]
+      scraper_versions: Prisma.$ScraperVersionPayload<ExtArgs>[]
+      scraper_generation_runs: Prisma.$ScraperGenerationRunPayload<ExtArgs>[]
+      computer_use_steps: Prisma.$ComputerUseStepPayload<ExtArgs>[]
+      scraper_execution_traces: Prisma.$ScraperExecutionTracePayload<ExtArgs>[]
+      extracted_items: Prisma.$ExtractedItemPayload<ExtArgs>[]
+      plain_scraped_pages: Prisma.$PlainScrapedPagePayload<ExtArgs>[]
+      extraction_results: Prisma.$ExtractionResultPayload<ExtArgs>[]
+      ai_batch_request_items: Prisma.$AiBatchRequestItemPayload<ExtArgs>[]
+      block_rules: Prisma.$BlockRulePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -5110,10 +5230,20 @@ export namespace Prisma {
     extraction_schemas<T extends User$extraction_schemasArgs<ExtArgs> = {}>(args?: Subset<T, User$extraction_schemasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExtractionSchemaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     api_keys<T extends User$api_keysArgs<ExtArgs> = {}>(args?: Subset<T, User$api_keysArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ApiKeyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     webhook_endpoints<T extends User$webhook_endpointsArgs<ExtArgs> = {}>(args?: Subset<T, User$webhook_endpointsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WebhookEndpointPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    webhook_deliveries<T extends User$webhook_deliveriesArgs<ExtArgs> = {}>(args?: Subset<T, User$webhook_deliveriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WebhookDeliveryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     job_logs<T extends User$job_logsArgs<ExtArgs> = {}>(args?: Subset<T, User$job_logsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JobLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     diagnostics_packages<T extends User$diagnostics_packagesArgs<ExtArgs> = {}>(args?: Subset<T, User$diagnostics_packagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DiagnosticsPackagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     notifications<T extends User$notificationsArgs<ExtArgs> = {}>(args?: Subset<T, User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     cost_entries<T extends User$cost_entriesArgs<ExtArgs> = {}>(args?: Subset<T, User$cost_entriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CostEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    scraper_versions<T extends User$scraper_versionsArgs<ExtArgs> = {}>(args?: Subset<T, User$scraper_versionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ScraperVersionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    scraper_generation_runs<T extends User$scraper_generation_runsArgs<ExtArgs> = {}>(args?: Subset<T, User$scraper_generation_runsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ScraperGenerationRunPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    computer_use_steps<T extends User$computer_use_stepsArgs<ExtArgs> = {}>(args?: Subset<T, User$computer_use_stepsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ComputerUseStepPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    scraper_execution_traces<T extends User$scraper_execution_tracesArgs<ExtArgs> = {}>(args?: Subset<T, User$scraper_execution_tracesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ScraperExecutionTracePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    extracted_items<T extends User$extracted_itemsArgs<ExtArgs> = {}>(args?: Subset<T, User$extracted_itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExtractedItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    plain_scraped_pages<T extends User$plain_scraped_pagesArgs<ExtArgs> = {}>(args?: Subset<T, User$plain_scraped_pagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlainScrapedPagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    extraction_results<T extends User$extraction_resultsArgs<ExtArgs> = {}>(args?: Subset<T, User$extraction_resultsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExtractionResultPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    ai_batch_request_items<T extends User$ai_batch_request_itemsArgs<ExtArgs> = {}>(args?: Subset<T, User$ai_batch_request_itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AiBatchRequestItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    block_rules<T extends User$block_rulesArgs<ExtArgs> = {}>(args?: Subset<T, User$block_rulesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BlockRulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5731,6 +5861,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.webhook_deliveries
+   */
+  export type User$webhook_deliveriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebhookDelivery
+     */
+    select?: WebhookDeliverySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebhookDelivery
+     */
+    omit?: WebhookDeliveryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebhookDeliveryInclude<ExtArgs> | null
+    where?: WebhookDeliveryWhereInput
+    orderBy?: WebhookDeliveryOrderByWithRelationInput | WebhookDeliveryOrderByWithRelationInput[]
+    cursor?: WebhookDeliveryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: WebhookDeliveryScalarFieldEnum | WebhookDeliveryScalarFieldEnum[]
+  }
+
+  /**
    * User.job_logs
    */
   export type User$job_logsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5824,6 +5978,222 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: CostEntryScalarFieldEnum | CostEntryScalarFieldEnum[]
+  }
+
+  /**
+   * User.scraper_versions
+   */
+  export type User$scraper_versionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ScraperVersion
+     */
+    select?: ScraperVersionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ScraperVersion
+     */
+    omit?: ScraperVersionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ScraperVersionInclude<ExtArgs> | null
+    where?: ScraperVersionWhereInput
+    orderBy?: ScraperVersionOrderByWithRelationInput | ScraperVersionOrderByWithRelationInput[]
+    cursor?: ScraperVersionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ScraperVersionScalarFieldEnum | ScraperVersionScalarFieldEnum[]
+  }
+
+  /**
+   * User.scraper_generation_runs
+   */
+  export type User$scraper_generation_runsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ScraperGenerationRun
+     */
+    select?: ScraperGenerationRunSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ScraperGenerationRun
+     */
+    omit?: ScraperGenerationRunOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ScraperGenerationRunInclude<ExtArgs> | null
+    where?: ScraperGenerationRunWhereInput
+    orderBy?: ScraperGenerationRunOrderByWithRelationInput | ScraperGenerationRunOrderByWithRelationInput[]
+    cursor?: ScraperGenerationRunWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ScraperGenerationRunScalarFieldEnum | ScraperGenerationRunScalarFieldEnum[]
+  }
+
+  /**
+   * User.computer_use_steps
+   */
+  export type User$computer_use_stepsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ComputerUseStep
+     */
+    select?: ComputerUseStepSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ComputerUseStep
+     */
+    omit?: ComputerUseStepOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComputerUseStepInclude<ExtArgs> | null
+    where?: ComputerUseStepWhereInput
+    orderBy?: ComputerUseStepOrderByWithRelationInput | ComputerUseStepOrderByWithRelationInput[]
+    cursor?: ComputerUseStepWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ComputerUseStepScalarFieldEnum | ComputerUseStepScalarFieldEnum[]
+  }
+
+  /**
+   * User.scraper_execution_traces
+   */
+  export type User$scraper_execution_tracesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ScraperExecutionTrace
+     */
+    select?: ScraperExecutionTraceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ScraperExecutionTrace
+     */
+    omit?: ScraperExecutionTraceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ScraperExecutionTraceInclude<ExtArgs> | null
+    where?: ScraperExecutionTraceWhereInput
+    orderBy?: ScraperExecutionTraceOrderByWithRelationInput | ScraperExecutionTraceOrderByWithRelationInput[]
+    cursor?: ScraperExecutionTraceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ScraperExecutionTraceScalarFieldEnum | ScraperExecutionTraceScalarFieldEnum[]
+  }
+
+  /**
+   * User.extracted_items
+   */
+  export type User$extracted_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExtractedItem
+     */
+    select?: ExtractedItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExtractedItem
+     */
+    omit?: ExtractedItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExtractedItemInclude<ExtArgs> | null
+    where?: ExtractedItemWhereInput
+    orderBy?: ExtractedItemOrderByWithRelationInput | ExtractedItemOrderByWithRelationInput[]
+    cursor?: ExtractedItemWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ExtractedItemScalarFieldEnum | ExtractedItemScalarFieldEnum[]
+  }
+
+  /**
+   * User.plain_scraped_pages
+   */
+  export type User$plain_scraped_pagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlainScrapedPage
+     */
+    select?: PlainScrapedPageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlainScrapedPage
+     */
+    omit?: PlainScrapedPageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlainScrapedPageInclude<ExtArgs> | null
+    where?: PlainScrapedPageWhereInput
+    orderBy?: PlainScrapedPageOrderByWithRelationInput | PlainScrapedPageOrderByWithRelationInput[]
+    cursor?: PlainScrapedPageWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PlainScrapedPageScalarFieldEnum | PlainScrapedPageScalarFieldEnum[]
+  }
+
+  /**
+   * User.extraction_results
+   */
+  export type User$extraction_resultsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExtractionResult
+     */
+    select?: ExtractionResultSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExtractionResult
+     */
+    omit?: ExtractionResultOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExtractionResultInclude<ExtArgs> | null
+    where?: ExtractionResultWhereInput
+    orderBy?: ExtractionResultOrderByWithRelationInput | ExtractionResultOrderByWithRelationInput[]
+    cursor?: ExtractionResultWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ExtractionResultScalarFieldEnum | ExtractionResultScalarFieldEnum[]
+  }
+
+  /**
+   * User.ai_batch_request_items
+   */
+  export type User$ai_batch_request_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiBatchRequestItem
+     */
+    select?: AiBatchRequestItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiBatchRequestItem
+     */
+    omit?: AiBatchRequestItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiBatchRequestItemInclude<ExtArgs> | null
+    where?: AiBatchRequestItemWhereInput
+    orderBy?: AiBatchRequestItemOrderByWithRelationInput | AiBatchRequestItemOrderByWithRelationInput[]
+    cursor?: AiBatchRequestItemWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AiBatchRequestItemScalarFieldEnum | AiBatchRequestItemScalarFieldEnum[]
+  }
+
+  /**
+   * User.block_rules
+   */
+  export type User$block_rulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BlockRule
+     */
+    select?: BlockRuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BlockRule
+     */
+    omit?: BlockRuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlockRuleInclude<ExtArgs> | null
+    where?: BlockRuleWhereInput
+    orderBy?: BlockRuleOrderByWithRelationInput | BlockRuleOrderByWithRelationInput[]
+    cursor?: BlockRuleWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BlockRuleScalarFieldEnum | BlockRuleScalarFieldEnum[]
   }
 
   /**
@@ -9215,6 +9585,7 @@ export namespace Prisma {
   export type WebhookDeliveryMinAggregateOutputType = {
     id: string | null
     webhook_endpoint_id: string | null
+    user_id: string | null
     event_type: $Enums.WebhookEventType | null
     workflow_run_id: string | null
     is_test: boolean | null
@@ -9230,6 +9601,7 @@ export namespace Prisma {
   export type WebhookDeliveryMaxAggregateOutputType = {
     id: string | null
     webhook_endpoint_id: string | null
+    user_id: string | null
     event_type: $Enums.WebhookEventType | null
     workflow_run_id: string | null
     is_test: boolean | null
@@ -9245,6 +9617,7 @@ export namespace Prisma {
   export type WebhookDeliveryCountAggregateOutputType = {
     id: number
     webhook_endpoint_id: number
+    user_id: number
     event_type: number
     workflow_run_id: number
     is_test: number
@@ -9275,6 +9648,7 @@ export namespace Prisma {
   export type WebhookDeliveryMinAggregateInputType = {
     id?: true
     webhook_endpoint_id?: true
+    user_id?: true
     event_type?: true
     workflow_run_id?: true
     is_test?: true
@@ -9290,6 +9664,7 @@ export namespace Prisma {
   export type WebhookDeliveryMaxAggregateInputType = {
     id?: true
     webhook_endpoint_id?: true
+    user_id?: true
     event_type?: true
     workflow_run_id?: true
     is_test?: true
@@ -9305,6 +9680,7 @@ export namespace Prisma {
   export type WebhookDeliveryCountAggregateInputType = {
     id?: true
     webhook_endpoint_id?: true
+    user_id?: true
     event_type?: true
     workflow_run_id?: true
     is_test?: true
@@ -9408,6 +9784,7 @@ export namespace Prisma {
   export type WebhookDeliveryGroupByOutputType = {
     id: string
     webhook_endpoint_id: string
+    user_id: string
     event_type: $Enums.WebhookEventType
     workflow_run_id: string | null
     is_test: boolean
@@ -9443,6 +9820,7 @@ export namespace Prisma {
   export type WebhookDeliverySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     webhook_endpoint_id?: boolean
+    user_id?: boolean
     event_type?: boolean
     workflow_run_id?: boolean
     is_test?: boolean
@@ -9455,11 +9833,13 @@ export namespace Prisma {
     duration_ms?: boolean
     created_at?: boolean
     webhook_endpoint?: boolean | WebhookEndpointDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["webhookDelivery"]>
 
   export type WebhookDeliverySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     webhook_endpoint_id?: boolean
+    user_id?: boolean
     event_type?: boolean
     workflow_run_id?: boolean
     is_test?: boolean
@@ -9472,11 +9852,13 @@ export namespace Prisma {
     duration_ms?: boolean
     created_at?: boolean
     webhook_endpoint?: boolean | WebhookEndpointDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["webhookDelivery"]>
 
   export type WebhookDeliverySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     webhook_endpoint_id?: boolean
+    user_id?: boolean
     event_type?: boolean
     workflow_run_id?: boolean
     is_test?: boolean
@@ -9489,11 +9871,13 @@ export namespace Prisma {
     duration_ms?: boolean
     created_at?: boolean
     webhook_endpoint?: boolean | WebhookEndpointDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["webhookDelivery"]>
 
   export type WebhookDeliverySelectScalar = {
     id?: boolean
     webhook_endpoint_id?: boolean
+    user_id?: boolean
     event_type?: boolean
     workflow_run_id?: boolean
     is_test?: boolean
@@ -9507,25 +9891,30 @@ export namespace Prisma {
     created_at?: boolean
   }
 
-  export type WebhookDeliveryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "webhook_endpoint_id" | "event_type" | "workflow_run_id" | "is_test" | "payload" | "status" | "http_status_code" | "response_body" | "error_message" | "attempt_number" | "duration_ms" | "created_at", ExtArgs["result"]["webhookDelivery"]>
+  export type WebhookDeliveryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "webhook_endpoint_id" | "user_id" | "event_type" | "workflow_run_id" | "is_test" | "payload" | "status" | "http_status_code" | "response_body" | "error_message" | "attempt_number" | "duration_ms" | "created_at", ExtArgs["result"]["webhookDelivery"]>
   export type WebhookDeliveryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     webhook_endpoint?: boolean | WebhookEndpointDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type WebhookDeliveryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     webhook_endpoint?: boolean | WebhookEndpointDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type WebhookDeliveryIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     webhook_endpoint?: boolean | WebhookEndpointDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $WebhookDeliveryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "WebhookDelivery"
     objects: {
       webhook_endpoint: Prisma.$WebhookEndpointPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       webhook_endpoint_id: string
+      user_id: string
       event_type: $Enums.WebhookEventType
       workflow_run_id: string | null
       is_test: boolean
@@ -9932,6 +10321,7 @@ export namespace Prisma {
   export interface Prisma__WebhookDeliveryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     webhook_endpoint<T extends WebhookEndpointDefaultArgs<ExtArgs> = {}>(args?: Subset<T, WebhookEndpointDefaultArgs<ExtArgs>>): Prisma__WebhookEndpointClient<$Result.GetResult<Prisma.$WebhookEndpointPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -9963,6 +10353,7 @@ export namespace Prisma {
   interface WebhookDeliveryFieldRefs {
     readonly id: FieldRef<"WebhookDelivery", 'String'>
     readonly webhook_endpoint_id: FieldRef<"WebhookDelivery", 'String'>
+    readonly user_id: FieldRef<"WebhookDelivery", 'String'>
     readonly event_type: FieldRef<"WebhookDelivery", 'WebhookEventType'>
     readonly workflow_run_id: FieldRef<"WebhookDelivery", 'String'>
     readonly is_test: FieldRef<"WebhookDelivery", 'Boolean'>
@@ -12989,6 +13380,7 @@ export namespace Prisma {
   export type BlockRuleMinAggregateOutputType = {
     id: string | null
     website_target_id: string | null
+    user_id: string | null
     label: string | null
     signal: $Enums.BlockSignal | null
     source: $Enums.BlockRuleSource | null
@@ -13003,6 +13395,7 @@ export namespace Prisma {
   export type BlockRuleMaxAggregateOutputType = {
     id: string | null
     website_target_id: string | null
+    user_id: string | null
     label: string | null
     signal: $Enums.BlockSignal | null
     source: $Enums.BlockRuleSource | null
@@ -13017,6 +13410,7 @@ export namespace Prisma {
   export type BlockRuleCountAggregateOutputType = {
     id: number
     website_target_id: number
+    user_id: number
     label: number
     signal: number
     source: number
@@ -13041,6 +13435,7 @@ export namespace Prisma {
   export type BlockRuleMinAggregateInputType = {
     id?: true
     website_target_id?: true
+    user_id?: true
     label?: true
     signal?: true
     source?: true
@@ -13055,6 +13450,7 @@ export namespace Prisma {
   export type BlockRuleMaxAggregateInputType = {
     id?: true
     website_target_id?: true
+    user_id?: true
     label?: true
     signal?: true
     source?: true
@@ -13069,6 +13465,7 @@ export namespace Prisma {
   export type BlockRuleCountAggregateInputType = {
     id?: true
     website_target_id?: true
+    user_id?: true
     label?: true
     signal?: true
     source?: true
@@ -13170,6 +13567,7 @@ export namespace Prisma {
   export type BlockRuleGroupByOutputType = {
     id: string
     website_target_id: string
+    user_id: string
     label: string | null
     signal: $Enums.BlockSignal
     source: $Enums.BlockRuleSource
@@ -13203,6 +13601,7 @@ export namespace Prisma {
   export type BlockRuleSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     website_target_id?: boolean
+    user_id?: boolean
     label?: boolean
     signal?: boolean
     source?: boolean
@@ -13213,11 +13612,13 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     website_target?: boolean | WebsiteTargetDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["blockRule"]>
 
   export type BlockRuleSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     website_target_id?: boolean
+    user_id?: boolean
     label?: boolean
     signal?: boolean
     source?: boolean
@@ -13228,11 +13629,13 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     website_target?: boolean | WebsiteTargetDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["blockRule"]>
 
   export type BlockRuleSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     website_target_id?: boolean
+    user_id?: boolean
     label?: boolean
     signal?: boolean
     source?: boolean
@@ -13243,11 +13646,13 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     website_target?: boolean | WebsiteTargetDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["blockRule"]>
 
   export type BlockRuleSelectScalar = {
     id?: boolean
     website_target_id?: boolean
+    user_id?: boolean
     label?: boolean
     signal?: boolean
     source?: boolean
@@ -13259,25 +13664,30 @@ export namespace Prisma {
     updated_at?: boolean
   }
 
-  export type BlockRuleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "website_target_id" | "label" | "signal" | "source" | "pattern" | "is_regex" | "regex_flags" | "position" | "created_at" | "updated_at", ExtArgs["result"]["blockRule"]>
+  export type BlockRuleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "website_target_id" | "user_id" | "label" | "signal" | "source" | "pattern" | "is_regex" | "regex_flags" | "position" | "created_at" | "updated_at", ExtArgs["result"]["blockRule"]>
   export type BlockRuleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     website_target?: boolean | WebsiteTargetDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type BlockRuleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     website_target?: boolean | WebsiteTargetDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type BlockRuleIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     website_target?: boolean | WebsiteTargetDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $BlockRulePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "BlockRule"
     objects: {
       website_target: Prisma.$WebsiteTargetPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       website_target_id: string
+      user_id: string
       label: string | null
       signal: $Enums.BlockSignal
       source: $Enums.BlockRuleSource
@@ -13682,6 +14092,7 @@ export namespace Prisma {
   export interface Prisma__BlockRuleClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     website_target<T extends WebsiteTargetDefaultArgs<ExtArgs> = {}>(args?: Subset<T, WebsiteTargetDefaultArgs<ExtArgs>>): Prisma__WebsiteTargetClient<$Result.GetResult<Prisma.$WebsiteTargetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -13713,6 +14124,7 @@ export namespace Prisma {
   interface BlockRuleFieldRefs {
     readonly id: FieldRef<"BlockRule", 'String'>
     readonly website_target_id: FieldRef<"BlockRule", 'String'>
+    readonly user_id: FieldRef<"BlockRule", 'String'>
     readonly label: FieldRef<"BlockRule", 'String'>
     readonly signal: FieldRef<"BlockRule", 'BlockSignal'>
     readonly source: FieldRef<"BlockRule", 'BlockRuleSource'>
@@ -15851,6 +16263,7 @@ export namespace Prisma {
     id: string | null
     website_target_id: string | null
     workflow_config_id: string | null
+    user_id: string | null
     trigger: $Enums.GenerationTrigger | null
     status: $Enums.GenerationRunStatus | null
     prompt: string | null
@@ -15868,6 +16281,7 @@ export namespace Prisma {
     id: string | null
     website_target_id: string | null
     workflow_config_id: string | null
+    user_id: string | null
     trigger: $Enums.GenerationTrigger | null
     status: $Enums.GenerationRunStatus | null
     prompt: string | null
@@ -15885,6 +16299,7 @@ export namespace Prisma {
     id: number
     website_target_id: number
     workflow_config_id: number
+    user_id: number
     trigger: number
     status: number
     prompt: number
@@ -15917,6 +16332,7 @@ export namespace Prisma {
     id?: true
     website_target_id?: true
     workflow_config_id?: true
+    user_id?: true
     trigger?: true
     status?: true
     prompt?: true
@@ -15934,6 +16350,7 @@ export namespace Prisma {
     id?: true
     website_target_id?: true
     workflow_config_id?: true
+    user_id?: true
     trigger?: true
     status?: true
     prompt?: true
@@ -15951,6 +16368,7 @@ export namespace Prisma {
     id?: true
     website_target_id?: true
     workflow_config_id?: true
+    user_id?: true
     trigger?: true
     status?: true
     prompt?: true
@@ -16058,6 +16476,7 @@ export namespace Prisma {
     id: string
     website_target_id: string
     workflow_config_id: string | null
+    user_id: string
     trigger: $Enums.GenerationTrigger
     status: $Enums.GenerationRunStatus
     prompt: string | null
@@ -16097,6 +16516,7 @@ export namespace Prisma {
     id?: boolean
     website_target_id?: boolean
     workflow_config_id?: boolean
+    user_id?: boolean
     trigger?: boolean
     status?: boolean
     prompt?: boolean
@@ -16114,6 +16534,7 @@ export namespace Prisma {
     website_target?: boolean | WebsiteTargetDefaultArgs<ExtArgs>
     workflow_config?: boolean | ScraperGenerationRun$workflow_configArgs<ExtArgs>
     produced_version?: boolean | ScraperGenerationRun$produced_versionArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
     steps?: boolean | ScraperGenerationRun$stepsArgs<ExtArgs>
     _count?: boolean | ScraperGenerationRunCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["scraperGenerationRun"]>
@@ -16122,6 +16543,7 @@ export namespace Prisma {
     id?: boolean
     website_target_id?: boolean
     workflow_config_id?: boolean
+    user_id?: boolean
     trigger?: boolean
     status?: boolean
     prompt?: boolean
@@ -16139,12 +16561,14 @@ export namespace Prisma {
     website_target?: boolean | WebsiteTargetDefaultArgs<ExtArgs>
     workflow_config?: boolean | ScraperGenerationRun$workflow_configArgs<ExtArgs>
     produced_version?: boolean | ScraperGenerationRun$produced_versionArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["scraperGenerationRun"]>
 
   export type ScraperGenerationRunSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     website_target_id?: boolean
     workflow_config_id?: boolean
+    user_id?: boolean
     trigger?: boolean
     status?: boolean
     prompt?: boolean
@@ -16162,12 +16586,14 @@ export namespace Prisma {
     website_target?: boolean | WebsiteTargetDefaultArgs<ExtArgs>
     workflow_config?: boolean | ScraperGenerationRun$workflow_configArgs<ExtArgs>
     produced_version?: boolean | ScraperGenerationRun$produced_versionArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["scraperGenerationRun"]>
 
   export type ScraperGenerationRunSelectScalar = {
     id?: boolean
     website_target_id?: boolean
     workflow_config_id?: boolean
+    user_id?: boolean
     trigger?: boolean
     status?: boolean
     prompt?: boolean
@@ -16184,11 +16610,12 @@ export namespace Prisma {
     updated_at?: boolean
   }
 
-  export type ScraperGenerationRunOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "website_target_id" | "workflow_config_id" | "trigger" | "status" | "prompt" | "max_steps" | "output_formats" | "output_schema" | "staged_config" | "produced_version_id" | "error_message" | "started_at" | "finished_at" | "duration_ms" | "created_at" | "updated_at", ExtArgs["result"]["scraperGenerationRun"]>
+  export type ScraperGenerationRunOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "website_target_id" | "workflow_config_id" | "user_id" | "trigger" | "status" | "prompt" | "max_steps" | "output_formats" | "output_schema" | "staged_config" | "produced_version_id" | "error_message" | "started_at" | "finished_at" | "duration_ms" | "created_at" | "updated_at", ExtArgs["result"]["scraperGenerationRun"]>
   export type ScraperGenerationRunInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     website_target?: boolean | WebsiteTargetDefaultArgs<ExtArgs>
     workflow_config?: boolean | ScraperGenerationRun$workflow_configArgs<ExtArgs>
     produced_version?: boolean | ScraperGenerationRun$produced_versionArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
     steps?: boolean | ScraperGenerationRun$stepsArgs<ExtArgs>
     _count?: boolean | ScraperGenerationRunCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -16196,11 +16623,13 @@ export namespace Prisma {
     website_target?: boolean | WebsiteTargetDefaultArgs<ExtArgs>
     workflow_config?: boolean | ScraperGenerationRun$workflow_configArgs<ExtArgs>
     produced_version?: boolean | ScraperGenerationRun$produced_versionArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type ScraperGenerationRunIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     website_target?: boolean | WebsiteTargetDefaultArgs<ExtArgs>
     workflow_config?: boolean | ScraperGenerationRun$workflow_configArgs<ExtArgs>
     produced_version?: boolean | ScraperGenerationRun$produced_versionArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $ScraperGenerationRunPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -16209,12 +16638,14 @@ export namespace Prisma {
       website_target: Prisma.$WebsiteTargetPayload<ExtArgs>
       workflow_config: Prisma.$WorkflowConfigPayload<ExtArgs> | null
       produced_version: Prisma.$ScraperVersionPayload<ExtArgs> | null
+      user: Prisma.$UserPayload<ExtArgs>
       steps: Prisma.$ComputerUseStepPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       website_target_id: string
       workflow_config_id: string | null
+      user_id: string
       trigger: $Enums.GenerationTrigger
       status: $Enums.GenerationRunStatus
       prompt: string | null
@@ -16626,6 +17057,7 @@ export namespace Prisma {
     website_target<T extends WebsiteTargetDefaultArgs<ExtArgs> = {}>(args?: Subset<T, WebsiteTargetDefaultArgs<ExtArgs>>): Prisma__WebsiteTargetClient<$Result.GetResult<Prisma.$WebsiteTargetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     workflow_config<T extends ScraperGenerationRun$workflow_configArgs<ExtArgs> = {}>(args?: Subset<T, ScraperGenerationRun$workflow_configArgs<ExtArgs>>): Prisma__WorkflowConfigClient<$Result.GetResult<Prisma.$WorkflowConfigPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     produced_version<T extends ScraperGenerationRun$produced_versionArgs<ExtArgs> = {}>(args?: Subset<T, ScraperGenerationRun$produced_versionArgs<ExtArgs>>): Prisma__ScraperVersionClient<$Result.GetResult<Prisma.$ScraperVersionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     steps<T extends ScraperGenerationRun$stepsArgs<ExtArgs> = {}>(args?: Subset<T, ScraperGenerationRun$stepsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ComputerUseStepPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -16659,6 +17091,7 @@ export namespace Prisma {
     readonly id: FieldRef<"ScraperGenerationRun", 'String'>
     readonly website_target_id: FieldRef<"ScraperGenerationRun", 'String'>
     readonly workflow_config_id: FieldRef<"ScraperGenerationRun", 'String'>
+    readonly user_id: FieldRef<"ScraperGenerationRun", 'String'>
     readonly trigger: FieldRef<"ScraperGenerationRun", 'GenerationTrigger'>
     readonly status: FieldRef<"ScraperGenerationRun", 'GenerationRunStatus'>
     readonly prompt: FieldRef<"ScraperGenerationRun", 'String'>
@@ -17173,6 +17606,7 @@ export namespace Prisma {
     id: string | null
     scraper_generation_run_id: string | null
     workflow_run_id: string | null
+    user_id: string | null
     step_index: number | null
     action_type: $Enums.ComputerActionType | null
     screenshot_before_id: string | null
@@ -17185,6 +17619,7 @@ export namespace Prisma {
     id: string | null
     scraper_generation_run_id: string | null
     workflow_run_id: string | null
+    user_id: string | null
     step_index: number | null
     action_type: $Enums.ComputerActionType | null
     screenshot_before_id: string | null
@@ -17197,6 +17632,7 @@ export namespace Prisma {
     id: number
     scraper_generation_run_id: number
     workflow_run_id: number
+    user_id: number
     step_index: number
     action_type: number
     action_payload: number
@@ -17220,6 +17656,7 @@ export namespace Prisma {
     id?: true
     scraper_generation_run_id?: true
     workflow_run_id?: true
+    user_id?: true
     step_index?: true
     action_type?: true
     screenshot_before_id?: true
@@ -17232,6 +17669,7 @@ export namespace Prisma {
     id?: true
     scraper_generation_run_id?: true
     workflow_run_id?: true
+    user_id?: true
     step_index?: true
     action_type?: true
     screenshot_before_id?: true
@@ -17244,6 +17682,7 @@ export namespace Prisma {
     id?: true
     scraper_generation_run_id?: true
     workflow_run_id?: true
+    user_id?: true
     step_index?: true
     action_type?: true
     action_payload?: true
@@ -17344,6 +17783,7 @@ export namespace Prisma {
     id: string
     scraper_generation_run_id: string | null
     workflow_run_id: string | null
+    user_id: string
     step_index: number
     action_type: $Enums.ComputerActionType
     action_payload: JsonValue
@@ -17376,6 +17816,7 @@ export namespace Prisma {
     id?: boolean
     scraper_generation_run_id?: boolean
     workflow_run_id?: boolean
+    user_id?: boolean
     step_index?: boolean
     action_type?: boolean
     action_payload?: boolean
@@ -17387,12 +17828,14 @@ export namespace Prisma {
     workflow_run?: boolean | ComputerUseStep$workflow_runArgs<ExtArgs>
     screenshot_before?: boolean | ComputerUseStep$screenshot_beforeArgs<ExtArgs>
     screenshot_after?: boolean | ComputerUseStep$screenshot_afterArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["computerUseStep"]>
 
   export type ComputerUseStepSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     scraper_generation_run_id?: boolean
     workflow_run_id?: boolean
+    user_id?: boolean
     step_index?: boolean
     action_type?: boolean
     action_payload?: boolean
@@ -17404,12 +17847,14 @@ export namespace Prisma {
     workflow_run?: boolean | ComputerUseStep$workflow_runArgs<ExtArgs>
     screenshot_before?: boolean | ComputerUseStep$screenshot_beforeArgs<ExtArgs>
     screenshot_after?: boolean | ComputerUseStep$screenshot_afterArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["computerUseStep"]>
 
   export type ComputerUseStepSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     scraper_generation_run_id?: boolean
     workflow_run_id?: boolean
+    user_id?: boolean
     step_index?: boolean
     action_type?: boolean
     action_payload?: boolean
@@ -17421,12 +17866,14 @@ export namespace Prisma {
     workflow_run?: boolean | ComputerUseStep$workflow_runArgs<ExtArgs>
     screenshot_before?: boolean | ComputerUseStep$screenshot_beforeArgs<ExtArgs>
     screenshot_after?: boolean | ComputerUseStep$screenshot_afterArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["computerUseStep"]>
 
   export type ComputerUseStepSelectScalar = {
     id?: boolean
     scraper_generation_run_id?: boolean
     workflow_run_id?: boolean
+    user_id?: boolean
     step_index?: boolean
     action_type?: boolean
     action_payload?: boolean
@@ -17436,24 +17883,27 @@ export namespace Prisma {
     created_at?: boolean
   }
 
-  export type ComputerUseStepOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "scraper_generation_run_id" | "workflow_run_id" | "step_index" | "action_type" | "action_payload" | "screenshot_before_id" | "screenshot_after_id" | "model_reasoning" | "created_at", ExtArgs["result"]["computerUseStep"]>
+  export type ComputerUseStepOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "scraper_generation_run_id" | "workflow_run_id" | "user_id" | "step_index" | "action_type" | "action_payload" | "screenshot_before_id" | "screenshot_after_id" | "model_reasoning" | "created_at", ExtArgs["result"]["computerUseStep"]>
   export type ComputerUseStepInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     scraper_generation_run?: boolean | ComputerUseStep$scraper_generation_runArgs<ExtArgs>
     workflow_run?: boolean | ComputerUseStep$workflow_runArgs<ExtArgs>
     screenshot_before?: boolean | ComputerUseStep$screenshot_beforeArgs<ExtArgs>
     screenshot_after?: boolean | ComputerUseStep$screenshot_afterArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type ComputerUseStepIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     scraper_generation_run?: boolean | ComputerUseStep$scraper_generation_runArgs<ExtArgs>
     workflow_run?: boolean | ComputerUseStep$workflow_runArgs<ExtArgs>
     screenshot_before?: boolean | ComputerUseStep$screenshot_beforeArgs<ExtArgs>
     screenshot_after?: boolean | ComputerUseStep$screenshot_afterArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type ComputerUseStepIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     scraper_generation_run?: boolean | ComputerUseStep$scraper_generation_runArgs<ExtArgs>
     workflow_run?: boolean | ComputerUseStep$workflow_runArgs<ExtArgs>
     screenshot_before?: boolean | ComputerUseStep$screenshot_beforeArgs<ExtArgs>
     screenshot_after?: boolean | ComputerUseStep$screenshot_afterArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $ComputerUseStepPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -17463,11 +17913,13 @@ export namespace Prisma {
       workflow_run: Prisma.$WorkflowRunPayload<ExtArgs> | null
       screenshot_before: Prisma.$DocumentPayload<ExtArgs> | null
       screenshot_after: Prisma.$DocumentPayload<ExtArgs> | null
+      user: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       scraper_generation_run_id: string | null
       workflow_run_id: string | null
+      user_id: string
       step_index: number
       action_type: $Enums.ComputerActionType
       action_payload: Prisma.JsonValue
@@ -17873,6 +18325,7 @@ export namespace Prisma {
     workflow_run<T extends ComputerUseStep$workflow_runArgs<ExtArgs> = {}>(args?: Subset<T, ComputerUseStep$workflow_runArgs<ExtArgs>>): Prisma__WorkflowRunClient<$Result.GetResult<Prisma.$WorkflowRunPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     screenshot_before<T extends ComputerUseStep$screenshot_beforeArgs<ExtArgs> = {}>(args?: Subset<T, ComputerUseStep$screenshot_beforeArgs<ExtArgs>>): Prisma__DocumentClient<$Result.GetResult<Prisma.$DocumentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     screenshot_after<T extends ComputerUseStep$screenshot_afterArgs<ExtArgs> = {}>(args?: Subset<T, ComputerUseStep$screenshot_afterArgs<ExtArgs>>): Prisma__DocumentClient<$Result.GetResult<Prisma.$DocumentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -17905,6 +18358,7 @@ export namespace Prisma {
     readonly id: FieldRef<"ComputerUseStep", 'String'>
     readonly scraper_generation_run_id: FieldRef<"ComputerUseStep", 'String'>
     readonly workflow_run_id: FieldRef<"ComputerUseStep", 'String'>
+    readonly user_id: FieldRef<"ComputerUseStep", 'String'>
     readonly step_index: FieldRef<"ComputerUseStep", 'Int'>
     readonly action_type: FieldRef<"ComputerUseStep", 'ComputerActionType'>
     readonly action_payload: FieldRef<"ComputerUseStep", 'Json'>
@@ -18425,6 +18879,7 @@ export namespace Prisma {
   export type ScraperVersionMinAggregateOutputType = {
     id: string | null
     workflow_config_id: string | null
+    user_id: string | null
     version: number | null
     created_by: $Enums.ScraperVersionCreatedBy | null
     notes: string | null
@@ -18437,6 +18892,7 @@ export namespace Prisma {
   export type ScraperVersionMaxAggregateOutputType = {
     id: string | null
     workflow_config_id: string | null
+    user_id: string | null
     version: number | null
     created_by: $Enums.ScraperVersionCreatedBy | null
     notes: string | null
@@ -18449,6 +18905,7 @@ export namespace Prisma {
   export type ScraperVersionCountAggregateOutputType = {
     id: number
     workflow_config_id: number
+    user_id: number
     version: number
     config: number
     created_by: number
@@ -18473,6 +18930,7 @@ export namespace Prisma {
   export type ScraperVersionMinAggregateInputType = {
     id?: true
     workflow_config_id?: true
+    user_id?: true
     version?: true
     created_by?: true
     notes?: true
@@ -18485,6 +18943,7 @@ export namespace Prisma {
   export type ScraperVersionMaxAggregateInputType = {
     id?: true
     workflow_config_id?: true
+    user_id?: true
     version?: true
     created_by?: true
     notes?: true
@@ -18497,6 +18956,7 @@ export namespace Prisma {
   export type ScraperVersionCountAggregateInputType = {
     id?: true
     workflow_config_id?: true
+    user_id?: true
     version?: true
     config?: true
     created_by?: true
@@ -18598,6 +19058,7 @@ export namespace Prisma {
   export type ScraperVersionGroupByOutputType = {
     id: string
     workflow_config_id: string
+    user_id: string
     version: number
     config: JsonValue
     created_by: $Enums.ScraperVersionCreatedBy
@@ -18631,6 +19092,7 @@ export namespace Prisma {
   export type ScraperVersionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     workflow_config_id?: boolean
+    user_id?: boolean
     version?: boolean
     config?: boolean
     created_by?: boolean
@@ -18642,6 +19104,7 @@ export namespace Prisma {
     updated_at?: boolean
     workflow_config?: boolean | WorkflowConfigDefaultArgs<ExtArgs>
     extraction_schema_version?: boolean | ScraperVersion$extraction_schema_versionArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
     active_for_config?: boolean | ScraperVersion$active_for_configArgs<ExtArgs>
     produced_by_run?: boolean | ScraperVersion$produced_by_runArgs<ExtArgs>
     workflow_runs?: boolean | ScraperVersion$workflow_runsArgs<ExtArgs>
@@ -18651,6 +19114,7 @@ export namespace Prisma {
   export type ScraperVersionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     workflow_config_id?: boolean
+    user_id?: boolean
     version?: boolean
     config?: boolean
     created_by?: boolean
@@ -18662,11 +19126,13 @@ export namespace Prisma {
     updated_at?: boolean
     workflow_config?: boolean | WorkflowConfigDefaultArgs<ExtArgs>
     extraction_schema_version?: boolean | ScraperVersion$extraction_schema_versionArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["scraperVersion"]>
 
   export type ScraperVersionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     workflow_config_id?: boolean
+    user_id?: boolean
     version?: boolean
     config?: boolean
     created_by?: boolean
@@ -18678,11 +19144,13 @@ export namespace Prisma {
     updated_at?: boolean
     workflow_config?: boolean | WorkflowConfigDefaultArgs<ExtArgs>
     extraction_schema_version?: boolean | ScraperVersion$extraction_schema_versionArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["scraperVersion"]>
 
   export type ScraperVersionSelectScalar = {
     id?: boolean
     workflow_config_id?: boolean
+    user_id?: boolean
     version?: boolean
     config?: boolean
     created_by?: boolean
@@ -18694,10 +19162,11 @@ export namespace Prisma {
     updated_at?: boolean
   }
 
-  export type ScraperVersionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "workflow_config_id" | "version" | "config" | "created_by" | "notes" | "generation_prompt" | "output_formats" | "extraction_schema_version_id" | "created_at" | "updated_at", ExtArgs["result"]["scraperVersion"]>
+  export type ScraperVersionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "workflow_config_id" | "user_id" | "version" | "config" | "created_by" | "notes" | "generation_prompt" | "output_formats" | "extraction_schema_version_id" | "created_at" | "updated_at", ExtArgs["result"]["scraperVersion"]>
   export type ScraperVersionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workflow_config?: boolean | WorkflowConfigDefaultArgs<ExtArgs>
     extraction_schema_version?: boolean | ScraperVersion$extraction_schema_versionArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
     active_for_config?: boolean | ScraperVersion$active_for_configArgs<ExtArgs>
     produced_by_run?: boolean | ScraperVersion$produced_by_runArgs<ExtArgs>
     workflow_runs?: boolean | ScraperVersion$workflow_runsArgs<ExtArgs>
@@ -18706,10 +19175,12 @@ export namespace Prisma {
   export type ScraperVersionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workflow_config?: boolean | WorkflowConfigDefaultArgs<ExtArgs>
     extraction_schema_version?: boolean | ScraperVersion$extraction_schema_versionArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type ScraperVersionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workflow_config?: boolean | WorkflowConfigDefaultArgs<ExtArgs>
     extraction_schema_version?: boolean | ScraperVersion$extraction_schema_versionArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $ScraperVersionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -18717,6 +19188,7 @@ export namespace Prisma {
     objects: {
       workflow_config: Prisma.$WorkflowConfigPayload<ExtArgs>
       extraction_schema_version: Prisma.$ExtractionSchemaVersionPayload<ExtArgs> | null
+      user: Prisma.$UserPayload<ExtArgs>
       active_for_config: Prisma.$WorkflowConfigPayload<ExtArgs> | null
       produced_by_run: Prisma.$ScraperGenerationRunPayload<ExtArgs> | null
       workflow_runs: Prisma.$WorkflowRunPayload<ExtArgs>[]
@@ -18724,6 +19196,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       workflow_config_id: string
+      user_id: string
       version: number
       config: Prisma.JsonValue
       created_by: $Enums.ScraperVersionCreatedBy
@@ -19129,6 +19602,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     workflow_config<T extends WorkflowConfigDefaultArgs<ExtArgs> = {}>(args?: Subset<T, WorkflowConfigDefaultArgs<ExtArgs>>): Prisma__WorkflowConfigClient<$Result.GetResult<Prisma.$WorkflowConfigPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     extraction_schema_version<T extends ScraperVersion$extraction_schema_versionArgs<ExtArgs> = {}>(args?: Subset<T, ScraperVersion$extraction_schema_versionArgs<ExtArgs>>): Prisma__ExtractionSchemaVersionClient<$Result.GetResult<Prisma.$ExtractionSchemaVersionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     active_for_config<T extends ScraperVersion$active_for_configArgs<ExtArgs> = {}>(args?: Subset<T, ScraperVersion$active_for_configArgs<ExtArgs>>): Prisma__WorkflowConfigClient<$Result.GetResult<Prisma.$WorkflowConfigPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     produced_by_run<T extends ScraperVersion$produced_by_runArgs<ExtArgs> = {}>(args?: Subset<T, ScraperVersion$produced_by_runArgs<ExtArgs>>): Prisma__ScraperGenerationRunClient<$Result.GetResult<Prisma.$ScraperGenerationRunPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     workflow_runs<T extends ScraperVersion$workflow_runsArgs<ExtArgs> = {}>(args?: Subset<T, ScraperVersion$workflow_runsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WorkflowRunPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -19163,6 +19637,7 @@ export namespace Prisma {
   interface ScraperVersionFieldRefs {
     readonly id: FieldRef<"ScraperVersion", 'String'>
     readonly workflow_config_id: FieldRef<"ScraperVersion", 'String'>
+    readonly user_id: FieldRef<"ScraperVersion", 'String'>
     readonly version: FieldRef<"ScraperVersion", 'Int'>
     readonly config: FieldRef<"ScraperVersion", 'Json'>
     readonly created_by: FieldRef<"ScraperVersion", 'ScraperVersionCreatedBy'>
@@ -19681,6 +20156,7 @@ export namespace Prisma {
     id: string | null
     workflow_config_id: string | null
     workflow_run_id: string | null
+    user_id: string | null
     success: boolean | null
     error_summary: string | null
     created_at: Date | null
@@ -19691,6 +20167,7 @@ export namespace Prisma {
     id: string | null
     workflow_config_id: string | null
     workflow_run_id: string | null
+    user_id: string | null
     success: boolean | null
     error_summary: string | null
     created_at: Date | null
@@ -19701,6 +20178,7 @@ export namespace Prisma {
     id: number
     workflow_config_id: number
     workflow_run_id: number
+    user_id: number
     steps: number
     success: number
     error_summary: number
@@ -19714,6 +20192,7 @@ export namespace Prisma {
     id?: true
     workflow_config_id?: true
     workflow_run_id?: true
+    user_id?: true
     success?: true
     error_summary?: true
     created_at?: true
@@ -19724,6 +20203,7 @@ export namespace Prisma {
     id?: true
     workflow_config_id?: true
     workflow_run_id?: true
+    user_id?: true
     success?: true
     error_summary?: true
     created_at?: true
@@ -19734,6 +20214,7 @@ export namespace Prisma {
     id?: true
     workflow_config_id?: true
     workflow_run_id?: true
+    user_id?: true
     steps?: true
     success?: true
     error_summary?: true
@@ -19818,6 +20299,7 @@ export namespace Prisma {
     id: string
     workflow_config_id: string
     workflow_run_id: string | null
+    user_id: string
     steps: JsonValue
     success: boolean
     error_summary: string | null
@@ -19846,6 +20328,7 @@ export namespace Prisma {
     id?: boolean
     workflow_config_id?: boolean
     workflow_run_id?: boolean
+    user_id?: boolean
     steps?: boolean
     success?: boolean
     error_summary?: boolean
@@ -19853,12 +20336,14 @@ export namespace Prisma {
     updated_at?: boolean
     workflow_config?: boolean | WorkflowConfigDefaultArgs<ExtArgs>
     workflow_run?: boolean | ScraperExecutionTrace$workflow_runArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["scraperExecutionTrace"]>
 
   export type ScraperExecutionTraceSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     workflow_config_id?: boolean
     workflow_run_id?: boolean
+    user_id?: boolean
     steps?: boolean
     success?: boolean
     error_summary?: boolean
@@ -19866,12 +20351,14 @@ export namespace Prisma {
     updated_at?: boolean
     workflow_config?: boolean | WorkflowConfigDefaultArgs<ExtArgs>
     workflow_run?: boolean | ScraperExecutionTrace$workflow_runArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["scraperExecutionTrace"]>
 
   export type ScraperExecutionTraceSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     workflow_config_id?: boolean
     workflow_run_id?: boolean
+    user_id?: boolean
     steps?: boolean
     success?: boolean
     error_summary?: boolean
@@ -19879,12 +20366,14 @@ export namespace Prisma {
     updated_at?: boolean
     workflow_config?: boolean | WorkflowConfigDefaultArgs<ExtArgs>
     workflow_run?: boolean | ScraperExecutionTrace$workflow_runArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["scraperExecutionTrace"]>
 
   export type ScraperExecutionTraceSelectScalar = {
     id?: boolean
     workflow_config_id?: boolean
     workflow_run_id?: boolean
+    user_id?: boolean
     steps?: boolean
     success?: boolean
     error_summary?: boolean
@@ -19892,18 +20381,21 @@ export namespace Prisma {
     updated_at?: boolean
   }
 
-  export type ScraperExecutionTraceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "workflow_config_id" | "workflow_run_id" | "steps" | "success" | "error_summary" | "created_at" | "updated_at", ExtArgs["result"]["scraperExecutionTrace"]>
+  export type ScraperExecutionTraceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "workflow_config_id" | "workflow_run_id" | "user_id" | "steps" | "success" | "error_summary" | "created_at" | "updated_at", ExtArgs["result"]["scraperExecutionTrace"]>
   export type ScraperExecutionTraceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workflow_config?: boolean | WorkflowConfigDefaultArgs<ExtArgs>
     workflow_run?: boolean | ScraperExecutionTrace$workflow_runArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type ScraperExecutionTraceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workflow_config?: boolean | WorkflowConfigDefaultArgs<ExtArgs>
     workflow_run?: boolean | ScraperExecutionTrace$workflow_runArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type ScraperExecutionTraceIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workflow_config?: boolean | WorkflowConfigDefaultArgs<ExtArgs>
     workflow_run?: boolean | ScraperExecutionTrace$workflow_runArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $ScraperExecutionTracePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -19911,11 +20403,13 @@ export namespace Prisma {
     objects: {
       workflow_config: Prisma.$WorkflowConfigPayload<ExtArgs>
       workflow_run: Prisma.$WorkflowRunPayload<ExtArgs> | null
+      user: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       workflow_config_id: string
       workflow_run_id: string | null
+      user_id: string
       steps: Prisma.JsonValue
       success: boolean
       error_summary: string | null
@@ -20317,6 +20811,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     workflow_config<T extends WorkflowConfigDefaultArgs<ExtArgs> = {}>(args?: Subset<T, WorkflowConfigDefaultArgs<ExtArgs>>): Prisma__WorkflowConfigClient<$Result.GetResult<Prisma.$WorkflowConfigPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     workflow_run<T extends ScraperExecutionTrace$workflow_runArgs<ExtArgs> = {}>(args?: Subset<T, ScraperExecutionTrace$workflow_runArgs<ExtArgs>>): Prisma__WorkflowRunClient<$Result.GetResult<Prisma.$WorkflowRunPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -20349,6 +20844,7 @@ export namespace Prisma {
     readonly id: FieldRef<"ScraperExecutionTrace", 'String'>
     readonly workflow_config_id: FieldRef<"ScraperExecutionTrace", 'String'>
     readonly workflow_run_id: FieldRef<"ScraperExecutionTrace", 'String'>
+    readonly user_id: FieldRef<"ScraperExecutionTrace", 'String'>
     readonly steps: FieldRef<"ScraperExecutionTrace", 'Json'>
     readonly success: FieldRef<"ScraperExecutionTrace", 'Boolean'>
     readonly error_summary: FieldRef<"ScraperExecutionTrace", 'String'>
@@ -22586,6 +23082,7 @@ export namespace Prisma {
     id: string | null
     website_target_id: string | null
     workflow_run_id: string | null
+    user_id: string | null
     source_url: string | null
     external_id: string | null
     content_hash: string | null
@@ -22599,6 +23096,7 @@ export namespace Prisma {
     id: string | null
     website_target_id: string | null
     workflow_run_id: string | null
+    user_id: string | null
     source_url: string | null
     external_id: string | null
     content_hash: string | null
@@ -22612,6 +23110,7 @@ export namespace Prisma {
     id: number
     website_target_id: number
     workflow_run_id: number
+    user_id: number
     source_url: number
     external_id: number
     raw_data: number
@@ -22628,6 +23127,7 @@ export namespace Prisma {
     id?: true
     website_target_id?: true
     workflow_run_id?: true
+    user_id?: true
     source_url?: true
     external_id?: true
     content_hash?: true
@@ -22641,6 +23141,7 @@ export namespace Prisma {
     id?: true
     website_target_id?: true
     workflow_run_id?: true
+    user_id?: true
     source_url?: true
     external_id?: true
     content_hash?: true
@@ -22654,6 +23155,7 @@ export namespace Prisma {
     id?: true
     website_target_id?: true
     workflow_run_id?: true
+    user_id?: true
     source_url?: true
     external_id?: true
     raw_data?: true
@@ -22741,6 +23243,7 @@ export namespace Prisma {
     id: string
     website_target_id: string
     workflow_run_id: string | null
+    user_id: string
     source_url: string
     external_id: string | null
     raw_data: JsonValue
@@ -22772,6 +23275,7 @@ export namespace Prisma {
     id?: boolean
     website_target_id?: boolean
     workflow_run_id?: boolean
+    user_id?: boolean
     source_url?: boolean
     external_id?: boolean
     raw_data?: boolean
@@ -22782,12 +23286,14 @@ export namespace Prisma {
     updated_at?: boolean
     website_target?: boolean | WebsiteTargetDefaultArgs<ExtArgs>
     workflow_run?: boolean | ExtractedItem$workflow_runArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["extractedItem"]>
 
   export type ExtractedItemSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     website_target_id?: boolean
     workflow_run_id?: boolean
+    user_id?: boolean
     source_url?: boolean
     external_id?: boolean
     raw_data?: boolean
@@ -22798,12 +23304,14 @@ export namespace Prisma {
     updated_at?: boolean
     website_target?: boolean | WebsiteTargetDefaultArgs<ExtArgs>
     workflow_run?: boolean | ExtractedItem$workflow_runArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["extractedItem"]>
 
   export type ExtractedItemSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     website_target_id?: boolean
     workflow_run_id?: boolean
+    user_id?: boolean
     source_url?: boolean
     external_id?: boolean
     raw_data?: boolean
@@ -22814,12 +23322,14 @@ export namespace Prisma {
     updated_at?: boolean
     website_target?: boolean | WebsiteTargetDefaultArgs<ExtArgs>
     workflow_run?: boolean | ExtractedItem$workflow_runArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["extractedItem"]>
 
   export type ExtractedItemSelectScalar = {
     id?: boolean
     website_target_id?: boolean
     workflow_run_id?: boolean
+    user_id?: boolean
     source_url?: boolean
     external_id?: boolean
     raw_data?: boolean
@@ -22830,18 +23340,21 @@ export namespace Prisma {
     updated_at?: boolean
   }
 
-  export type ExtractedItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "website_target_id" | "workflow_run_id" | "source_url" | "external_id" | "raw_data" | "content_hash" | "first_seen_at" | "last_seen_at" | "created_at" | "updated_at", ExtArgs["result"]["extractedItem"]>
+  export type ExtractedItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "website_target_id" | "workflow_run_id" | "user_id" | "source_url" | "external_id" | "raw_data" | "content_hash" | "first_seen_at" | "last_seen_at" | "created_at" | "updated_at", ExtArgs["result"]["extractedItem"]>
   export type ExtractedItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     website_target?: boolean | WebsiteTargetDefaultArgs<ExtArgs>
     workflow_run?: boolean | ExtractedItem$workflow_runArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type ExtractedItemIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     website_target?: boolean | WebsiteTargetDefaultArgs<ExtArgs>
     workflow_run?: boolean | ExtractedItem$workflow_runArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type ExtractedItemIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     website_target?: boolean | WebsiteTargetDefaultArgs<ExtArgs>
     workflow_run?: boolean | ExtractedItem$workflow_runArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $ExtractedItemPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -22849,11 +23362,13 @@ export namespace Prisma {
     objects: {
       website_target: Prisma.$WebsiteTargetPayload<ExtArgs>
       workflow_run: Prisma.$WorkflowRunPayload<ExtArgs> | null
+      user: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       website_target_id: string
       workflow_run_id: string | null
+      user_id: string
       source_url: string
       external_id: string | null
       raw_data: Prisma.JsonValue
@@ -23258,6 +23773,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     website_target<T extends WebsiteTargetDefaultArgs<ExtArgs> = {}>(args?: Subset<T, WebsiteTargetDefaultArgs<ExtArgs>>): Prisma__WebsiteTargetClient<$Result.GetResult<Prisma.$WebsiteTargetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     workflow_run<T extends ExtractedItem$workflow_runArgs<ExtArgs> = {}>(args?: Subset<T, ExtractedItem$workflow_runArgs<ExtArgs>>): Prisma__WorkflowRunClient<$Result.GetResult<Prisma.$WorkflowRunPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -23290,6 +23806,7 @@ export namespace Prisma {
     readonly id: FieldRef<"ExtractedItem", 'String'>
     readonly website_target_id: FieldRef<"ExtractedItem", 'String'>
     readonly workflow_run_id: FieldRef<"ExtractedItem", 'String'>
+    readonly user_id: FieldRef<"ExtractedItem", 'String'>
     readonly source_url: FieldRef<"ExtractedItem", 'String'>
     readonly external_id: FieldRef<"ExtractedItem", 'String'>
     readonly raw_data: FieldRef<"ExtractedItem", 'Json'>
@@ -26167,6 +26684,7 @@ export namespace Prisma {
   export type PlainScrapedPageMinAggregateOutputType = {
     id: string | null
     workflow_run_id: string | null
+    user_id: string | null
     requested_url: string | null
     final_url: string | null
     http_status: number | null
@@ -26181,6 +26699,7 @@ export namespace Prisma {
   export type PlainScrapedPageMaxAggregateOutputType = {
     id: string | null
     workflow_run_id: string | null
+    user_id: string | null
     requested_url: string | null
     final_url: string | null
     http_status: number | null
@@ -26195,6 +26714,7 @@ export namespace Prisma {
   export type PlainScrapedPageCountAggregateOutputType = {
     id: number
     workflow_run_id: number
+    user_id: number
     requested_url: number
     final_url: number
     http_status: number
@@ -26220,6 +26740,7 @@ export namespace Prisma {
   export type PlainScrapedPageMinAggregateInputType = {
     id?: true
     workflow_run_id?: true
+    user_id?: true
     requested_url?: true
     final_url?: true
     http_status?: true
@@ -26234,6 +26755,7 @@ export namespace Prisma {
   export type PlainScrapedPageMaxAggregateInputType = {
     id?: true
     workflow_run_id?: true
+    user_id?: true
     requested_url?: true
     final_url?: true
     http_status?: true
@@ -26248,6 +26770,7 @@ export namespace Prisma {
   export type PlainScrapedPageCountAggregateInputType = {
     id?: true
     workflow_run_id?: true
+    user_id?: true
     requested_url?: true
     final_url?: true
     http_status?: true
@@ -26350,6 +26873,7 @@ export namespace Prisma {
   export type PlainScrapedPageGroupByOutputType = {
     id: string
     workflow_run_id: string
+    user_id: string
     requested_url: string
     final_url: string | null
     http_status: number | null
@@ -26384,6 +26908,7 @@ export namespace Prisma {
   export type PlainScrapedPageSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     workflow_run_id?: boolean
+    user_id?: boolean
     requested_url?: boolean
     final_url?: boolean
     http_status?: boolean
@@ -26395,6 +26920,7 @@ export namespace Prisma {
     error_message?: boolean
     created_at?: boolean
     workflow_run?: boolean | WorkflowRunDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
     extraction_result?: boolean | PlainScrapedPage$extraction_resultArgs<ExtArgs>
     ai_batch_request_items?: boolean | PlainScrapedPage$ai_batch_request_itemsArgs<ExtArgs>
     _count?: boolean | PlainScrapedPageCountOutputTypeDefaultArgs<ExtArgs>
@@ -26403,6 +26929,7 @@ export namespace Prisma {
   export type PlainScrapedPageSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     workflow_run_id?: boolean
+    user_id?: boolean
     requested_url?: boolean
     final_url?: boolean
     http_status?: boolean
@@ -26414,11 +26941,13 @@ export namespace Prisma {
     error_message?: boolean
     created_at?: boolean
     workflow_run?: boolean | WorkflowRunDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["plainScrapedPage"]>
 
   export type PlainScrapedPageSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     workflow_run_id?: boolean
+    user_id?: boolean
     requested_url?: boolean
     final_url?: boolean
     http_status?: boolean
@@ -26430,11 +26959,13 @@ export namespace Prisma {
     error_message?: boolean
     created_at?: boolean
     workflow_run?: boolean | WorkflowRunDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["plainScrapedPage"]>
 
   export type PlainScrapedPageSelectScalar = {
     id?: boolean
     workflow_run_id?: boolean
+    user_id?: boolean
     requested_url?: boolean
     final_url?: boolean
     http_status?: boolean
@@ -26447,30 +26978,35 @@ export namespace Prisma {
     created_at?: boolean
   }
 
-  export type PlainScrapedPageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "workflow_run_id" | "requested_url" | "final_url" | "http_status" | "success" | "raw_html" | "cleaned_content" | "title" | "metadata" | "error_message" | "created_at", ExtArgs["result"]["plainScrapedPage"]>
+  export type PlainScrapedPageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "workflow_run_id" | "user_id" | "requested_url" | "final_url" | "http_status" | "success" | "raw_html" | "cleaned_content" | "title" | "metadata" | "error_message" | "created_at", ExtArgs["result"]["plainScrapedPage"]>
   export type PlainScrapedPageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workflow_run?: boolean | WorkflowRunDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
     extraction_result?: boolean | PlainScrapedPage$extraction_resultArgs<ExtArgs>
     ai_batch_request_items?: boolean | PlainScrapedPage$ai_batch_request_itemsArgs<ExtArgs>
     _count?: boolean | PlainScrapedPageCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type PlainScrapedPageIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workflow_run?: boolean | WorkflowRunDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type PlainScrapedPageIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workflow_run?: boolean | WorkflowRunDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $PlainScrapedPagePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "PlainScrapedPage"
     objects: {
       workflow_run: Prisma.$WorkflowRunPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
       extraction_result: Prisma.$ExtractionResultPayload<ExtArgs> | null
       ai_batch_request_items: Prisma.$AiBatchRequestItemPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       workflow_run_id: string
+      user_id: string
       requested_url: string
       final_url: string | null
       http_status: number | null
@@ -26876,6 +27412,7 @@ export namespace Prisma {
   export interface Prisma__PlainScrapedPageClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     workflow_run<T extends WorkflowRunDefaultArgs<ExtArgs> = {}>(args?: Subset<T, WorkflowRunDefaultArgs<ExtArgs>>): Prisma__WorkflowRunClient<$Result.GetResult<Prisma.$WorkflowRunPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     extraction_result<T extends PlainScrapedPage$extraction_resultArgs<ExtArgs> = {}>(args?: Subset<T, PlainScrapedPage$extraction_resultArgs<ExtArgs>>): Prisma__ExtractionResultClient<$Result.GetResult<Prisma.$ExtractionResultPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     ai_batch_request_items<T extends PlainScrapedPage$ai_batch_request_itemsArgs<ExtArgs> = {}>(args?: Subset<T, PlainScrapedPage$ai_batch_request_itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AiBatchRequestItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -26909,6 +27446,7 @@ export namespace Prisma {
   interface PlainScrapedPageFieldRefs {
     readonly id: FieldRef<"PlainScrapedPage", 'String'>
     readonly workflow_run_id: FieldRef<"PlainScrapedPage", 'String'>
+    readonly user_id: FieldRef<"PlainScrapedPage", 'String'>
     readonly requested_url: FieldRef<"PlainScrapedPage", 'String'>
     readonly final_url: FieldRef<"PlainScrapedPage", 'String'>
     readonly http_status: FieldRef<"PlainScrapedPage", 'Int'>
@@ -27400,6 +27938,7 @@ export namespace Prisma {
     id: string | null
     workflow_run_id: string | null
     plain_scraped_page_id: string | null
+    user_id: string | null
     extraction_schema_version_id: string | null
     structured_status: $Enums.ExtractionFormatStatus | null
     structured_attempts: number | null
@@ -27414,6 +27953,7 @@ export namespace Prisma {
     id: string | null
     workflow_run_id: string | null
     plain_scraped_page_id: string | null
+    user_id: string | null
     extraction_schema_version_id: string | null
     structured_status: $Enums.ExtractionFormatStatus | null
     structured_attempts: number | null
@@ -27428,6 +27968,7 @@ export namespace Prisma {
     id: number
     workflow_run_id: number
     plain_scraped_page_id: number
+    user_id: number
     extraction_schema_version_id: number
     structured_status: number
     structured_data: number
@@ -27457,6 +27998,7 @@ export namespace Prisma {
     id?: true
     workflow_run_id?: true
     plain_scraped_page_id?: true
+    user_id?: true
     extraction_schema_version_id?: true
     structured_status?: true
     structured_attempts?: true
@@ -27471,6 +28013,7 @@ export namespace Prisma {
     id?: true
     workflow_run_id?: true
     plain_scraped_page_id?: true
+    user_id?: true
     extraction_schema_version_id?: true
     structured_status?: true
     structured_attempts?: true
@@ -27485,6 +28028,7 @@ export namespace Prisma {
     id?: true
     workflow_run_id?: true
     plain_scraped_page_id?: true
+    user_id?: true
     extraction_schema_version_id?: true
     structured_status?: true
     structured_data?: true
@@ -27591,6 +28135,7 @@ export namespace Prisma {
     id: string
     workflow_run_id: string | null
     plain_scraped_page_id: string | null
+    user_id: string
     extraction_schema_version_id: string | null
     structured_status: $Enums.ExtractionFormatStatus | null
     structured_data: JsonValue | null
@@ -27629,6 +28174,7 @@ export namespace Prisma {
     id?: boolean
     workflow_run_id?: boolean
     plain_scraped_page_id?: boolean
+    user_id?: boolean
     extraction_schema_version_id?: boolean
     structured_status?: boolean
     structured_data?: boolean
@@ -27645,12 +28191,14 @@ export namespace Prisma {
     workflow_run?: boolean | ExtractionResult$workflow_runArgs<ExtArgs>
     plain_scraped_page?: boolean | ExtractionResult$plain_scraped_pageArgs<ExtArgs>
     extraction_schema_version?: boolean | ExtractionResult$extraction_schema_versionArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["extractionResult"]>
 
   export type ExtractionResultSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     workflow_run_id?: boolean
     plain_scraped_page_id?: boolean
+    user_id?: boolean
     extraction_schema_version_id?: boolean
     structured_status?: boolean
     structured_data?: boolean
@@ -27667,12 +28215,14 @@ export namespace Prisma {
     workflow_run?: boolean | ExtractionResult$workflow_runArgs<ExtArgs>
     plain_scraped_page?: boolean | ExtractionResult$plain_scraped_pageArgs<ExtArgs>
     extraction_schema_version?: boolean | ExtractionResult$extraction_schema_versionArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["extractionResult"]>
 
   export type ExtractionResultSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     workflow_run_id?: boolean
     plain_scraped_page_id?: boolean
+    user_id?: boolean
     extraction_schema_version_id?: boolean
     structured_status?: boolean
     structured_data?: boolean
@@ -27689,12 +28239,14 @@ export namespace Prisma {
     workflow_run?: boolean | ExtractionResult$workflow_runArgs<ExtArgs>
     plain_scraped_page?: boolean | ExtractionResult$plain_scraped_pageArgs<ExtArgs>
     extraction_schema_version?: boolean | ExtractionResult$extraction_schema_versionArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["extractionResult"]>
 
   export type ExtractionResultSelectScalar = {
     id?: boolean
     workflow_run_id?: boolean
     plain_scraped_page_id?: boolean
+    user_id?: boolean
     extraction_schema_version_id?: boolean
     structured_status?: boolean
     structured_data?: boolean
@@ -27710,21 +28262,24 @@ export namespace Prisma {
     updated_at?: boolean
   }
 
-  export type ExtractionResultOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "workflow_run_id" | "plain_scraped_page_id" | "extraction_schema_version_id" | "structured_status" | "structured_data" | "structured_raw_ai_output" | "structured_validation_errors" | "structured_attempts" | "markdown_status" | "markdown" | "markdown_validation_errors" | "generated_ui_html" | "ai_usage" | "created_at" | "updated_at", ExtArgs["result"]["extractionResult"]>
+  export type ExtractionResultOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "workflow_run_id" | "plain_scraped_page_id" | "user_id" | "extraction_schema_version_id" | "structured_status" | "structured_data" | "structured_raw_ai_output" | "structured_validation_errors" | "structured_attempts" | "markdown_status" | "markdown" | "markdown_validation_errors" | "generated_ui_html" | "ai_usage" | "created_at" | "updated_at", ExtArgs["result"]["extractionResult"]>
   export type ExtractionResultInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workflow_run?: boolean | ExtractionResult$workflow_runArgs<ExtArgs>
     plain_scraped_page?: boolean | ExtractionResult$plain_scraped_pageArgs<ExtArgs>
     extraction_schema_version?: boolean | ExtractionResult$extraction_schema_versionArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type ExtractionResultIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workflow_run?: boolean | ExtractionResult$workflow_runArgs<ExtArgs>
     plain_scraped_page?: boolean | ExtractionResult$plain_scraped_pageArgs<ExtArgs>
     extraction_schema_version?: boolean | ExtractionResult$extraction_schema_versionArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type ExtractionResultIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workflow_run?: boolean | ExtractionResult$workflow_runArgs<ExtArgs>
     plain_scraped_page?: boolean | ExtractionResult$plain_scraped_pageArgs<ExtArgs>
     extraction_schema_version?: boolean | ExtractionResult$extraction_schema_versionArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $ExtractionResultPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -27733,11 +28288,13 @@ export namespace Prisma {
       workflow_run: Prisma.$WorkflowRunPayload<ExtArgs> | null
       plain_scraped_page: Prisma.$PlainScrapedPagePayload<ExtArgs> | null
       extraction_schema_version: Prisma.$ExtractionSchemaVersionPayload<ExtArgs> | null
+      user: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       workflow_run_id: string | null
       plain_scraped_page_id: string | null
+      user_id: string
       extraction_schema_version_id: string | null
       structured_status: $Enums.ExtractionFormatStatus | null
       structured_data: Prisma.JsonValue | null
@@ -28148,6 +28705,7 @@ export namespace Prisma {
     workflow_run<T extends ExtractionResult$workflow_runArgs<ExtArgs> = {}>(args?: Subset<T, ExtractionResult$workflow_runArgs<ExtArgs>>): Prisma__WorkflowRunClient<$Result.GetResult<Prisma.$WorkflowRunPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     plain_scraped_page<T extends ExtractionResult$plain_scraped_pageArgs<ExtArgs> = {}>(args?: Subset<T, ExtractionResult$plain_scraped_pageArgs<ExtArgs>>): Prisma__PlainScrapedPageClient<$Result.GetResult<Prisma.$PlainScrapedPagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     extraction_schema_version<T extends ExtractionResult$extraction_schema_versionArgs<ExtArgs> = {}>(args?: Subset<T, ExtractionResult$extraction_schema_versionArgs<ExtArgs>>): Prisma__ExtractionSchemaVersionClient<$Result.GetResult<Prisma.$ExtractionSchemaVersionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -28180,6 +28738,7 @@ export namespace Prisma {
     readonly id: FieldRef<"ExtractionResult", 'String'>
     readonly workflow_run_id: FieldRef<"ExtractionResult", 'String'>
     readonly plain_scraped_page_id: FieldRef<"ExtractionResult", 'String'>
+    readonly user_id: FieldRef<"ExtractionResult", 'String'>
     readonly extraction_schema_version_id: FieldRef<"ExtractionResult", 'String'>
     readonly structured_status: FieldRef<"ExtractionResult", 'ExtractionFormatStatus'>
     readonly structured_data: FieldRef<"ExtractionResult", 'Json'>
@@ -29929,6 +30488,7 @@ export namespace Prisma {
   export type AiBatchRequestItemMinAggregateOutputType = {
     id: string | null
     ai_batch_job_id: string | null
+    user_id: string | null
     custom_id: string | null
     plain_scraped_page_id: string | null
     source_url: string | null
@@ -29943,6 +30503,7 @@ export namespace Prisma {
   export type AiBatchRequestItemMaxAggregateOutputType = {
     id: string | null
     ai_batch_job_id: string | null
+    user_id: string | null
     custom_id: string | null
     plain_scraped_page_id: string | null
     source_url: string | null
@@ -29957,6 +30518,7 @@ export namespace Prisma {
   export type AiBatchRequestItemCountAggregateOutputType = {
     id: number
     ai_batch_job_id: number
+    user_id: number
     custom_id: number
     plain_scraped_page_id: number
     source_url: number
@@ -29974,6 +30536,7 @@ export namespace Prisma {
   export type AiBatchRequestItemMinAggregateInputType = {
     id?: true
     ai_batch_job_id?: true
+    user_id?: true
     custom_id?: true
     plain_scraped_page_id?: true
     source_url?: true
@@ -29988,6 +30551,7 @@ export namespace Prisma {
   export type AiBatchRequestItemMaxAggregateInputType = {
     id?: true
     ai_batch_job_id?: true
+    user_id?: true
     custom_id?: true
     plain_scraped_page_id?: true
     source_url?: true
@@ -30002,6 +30566,7 @@ export namespace Prisma {
   export type AiBatchRequestItemCountAggregateInputType = {
     id?: true
     ai_batch_job_id?: true
+    user_id?: true
     custom_id?: true
     plain_scraped_page_id?: true
     source_url?: true
@@ -30090,6 +30655,7 @@ export namespace Prisma {
   export type AiBatchRequestItemGroupByOutputType = {
     id: string
     ai_batch_job_id: string
+    user_id: string
     custom_id: string
     plain_scraped_page_id: string | null
     source_url: string | null
@@ -30122,6 +30688,7 @@ export namespace Prisma {
   export type AiBatchRequestItemSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     ai_batch_job_id?: boolean
+    user_id?: boolean
     custom_id?: boolean
     plain_scraped_page_id?: boolean
     source_url?: boolean
@@ -30134,11 +30701,13 @@ export namespace Prisma {
     created_at?: boolean
     ai_batch_job?: boolean | AiBatchJobDefaultArgs<ExtArgs>
     plain_scraped_page?: boolean | AiBatchRequestItem$plain_scraped_pageArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["aiBatchRequestItem"]>
 
   export type AiBatchRequestItemSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     ai_batch_job_id?: boolean
+    user_id?: boolean
     custom_id?: boolean
     plain_scraped_page_id?: boolean
     source_url?: boolean
@@ -30151,11 +30720,13 @@ export namespace Prisma {
     created_at?: boolean
     ai_batch_job?: boolean | AiBatchJobDefaultArgs<ExtArgs>
     plain_scraped_page?: boolean | AiBatchRequestItem$plain_scraped_pageArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["aiBatchRequestItem"]>
 
   export type AiBatchRequestItemSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     ai_batch_job_id?: boolean
+    user_id?: boolean
     custom_id?: boolean
     plain_scraped_page_id?: boolean
     source_url?: boolean
@@ -30168,11 +30739,13 @@ export namespace Prisma {
     created_at?: boolean
     ai_batch_job?: boolean | AiBatchJobDefaultArgs<ExtArgs>
     plain_scraped_page?: boolean | AiBatchRequestItem$plain_scraped_pageArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["aiBatchRequestItem"]>
 
   export type AiBatchRequestItemSelectScalar = {
     id?: boolean
     ai_batch_job_id?: boolean
+    user_id?: boolean
     custom_id?: boolean
     plain_scraped_page_id?: boolean
     source_url?: boolean
@@ -30185,18 +30758,21 @@ export namespace Prisma {
     created_at?: boolean
   }
 
-  export type AiBatchRequestItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "ai_batch_job_id" | "custom_id" | "plain_scraped_page_id" | "source_url" | "content_label" | "content" | "instructions" | "wants_markdown" | "regex_data" | "status" | "created_at", ExtArgs["result"]["aiBatchRequestItem"]>
+  export type AiBatchRequestItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "ai_batch_job_id" | "user_id" | "custom_id" | "plain_scraped_page_id" | "source_url" | "content_label" | "content" | "instructions" | "wants_markdown" | "regex_data" | "status" | "created_at", ExtArgs["result"]["aiBatchRequestItem"]>
   export type AiBatchRequestItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     ai_batch_job?: boolean | AiBatchJobDefaultArgs<ExtArgs>
     plain_scraped_page?: boolean | AiBatchRequestItem$plain_scraped_pageArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type AiBatchRequestItemIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     ai_batch_job?: boolean | AiBatchJobDefaultArgs<ExtArgs>
     plain_scraped_page?: boolean | AiBatchRequestItem$plain_scraped_pageArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type AiBatchRequestItemIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     ai_batch_job?: boolean | AiBatchJobDefaultArgs<ExtArgs>
     plain_scraped_page?: boolean | AiBatchRequestItem$plain_scraped_pageArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $AiBatchRequestItemPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -30204,10 +30780,12 @@ export namespace Prisma {
     objects: {
       ai_batch_job: Prisma.$AiBatchJobPayload<ExtArgs>
       plain_scraped_page: Prisma.$PlainScrapedPagePayload<ExtArgs> | null
+      user: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       ai_batch_job_id: string
+      user_id: string
       custom_id: string
       plain_scraped_page_id: string | null
       source_url: string | null
@@ -30614,6 +31192,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     ai_batch_job<T extends AiBatchJobDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AiBatchJobDefaultArgs<ExtArgs>>): Prisma__AiBatchJobClient<$Result.GetResult<Prisma.$AiBatchJobPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     plain_scraped_page<T extends AiBatchRequestItem$plain_scraped_pageArgs<ExtArgs> = {}>(args?: Subset<T, AiBatchRequestItem$plain_scraped_pageArgs<ExtArgs>>): Prisma__PlainScrapedPageClient<$Result.GetResult<Prisma.$PlainScrapedPagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -30645,6 +31224,7 @@ export namespace Prisma {
   interface AiBatchRequestItemFieldRefs {
     readonly id: FieldRef<"AiBatchRequestItem", 'String'>
     readonly ai_batch_job_id: FieldRef<"AiBatchRequestItem", 'String'>
+    readonly user_id: FieldRef<"AiBatchRequestItem", 'String'>
     readonly custom_id: FieldRef<"AiBatchRequestItem", 'String'>
     readonly plain_scraped_page_id: FieldRef<"AiBatchRequestItem", 'String'>
     readonly source_url: FieldRef<"AiBatchRequestItem", 'String'>
@@ -33779,7 +34359,7 @@ export namespace Prisma {
     attempt: number
     max_attempts: number | null
     workflow_run_id: string | null
-    user_id: string | null
+    user_id: string
     payload: JsonValue | null
     result: JsonValue | null
     error_message: string | null
@@ -33830,7 +34410,7 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     workflow_run?: boolean | JobLog$workflow_runArgs<ExtArgs>
-    user?: boolean | JobLog$userArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["jobLog"]>
 
   export type JobLogSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -33853,7 +34433,7 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     workflow_run?: boolean | JobLog$workflow_runArgs<ExtArgs>
-    user?: boolean | JobLog$userArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["jobLog"]>
 
   export type JobLogSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -33876,7 +34456,7 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     workflow_run?: boolean | JobLog$workflow_runArgs<ExtArgs>
-    user?: boolean | JobLog$userArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["jobLog"]>
 
   export type JobLogSelectScalar = {
@@ -33903,22 +34483,22 @@ export namespace Prisma {
   export type JobLogOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "queue_name" | "job_id" | "job_name" | "status" | "attempt" | "max_attempts" | "workflow_run_id" | "user_id" | "payload" | "result" | "error_message" | "stack_trace" | "started_at" | "finished_at" | "duration_ms" | "created_at" | "updated_at", ExtArgs["result"]["jobLog"]>
   export type JobLogInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workflow_run?: boolean | JobLog$workflow_runArgs<ExtArgs>
-    user?: boolean | JobLog$userArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type JobLogIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workflow_run?: boolean | JobLog$workflow_runArgs<ExtArgs>
-    user?: boolean | JobLog$userArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type JobLogIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workflow_run?: boolean | JobLog$workflow_runArgs<ExtArgs>
-    user?: boolean | JobLog$userArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $JobLogPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "JobLog"
     objects: {
       workflow_run: Prisma.$WorkflowRunPayload<ExtArgs> | null
-      user: Prisma.$UserPayload<ExtArgs> | null
+      user: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -33929,7 +34509,7 @@ export namespace Prisma {
       attempt: number
       max_attempts: number | null
       workflow_run_id: string | null
-      user_id: string | null
+      user_id: string
       payload: Prisma.JsonValue | null
       result: Prisma.JsonValue | null
       error_message: string | null
@@ -34334,7 +34914,7 @@ export namespace Prisma {
   export interface Prisma__JobLogClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     workflow_run<T extends JobLog$workflow_runArgs<ExtArgs> = {}>(args?: Subset<T, JobLog$workflow_runArgs<ExtArgs>>): Prisma__WorkflowRunClient<$Result.GetResult<Prisma.$WorkflowRunPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    user<T extends JobLog$userArgs<ExtArgs> = {}>(args?: Subset<T, JobLog$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -34794,25 +35374,6 @@ export namespace Prisma {
      */
     include?: WorkflowRunInclude<ExtArgs> | null
     where?: WorkflowRunWhereInput
-  }
-
-  /**
-   * JobLog.user
-   */
-  export type JobLog$userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the User
-     */
-    omit?: UserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UserInclude<ExtArgs> | null
-    where?: UserWhereInput
   }
 
   /**
@@ -39609,6 +40170,7 @@ export namespace Prisma {
   export const WebhookDeliveryScalarFieldEnum: {
     id: 'id',
     webhook_endpoint_id: 'webhook_endpoint_id',
+    user_id: 'user_id',
     event_type: 'event_type',
     workflow_run_id: 'workflow_run_id',
     is_test: 'is_test',
@@ -39662,6 +40224,7 @@ export namespace Prisma {
   export const BlockRuleScalarFieldEnum: {
     id: 'id',
     website_target_id: 'website_target_id',
+    user_id: 'user_id',
     label: 'label',
     signal: 'signal',
     source: 'source',
@@ -39717,6 +40280,7 @@ export namespace Prisma {
     id: 'id',
     website_target_id: 'website_target_id',
     workflow_config_id: 'workflow_config_id',
+    user_id: 'user_id',
     trigger: 'trigger',
     status: 'status',
     prompt: 'prompt',
@@ -39740,6 +40304,7 @@ export namespace Prisma {
     id: 'id',
     scraper_generation_run_id: 'scraper_generation_run_id',
     workflow_run_id: 'workflow_run_id',
+    user_id: 'user_id',
     step_index: 'step_index',
     action_type: 'action_type',
     action_payload: 'action_payload',
@@ -39755,6 +40320,7 @@ export namespace Prisma {
   export const ScraperVersionScalarFieldEnum: {
     id: 'id',
     workflow_config_id: 'workflow_config_id',
+    user_id: 'user_id',
     version: 'version',
     config: 'config',
     created_by: 'created_by',
@@ -39773,6 +40339,7 @@ export namespace Prisma {
     id: 'id',
     workflow_config_id: 'workflow_config_id',
     workflow_run_id: 'workflow_run_id',
+    user_id: 'user_id',
     steps: 'steps',
     success: 'success',
     error_summary: 'error_summary',
@@ -39824,6 +40391,7 @@ export namespace Prisma {
     id: 'id',
     website_target_id: 'website_target_id',
     workflow_run_id: 'workflow_run_id',
+    user_id: 'user_id',
     source_url: 'source_url',
     external_id: 'external_id',
     raw_data: 'raw_data',
@@ -39865,6 +40433,7 @@ export namespace Prisma {
   export const PlainScrapedPageScalarFieldEnum: {
     id: 'id',
     workflow_run_id: 'workflow_run_id',
+    user_id: 'user_id',
     requested_url: 'requested_url',
     final_url: 'final_url',
     http_status: 'http_status',
@@ -39884,6 +40453,7 @@ export namespace Prisma {
     id: 'id',
     workflow_run_id: 'workflow_run_id',
     plain_scraped_page_id: 'plain_scraped_page_id',
+    user_id: 'user_id',
     extraction_schema_version_id: 'extraction_schema_version_id',
     structured_status: 'structured_status',
     structured_data: 'structured_data',
@@ -39926,6 +40496,7 @@ export namespace Prisma {
   export const AiBatchRequestItemScalarFieldEnum: {
     id: 'id',
     ai_batch_job_id: 'ai_batch_job_id',
+    user_id: 'user_id',
     custom_id: 'custom_id',
     plain_scraped_page_id: 'plain_scraped_page_id',
     source_url: 'source_url',
@@ -40614,10 +41185,20 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaListRelationFilter
     api_keys?: ApiKeyListRelationFilter
     webhook_endpoints?: WebhookEndpointListRelationFilter
+    webhook_deliveries?: WebhookDeliveryListRelationFilter
     job_logs?: JobLogListRelationFilter
     diagnostics_packages?: DiagnosticsPackageListRelationFilter
     notifications?: NotificationListRelationFilter
     cost_entries?: CostEntryListRelationFilter
+    scraper_versions?: ScraperVersionListRelationFilter
+    scraper_generation_runs?: ScraperGenerationRunListRelationFilter
+    computer_use_steps?: ComputerUseStepListRelationFilter
+    scraper_execution_traces?: ScraperExecutionTraceListRelationFilter
+    extracted_items?: ExtractedItemListRelationFilter
+    plain_scraped_pages?: PlainScrapedPageListRelationFilter
+    extraction_results?: ExtractionResultListRelationFilter
+    ai_batch_request_items?: AiBatchRequestItemListRelationFilter
+    block_rules?: BlockRuleListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -40637,10 +41218,20 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaOrderByRelationAggregateInput
     api_keys?: ApiKeyOrderByRelationAggregateInput
     webhook_endpoints?: WebhookEndpointOrderByRelationAggregateInput
+    webhook_deliveries?: WebhookDeliveryOrderByRelationAggregateInput
     job_logs?: JobLogOrderByRelationAggregateInput
     diagnostics_packages?: DiagnosticsPackageOrderByRelationAggregateInput
     notifications?: NotificationOrderByRelationAggregateInput
     cost_entries?: CostEntryOrderByRelationAggregateInput
+    scraper_versions?: ScraperVersionOrderByRelationAggregateInput
+    scraper_generation_runs?: ScraperGenerationRunOrderByRelationAggregateInput
+    computer_use_steps?: ComputerUseStepOrderByRelationAggregateInput
+    scraper_execution_traces?: ScraperExecutionTraceOrderByRelationAggregateInput
+    extracted_items?: ExtractedItemOrderByRelationAggregateInput
+    plain_scraped_pages?: PlainScrapedPageOrderByRelationAggregateInput
+    extraction_results?: ExtractionResultOrderByRelationAggregateInput
+    ai_batch_request_items?: AiBatchRequestItemOrderByRelationAggregateInput
+    block_rules?: BlockRuleOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -40663,10 +41254,20 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaListRelationFilter
     api_keys?: ApiKeyListRelationFilter
     webhook_endpoints?: WebhookEndpointListRelationFilter
+    webhook_deliveries?: WebhookDeliveryListRelationFilter
     job_logs?: JobLogListRelationFilter
     diagnostics_packages?: DiagnosticsPackageListRelationFilter
     notifications?: NotificationListRelationFilter
     cost_entries?: CostEntryListRelationFilter
+    scraper_versions?: ScraperVersionListRelationFilter
+    scraper_generation_runs?: ScraperGenerationRunListRelationFilter
+    computer_use_steps?: ComputerUseStepListRelationFilter
+    scraper_execution_traces?: ScraperExecutionTraceListRelationFilter
+    extracted_items?: ExtractedItemListRelationFilter
+    plain_scraped_pages?: PlainScrapedPageListRelationFilter
+    extraction_results?: ExtractionResultListRelationFilter
+    ai_batch_request_items?: AiBatchRequestItemListRelationFilter
+    block_rules?: BlockRuleListRelationFilter
   }, "id" | "email" | "phone">
 
   export type UserOrderByWithAggregationInput = {
@@ -40926,6 +41527,7 @@ export namespace Prisma {
     NOT?: WebhookDeliveryWhereInput | WebhookDeliveryWhereInput[]
     id?: StringFilter<"WebhookDelivery"> | string
     webhook_endpoint_id?: StringFilter<"WebhookDelivery"> | string
+    user_id?: StringFilter<"WebhookDelivery"> | string
     event_type?: EnumWebhookEventTypeFilter<"WebhookDelivery"> | $Enums.WebhookEventType
     workflow_run_id?: StringNullableFilter<"WebhookDelivery"> | string | null
     is_test?: BoolFilter<"WebhookDelivery"> | boolean
@@ -40938,11 +41540,13 @@ export namespace Prisma {
     duration_ms?: IntNullableFilter<"WebhookDelivery"> | number | null
     created_at?: DateTimeFilter<"WebhookDelivery"> | Date | string
     webhook_endpoint?: XOR<WebhookEndpointScalarRelationFilter, WebhookEndpointWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type WebhookDeliveryOrderByWithRelationInput = {
     id?: SortOrder
     webhook_endpoint_id?: SortOrder
+    user_id?: SortOrder
     event_type?: SortOrder
     workflow_run_id?: SortOrderInput | SortOrder
     is_test?: SortOrder
@@ -40955,6 +41559,7 @@ export namespace Prisma {
     duration_ms?: SortOrderInput | SortOrder
     created_at?: SortOrder
     webhook_endpoint?: WebhookEndpointOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
   }
 
   export type WebhookDeliveryWhereUniqueInput = Prisma.AtLeast<{
@@ -40963,6 +41568,7 @@ export namespace Prisma {
     OR?: WebhookDeliveryWhereInput[]
     NOT?: WebhookDeliveryWhereInput | WebhookDeliveryWhereInput[]
     webhook_endpoint_id?: StringFilter<"WebhookDelivery"> | string
+    user_id?: StringFilter<"WebhookDelivery"> | string
     event_type?: EnumWebhookEventTypeFilter<"WebhookDelivery"> | $Enums.WebhookEventType
     workflow_run_id?: StringNullableFilter<"WebhookDelivery"> | string | null
     is_test?: BoolFilter<"WebhookDelivery"> | boolean
@@ -40975,11 +41581,13 @@ export namespace Prisma {
     duration_ms?: IntNullableFilter<"WebhookDelivery"> | number | null
     created_at?: DateTimeFilter<"WebhookDelivery"> | Date | string
     webhook_endpoint?: XOR<WebhookEndpointScalarRelationFilter, WebhookEndpointWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id">
 
   export type WebhookDeliveryOrderByWithAggregationInput = {
     id?: SortOrder
     webhook_endpoint_id?: SortOrder
+    user_id?: SortOrder
     event_type?: SortOrder
     workflow_run_id?: SortOrderInput | SortOrder
     is_test?: SortOrder
@@ -41004,6 +41612,7 @@ export namespace Prisma {
     NOT?: WebhookDeliveryScalarWhereWithAggregatesInput | WebhookDeliveryScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"WebhookDelivery"> | string
     webhook_endpoint_id?: StringWithAggregatesFilter<"WebhookDelivery"> | string
+    user_id?: StringWithAggregatesFilter<"WebhookDelivery"> | string
     event_type?: EnumWebhookEventTypeWithAggregatesFilter<"WebhookDelivery"> | $Enums.WebhookEventType
     workflow_run_id?: StringNullableWithAggregatesFilter<"WebhookDelivery"> | string | null
     is_test?: BoolWithAggregatesFilter<"WebhookDelivery"> | boolean
@@ -41222,6 +41831,7 @@ export namespace Prisma {
     NOT?: BlockRuleWhereInput | BlockRuleWhereInput[]
     id?: StringFilter<"BlockRule"> | string
     website_target_id?: StringFilter<"BlockRule"> | string
+    user_id?: StringFilter<"BlockRule"> | string
     label?: StringNullableFilter<"BlockRule"> | string | null
     signal?: EnumBlockSignalFilter<"BlockRule"> | $Enums.BlockSignal
     source?: EnumBlockRuleSourceFilter<"BlockRule"> | $Enums.BlockRuleSource
@@ -41232,11 +41842,13 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"BlockRule"> | Date | string
     updated_at?: DateTimeFilter<"BlockRule"> | Date | string
     website_target?: XOR<WebsiteTargetScalarRelationFilter, WebsiteTargetWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type BlockRuleOrderByWithRelationInput = {
     id?: SortOrder
     website_target_id?: SortOrder
+    user_id?: SortOrder
     label?: SortOrderInput | SortOrder
     signal?: SortOrder
     source?: SortOrder
@@ -41247,6 +41859,7 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     website_target?: WebsiteTargetOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
   }
 
   export type BlockRuleWhereUniqueInput = Prisma.AtLeast<{
@@ -41255,6 +41868,7 @@ export namespace Prisma {
     OR?: BlockRuleWhereInput[]
     NOT?: BlockRuleWhereInput | BlockRuleWhereInput[]
     website_target_id?: StringFilter<"BlockRule"> | string
+    user_id?: StringFilter<"BlockRule"> | string
     label?: StringNullableFilter<"BlockRule"> | string | null
     signal?: EnumBlockSignalFilter<"BlockRule"> | $Enums.BlockSignal
     source?: EnumBlockRuleSourceFilter<"BlockRule"> | $Enums.BlockRuleSource
@@ -41265,11 +41879,13 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"BlockRule"> | Date | string
     updated_at?: DateTimeFilter<"BlockRule"> | Date | string
     website_target?: XOR<WebsiteTargetScalarRelationFilter, WebsiteTargetWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id">
 
   export type BlockRuleOrderByWithAggregationInput = {
     id?: SortOrder
     website_target_id?: SortOrder
+    user_id?: SortOrder
     label?: SortOrderInput | SortOrder
     signal?: SortOrder
     source?: SortOrder
@@ -41292,6 +41908,7 @@ export namespace Prisma {
     NOT?: BlockRuleScalarWhereWithAggregatesInput | BlockRuleScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"BlockRule"> | string
     website_target_id?: StringWithAggregatesFilter<"BlockRule"> | string
+    user_id?: StringWithAggregatesFilter<"BlockRule"> | string
     label?: StringNullableWithAggregatesFilter<"BlockRule"> | string | null
     signal?: EnumBlockSignalWithAggregatesFilter<"BlockRule"> | $Enums.BlockSignal
     source?: EnumBlockRuleSourceWithAggregatesFilter<"BlockRule"> | $Enums.BlockRuleSource
@@ -41524,6 +42141,7 @@ export namespace Prisma {
     id?: StringFilter<"ScraperGenerationRun"> | string
     website_target_id?: StringFilter<"ScraperGenerationRun"> | string
     workflow_config_id?: StringNullableFilter<"ScraperGenerationRun"> | string | null
+    user_id?: StringFilter<"ScraperGenerationRun"> | string
     trigger?: EnumGenerationTriggerFilter<"ScraperGenerationRun"> | $Enums.GenerationTrigger
     status?: EnumGenerationRunStatusFilter<"ScraperGenerationRun"> | $Enums.GenerationRunStatus
     prompt?: StringNullableFilter<"ScraperGenerationRun"> | string | null
@@ -41541,6 +42159,7 @@ export namespace Prisma {
     website_target?: XOR<WebsiteTargetScalarRelationFilter, WebsiteTargetWhereInput>
     workflow_config?: XOR<WorkflowConfigNullableScalarRelationFilter, WorkflowConfigWhereInput> | null
     produced_version?: XOR<ScraperVersionNullableScalarRelationFilter, ScraperVersionWhereInput> | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     steps?: ComputerUseStepListRelationFilter
   }
 
@@ -41548,6 +42167,7 @@ export namespace Prisma {
     id?: SortOrder
     website_target_id?: SortOrder
     workflow_config_id?: SortOrderInput | SortOrder
+    user_id?: SortOrder
     trigger?: SortOrder
     status?: SortOrder
     prompt?: SortOrderInput | SortOrder
@@ -41565,6 +42185,7 @@ export namespace Prisma {
     website_target?: WebsiteTargetOrderByWithRelationInput
     workflow_config?: WorkflowConfigOrderByWithRelationInput
     produced_version?: ScraperVersionOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
     steps?: ComputerUseStepOrderByRelationAggregateInput
   }
 
@@ -41576,6 +42197,7 @@ export namespace Prisma {
     NOT?: ScraperGenerationRunWhereInput | ScraperGenerationRunWhereInput[]
     website_target_id?: StringFilter<"ScraperGenerationRun"> | string
     workflow_config_id?: StringNullableFilter<"ScraperGenerationRun"> | string | null
+    user_id?: StringFilter<"ScraperGenerationRun"> | string
     trigger?: EnumGenerationTriggerFilter<"ScraperGenerationRun"> | $Enums.GenerationTrigger
     status?: EnumGenerationRunStatusFilter<"ScraperGenerationRun"> | $Enums.GenerationRunStatus
     prompt?: StringNullableFilter<"ScraperGenerationRun"> | string | null
@@ -41592,6 +42214,7 @@ export namespace Prisma {
     website_target?: XOR<WebsiteTargetScalarRelationFilter, WebsiteTargetWhereInput>
     workflow_config?: XOR<WorkflowConfigNullableScalarRelationFilter, WorkflowConfigWhereInput> | null
     produced_version?: XOR<ScraperVersionNullableScalarRelationFilter, ScraperVersionWhereInput> | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     steps?: ComputerUseStepListRelationFilter
   }, "id" | "produced_version_id">
 
@@ -41599,6 +42222,7 @@ export namespace Prisma {
     id?: SortOrder
     website_target_id?: SortOrder
     workflow_config_id?: SortOrderInput | SortOrder
+    user_id?: SortOrder
     trigger?: SortOrder
     status?: SortOrder
     prompt?: SortOrderInput | SortOrder
@@ -41627,6 +42251,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"ScraperGenerationRun"> | string
     website_target_id?: StringWithAggregatesFilter<"ScraperGenerationRun"> | string
     workflow_config_id?: StringNullableWithAggregatesFilter<"ScraperGenerationRun"> | string | null
+    user_id?: StringWithAggregatesFilter<"ScraperGenerationRun"> | string
     trigger?: EnumGenerationTriggerWithAggregatesFilter<"ScraperGenerationRun"> | $Enums.GenerationTrigger
     status?: EnumGenerationRunStatusWithAggregatesFilter<"ScraperGenerationRun"> | $Enums.GenerationRunStatus
     prompt?: StringNullableWithAggregatesFilter<"ScraperGenerationRun"> | string | null
@@ -41650,6 +42275,7 @@ export namespace Prisma {
     id?: StringFilter<"ComputerUseStep"> | string
     scraper_generation_run_id?: StringNullableFilter<"ComputerUseStep"> | string | null
     workflow_run_id?: StringNullableFilter<"ComputerUseStep"> | string | null
+    user_id?: StringFilter<"ComputerUseStep"> | string
     step_index?: IntFilter<"ComputerUseStep"> | number
     action_type?: EnumComputerActionTypeFilter<"ComputerUseStep"> | $Enums.ComputerActionType
     action_payload?: JsonFilter<"ComputerUseStep">
@@ -41661,12 +42287,14 @@ export namespace Prisma {
     workflow_run?: XOR<WorkflowRunNullableScalarRelationFilter, WorkflowRunWhereInput> | null
     screenshot_before?: XOR<DocumentNullableScalarRelationFilter, DocumentWhereInput> | null
     screenshot_after?: XOR<DocumentNullableScalarRelationFilter, DocumentWhereInput> | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type ComputerUseStepOrderByWithRelationInput = {
     id?: SortOrder
     scraper_generation_run_id?: SortOrderInput | SortOrder
     workflow_run_id?: SortOrderInput | SortOrder
+    user_id?: SortOrder
     step_index?: SortOrder
     action_type?: SortOrder
     action_payload?: SortOrder
@@ -41678,6 +42306,7 @@ export namespace Prisma {
     workflow_run?: WorkflowRunOrderByWithRelationInput
     screenshot_before?: DocumentOrderByWithRelationInput
     screenshot_after?: DocumentOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
   }
 
   export type ComputerUseStepWhereUniqueInput = Prisma.AtLeast<{
@@ -41687,6 +42316,7 @@ export namespace Prisma {
     NOT?: ComputerUseStepWhereInput | ComputerUseStepWhereInput[]
     scraper_generation_run_id?: StringNullableFilter<"ComputerUseStep"> | string | null
     workflow_run_id?: StringNullableFilter<"ComputerUseStep"> | string | null
+    user_id?: StringFilter<"ComputerUseStep"> | string
     step_index?: IntFilter<"ComputerUseStep"> | number
     action_type?: EnumComputerActionTypeFilter<"ComputerUseStep"> | $Enums.ComputerActionType
     action_payload?: JsonFilter<"ComputerUseStep">
@@ -41698,12 +42328,14 @@ export namespace Prisma {
     workflow_run?: XOR<WorkflowRunNullableScalarRelationFilter, WorkflowRunWhereInput> | null
     screenshot_before?: XOR<DocumentNullableScalarRelationFilter, DocumentWhereInput> | null
     screenshot_after?: XOR<DocumentNullableScalarRelationFilter, DocumentWhereInput> | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id">
 
   export type ComputerUseStepOrderByWithAggregationInput = {
     id?: SortOrder
     scraper_generation_run_id?: SortOrderInput | SortOrder
     workflow_run_id?: SortOrderInput | SortOrder
+    user_id?: SortOrder
     step_index?: SortOrder
     action_type?: SortOrder
     action_payload?: SortOrder
@@ -41725,6 +42357,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"ComputerUseStep"> | string
     scraper_generation_run_id?: StringNullableWithAggregatesFilter<"ComputerUseStep"> | string | null
     workflow_run_id?: StringNullableWithAggregatesFilter<"ComputerUseStep"> | string | null
+    user_id?: StringWithAggregatesFilter<"ComputerUseStep"> | string
     step_index?: IntWithAggregatesFilter<"ComputerUseStep"> | number
     action_type?: EnumComputerActionTypeWithAggregatesFilter<"ComputerUseStep"> | $Enums.ComputerActionType
     action_payload?: JsonWithAggregatesFilter<"ComputerUseStep">
@@ -41740,6 +42373,7 @@ export namespace Prisma {
     NOT?: ScraperVersionWhereInput | ScraperVersionWhereInput[]
     id?: StringFilter<"ScraperVersion"> | string
     workflow_config_id?: StringFilter<"ScraperVersion"> | string
+    user_id?: StringFilter<"ScraperVersion"> | string
     version?: IntFilter<"ScraperVersion"> | number
     config?: JsonFilter<"ScraperVersion">
     created_by?: EnumScraperVersionCreatedByFilter<"ScraperVersion"> | $Enums.ScraperVersionCreatedBy
@@ -41751,6 +42385,7 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"ScraperVersion"> | Date | string
     workflow_config?: XOR<WorkflowConfigScalarRelationFilter, WorkflowConfigWhereInput>
     extraction_schema_version?: XOR<ExtractionSchemaVersionNullableScalarRelationFilter, ExtractionSchemaVersionWhereInput> | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     active_for_config?: XOR<WorkflowConfigNullableScalarRelationFilter, WorkflowConfigWhereInput> | null
     produced_by_run?: XOR<ScraperGenerationRunNullableScalarRelationFilter, ScraperGenerationRunWhereInput> | null
     workflow_runs?: WorkflowRunListRelationFilter
@@ -41759,6 +42394,7 @@ export namespace Prisma {
   export type ScraperVersionOrderByWithRelationInput = {
     id?: SortOrder
     workflow_config_id?: SortOrder
+    user_id?: SortOrder
     version?: SortOrder
     config?: SortOrder
     created_by?: SortOrder
@@ -41770,6 +42406,7 @@ export namespace Prisma {
     updated_at?: SortOrder
     workflow_config?: WorkflowConfigOrderByWithRelationInput
     extraction_schema_version?: ExtractionSchemaVersionOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
     active_for_config?: WorkflowConfigOrderByWithRelationInput
     produced_by_run?: ScraperGenerationRunOrderByWithRelationInput
     workflow_runs?: WorkflowRunOrderByRelationAggregateInput
@@ -41782,6 +42419,7 @@ export namespace Prisma {
     OR?: ScraperVersionWhereInput[]
     NOT?: ScraperVersionWhereInput | ScraperVersionWhereInput[]
     workflow_config_id?: StringFilter<"ScraperVersion"> | string
+    user_id?: StringFilter<"ScraperVersion"> | string
     version?: IntFilter<"ScraperVersion"> | number
     config?: JsonFilter<"ScraperVersion">
     created_by?: EnumScraperVersionCreatedByFilter<"ScraperVersion"> | $Enums.ScraperVersionCreatedBy
@@ -41793,6 +42431,7 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"ScraperVersion"> | Date | string
     workflow_config?: XOR<WorkflowConfigScalarRelationFilter, WorkflowConfigWhereInput>
     extraction_schema_version?: XOR<ExtractionSchemaVersionNullableScalarRelationFilter, ExtractionSchemaVersionWhereInput> | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     active_for_config?: XOR<WorkflowConfigNullableScalarRelationFilter, WorkflowConfigWhereInput> | null
     produced_by_run?: XOR<ScraperGenerationRunNullableScalarRelationFilter, ScraperGenerationRunWhereInput> | null
     workflow_runs?: WorkflowRunListRelationFilter
@@ -41801,6 +42440,7 @@ export namespace Prisma {
   export type ScraperVersionOrderByWithAggregationInput = {
     id?: SortOrder
     workflow_config_id?: SortOrder
+    user_id?: SortOrder
     version?: SortOrder
     config?: SortOrder
     created_by?: SortOrder
@@ -41823,6 +42463,7 @@ export namespace Prisma {
     NOT?: ScraperVersionScalarWhereWithAggregatesInput | ScraperVersionScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"ScraperVersion"> | string
     workflow_config_id?: StringWithAggregatesFilter<"ScraperVersion"> | string
+    user_id?: StringWithAggregatesFilter<"ScraperVersion"> | string
     version?: IntWithAggregatesFilter<"ScraperVersion"> | number
     config?: JsonWithAggregatesFilter<"ScraperVersion">
     created_by?: EnumScraperVersionCreatedByWithAggregatesFilter<"ScraperVersion"> | $Enums.ScraperVersionCreatedBy
@@ -41841,6 +42482,7 @@ export namespace Prisma {
     id?: StringFilter<"ScraperExecutionTrace"> | string
     workflow_config_id?: StringFilter<"ScraperExecutionTrace"> | string
     workflow_run_id?: StringNullableFilter<"ScraperExecutionTrace"> | string | null
+    user_id?: StringFilter<"ScraperExecutionTrace"> | string
     steps?: JsonFilter<"ScraperExecutionTrace">
     success?: BoolFilter<"ScraperExecutionTrace"> | boolean
     error_summary?: StringNullableFilter<"ScraperExecutionTrace"> | string | null
@@ -41848,12 +42490,14 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"ScraperExecutionTrace"> | Date | string
     workflow_config?: XOR<WorkflowConfigScalarRelationFilter, WorkflowConfigWhereInput>
     workflow_run?: XOR<WorkflowRunNullableScalarRelationFilter, WorkflowRunWhereInput> | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type ScraperExecutionTraceOrderByWithRelationInput = {
     id?: SortOrder
     workflow_config_id?: SortOrder
     workflow_run_id?: SortOrderInput | SortOrder
+    user_id?: SortOrder
     steps?: SortOrder
     success?: SortOrder
     error_summary?: SortOrderInput | SortOrder
@@ -41861,6 +42505,7 @@ export namespace Prisma {
     updated_at?: SortOrder
     workflow_config?: WorkflowConfigOrderByWithRelationInput
     workflow_run?: WorkflowRunOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
   }
 
   export type ScraperExecutionTraceWhereUniqueInput = Prisma.AtLeast<{
@@ -41870,6 +42515,7 @@ export namespace Prisma {
     NOT?: ScraperExecutionTraceWhereInput | ScraperExecutionTraceWhereInput[]
     workflow_config_id?: StringFilter<"ScraperExecutionTrace"> | string
     workflow_run_id?: StringNullableFilter<"ScraperExecutionTrace"> | string | null
+    user_id?: StringFilter<"ScraperExecutionTrace"> | string
     steps?: JsonFilter<"ScraperExecutionTrace">
     success?: BoolFilter<"ScraperExecutionTrace"> | boolean
     error_summary?: StringNullableFilter<"ScraperExecutionTrace"> | string | null
@@ -41877,12 +42523,14 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"ScraperExecutionTrace"> | Date | string
     workflow_config?: XOR<WorkflowConfigScalarRelationFilter, WorkflowConfigWhereInput>
     workflow_run?: XOR<WorkflowRunNullableScalarRelationFilter, WorkflowRunWhereInput> | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id">
 
   export type ScraperExecutionTraceOrderByWithAggregationInput = {
     id?: SortOrder
     workflow_config_id?: SortOrder
     workflow_run_id?: SortOrderInput | SortOrder
+    user_id?: SortOrder
     steps?: SortOrder
     success?: SortOrder
     error_summary?: SortOrderInput | SortOrder
@@ -41900,6 +42548,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"ScraperExecutionTrace"> | string
     workflow_config_id?: StringWithAggregatesFilter<"ScraperExecutionTrace"> | string
     workflow_run_id?: StringNullableWithAggregatesFilter<"ScraperExecutionTrace"> | string | null
+    user_id?: StringWithAggregatesFilter<"ScraperExecutionTrace"> | string
     steps?: JsonWithAggregatesFilter<"ScraperExecutionTrace">
     success?: BoolWithAggregatesFilter<"ScraperExecutionTrace"> | boolean
     error_summary?: StringNullableWithAggregatesFilter<"ScraperExecutionTrace"> | string | null
@@ -42146,6 +42795,7 @@ export namespace Prisma {
     id?: StringFilter<"ExtractedItem"> | string
     website_target_id?: StringFilter<"ExtractedItem"> | string
     workflow_run_id?: StringNullableFilter<"ExtractedItem"> | string | null
+    user_id?: StringFilter<"ExtractedItem"> | string
     source_url?: StringFilter<"ExtractedItem"> | string
     external_id?: StringNullableFilter<"ExtractedItem"> | string | null
     raw_data?: JsonFilter<"ExtractedItem">
@@ -42156,12 +42806,14 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"ExtractedItem"> | Date | string
     website_target?: XOR<WebsiteTargetScalarRelationFilter, WebsiteTargetWhereInput>
     workflow_run?: XOR<WorkflowRunNullableScalarRelationFilter, WorkflowRunWhereInput> | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type ExtractedItemOrderByWithRelationInput = {
     id?: SortOrder
     website_target_id?: SortOrder
     workflow_run_id?: SortOrderInput | SortOrder
+    user_id?: SortOrder
     source_url?: SortOrder
     external_id?: SortOrderInput | SortOrder
     raw_data?: SortOrder
@@ -42172,6 +42824,7 @@ export namespace Prisma {
     updated_at?: SortOrder
     website_target?: WebsiteTargetOrderByWithRelationInput
     workflow_run?: WorkflowRunOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
   }
 
   export type ExtractedItemWhereUniqueInput = Prisma.AtLeast<{
@@ -42182,6 +42835,7 @@ export namespace Prisma {
     NOT?: ExtractedItemWhereInput | ExtractedItemWhereInput[]
     website_target_id?: StringFilter<"ExtractedItem"> | string
     workflow_run_id?: StringNullableFilter<"ExtractedItem"> | string | null
+    user_id?: StringFilter<"ExtractedItem"> | string
     source_url?: StringFilter<"ExtractedItem"> | string
     external_id?: StringNullableFilter<"ExtractedItem"> | string | null
     raw_data?: JsonFilter<"ExtractedItem">
@@ -42192,12 +42846,14 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"ExtractedItem"> | Date | string
     website_target?: XOR<WebsiteTargetScalarRelationFilter, WebsiteTargetWhereInput>
     workflow_run?: XOR<WorkflowRunNullableScalarRelationFilter, WorkflowRunWhereInput> | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id" | "website_target_id_source_url">
 
   export type ExtractedItemOrderByWithAggregationInput = {
     id?: SortOrder
     website_target_id?: SortOrder
     workflow_run_id?: SortOrderInput | SortOrder
+    user_id?: SortOrder
     source_url?: SortOrder
     external_id?: SortOrderInput | SortOrder
     raw_data?: SortOrder
@@ -42218,6 +42874,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"ExtractedItem"> | string
     website_target_id?: StringWithAggregatesFilter<"ExtractedItem"> | string
     workflow_run_id?: StringNullableWithAggregatesFilter<"ExtractedItem"> | string | null
+    user_id?: StringWithAggregatesFilter<"ExtractedItem"> | string
     source_url?: StringWithAggregatesFilter<"ExtractedItem"> | string
     external_id?: StringNullableWithAggregatesFilter<"ExtractedItem"> | string | null
     raw_data?: JsonWithAggregatesFilter<"ExtractedItem">
@@ -42385,6 +43042,7 @@ export namespace Prisma {
     NOT?: PlainScrapedPageWhereInput | PlainScrapedPageWhereInput[]
     id?: StringFilter<"PlainScrapedPage"> | string
     workflow_run_id?: StringFilter<"PlainScrapedPage"> | string
+    user_id?: StringFilter<"PlainScrapedPage"> | string
     requested_url?: StringFilter<"PlainScrapedPage"> | string
     final_url?: StringNullableFilter<"PlainScrapedPage"> | string | null
     http_status?: IntNullableFilter<"PlainScrapedPage"> | number | null
@@ -42396,6 +43054,7 @@ export namespace Prisma {
     error_message?: StringNullableFilter<"PlainScrapedPage"> | string | null
     created_at?: DateTimeFilter<"PlainScrapedPage"> | Date | string
     workflow_run?: XOR<WorkflowRunScalarRelationFilter, WorkflowRunWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     extraction_result?: XOR<ExtractionResultNullableScalarRelationFilter, ExtractionResultWhereInput> | null
     ai_batch_request_items?: AiBatchRequestItemListRelationFilter
   }
@@ -42403,6 +43062,7 @@ export namespace Prisma {
   export type PlainScrapedPageOrderByWithRelationInput = {
     id?: SortOrder
     workflow_run_id?: SortOrder
+    user_id?: SortOrder
     requested_url?: SortOrder
     final_url?: SortOrderInput | SortOrder
     http_status?: SortOrderInput | SortOrder
@@ -42414,6 +43074,7 @@ export namespace Prisma {
     error_message?: SortOrderInput | SortOrder
     created_at?: SortOrder
     workflow_run?: WorkflowRunOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
     extraction_result?: ExtractionResultOrderByWithRelationInput
     ai_batch_request_items?: AiBatchRequestItemOrderByRelationAggregateInput
   }
@@ -42424,6 +43085,7 @@ export namespace Prisma {
     OR?: PlainScrapedPageWhereInput[]
     NOT?: PlainScrapedPageWhereInput | PlainScrapedPageWhereInput[]
     workflow_run_id?: StringFilter<"PlainScrapedPage"> | string
+    user_id?: StringFilter<"PlainScrapedPage"> | string
     requested_url?: StringFilter<"PlainScrapedPage"> | string
     final_url?: StringNullableFilter<"PlainScrapedPage"> | string | null
     http_status?: IntNullableFilter<"PlainScrapedPage"> | number | null
@@ -42435,6 +43097,7 @@ export namespace Prisma {
     error_message?: StringNullableFilter<"PlainScrapedPage"> | string | null
     created_at?: DateTimeFilter<"PlainScrapedPage"> | Date | string
     workflow_run?: XOR<WorkflowRunScalarRelationFilter, WorkflowRunWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     extraction_result?: XOR<ExtractionResultNullableScalarRelationFilter, ExtractionResultWhereInput> | null
     ai_batch_request_items?: AiBatchRequestItemListRelationFilter
   }, "id">
@@ -42442,6 +43105,7 @@ export namespace Prisma {
   export type PlainScrapedPageOrderByWithAggregationInput = {
     id?: SortOrder
     workflow_run_id?: SortOrder
+    user_id?: SortOrder
     requested_url?: SortOrder
     final_url?: SortOrderInput | SortOrder
     http_status?: SortOrderInput | SortOrder
@@ -42465,6 +43129,7 @@ export namespace Prisma {
     NOT?: PlainScrapedPageScalarWhereWithAggregatesInput | PlainScrapedPageScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"PlainScrapedPage"> | string
     workflow_run_id?: StringWithAggregatesFilter<"PlainScrapedPage"> | string
+    user_id?: StringWithAggregatesFilter<"PlainScrapedPage"> | string
     requested_url?: StringWithAggregatesFilter<"PlainScrapedPage"> | string
     final_url?: StringNullableWithAggregatesFilter<"PlainScrapedPage"> | string | null
     http_status?: IntNullableWithAggregatesFilter<"PlainScrapedPage"> | number | null
@@ -42484,6 +43149,7 @@ export namespace Prisma {
     id?: StringFilter<"ExtractionResult"> | string
     workflow_run_id?: StringNullableFilter<"ExtractionResult"> | string | null
     plain_scraped_page_id?: StringNullableFilter<"ExtractionResult"> | string | null
+    user_id?: StringFilter<"ExtractionResult"> | string
     extraction_schema_version_id?: StringNullableFilter<"ExtractionResult"> | string | null
     structured_status?: EnumExtractionFormatStatusNullableFilter<"ExtractionResult"> | $Enums.ExtractionFormatStatus | null
     structured_data?: JsonNullableFilter<"ExtractionResult">
@@ -42500,12 +43166,14 @@ export namespace Prisma {
     workflow_run?: XOR<WorkflowRunNullableScalarRelationFilter, WorkflowRunWhereInput> | null
     plain_scraped_page?: XOR<PlainScrapedPageNullableScalarRelationFilter, PlainScrapedPageWhereInput> | null
     extraction_schema_version?: XOR<ExtractionSchemaVersionNullableScalarRelationFilter, ExtractionSchemaVersionWhereInput> | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type ExtractionResultOrderByWithRelationInput = {
     id?: SortOrder
     workflow_run_id?: SortOrderInput | SortOrder
     plain_scraped_page_id?: SortOrderInput | SortOrder
+    user_id?: SortOrder
     extraction_schema_version_id?: SortOrderInput | SortOrder
     structured_status?: SortOrderInput | SortOrder
     structured_data?: SortOrderInput | SortOrder
@@ -42522,6 +43190,7 @@ export namespace Prisma {
     workflow_run?: WorkflowRunOrderByWithRelationInput
     plain_scraped_page?: PlainScrapedPageOrderByWithRelationInput
     extraction_schema_version?: ExtractionSchemaVersionOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
   }
 
   export type ExtractionResultWhereUniqueInput = Prisma.AtLeast<{
@@ -42531,6 +43200,7 @@ export namespace Prisma {
     AND?: ExtractionResultWhereInput | ExtractionResultWhereInput[]
     OR?: ExtractionResultWhereInput[]
     NOT?: ExtractionResultWhereInput | ExtractionResultWhereInput[]
+    user_id?: StringFilter<"ExtractionResult"> | string
     extraction_schema_version_id?: StringNullableFilter<"ExtractionResult"> | string | null
     structured_status?: EnumExtractionFormatStatusNullableFilter<"ExtractionResult"> | $Enums.ExtractionFormatStatus | null
     structured_data?: JsonNullableFilter<"ExtractionResult">
@@ -42547,12 +43217,14 @@ export namespace Prisma {
     workflow_run?: XOR<WorkflowRunNullableScalarRelationFilter, WorkflowRunWhereInput> | null
     plain_scraped_page?: XOR<PlainScrapedPageNullableScalarRelationFilter, PlainScrapedPageWhereInput> | null
     extraction_schema_version?: XOR<ExtractionSchemaVersionNullableScalarRelationFilter, ExtractionSchemaVersionWhereInput> | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id" | "workflow_run_id" | "plain_scraped_page_id">
 
   export type ExtractionResultOrderByWithAggregationInput = {
     id?: SortOrder
     workflow_run_id?: SortOrderInput | SortOrder
     plain_scraped_page_id?: SortOrderInput | SortOrder
+    user_id?: SortOrder
     extraction_schema_version_id?: SortOrderInput | SortOrder
     structured_status?: SortOrderInput | SortOrder
     structured_data?: SortOrderInput | SortOrder
@@ -42580,6 +43252,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"ExtractionResult"> | string
     workflow_run_id?: StringNullableWithAggregatesFilter<"ExtractionResult"> | string | null
     plain_scraped_page_id?: StringNullableWithAggregatesFilter<"ExtractionResult"> | string | null
+    user_id?: StringWithAggregatesFilter<"ExtractionResult"> | string
     extraction_schema_version_id?: StringNullableWithAggregatesFilter<"ExtractionResult"> | string | null
     structured_status?: EnumExtractionFormatStatusNullableWithAggregatesFilter<"ExtractionResult"> | $Enums.ExtractionFormatStatus | null
     structured_data?: JsonNullableWithAggregatesFilter<"ExtractionResult">
@@ -42711,6 +43384,7 @@ export namespace Prisma {
     NOT?: AiBatchRequestItemWhereInput | AiBatchRequestItemWhereInput[]
     id?: StringFilter<"AiBatchRequestItem"> | string
     ai_batch_job_id?: StringFilter<"AiBatchRequestItem"> | string
+    user_id?: StringFilter<"AiBatchRequestItem"> | string
     custom_id?: StringFilter<"AiBatchRequestItem"> | string
     plain_scraped_page_id?: StringNullableFilter<"AiBatchRequestItem"> | string | null
     source_url?: StringNullableFilter<"AiBatchRequestItem"> | string | null
@@ -42723,11 +43397,13 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"AiBatchRequestItem"> | Date | string
     ai_batch_job?: XOR<AiBatchJobScalarRelationFilter, AiBatchJobWhereInput>
     plain_scraped_page?: XOR<PlainScrapedPageNullableScalarRelationFilter, PlainScrapedPageWhereInput> | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type AiBatchRequestItemOrderByWithRelationInput = {
     id?: SortOrder
     ai_batch_job_id?: SortOrder
+    user_id?: SortOrder
     custom_id?: SortOrder
     plain_scraped_page_id?: SortOrderInput | SortOrder
     source_url?: SortOrderInput | SortOrder
@@ -42740,6 +43416,7 @@ export namespace Prisma {
     created_at?: SortOrder
     ai_batch_job?: AiBatchJobOrderByWithRelationInput
     plain_scraped_page?: PlainScrapedPageOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
   }
 
   export type AiBatchRequestItemWhereUniqueInput = Prisma.AtLeast<{
@@ -42749,6 +43426,7 @@ export namespace Prisma {
     OR?: AiBatchRequestItemWhereInput[]
     NOT?: AiBatchRequestItemWhereInput | AiBatchRequestItemWhereInput[]
     ai_batch_job_id?: StringFilter<"AiBatchRequestItem"> | string
+    user_id?: StringFilter<"AiBatchRequestItem"> | string
     custom_id?: StringFilter<"AiBatchRequestItem"> | string
     plain_scraped_page_id?: StringNullableFilter<"AiBatchRequestItem"> | string | null
     source_url?: StringNullableFilter<"AiBatchRequestItem"> | string | null
@@ -42761,11 +43439,13 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"AiBatchRequestItem"> | Date | string
     ai_batch_job?: XOR<AiBatchJobScalarRelationFilter, AiBatchJobWhereInput>
     plain_scraped_page?: XOR<PlainScrapedPageNullableScalarRelationFilter, PlainScrapedPageWhereInput> | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id" | "ai_batch_job_id_custom_id">
 
   export type AiBatchRequestItemOrderByWithAggregationInput = {
     id?: SortOrder
     ai_batch_job_id?: SortOrder
+    user_id?: SortOrder
     custom_id?: SortOrder
     plain_scraped_page_id?: SortOrderInput | SortOrder
     source_url?: SortOrderInput | SortOrder
@@ -42787,6 +43467,7 @@ export namespace Prisma {
     NOT?: AiBatchRequestItemScalarWhereWithAggregatesInput | AiBatchRequestItemScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"AiBatchRequestItem"> | string
     ai_batch_job_id?: StringWithAggregatesFilter<"AiBatchRequestItem"> | string
+    user_id?: StringWithAggregatesFilter<"AiBatchRequestItem"> | string
     custom_id?: StringWithAggregatesFilter<"AiBatchRequestItem"> | string
     plain_scraped_page_id?: StringNullableWithAggregatesFilter<"AiBatchRequestItem"> | string | null
     source_url?: StringNullableWithAggregatesFilter<"AiBatchRequestItem"> | string | null
@@ -43004,7 +43685,7 @@ export namespace Prisma {
     attempt?: IntFilter<"JobLog"> | number
     max_attempts?: IntNullableFilter<"JobLog"> | number | null
     workflow_run_id?: StringNullableFilter<"JobLog"> | string | null
-    user_id?: StringNullableFilter<"JobLog"> | string | null
+    user_id?: StringFilter<"JobLog"> | string
     payload?: JsonNullableFilter<"JobLog">
     result?: JsonNullableFilter<"JobLog">
     error_message?: StringNullableFilter<"JobLog"> | string | null
@@ -43015,7 +43696,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"JobLog"> | Date | string
     updated_at?: DateTimeFilter<"JobLog"> | Date | string
     workflow_run?: XOR<WorkflowRunNullableScalarRelationFilter, WorkflowRunWhereInput> | null
-    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type JobLogOrderByWithRelationInput = {
@@ -43027,7 +43708,7 @@ export namespace Prisma {
     attempt?: SortOrder
     max_attempts?: SortOrderInput | SortOrder
     workflow_run_id?: SortOrderInput | SortOrder
-    user_id?: SortOrderInput | SortOrder
+    user_id?: SortOrder
     payload?: SortOrderInput | SortOrder
     result?: SortOrderInput | SortOrder
     error_message?: SortOrderInput | SortOrder
@@ -43053,7 +43734,7 @@ export namespace Prisma {
     attempt?: IntFilter<"JobLog"> | number
     max_attempts?: IntNullableFilter<"JobLog"> | number | null
     workflow_run_id?: StringNullableFilter<"JobLog"> | string | null
-    user_id?: StringNullableFilter<"JobLog"> | string | null
+    user_id?: StringFilter<"JobLog"> | string
     payload?: JsonNullableFilter<"JobLog">
     result?: JsonNullableFilter<"JobLog">
     error_message?: StringNullableFilter<"JobLog"> | string | null
@@ -43064,7 +43745,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"JobLog"> | Date | string
     updated_at?: DateTimeFilter<"JobLog"> | Date | string
     workflow_run?: XOR<WorkflowRunNullableScalarRelationFilter, WorkflowRunWhereInput> | null
-    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id">
 
   export type JobLogOrderByWithAggregationInput = {
@@ -43076,7 +43757,7 @@ export namespace Prisma {
     attempt?: SortOrder
     max_attempts?: SortOrderInput | SortOrder
     workflow_run_id?: SortOrderInput | SortOrder
-    user_id?: SortOrderInput | SortOrder
+    user_id?: SortOrder
     payload?: SortOrderInput | SortOrder
     result?: SortOrderInput | SortOrder
     error_message?: SortOrderInput | SortOrder
@@ -43105,7 +43786,7 @@ export namespace Prisma {
     attempt?: IntWithAggregatesFilter<"JobLog"> | number
     max_attempts?: IntNullableWithAggregatesFilter<"JobLog"> | number | null
     workflow_run_id?: StringNullableWithAggregatesFilter<"JobLog"> | string | null
-    user_id?: StringNullableWithAggregatesFilter<"JobLog"> | string | null
+    user_id?: StringWithAggregatesFilter<"JobLog"> | string
     payload?: JsonNullableWithAggregatesFilter<"JobLog">
     result?: JsonNullableWithAggregatesFilter<"JobLog">
     error_message?: StringNullableWithAggregatesFilter<"JobLog"> | string | null
@@ -43488,10 +44169,20 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
+    webhook_deliveries?: WebhookDeliveryCreateNestedManyWithoutUserInput
     job_logs?: JobLogCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     cost_entries?: CostEntryCreateNestedManyWithoutUserInput
+    scraper_versions?: ScraperVersionCreateNestedManyWithoutUserInput
+    scraper_generation_runs?: ScraperGenerationRunCreateNestedManyWithoutUserInput
+    computer_use_steps?: ComputerUseStepCreateNestedManyWithoutUserInput
+    scraper_execution_traces?: ScraperExecutionTraceCreateNestedManyWithoutUserInput
+    extracted_items?: ExtractedItemCreateNestedManyWithoutUserInput
+    plain_scraped_pages?: PlainScrapedPageCreateNestedManyWithoutUserInput
+    extraction_results?: ExtractionResultCreateNestedManyWithoutUserInput
+    ai_batch_request_items?: AiBatchRequestItemCreateNestedManyWithoutUserInput
+    block_rules?: BlockRuleCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -43511,10 +44202,20 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUncheckedCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
+    webhook_deliveries?: WebhookDeliveryUncheckedCreateNestedManyWithoutUserInput
     job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     cost_entries?: CostEntryUncheckedCreateNestedManyWithoutUserInput
+    scraper_versions?: ScraperVersionUncheckedCreateNestedManyWithoutUserInput
+    scraper_generation_runs?: ScraperGenerationRunUncheckedCreateNestedManyWithoutUserInput
+    computer_use_steps?: ComputerUseStepUncheckedCreateNestedManyWithoutUserInput
+    scraper_execution_traces?: ScraperExecutionTraceUncheckedCreateNestedManyWithoutUserInput
+    extracted_items?: ExtractedItemUncheckedCreateNestedManyWithoutUserInput
+    plain_scraped_pages?: PlainScrapedPageUncheckedCreateNestedManyWithoutUserInput
+    extraction_results?: ExtractionResultUncheckedCreateNestedManyWithoutUserInput
+    ai_batch_request_items?: AiBatchRequestItemUncheckedCreateNestedManyWithoutUserInput
+    block_rules?: BlockRuleUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -43534,10 +44235,20 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
+    webhook_deliveries?: WebhookDeliveryUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     cost_entries?: CostEntryUpdateManyWithoutUserNestedInput
+    scraper_versions?: ScraperVersionUpdateManyWithoutUserNestedInput
+    scraper_generation_runs?: ScraperGenerationRunUpdateManyWithoutUserNestedInput
+    computer_use_steps?: ComputerUseStepUpdateManyWithoutUserNestedInput
+    scraper_execution_traces?: ScraperExecutionTraceUpdateManyWithoutUserNestedInput
+    extracted_items?: ExtractedItemUpdateManyWithoutUserNestedInput
+    plain_scraped_pages?: PlainScrapedPageUpdateManyWithoutUserNestedInput
+    extraction_results?: ExtractionResultUpdateManyWithoutUserNestedInput
+    ai_batch_request_items?: AiBatchRequestItemUpdateManyWithoutUserNestedInput
+    block_rules?: BlockRuleUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -43557,10 +44268,20 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUncheckedUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
+    webhook_deliveries?: WebhookDeliveryUncheckedUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     cost_entries?: CostEntryUncheckedUpdateManyWithoutUserNestedInput
+    scraper_versions?: ScraperVersionUncheckedUpdateManyWithoutUserNestedInput
+    scraper_generation_runs?: ScraperGenerationRunUncheckedUpdateManyWithoutUserNestedInput
+    computer_use_steps?: ComputerUseStepUncheckedUpdateManyWithoutUserNestedInput
+    scraper_execution_traces?: ScraperExecutionTraceUncheckedUpdateManyWithoutUserNestedInput
+    extracted_items?: ExtractedItemUncheckedUpdateManyWithoutUserNestedInput
+    plain_scraped_pages?: PlainScrapedPageUncheckedUpdateManyWithoutUserNestedInput
+    extraction_results?: ExtractionResultUncheckedUpdateManyWithoutUserNestedInput
+    ai_batch_request_items?: AiBatchRequestItemUncheckedUpdateManyWithoutUserNestedInput
+    block_rules?: BlockRuleUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -43856,11 +44577,13 @@ export namespace Prisma {
     duration_ms?: number | null
     created_at?: Date | string
     webhook_endpoint: WebhookEndpointCreateNestedOneWithoutDeliveriesInput
+    user: UserCreateNestedOneWithoutWebhook_deliveriesInput
   }
 
   export type WebhookDeliveryUncheckedCreateInput = {
     id?: string
     webhook_endpoint_id: string
+    user_id: string
     event_type: $Enums.WebhookEventType
     workflow_run_id?: string | null
     is_test?: boolean
@@ -43888,11 +44611,13 @@ export namespace Prisma {
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     webhook_endpoint?: WebhookEndpointUpdateOneRequiredWithoutDeliveriesNestedInput
+    user?: UserUpdateOneRequiredWithoutWebhook_deliveriesNestedInput
   }
 
   export type WebhookDeliveryUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     webhook_endpoint_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
     event_type?: EnumWebhookEventTypeFieldUpdateOperationsInput | $Enums.WebhookEventType
     workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
     is_test?: BoolFieldUpdateOperationsInput | boolean
@@ -43909,6 +44634,7 @@ export namespace Prisma {
   export type WebhookDeliveryCreateManyInput = {
     id?: string
     webhook_endpoint_id: string
+    user_id: string
     event_type: $Enums.WebhookEventType
     workflow_run_id?: string | null
     is_test?: boolean
@@ -43940,6 +44666,7 @@ export namespace Prisma {
   export type WebhookDeliveryUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     webhook_endpoint_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
     event_type?: EnumWebhookEventTypeFieldUpdateOperationsInput | $Enums.WebhookEventType
     workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
     is_test?: BoolFieldUpdateOperationsInput | boolean
@@ -44196,11 +44923,13 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     website_target: WebsiteTargetCreateNestedOneWithoutBlock_rulesInput
+    user: UserCreateNestedOneWithoutBlock_rulesInput
   }
 
   export type BlockRuleUncheckedCreateInput = {
     id?: string
     website_target_id: string
+    user_id: string
     label?: string | null
     signal: $Enums.BlockSignal
     source: $Enums.BlockRuleSource
@@ -44224,11 +44953,13 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     website_target?: WebsiteTargetUpdateOneRequiredWithoutBlock_rulesNestedInput
+    user?: UserUpdateOneRequiredWithoutBlock_rulesNestedInput
   }
 
   export type BlockRuleUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     website_target_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
     label?: NullableStringFieldUpdateOperationsInput | string | null
     signal?: EnumBlockSignalFieldUpdateOperationsInput | $Enums.BlockSignal
     source?: EnumBlockRuleSourceFieldUpdateOperationsInput | $Enums.BlockRuleSource
@@ -44243,6 +44974,7 @@ export namespace Prisma {
   export type BlockRuleCreateManyInput = {
     id?: string
     website_target_id: string
+    user_id: string
     label?: string | null
     signal: $Enums.BlockSignal
     source: $Enums.BlockRuleSource
@@ -44270,6 +45002,7 @@ export namespace Prisma {
   export type BlockRuleUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     website_target_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
     label?: NullableStringFieldUpdateOperationsInput | string | null
     signal?: EnumBlockSignalFieldUpdateOperationsInput | $Enums.BlockSignal
     source?: EnumBlockRuleSourceFieldUpdateOperationsInput | $Enums.BlockRuleSource
@@ -44557,6 +45290,7 @@ export namespace Prisma {
     website_target: WebsiteTargetCreateNestedOneWithoutScraper_generation_runsInput
     workflow_config?: WorkflowConfigCreateNestedOneWithoutScraper_generation_runsInput
     produced_version?: ScraperVersionCreateNestedOneWithoutProduced_by_runInput
+    user: UserCreateNestedOneWithoutScraper_generation_runsInput
     steps?: ComputerUseStepCreateNestedManyWithoutScraper_generation_runInput
   }
 
@@ -44564,6 +45298,7 @@ export namespace Prisma {
     id?: string
     website_target_id: string
     workflow_config_id?: string | null
+    user_id: string
     trigger?: $Enums.GenerationTrigger
     status?: $Enums.GenerationRunStatus
     prompt?: string | null
@@ -44599,6 +45334,7 @@ export namespace Prisma {
     website_target?: WebsiteTargetUpdateOneRequiredWithoutScraper_generation_runsNestedInput
     workflow_config?: WorkflowConfigUpdateOneWithoutScraper_generation_runsNestedInput
     produced_version?: ScraperVersionUpdateOneWithoutProduced_by_runNestedInput
+    user?: UserUpdateOneRequiredWithoutScraper_generation_runsNestedInput
     steps?: ComputerUseStepUpdateManyWithoutScraper_generation_runNestedInput
   }
 
@@ -44606,6 +45342,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     website_target_id?: StringFieldUpdateOperationsInput | string
     workflow_config_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: StringFieldUpdateOperationsInput | string
     trigger?: EnumGenerationTriggerFieldUpdateOperationsInput | $Enums.GenerationTrigger
     status?: EnumGenerationRunStatusFieldUpdateOperationsInput | $Enums.GenerationRunStatus
     prompt?: NullableStringFieldUpdateOperationsInput | string | null
@@ -44627,6 +45364,7 @@ export namespace Prisma {
     id?: string
     website_target_id: string
     workflow_config_id?: string | null
+    user_id: string
     trigger?: $Enums.GenerationTrigger
     status?: $Enums.GenerationRunStatus
     prompt?: string | null
@@ -44664,6 +45402,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     website_target_id?: StringFieldUpdateOperationsInput | string
     workflow_config_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: StringFieldUpdateOperationsInput | string
     trigger?: EnumGenerationTriggerFieldUpdateOperationsInput | $Enums.GenerationTrigger
     status?: EnumGenerationRunStatusFieldUpdateOperationsInput | $Enums.GenerationRunStatus
     prompt?: NullableStringFieldUpdateOperationsInput | string | null
@@ -44691,12 +45430,14 @@ export namespace Prisma {
     workflow_run?: WorkflowRunCreateNestedOneWithoutStepsInput
     screenshot_before?: DocumentCreateNestedOneWithoutComputer_use_steps_beforeInput
     screenshot_after?: DocumentCreateNestedOneWithoutComputer_use_steps_afterInput
+    user: UserCreateNestedOneWithoutComputer_use_stepsInput
   }
 
   export type ComputerUseStepUncheckedCreateInput = {
     id?: string
     scraper_generation_run_id?: string | null
     workflow_run_id?: string | null
+    user_id: string
     step_index: number
     action_type: $Enums.ComputerActionType
     action_payload: JsonNullValueInput | InputJsonValue
@@ -44717,12 +45458,14 @@ export namespace Prisma {
     workflow_run?: WorkflowRunUpdateOneWithoutStepsNestedInput
     screenshot_before?: DocumentUpdateOneWithoutComputer_use_steps_beforeNestedInput
     screenshot_after?: DocumentUpdateOneWithoutComputer_use_steps_afterNestedInput
+    user?: UserUpdateOneRequiredWithoutComputer_use_stepsNestedInput
   }
 
   export type ComputerUseStepUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     scraper_generation_run_id?: NullableStringFieldUpdateOperationsInput | string | null
     workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: StringFieldUpdateOperationsInput | string
     step_index?: IntFieldUpdateOperationsInput | number
     action_type?: EnumComputerActionTypeFieldUpdateOperationsInput | $Enums.ComputerActionType
     action_payload?: JsonNullValueInput | InputJsonValue
@@ -44736,6 +45479,7 @@ export namespace Prisma {
     id?: string
     scraper_generation_run_id?: string | null
     workflow_run_id?: string | null
+    user_id: string
     step_index: number
     action_type: $Enums.ComputerActionType
     action_payload: JsonNullValueInput | InputJsonValue
@@ -44758,6 +45502,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     scraper_generation_run_id?: NullableStringFieldUpdateOperationsInput | string | null
     workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: StringFieldUpdateOperationsInput | string
     step_index?: IntFieldUpdateOperationsInput | number
     action_type?: EnumComputerActionTypeFieldUpdateOperationsInput | $Enums.ComputerActionType
     action_payload?: JsonNullValueInput | InputJsonValue
@@ -44779,6 +45524,7 @@ export namespace Prisma {
     updated_at?: Date | string
     workflow_config: WorkflowConfigCreateNestedOneWithoutVersionsInput
     extraction_schema_version?: ExtractionSchemaVersionCreateNestedOneWithoutScraper_versionsInput
+    user: UserCreateNestedOneWithoutScraper_versionsInput
     active_for_config?: WorkflowConfigCreateNestedOneWithoutActive_versionInput
     produced_by_run?: ScraperGenerationRunCreateNestedOneWithoutProduced_versionInput
     workflow_runs?: WorkflowRunCreateNestedManyWithoutScraper_versionInput
@@ -44787,6 +45533,7 @@ export namespace Prisma {
   export type ScraperVersionUncheckedCreateInput = {
     id?: string
     workflow_config_id: string
+    user_id: string
     version: number
     config: JsonNullValueInput | InputJsonValue
     created_by: $Enums.ScraperVersionCreatedBy
@@ -44813,6 +45560,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     workflow_config?: WorkflowConfigUpdateOneRequiredWithoutVersionsNestedInput
     extraction_schema_version?: ExtractionSchemaVersionUpdateOneWithoutScraper_versionsNestedInput
+    user?: UserUpdateOneRequiredWithoutScraper_versionsNestedInput
     active_for_config?: WorkflowConfigUpdateOneWithoutActive_versionNestedInput
     produced_by_run?: ScraperGenerationRunUpdateOneWithoutProduced_versionNestedInput
     workflow_runs?: WorkflowRunUpdateManyWithoutScraper_versionNestedInput
@@ -44821,6 +45569,7 @@ export namespace Prisma {
   export type ScraperVersionUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     workflow_config_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
     version?: IntFieldUpdateOperationsInput | number
     config?: JsonNullValueInput | InputJsonValue
     created_by?: EnumScraperVersionCreatedByFieldUpdateOperationsInput | $Enums.ScraperVersionCreatedBy
@@ -44838,6 +45587,7 @@ export namespace Prisma {
   export type ScraperVersionCreateManyInput = {
     id?: string
     workflow_config_id: string
+    user_id: string
     version: number
     config: JsonNullValueInput | InputJsonValue
     created_by: $Enums.ScraperVersionCreatedBy
@@ -44864,6 +45614,7 @@ export namespace Prisma {
   export type ScraperVersionUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     workflow_config_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
     version?: IntFieldUpdateOperationsInput | number
     config?: JsonNullValueInput | InputJsonValue
     created_by?: EnumScraperVersionCreatedByFieldUpdateOperationsInput | $Enums.ScraperVersionCreatedBy
@@ -44884,12 +45635,14 @@ export namespace Prisma {
     updated_at?: Date | string
     workflow_config: WorkflowConfigCreateNestedOneWithoutExecution_tracesInput
     workflow_run?: WorkflowRunCreateNestedOneWithoutExecution_tracesInput
+    user: UserCreateNestedOneWithoutScraper_execution_tracesInput
   }
 
   export type ScraperExecutionTraceUncheckedCreateInput = {
     id?: string
     workflow_config_id: string
     workflow_run_id?: string | null
+    user_id: string
     steps: JsonNullValueInput | InputJsonValue
     success: boolean
     error_summary?: string | null
@@ -44906,12 +45659,14 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     workflow_config?: WorkflowConfigUpdateOneRequiredWithoutExecution_tracesNestedInput
     workflow_run?: WorkflowRunUpdateOneWithoutExecution_tracesNestedInput
+    user?: UserUpdateOneRequiredWithoutScraper_execution_tracesNestedInput
   }
 
   export type ScraperExecutionTraceUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     workflow_config_id?: StringFieldUpdateOperationsInput | string
     workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: StringFieldUpdateOperationsInput | string
     steps?: JsonNullValueInput | InputJsonValue
     success?: BoolFieldUpdateOperationsInput | boolean
     error_summary?: NullableStringFieldUpdateOperationsInput | string | null
@@ -44923,6 +45678,7 @@ export namespace Prisma {
     id?: string
     workflow_config_id: string
     workflow_run_id?: string | null
+    user_id: string
     steps: JsonNullValueInput | InputJsonValue
     success: boolean
     error_summary?: string | null
@@ -44943,6 +45699,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     workflow_config_id?: StringFieldUpdateOperationsInput | string
     workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: StringFieldUpdateOperationsInput | string
     steps?: JsonNullValueInput | InputJsonValue
     success?: BoolFieldUpdateOperationsInput | boolean
     error_summary?: NullableStringFieldUpdateOperationsInput | string | null
@@ -45234,12 +45991,14 @@ export namespace Prisma {
     updated_at?: Date | string
     website_target: WebsiteTargetCreateNestedOneWithoutExtracted_itemsInput
     workflow_run?: WorkflowRunCreateNestedOneWithoutExtracted_itemsInput
+    user: UserCreateNestedOneWithoutExtracted_itemsInput
   }
 
   export type ExtractedItemUncheckedCreateInput = {
     id?: string
     website_target_id: string
     workflow_run_id?: string | null
+    user_id: string
     source_url: string
     external_id?: string | null
     raw_data: JsonNullValueInput | InputJsonValue
@@ -45262,12 +46021,14 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     website_target?: WebsiteTargetUpdateOneRequiredWithoutExtracted_itemsNestedInput
     workflow_run?: WorkflowRunUpdateOneWithoutExtracted_itemsNestedInput
+    user?: UserUpdateOneRequiredWithoutExtracted_itemsNestedInput
   }
 
   export type ExtractedItemUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     website_target_id?: StringFieldUpdateOperationsInput | string
     workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: StringFieldUpdateOperationsInput | string
     source_url?: StringFieldUpdateOperationsInput | string
     external_id?: NullableStringFieldUpdateOperationsInput | string | null
     raw_data?: JsonNullValueInput | InputJsonValue
@@ -45282,6 +46043,7 @@ export namespace Prisma {
     id?: string
     website_target_id: string
     workflow_run_id?: string | null
+    user_id: string
     source_url: string
     external_id?: string | null
     raw_data: JsonNullValueInput | InputJsonValue
@@ -45308,6 +46070,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     website_target_id?: StringFieldUpdateOperationsInput | string
     workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: StringFieldUpdateOperationsInput | string
     source_url?: StringFieldUpdateOperationsInput | string
     external_id?: NullableStringFieldUpdateOperationsInput | string | null
     raw_data?: JsonNullValueInput | InputJsonValue
@@ -45485,6 +46248,7 @@ export namespace Prisma {
     error_message?: string | null
     created_at?: Date | string
     workflow_run: WorkflowRunCreateNestedOneWithoutPagesInput
+    user: UserCreateNestedOneWithoutPlain_scraped_pagesInput
     extraction_result?: ExtractionResultCreateNestedOneWithoutPlain_scraped_pageInput
     ai_batch_request_items?: AiBatchRequestItemCreateNestedManyWithoutPlain_scraped_pageInput
   }
@@ -45492,6 +46256,7 @@ export namespace Prisma {
   export type PlainScrapedPageUncheckedCreateInput = {
     id?: string
     workflow_run_id: string
+    user_id: string
     requested_url: string
     final_url?: string | null
     http_status?: number | null
@@ -45519,6 +46284,7 @@ export namespace Prisma {
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     workflow_run?: WorkflowRunUpdateOneRequiredWithoutPagesNestedInput
+    user?: UserUpdateOneRequiredWithoutPlain_scraped_pagesNestedInput
     extraction_result?: ExtractionResultUpdateOneWithoutPlain_scraped_pageNestedInput
     ai_batch_request_items?: AiBatchRequestItemUpdateManyWithoutPlain_scraped_pageNestedInput
   }
@@ -45526,6 +46292,7 @@ export namespace Prisma {
   export type PlainScrapedPageUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     workflow_run_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
     requested_url?: StringFieldUpdateOperationsInput | string
     final_url?: NullableStringFieldUpdateOperationsInput | string | null
     http_status?: NullableIntFieldUpdateOperationsInput | number | null
@@ -45543,6 +46310,7 @@ export namespace Prisma {
   export type PlainScrapedPageCreateManyInput = {
     id?: string
     workflow_run_id: string
+    user_id: string
     requested_url: string
     final_url?: string | null
     http_status?: number | null
@@ -45572,6 +46340,7 @@ export namespace Prisma {
   export type PlainScrapedPageUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     workflow_run_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
     requested_url?: StringFieldUpdateOperationsInput | string
     final_url?: NullableStringFieldUpdateOperationsInput | string | null
     http_status?: NullableIntFieldUpdateOperationsInput | number | null
@@ -45601,12 +46370,14 @@ export namespace Prisma {
     workflow_run?: WorkflowRunCreateNestedOneWithoutExtraction_resultInput
     plain_scraped_page?: PlainScrapedPageCreateNestedOneWithoutExtraction_resultInput
     extraction_schema_version?: ExtractionSchemaVersionCreateNestedOneWithoutExtraction_resultsInput
+    user: UserCreateNestedOneWithoutExtraction_resultsInput
   }
 
   export type ExtractionResultUncheckedCreateInput = {
     id?: string
     workflow_run_id?: string | null
     plain_scraped_page_id?: string | null
+    user_id: string
     extraction_schema_version_id?: string | null
     structured_status?: $Enums.ExtractionFormatStatus | null
     structured_data?: NullableJsonNullValueInput | InputJsonValue
@@ -45639,12 +46410,14 @@ export namespace Prisma {
     workflow_run?: WorkflowRunUpdateOneWithoutExtraction_resultNestedInput
     plain_scraped_page?: PlainScrapedPageUpdateOneWithoutExtraction_resultNestedInput
     extraction_schema_version?: ExtractionSchemaVersionUpdateOneWithoutExtraction_resultsNestedInput
+    user?: UserUpdateOneRequiredWithoutExtraction_resultsNestedInput
   }
 
   export type ExtractionResultUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
     plain_scraped_page_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: StringFieldUpdateOperationsInput | string
     extraction_schema_version_id?: NullableStringFieldUpdateOperationsInput | string | null
     structured_status?: NullableEnumExtractionFormatStatusFieldUpdateOperationsInput | $Enums.ExtractionFormatStatus | null
     structured_data?: NullableJsonNullValueInput | InputJsonValue
@@ -45664,6 +46437,7 @@ export namespace Prisma {
     id?: string
     workflow_run_id?: string | null
     plain_scraped_page_id?: string | null
+    user_id: string
     extraction_schema_version_id?: string | null
     structured_status?: $Enums.ExtractionFormatStatus | null
     structured_data?: NullableJsonNullValueInput | InputJsonValue
@@ -45699,6 +46473,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
     plain_scraped_page_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: StringFieldUpdateOperationsInput | string
     extraction_schema_version_id?: NullableStringFieldUpdateOperationsInput | string | null
     structured_status?: NullableEnumExtractionFormatStatusFieldUpdateOperationsInput | $Enums.ExtractionFormatStatus | null
     structured_data?: NullableJsonNullValueInput | InputJsonValue
@@ -45856,11 +46631,13 @@ export namespace Prisma {
     created_at?: Date | string
     ai_batch_job: AiBatchJobCreateNestedOneWithoutItemsInput
     plain_scraped_page?: PlainScrapedPageCreateNestedOneWithoutAi_batch_request_itemsInput
+    user: UserCreateNestedOneWithoutAi_batch_request_itemsInput
   }
 
   export type AiBatchRequestItemUncheckedCreateInput = {
     id?: string
     ai_batch_job_id: string
+    user_id: string
     custom_id: string
     plain_scraped_page_id?: string | null
     source_url?: string | null
@@ -45886,11 +46663,13 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     ai_batch_job?: AiBatchJobUpdateOneRequiredWithoutItemsNestedInput
     plain_scraped_page?: PlainScrapedPageUpdateOneWithoutAi_batch_request_itemsNestedInput
+    user?: UserUpdateOneRequiredWithoutAi_batch_request_itemsNestedInput
   }
 
   export type AiBatchRequestItemUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     ai_batch_job_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
     custom_id?: StringFieldUpdateOperationsInput | string
     plain_scraped_page_id?: NullableStringFieldUpdateOperationsInput | string | null
     source_url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -45906,6 +46685,7 @@ export namespace Prisma {
   export type AiBatchRequestItemCreateManyInput = {
     id?: string
     ai_batch_job_id: string
+    user_id: string
     custom_id: string
     plain_scraped_page_id?: string | null
     source_url?: string | null
@@ -45934,6 +46714,7 @@ export namespace Prisma {
   export type AiBatchRequestItemUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     ai_batch_job_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
     custom_id?: StringFieldUpdateOperationsInput | string
     plain_scraped_page_id?: NullableStringFieldUpdateOperationsInput | string | null
     source_url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -46174,7 +46955,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     workflow_run?: WorkflowRunCreateNestedOneWithoutJob_logsInput
-    user?: UserCreateNestedOneWithoutJob_logsInput
+    user: UserCreateNestedOneWithoutJob_logsInput
   }
 
   export type JobLogUncheckedCreateInput = {
@@ -46186,7 +46967,7 @@ export namespace Prisma {
     attempt?: number
     max_attempts?: number | null
     workflow_run_id?: string | null
-    user_id?: string | null
+    user_id: string
     payload?: NullableJsonNullValueInput | InputJsonValue
     result?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
@@ -46216,7 +46997,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     workflow_run?: WorkflowRunUpdateOneWithoutJob_logsNestedInput
-    user?: UserUpdateOneWithoutJob_logsNestedInput
+    user?: UserUpdateOneRequiredWithoutJob_logsNestedInput
   }
 
   export type JobLogUncheckedUpdateInput = {
@@ -46228,7 +47009,7 @@ export namespace Prisma {
     attempt?: IntFieldUpdateOperationsInput | number
     max_attempts?: NullableIntFieldUpdateOperationsInput | number | null
     workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
-    user_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: StringFieldUpdateOperationsInput | string
     payload?: NullableJsonNullValueInput | InputJsonValue
     result?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
@@ -46249,7 +47030,7 @@ export namespace Prisma {
     attempt?: number
     max_attempts?: number | null
     workflow_run_id?: string | null
-    user_id?: string | null
+    user_id: string
     payload?: NullableJsonNullValueInput | InputJsonValue
     result?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
@@ -46289,7 +47070,7 @@ export namespace Prisma {
     attempt?: IntFieldUpdateOperationsInput | number
     max_attempts?: NullableIntFieldUpdateOperationsInput | number | null
     workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
-    user_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: StringFieldUpdateOperationsInput | string
     payload?: NullableJsonNullValueInput | InputJsonValue
     result?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
@@ -46782,6 +47563,12 @@ export namespace Prisma {
     none?: WebhookEndpointWhereInput
   }
 
+  export type WebhookDeliveryListRelationFilter = {
+    every?: WebhookDeliveryWhereInput
+    some?: WebhookDeliveryWhereInput
+    none?: WebhookDeliveryWhereInput
+  }
+
   export type JobLogListRelationFilter = {
     every?: JobLogWhereInput
     some?: JobLogWhereInput
@@ -46804,6 +47591,60 @@ export namespace Prisma {
     every?: CostEntryWhereInput
     some?: CostEntryWhereInput
     none?: CostEntryWhereInput
+  }
+
+  export type ScraperVersionListRelationFilter = {
+    every?: ScraperVersionWhereInput
+    some?: ScraperVersionWhereInput
+    none?: ScraperVersionWhereInput
+  }
+
+  export type ScraperGenerationRunListRelationFilter = {
+    every?: ScraperGenerationRunWhereInput
+    some?: ScraperGenerationRunWhereInput
+    none?: ScraperGenerationRunWhereInput
+  }
+
+  export type ComputerUseStepListRelationFilter = {
+    every?: ComputerUseStepWhereInput
+    some?: ComputerUseStepWhereInput
+    none?: ComputerUseStepWhereInput
+  }
+
+  export type ScraperExecutionTraceListRelationFilter = {
+    every?: ScraperExecutionTraceWhereInput
+    some?: ScraperExecutionTraceWhereInput
+    none?: ScraperExecutionTraceWhereInput
+  }
+
+  export type ExtractedItemListRelationFilter = {
+    every?: ExtractedItemWhereInput
+    some?: ExtractedItemWhereInput
+    none?: ExtractedItemWhereInput
+  }
+
+  export type PlainScrapedPageListRelationFilter = {
+    every?: PlainScrapedPageWhereInput
+    some?: PlainScrapedPageWhereInput
+    none?: PlainScrapedPageWhereInput
+  }
+
+  export type ExtractionResultListRelationFilter = {
+    every?: ExtractionResultWhereInput
+    some?: ExtractionResultWhereInput
+    none?: ExtractionResultWhereInput
+  }
+
+  export type AiBatchRequestItemListRelationFilter = {
+    every?: AiBatchRequestItemWhereInput
+    some?: AiBatchRequestItemWhereInput
+    none?: AiBatchRequestItemWhereInput
+  }
+
+  export type BlockRuleListRelationFilter = {
+    every?: BlockRuleWhereInput
+    some?: BlockRuleWhereInput
+    none?: BlockRuleWhereInput
   }
 
   export type SortOrderInput = {
@@ -46843,6 +47684,10 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type WebhookDeliveryOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type JobLogOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -46856,6 +47701,42 @@ export namespace Prisma {
   }
 
   export type CostEntryOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ScraperVersionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ScraperGenerationRunOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ComputerUseStepOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ScraperExecutionTraceOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ExtractedItemOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PlainScrapedPageOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ExtractionResultOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AiBatchRequestItemOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type BlockRuleOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -47069,16 +47950,6 @@ export namespace Prisma {
     isEmpty?: boolean
   }
 
-  export type WebhookDeliveryListRelationFilter = {
-    every?: WebhookDeliveryWhereInput
-    some?: WebhookDeliveryWhereInput
-    none?: WebhookDeliveryWhereInput
-  }
-
-  export type WebhookDeliveryOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type WebhookEndpointCountOrderByAggregateInput = {
     id?: SortOrder
     user_id?: SortOrder
@@ -47183,6 +48054,7 @@ export namespace Prisma {
   export type WebhookDeliveryCountOrderByAggregateInput = {
     id?: SortOrder
     webhook_endpoint_id?: SortOrder
+    user_id?: SortOrder
     event_type?: SortOrder
     workflow_run_id?: SortOrder
     is_test?: SortOrder
@@ -47205,6 +48077,7 @@ export namespace Prisma {
   export type WebhookDeliveryMaxOrderByAggregateInput = {
     id?: SortOrder
     webhook_endpoint_id?: SortOrder
+    user_id?: SortOrder
     event_type?: SortOrder
     workflow_run_id?: SortOrder
     is_test?: SortOrder
@@ -47220,6 +48093,7 @@ export namespace Prisma {
   export type WebhookDeliveryMinOrderByAggregateInput = {
     id?: SortOrder
     webhook_endpoint_id?: SortOrder
+    user_id?: SortOrder
     event_type?: SortOrder
     workflow_run_id?: SortOrder
     is_test?: SortOrder
@@ -47323,16 +48197,6 @@ export namespace Prisma {
     not?: NestedEnumDocumentTypeFilter<$PrismaModel> | $Enums.DocumentType
   }
 
-  export type ComputerUseStepListRelationFilter = {
-    every?: ComputerUseStepWhereInput
-    some?: ComputerUseStepWhereInput
-    none?: ComputerUseStepWhereInput
-  }
-
-  export type ComputerUseStepOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type DocumentCountOrderByAggregateInput = {
     id?: SortOrder
     user_id?: SortOrder
@@ -47408,36 +48272,6 @@ export namespace Prisma {
     gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-  }
-
-  export type ScraperGenerationRunListRelationFilter = {
-    every?: ScraperGenerationRunWhereInput
-    some?: ScraperGenerationRunWhereInput
-    none?: ScraperGenerationRunWhereInput
-  }
-
-  export type BlockRuleListRelationFilter = {
-    every?: BlockRuleWhereInput
-    some?: BlockRuleWhereInput
-    none?: BlockRuleWhereInput
-  }
-
-  export type ExtractedItemListRelationFilter = {
-    every?: ExtractedItemWhereInput
-    some?: ExtractedItemWhereInput
-    none?: ExtractedItemWhereInput
-  }
-
-  export type ScraperGenerationRunOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type BlockRuleOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type ExtractedItemOrderByRelationAggregateInput = {
-    _count?: SortOrder
   }
 
   export type WebsiteTargetUser_idBase_urlCompoundUniqueInput = {
@@ -47549,6 +48383,7 @@ export namespace Prisma {
   export type BlockRuleCountOrderByAggregateInput = {
     id?: SortOrder
     website_target_id?: SortOrder
+    user_id?: SortOrder
     label?: SortOrder
     signal?: SortOrder
     source?: SortOrder
@@ -47567,6 +48402,7 @@ export namespace Prisma {
   export type BlockRuleMaxOrderByAggregateInput = {
     id?: SortOrder
     website_target_id?: SortOrder
+    user_id?: SortOrder
     label?: SortOrder
     signal?: SortOrder
     source?: SortOrder
@@ -47581,6 +48417,7 @@ export namespace Prisma {
   export type BlockRuleMinOrderByAggregateInput = {
     id?: SortOrder
     website_target_id?: SortOrder
+    user_id?: SortOrder
     label?: SortOrder
     signal?: SortOrder
     source?: SortOrder
@@ -47691,26 +48528,6 @@ export namespace Prisma {
   export type ExtractionSchemaVersionNullableScalarRelationFilter = {
     is?: ExtractionSchemaVersionWhereInput | null
     isNot?: ExtractionSchemaVersionWhereInput | null
-  }
-
-  export type ScraperVersionListRelationFilter = {
-    every?: ScraperVersionWhereInput
-    some?: ScraperVersionWhereInput
-    none?: ScraperVersionWhereInput
-  }
-
-  export type ScraperExecutionTraceListRelationFilter = {
-    every?: ScraperExecutionTraceWhereInput
-    some?: ScraperExecutionTraceWhereInput
-    none?: ScraperExecutionTraceWhereInput
-  }
-
-  export type ScraperVersionOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type ScraperExecutionTraceOrderByRelationAggregateInput = {
-    _count?: SortOrder
   }
 
   export type WorkflowConfigCountOrderByAggregateInput = {
@@ -47916,6 +48733,7 @@ export namespace Prisma {
     id?: SortOrder
     website_target_id?: SortOrder
     workflow_config_id?: SortOrder
+    user_id?: SortOrder
     trigger?: SortOrder
     status?: SortOrder
     prompt?: SortOrder
@@ -47941,6 +48759,7 @@ export namespace Prisma {
     id?: SortOrder
     website_target_id?: SortOrder
     workflow_config_id?: SortOrder
+    user_id?: SortOrder
     trigger?: SortOrder
     status?: SortOrder
     prompt?: SortOrder
@@ -47958,6 +48777,7 @@ export namespace Prisma {
     id?: SortOrder
     website_target_id?: SortOrder
     workflow_config_id?: SortOrder
+    user_id?: SortOrder
     trigger?: SortOrder
     status?: SortOrder
     prompt?: SortOrder
@@ -48022,6 +48842,7 @@ export namespace Prisma {
     id?: SortOrder
     scraper_generation_run_id?: SortOrder
     workflow_run_id?: SortOrder
+    user_id?: SortOrder
     step_index?: SortOrder
     action_type?: SortOrder
     action_payload?: SortOrder
@@ -48039,6 +48860,7 @@ export namespace Prisma {
     id?: SortOrder
     scraper_generation_run_id?: SortOrder
     workflow_run_id?: SortOrder
+    user_id?: SortOrder
     step_index?: SortOrder
     action_type?: SortOrder
     screenshot_before_id?: SortOrder
@@ -48051,6 +48873,7 @@ export namespace Prisma {
     id?: SortOrder
     scraper_generation_run_id?: SortOrder
     workflow_run_id?: SortOrder
+    user_id?: SortOrder
     step_index?: SortOrder
     action_type?: SortOrder
     screenshot_before_id?: SortOrder
@@ -48093,6 +48916,7 @@ export namespace Prisma {
   export type ScraperVersionCountOrderByAggregateInput = {
     id?: SortOrder
     workflow_config_id?: SortOrder
+    user_id?: SortOrder
     version?: SortOrder
     config?: SortOrder
     created_by?: SortOrder
@@ -48111,6 +48935,7 @@ export namespace Prisma {
   export type ScraperVersionMaxOrderByAggregateInput = {
     id?: SortOrder
     workflow_config_id?: SortOrder
+    user_id?: SortOrder
     version?: SortOrder
     created_by?: SortOrder
     notes?: SortOrder
@@ -48123,6 +48948,7 @@ export namespace Prisma {
   export type ScraperVersionMinOrderByAggregateInput = {
     id?: SortOrder
     workflow_config_id?: SortOrder
+    user_id?: SortOrder
     version?: SortOrder
     created_by?: SortOrder
     notes?: SortOrder
@@ -48150,6 +48976,7 @@ export namespace Prisma {
     id?: SortOrder
     workflow_config_id?: SortOrder
     workflow_run_id?: SortOrder
+    user_id?: SortOrder
     steps?: SortOrder
     success?: SortOrder
     error_summary?: SortOrder
@@ -48161,6 +48988,7 @@ export namespace Prisma {
     id?: SortOrder
     workflow_config_id?: SortOrder
     workflow_run_id?: SortOrder
+    user_id?: SortOrder
     success?: SortOrder
     error_summary?: SortOrder
     created_at?: SortOrder
@@ -48171,6 +48999,7 @@ export namespace Prisma {
     id?: SortOrder
     workflow_config_id?: SortOrder
     workflow_run_id?: SortOrder
+    user_id?: SortOrder
     success?: SortOrder
     error_summary?: SortOrder
     created_at?: SortOrder
@@ -48203,12 +49032,6 @@ export namespace Prisma {
     isNot?: DiagnosticsPackageWhereInput | null
   }
 
-  export type PlainScrapedPageListRelationFilter = {
-    every?: PlainScrapedPageWhereInput
-    some?: PlainScrapedPageWhereInput
-    none?: PlainScrapedPageWhereInput
-  }
-
   export type ExtractionResultNullableScalarRelationFilter = {
     is?: ExtractionResultWhereInput | null
     isNot?: ExtractionResultWhereInput | null
@@ -48217,10 +49040,6 @@ export namespace Prisma {
   export type AiBatchJobNullableScalarRelationFilter = {
     is?: AiBatchJobWhereInput | null
     isNot?: AiBatchJobWhereInput | null
-  }
-
-  export type PlainScrapedPageOrderByRelationAggregateInput = {
-    _count?: SortOrder
   }
 
   export type WorkflowRunCountOrderByAggregateInput = {
@@ -48358,6 +49177,7 @@ export namespace Prisma {
     id?: SortOrder
     website_target_id?: SortOrder
     workflow_run_id?: SortOrder
+    user_id?: SortOrder
     source_url?: SortOrder
     external_id?: SortOrder
     raw_data?: SortOrder
@@ -48372,6 +49192,7 @@ export namespace Prisma {
     id?: SortOrder
     website_target_id?: SortOrder
     workflow_run_id?: SortOrder
+    user_id?: SortOrder
     source_url?: SortOrder
     external_id?: SortOrder
     content_hash?: SortOrder
@@ -48385,6 +49206,7 @@ export namespace Prisma {
     id?: SortOrder
     website_target_id?: SortOrder
     workflow_run_id?: SortOrder
+    user_id?: SortOrder
     source_url?: SortOrder
     external_id?: SortOrder
     content_hash?: SortOrder
@@ -48455,16 +49277,6 @@ export namespace Prisma {
     isNot?: ExtractionSchemaWhereInput | null
   }
 
-  export type ExtractionResultListRelationFilter = {
-    every?: ExtractionResultWhereInput
-    some?: ExtractionResultWhereInput
-    none?: ExtractionResultWhereInput
-  }
-
-  export type ExtractionResultOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type ExtractionSchemaVersionExtraction_schema_idVersionCompoundUniqueInput = {
     extraction_schema_id: string
     version: number
@@ -48505,19 +49317,10 @@ export namespace Prisma {
     isNot?: WorkflowRunWhereInput
   }
 
-  export type AiBatchRequestItemListRelationFilter = {
-    every?: AiBatchRequestItemWhereInput
-    some?: AiBatchRequestItemWhereInput
-    none?: AiBatchRequestItemWhereInput
-  }
-
-  export type AiBatchRequestItemOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type PlainScrapedPageCountOrderByAggregateInput = {
     id?: SortOrder
     workflow_run_id?: SortOrder
+    user_id?: SortOrder
     requested_url?: SortOrder
     final_url?: SortOrder
     http_status?: SortOrder
@@ -48537,6 +49340,7 @@ export namespace Prisma {
   export type PlainScrapedPageMaxOrderByAggregateInput = {
     id?: SortOrder
     workflow_run_id?: SortOrder
+    user_id?: SortOrder
     requested_url?: SortOrder
     final_url?: SortOrder
     http_status?: SortOrder
@@ -48551,6 +49355,7 @@ export namespace Prisma {
   export type PlainScrapedPageMinOrderByAggregateInput = {
     id?: SortOrder
     workflow_run_id?: SortOrder
+    user_id?: SortOrder
     requested_url?: SortOrder
     final_url?: SortOrder
     http_status?: SortOrder
@@ -48582,6 +49387,7 @@ export namespace Prisma {
     id?: SortOrder
     workflow_run_id?: SortOrder
     plain_scraped_page_id?: SortOrder
+    user_id?: SortOrder
     extraction_schema_version_id?: SortOrder
     structured_status?: SortOrder
     structured_data?: SortOrder
@@ -48605,6 +49411,7 @@ export namespace Prisma {
     id?: SortOrder
     workflow_run_id?: SortOrder
     plain_scraped_page_id?: SortOrder
+    user_id?: SortOrder
     extraction_schema_version_id?: SortOrder
     structured_status?: SortOrder
     structured_attempts?: SortOrder
@@ -48619,6 +49426,7 @@ export namespace Prisma {
     id?: SortOrder
     workflow_run_id?: SortOrder
     plain_scraped_page_id?: SortOrder
+    user_id?: SortOrder
     extraction_schema_version_id?: SortOrder
     structured_status?: SortOrder
     structured_attempts?: SortOrder
@@ -48735,6 +49543,7 @@ export namespace Prisma {
   export type AiBatchRequestItemCountOrderByAggregateInput = {
     id?: SortOrder
     ai_batch_job_id?: SortOrder
+    user_id?: SortOrder
     custom_id?: SortOrder
     plain_scraped_page_id?: SortOrder
     source_url?: SortOrder
@@ -48750,6 +49559,7 @@ export namespace Prisma {
   export type AiBatchRequestItemMaxOrderByAggregateInput = {
     id?: SortOrder
     ai_batch_job_id?: SortOrder
+    user_id?: SortOrder
     custom_id?: SortOrder
     plain_scraped_page_id?: SortOrder
     source_url?: SortOrder
@@ -48764,6 +49574,7 @@ export namespace Prisma {
   export type AiBatchRequestItemMinOrderByAggregateInput = {
     id?: SortOrder
     ai_batch_job_id?: SortOrder
+    user_id?: SortOrder
     custom_id?: SortOrder
     plain_scraped_page_id?: SortOrder
     source_url?: SortOrder
@@ -49379,6 +50190,13 @@ export namespace Prisma {
     connect?: WebhookEndpointWhereUniqueInput | WebhookEndpointWhereUniqueInput[]
   }
 
+  export type WebhookDeliveryCreateNestedManyWithoutUserInput = {
+    create?: XOR<WebhookDeliveryCreateWithoutUserInput, WebhookDeliveryUncheckedCreateWithoutUserInput> | WebhookDeliveryCreateWithoutUserInput[] | WebhookDeliveryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: WebhookDeliveryCreateOrConnectWithoutUserInput | WebhookDeliveryCreateOrConnectWithoutUserInput[]
+    createMany?: WebhookDeliveryCreateManyUserInputEnvelope
+    connect?: WebhookDeliveryWhereUniqueInput | WebhookDeliveryWhereUniqueInput[]
+  }
+
   export type JobLogCreateNestedManyWithoutUserInput = {
     create?: XOR<JobLogCreateWithoutUserInput, JobLogUncheckedCreateWithoutUserInput> | JobLogCreateWithoutUserInput[] | JobLogUncheckedCreateWithoutUserInput[]
     connectOrCreate?: JobLogCreateOrConnectWithoutUserInput | JobLogCreateOrConnectWithoutUserInput[]
@@ -49405,6 +50223,69 @@ export namespace Prisma {
     connectOrCreate?: CostEntryCreateOrConnectWithoutUserInput | CostEntryCreateOrConnectWithoutUserInput[]
     createMany?: CostEntryCreateManyUserInputEnvelope
     connect?: CostEntryWhereUniqueInput | CostEntryWhereUniqueInput[]
+  }
+
+  export type ScraperVersionCreateNestedManyWithoutUserInput = {
+    create?: XOR<ScraperVersionCreateWithoutUserInput, ScraperVersionUncheckedCreateWithoutUserInput> | ScraperVersionCreateWithoutUserInput[] | ScraperVersionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ScraperVersionCreateOrConnectWithoutUserInput | ScraperVersionCreateOrConnectWithoutUserInput[]
+    createMany?: ScraperVersionCreateManyUserInputEnvelope
+    connect?: ScraperVersionWhereUniqueInput | ScraperVersionWhereUniqueInput[]
+  }
+
+  export type ScraperGenerationRunCreateNestedManyWithoutUserInput = {
+    create?: XOR<ScraperGenerationRunCreateWithoutUserInput, ScraperGenerationRunUncheckedCreateWithoutUserInput> | ScraperGenerationRunCreateWithoutUserInput[] | ScraperGenerationRunUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ScraperGenerationRunCreateOrConnectWithoutUserInput | ScraperGenerationRunCreateOrConnectWithoutUserInput[]
+    createMany?: ScraperGenerationRunCreateManyUserInputEnvelope
+    connect?: ScraperGenerationRunWhereUniqueInput | ScraperGenerationRunWhereUniqueInput[]
+  }
+
+  export type ComputerUseStepCreateNestedManyWithoutUserInput = {
+    create?: XOR<ComputerUseStepCreateWithoutUserInput, ComputerUseStepUncheckedCreateWithoutUserInput> | ComputerUseStepCreateWithoutUserInput[] | ComputerUseStepUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ComputerUseStepCreateOrConnectWithoutUserInput | ComputerUseStepCreateOrConnectWithoutUserInput[]
+    createMany?: ComputerUseStepCreateManyUserInputEnvelope
+    connect?: ComputerUseStepWhereUniqueInput | ComputerUseStepWhereUniqueInput[]
+  }
+
+  export type ScraperExecutionTraceCreateNestedManyWithoutUserInput = {
+    create?: XOR<ScraperExecutionTraceCreateWithoutUserInput, ScraperExecutionTraceUncheckedCreateWithoutUserInput> | ScraperExecutionTraceCreateWithoutUserInput[] | ScraperExecutionTraceUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ScraperExecutionTraceCreateOrConnectWithoutUserInput | ScraperExecutionTraceCreateOrConnectWithoutUserInput[]
+    createMany?: ScraperExecutionTraceCreateManyUserInputEnvelope
+    connect?: ScraperExecutionTraceWhereUniqueInput | ScraperExecutionTraceWhereUniqueInput[]
+  }
+
+  export type ExtractedItemCreateNestedManyWithoutUserInput = {
+    create?: XOR<ExtractedItemCreateWithoutUserInput, ExtractedItemUncheckedCreateWithoutUserInput> | ExtractedItemCreateWithoutUserInput[] | ExtractedItemUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ExtractedItemCreateOrConnectWithoutUserInput | ExtractedItemCreateOrConnectWithoutUserInput[]
+    createMany?: ExtractedItemCreateManyUserInputEnvelope
+    connect?: ExtractedItemWhereUniqueInput | ExtractedItemWhereUniqueInput[]
+  }
+
+  export type PlainScrapedPageCreateNestedManyWithoutUserInput = {
+    create?: XOR<PlainScrapedPageCreateWithoutUserInput, PlainScrapedPageUncheckedCreateWithoutUserInput> | PlainScrapedPageCreateWithoutUserInput[] | PlainScrapedPageUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PlainScrapedPageCreateOrConnectWithoutUserInput | PlainScrapedPageCreateOrConnectWithoutUserInput[]
+    createMany?: PlainScrapedPageCreateManyUserInputEnvelope
+    connect?: PlainScrapedPageWhereUniqueInput | PlainScrapedPageWhereUniqueInput[]
+  }
+
+  export type ExtractionResultCreateNestedManyWithoutUserInput = {
+    create?: XOR<ExtractionResultCreateWithoutUserInput, ExtractionResultUncheckedCreateWithoutUserInput> | ExtractionResultCreateWithoutUserInput[] | ExtractionResultUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ExtractionResultCreateOrConnectWithoutUserInput | ExtractionResultCreateOrConnectWithoutUserInput[]
+    createMany?: ExtractionResultCreateManyUserInputEnvelope
+    connect?: ExtractionResultWhereUniqueInput | ExtractionResultWhereUniqueInput[]
+  }
+
+  export type AiBatchRequestItemCreateNestedManyWithoutUserInput = {
+    create?: XOR<AiBatchRequestItemCreateWithoutUserInput, AiBatchRequestItemUncheckedCreateWithoutUserInput> | AiBatchRequestItemCreateWithoutUserInput[] | AiBatchRequestItemUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AiBatchRequestItemCreateOrConnectWithoutUserInput | AiBatchRequestItemCreateOrConnectWithoutUserInput[]
+    createMany?: AiBatchRequestItemCreateManyUserInputEnvelope
+    connect?: AiBatchRequestItemWhereUniqueInput | AiBatchRequestItemWhereUniqueInput[]
+  }
+
+  export type BlockRuleCreateNestedManyWithoutUserInput = {
+    create?: XOR<BlockRuleCreateWithoutUserInput, BlockRuleUncheckedCreateWithoutUserInput> | BlockRuleCreateWithoutUserInput[] | BlockRuleUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: BlockRuleCreateOrConnectWithoutUserInput | BlockRuleCreateOrConnectWithoutUserInput[]
+    createMany?: BlockRuleCreateManyUserInputEnvelope
+    connect?: BlockRuleWhereUniqueInput | BlockRuleWhereUniqueInput[]
   }
 
   export type PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput = {
@@ -49463,6 +50344,13 @@ export namespace Prisma {
     connect?: WebhookEndpointWhereUniqueInput | WebhookEndpointWhereUniqueInput[]
   }
 
+  export type WebhookDeliveryUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<WebhookDeliveryCreateWithoutUserInput, WebhookDeliveryUncheckedCreateWithoutUserInput> | WebhookDeliveryCreateWithoutUserInput[] | WebhookDeliveryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: WebhookDeliveryCreateOrConnectWithoutUserInput | WebhookDeliveryCreateOrConnectWithoutUserInput[]
+    createMany?: WebhookDeliveryCreateManyUserInputEnvelope
+    connect?: WebhookDeliveryWhereUniqueInput | WebhookDeliveryWhereUniqueInput[]
+  }
+
   export type JobLogUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<JobLogCreateWithoutUserInput, JobLogUncheckedCreateWithoutUserInput> | JobLogCreateWithoutUserInput[] | JobLogUncheckedCreateWithoutUserInput[]
     connectOrCreate?: JobLogCreateOrConnectWithoutUserInput | JobLogCreateOrConnectWithoutUserInput[]
@@ -49489,6 +50377,69 @@ export namespace Prisma {
     connectOrCreate?: CostEntryCreateOrConnectWithoutUserInput | CostEntryCreateOrConnectWithoutUserInput[]
     createMany?: CostEntryCreateManyUserInputEnvelope
     connect?: CostEntryWhereUniqueInput | CostEntryWhereUniqueInput[]
+  }
+
+  export type ScraperVersionUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<ScraperVersionCreateWithoutUserInput, ScraperVersionUncheckedCreateWithoutUserInput> | ScraperVersionCreateWithoutUserInput[] | ScraperVersionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ScraperVersionCreateOrConnectWithoutUserInput | ScraperVersionCreateOrConnectWithoutUserInput[]
+    createMany?: ScraperVersionCreateManyUserInputEnvelope
+    connect?: ScraperVersionWhereUniqueInput | ScraperVersionWhereUniqueInput[]
+  }
+
+  export type ScraperGenerationRunUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<ScraperGenerationRunCreateWithoutUserInput, ScraperGenerationRunUncheckedCreateWithoutUserInput> | ScraperGenerationRunCreateWithoutUserInput[] | ScraperGenerationRunUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ScraperGenerationRunCreateOrConnectWithoutUserInput | ScraperGenerationRunCreateOrConnectWithoutUserInput[]
+    createMany?: ScraperGenerationRunCreateManyUserInputEnvelope
+    connect?: ScraperGenerationRunWhereUniqueInput | ScraperGenerationRunWhereUniqueInput[]
+  }
+
+  export type ComputerUseStepUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<ComputerUseStepCreateWithoutUserInput, ComputerUseStepUncheckedCreateWithoutUserInput> | ComputerUseStepCreateWithoutUserInput[] | ComputerUseStepUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ComputerUseStepCreateOrConnectWithoutUserInput | ComputerUseStepCreateOrConnectWithoutUserInput[]
+    createMany?: ComputerUseStepCreateManyUserInputEnvelope
+    connect?: ComputerUseStepWhereUniqueInput | ComputerUseStepWhereUniqueInput[]
+  }
+
+  export type ScraperExecutionTraceUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<ScraperExecutionTraceCreateWithoutUserInput, ScraperExecutionTraceUncheckedCreateWithoutUserInput> | ScraperExecutionTraceCreateWithoutUserInput[] | ScraperExecutionTraceUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ScraperExecutionTraceCreateOrConnectWithoutUserInput | ScraperExecutionTraceCreateOrConnectWithoutUserInput[]
+    createMany?: ScraperExecutionTraceCreateManyUserInputEnvelope
+    connect?: ScraperExecutionTraceWhereUniqueInput | ScraperExecutionTraceWhereUniqueInput[]
+  }
+
+  export type ExtractedItemUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<ExtractedItemCreateWithoutUserInput, ExtractedItemUncheckedCreateWithoutUserInput> | ExtractedItemCreateWithoutUserInput[] | ExtractedItemUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ExtractedItemCreateOrConnectWithoutUserInput | ExtractedItemCreateOrConnectWithoutUserInput[]
+    createMany?: ExtractedItemCreateManyUserInputEnvelope
+    connect?: ExtractedItemWhereUniqueInput | ExtractedItemWhereUniqueInput[]
+  }
+
+  export type PlainScrapedPageUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<PlainScrapedPageCreateWithoutUserInput, PlainScrapedPageUncheckedCreateWithoutUserInput> | PlainScrapedPageCreateWithoutUserInput[] | PlainScrapedPageUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PlainScrapedPageCreateOrConnectWithoutUserInput | PlainScrapedPageCreateOrConnectWithoutUserInput[]
+    createMany?: PlainScrapedPageCreateManyUserInputEnvelope
+    connect?: PlainScrapedPageWhereUniqueInput | PlainScrapedPageWhereUniqueInput[]
+  }
+
+  export type ExtractionResultUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<ExtractionResultCreateWithoutUserInput, ExtractionResultUncheckedCreateWithoutUserInput> | ExtractionResultCreateWithoutUserInput[] | ExtractionResultUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ExtractionResultCreateOrConnectWithoutUserInput | ExtractionResultCreateOrConnectWithoutUserInput[]
+    createMany?: ExtractionResultCreateManyUserInputEnvelope
+    connect?: ExtractionResultWhereUniqueInput | ExtractionResultWhereUniqueInput[]
+  }
+
+  export type AiBatchRequestItemUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<AiBatchRequestItemCreateWithoutUserInput, AiBatchRequestItemUncheckedCreateWithoutUserInput> | AiBatchRequestItemCreateWithoutUserInput[] | AiBatchRequestItemUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AiBatchRequestItemCreateOrConnectWithoutUserInput | AiBatchRequestItemCreateOrConnectWithoutUserInput[]
+    createMany?: AiBatchRequestItemCreateManyUserInputEnvelope
+    connect?: AiBatchRequestItemWhereUniqueInput | AiBatchRequestItemWhereUniqueInput[]
+  }
+
+  export type BlockRuleUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<BlockRuleCreateWithoutUserInput, BlockRuleUncheckedCreateWithoutUserInput> | BlockRuleCreateWithoutUserInput[] | BlockRuleUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: BlockRuleCreateOrConnectWithoutUserInput | BlockRuleCreateOrConnectWithoutUserInput[]
+    createMany?: BlockRuleCreateManyUserInputEnvelope
+    connect?: BlockRuleWhereUniqueInput | BlockRuleWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -49619,6 +50570,20 @@ export namespace Prisma {
     deleteMany?: WebhookEndpointScalarWhereInput | WebhookEndpointScalarWhereInput[]
   }
 
+  export type WebhookDeliveryUpdateManyWithoutUserNestedInput = {
+    create?: XOR<WebhookDeliveryCreateWithoutUserInput, WebhookDeliveryUncheckedCreateWithoutUserInput> | WebhookDeliveryCreateWithoutUserInput[] | WebhookDeliveryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: WebhookDeliveryCreateOrConnectWithoutUserInput | WebhookDeliveryCreateOrConnectWithoutUserInput[]
+    upsert?: WebhookDeliveryUpsertWithWhereUniqueWithoutUserInput | WebhookDeliveryUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: WebhookDeliveryCreateManyUserInputEnvelope
+    set?: WebhookDeliveryWhereUniqueInput | WebhookDeliveryWhereUniqueInput[]
+    disconnect?: WebhookDeliveryWhereUniqueInput | WebhookDeliveryWhereUniqueInput[]
+    delete?: WebhookDeliveryWhereUniqueInput | WebhookDeliveryWhereUniqueInput[]
+    connect?: WebhookDeliveryWhereUniqueInput | WebhookDeliveryWhereUniqueInput[]
+    update?: WebhookDeliveryUpdateWithWhereUniqueWithoutUserInput | WebhookDeliveryUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: WebhookDeliveryUpdateManyWithWhereWithoutUserInput | WebhookDeliveryUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: WebhookDeliveryScalarWhereInput | WebhookDeliveryScalarWhereInput[]
+  }
+
   export type JobLogUpdateManyWithoutUserNestedInput = {
     create?: XOR<JobLogCreateWithoutUserInput, JobLogUncheckedCreateWithoutUserInput> | JobLogCreateWithoutUserInput[] | JobLogUncheckedCreateWithoutUserInput[]
     connectOrCreate?: JobLogCreateOrConnectWithoutUserInput | JobLogCreateOrConnectWithoutUserInput[]
@@ -49673,6 +50638,132 @@ export namespace Prisma {
     update?: CostEntryUpdateWithWhereUniqueWithoutUserInput | CostEntryUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: CostEntryUpdateManyWithWhereWithoutUserInput | CostEntryUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: CostEntryScalarWhereInput | CostEntryScalarWhereInput[]
+  }
+
+  export type ScraperVersionUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ScraperVersionCreateWithoutUserInput, ScraperVersionUncheckedCreateWithoutUserInput> | ScraperVersionCreateWithoutUserInput[] | ScraperVersionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ScraperVersionCreateOrConnectWithoutUserInput | ScraperVersionCreateOrConnectWithoutUserInput[]
+    upsert?: ScraperVersionUpsertWithWhereUniqueWithoutUserInput | ScraperVersionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ScraperVersionCreateManyUserInputEnvelope
+    set?: ScraperVersionWhereUniqueInput | ScraperVersionWhereUniqueInput[]
+    disconnect?: ScraperVersionWhereUniqueInput | ScraperVersionWhereUniqueInput[]
+    delete?: ScraperVersionWhereUniqueInput | ScraperVersionWhereUniqueInput[]
+    connect?: ScraperVersionWhereUniqueInput | ScraperVersionWhereUniqueInput[]
+    update?: ScraperVersionUpdateWithWhereUniqueWithoutUserInput | ScraperVersionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ScraperVersionUpdateManyWithWhereWithoutUserInput | ScraperVersionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ScraperVersionScalarWhereInput | ScraperVersionScalarWhereInput[]
+  }
+
+  export type ScraperGenerationRunUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ScraperGenerationRunCreateWithoutUserInput, ScraperGenerationRunUncheckedCreateWithoutUserInput> | ScraperGenerationRunCreateWithoutUserInput[] | ScraperGenerationRunUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ScraperGenerationRunCreateOrConnectWithoutUserInput | ScraperGenerationRunCreateOrConnectWithoutUserInput[]
+    upsert?: ScraperGenerationRunUpsertWithWhereUniqueWithoutUserInput | ScraperGenerationRunUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ScraperGenerationRunCreateManyUserInputEnvelope
+    set?: ScraperGenerationRunWhereUniqueInput | ScraperGenerationRunWhereUniqueInput[]
+    disconnect?: ScraperGenerationRunWhereUniqueInput | ScraperGenerationRunWhereUniqueInput[]
+    delete?: ScraperGenerationRunWhereUniqueInput | ScraperGenerationRunWhereUniqueInput[]
+    connect?: ScraperGenerationRunWhereUniqueInput | ScraperGenerationRunWhereUniqueInput[]
+    update?: ScraperGenerationRunUpdateWithWhereUniqueWithoutUserInput | ScraperGenerationRunUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ScraperGenerationRunUpdateManyWithWhereWithoutUserInput | ScraperGenerationRunUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ScraperGenerationRunScalarWhereInput | ScraperGenerationRunScalarWhereInput[]
+  }
+
+  export type ComputerUseStepUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ComputerUseStepCreateWithoutUserInput, ComputerUseStepUncheckedCreateWithoutUserInput> | ComputerUseStepCreateWithoutUserInput[] | ComputerUseStepUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ComputerUseStepCreateOrConnectWithoutUserInput | ComputerUseStepCreateOrConnectWithoutUserInput[]
+    upsert?: ComputerUseStepUpsertWithWhereUniqueWithoutUserInput | ComputerUseStepUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ComputerUseStepCreateManyUserInputEnvelope
+    set?: ComputerUseStepWhereUniqueInput | ComputerUseStepWhereUniqueInput[]
+    disconnect?: ComputerUseStepWhereUniqueInput | ComputerUseStepWhereUniqueInput[]
+    delete?: ComputerUseStepWhereUniqueInput | ComputerUseStepWhereUniqueInput[]
+    connect?: ComputerUseStepWhereUniqueInput | ComputerUseStepWhereUniqueInput[]
+    update?: ComputerUseStepUpdateWithWhereUniqueWithoutUserInput | ComputerUseStepUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ComputerUseStepUpdateManyWithWhereWithoutUserInput | ComputerUseStepUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ComputerUseStepScalarWhereInput | ComputerUseStepScalarWhereInput[]
+  }
+
+  export type ScraperExecutionTraceUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ScraperExecutionTraceCreateWithoutUserInput, ScraperExecutionTraceUncheckedCreateWithoutUserInput> | ScraperExecutionTraceCreateWithoutUserInput[] | ScraperExecutionTraceUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ScraperExecutionTraceCreateOrConnectWithoutUserInput | ScraperExecutionTraceCreateOrConnectWithoutUserInput[]
+    upsert?: ScraperExecutionTraceUpsertWithWhereUniqueWithoutUserInput | ScraperExecutionTraceUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ScraperExecutionTraceCreateManyUserInputEnvelope
+    set?: ScraperExecutionTraceWhereUniqueInput | ScraperExecutionTraceWhereUniqueInput[]
+    disconnect?: ScraperExecutionTraceWhereUniqueInput | ScraperExecutionTraceWhereUniqueInput[]
+    delete?: ScraperExecutionTraceWhereUniqueInput | ScraperExecutionTraceWhereUniqueInput[]
+    connect?: ScraperExecutionTraceWhereUniqueInput | ScraperExecutionTraceWhereUniqueInput[]
+    update?: ScraperExecutionTraceUpdateWithWhereUniqueWithoutUserInput | ScraperExecutionTraceUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ScraperExecutionTraceUpdateManyWithWhereWithoutUserInput | ScraperExecutionTraceUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ScraperExecutionTraceScalarWhereInput | ScraperExecutionTraceScalarWhereInput[]
+  }
+
+  export type ExtractedItemUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ExtractedItemCreateWithoutUserInput, ExtractedItemUncheckedCreateWithoutUserInput> | ExtractedItemCreateWithoutUserInput[] | ExtractedItemUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ExtractedItemCreateOrConnectWithoutUserInput | ExtractedItemCreateOrConnectWithoutUserInput[]
+    upsert?: ExtractedItemUpsertWithWhereUniqueWithoutUserInput | ExtractedItemUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ExtractedItemCreateManyUserInputEnvelope
+    set?: ExtractedItemWhereUniqueInput | ExtractedItemWhereUniqueInput[]
+    disconnect?: ExtractedItemWhereUniqueInput | ExtractedItemWhereUniqueInput[]
+    delete?: ExtractedItemWhereUniqueInput | ExtractedItemWhereUniqueInput[]
+    connect?: ExtractedItemWhereUniqueInput | ExtractedItemWhereUniqueInput[]
+    update?: ExtractedItemUpdateWithWhereUniqueWithoutUserInput | ExtractedItemUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ExtractedItemUpdateManyWithWhereWithoutUserInput | ExtractedItemUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ExtractedItemScalarWhereInput | ExtractedItemScalarWhereInput[]
+  }
+
+  export type PlainScrapedPageUpdateManyWithoutUserNestedInput = {
+    create?: XOR<PlainScrapedPageCreateWithoutUserInput, PlainScrapedPageUncheckedCreateWithoutUserInput> | PlainScrapedPageCreateWithoutUserInput[] | PlainScrapedPageUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PlainScrapedPageCreateOrConnectWithoutUserInput | PlainScrapedPageCreateOrConnectWithoutUserInput[]
+    upsert?: PlainScrapedPageUpsertWithWhereUniqueWithoutUserInput | PlainScrapedPageUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: PlainScrapedPageCreateManyUserInputEnvelope
+    set?: PlainScrapedPageWhereUniqueInput | PlainScrapedPageWhereUniqueInput[]
+    disconnect?: PlainScrapedPageWhereUniqueInput | PlainScrapedPageWhereUniqueInput[]
+    delete?: PlainScrapedPageWhereUniqueInput | PlainScrapedPageWhereUniqueInput[]
+    connect?: PlainScrapedPageWhereUniqueInput | PlainScrapedPageWhereUniqueInput[]
+    update?: PlainScrapedPageUpdateWithWhereUniqueWithoutUserInput | PlainScrapedPageUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: PlainScrapedPageUpdateManyWithWhereWithoutUserInput | PlainScrapedPageUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: PlainScrapedPageScalarWhereInput | PlainScrapedPageScalarWhereInput[]
+  }
+
+  export type ExtractionResultUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ExtractionResultCreateWithoutUserInput, ExtractionResultUncheckedCreateWithoutUserInput> | ExtractionResultCreateWithoutUserInput[] | ExtractionResultUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ExtractionResultCreateOrConnectWithoutUserInput | ExtractionResultCreateOrConnectWithoutUserInput[]
+    upsert?: ExtractionResultUpsertWithWhereUniqueWithoutUserInput | ExtractionResultUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ExtractionResultCreateManyUserInputEnvelope
+    set?: ExtractionResultWhereUniqueInput | ExtractionResultWhereUniqueInput[]
+    disconnect?: ExtractionResultWhereUniqueInput | ExtractionResultWhereUniqueInput[]
+    delete?: ExtractionResultWhereUniqueInput | ExtractionResultWhereUniqueInput[]
+    connect?: ExtractionResultWhereUniqueInput | ExtractionResultWhereUniqueInput[]
+    update?: ExtractionResultUpdateWithWhereUniqueWithoutUserInput | ExtractionResultUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ExtractionResultUpdateManyWithWhereWithoutUserInput | ExtractionResultUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ExtractionResultScalarWhereInput | ExtractionResultScalarWhereInput[]
+  }
+
+  export type AiBatchRequestItemUpdateManyWithoutUserNestedInput = {
+    create?: XOR<AiBatchRequestItemCreateWithoutUserInput, AiBatchRequestItemUncheckedCreateWithoutUserInput> | AiBatchRequestItemCreateWithoutUserInput[] | AiBatchRequestItemUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AiBatchRequestItemCreateOrConnectWithoutUserInput | AiBatchRequestItemCreateOrConnectWithoutUserInput[]
+    upsert?: AiBatchRequestItemUpsertWithWhereUniqueWithoutUserInput | AiBatchRequestItemUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: AiBatchRequestItemCreateManyUserInputEnvelope
+    set?: AiBatchRequestItemWhereUniqueInput | AiBatchRequestItemWhereUniqueInput[]
+    disconnect?: AiBatchRequestItemWhereUniqueInput | AiBatchRequestItemWhereUniqueInput[]
+    delete?: AiBatchRequestItemWhereUniqueInput | AiBatchRequestItemWhereUniqueInput[]
+    connect?: AiBatchRequestItemWhereUniqueInput | AiBatchRequestItemWhereUniqueInput[]
+    update?: AiBatchRequestItemUpdateWithWhereUniqueWithoutUserInput | AiBatchRequestItemUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AiBatchRequestItemUpdateManyWithWhereWithoutUserInput | AiBatchRequestItemUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AiBatchRequestItemScalarWhereInput | AiBatchRequestItemScalarWhereInput[]
+  }
+
+  export type BlockRuleUpdateManyWithoutUserNestedInput = {
+    create?: XOR<BlockRuleCreateWithoutUserInput, BlockRuleUncheckedCreateWithoutUserInput> | BlockRuleCreateWithoutUserInput[] | BlockRuleUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: BlockRuleCreateOrConnectWithoutUserInput | BlockRuleCreateOrConnectWithoutUserInput[]
+    upsert?: BlockRuleUpsertWithWhereUniqueWithoutUserInput | BlockRuleUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: BlockRuleCreateManyUserInputEnvelope
+    set?: BlockRuleWhereUniqueInput | BlockRuleWhereUniqueInput[]
+    disconnect?: BlockRuleWhereUniqueInput | BlockRuleWhereUniqueInput[]
+    delete?: BlockRuleWhereUniqueInput | BlockRuleWhereUniqueInput[]
+    connect?: BlockRuleWhereUniqueInput | BlockRuleWhereUniqueInput[]
+    update?: BlockRuleUpdateWithWhereUniqueWithoutUserInput | BlockRuleUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: BlockRuleUpdateManyWithWhereWithoutUserInput | BlockRuleUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: BlockRuleScalarWhereInput | BlockRuleScalarWhereInput[]
   }
 
   export type PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput = {
@@ -49787,6 +50878,20 @@ export namespace Prisma {
     deleteMany?: WebhookEndpointScalarWhereInput | WebhookEndpointScalarWhereInput[]
   }
 
+  export type WebhookDeliveryUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<WebhookDeliveryCreateWithoutUserInput, WebhookDeliveryUncheckedCreateWithoutUserInput> | WebhookDeliveryCreateWithoutUserInput[] | WebhookDeliveryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: WebhookDeliveryCreateOrConnectWithoutUserInput | WebhookDeliveryCreateOrConnectWithoutUserInput[]
+    upsert?: WebhookDeliveryUpsertWithWhereUniqueWithoutUserInput | WebhookDeliveryUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: WebhookDeliveryCreateManyUserInputEnvelope
+    set?: WebhookDeliveryWhereUniqueInput | WebhookDeliveryWhereUniqueInput[]
+    disconnect?: WebhookDeliveryWhereUniqueInput | WebhookDeliveryWhereUniqueInput[]
+    delete?: WebhookDeliveryWhereUniqueInput | WebhookDeliveryWhereUniqueInput[]
+    connect?: WebhookDeliveryWhereUniqueInput | WebhookDeliveryWhereUniqueInput[]
+    update?: WebhookDeliveryUpdateWithWhereUniqueWithoutUserInput | WebhookDeliveryUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: WebhookDeliveryUpdateManyWithWhereWithoutUserInput | WebhookDeliveryUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: WebhookDeliveryScalarWhereInput | WebhookDeliveryScalarWhereInput[]
+  }
+
   export type JobLogUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<JobLogCreateWithoutUserInput, JobLogUncheckedCreateWithoutUserInput> | JobLogCreateWithoutUserInput[] | JobLogUncheckedCreateWithoutUserInput[]
     connectOrCreate?: JobLogCreateOrConnectWithoutUserInput | JobLogCreateOrConnectWithoutUserInput[]
@@ -49841,6 +50946,132 @@ export namespace Prisma {
     update?: CostEntryUpdateWithWhereUniqueWithoutUserInput | CostEntryUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: CostEntryUpdateManyWithWhereWithoutUserInput | CostEntryUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: CostEntryScalarWhereInput | CostEntryScalarWhereInput[]
+  }
+
+  export type ScraperVersionUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ScraperVersionCreateWithoutUserInput, ScraperVersionUncheckedCreateWithoutUserInput> | ScraperVersionCreateWithoutUserInput[] | ScraperVersionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ScraperVersionCreateOrConnectWithoutUserInput | ScraperVersionCreateOrConnectWithoutUserInput[]
+    upsert?: ScraperVersionUpsertWithWhereUniqueWithoutUserInput | ScraperVersionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ScraperVersionCreateManyUserInputEnvelope
+    set?: ScraperVersionWhereUniqueInput | ScraperVersionWhereUniqueInput[]
+    disconnect?: ScraperVersionWhereUniqueInput | ScraperVersionWhereUniqueInput[]
+    delete?: ScraperVersionWhereUniqueInput | ScraperVersionWhereUniqueInput[]
+    connect?: ScraperVersionWhereUniqueInput | ScraperVersionWhereUniqueInput[]
+    update?: ScraperVersionUpdateWithWhereUniqueWithoutUserInput | ScraperVersionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ScraperVersionUpdateManyWithWhereWithoutUserInput | ScraperVersionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ScraperVersionScalarWhereInput | ScraperVersionScalarWhereInput[]
+  }
+
+  export type ScraperGenerationRunUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ScraperGenerationRunCreateWithoutUserInput, ScraperGenerationRunUncheckedCreateWithoutUserInput> | ScraperGenerationRunCreateWithoutUserInput[] | ScraperGenerationRunUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ScraperGenerationRunCreateOrConnectWithoutUserInput | ScraperGenerationRunCreateOrConnectWithoutUserInput[]
+    upsert?: ScraperGenerationRunUpsertWithWhereUniqueWithoutUserInput | ScraperGenerationRunUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ScraperGenerationRunCreateManyUserInputEnvelope
+    set?: ScraperGenerationRunWhereUniqueInput | ScraperGenerationRunWhereUniqueInput[]
+    disconnect?: ScraperGenerationRunWhereUniqueInput | ScraperGenerationRunWhereUniqueInput[]
+    delete?: ScraperGenerationRunWhereUniqueInput | ScraperGenerationRunWhereUniqueInput[]
+    connect?: ScraperGenerationRunWhereUniqueInput | ScraperGenerationRunWhereUniqueInput[]
+    update?: ScraperGenerationRunUpdateWithWhereUniqueWithoutUserInput | ScraperGenerationRunUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ScraperGenerationRunUpdateManyWithWhereWithoutUserInput | ScraperGenerationRunUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ScraperGenerationRunScalarWhereInput | ScraperGenerationRunScalarWhereInput[]
+  }
+
+  export type ComputerUseStepUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ComputerUseStepCreateWithoutUserInput, ComputerUseStepUncheckedCreateWithoutUserInput> | ComputerUseStepCreateWithoutUserInput[] | ComputerUseStepUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ComputerUseStepCreateOrConnectWithoutUserInput | ComputerUseStepCreateOrConnectWithoutUserInput[]
+    upsert?: ComputerUseStepUpsertWithWhereUniqueWithoutUserInput | ComputerUseStepUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ComputerUseStepCreateManyUserInputEnvelope
+    set?: ComputerUseStepWhereUniqueInput | ComputerUseStepWhereUniqueInput[]
+    disconnect?: ComputerUseStepWhereUniqueInput | ComputerUseStepWhereUniqueInput[]
+    delete?: ComputerUseStepWhereUniqueInput | ComputerUseStepWhereUniqueInput[]
+    connect?: ComputerUseStepWhereUniqueInput | ComputerUseStepWhereUniqueInput[]
+    update?: ComputerUseStepUpdateWithWhereUniqueWithoutUserInput | ComputerUseStepUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ComputerUseStepUpdateManyWithWhereWithoutUserInput | ComputerUseStepUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ComputerUseStepScalarWhereInput | ComputerUseStepScalarWhereInput[]
+  }
+
+  export type ScraperExecutionTraceUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ScraperExecutionTraceCreateWithoutUserInput, ScraperExecutionTraceUncheckedCreateWithoutUserInput> | ScraperExecutionTraceCreateWithoutUserInput[] | ScraperExecutionTraceUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ScraperExecutionTraceCreateOrConnectWithoutUserInput | ScraperExecutionTraceCreateOrConnectWithoutUserInput[]
+    upsert?: ScraperExecutionTraceUpsertWithWhereUniqueWithoutUserInput | ScraperExecutionTraceUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ScraperExecutionTraceCreateManyUserInputEnvelope
+    set?: ScraperExecutionTraceWhereUniqueInput | ScraperExecutionTraceWhereUniqueInput[]
+    disconnect?: ScraperExecutionTraceWhereUniqueInput | ScraperExecutionTraceWhereUniqueInput[]
+    delete?: ScraperExecutionTraceWhereUniqueInput | ScraperExecutionTraceWhereUniqueInput[]
+    connect?: ScraperExecutionTraceWhereUniqueInput | ScraperExecutionTraceWhereUniqueInput[]
+    update?: ScraperExecutionTraceUpdateWithWhereUniqueWithoutUserInput | ScraperExecutionTraceUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ScraperExecutionTraceUpdateManyWithWhereWithoutUserInput | ScraperExecutionTraceUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ScraperExecutionTraceScalarWhereInput | ScraperExecutionTraceScalarWhereInput[]
+  }
+
+  export type ExtractedItemUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ExtractedItemCreateWithoutUserInput, ExtractedItemUncheckedCreateWithoutUserInput> | ExtractedItemCreateWithoutUserInput[] | ExtractedItemUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ExtractedItemCreateOrConnectWithoutUserInput | ExtractedItemCreateOrConnectWithoutUserInput[]
+    upsert?: ExtractedItemUpsertWithWhereUniqueWithoutUserInput | ExtractedItemUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ExtractedItemCreateManyUserInputEnvelope
+    set?: ExtractedItemWhereUniqueInput | ExtractedItemWhereUniqueInput[]
+    disconnect?: ExtractedItemWhereUniqueInput | ExtractedItemWhereUniqueInput[]
+    delete?: ExtractedItemWhereUniqueInput | ExtractedItemWhereUniqueInput[]
+    connect?: ExtractedItemWhereUniqueInput | ExtractedItemWhereUniqueInput[]
+    update?: ExtractedItemUpdateWithWhereUniqueWithoutUserInput | ExtractedItemUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ExtractedItemUpdateManyWithWhereWithoutUserInput | ExtractedItemUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ExtractedItemScalarWhereInput | ExtractedItemScalarWhereInput[]
+  }
+
+  export type PlainScrapedPageUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<PlainScrapedPageCreateWithoutUserInput, PlainScrapedPageUncheckedCreateWithoutUserInput> | PlainScrapedPageCreateWithoutUserInput[] | PlainScrapedPageUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PlainScrapedPageCreateOrConnectWithoutUserInput | PlainScrapedPageCreateOrConnectWithoutUserInput[]
+    upsert?: PlainScrapedPageUpsertWithWhereUniqueWithoutUserInput | PlainScrapedPageUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: PlainScrapedPageCreateManyUserInputEnvelope
+    set?: PlainScrapedPageWhereUniqueInput | PlainScrapedPageWhereUniqueInput[]
+    disconnect?: PlainScrapedPageWhereUniqueInput | PlainScrapedPageWhereUniqueInput[]
+    delete?: PlainScrapedPageWhereUniqueInput | PlainScrapedPageWhereUniqueInput[]
+    connect?: PlainScrapedPageWhereUniqueInput | PlainScrapedPageWhereUniqueInput[]
+    update?: PlainScrapedPageUpdateWithWhereUniqueWithoutUserInput | PlainScrapedPageUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: PlainScrapedPageUpdateManyWithWhereWithoutUserInput | PlainScrapedPageUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: PlainScrapedPageScalarWhereInput | PlainScrapedPageScalarWhereInput[]
+  }
+
+  export type ExtractionResultUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ExtractionResultCreateWithoutUserInput, ExtractionResultUncheckedCreateWithoutUserInput> | ExtractionResultCreateWithoutUserInput[] | ExtractionResultUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ExtractionResultCreateOrConnectWithoutUserInput | ExtractionResultCreateOrConnectWithoutUserInput[]
+    upsert?: ExtractionResultUpsertWithWhereUniqueWithoutUserInput | ExtractionResultUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ExtractionResultCreateManyUserInputEnvelope
+    set?: ExtractionResultWhereUniqueInput | ExtractionResultWhereUniqueInput[]
+    disconnect?: ExtractionResultWhereUniqueInput | ExtractionResultWhereUniqueInput[]
+    delete?: ExtractionResultWhereUniqueInput | ExtractionResultWhereUniqueInput[]
+    connect?: ExtractionResultWhereUniqueInput | ExtractionResultWhereUniqueInput[]
+    update?: ExtractionResultUpdateWithWhereUniqueWithoutUserInput | ExtractionResultUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ExtractionResultUpdateManyWithWhereWithoutUserInput | ExtractionResultUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ExtractionResultScalarWhereInput | ExtractionResultScalarWhereInput[]
+  }
+
+  export type AiBatchRequestItemUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<AiBatchRequestItemCreateWithoutUserInput, AiBatchRequestItemUncheckedCreateWithoutUserInput> | AiBatchRequestItemCreateWithoutUserInput[] | AiBatchRequestItemUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AiBatchRequestItemCreateOrConnectWithoutUserInput | AiBatchRequestItemCreateOrConnectWithoutUserInput[]
+    upsert?: AiBatchRequestItemUpsertWithWhereUniqueWithoutUserInput | AiBatchRequestItemUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: AiBatchRequestItemCreateManyUserInputEnvelope
+    set?: AiBatchRequestItemWhereUniqueInput | AiBatchRequestItemWhereUniqueInput[]
+    disconnect?: AiBatchRequestItemWhereUniqueInput | AiBatchRequestItemWhereUniqueInput[]
+    delete?: AiBatchRequestItemWhereUniqueInput | AiBatchRequestItemWhereUniqueInput[]
+    connect?: AiBatchRequestItemWhereUniqueInput | AiBatchRequestItemWhereUniqueInput[]
+    update?: AiBatchRequestItemUpdateWithWhereUniqueWithoutUserInput | AiBatchRequestItemUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AiBatchRequestItemUpdateManyWithWhereWithoutUserInput | AiBatchRequestItemUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AiBatchRequestItemScalarWhereInput | AiBatchRequestItemScalarWhereInput[]
+  }
+
+  export type BlockRuleUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<BlockRuleCreateWithoutUserInput, BlockRuleUncheckedCreateWithoutUserInput> | BlockRuleCreateWithoutUserInput[] | BlockRuleUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: BlockRuleCreateOrConnectWithoutUserInput | BlockRuleCreateOrConnectWithoutUserInput[]
+    upsert?: BlockRuleUpsertWithWhereUniqueWithoutUserInput | BlockRuleUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: BlockRuleCreateManyUserInputEnvelope
+    set?: BlockRuleWhereUniqueInput | BlockRuleWhereUniqueInput[]
+    disconnect?: BlockRuleWhereUniqueInput | BlockRuleWhereUniqueInput[]
+    delete?: BlockRuleWhereUniqueInput | BlockRuleWhereUniqueInput[]
+    connect?: BlockRuleWhereUniqueInput | BlockRuleWhereUniqueInput[]
+    update?: BlockRuleUpdateWithWhereUniqueWithoutUserInput | BlockRuleUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: BlockRuleUpdateManyWithWhereWithoutUserInput | BlockRuleUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: BlockRuleScalarWhereInput | BlockRuleScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutPassword_reset_tokensInput = {
@@ -49950,6 +51181,12 @@ export namespace Prisma {
     connect?: WebhookEndpointWhereUniqueInput
   }
 
+  export type UserCreateNestedOneWithoutWebhook_deliveriesInput = {
+    create?: XOR<UserCreateWithoutWebhook_deliveriesInput, UserUncheckedCreateWithoutWebhook_deliveriesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutWebhook_deliveriesInput
+    connect?: UserWhereUniqueInput
+  }
+
   export type EnumWebhookEventTypeFieldUpdateOperationsInput = {
     set?: $Enums.WebhookEventType
   }
@@ -49980,6 +51217,14 @@ export namespace Prisma {
     upsert?: WebhookEndpointUpsertWithoutDeliveriesInput
     connect?: WebhookEndpointWhereUniqueInput
     update?: XOR<XOR<WebhookEndpointUpdateToOneWithWhereWithoutDeliveriesInput, WebhookEndpointUpdateWithoutDeliveriesInput>, WebhookEndpointUncheckedUpdateWithoutDeliveriesInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutWebhook_deliveriesNestedInput = {
+    create?: XOR<UserCreateWithoutWebhook_deliveriesInput, UserUncheckedCreateWithoutWebhook_deliveriesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutWebhook_deliveriesInput
+    upsert?: UserUpsertWithoutWebhook_deliveriesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutWebhook_deliveriesInput, UserUpdateWithoutWebhook_deliveriesInput>, UserUncheckedUpdateWithoutWebhook_deliveriesInput>
   }
 
   export type ComputerUseStepCreateNestedManyWithoutScreenshot_beforeInput = {
@@ -50384,6 +51629,12 @@ export namespace Prisma {
     connect?: WebsiteTargetWhereUniqueInput
   }
 
+  export type UserCreateNestedOneWithoutBlock_rulesInput = {
+    create?: XOR<UserCreateWithoutBlock_rulesInput, UserUncheckedCreateWithoutBlock_rulesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutBlock_rulesInput
+    connect?: UserWhereUniqueInput
+  }
+
   export type EnumBlockSignalFieldUpdateOperationsInput = {
     set?: $Enums.BlockSignal
   }
@@ -50398,6 +51649,14 @@ export namespace Prisma {
     upsert?: WebsiteTargetUpsertWithoutBlock_rulesInput
     connect?: WebsiteTargetWhereUniqueInput
     update?: XOR<XOR<WebsiteTargetUpdateToOneWithWhereWithoutBlock_rulesInput, WebsiteTargetUpdateWithoutBlock_rulesInput>, WebsiteTargetUncheckedUpdateWithoutBlock_rulesInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutBlock_rulesNestedInput = {
+    create?: XOR<UserCreateWithoutBlock_rulesInput, UserUncheckedCreateWithoutBlock_rulesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutBlock_rulesInput
+    upsert?: UserUpsertWithoutBlock_rulesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutBlock_rulesInput, UserUpdateWithoutBlock_rulesInput>, UserUncheckedUpdateWithoutBlock_rulesInput>
   }
 
   export type WorkflowConfigCreateurlsInput = {
@@ -50782,6 +52041,12 @@ export namespace Prisma {
     connect?: ScraperVersionWhereUniqueInput
   }
 
+  export type UserCreateNestedOneWithoutScraper_generation_runsInput = {
+    create?: XOR<UserCreateWithoutScraper_generation_runsInput, UserUncheckedCreateWithoutScraper_generation_runsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutScraper_generation_runsInput
+    connect?: UserWhereUniqueInput
+  }
+
   export type ComputerUseStepCreateNestedManyWithoutScraper_generation_runInput = {
     create?: XOR<ComputerUseStepCreateWithoutScraper_generation_runInput, ComputerUseStepUncheckedCreateWithoutScraper_generation_runInput> | ComputerUseStepCreateWithoutScraper_generation_runInput[] | ComputerUseStepUncheckedCreateWithoutScraper_generation_runInput[]
     connectOrCreate?: ComputerUseStepCreateOrConnectWithoutScraper_generation_runInput | ComputerUseStepCreateOrConnectWithoutScraper_generation_runInput[]
@@ -50837,6 +52102,14 @@ export namespace Prisma {
     update?: XOR<XOR<ScraperVersionUpdateToOneWithWhereWithoutProduced_by_runInput, ScraperVersionUpdateWithoutProduced_by_runInput>, ScraperVersionUncheckedUpdateWithoutProduced_by_runInput>
   }
 
+  export type UserUpdateOneRequiredWithoutScraper_generation_runsNestedInput = {
+    create?: XOR<UserCreateWithoutScraper_generation_runsInput, UserUncheckedCreateWithoutScraper_generation_runsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutScraper_generation_runsInput
+    upsert?: UserUpsertWithoutScraper_generation_runsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutScraper_generation_runsInput, UserUpdateWithoutScraper_generation_runsInput>, UserUncheckedUpdateWithoutScraper_generation_runsInput>
+  }
+
   export type ComputerUseStepUpdateManyWithoutScraper_generation_runNestedInput = {
     create?: XOR<ComputerUseStepCreateWithoutScraper_generation_runInput, ComputerUseStepUncheckedCreateWithoutScraper_generation_runInput> | ComputerUseStepCreateWithoutScraper_generation_runInput[] | ComputerUseStepUncheckedCreateWithoutScraper_generation_runInput[]
     connectOrCreate?: ComputerUseStepCreateOrConnectWithoutScraper_generation_runInput | ComputerUseStepCreateOrConnectWithoutScraper_generation_runInput[]
@@ -50889,6 +52162,12 @@ export namespace Prisma {
     connect?: DocumentWhereUniqueInput
   }
 
+  export type UserCreateNestedOneWithoutComputer_use_stepsInput = {
+    create?: XOR<UserCreateWithoutComputer_use_stepsInput, UserUncheckedCreateWithoutComputer_use_stepsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutComputer_use_stepsInput
+    connect?: UserWhereUniqueInput
+  }
+
   export type EnumComputerActionTypeFieldUpdateOperationsInput = {
     set?: $Enums.ComputerActionType
   }
@@ -50933,6 +52212,14 @@ export namespace Prisma {
     update?: XOR<XOR<DocumentUpdateToOneWithWhereWithoutComputer_use_steps_afterInput, DocumentUpdateWithoutComputer_use_steps_afterInput>, DocumentUncheckedUpdateWithoutComputer_use_steps_afterInput>
   }
 
+  export type UserUpdateOneRequiredWithoutComputer_use_stepsNestedInput = {
+    create?: XOR<UserCreateWithoutComputer_use_stepsInput, UserUncheckedCreateWithoutComputer_use_stepsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutComputer_use_stepsInput
+    upsert?: UserUpsertWithoutComputer_use_stepsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutComputer_use_stepsInput, UserUpdateWithoutComputer_use_stepsInput>, UserUncheckedUpdateWithoutComputer_use_stepsInput>
+  }
+
   export type ScraperVersionCreateoutput_formatsInput = {
     set: $Enums.OutputFormat[]
   }
@@ -50947,6 +52234,12 @@ export namespace Prisma {
     create?: XOR<ExtractionSchemaVersionCreateWithoutScraper_versionsInput, ExtractionSchemaVersionUncheckedCreateWithoutScraper_versionsInput>
     connectOrCreate?: ExtractionSchemaVersionCreateOrConnectWithoutScraper_versionsInput
     connect?: ExtractionSchemaVersionWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutScraper_versionsInput = {
+    create?: XOR<UserCreateWithoutScraper_versionsInput, UserUncheckedCreateWithoutScraper_versionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutScraper_versionsInput
+    connect?: UserWhereUniqueInput
   }
 
   export type WorkflowConfigCreateNestedOneWithoutActive_versionInput = {
@@ -51012,6 +52305,14 @@ export namespace Prisma {
     delete?: ExtractionSchemaVersionWhereInput | boolean
     connect?: ExtractionSchemaVersionWhereUniqueInput
     update?: XOR<XOR<ExtractionSchemaVersionUpdateToOneWithWhereWithoutScraper_versionsInput, ExtractionSchemaVersionUpdateWithoutScraper_versionsInput>, ExtractionSchemaVersionUncheckedUpdateWithoutScraper_versionsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutScraper_versionsNestedInput = {
+    create?: XOR<UserCreateWithoutScraper_versionsInput, UserUncheckedCreateWithoutScraper_versionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutScraper_versionsInput
+    upsert?: UserUpsertWithoutScraper_versionsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutScraper_versionsInput, UserUpdateWithoutScraper_versionsInput>, UserUncheckedUpdateWithoutScraper_versionsInput>
   }
 
   export type WorkflowConfigUpdateOneWithoutActive_versionNestedInput = {
@@ -51094,6 +52395,12 @@ export namespace Prisma {
     connect?: WorkflowRunWhereUniqueInput
   }
 
+  export type UserCreateNestedOneWithoutScraper_execution_tracesInput = {
+    create?: XOR<UserCreateWithoutScraper_execution_tracesInput, UserUncheckedCreateWithoutScraper_execution_tracesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutScraper_execution_tracesInput
+    connect?: UserWhereUniqueInput
+  }
+
   export type WorkflowConfigUpdateOneRequiredWithoutExecution_tracesNestedInput = {
     create?: XOR<WorkflowConfigCreateWithoutExecution_tracesInput, WorkflowConfigUncheckedCreateWithoutExecution_tracesInput>
     connectOrCreate?: WorkflowConfigCreateOrConnectWithoutExecution_tracesInput
@@ -51110,6 +52417,14 @@ export namespace Prisma {
     delete?: WorkflowRunWhereInput | boolean
     connect?: WorkflowRunWhereUniqueInput
     update?: XOR<XOR<WorkflowRunUpdateToOneWithWhereWithoutExecution_tracesInput, WorkflowRunUpdateWithoutExecution_tracesInput>, WorkflowRunUncheckedUpdateWithoutExecution_tracesInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutScraper_execution_tracesNestedInput = {
+    create?: XOR<UserCreateWithoutScraper_execution_tracesInput, UserUncheckedCreateWithoutScraper_execution_tracesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutScraper_execution_tracesInput
+    upsert?: UserUpsertWithoutScraper_execution_tracesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutScraper_execution_tracesInput, UserUpdateWithoutScraper_execution_tracesInput>, UserUncheckedUpdateWithoutScraper_execution_tracesInput>
   }
 
   export type WorkflowRunCreateurlsInput = {
@@ -51636,6 +52951,12 @@ export namespace Prisma {
     connect?: WorkflowRunWhereUniqueInput
   }
 
+  export type UserCreateNestedOneWithoutExtracted_itemsInput = {
+    create?: XOR<UserCreateWithoutExtracted_itemsInput, UserUncheckedCreateWithoutExtracted_itemsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutExtracted_itemsInput
+    connect?: UserWhereUniqueInput
+  }
+
   export type WebsiteTargetUpdateOneRequiredWithoutExtracted_itemsNestedInput = {
     create?: XOR<WebsiteTargetCreateWithoutExtracted_itemsInput, WebsiteTargetUncheckedCreateWithoutExtracted_itemsInput>
     connectOrCreate?: WebsiteTargetCreateOrConnectWithoutExtracted_itemsInput
@@ -51652,6 +52973,14 @@ export namespace Prisma {
     delete?: WorkflowRunWhereInput | boolean
     connect?: WorkflowRunWhereUniqueInput
     update?: XOR<XOR<WorkflowRunUpdateToOneWithWhereWithoutExtracted_itemsInput, WorkflowRunUpdateWithoutExtracted_itemsInput>, WorkflowRunUncheckedUpdateWithoutExtracted_itemsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutExtracted_itemsNestedInput = {
+    create?: XOR<UserCreateWithoutExtracted_itemsInput, UserUncheckedCreateWithoutExtracted_itemsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutExtracted_itemsInput
+    upsert?: UserUpsertWithoutExtracted_itemsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutExtracted_itemsInput, UserUpdateWithoutExtracted_itemsInput>, UserUncheckedUpdateWithoutExtracted_itemsInput>
   }
 
   export type UserCreateNestedOneWithoutExtraction_schemasInput = {
@@ -51946,6 +53275,12 @@ export namespace Prisma {
     connect?: WorkflowRunWhereUniqueInput
   }
 
+  export type UserCreateNestedOneWithoutPlain_scraped_pagesInput = {
+    create?: XOR<UserCreateWithoutPlain_scraped_pagesInput, UserUncheckedCreateWithoutPlain_scraped_pagesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPlain_scraped_pagesInput
+    connect?: UserWhereUniqueInput
+  }
+
   export type ExtractionResultCreateNestedOneWithoutPlain_scraped_pageInput = {
     create?: XOR<ExtractionResultCreateWithoutPlain_scraped_pageInput, ExtractionResultUncheckedCreateWithoutPlain_scraped_pageInput>
     connectOrCreate?: ExtractionResultCreateOrConnectWithoutPlain_scraped_pageInput
@@ -51978,6 +53313,14 @@ export namespace Prisma {
     upsert?: WorkflowRunUpsertWithoutPagesInput
     connect?: WorkflowRunWhereUniqueInput
     update?: XOR<XOR<WorkflowRunUpdateToOneWithWhereWithoutPagesInput, WorkflowRunUpdateWithoutPagesInput>, WorkflowRunUncheckedUpdateWithoutPagesInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutPlain_scraped_pagesNestedInput = {
+    create?: XOR<UserCreateWithoutPlain_scraped_pagesInput, UserUncheckedCreateWithoutPlain_scraped_pagesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPlain_scraped_pagesInput
+    upsert?: UserUpsertWithoutPlain_scraped_pagesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPlain_scraped_pagesInput, UserUpdateWithoutPlain_scraped_pagesInput>, UserUncheckedUpdateWithoutPlain_scraped_pagesInput>
   }
 
   export type ExtractionResultUpdateOneWithoutPlain_scraped_pageNestedInput = {
@@ -52046,6 +53389,12 @@ export namespace Prisma {
     connect?: ExtractionSchemaVersionWhereUniqueInput
   }
 
+  export type UserCreateNestedOneWithoutExtraction_resultsInput = {
+    create?: XOR<UserCreateWithoutExtraction_resultsInput, UserUncheckedCreateWithoutExtraction_resultsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutExtraction_resultsInput
+    connect?: UserWhereUniqueInput
+  }
+
   export type NullableEnumExtractionFormatStatusFieldUpdateOperationsInput = {
     set?: $Enums.ExtractionFormatStatus | null
   }
@@ -52078,6 +53427,14 @@ export namespace Prisma {
     delete?: ExtractionSchemaVersionWhereInput | boolean
     connect?: ExtractionSchemaVersionWhereUniqueInput
     update?: XOR<XOR<ExtractionSchemaVersionUpdateToOneWithWhereWithoutExtraction_resultsInput, ExtractionSchemaVersionUpdateWithoutExtraction_resultsInput>, ExtractionSchemaVersionUncheckedUpdateWithoutExtraction_resultsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutExtraction_resultsNestedInput = {
+    create?: XOR<UserCreateWithoutExtraction_resultsInput, UserUncheckedCreateWithoutExtraction_resultsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutExtraction_resultsInput
+    upsert?: UserUpsertWithoutExtraction_resultsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutExtraction_resultsInput, UserUpdateWithoutExtraction_resultsInput>, UserUncheckedUpdateWithoutExtraction_resultsInput>
   }
 
   export type WorkflowRunCreateNestedOneWithoutAi_batch_jobInput = {
@@ -52152,6 +53509,12 @@ export namespace Prisma {
     connect?: PlainScrapedPageWhereUniqueInput
   }
 
+  export type UserCreateNestedOneWithoutAi_batch_request_itemsInput = {
+    create?: XOR<UserCreateWithoutAi_batch_request_itemsInput, UserUncheckedCreateWithoutAi_batch_request_itemsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAi_batch_request_itemsInput
+    connect?: UserWhereUniqueInput
+  }
+
   export type AiBatchJobUpdateOneRequiredWithoutItemsNestedInput = {
     create?: XOR<AiBatchJobCreateWithoutItemsInput, AiBatchJobUncheckedCreateWithoutItemsInput>
     connectOrCreate?: AiBatchJobCreateOrConnectWithoutItemsInput
@@ -52168,6 +53531,14 @@ export namespace Prisma {
     delete?: PlainScrapedPageWhereInput | boolean
     connect?: PlainScrapedPageWhereUniqueInput
     update?: XOR<XOR<PlainScrapedPageUpdateToOneWithWhereWithoutAi_batch_request_itemsInput, PlainScrapedPageUpdateWithoutAi_batch_request_itemsInput>, PlainScrapedPageUncheckedUpdateWithoutAi_batch_request_itemsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutAi_batch_request_itemsNestedInput = {
+    create?: XOR<UserCreateWithoutAi_batch_request_itemsInput, UserUncheckedCreateWithoutAi_batch_request_itemsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAi_batch_request_itemsInput
+    upsert?: UserUpsertWithoutAi_batch_request_itemsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAi_batch_request_itemsInput, UserUpdateWithoutAi_batch_request_itemsInput>, UserUncheckedUpdateWithoutAi_batch_request_itemsInput>
   }
 
   export type WorkflowRunCreateNestedOneWithoutDiagnostics_packageInput = {
@@ -52300,12 +53671,10 @@ export namespace Prisma {
     update?: XOR<XOR<WorkflowRunUpdateToOneWithWhereWithoutJob_logsInput, WorkflowRunUpdateWithoutJob_logsInput>, WorkflowRunUncheckedUpdateWithoutJob_logsInput>
   }
 
-  export type UserUpdateOneWithoutJob_logsNestedInput = {
+  export type UserUpdateOneRequiredWithoutJob_logsNestedInput = {
     create?: XOR<UserCreateWithoutJob_logsInput, UserUncheckedCreateWithoutJob_logsInput>
     connectOrCreate?: UserCreateOrConnectWithoutJob_logsInput
     upsert?: UserUpsertWithoutJob_logsInput
-    disconnect?: UserWhereInput | boolean
-    delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutJob_logsInput, UserUpdateWithoutJob_logsInput>, UserUncheckedUpdateWithoutJob_logsInput>
   }
@@ -53606,6 +54975,48 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type WebhookDeliveryCreateWithoutUserInput = {
+    id?: string
+    event_type: $Enums.WebhookEventType
+    workflow_run_id?: string | null
+    is_test?: boolean
+    payload: JsonNullValueInput | InputJsonValue
+    status?: $Enums.WebhookDeliveryStatus
+    http_status_code?: number | null
+    response_body?: string | null
+    error_message?: string | null
+    attempt_number?: number
+    duration_ms?: number | null
+    created_at?: Date | string
+    webhook_endpoint: WebhookEndpointCreateNestedOneWithoutDeliveriesInput
+  }
+
+  export type WebhookDeliveryUncheckedCreateWithoutUserInput = {
+    id?: string
+    webhook_endpoint_id: string
+    event_type: $Enums.WebhookEventType
+    workflow_run_id?: string | null
+    is_test?: boolean
+    payload: JsonNullValueInput | InputJsonValue
+    status?: $Enums.WebhookDeliveryStatus
+    http_status_code?: number | null
+    response_body?: string | null
+    error_message?: string | null
+    attempt_number?: number
+    duration_ms?: number | null
+    created_at?: Date | string
+  }
+
+  export type WebhookDeliveryCreateOrConnectWithoutUserInput = {
+    where: WebhookDeliveryWhereUniqueInput
+    create: XOR<WebhookDeliveryCreateWithoutUserInput, WebhookDeliveryUncheckedCreateWithoutUserInput>
+  }
+
+  export type WebhookDeliveryCreateManyUserInputEnvelope = {
+    data: WebhookDeliveryCreateManyUserInput | WebhookDeliveryCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type JobLogCreateWithoutUserInput = {
     id?: string
     queue_name: string
@@ -53773,6 +55184,378 @@ export namespace Prisma {
 
   export type CostEntryCreateManyUserInputEnvelope = {
     data: CostEntryCreateManyUserInput | CostEntryCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ScraperVersionCreateWithoutUserInput = {
+    id?: string
+    version: number
+    config: JsonNullValueInput | InputJsonValue
+    created_by: $Enums.ScraperVersionCreatedBy
+    notes?: string | null
+    generation_prompt?: string | null
+    output_formats?: ScraperVersionCreateoutput_formatsInput | $Enums.OutputFormat[]
+    created_at?: Date | string
+    updated_at?: Date | string
+    workflow_config: WorkflowConfigCreateNestedOneWithoutVersionsInput
+    extraction_schema_version?: ExtractionSchemaVersionCreateNestedOneWithoutScraper_versionsInput
+    active_for_config?: WorkflowConfigCreateNestedOneWithoutActive_versionInput
+    produced_by_run?: ScraperGenerationRunCreateNestedOneWithoutProduced_versionInput
+    workflow_runs?: WorkflowRunCreateNestedManyWithoutScraper_versionInput
+  }
+
+  export type ScraperVersionUncheckedCreateWithoutUserInput = {
+    id?: string
+    workflow_config_id: string
+    version: number
+    config: JsonNullValueInput | InputJsonValue
+    created_by: $Enums.ScraperVersionCreatedBy
+    notes?: string | null
+    generation_prompt?: string | null
+    output_formats?: ScraperVersionCreateoutput_formatsInput | $Enums.OutputFormat[]
+    extraction_schema_version_id?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    active_for_config?: WorkflowConfigUncheckedCreateNestedOneWithoutActive_versionInput
+    produced_by_run?: ScraperGenerationRunUncheckedCreateNestedOneWithoutProduced_versionInput
+    workflow_runs?: WorkflowRunUncheckedCreateNestedManyWithoutScraper_versionInput
+  }
+
+  export type ScraperVersionCreateOrConnectWithoutUserInput = {
+    where: ScraperVersionWhereUniqueInput
+    create: XOR<ScraperVersionCreateWithoutUserInput, ScraperVersionUncheckedCreateWithoutUserInput>
+  }
+
+  export type ScraperVersionCreateManyUserInputEnvelope = {
+    data: ScraperVersionCreateManyUserInput | ScraperVersionCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ScraperGenerationRunCreateWithoutUserInput = {
+    id?: string
+    trigger?: $Enums.GenerationTrigger
+    status?: $Enums.GenerationRunStatus
+    prompt?: string | null
+    max_steps?: number | null
+    output_formats?: ScraperGenerationRunCreateoutput_formatsInput | $Enums.OutputFormat[]
+    output_schema?: NullableJsonNullValueInput | InputJsonValue
+    staged_config?: NullableJsonNullValueInput | InputJsonValue
+    error_message?: string | null
+    started_at?: Date | string | null
+    finished_at?: Date | string | null
+    duration_ms?: number | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    website_target: WebsiteTargetCreateNestedOneWithoutScraper_generation_runsInput
+    workflow_config?: WorkflowConfigCreateNestedOneWithoutScraper_generation_runsInput
+    produced_version?: ScraperVersionCreateNestedOneWithoutProduced_by_runInput
+    steps?: ComputerUseStepCreateNestedManyWithoutScraper_generation_runInput
+  }
+
+  export type ScraperGenerationRunUncheckedCreateWithoutUserInput = {
+    id?: string
+    website_target_id: string
+    workflow_config_id?: string | null
+    trigger?: $Enums.GenerationTrigger
+    status?: $Enums.GenerationRunStatus
+    prompt?: string | null
+    max_steps?: number | null
+    output_formats?: ScraperGenerationRunCreateoutput_formatsInput | $Enums.OutputFormat[]
+    output_schema?: NullableJsonNullValueInput | InputJsonValue
+    staged_config?: NullableJsonNullValueInput | InputJsonValue
+    produced_version_id?: string | null
+    error_message?: string | null
+    started_at?: Date | string | null
+    finished_at?: Date | string | null
+    duration_ms?: number | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    steps?: ComputerUseStepUncheckedCreateNestedManyWithoutScraper_generation_runInput
+  }
+
+  export type ScraperGenerationRunCreateOrConnectWithoutUserInput = {
+    where: ScraperGenerationRunWhereUniqueInput
+    create: XOR<ScraperGenerationRunCreateWithoutUserInput, ScraperGenerationRunUncheckedCreateWithoutUserInput>
+  }
+
+  export type ScraperGenerationRunCreateManyUserInputEnvelope = {
+    data: ScraperGenerationRunCreateManyUserInput | ScraperGenerationRunCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ComputerUseStepCreateWithoutUserInput = {
+    id?: string
+    step_index: number
+    action_type: $Enums.ComputerActionType
+    action_payload: JsonNullValueInput | InputJsonValue
+    model_reasoning?: string | null
+    created_at?: Date | string
+    scraper_generation_run?: ScraperGenerationRunCreateNestedOneWithoutStepsInput
+    workflow_run?: WorkflowRunCreateNestedOneWithoutStepsInput
+    screenshot_before?: DocumentCreateNestedOneWithoutComputer_use_steps_beforeInput
+    screenshot_after?: DocumentCreateNestedOneWithoutComputer_use_steps_afterInput
+  }
+
+  export type ComputerUseStepUncheckedCreateWithoutUserInput = {
+    id?: string
+    scraper_generation_run_id?: string | null
+    workflow_run_id?: string | null
+    step_index: number
+    action_type: $Enums.ComputerActionType
+    action_payload: JsonNullValueInput | InputJsonValue
+    screenshot_before_id?: string | null
+    screenshot_after_id?: string | null
+    model_reasoning?: string | null
+    created_at?: Date | string
+  }
+
+  export type ComputerUseStepCreateOrConnectWithoutUserInput = {
+    where: ComputerUseStepWhereUniqueInput
+    create: XOR<ComputerUseStepCreateWithoutUserInput, ComputerUseStepUncheckedCreateWithoutUserInput>
+  }
+
+  export type ComputerUseStepCreateManyUserInputEnvelope = {
+    data: ComputerUseStepCreateManyUserInput | ComputerUseStepCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ScraperExecutionTraceCreateWithoutUserInput = {
+    id?: string
+    steps: JsonNullValueInput | InputJsonValue
+    success: boolean
+    error_summary?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    workflow_config: WorkflowConfigCreateNestedOneWithoutExecution_tracesInput
+    workflow_run?: WorkflowRunCreateNestedOneWithoutExecution_tracesInput
+  }
+
+  export type ScraperExecutionTraceUncheckedCreateWithoutUserInput = {
+    id?: string
+    workflow_config_id: string
+    workflow_run_id?: string | null
+    steps: JsonNullValueInput | InputJsonValue
+    success: boolean
+    error_summary?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type ScraperExecutionTraceCreateOrConnectWithoutUserInput = {
+    where: ScraperExecutionTraceWhereUniqueInput
+    create: XOR<ScraperExecutionTraceCreateWithoutUserInput, ScraperExecutionTraceUncheckedCreateWithoutUserInput>
+  }
+
+  export type ScraperExecutionTraceCreateManyUserInputEnvelope = {
+    data: ScraperExecutionTraceCreateManyUserInput | ScraperExecutionTraceCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ExtractedItemCreateWithoutUserInput = {
+    id?: string
+    source_url: string
+    external_id?: string | null
+    raw_data: JsonNullValueInput | InputJsonValue
+    content_hash?: string | null
+    first_seen_at?: Date | string
+    last_seen_at?: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
+    website_target: WebsiteTargetCreateNestedOneWithoutExtracted_itemsInput
+    workflow_run?: WorkflowRunCreateNestedOneWithoutExtracted_itemsInput
+  }
+
+  export type ExtractedItemUncheckedCreateWithoutUserInput = {
+    id?: string
+    website_target_id: string
+    workflow_run_id?: string | null
+    source_url: string
+    external_id?: string | null
+    raw_data: JsonNullValueInput | InputJsonValue
+    content_hash?: string | null
+    first_seen_at?: Date | string
+    last_seen_at?: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type ExtractedItemCreateOrConnectWithoutUserInput = {
+    where: ExtractedItemWhereUniqueInput
+    create: XOR<ExtractedItemCreateWithoutUserInput, ExtractedItemUncheckedCreateWithoutUserInput>
+  }
+
+  export type ExtractedItemCreateManyUserInputEnvelope = {
+    data: ExtractedItemCreateManyUserInput | ExtractedItemCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PlainScrapedPageCreateWithoutUserInput = {
+    id?: string
+    requested_url: string
+    final_url?: string | null
+    http_status?: number | null
+    success?: boolean
+    raw_html?: string | null
+    cleaned_content?: string | null
+    title?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    error_message?: string | null
+    created_at?: Date | string
+    workflow_run: WorkflowRunCreateNestedOneWithoutPagesInput
+    extraction_result?: ExtractionResultCreateNestedOneWithoutPlain_scraped_pageInput
+    ai_batch_request_items?: AiBatchRequestItemCreateNestedManyWithoutPlain_scraped_pageInput
+  }
+
+  export type PlainScrapedPageUncheckedCreateWithoutUserInput = {
+    id?: string
+    workflow_run_id: string
+    requested_url: string
+    final_url?: string | null
+    http_status?: number | null
+    success?: boolean
+    raw_html?: string | null
+    cleaned_content?: string | null
+    title?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    error_message?: string | null
+    created_at?: Date | string
+    extraction_result?: ExtractionResultUncheckedCreateNestedOneWithoutPlain_scraped_pageInput
+    ai_batch_request_items?: AiBatchRequestItemUncheckedCreateNestedManyWithoutPlain_scraped_pageInput
+  }
+
+  export type PlainScrapedPageCreateOrConnectWithoutUserInput = {
+    where: PlainScrapedPageWhereUniqueInput
+    create: XOR<PlainScrapedPageCreateWithoutUserInput, PlainScrapedPageUncheckedCreateWithoutUserInput>
+  }
+
+  export type PlainScrapedPageCreateManyUserInputEnvelope = {
+    data: PlainScrapedPageCreateManyUserInput | PlainScrapedPageCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ExtractionResultCreateWithoutUserInput = {
+    id?: string
+    structured_status?: $Enums.ExtractionFormatStatus | null
+    structured_data?: NullableJsonNullValueInput | InputJsonValue
+    structured_raw_ai_output?: NullableJsonNullValueInput | InputJsonValue
+    structured_validation_errors?: NullableJsonNullValueInput | InputJsonValue
+    structured_attempts?: number
+    markdown_status?: $Enums.ExtractionFormatStatus | null
+    markdown?: string | null
+    markdown_validation_errors?: NullableJsonNullValueInput | InputJsonValue
+    generated_ui_html?: string | null
+    ai_usage?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    updated_at?: Date | string
+    workflow_run?: WorkflowRunCreateNestedOneWithoutExtraction_resultInput
+    plain_scraped_page?: PlainScrapedPageCreateNestedOneWithoutExtraction_resultInput
+    extraction_schema_version?: ExtractionSchemaVersionCreateNestedOneWithoutExtraction_resultsInput
+  }
+
+  export type ExtractionResultUncheckedCreateWithoutUserInput = {
+    id?: string
+    workflow_run_id?: string | null
+    plain_scraped_page_id?: string | null
+    extraction_schema_version_id?: string | null
+    structured_status?: $Enums.ExtractionFormatStatus | null
+    structured_data?: NullableJsonNullValueInput | InputJsonValue
+    structured_raw_ai_output?: NullableJsonNullValueInput | InputJsonValue
+    structured_validation_errors?: NullableJsonNullValueInput | InputJsonValue
+    structured_attempts?: number
+    markdown_status?: $Enums.ExtractionFormatStatus | null
+    markdown?: string | null
+    markdown_validation_errors?: NullableJsonNullValueInput | InputJsonValue
+    generated_ui_html?: string | null
+    ai_usage?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type ExtractionResultCreateOrConnectWithoutUserInput = {
+    where: ExtractionResultWhereUniqueInput
+    create: XOR<ExtractionResultCreateWithoutUserInput, ExtractionResultUncheckedCreateWithoutUserInput>
+  }
+
+  export type ExtractionResultCreateManyUserInputEnvelope = {
+    data: ExtractionResultCreateManyUserInput | ExtractionResultCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AiBatchRequestItemCreateWithoutUserInput = {
+    id?: string
+    custom_id: string
+    source_url?: string | null
+    content_label?: string | null
+    content: string
+    instructions?: string | null
+    wants_markdown?: boolean
+    regex_data?: NullableJsonNullValueInput | InputJsonValue
+    status?: $Enums.ExtractionFormatStatus | null
+    created_at?: Date | string
+    ai_batch_job: AiBatchJobCreateNestedOneWithoutItemsInput
+    plain_scraped_page?: PlainScrapedPageCreateNestedOneWithoutAi_batch_request_itemsInput
+  }
+
+  export type AiBatchRequestItemUncheckedCreateWithoutUserInput = {
+    id?: string
+    ai_batch_job_id: string
+    custom_id: string
+    plain_scraped_page_id?: string | null
+    source_url?: string | null
+    content_label?: string | null
+    content: string
+    instructions?: string | null
+    wants_markdown?: boolean
+    regex_data?: NullableJsonNullValueInput | InputJsonValue
+    status?: $Enums.ExtractionFormatStatus | null
+    created_at?: Date | string
+  }
+
+  export type AiBatchRequestItemCreateOrConnectWithoutUserInput = {
+    where: AiBatchRequestItemWhereUniqueInput
+    create: XOR<AiBatchRequestItemCreateWithoutUserInput, AiBatchRequestItemUncheckedCreateWithoutUserInput>
+  }
+
+  export type AiBatchRequestItemCreateManyUserInputEnvelope = {
+    data: AiBatchRequestItemCreateManyUserInput | AiBatchRequestItemCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type BlockRuleCreateWithoutUserInput = {
+    id?: string
+    label?: string | null
+    signal: $Enums.BlockSignal
+    source: $Enums.BlockRuleSource
+    pattern: string
+    is_regex?: boolean
+    regex_flags?: string | null
+    position?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+    website_target: WebsiteTargetCreateNestedOneWithoutBlock_rulesInput
+  }
+
+  export type BlockRuleUncheckedCreateWithoutUserInput = {
+    id?: string
+    website_target_id: string
+    label?: string | null
+    signal: $Enums.BlockSignal
+    source: $Enums.BlockRuleSource
+    pattern: string
+    is_regex?: boolean
+    regex_flags?: string | null
+    position?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type BlockRuleCreateOrConnectWithoutUserInput = {
+    where: BlockRuleWhereUniqueInput
+    create: XOR<BlockRuleCreateWithoutUserInput, BlockRuleUncheckedCreateWithoutUserInput>
+  }
+
+  export type BlockRuleCreateManyUserInputEnvelope = {
+    data: BlockRuleCreateManyUserInput | BlockRuleCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -54072,6 +55855,42 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"WebhookEndpoint"> | Date | string
   }
 
+  export type WebhookDeliveryUpsertWithWhereUniqueWithoutUserInput = {
+    where: WebhookDeliveryWhereUniqueInput
+    update: XOR<WebhookDeliveryUpdateWithoutUserInput, WebhookDeliveryUncheckedUpdateWithoutUserInput>
+    create: XOR<WebhookDeliveryCreateWithoutUserInput, WebhookDeliveryUncheckedCreateWithoutUserInput>
+  }
+
+  export type WebhookDeliveryUpdateWithWhereUniqueWithoutUserInput = {
+    where: WebhookDeliveryWhereUniqueInput
+    data: XOR<WebhookDeliveryUpdateWithoutUserInput, WebhookDeliveryUncheckedUpdateWithoutUserInput>
+  }
+
+  export type WebhookDeliveryUpdateManyWithWhereWithoutUserInput = {
+    where: WebhookDeliveryScalarWhereInput
+    data: XOR<WebhookDeliveryUpdateManyMutationInput, WebhookDeliveryUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type WebhookDeliveryScalarWhereInput = {
+    AND?: WebhookDeliveryScalarWhereInput | WebhookDeliveryScalarWhereInput[]
+    OR?: WebhookDeliveryScalarWhereInput[]
+    NOT?: WebhookDeliveryScalarWhereInput | WebhookDeliveryScalarWhereInput[]
+    id?: StringFilter<"WebhookDelivery"> | string
+    webhook_endpoint_id?: StringFilter<"WebhookDelivery"> | string
+    user_id?: StringFilter<"WebhookDelivery"> | string
+    event_type?: EnumWebhookEventTypeFilter<"WebhookDelivery"> | $Enums.WebhookEventType
+    workflow_run_id?: StringNullableFilter<"WebhookDelivery"> | string | null
+    is_test?: BoolFilter<"WebhookDelivery"> | boolean
+    payload?: JsonFilter<"WebhookDelivery">
+    status?: EnumWebhookDeliveryStatusFilter<"WebhookDelivery"> | $Enums.WebhookDeliveryStatus
+    http_status_code?: IntNullableFilter<"WebhookDelivery"> | number | null
+    response_body?: StringNullableFilter<"WebhookDelivery"> | string | null
+    error_message?: StringNullableFilter<"WebhookDelivery"> | string | null
+    attempt_number?: IntFilter<"WebhookDelivery"> | number
+    duration_ms?: IntNullableFilter<"WebhookDelivery"> | number | null
+    created_at?: DateTimeFilter<"WebhookDelivery"> | Date | string
+  }
+
   export type JobLogUpsertWithWhereUniqueWithoutUserInput = {
     where: JobLogWhereUniqueInput
     update: XOR<JobLogUpdateWithoutUserInput, JobLogUncheckedUpdateWithoutUserInput>
@@ -54100,7 +55919,7 @@ export namespace Prisma {
     attempt?: IntFilter<"JobLog"> | number
     max_attempts?: IntNullableFilter<"JobLog"> | number | null
     workflow_run_id?: StringNullableFilter<"JobLog"> | string | null
-    user_id?: StringNullableFilter<"JobLog"> | string | null
+    user_id?: StringFilter<"JobLog"> | string
     payload?: JsonNullableFilter<"JobLog">
     result?: JsonNullableFilter<"JobLog">
     error_message?: StringNullableFilter<"JobLog"> | string | null
@@ -54216,6 +56035,321 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"CostEntry"> | Date | string
   }
 
+  export type ScraperVersionUpsertWithWhereUniqueWithoutUserInput = {
+    where: ScraperVersionWhereUniqueInput
+    update: XOR<ScraperVersionUpdateWithoutUserInput, ScraperVersionUncheckedUpdateWithoutUserInput>
+    create: XOR<ScraperVersionCreateWithoutUserInput, ScraperVersionUncheckedCreateWithoutUserInput>
+  }
+
+  export type ScraperVersionUpdateWithWhereUniqueWithoutUserInput = {
+    where: ScraperVersionWhereUniqueInput
+    data: XOR<ScraperVersionUpdateWithoutUserInput, ScraperVersionUncheckedUpdateWithoutUserInput>
+  }
+
+  export type ScraperVersionUpdateManyWithWhereWithoutUserInput = {
+    where: ScraperVersionScalarWhereInput
+    data: XOR<ScraperVersionUpdateManyMutationInput, ScraperVersionUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type ScraperVersionScalarWhereInput = {
+    AND?: ScraperVersionScalarWhereInput | ScraperVersionScalarWhereInput[]
+    OR?: ScraperVersionScalarWhereInput[]
+    NOT?: ScraperVersionScalarWhereInput | ScraperVersionScalarWhereInput[]
+    id?: StringFilter<"ScraperVersion"> | string
+    workflow_config_id?: StringFilter<"ScraperVersion"> | string
+    user_id?: StringFilter<"ScraperVersion"> | string
+    version?: IntFilter<"ScraperVersion"> | number
+    config?: JsonFilter<"ScraperVersion">
+    created_by?: EnumScraperVersionCreatedByFilter<"ScraperVersion"> | $Enums.ScraperVersionCreatedBy
+    notes?: StringNullableFilter<"ScraperVersion"> | string | null
+    generation_prompt?: StringNullableFilter<"ScraperVersion"> | string | null
+    output_formats?: EnumOutputFormatNullableListFilter<"ScraperVersion">
+    extraction_schema_version_id?: StringNullableFilter<"ScraperVersion"> | string | null
+    created_at?: DateTimeFilter<"ScraperVersion"> | Date | string
+    updated_at?: DateTimeFilter<"ScraperVersion"> | Date | string
+  }
+
+  export type ScraperGenerationRunUpsertWithWhereUniqueWithoutUserInput = {
+    where: ScraperGenerationRunWhereUniqueInput
+    update: XOR<ScraperGenerationRunUpdateWithoutUserInput, ScraperGenerationRunUncheckedUpdateWithoutUserInput>
+    create: XOR<ScraperGenerationRunCreateWithoutUserInput, ScraperGenerationRunUncheckedCreateWithoutUserInput>
+  }
+
+  export type ScraperGenerationRunUpdateWithWhereUniqueWithoutUserInput = {
+    where: ScraperGenerationRunWhereUniqueInput
+    data: XOR<ScraperGenerationRunUpdateWithoutUserInput, ScraperGenerationRunUncheckedUpdateWithoutUserInput>
+  }
+
+  export type ScraperGenerationRunUpdateManyWithWhereWithoutUserInput = {
+    where: ScraperGenerationRunScalarWhereInput
+    data: XOR<ScraperGenerationRunUpdateManyMutationInput, ScraperGenerationRunUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type ScraperGenerationRunScalarWhereInput = {
+    AND?: ScraperGenerationRunScalarWhereInput | ScraperGenerationRunScalarWhereInput[]
+    OR?: ScraperGenerationRunScalarWhereInput[]
+    NOT?: ScraperGenerationRunScalarWhereInput | ScraperGenerationRunScalarWhereInput[]
+    id?: StringFilter<"ScraperGenerationRun"> | string
+    website_target_id?: StringFilter<"ScraperGenerationRun"> | string
+    workflow_config_id?: StringNullableFilter<"ScraperGenerationRun"> | string | null
+    user_id?: StringFilter<"ScraperGenerationRun"> | string
+    trigger?: EnumGenerationTriggerFilter<"ScraperGenerationRun"> | $Enums.GenerationTrigger
+    status?: EnumGenerationRunStatusFilter<"ScraperGenerationRun"> | $Enums.GenerationRunStatus
+    prompt?: StringNullableFilter<"ScraperGenerationRun"> | string | null
+    max_steps?: IntNullableFilter<"ScraperGenerationRun"> | number | null
+    output_formats?: EnumOutputFormatNullableListFilter<"ScraperGenerationRun">
+    output_schema?: JsonNullableFilter<"ScraperGenerationRun">
+    staged_config?: JsonNullableFilter<"ScraperGenerationRun">
+    produced_version_id?: StringNullableFilter<"ScraperGenerationRun"> | string | null
+    error_message?: StringNullableFilter<"ScraperGenerationRun"> | string | null
+    started_at?: DateTimeNullableFilter<"ScraperGenerationRun"> | Date | string | null
+    finished_at?: DateTimeNullableFilter<"ScraperGenerationRun"> | Date | string | null
+    duration_ms?: IntNullableFilter<"ScraperGenerationRun"> | number | null
+    created_at?: DateTimeFilter<"ScraperGenerationRun"> | Date | string
+    updated_at?: DateTimeFilter<"ScraperGenerationRun"> | Date | string
+  }
+
+  export type ComputerUseStepUpsertWithWhereUniqueWithoutUserInput = {
+    where: ComputerUseStepWhereUniqueInput
+    update: XOR<ComputerUseStepUpdateWithoutUserInput, ComputerUseStepUncheckedUpdateWithoutUserInput>
+    create: XOR<ComputerUseStepCreateWithoutUserInput, ComputerUseStepUncheckedCreateWithoutUserInput>
+  }
+
+  export type ComputerUseStepUpdateWithWhereUniqueWithoutUserInput = {
+    where: ComputerUseStepWhereUniqueInput
+    data: XOR<ComputerUseStepUpdateWithoutUserInput, ComputerUseStepUncheckedUpdateWithoutUserInput>
+  }
+
+  export type ComputerUseStepUpdateManyWithWhereWithoutUserInput = {
+    where: ComputerUseStepScalarWhereInput
+    data: XOR<ComputerUseStepUpdateManyMutationInput, ComputerUseStepUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type ComputerUseStepScalarWhereInput = {
+    AND?: ComputerUseStepScalarWhereInput | ComputerUseStepScalarWhereInput[]
+    OR?: ComputerUseStepScalarWhereInput[]
+    NOT?: ComputerUseStepScalarWhereInput | ComputerUseStepScalarWhereInput[]
+    id?: StringFilter<"ComputerUseStep"> | string
+    scraper_generation_run_id?: StringNullableFilter<"ComputerUseStep"> | string | null
+    workflow_run_id?: StringNullableFilter<"ComputerUseStep"> | string | null
+    user_id?: StringFilter<"ComputerUseStep"> | string
+    step_index?: IntFilter<"ComputerUseStep"> | number
+    action_type?: EnumComputerActionTypeFilter<"ComputerUseStep"> | $Enums.ComputerActionType
+    action_payload?: JsonFilter<"ComputerUseStep">
+    screenshot_before_id?: StringNullableFilter<"ComputerUseStep"> | string | null
+    screenshot_after_id?: StringNullableFilter<"ComputerUseStep"> | string | null
+    model_reasoning?: StringNullableFilter<"ComputerUseStep"> | string | null
+    created_at?: DateTimeFilter<"ComputerUseStep"> | Date | string
+  }
+
+  export type ScraperExecutionTraceUpsertWithWhereUniqueWithoutUserInput = {
+    where: ScraperExecutionTraceWhereUniqueInput
+    update: XOR<ScraperExecutionTraceUpdateWithoutUserInput, ScraperExecutionTraceUncheckedUpdateWithoutUserInput>
+    create: XOR<ScraperExecutionTraceCreateWithoutUserInput, ScraperExecutionTraceUncheckedCreateWithoutUserInput>
+  }
+
+  export type ScraperExecutionTraceUpdateWithWhereUniqueWithoutUserInput = {
+    where: ScraperExecutionTraceWhereUniqueInput
+    data: XOR<ScraperExecutionTraceUpdateWithoutUserInput, ScraperExecutionTraceUncheckedUpdateWithoutUserInput>
+  }
+
+  export type ScraperExecutionTraceUpdateManyWithWhereWithoutUserInput = {
+    where: ScraperExecutionTraceScalarWhereInput
+    data: XOR<ScraperExecutionTraceUpdateManyMutationInput, ScraperExecutionTraceUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type ScraperExecutionTraceScalarWhereInput = {
+    AND?: ScraperExecutionTraceScalarWhereInput | ScraperExecutionTraceScalarWhereInput[]
+    OR?: ScraperExecutionTraceScalarWhereInput[]
+    NOT?: ScraperExecutionTraceScalarWhereInput | ScraperExecutionTraceScalarWhereInput[]
+    id?: StringFilter<"ScraperExecutionTrace"> | string
+    workflow_config_id?: StringFilter<"ScraperExecutionTrace"> | string
+    workflow_run_id?: StringNullableFilter<"ScraperExecutionTrace"> | string | null
+    user_id?: StringFilter<"ScraperExecutionTrace"> | string
+    steps?: JsonFilter<"ScraperExecutionTrace">
+    success?: BoolFilter<"ScraperExecutionTrace"> | boolean
+    error_summary?: StringNullableFilter<"ScraperExecutionTrace"> | string | null
+    created_at?: DateTimeFilter<"ScraperExecutionTrace"> | Date | string
+    updated_at?: DateTimeFilter<"ScraperExecutionTrace"> | Date | string
+  }
+
+  export type ExtractedItemUpsertWithWhereUniqueWithoutUserInput = {
+    where: ExtractedItemWhereUniqueInput
+    update: XOR<ExtractedItemUpdateWithoutUserInput, ExtractedItemUncheckedUpdateWithoutUserInput>
+    create: XOR<ExtractedItemCreateWithoutUserInput, ExtractedItemUncheckedCreateWithoutUserInput>
+  }
+
+  export type ExtractedItemUpdateWithWhereUniqueWithoutUserInput = {
+    where: ExtractedItemWhereUniqueInput
+    data: XOR<ExtractedItemUpdateWithoutUserInput, ExtractedItemUncheckedUpdateWithoutUserInput>
+  }
+
+  export type ExtractedItemUpdateManyWithWhereWithoutUserInput = {
+    where: ExtractedItemScalarWhereInput
+    data: XOR<ExtractedItemUpdateManyMutationInput, ExtractedItemUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type ExtractedItemScalarWhereInput = {
+    AND?: ExtractedItemScalarWhereInput | ExtractedItemScalarWhereInput[]
+    OR?: ExtractedItemScalarWhereInput[]
+    NOT?: ExtractedItemScalarWhereInput | ExtractedItemScalarWhereInput[]
+    id?: StringFilter<"ExtractedItem"> | string
+    website_target_id?: StringFilter<"ExtractedItem"> | string
+    workflow_run_id?: StringNullableFilter<"ExtractedItem"> | string | null
+    user_id?: StringFilter<"ExtractedItem"> | string
+    source_url?: StringFilter<"ExtractedItem"> | string
+    external_id?: StringNullableFilter<"ExtractedItem"> | string | null
+    raw_data?: JsonFilter<"ExtractedItem">
+    content_hash?: StringNullableFilter<"ExtractedItem"> | string | null
+    first_seen_at?: DateTimeFilter<"ExtractedItem"> | Date | string
+    last_seen_at?: DateTimeFilter<"ExtractedItem"> | Date | string
+    created_at?: DateTimeFilter<"ExtractedItem"> | Date | string
+    updated_at?: DateTimeFilter<"ExtractedItem"> | Date | string
+  }
+
+  export type PlainScrapedPageUpsertWithWhereUniqueWithoutUserInput = {
+    where: PlainScrapedPageWhereUniqueInput
+    update: XOR<PlainScrapedPageUpdateWithoutUserInput, PlainScrapedPageUncheckedUpdateWithoutUserInput>
+    create: XOR<PlainScrapedPageCreateWithoutUserInput, PlainScrapedPageUncheckedCreateWithoutUserInput>
+  }
+
+  export type PlainScrapedPageUpdateWithWhereUniqueWithoutUserInput = {
+    where: PlainScrapedPageWhereUniqueInput
+    data: XOR<PlainScrapedPageUpdateWithoutUserInput, PlainScrapedPageUncheckedUpdateWithoutUserInput>
+  }
+
+  export type PlainScrapedPageUpdateManyWithWhereWithoutUserInput = {
+    where: PlainScrapedPageScalarWhereInput
+    data: XOR<PlainScrapedPageUpdateManyMutationInput, PlainScrapedPageUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type PlainScrapedPageScalarWhereInput = {
+    AND?: PlainScrapedPageScalarWhereInput | PlainScrapedPageScalarWhereInput[]
+    OR?: PlainScrapedPageScalarWhereInput[]
+    NOT?: PlainScrapedPageScalarWhereInput | PlainScrapedPageScalarWhereInput[]
+    id?: StringFilter<"PlainScrapedPage"> | string
+    workflow_run_id?: StringFilter<"PlainScrapedPage"> | string
+    user_id?: StringFilter<"PlainScrapedPage"> | string
+    requested_url?: StringFilter<"PlainScrapedPage"> | string
+    final_url?: StringNullableFilter<"PlainScrapedPage"> | string | null
+    http_status?: IntNullableFilter<"PlainScrapedPage"> | number | null
+    success?: BoolFilter<"PlainScrapedPage"> | boolean
+    raw_html?: StringNullableFilter<"PlainScrapedPage"> | string | null
+    cleaned_content?: StringNullableFilter<"PlainScrapedPage"> | string | null
+    title?: StringNullableFilter<"PlainScrapedPage"> | string | null
+    metadata?: JsonNullableFilter<"PlainScrapedPage">
+    error_message?: StringNullableFilter<"PlainScrapedPage"> | string | null
+    created_at?: DateTimeFilter<"PlainScrapedPage"> | Date | string
+  }
+
+  export type ExtractionResultUpsertWithWhereUniqueWithoutUserInput = {
+    where: ExtractionResultWhereUniqueInput
+    update: XOR<ExtractionResultUpdateWithoutUserInput, ExtractionResultUncheckedUpdateWithoutUserInput>
+    create: XOR<ExtractionResultCreateWithoutUserInput, ExtractionResultUncheckedCreateWithoutUserInput>
+  }
+
+  export type ExtractionResultUpdateWithWhereUniqueWithoutUserInput = {
+    where: ExtractionResultWhereUniqueInput
+    data: XOR<ExtractionResultUpdateWithoutUserInput, ExtractionResultUncheckedUpdateWithoutUserInput>
+  }
+
+  export type ExtractionResultUpdateManyWithWhereWithoutUserInput = {
+    where: ExtractionResultScalarWhereInput
+    data: XOR<ExtractionResultUpdateManyMutationInput, ExtractionResultUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type ExtractionResultScalarWhereInput = {
+    AND?: ExtractionResultScalarWhereInput | ExtractionResultScalarWhereInput[]
+    OR?: ExtractionResultScalarWhereInput[]
+    NOT?: ExtractionResultScalarWhereInput | ExtractionResultScalarWhereInput[]
+    id?: StringFilter<"ExtractionResult"> | string
+    workflow_run_id?: StringNullableFilter<"ExtractionResult"> | string | null
+    plain_scraped_page_id?: StringNullableFilter<"ExtractionResult"> | string | null
+    user_id?: StringFilter<"ExtractionResult"> | string
+    extraction_schema_version_id?: StringNullableFilter<"ExtractionResult"> | string | null
+    structured_status?: EnumExtractionFormatStatusNullableFilter<"ExtractionResult"> | $Enums.ExtractionFormatStatus | null
+    structured_data?: JsonNullableFilter<"ExtractionResult">
+    structured_raw_ai_output?: JsonNullableFilter<"ExtractionResult">
+    structured_validation_errors?: JsonNullableFilter<"ExtractionResult">
+    structured_attempts?: IntFilter<"ExtractionResult"> | number
+    markdown_status?: EnumExtractionFormatStatusNullableFilter<"ExtractionResult"> | $Enums.ExtractionFormatStatus | null
+    markdown?: StringNullableFilter<"ExtractionResult"> | string | null
+    markdown_validation_errors?: JsonNullableFilter<"ExtractionResult">
+    generated_ui_html?: StringNullableFilter<"ExtractionResult"> | string | null
+    ai_usage?: JsonNullableFilter<"ExtractionResult">
+    created_at?: DateTimeFilter<"ExtractionResult"> | Date | string
+    updated_at?: DateTimeFilter<"ExtractionResult"> | Date | string
+  }
+
+  export type AiBatchRequestItemUpsertWithWhereUniqueWithoutUserInput = {
+    where: AiBatchRequestItemWhereUniqueInput
+    update: XOR<AiBatchRequestItemUpdateWithoutUserInput, AiBatchRequestItemUncheckedUpdateWithoutUserInput>
+    create: XOR<AiBatchRequestItemCreateWithoutUserInput, AiBatchRequestItemUncheckedCreateWithoutUserInput>
+  }
+
+  export type AiBatchRequestItemUpdateWithWhereUniqueWithoutUserInput = {
+    where: AiBatchRequestItemWhereUniqueInput
+    data: XOR<AiBatchRequestItemUpdateWithoutUserInput, AiBatchRequestItemUncheckedUpdateWithoutUserInput>
+  }
+
+  export type AiBatchRequestItemUpdateManyWithWhereWithoutUserInput = {
+    where: AiBatchRequestItemScalarWhereInput
+    data: XOR<AiBatchRequestItemUpdateManyMutationInput, AiBatchRequestItemUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type AiBatchRequestItemScalarWhereInput = {
+    AND?: AiBatchRequestItemScalarWhereInput | AiBatchRequestItemScalarWhereInput[]
+    OR?: AiBatchRequestItemScalarWhereInput[]
+    NOT?: AiBatchRequestItemScalarWhereInput | AiBatchRequestItemScalarWhereInput[]
+    id?: StringFilter<"AiBatchRequestItem"> | string
+    ai_batch_job_id?: StringFilter<"AiBatchRequestItem"> | string
+    user_id?: StringFilter<"AiBatchRequestItem"> | string
+    custom_id?: StringFilter<"AiBatchRequestItem"> | string
+    plain_scraped_page_id?: StringNullableFilter<"AiBatchRequestItem"> | string | null
+    source_url?: StringNullableFilter<"AiBatchRequestItem"> | string | null
+    content_label?: StringNullableFilter<"AiBatchRequestItem"> | string | null
+    content?: StringFilter<"AiBatchRequestItem"> | string
+    instructions?: StringNullableFilter<"AiBatchRequestItem"> | string | null
+    wants_markdown?: BoolFilter<"AiBatchRequestItem"> | boolean
+    regex_data?: JsonNullableFilter<"AiBatchRequestItem">
+    status?: EnumExtractionFormatStatusNullableFilter<"AiBatchRequestItem"> | $Enums.ExtractionFormatStatus | null
+    created_at?: DateTimeFilter<"AiBatchRequestItem"> | Date | string
+  }
+
+  export type BlockRuleUpsertWithWhereUniqueWithoutUserInput = {
+    where: BlockRuleWhereUniqueInput
+    update: XOR<BlockRuleUpdateWithoutUserInput, BlockRuleUncheckedUpdateWithoutUserInput>
+    create: XOR<BlockRuleCreateWithoutUserInput, BlockRuleUncheckedCreateWithoutUserInput>
+  }
+
+  export type BlockRuleUpdateWithWhereUniqueWithoutUserInput = {
+    where: BlockRuleWhereUniqueInput
+    data: XOR<BlockRuleUpdateWithoutUserInput, BlockRuleUncheckedUpdateWithoutUserInput>
+  }
+
+  export type BlockRuleUpdateManyWithWhereWithoutUserInput = {
+    where: BlockRuleScalarWhereInput
+    data: XOR<BlockRuleUpdateManyMutationInput, BlockRuleUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type BlockRuleScalarWhereInput = {
+    AND?: BlockRuleScalarWhereInput | BlockRuleScalarWhereInput[]
+    OR?: BlockRuleScalarWhereInput[]
+    NOT?: BlockRuleScalarWhereInput | BlockRuleScalarWhereInput[]
+    id?: StringFilter<"BlockRule"> | string
+    website_target_id?: StringFilter<"BlockRule"> | string
+    user_id?: StringFilter<"BlockRule"> | string
+    label?: StringNullableFilter<"BlockRule"> | string | null
+    signal?: EnumBlockSignalFilter<"BlockRule"> | $Enums.BlockSignal
+    source?: EnumBlockRuleSourceFilter<"BlockRule"> | $Enums.BlockRuleSource
+    pattern?: StringFilter<"BlockRule"> | string
+    is_regex?: BoolFilter<"BlockRule"> | boolean
+    regex_flags?: StringNullableFilter<"BlockRule"> | string | null
+    position?: IntFilter<"BlockRule"> | number
+    created_at?: DateTimeFilter<"BlockRule"> | Date | string
+    updated_at?: DateTimeFilter<"BlockRule"> | Date | string
+  }
+
   export type UserCreateWithoutPassword_reset_tokensInput = {
     id?: string
     email: string
@@ -54232,10 +56366,20 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
+    webhook_deliveries?: WebhookDeliveryCreateNestedManyWithoutUserInput
     job_logs?: JobLogCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     cost_entries?: CostEntryCreateNestedManyWithoutUserInput
+    scraper_versions?: ScraperVersionCreateNestedManyWithoutUserInput
+    scraper_generation_runs?: ScraperGenerationRunCreateNestedManyWithoutUserInput
+    computer_use_steps?: ComputerUseStepCreateNestedManyWithoutUserInput
+    scraper_execution_traces?: ScraperExecutionTraceCreateNestedManyWithoutUserInput
+    extracted_items?: ExtractedItemCreateNestedManyWithoutUserInput
+    plain_scraped_pages?: PlainScrapedPageCreateNestedManyWithoutUserInput
+    extraction_results?: ExtractionResultCreateNestedManyWithoutUserInput
+    ai_batch_request_items?: AiBatchRequestItemCreateNestedManyWithoutUserInput
+    block_rules?: BlockRuleCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPassword_reset_tokensInput = {
@@ -54254,10 +56398,20 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUncheckedCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
+    webhook_deliveries?: WebhookDeliveryUncheckedCreateNestedManyWithoutUserInput
     job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     cost_entries?: CostEntryUncheckedCreateNestedManyWithoutUserInput
+    scraper_versions?: ScraperVersionUncheckedCreateNestedManyWithoutUserInput
+    scraper_generation_runs?: ScraperGenerationRunUncheckedCreateNestedManyWithoutUserInput
+    computer_use_steps?: ComputerUseStepUncheckedCreateNestedManyWithoutUserInput
+    scraper_execution_traces?: ScraperExecutionTraceUncheckedCreateNestedManyWithoutUserInput
+    extracted_items?: ExtractedItemUncheckedCreateNestedManyWithoutUserInput
+    plain_scraped_pages?: PlainScrapedPageUncheckedCreateNestedManyWithoutUserInput
+    extraction_results?: ExtractionResultUncheckedCreateNestedManyWithoutUserInput
+    ai_batch_request_items?: AiBatchRequestItemUncheckedCreateNestedManyWithoutUserInput
+    block_rules?: BlockRuleUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPassword_reset_tokensInput = {
@@ -54292,10 +56446,20 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
+    webhook_deliveries?: WebhookDeliveryUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     cost_entries?: CostEntryUpdateManyWithoutUserNestedInput
+    scraper_versions?: ScraperVersionUpdateManyWithoutUserNestedInput
+    scraper_generation_runs?: ScraperGenerationRunUpdateManyWithoutUserNestedInput
+    computer_use_steps?: ComputerUseStepUpdateManyWithoutUserNestedInput
+    scraper_execution_traces?: ScraperExecutionTraceUpdateManyWithoutUserNestedInput
+    extracted_items?: ExtractedItemUpdateManyWithoutUserNestedInput
+    plain_scraped_pages?: PlainScrapedPageUpdateManyWithoutUserNestedInput
+    extraction_results?: ExtractionResultUpdateManyWithoutUserNestedInput
+    ai_batch_request_items?: AiBatchRequestItemUpdateManyWithoutUserNestedInput
+    block_rules?: BlockRuleUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPassword_reset_tokensInput = {
@@ -54314,10 +56478,20 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUncheckedUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
+    webhook_deliveries?: WebhookDeliveryUncheckedUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     cost_entries?: CostEntryUncheckedUpdateManyWithoutUserNestedInput
+    scraper_versions?: ScraperVersionUncheckedUpdateManyWithoutUserNestedInput
+    scraper_generation_runs?: ScraperGenerationRunUncheckedUpdateManyWithoutUserNestedInput
+    computer_use_steps?: ComputerUseStepUncheckedUpdateManyWithoutUserNestedInput
+    scraper_execution_traces?: ScraperExecutionTraceUncheckedUpdateManyWithoutUserNestedInput
+    extracted_items?: ExtractedItemUncheckedUpdateManyWithoutUserNestedInput
+    plain_scraped_pages?: PlainScrapedPageUncheckedUpdateManyWithoutUserNestedInput
+    extraction_results?: ExtractionResultUncheckedUpdateManyWithoutUserNestedInput
+    ai_batch_request_items?: AiBatchRequestItemUncheckedUpdateManyWithoutUserNestedInput
+    block_rules?: BlockRuleUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutApi_keysInput = {
@@ -54336,10 +56510,20 @@ export namespace Prisma {
     user_integrations?: UserIntegrationCreateNestedManyWithoutUserInput
     extraction_schemas?: ExtractionSchemaCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
+    webhook_deliveries?: WebhookDeliveryCreateNestedManyWithoutUserInput
     job_logs?: JobLogCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     cost_entries?: CostEntryCreateNestedManyWithoutUserInput
+    scraper_versions?: ScraperVersionCreateNestedManyWithoutUserInput
+    scraper_generation_runs?: ScraperGenerationRunCreateNestedManyWithoutUserInput
+    computer_use_steps?: ComputerUseStepCreateNestedManyWithoutUserInput
+    scraper_execution_traces?: ScraperExecutionTraceCreateNestedManyWithoutUserInput
+    extracted_items?: ExtractedItemCreateNestedManyWithoutUserInput
+    plain_scraped_pages?: PlainScrapedPageCreateNestedManyWithoutUserInput
+    extraction_results?: ExtractionResultCreateNestedManyWithoutUserInput
+    ai_batch_request_items?: AiBatchRequestItemCreateNestedManyWithoutUserInput
+    block_rules?: BlockRuleCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutApi_keysInput = {
@@ -54358,10 +56542,20 @@ export namespace Prisma {
     user_integrations?: UserIntegrationUncheckedCreateNestedManyWithoutUserInput
     extraction_schemas?: ExtractionSchemaUncheckedCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
+    webhook_deliveries?: WebhookDeliveryUncheckedCreateNestedManyWithoutUserInput
     job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     cost_entries?: CostEntryUncheckedCreateNestedManyWithoutUserInput
+    scraper_versions?: ScraperVersionUncheckedCreateNestedManyWithoutUserInput
+    scraper_generation_runs?: ScraperGenerationRunUncheckedCreateNestedManyWithoutUserInput
+    computer_use_steps?: ComputerUseStepUncheckedCreateNestedManyWithoutUserInput
+    scraper_execution_traces?: ScraperExecutionTraceUncheckedCreateNestedManyWithoutUserInput
+    extracted_items?: ExtractedItemUncheckedCreateNestedManyWithoutUserInput
+    plain_scraped_pages?: PlainScrapedPageUncheckedCreateNestedManyWithoutUserInput
+    extraction_results?: ExtractionResultUncheckedCreateNestedManyWithoutUserInput
+    ai_batch_request_items?: AiBatchRequestItemUncheckedCreateNestedManyWithoutUserInput
+    block_rules?: BlockRuleUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutApi_keysInput = {
@@ -54396,10 +56590,20 @@ export namespace Prisma {
     user_integrations?: UserIntegrationUpdateManyWithoutUserNestedInput
     extraction_schemas?: ExtractionSchemaUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
+    webhook_deliveries?: WebhookDeliveryUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     cost_entries?: CostEntryUpdateManyWithoutUserNestedInput
+    scraper_versions?: ScraperVersionUpdateManyWithoutUserNestedInput
+    scraper_generation_runs?: ScraperGenerationRunUpdateManyWithoutUserNestedInput
+    computer_use_steps?: ComputerUseStepUpdateManyWithoutUserNestedInput
+    scraper_execution_traces?: ScraperExecutionTraceUpdateManyWithoutUserNestedInput
+    extracted_items?: ExtractedItemUpdateManyWithoutUserNestedInput
+    plain_scraped_pages?: PlainScrapedPageUpdateManyWithoutUserNestedInput
+    extraction_results?: ExtractionResultUpdateManyWithoutUserNestedInput
+    ai_batch_request_items?: AiBatchRequestItemUpdateManyWithoutUserNestedInput
+    block_rules?: BlockRuleUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutApi_keysInput = {
@@ -54418,10 +56622,20 @@ export namespace Prisma {
     user_integrations?: UserIntegrationUncheckedUpdateManyWithoutUserNestedInput
     extraction_schemas?: ExtractionSchemaUncheckedUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
+    webhook_deliveries?: WebhookDeliveryUncheckedUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     cost_entries?: CostEntryUncheckedUpdateManyWithoutUserNestedInput
+    scraper_versions?: ScraperVersionUncheckedUpdateManyWithoutUserNestedInput
+    scraper_generation_runs?: ScraperGenerationRunUncheckedUpdateManyWithoutUserNestedInput
+    computer_use_steps?: ComputerUseStepUncheckedUpdateManyWithoutUserNestedInput
+    scraper_execution_traces?: ScraperExecutionTraceUncheckedUpdateManyWithoutUserNestedInput
+    extracted_items?: ExtractedItemUncheckedUpdateManyWithoutUserNestedInput
+    plain_scraped_pages?: PlainScrapedPageUncheckedUpdateManyWithoutUserNestedInput
+    extraction_results?: ExtractionResultUncheckedUpdateManyWithoutUserNestedInput
+    ai_batch_request_items?: AiBatchRequestItemUncheckedUpdateManyWithoutUserNestedInput
+    block_rules?: BlockRuleUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutWebhook_endpointsInput = {
@@ -54440,10 +56654,20 @@ export namespace Prisma {
     user_integrations?: UserIntegrationCreateNestedManyWithoutUserInput
     extraction_schemas?: ExtractionSchemaCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyCreateNestedManyWithoutUserInput
+    webhook_deliveries?: WebhookDeliveryCreateNestedManyWithoutUserInput
     job_logs?: JobLogCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     cost_entries?: CostEntryCreateNestedManyWithoutUserInput
+    scraper_versions?: ScraperVersionCreateNestedManyWithoutUserInput
+    scraper_generation_runs?: ScraperGenerationRunCreateNestedManyWithoutUserInput
+    computer_use_steps?: ComputerUseStepCreateNestedManyWithoutUserInput
+    scraper_execution_traces?: ScraperExecutionTraceCreateNestedManyWithoutUserInput
+    extracted_items?: ExtractedItemCreateNestedManyWithoutUserInput
+    plain_scraped_pages?: PlainScrapedPageCreateNestedManyWithoutUserInput
+    extraction_results?: ExtractionResultCreateNestedManyWithoutUserInput
+    ai_batch_request_items?: AiBatchRequestItemCreateNestedManyWithoutUserInput
+    block_rules?: BlockRuleCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWebhook_endpointsInput = {
@@ -54462,10 +56686,20 @@ export namespace Prisma {
     user_integrations?: UserIntegrationUncheckedCreateNestedManyWithoutUserInput
     extraction_schemas?: ExtractionSchemaUncheckedCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
+    webhook_deliveries?: WebhookDeliveryUncheckedCreateNestedManyWithoutUserInput
     job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     cost_entries?: CostEntryUncheckedCreateNestedManyWithoutUserInput
+    scraper_versions?: ScraperVersionUncheckedCreateNestedManyWithoutUserInput
+    scraper_generation_runs?: ScraperGenerationRunUncheckedCreateNestedManyWithoutUserInput
+    computer_use_steps?: ComputerUseStepUncheckedCreateNestedManyWithoutUserInput
+    scraper_execution_traces?: ScraperExecutionTraceUncheckedCreateNestedManyWithoutUserInput
+    extracted_items?: ExtractedItemUncheckedCreateNestedManyWithoutUserInput
+    plain_scraped_pages?: PlainScrapedPageUncheckedCreateNestedManyWithoutUserInput
+    extraction_results?: ExtractionResultUncheckedCreateNestedManyWithoutUserInput
+    ai_batch_request_items?: AiBatchRequestItemUncheckedCreateNestedManyWithoutUserInput
+    block_rules?: BlockRuleUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWebhook_endpointsInput = {
@@ -54486,10 +56720,12 @@ export namespace Prisma {
     attempt_number?: number
     duration_ms?: number | null
     created_at?: Date | string
+    user: UserCreateNestedOneWithoutWebhook_deliveriesInput
   }
 
   export type WebhookDeliveryUncheckedCreateWithoutWebhook_endpointInput = {
     id?: string
+    user_id: string
     event_type: $Enums.WebhookEventType
     workflow_run_id?: string | null
     is_test?: boolean
@@ -54540,10 +56776,20 @@ export namespace Prisma {
     user_integrations?: UserIntegrationUpdateManyWithoutUserNestedInput
     extraction_schemas?: ExtractionSchemaUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
+    webhook_deliveries?: WebhookDeliveryUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     cost_entries?: CostEntryUpdateManyWithoutUserNestedInput
+    scraper_versions?: ScraperVersionUpdateManyWithoutUserNestedInput
+    scraper_generation_runs?: ScraperGenerationRunUpdateManyWithoutUserNestedInput
+    computer_use_steps?: ComputerUseStepUpdateManyWithoutUserNestedInput
+    scraper_execution_traces?: ScraperExecutionTraceUpdateManyWithoutUserNestedInput
+    extracted_items?: ExtractedItemUpdateManyWithoutUserNestedInput
+    plain_scraped_pages?: PlainScrapedPageUpdateManyWithoutUserNestedInput
+    extraction_results?: ExtractionResultUpdateManyWithoutUserNestedInput
+    ai_batch_request_items?: AiBatchRequestItemUpdateManyWithoutUserNestedInput
+    block_rules?: BlockRuleUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWebhook_endpointsInput = {
@@ -54562,10 +56808,20 @@ export namespace Prisma {
     user_integrations?: UserIntegrationUncheckedUpdateManyWithoutUserNestedInput
     extraction_schemas?: ExtractionSchemaUncheckedUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
+    webhook_deliveries?: WebhookDeliveryUncheckedUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     cost_entries?: CostEntryUncheckedUpdateManyWithoutUserNestedInput
+    scraper_versions?: ScraperVersionUncheckedUpdateManyWithoutUserNestedInput
+    scraper_generation_runs?: ScraperGenerationRunUncheckedUpdateManyWithoutUserNestedInput
+    computer_use_steps?: ComputerUseStepUncheckedUpdateManyWithoutUserNestedInput
+    scraper_execution_traces?: ScraperExecutionTraceUncheckedUpdateManyWithoutUserNestedInput
+    extracted_items?: ExtractedItemUncheckedUpdateManyWithoutUserNestedInput
+    plain_scraped_pages?: PlainScrapedPageUncheckedUpdateManyWithoutUserNestedInput
+    extraction_results?: ExtractionResultUncheckedUpdateManyWithoutUserNestedInput
+    ai_batch_request_items?: AiBatchRequestItemUncheckedUpdateManyWithoutUserNestedInput
+    block_rules?: BlockRuleUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WebhookDeliveryUpsertWithWhereUniqueWithoutWebhook_endpointInput = {
@@ -54582,25 +56838,6 @@ export namespace Prisma {
   export type WebhookDeliveryUpdateManyWithWhereWithoutWebhook_endpointInput = {
     where: WebhookDeliveryScalarWhereInput
     data: XOR<WebhookDeliveryUpdateManyMutationInput, WebhookDeliveryUncheckedUpdateManyWithoutWebhook_endpointInput>
-  }
-
-  export type WebhookDeliveryScalarWhereInput = {
-    AND?: WebhookDeliveryScalarWhereInput | WebhookDeliveryScalarWhereInput[]
-    OR?: WebhookDeliveryScalarWhereInput[]
-    NOT?: WebhookDeliveryScalarWhereInput | WebhookDeliveryScalarWhereInput[]
-    id?: StringFilter<"WebhookDelivery"> | string
-    webhook_endpoint_id?: StringFilter<"WebhookDelivery"> | string
-    event_type?: EnumWebhookEventTypeFilter<"WebhookDelivery"> | $Enums.WebhookEventType
-    workflow_run_id?: StringNullableFilter<"WebhookDelivery"> | string | null
-    is_test?: BoolFilter<"WebhookDelivery"> | boolean
-    payload?: JsonFilter<"WebhookDelivery">
-    status?: EnumWebhookDeliveryStatusFilter<"WebhookDelivery"> | $Enums.WebhookDeliveryStatus
-    http_status_code?: IntNullableFilter<"WebhookDelivery"> | number | null
-    response_body?: StringNullableFilter<"WebhookDelivery"> | string | null
-    error_message?: StringNullableFilter<"WebhookDelivery"> | string | null
-    attempt_number?: IntFilter<"WebhookDelivery"> | number
-    duration_ms?: IntNullableFilter<"WebhookDelivery"> | number | null
-    created_at?: DateTimeFilter<"WebhookDelivery"> | Date | string
   }
 
   export type WebhookEndpointCreateWithoutDeliveriesInput = {
@@ -54632,6 +56869,75 @@ export namespace Prisma {
   export type WebhookEndpointCreateOrConnectWithoutDeliveriesInput = {
     where: WebhookEndpointWhereUniqueInput
     create: XOR<WebhookEndpointCreateWithoutDeliveriesInput, WebhookEndpointUncheckedCreateWithoutDeliveriesInput>
+  }
+
+  export type UserCreateWithoutWebhook_deliveriesInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    password: string
+    role: $Enums.AuthRole
+    default_schedule_tz?: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    password_reset_tokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    website_targets?: WebsiteTargetCreateNestedManyWithoutUserInput
+    workflow_configs?: WorkflowConfigCreateNestedManyWithoutUserInput
+    workflow_runs?: WorkflowRunCreateNestedManyWithoutUserInput
+    user_integrations?: UserIntegrationCreateNestedManyWithoutUserInput
+    extraction_schemas?: ExtractionSchemaCreateNestedManyWithoutUserInput
+    api_keys?: ApiKeyCreateNestedManyWithoutUserInput
+    webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
+    job_logs?: JobLogCreateNestedManyWithoutUserInput
+    diagnostics_packages?: DiagnosticsPackageCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    cost_entries?: CostEntryCreateNestedManyWithoutUserInput
+    scraper_versions?: ScraperVersionCreateNestedManyWithoutUserInput
+    scraper_generation_runs?: ScraperGenerationRunCreateNestedManyWithoutUserInput
+    computer_use_steps?: ComputerUseStepCreateNestedManyWithoutUserInput
+    scraper_execution_traces?: ScraperExecutionTraceCreateNestedManyWithoutUserInput
+    extracted_items?: ExtractedItemCreateNestedManyWithoutUserInput
+    plain_scraped_pages?: PlainScrapedPageCreateNestedManyWithoutUserInput
+    extraction_results?: ExtractionResultCreateNestedManyWithoutUserInput
+    ai_batch_request_items?: AiBatchRequestItemCreateNestedManyWithoutUserInput
+    block_rules?: BlockRuleCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutWebhook_deliveriesInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    password: string
+    role: $Enums.AuthRole
+    default_schedule_tz?: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    password_reset_tokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    website_targets?: WebsiteTargetUncheckedCreateNestedManyWithoutUserInput
+    workflow_configs?: WorkflowConfigUncheckedCreateNestedManyWithoutUserInput
+    workflow_runs?: WorkflowRunUncheckedCreateNestedManyWithoutUserInput
+    user_integrations?: UserIntegrationUncheckedCreateNestedManyWithoutUserInput
+    extraction_schemas?: ExtractionSchemaUncheckedCreateNestedManyWithoutUserInput
+    api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
+    webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
+    job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
+    diagnostics_packages?: DiagnosticsPackageUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    cost_entries?: CostEntryUncheckedCreateNestedManyWithoutUserInput
+    scraper_versions?: ScraperVersionUncheckedCreateNestedManyWithoutUserInput
+    scraper_generation_runs?: ScraperGenerationRunUncheckedCreateNestedManyWithoutUserInput
+    computer_use_steps?: ComputerUseStepUncheckedCreateNestedManyWithoutUserInput
+    scraper_execution_traces?: ScraperExecutionTraceUncheckedCreateNestedManyWithoutUserInput
+    extracted_items?: ExtractedItemUncheckedCreateNestedManyWithoutUserInput
+    plain_scraped_pages?: PlainScrapedPageUncheckedCreateNestedManyWithoutUserInput
+    extraction_results?: ExtractionResultUncheckedCreateNestedManyWithoutUserInput
+    ai_batch_request_items?: AiBatchRequestItemUncheckedCreateNestedManyWithoutUserInput
+    block_rules?: BlockRuleUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutWebhook_deliveriesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutWebhook_deliveriesInput, UserUncheckedCreateWithoutWebhook_deliveriesInput>
   }
 
   export type WebhookEndpointUpsertWithoutDeliveriesInput = {
@@ -54671,6 +56977,81 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type UserUpsertWithoutWebhook_deliveriesInput = {
+    update: XOR<UserUpdateWithoutWebhook_deliveriesInput, UserUncheckedUpdateWithoutWebhook_deliveriesInput>
+    create: XOR<UserCreateWithoutWebhook_deliveriesInput, UserUncheckedCreateWithoutWebhook_deliveriesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutWebhook_deliveriesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutWebhook_deliveriesInput, UserUncheckedUpdateWithoutWebhook_deliveriesInput>
+  }
+
+  export type UserUpdateWithoutWebhook_deliveriesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
+    default_schedule_tz?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    password_reset_tokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    website_targets?: WebsiteTargetUpdateManyWithoutUserNestedInput
+    workflow_configs?: WorkflowConfigUpdateManyWithoutUserNestedInput
+    workflow_runs?: WorkflowRunUpdateManyWithoutUserNestedInput
+    user_integrations?: UserIntegrationUpdateManyWithoutUserNestedInput
+    extraction_schemas?: ExtractionSchemaUpdateManyWithoutUserNestedInput
+    api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
+    webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
+    job_logs?: JobLogUpdateManyWithoutUserNestedInput
+    diagnostics_packages?: DiagnosticsPackageUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    cost_entries?: CostEntryUpdateManyWithoutUserNestedInput
+    scraper_versions?: ScraperVersionUpdateManyWithoutUserNestedInput
+    scraper_generation_runs?: ScraperGenerationRunUpdateManyWithoutUserNestedInput
+    computer_use_steps?: ComputerUseStepUpdateManyWithoutUserNestedInput
+    scraper_execution_traces?: ScraperExecutionTraceUpdateManyWithoutUserNestedInput
+    extracted_items?: ExtractedItemUpdateManyWithoutUserNestedInput
+    plain_scraped_pages?: PlainScrapedPageUpdateManyWithoutUserNestedInput
+    extraction_results?: ExtractionResultUpdateManyWithoutUserNestedInput
+    ai_batch_request_items?: AiBatchRequestItemUpdateManyWithoutUserNestedInput
+    block_rules?: BlockRuleUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutWebhook_deliveriesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
+    default_schedule_tz?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    password_reset_tokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    website_targets?: WebsiteTargetUncheckedUpdateManyWithoutUserNestedInput
+    workflow_configs?: WorkflowConfigUncheckedUpdateManyWithoutUserNestedInput
+    workflow_runs?: WorkflowRunUncheckedUpdateManyWithoutUserNestedInput
+    user_integrations?: UserIntegrationUncheckedUpdateManyWithoutUserNestedInput
+    extraction_schemas?: ExtractionSchemaUncheckedUpdateManyWithoutUserNestedInput
+    api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
+    webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
+    job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
+    diagnostics_packages?: DiagnosticsPackageUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    cost_entries?: CostEntryUncheckedUpdateManyWithoutUserNestedInput
+    scraper_versions?: ScraperVersionUncheckedUpdateManyWithoutUserNestedInput
+    scraper_generation_runs?: ScraperGenerationRunUncheckedUpdateManyWithoutUserNestedInput
+    computer_use_steps?: ComputerUseStepUncheckedUpdateManyWithoutUserNestedInput
+    scraper_execution_traces?: ScraperExecutionTraceUncheckedUpdateManyWithoutUserNestedInput
+    extracted_items?: ExtractedItemUncheckedUpdateManyWithoutUserNestedInput
+    plain_scraped_pages?: PlainScrapedPageUncheckedUpdateManyWithoutUserNestedInput
+    extraction_results?: ExtractionResultUncheckedUpdateManyWithoutUserNestedInput
+    ai_batch_request_items?: AiBatchRequestItemUncheckedUpdateManyWithoutUserNestedInput
+    block_rules?: BlockRuleUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type ComputerUseStepCreateWithoutScreenshot_beforeInput = {
     id?: string
     step_index: number
@@ -54681,12 +57062,14 @@ export namespace Prisma {
     scraper_generation_run?: ScraperGenerationRunCreateNestedOneWithoutStepsInput
     workflow_run?: WorkflowRunCreateNestedOneWithoutStepsInput
     screenshot_after?: DocumentCreateNestedOneWithoutComputer_use_steps_afterInput
+    user: UserCreateNestedOneWithoutComputer_use_stepsInput
   }
 
   export type ComputerUseStepUncheckedCreateWithoutScreenshot_beforeInput = {
     id?: string
     scraper_generation_run_id?: string | null
     workflow_run_id?: string | null
+    user_id: string
     step_index: number
     action_type: $Enums.ComputerActionType
     action_payload: JsonNullValueInput | InputJsonValue
@@ -54715,12 +57098,14 @@ export namespace Prisma {
     scraper_generation_run?: ScraperGenerationRunCreateNestedOneWithoutStepsInput
     workflow_run?: WorkflowRunCreateNestedOneWithoutStepsInput
     screenshot_before?: DocumentCreateNestedOneWithoutComputer_use_steps_beforeInput
+    user: UserCreateNestedOneWithoutComputer_use_stepsInput
   }
 
   export type ComputerUseStepUncheckedCreateWithoutScreenshot_afterInput = {
     id?: string
     scraper_generation_run_id?: string | null
     workflow_run_id?: string | null
+    user_id: string
     step_index: number
     action_type: $Enums.ComputerActionType
     action_payload: JsonNullValueInput | InputJsonValue
@@ -54851,22 +57236,6 @@ export namespace Prisma {
     data: XOR<ComputerUseStepUpdateManyMutationInput, ComputerUseStepUncheckedUpdateManyWithoutScreenshot_beforeInput>
   }
 
-  export type ComputerUseStepScalarWhereInput = {
-    AND?: ComputerUseStepScalarWhereInput | ComputerUseStepScalarWhereInput[]
-    OR?: ComputerUseStepScalarWhereInput[]
-    NOT?: ComputerUseStepScalarWhereInput | ComputerUseStepScalarWhereInput[]
-    id?: StringFilter<"ComputerUseStep"> | string
-    scraper_generation_run_id?: StringNullableFilter<"ComputerUseStep"> | string | null
-    workflow_run_id?: StringNullableFilter<"ComputerUseStep"> | string | null
-    step_index?: IntFilter<"ComputerUseStep"> | number
-    action_type?: EnumComputerActionTypeFilter<"ComputerUseStep"> | $Enums.ComputerActionType
-    action_payload?: JsonFilter<"ComputerUseStep">
-    screenshot_before_id?: StringNullableFilter<"ComputerUseStep"> | string | null
-    screenshot_after_id?: StringNullableFilter<"ComputerUseStep"> | string | null
-    model_reasoning?: StringNullableFilter<"ComputerUseStep"> | string | null
-    created_at?: DateTimeFilter<"ComputerUseStep"> | Date | string
-  }
-
   export type ComputerUseStepUpsertWithWhereUniqueWithoutScreenshot_afterInput = {
     where: ComputerUseStepWhereUniqueInput
     update: XOR<ComputerUseStepUpdateWithoutScreenshot_afterInput, ComputerUseStepUncheckedUpdateWithoutScreenshot_afterInput>
@@ -54915,10 +57284,20 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
+    webhook_deliveries?: WebhookDeliveryCreateNestedManyWithoutUserInput
     job_logs?: JobLogCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     cost_entries?: CostEntryCreateNestedManyWithoutUserInput
+    scraper_versions?: ScraperVersionCreateNestedManyWithoutUserInput
+    scraper_generation_runs?: ScraperGenerationRunCreateNestedManyWithoutUserInput
+    computer_use_steps?: ComputerUseStepCreateNestedManyWithoutUserInput
+    scraper_execution_traces?: ScraperExecutionTraceCreateNestedManyWithoutUserInput
+    extracted_items?: ExtractedItemCreateNestedManyWithoutUserInput
+    plain_scraped_pages?: PlainScrapedPageCreateNestedManyWithoutUserInput
+    extraction_results?: ExtractionResultCreateNestedManyWithoutUserInput
+    ai_batch_request_items?: AiBatchRequestItemCreateNestedManyWithoutUserInput
+    block_rules?: BlockRuleCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWebsite_targetsInput = {
@@ -54937,10 +57316,20 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUncheckedCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
+    webhook_deliveries?: WebhookDeliveryUncheckedCreateNestedManyWithoutUserInput
     job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     cost_entries?: CostEntryUncheckedCreateNestedManyWithoutUserInput
+    scraper_versions?: ScraperVersionUncheckedCreateNestedManyWithoutUserInput
+    scraper_generation_runs?: ScraperGenerationRunUncheckedCreateNestedManyWithoutUserInput
+    computer_use_steps?: ComputerUseStepUncheckedCreateNestedManyWithoutUserInput
+    scraper_execution_traces?: ScraperExecutionTraceUncheckedCreateNestedManyWithoutUserInput
+    extracted_items?: ExtractedItemUncheckedCreateNestedManyWithoutUserInput
+    plain_scraped_pages?: PlainScrapedPageUncheckedCreateNestedManyWithoutUserInput
+    extraction_results?: ExtractionResultUncheckedCreateNestedManyWithoutUserInput
+    ai_batch_request_items?: AiBatchRequestItemUncheckedCreateNestedManyWithoutUserInput
+    block_rules?: BlockRuleUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWebsite_targetsInput = {
@@ -55053,12 +57442,14 @@ export namespace Prisma {
     updated_at?: Date | string
     workflow_config?: WorkflowConfigCreateNestedOneWithoutScraper_generation_runsInput
     produced_version?: ScraperVersionCreateNestedOneWithoutProduced_by_runInput
+    user: UserCreateNestedOneWithoutScraper_generation_runsInput
     steps?: ComputerUseStepCreateNestedManyWithoutScraper_generation_runInput
   }
 
   export type ScraperGenerationRunUncheckedCreateWithoutWebsite_targetInput = {
     id?: string
     workflow_config_id?: string | null
+    user_id: string
     trigger?: $Enums.GenerationTrigger
     status?: $Enums.GenerationRunStatus
     prompt?: string | null
@@ -55193,10 +57584,12 @@ export namespace Prisma {
     position?: number
     created_at?: Date | string
     updated_at?: Date | string
+    user: UserCreateNestedOneWithoutBlock_rulesInput
   }
 
   export type BlockRuleUncheckedCreateWithoutWebsite_targetInput = {
     id?: string
+    user_id: string
     label?: string | null
     signal: $Enums.BlockSignal
     source: $Enums.BlockRuleSource
@@ -55265,11 +57658,13 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     workflow_run?: WorkflowRunCreateNestedOneWithoutExtracted_itemsInput
+    user: UserCreateNestedOneWithoutExtracted_itemsInput
   }
 
   export type ExtractedItemUncheckedCreateWithoutWebsite_targetInput = {
     id?: string
     workflow_run_id?: string | null
+    user_id: string
     source_url: string
     external_id?: string | null
     raw_data: JsonNullValueInput | InputJsonValue
@@ -55317,10 +57712,20 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
+    webhook_deliveries?: WebhookDeliveryUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     cost_entries?: CostEntryUpdateManyWithoutUserNestedInput
+    scraper_versions?: ScraperVersionUpdateManyWithoutUserNestedInput
+    scraper_generation_runs?: ScraperGenerationRunUpdateManyWithoutUserNestedInput
+    computer_use_steps?: ComputerUseStepUpdateManyWithoutUserNestedInput
+    scraper_execution_traces?: ScraperExecutionTraceUpdateManyWithoutUserNestedInput
+    extracted_items?: ExtractedItemUpdateManyWithoutUserNestedInput
+    plain_scraped_pages?: PlainScrapedPageUpdateManyWithoutUserNestedInput
+    extraction_results?: ExtractionResultUpdateManyWithoutUserNestedInput
+    ai_batch_request_items?: AiBatchRequestItemUpdateManyWithoutUserNestedInput
+    block_rules?: BlockRuleUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWebsite_targetsInput = {
@@ -55339,10 +57744,20 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUncheckedUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
+    webhook_deliveries?: WebhookDeliveryUncheckedUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     cost_entries?: CostEntryUncheckedUpdateManyWithoutUserNestedInput
+    scraper_versions?: ScraperVersionUncheckedUpdateManyWithoutUserNestedInput
+    scraper_generation_runs?: ScraperGenerationRunUncheckedUpdateManyWithoutUserNestedInput
+    computer_use_steps?: ComputerUseStepUncheckedUpdateManyWithoutUserNestedInput
+    scraper_execution_traces?: ScraperExecutionTraceUncheckedUpdateManyWithoutUserNestedInput
+    extracted_items?: ExtractedItemUncheckedUpdateManyWithoutUserNestedInput
+    plain_scraped_pages?: PlainScrapedPageUncheckedUpdateManyWithoutUserNestedInput
+    extraction_results?: ExtractionResultUncheckedUpdateManyWithoutUserNestedInput
+    ai_batch_request_items?: AiBatchRequestItemUncheckedUpdateManyWithoutUserNestedInput
+    block_rules?: BlockRuleUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WorkflowConfigUpsertWithWhereUniqueWithoutWebsite_targetInput = {
@@ -55377,29 +57792,6 @@ export namespace Prisma {
     data: XOR<ScraperGenerationRunUpdateManyMutationInput, ScraperGenerationRunUncheckedUpdateManyWithoutWebsite_targetInput>
   }
 
-  export type ScraperGenerationRunScalarWhereInput = {
-    AND?: ScraperGenerationRunScalarWhereInput | ScraperGenerationRunScalarWhereInput[]
-    OR?: ScraperGenerationRunScalarWhereInput[]
-    NOT?: ScraperGenerationRunScalarWhereInput | ScraperGenerationRunScalarWhereInput[]
-    id?: StringFilter<"ScraperGenerationRun"> | string
-    website_target_id?: StringFilter<"ScraperGenerationRun"> | string
-    workflow_config_id?: StringNullableFilter<"ScraperGenerationRun"> | string | null
-    trigger?: EnumGenerationTriggerFilter<"ScraperGenerationRun"> | $Enums.GenerationTrigger
-    status?: EnumGenerationRunStatusFilter<"ScraperGenerationRun"> | $Enums.GenerationRunStatus
-    prompt?: StringNullableFilter<"ScraperGenerationRun"> | string | null
-    max_steps?: IntNullableFilter<"ScraperGenerationRun"> | number | null
-    output_formats?: EnumOutputFormatNullableListFilter<"ScraperGenerationRun">
-    output_schema?: JsonNullableFilter<"ScraperGenerationRun">
-    staged_config?: JsonNullableFilter<"ScraperGenerationRun">
-    produced_version_id?: StringNullableFilter<"ScraperGenerationRun"> | string | null
-    error_message?: StringNullableFilter<"ScraperGenerationRun"> | string | null
-    started_at?: DateTimeNullableFilter<"ScraperGenerationRun"> | Date | string | null
-    finished_at?: DateTimeNullableFilter<"ScraperGenerationRun"> | Date | string | null
-    duration_ms?: IntNullableFilter<"ScraperGenerationRun"> | number | null
-    created_at?: DateTimeFilter<"ScraperGenerationRun"> | Date | string
-    updated_at?: DateTimeFilter<"ScraperGenerationRun"> | Date | string
-  }
-
   export type WorkflowRunUpsertWithWhereUniqueWithoutWebsite_targetInput = {
     where: WorkflowRunWhereUniqueInput
     update: XOR<WorkflowRunUpdateWithoutWebsite_targetInput, WorkflowRunUncheckedUpdateWithoutWebsite_targetInput>
@@ -55432,23 +57824,6 @@ export namespace Prisma {
     data: XOR<BlockRuleUpdateManyMutationInput, BlockRuleUncheckedUpdateManyWithoutWebsite_targetInput>
   }
 
-  export type BlockRuleScalarWhereInput = {
-    AND?: BlockRuleScalarWhereInput | BlockRuleScalarWhereInput[]
-    OR?: BlockRuleScalarWhereInput[]
-    NOT?: BlockRuleScalarWhereInput | BlockRuleScalarWhereInput[]
-    id?: StringFilter<"BlockRule"> | string
-    website_target_id?: StringFilter<"BlockRule"> | string
-    label?: StringNullableFilter<"BlockRule"> | string | null
-    signal?: EnumBlockSignalFilter<"BlockRule"> | $Enums.BlockSignal
-    source?: EnumBlockRuleSourceFilter<"BlockRule"> | $Enums.BlockRuleSource
-    pattern?: StringFilter<"BlockRule"> | string
-    is_regex?: BoolFilter<"BlockRule"> | boolean
-    regex_flags?: StringNullableFilter<"BlockRule"> | string | null
-    position?: IntFilter<"BlockRule"> | number
-    created_at?: DateTimeFilter<"BlockRule"> | Date | string
-    updated_at?: DateTimeFilter<"BlockRule"> | Date | string
-  }
-
   export type NotificationUpsertWithWhereUniqueWithoutWebsite_targetInput = {
     where: NotificationWhereUniqueInput
     update: XOR<NotificationUpdateWithoutWebsite_targetInput, NotificationUncheckedUpdateWithoutWebsite_targetInput>
@@ -55479,23 +57854,6 @@ export namespace Prisma {
   export type ExtractedItemUpdateManyWithWhereWithoutWebsite_targetInput = {
     where: ExtractedItemScalarWhereInput
     data: XOR<ExtractedItemUpdateManyMutationInput, ExtractedItemUncheckedUpdateManyWithoutWebsite_targetInput>
-  }
-
-  export type ExtractedItemScalarWhereInput = {
-    AND?: ExtractedItemScalarWhereInput | ExtractedItemScalarWhereInput[]
-    OR?: ExtractedItemScalarWhereInput[]
-    NOT?: ExtractedItemScalarWhereInput | ExtractedItemScalarWhereInput[]
-    id?: StringFilter<"ExtractedItem"> | string
-    website_target_id?: StringFilter<"ExtractedItem"> | string
-    workflow_run_id?: StringNullableFilter<"ExtractedItem"> | string | null
-    source_url?: StringFilter<"ExtractedItem"> | string
-    external_id?: StringNullableFilter<"ExtractedItem"> | string | null
-    raw_data?: JsonFilter<"ExtractedItem">
-    content_hash?: StringNullableFilter<"ExtractedItem"> | string | null
-    first_seen_at?: DateTimeFilter<"ExtractedItem"> | Date | string
-    last_seen_at?: DateTimeFilter<"ExtractedItem"> | Date | string
-    created_at?: DateTimeFilter<"ExtractedItem"> | Date | string
-    updated_at?: DateTimeFilter<"ExtractedItem"> | Date | string
   }
 
   export type WebsiteTargetCreateWithoutBlock_rulesInput = {
@@ -55543,6 +57901,75 @@ export namespace Prisma {
   export type WebsiteTargetCreateOrConnectWithoutBlock_rulesInput = {
     where: WebsiteTargetWhereUniqueInput
     create: XOR<WebsiteTargetCreateWithoutBlock_rulesInput, WebsiteTargetUncheckedCreateWithoutBlock_rulesInput>
+  }
+
+  export type UserCreateWithoutBlock_rulesInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    password: string
+    role: $Enums.AuthRole
+    default_schedule_tz?: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    password_reset_tokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    website_targets?: WebsiteTargetCreateNestedManyWithoutUserInput
+    workflow_configs?: WorkflowConfigCreateNestedManyWithoutUserInput
+    workflow_runs?: WorkflowRunCreateNestedManyWithoutUserInput
+    user_integrations?: UserIntegrationCreateNestedManyWithoutUserInput
+    extraction_schemas?: ExtractionSchemaCreateNestedManyWithoutUserInput
+    api_keys?: ApiKeyCreateNestedManyWithoutUserInput
+    webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
+    webhook_deliveries?: WebhookDeliveryCreateNestedManyWithoutUserInput
+    job_logs?: JobLogCreateNestedManyWithoutUserInput
+    diagnostics_packages?: DiagnosticsPackageCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    cost_entries?: CostEntryCreateNestedManyWithoutUserInput
+    scraper_versions?: ScraperVersionCreateNestedManyWithoutUserInput
+    scraper_generation_runs?: ScraperGenerationRunCreateNestedManyWithoutUserInput
+    computer_use_steps?: ComputerUseStepCreateNestedManyWithoutUserInput
+    scraper_execution_traces?: ScraperExecutionTraceCreateNestedManyWithoutUserInput
+    extracted_items?: ExtractedItemCreateNestedManyWithoutUserInput
+    plain_scraped_pages?: PlainScrapedPageCreateNestedManyWithoutUserInput
+    extraction_results?: ExtractionResultCreateNestedManyWithoutUserInput
+    ai_batch_request_items?: AiBatchRequestItemCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutBlock_rulesInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    password: string
+    role: $Enums.AuthRole
+    default_schedule_tz?: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    password_reset_tokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    website_targets?: WebsiteTargetUncheckedCreateNestedManyWithoutUserInput
+    workflow_configs?: WorkflowConfigUncheckedCreateNestedManyWithoutUserInput
+    workflow_runs?: WorkflowRunUncheckedCreateNestedManyWithoutUserInput
+    user_integrations?: UserIntegrationUncheckedCreateNestedManyWithoutUserInput
+    extraction_schemas?: ExtractionSchemaUncheckedCreateNestedManyWithoutUserInput
+    api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
+    webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
+    webhook_deliveries?: WebhookDeliveryUncheckedCreateNestedManyWithoutUserInput
+    job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
+    diagnostics_packages?: DiagnosticsPackageUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    cost_entries?: CostEntryUncheckedCreateNestedManyWithoutUserInput
+    scraper_versions?: ScraperVersionUncheckedCreateNestedManyWithoutUserInput
+    scraper_generation_runs?: ScraperGenerationRunUncheckedCreateNestedManyWithoutUserInput
+    computer_use_steps?: ComputerUseStepUncheckedCreateNestedManyWithoutUserInput
+    scraper_execution_traces?: ScraperExecutionTraceUncheckedCreateNestedManyWithoutUserInput
+    extracted_items?: ExtractedItemUncheckedCreateNestedManyWithoutUserInput
+    plain_scraped_pages?: PlainScrapedPageUncheckedCreateNestedManyWithoutUserInput
+    extraction_results?: ExtractionResultUncheckedCreateNestedManyWithoutUserInput
+    ai_batch_request_items?: AiBatchRequestItemUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutBlock_rulesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutBlock_rulesInput, UserUncheckedCreateWithoutBlock_rulesInput>
   }
 
   export type WebsiteTargetUpsertWithoutBlock_rulesInput = {
@@ -55598,6 +58025,81 @@ export namespace Prisma {
     extracted_items?: ExtractedItemUncheckedUpdateManyWithoutWebsite_targetNestedInput
   }
 
+  export type UserUpsertWithoutBlock_rulesInput = {
+    update: XOR<UserUpdateWithoutBlock_rulesInput, UserUncheckedUpdateWithoutBlock_rulesInput>
+    create: XOR<UserCreateWithoutBlock_rulesInput, UserUncheckedCreateWithoutBlock_rulesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutBlock_rulesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutBlock_rulesInput, UserUncheckedUpdateWithoutBlock_rulesInput>
+  }
+
+  export type UserUpdateWithoutBlock_rulesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
+    default_schedule_tz?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    password_reset_tokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    website_targets?: WebsiteTargetUpdateManyWithoutUserNestedInput
+    workflow_configs?: WorkflowConfigUpdateManyWithoutUserNestedInput
+    workflow_runs?: WorkflowRunUpdateManyWithoutUserNestedInput
+    user_integrations?: UserIntegrationUpdateManyWithoutUserNestedInput
+    extraction_schemas?: ExtractionSchemaUpdateManyWithoutUserNestedInput
+    api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
+    webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
+    webhook_deliveries?: WebhookDeliveryUpdateManyWithoutUserNestedInput
+    job_logs?: JobLogUpdateManyWithoutUserNestedInput
+    diagnostics_packages?: DiagnosticsPackageUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    cost_entries?: CostEntryUpdateManyWithoutUserNestedInput
+    scraper_versions?: ScraperVersionUpdateManyWithoutUserNestedInput
+    scraper_generation_runs?: ScraperGenerationRunUpdateManyWithoutUserNestedInput
+    computer_use_steps?: ComputerUseStepUpdateManyWithoutUserNestedInput
+    scraper_execution_traces?: ScraperExecutionTraceUpdateManyWithoutUserNestedInput
+    extracted_items?: ExtractedItemUpdateManyWithoutUserNestedInput
+    plain_scraped_pages?: PlainScrapedPageUpdateManyWithoutUserNestedInput
+    extraction_results?: ExtractionResultUpdateManyWithoutUserNestedInput
+    ai_batch_request_items?: AiBatchRequestItemUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutBlock_rulesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
+    default_schedule_tz?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    password_reset_tokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    website_targets?: WebsiteTargetUncheckedUpdateManyWithoutUserNestedInput
+    workflow_configs?: WorkflowConfigUncheckedUpdateManyWithoutUserNestedInput
+    workflow_runs?: WorkflowRunUncheckedUpdateManyWithoutUserNestedInput
+    user_integrations?: UserIntegrationUncheckedUpdateManyWithoutUserNestedInput
+    extraction_schemas?: ExtractionSchemaUncheckedUpdateManyWithoutUserNestedInput
+    api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
+    webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
+    webhook_deliveries?: WebhookDeliveryUncheckedUpdateManyWithoutUserNestedInput
+    job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
+    diagnostics_packages?: DiagnosticsPackageUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    cost_entries?: CostEntryUncheckedUpdateManyWithoutUserNestedInput
+    scraper_versions?: ScraperVersionUncheckedUpdateManyWithoutUserNestedInput
+    scraper_generation_runs?: ScraperGenerationRunUncheckedUpdateManyWithoutUserNestedInput
+    computer_use_steps?: ComputerUseStepUncheckedUpdateManyWithoutUserNestedInput
+    scraper_execution_traces?: ScraperExecutionTraceUncheckedUpdateManyWithoutUserNestedInput
+    extracted_items?: ExtractedItemUncheckedUpdateManyWithoutUserNestedInput
+    plain_scraped_pages?: PlainScrapedPageUncheckedUpdateManyWithoutUserNestedInput
+    extraction_results?: ExtractionResultUncheckedUpdateManyWithoutUserNestedInput
+    ai_batch_request_items?: AiBatchRequestItemUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type UserCreateWithoutWorkflow_configsInput = {
     id?: string
     email: string
@@ -55614,10 +58116,20 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
+    webhook_deliveries?: WebhookDeliveryCreateNestedManyWithoutUserInput
     job_logs?: JobLogCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     cost_entries?: CostEntryCreateNestedManyWithoutUserInput
+    scraper_versions?: ScraperVersionCreateNestedManyWithoutUserInput
+    scraper_generation_runs?: ScraperGenerationRunCreateNestedManyWithoutUserInput
+    computer_use_steps?: ComputerUseStepCreateNestedManyWithoutUserInput
+    scraper_execution_traces?: ScraperExecutionTraceCreateNestedManyWithoutUserInput
+    extracted_items?: ExtractedItemCreateNestedManyWithoutUserInput
+    plain_scraped_pages?: PlainScrapedPageCreateNestedManyWithoutUserInput
+    extraction_results?: ExtractionResultCreateNestedManyWithoutUserInput
+    ai_batch_request_items?: AiBatchRequestItemCreateNestedManyWithoutUserInput
+    block_rules?: BlockRuleCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWorkflow_configsInput = {
@@ -55636,10 +58148,20 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUncheckedCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
+    webhook_deliveries?: WebhookDeliveryUncheckedCreateNestedManyWithoutUserInput
     job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     cost_entries?: CostEntryUncheckedCreateNestedManyWithoutUserInput
+    scraper_versions?: ScraperVersionUncheckedCreateNestedManyWithoutUserInput
+    scraper_generation_runs?: ScraperGenerationRunUncheckedCreateNestedManyWithoutUserInput
+    computer_use_steps?: ComputerUseStepUncheckedCreateNestedManyWithoutUserInput
+    scraper_execution_traces?: ScraperExecutionTraceUncheckedCreateNestedManyWithoutUserInput
+    extracted_items?: ExtractedItemUncheckedCreateNestedManyWithoutUserInput
+    plain_scraped_pages?: PlainScrapedPageUncheckedCreateNestedManyWithoutUserInput
+    extraction_results?: ExtractionResultUncheckedCreateNestedManyWithoutUserInput
+    ai_batch_request_items?: AiBatchRequestItemUncheckedCreateNestedManyWithoutUserInput
+    block_rules?: BlockRuleUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWorkflow_configsInput = {
@@ -55706,6 +58228,7 @@ export namespace Prisma {
     updated_at?: Date | string
     workflow_config: WorkflowConfigCreateNestedOneWithoutVersionsInput
     extraction_schema_version?: ExtractionSchemaVersionCreateNestedOneWithoutScraper_versionsInput
+    user: UserCreateNestedOneWithoutScraper_versionsInput
     produced_by_run?: ScraperGenerationRunCreateNestedOneWithoutProduced_versionInput
     workflow_runs?: WorkflowRunCreateNestedManyWithoutScraper_versionInput
   }
@@ -55713,6 +58236,7 @@ export namespace Prisma {
   export type ScraperVersionUncheckedCreateWithoutActive_for_configInput = {
     id?: string
     workflow_config_id: string
+    user_id: string
     version: number
     config: JsonNullValueInput | InputJsonValue
     created_by: $Enums.ScraperVersionCreatedBy
@@ -55867,6 +58391,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     extraction_schema_version?: ExtractionSchemaVersionCreateNestedOneWithoutScraper_versionsInput
+    user: UserCreateNestedOneWithoutScraper_versionsInput
     active_for_config?: WorkflowConfigCreateNestedOneWithoutActive_versionInput
     produced_by_run?: ScraperGenerationRunCreateNestedOneWithoutProduced_versionInput
     workflow_runs?: WorkflowRunCreateNestedManyWithoutScraper_versionInput
@@ -55874,6 +58399,7 @@ export namespace Prisma {
 
   export type ScraperVersionUncheckedCreateWithoutWorkflow_configInput = {
     id?: string
+    user_id: string
     version: number
     config: JsonNullValueInput | InputJsonValue
     created_by: $Enums.ScraperVersionCreatedBy
@@ -55906,11 +58432,13 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     workflow_run?: WorkflowRunCreateNestedOneWithoutExecution_tracesInput
+    user: UserCreateNestedOneWithoutScraper_execution_tracesInput
   }
 
   export type ScraperExecutionTraceUncheckedCreateWithoutWorkflow_configInput = {
     id?: string
     workflow_run_id?: string | null
+    user_id: string
     steps: JsonNullValueInput | InputJsonValue
     success: boolean
     error_summary?: string | null
@@ -55945,12 +58473,14 @@ export namespace Prisma {
     updated_at?: Date | string
     website_target: WebsiteTargetCreateNestedOneWithoutScraper_generation_runsInput
     produced_version?: ScraperVersionCreateNestedOneWithoutProduced_by_runInput
+    user: UserCreateNestedOneWithoutScraper_generation_runsInput
     steps?: ComputerUseStepCreateNestedManyWithoutScraper_generation_runInput
   }
 
   export type ScraperGenerationRunUncheckedCreateWithoutWorkflow_configInput = {
     id?: string
     website_target_id: string
+    user_id: string
     trigger?: $Enums.GenerationTrigger
     status?: $Enums.GenerationRunStatus
     prompt?: string | null
@@ -56091,10 +58621,20 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
+    webhook_deliveries?: WebhookDeliveryUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     cost_entries?: CostEntryUpdateManyWithoutUserNestedInput
+    scraper_versions?: ScraperVersionUpdateManyWithoutUserNestedInput
+    scraper_generation_runs?: ScraperGenerationRunUpdateManyWithoutUserNestedInput
+    computer_use_steps?: ComputerUseStepUpdateManyWithoutUserNestedInput
+    scraper_execution_traces?: ScraperExecutionTraceUpdateManyWithoutUserNestedInput
+    extracted_items?: ExtractedItemUpdateManyWithoutUserNestedInput
+    plain_scraped_pages?: PlainScrapedPageUpdateManyWithoutUserNestedInput
+    extraction_results?: ExtractionResultUpdateManyWithoutUserNestedInput
+    ai_batch_request_items?: AiBatchRequestItemUpdateManyWithoutUserNestedInput
+    block_rules?: BlockRuleUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWorkflow_configsInput = {
@@ -56113,10 +58653,20 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUncheckedUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
+    webhook_deliveries?: WebhookDeliveryUncheckedUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     cost_entries?: CostEntryUncheckedUpdateManyWithoutUserNestedInput
+    scraper_versions?: ScraperVersionUncheckedUpdateManyWithoutUserNestedInput
+    scraper_generation_runs?: ScraperGenerationRunUncheckedUpdateManyWithoutUserNestedInput
+    computer_use_steps?: ComputerUseStepUncheckedUpdateManyWithoutUserNestedInput
+    scraper_execution_traces?: ScraperExecutionTraceUncheckedUpdateManyWithoutUserNestedInput
+    extracted_items?: ExtractedItemUncheckedUpdateManyWithoutUserNestedInput
+    plain_scraped_pages?: PlainScrapedPageUncheckedUpdateManyWithoutUserNestedInput
+    extraction_results?: ExtractionResultUncheckedUpdateManyWithoutUserNestedInput
+    ai_batch_request_items?: AiBatchRequestItemUncheckedUpdateManyWithoutUserNestedInput
+    block_rules?: BlockRuleUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WebsiteTargetUpsertWithoutWorkflow_configsInput = {
@@ -56195,6 +58745,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     workflow_config?: WorkflowConfigUpdateOneRequiredWithoutVersionsNestedInput
     extraction_schema_version?: ExtractionSchemaVersionUpdateOneWithoutScraper_versionsNestedInput
+    user?: UserUpdateOneRequiredWithoutScraper_versionsNestedInput
     produced_by_run?: ScraperGenerationRunUpdateOneWithoutProduced_versionNestedInput
     workflow_runs?: WorkflowRunUpdateManyWithoutScraper_versionNestedInput
   }
@@ -56202,6 +58753,7 @@ export namespace Prisma {
   export type ScraperVersionUncheckedUpdateWithoutActive_for_configInput = {
     id?: StringFieldUpdateOperationsInput | string
     workflow_config_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
     version?: IntFieldUpdateOperationsInput | number
     config?: JsonNullValueInput | InputJsonValue
     created_by?: EnumScraperVersionCreatedByFieldUpdateOperationsInput | $Enums.ScraperVersionCreatedBy
@@ -56282,23 +58834,6 @@ export namespace Prisma {
     data: XOR<ScraperVersionUpdateManyMutationInput, ScraperVersionUncheckedUpdateManyWithoutWorkflow_configInput>
   }
 
-  export type ScraperVersionScalarWhereInput = {
-    AND?: ScraperVersionScalarWhereInput | ScraperVersionScalarWhereInput[]
-    OR?: ScraperVersionScalarWhereInput[]
-    NOT?: ScraperVersionScalarWhereInput | ScraperVersionScalarWhereInput[]
-    id?: StringFilter<"ScraperVersion"> | string
-    workflow_config_id?: StringFilter<"ScraperVersion"> | string
-    version?: IntFilter<"ScraperVersion"> | number
-    config?: JsonFilter<"ScraperVersion">
-    created_by?: EnumScraperVersionCreatedByFilter<"ScraperVersion"> | $Enums.ScraperVersionCreatedBy
-    notes?: StringNullableFilter<"ScraperVersion"> | string | null
-    generation_prompt?: StringNullableFilter<"ScraperVersion"> | string | null
-    output_formats?: EnumOutputFormatNullableListFilter<"ScraperVersion">
-    extraction_schema_version_id?: StringNullableFilter<"ScraperVersion"> | string | null
-    created_at?: DateTimeFilter<"ScraperVersion"> | Date | string
-    updated_at?: DateTimeFilter<"ScraperVersion"> | Date | string
-  }
-
   export type ScraperExecutionTraceUpsertWithWhereUniqueWithoutWorkflow_configInput = {
     where: ScraperExecutionTraceWhereUniqueInput
     update: XOR<ScraperExecutionTraceUpdateWithoutWorkflow_configInput, ScraperExecutionTraceUncheckedUpdateWithoutWorkflow_configInput>
@@ -56313,20 +58848,6 @@ export namespace Prisma {
   export type ScraperExecutionTraceUpdateManyWithWhereWithoutWorkflow_configInput = {
     where: ScraperExecutionTraceScalarWhereInput
     data: XOR<ScraperExecutionTraceUpdateManyMutationInput, ScraperExecutionTraceUncheckedUpdateManyWithoutWorkflow_configInput>
-  }
-
-  export type ScraperExecutionTraceScalarWhereInput = {
-    AND?: ScraperExecutionTraceScalarWhereInput | ScraperExecutionTraceScalarWhereInput[]
-    OR?: ScraperExecutionTraceScalarWhereInput[]
-    NOT?: ScraperExecutionTraceScalarWhereInput | ScraperExecutionTraceScalarWhereInput[]
-    id?: StringFilter<"ScraperExecutionTrace"> | string
-    workflow_config_id?: StringFilter<"ScraperExecutionTrace"> | string
-    workflow_run_id?: StringNullableFilter<"ScraperExecutionTrace"> | string | null
-    steps?: JsonFilter<"ScraperExecutionTrace">
-    success?: BoolFilter<"ScraperExecutionTrace"> | boolean
-    error_summary?: StringNullableFilter<"ScraperExecutionTrace"> | string | null
-    created_at?: DateTimeFilter<"ScraperExecutionTrace"> | Date | string
-    updated_at?: DateTimeFilter<"ScraperExecutionTrace"> | Date | string
   }
 
   export type ScraperGenerationRunUpsertWithWhereUniqueWithoutWorkflow_configInput = {
@@ -56519,6 +59040,7 @@ export namespace Prisma {
     updated_at?: Date | string
     workflow_config: WorkflowConfigCreateNestedOneWithoutVersionsInput
     extraction_schema_version?: ExtractionSchemaVersionCreateNestedOneWithoutScraper_versionsInput
+    user: UserCreateNestedOneWithoutScraper_versionsInput
     active_for_config?: WorkflowConfigCreateNestedOneWithoutActive_versionInput
     workflow_runs?: WorkflowRunCreateNestedManyWithoutScraper_versionInput
   }
@@ -56526,6 +59048,7 @@ export namespace Prisma {
   export type ScraperVersionUncheckedCreateWithoutProduced_by_runInput = {
     id?: string
     workflow_config_id: string
+    user_id: string
     version: number
     config: JsonNullValueInput | InputJsonValue
     created_by: $Enums.ScraperVersionCreatedBy
@@ -56544,6 +59067,75 @@ export namespace Prisma {
     create: XOR<ScraperVersionCreateWithoutProduced_by_runInput, ScraperVersionUncheckedCreateWithoutProduced_by_runInput>
   }
 
+  export type UserCreateWithoutScraper_generation_runsInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    password: string
+    role: $Enums.AuthRole
+    default_schedule_tz?: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    password_reset_tokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    website_targets?: WebsiteTargetCreateNestedManyWithoutUserInput
+    workflow_configs?: WorkflowConfigCreateNestedManyWithoutUserInput
+    workflow_runs?: WorkflowRunCreateNestedManyWithoutUserInput
+    user_integrations?: UserIntegrationCreateNestedManyWithoutUserInput
+    extraction_schemas?: ExtractionSchemaCreateNestedManyWithoutUserInput
+    api_keys?: ApiKeyCreateNestedManyWithoutUserInput
+    webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
+    webhook_deliveries?: WebhookDeliveryCreateNestedManyWithoutUserInput
+    job_logs?: JobLogCreateNestedManyWithoutUserInput
+    diagnostics_packages?: DiagnosticsPackageCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    cost_entries?: CostEntryCreateNestedManyWithoutUserInput
+    scraper_versions?: ScraperVersionCreateNestedManyWithoutUserInput
+    computer_use_steps?: ComputerUseStepCreateNestedManyWithoutUserInput
+    scraper_execution_traces?: ScraperExecutionTraceCreateNestedManyWithoutUserInput
+    extracted_items?: ExtractedItemCreateNestedManyWithoutUserInput
+    plain_scraped_pages?: PlainScrapedPageCreateNestedManyWithoutUserInput
+    extraction_results?: ExtractionResultCreateNestedManyWithoutUserInput
+    ai_batch_request_items?: AiBatchRequestItemCreateNestedManyWithoutUserInput
+    block_rules?: BlockRuleCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutScraper_generation_runsInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    password: string
+    role: $Enums.AuthRole
+    default_schedule_tz?: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    password_reset_tokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    website_targets?: WebsiteTargetUncheckedCreateNestedManyWithoutUserInput
+    workflow_configs?: WorkflowConfigUncheckedCreateNestedManyWithoutUserInput
+    workflow_runs?: WorkflowRunUncheckedCreateNestedManyWithoutUserInput
+    user_integrations?: UserIntegrationUncheckedCreateNestedManyWithoutUserInput
+    extraction_schemas?: ExtractionSchemaUncheckedCreateNestedManyWithoutUserInput
+    api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
+    webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
+    webhook_deliveries?: WebhookDeliveryUncheckedCreateNestedManyWithoutUserInput
+    job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
+    diagnostics_packages?: DiagnosticsPackageUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    cost_entries?: CostEntryUncheckedCreateNestedManyWithoutUserInput
+    scraper_versions?: ScraperVersionUncheckedCreateNestedManyWithoutUserInput
+    computer_use_steps?: ComputerUseStepUncheckedCreateNestedManyWithoutUserInput
+    scraper_execution_traces?: ScraperExecutionTraceUncheckedCreateNestedManyWithoutUserInput
+    extracted_items?: ExtractedItemUncheckedCreateNestedManyWithoutUserInput
+    plain_scraped_pages?: PlainScrapedPageUncheckedCreateNestedManyWithoutUserInput
+    extraction_results?: ExtractionResultUncheckedCreateNestedManyWithoutUserInput
+    ai_batch_request_items?: AiBatchRequestItemUncheckedCreateNestedManyWithoutUserInput
+    block_rules?: BlockRuleUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutScraper_generation_runsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutScraper_generation_runsInput, UserUncheckedCreateWithoutScraper_generation_runsInput>
+  }
+
   export type ComputerUseStepCreateWithoutScraper_generation_runInput = {
     id?: string
     step_index: number
@@ -56554,11 +59146,13 @@ export namespace Prisma {
     workflow_run?: WorkflowRunCreateNestedOneWithoutStepsInput
     screenshot_before?: DocumentCreateNestedOneWithoutComputer_use_steps_beforeInput
     screenshot_after?: DocumentCreateNestedOneWithoutComputer_use_steps_afterInput
+    user: UserCreateNestedOneWithoutComputer_use_stepsInput
   }
 
   export type ComputerUseStepUncheckedCreateWithoutScraper_generation_runInput = {
     id?: string
     workflow_run_id?: string | null
+    user_id: string
     step_index: number
     action_type: $Enums.ComputerActionType
     action_payload: JsonNullValueInput | InputJsonValue
@@ -56743,6 +59337,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     workflow_config?: WorkflowConfigUpdateOneRequiredWithoutVersionsNestedInput
     extraction_schema_version?: ExtractionSchemaVersionUpdateOneWithoutScraper_versionsNestedInput
+    user?: UserUpdateOneRequiredWithoutScraper_versionsNestedInput
     active_for_config?: WorkflowConfigUpdateOneWithoutActive_versionNestedInput
     workflow_runs?: WorkflowRunUpdateManyWithoutScraper_versionNestedInput
   }
@@ -56750,6 +59345,7 @@ export namespace Prisma {
   export type ScraperVersionUncheckedUpdateWithoutProduced_by_runInput = {
     id?: StringFieldUpdateOperationsInput | string
     workflow_config_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
     version?: IntFieldUpdateOperationsInput | number
     config?: JsonNullValueInput | InputJsonValue
     created_by?: EnumScraperVersionCreatedByFieldUpdateOperationsInput | $Enums.ScraperVersionCreatedBy
@@ -56761,6 +59357,81 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     active_for_config?: WorkflowConfigUncheckedUpdateOneWithoutActive_versionNestedInput
     workflow_runs?: WorkflowRunUncheckedUpdateManyWithoutScraper_versionNestedInput
+  }
+
+  export type UserUpsertWithoutScraper_generation_runsInput = {
+    update: XOR<UserUpdateWithoutScraper_generation_runsInput, UserUncheckedUpdateWithoutScraper_generation_runsInput>
+    create: XOR<UserCreateWithoutScraper_generation_runsInput, UserUncheckedCreateWithoutScraper_generation_runsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutScraper_generation_runsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutScraper_generation_runsInput, UserUncheckedUpdateWithoutScraper_generation_runsInput>
+  }
+
+  export type UserUpdateWithoutScraper_generation_runsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
+    default_schedule_tz?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    password_reset_tokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    website_targets?: WebsiteTargetUpdateManyWithoutUserNestedInput
+    workflow_configs?: WorkflowConfigUpdateManyWithoutUserNestedInput
+    workflow_runs?: WorkflowRunUpdateManyWithoutUserNestedInput
+    user_integrations?: UserIntegrationUpdateManyWithoutUserNestedInput
+    extraction_schemas?: ExtractionSchemaUpdateManyWithoutUserNestedInput
+    api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
+    webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
+    webhook_deliveries?: WebhookDeliveryUpdateManyWithoutUserNestedInput
+    job_logs?: JobLogUpdateManyWithoutUserNestedInput
+    diagnostics_packages?: DiagnosticsPackageUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    cost_entries?: CostEntryUpdateManyWithoutUserNestedInput
+    scraper_versions?: ScraperVersionUpdateManyWithoutUserNestedInput
+    computer_use_steps?: ComputerUseStepUpdateManyWithoutUserNestedInput
+    scraper_execution_traces?: ScraperExecutionTraceUpdateManyWithoutUserNestedInput
+    extracted_items?: ExtractedItemUpdateManyWithoutUserNestedInput
+    plain_scraped_pages?: PlainScrapedPageUpdateManyWithoutUserNestedInput
+    extraction_results?: ExtractionResultUpdateManyWithoutUserNestedInput
+    ai_batch_request_items?: AiBatchRequestItemUpdateManyWithoutUserNestedInput
+    block_rules?: BlockRuleUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutScraper_generation_runsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
+    default_schedule_tz?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    password_reset_tokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    website_targets?: WebsiteTargetUncheckedUpdateManyWithoutUserNestedInput
+    workflow_configs?: WorkflowConfigUncheckedUpdateManyWithoutUserNestedInput
+    workflow_runs?: WorkflowRunUncheckedUpdateManyWithoutUserNestedInput
+    user_integrations?: UserIntegrationUncheckedUpdateManyWithoutUserNestedInput
+    extraction_schemas?: ExtractionSchemaUncheckedUpdateManyWithoutUserNestedInput
+    api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
+    webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
+    webhook_deliveries?: WebhookDeliveryUncheckedUpdateManyWithoutUserNestedInput
+    job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
+    diagnostics_packages?: DiagnosticsPackageUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    cost_entries?: CostEntryUncheckedUpdateManyWithoutUserNestedInput
+    scraper_versions?: ScraperVersionUncheckedUpdateManyWithoutUserNestedInput
+    computer_use_steps?: ComputerUseStepUncheckedUpdateManyWithoutUserNestedInput
+    scraper_execution_traces?: ScraperExecutionTraceUncheckedUpdateManyWithoutUserNestedInput
+    extracted_items?: ExtractedItemUncheckedUpdateManyWithoutUserNestedInput
+    plain_scraped_pages?: PlainScrapedPageUncheckedUpdateManyWithoutUserNestedInput
+    extraction_results?: ExtractionResultUncheckedUpdateManyWithoutUserNestedInput
+    ai_batch_request_items?: AiBatchRequestItemUncheckedUpdateManyWithoutUserNestedInput
+    block_rules?: BlockRuleUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ComputerUseStepUpsertWithWhereUniqueWithoutScraper_generation_runInput = {
@@ -56797,12 +59468,14 @@ export namespace Prisma {
     website_target: WebsiteTargetCreateNestedOneWithoutScraper_generation_runsInput
     workflow_config?: WorkflowConfigCreateNestedOneWithoutScraper_generation_runsInput
     produced_version?: ScraperVersionCreateNestedOneWithoutProduced_by_runInput
+    user: UserCreateNestedOneWithoutScraper_generation_runsInput
   }
 
   export type ScraperGenerationRunUncheckedCreateWithoutStepsInput = {
     id?: string
     website_target_id: string
     workflow_config_id?: string | null
+    user_id: string
     trigger?: $Enums.GenerationTrigger
     status?: $Enums.GenerationRunStatus
     prompt?: string | null
@@ -56981,6 +59654,75 @@ export namespace Prisma {
     create: XOR<DocumentCreateWithoutComputer_use_steps_afterInput, DocumentUncheckedCreateWithoutComputer_use_steps_afterInput>
   }
 
+  export type UserCreateWithoutComputer_use_stepsInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    password: string
+    role: $Enums.AuthRole
+    default_schedule_tz?: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    password_reset_tokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    website_targets?: WebsiteTargetCreateNestedManyWithoutUserInput
+    workflow_configs?: WorkflowConfigCreateNestedManyWithoutUserInput
+    workflow_runs?: WorkflowRunCreateNestedManyWithoutUserInput
+    user_integrations?: UserIntegrationCreateNestedManyWithoutUserInput
+    extraction_schemas?: ExtractionSchemaCreateNestedManyWithoutUserInput
+    api_keys?: ApiKeyCreateNestedManyWithoutUserInput
+    webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
+    webhook_deliveries?: WebhookDeliveryCreateNestedManyWithoutUserInput
+    job_logs?: JobLogCreateNestedManyWithoutUserInput
+    diagnostics_packages?: DiagnosticsPackageCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    cost_entries?: CostEntryCreateNestedManyWithoutUserInput
+    scraper_versions?: ScraperVersionCreateNestedManyWithoutUserInput
+    scraper_generation_runs?: ScraperGenerationRunCreateNestedManyWithoutUserInput
+    scraper_execution_traces?: ScraperExecutionTraceCreateNestedManyWithoutUserInput
+    extracted_items?: ExtractedItemCreateNestedManyWithoutUserInput
+    plain_scraped_pages?: PlainScrapedPageCreateNestedManyWithoutUserInput
+    extraction_results?: ExtractionResultCreateNestedManyWithoutUserInput
+    ai_batch_request_items?: AiBatchRequestItemCreateNestedManyWithoutUserInput
+    block_rules?: BlockRuleCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutComputer_use_stepsInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    password: string
+    role: $Enums.AuthRole
+    default_schedule_tz?: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    password_reset_tokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    website_targets?: WebsiteTargetUncheckedCreateNestedManyWithoutUserInput
+    workflow_configs?: WorkflowConfigUncheckedCreateNestedManyWithoutUserInput
+    workflow_runs?: WorkflowRunUncheckedCreateNestedManyWithoutUserInput
+    user_integrations?: UserIntegrationUncheckedCreateNestedManyWithoutUserInput
+    extraction_schemas?: ExtractionSchemaUncheckedCreateNestedManyWithoutUserInput
+    api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
+    webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
+    webhook_deliveries?: WebhookDeliveryUncheckedCreateNestedManyWithoutUserInput
+    job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
+    diagnostics_packages?: DiagnosticsPackageUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    cost_entries?: CostEntryUncheckedCreateNestedManyWithoutUserInput
+    scraper_versions?: ScraperVersionUncheckedCreateNestedManyWithoutUserInput
+    scraper_generation_runs?: ScraperGenerationRunUncheckedCreateNestedManyWithoutUserInput
+    scraper_execution_traces?: ScraperExecutionTraceUncheckedCreateNestedManyWithoutUserInput
+    extracted_items?: ExtractedItemUncheckedCreateNestedManyWithoutUserInput
+    plain_scraped_pages?: PlainScrapedPageUncheckedCreateNestedManyWithoutUserInput
+    extraction_results?: ExtractionResultUncheckedCreateNestedManyWithoutUserInput
+    ai_batch_request_items?: AiBatchRequestItemUncheckedCreateNestedManyWithoutUserInput
+    block_rules?: BlockRuleUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutComputer_use_stepsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutComputer_use_stepsInput, UserUncheckedCreateWithoutComputer_use_stepsInput>
+  }
+
   export type ScraperGenerationRunUpsertWithoutStepsInput = {
     update: XOR<ScraperGenerationRunUpdateWithoutStepsInput, ScraperGenerationRunUncheckedUpdateWithoutStepsInput>
     create: XOR<ScraperGenerationRunCreateWithoutStepsInput, ScraperGenerationRunUncheckedCreateWithoutStepsInput>
@@ -57010,12 +59752,14 @@ export namespace Prisma {
     website_target?: WebsiteTargetUpdateOneRequiredWithoutScraper_generation_runsNestedInput
     workflow_config?: WorkflowConfigUpdateOneWithoutScraper_generation_runsNestedInput
     produced_version?: ScraperVersionUpdateOneWithoutProduced_by_runNestedInput
+    user?: UserUpdateOneRequiredWithoutScraper_generation_runsNestedInput
   }
 
   export type ScraperGenerationRunUncheckedUpdateWithoutStepsInput = {
     id?: StringFieldUpdateOperationsInput | string
     website_target_id?: StringFieldUpdateOperationsInput | string
     workflow_config_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: StringFieldUpdateOperationsInput | string
     trigger?: EnumGenerationTriggerFieldUpdateOperationsInput | $Enums.GenerationTrigger
     status?: EnumGenerationRunStatusFieldUpdateOperationsInput | $Enums.GenerationRunStatus
     prompt?: NullableStringFieldUpdateOperationsInput | string | null
@@ -57207,6 +59951,81 @@ export namespace Prisma {
     workflow_run_openapi_spec?: WorkflowRunUncheckedUpdateManyWithoutOpenapi_spec_documentNestedInput
   }
 
+  export type UserUpsertWithoutComputer_use_stepsInput = {
+    update: XOR<UserUpdateWithoutComputer_use_stepsInput, UserUncheckedUpdateWithoutComputer_use_stepsInput>
+    create: XOR<UserCreateWithoutComputer_use_stepsInput, UserUncheckedCreateWithoutComputer_use_stepsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutComputer_use_stepsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutComputer_use_stepsInput, UserUncheckedUpdateWithoutComputer_use_stepsInput>
+  }
+
+  export type UserUpdateWithoutComputer_use_stepsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
+    default_schedule_tz?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    password_reset_tokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    website_targets?: WebsiteTargetUpdateManyWithoutUserNestedInput
+    workflow_configs?: WorkflowConfigUpdateManyWithoutUserNestedInput
+    workflow_runs?: WorkflowRunUpdateManyWithoutUserNestedInput
+    user_integrations?: UserIntegrationUpdateManyWithoutUserNestedInput
+    extraction_schemas?: ExtractionSchemaUpdateManyWithoutUserNestedInput
+    api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
+    webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
+    webhook_deliveries?: WebhookDeliveryUpdateManyWithoutUserNestedInput
+    job_logs?: JobLogUpdateManyWithoutUserNestedInput
+    diagnostics_packages?: DiagnosticsPackageUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    cost_entries?: CostEntryUpdateManyWithoutUserNestedInput
+    scraper_versions?: ScraperVersionUpdateManyWithoutUserNestedInput
+    scraper_generation_runs?: ScraperGenerationRunUpdateManyWithoutUserNestedInput
+    scraper_execution_traces?: ScraperExecutionTraceUpdateManyWithoutUserNestedInput
+    extracted_items?: ExtractedItemUpdateManyWithoutUserNestedInput
+    plain_scraped_pages?: PlainScrapedPageUpdateManyWithoutUserNestedInput
+    extraction_results?: ExtractionResultUpdateManyWithoutUserNestedInput
+    ai_batch_request_items?: AiBatchRequestItemUpdateManyWithoutUserNestedInput
+    block_rules?: BlockRuleUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutComputer_use_stepsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
+    default_schedule_tz?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    password_reset_tokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    website_targets?: WebsiteTargetUncheckedUpdateManyWithoutUserNestedInput
+    workflow_configs?: WorkflowConfigUncheckedUpdateManyWithoutUserNestedInput
+    workflow_runs?: WorkflowRunUncheckedUpdateManyWithoutUserNestedInput
+    user_integrations?: UserIntegrationUncheckedUpdateManyWithoutUserNestedInput
+    extraction_schemas?: ExtractionSchemaUncheckedUpdateManyWithoutUserNestedInput
+    api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
+    webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
+    webhook_deliveries?: WebhookDeliveryUncheckedUpdateManyWithoutUserNestedInput
+    job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
+    diagnostics_packages?: DiagnosticsPackageUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    cost_entries?: CostEntryUncheckedUpdateManyWithoutUserNestedInput
+    scraper_versions?: ScraperVersionUncheckedUpdateManyWithoutUserNestedInput
+    scraper_generation_runs?: ScraperGenerationRunUncheckedUpdateManyWithoutUserNestedInput
+    scraper_execution_traces?: ScraperExecutionTraceUncheckedUpdateManyWithoutUserNestedInput
+    extracted_items?: ExtractedItemUncheckedUpdateManyWithoutUserNestedInput
+    plain_scraped_pages?: PlainScrapedPageUncheckedUpdateManyWithoutUserNestedInput
+    extraction_results?: ExtractionResultUncheckedUpdateManyWithoutUserNestedInput
+    ai_batch_request_items?: AiBatchRequestItemUncheckedUpdateManyWithoutUserNestedInput
+    block_rules?: BlockRuleUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type WorkflowConfigCreateWithoutVersionsInput = {
     id?: string
     type: $Enums.WorkflowType
@@ -57319,6 +60138,75 @@ export namespace Prisma {
     create: XOR<ExtractionSchemaVersionCreateWithoutScraper_versionsInput, ExtractionSchemaVersionUncheckedCreateWithoutScraper_versionsInput>
   }
 
+  export type UserCreateWithoutScraper_versionsInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    password: string
+    role: $Enums.AuthRole
+    default_schedule_tz?: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    password_reset_tokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    website_targets?: WebsiteTargetCreateNestedManyWithoutUserInput
+    workflow_configs?: WorkflowConfigCreateNestedManyWithoutUserInput
+    workflow_runs?: WorkflowRunCreateNestedManyWithoutUserInput
+    user_integrations?: UserIntegrationCreateNestedManyWithoutUserInput
+    extraction_schemas?: ExtractionSchemaCreateNestedManyWithoutUserInput
+    api_keys?: ApiKeyCreateNestedManyWithoutUserInput
+    webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
+    webhook_deliveries?: WebhookDeliveryCreateNestedManyWithoutUserInput
+    job_logs?: JobLogCreateNestedManyWithoutUserInput
+    diagnostics_packages?: DiagnosticsPackageCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    cost_entries?: CostEntryCreateNestedManyWithoutUserInput
+    scraper_generation_runs?: ScraperGenerationRunCreateNestedManyWithoutUserInput
+    computer_use_steps?: ComputerUseStepCreateNestedManyWithoutUserInput
+    scraper_execution_traces?: ScraperExecutionTraceCreateNestedManyWithoutUserInput
+    extracted_items?: ExtractedItemCreateNestedManyWithoutUserInput
+    plain_scraped_pages?: PlainScrapedPageCreateNestedManyWithoutUserInput
+    extraction_results?: ExtractionResultCreateNestedManyWithoutUserInput
+    ai_batch_request_items?: AiBatchRequestItemCreateNestedManyWithoutUserInput
+    block_rules?: BlockRuleCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutScraper_versionsInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    password: string
+    role: $Enums.AuthRole
+    default_schedule_tz?: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    password_reset_tokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    website_targets?: WebsiteTargetUncheckedCreateNestedManyWithoutUserInput
+    workflow_configs?: WorkflowConfigUncheckedCreateNestedManyWithoutUserInput
+    workflow_runs?: WorkflowRunUncheckedCreateNestedManyWithoutUserInput
+    user_integrations?: UserIntegrationUncheckedCreateNestedManyWithoutUserInput
+    extraction_schemas?: ExtractionSchemaUncheckedCreateNestedManyWithoutUserInput
+    api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
+    webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
+    webhook_deliveries?: WebhookDeliveryUncheckedCreateNestedManyWithoutUserInput
+    job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
+    diagnostics_packages?: DiagnosticsPackageUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    cost_entries?: CostEntryUncheckedCreateNestedManyWithoutUserInput
+    scraper_generation_runs?: ScraperGenerationRunUncheckedCreateNestedManyWithoutUserInput
+    computer_use_steps?: ComputerUseStepUncheckedCreateNestedManyWithoutUserInput
+    scraper_execution_traces?: ScraperExecutionTraceUncheckedCreateNestedManyWithoutUserInput
+    extracted_items?: ExtractedItemUncheckedCreateNestedManyWithoutUserInput
+    plain_scraped_pages?: PlainScrapedPageUncheckedCreateNestedManyWithoutUserInput
+    extraction_results?: ExtractionResultUncheckedCreateNestedManyWithoutUserInput
+    ai_batch_request_items?: AiBatchRequestItemUncheckedCreateNestedManyWithoutUserInput
+    block_rules?: BlockRuleUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutScraper_versionsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutScraper_versionsInput, UserUncheckedCreateWithoutScraper_versionsInput>
+  }
+
   export type WorkflowConfigCreateWithoutActive_versionInput = {
     id?: string
     type: $Enums.WorkflowType
@@ -57419,6 +60307,7 @@ export namespace Prisma {
     updated_at?: Date | string
     website_target: WebsiteTargetCreateNestedOneWithoutScraper_generation_runsInput
     workflow_config?: WorkflowConfigCreateNestedOneWithoutScraper_generation_runsInput
+    user: UserCreateNestedOneWithoutScraper_generation_runsInput
     steps?: ComputerUseStepCreateNestedManyWithoutScraper_generation_runInput
   }
 
@@ -57426,6 +60315,7 @@ export namespace Prisma {
     id?: string
     website_target_id: string
     workflow_config_id?: string | null
+    user_id: string
     trigger?: $Enums.GenerationTrigger
     status?: $Enums.GenerationRunStatus
     prompt?: string | null
@@ -57667,6 +60557,81 @@ export namespace Prisma {
     extraction_results?: ExtractionResultUncheckedUpdateManyWithoutExtraction_schema_versionNestedInput
   }
 
+  export type UserUpsertWithoutScraper_versionsInput = {
+    update: XOR<UserUpdateWithoutScraper_versionsInput, UserUncheckedUpdateWithoutScraper_versionsInput>
+    create: XOR<UserCreateWithoutScraper_versionsInput, UserUncheckedCreateWithoutScraper_versionsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutScraper_versionsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutScraper_versionsInput, UserUncheckedUpdateWithoutScraper_versionsInput>
+  }
+
+  export type UserUpdateWithoutScraper_versionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
+    default_schedule_tz?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    password_reset_tokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    website_targets?: WebsiteTargetUpdateManyWithoutUserNestedInput
+    workflow_configs?: WorkflowConfigUpdateManyWithoutUserNestedInput
+    workflow_runs?: WorkflowRunUpdateManyWithoutUserNestedInput
+    user_integrations?: UserIntegrationUpdateManyWithoutUserNestedInput
+    extraction_schemas?: ExtractionSchemaUpdateManyWithoutUserNestedInput
+    api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
+    webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
+    webhook_deliveries?: WebhookDeliveryUpdateManyWithoutUserNestedInput
+    job_logs?: JobLogUpdateManyWithoutUserNestedInput
+    diagnostics_packages?: DiagnosticsPackageUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    cost_entries?: CostEntryUpdateManyWithoutUserNestedInput
+    scraper_generation_runs?: ScraperGenerationRunUpdateManyWithoutUserNestedInput
+    computer_use_steps?: ComputerUseStepUpdateManyWithoutUserNestedInput
+    scraper_execution_traces?: ScraperExecutionTraceUpdateManyWithoutUserNestedInput
+    extracted_items?: ExtractedItemUpdateManyWithoutUserNestedInput
+    plain_scraped_pages?: PlainScrapedPageUpdateManyWithoutUserNestedInput
+    extraction_results?: ExtractionResultUpdateManyWithoutUserNestedInput
+    ai_batch_request_items?: AiBatchRequestItemUpdateManyWithoutUserNestedInput
+    block_rules?: BlockRuleUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutScraper_versionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
+    default_schedule_tz?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    password_reset_tokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    website_targets?: WebsiteTargetUncheckedUpdateManyWithoutUserNestedInput
+    workflow_configs?: WorkflowConfigUncheckedUpdateManyWithoutUserNestedInput
+    workflow_runs?: WorkflowRunUncheckedUpdateManyWithoutUserNestedInput
+    user_integrations?: UserIntegrationUncheckedUpdateManyWithoutUserNestedInput
+    extraction_schemas?: ExtractionSchemaUncheckedUpdateManyWithoutUserNestedInput
+    api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
+    webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
+    webhook_deliveries?: WebhookDeliveryUncheckedUpdateManyWithoutUserNestedInput
+    job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
+    diagnostics_packages?: DiagnosticsPackageUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    cost_entries?: CostEntryUncheckedUpdateManyWithoutUserNestedInput
+    scraper_generation_runs?: ScraperGenerationRunUncheckedUpdateManyWithoutUserNestedInput
+    computer_use_steps?: ComputerUseStepUncheckedUpdateManyWithoutUserNestedInput
+    scraper_execution_traces?: ScraperExecutionTraceUncheckedUpdateManyWithoutUserNestedInput
+    extracted_items?: ExtractedItemUncheckedUpdateManyWithoutUserNestedInput
+    plain_scraped_pages?: PlainScrapedPageUncheckedUpdateManyWithoutUserNestedInput
+    extraction_results?: ExtractionResultUncheckedUpdateManyWithoutUserNestedInput
+    ai_batch_request_items?: AiBatchRequestItemUncheckedUpdateManyWithoutUserNestedInput
+    block_rules?: BlockRuleUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type WorkflowConfigUpsertWithoutActive_versionInput = {
     update: XOR<WorkflowConfigUpdateWithoutActive_versionInput, WorkflowConfigUncheckedUpdateWithoutActive_versionInput>
     create: XOR<WorkflowConfigCreateWithoutActive_versionInput, WorkflowConfigUncheckedCreateWithoutActive_versionInput>
@@ -57784,6 +60749,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     website_target?: WebsiteTargetUpdateOneRequiredWithoutScraper_generation_runsNestedInput
     workflow_config?: WorkflowConfigUpdateOneWithoutScraper_generation_runsNestedInput
+    user?: UserUpdateOneRequiredWithoutScraper_generation_runsNestedInput
     steps?: ComputerUseStepUpdateManyWithoutScraper_generation_runNestedInput
   }
 
@@ -57791,6 +60757,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     website_target_id?: StringFieldUpdateOperationsInput | string
     workflow_config_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: StringFieldUpdateOperationsInput | string
     trigger?: EnumGenerationTriggerFieldUpdateOperationsInput | $Enums.GenerationTrigger
     status?: EnumGenerationRunStatusFieldUpdateOperationsInput | $Enums.GenerationRunStatus
     prompt?: NullableStringFieldUpdateOperationsInput | string | null
@@ -57997,6 +60964,75 @@ export namespace Prisma {
     create: XOR<WorkflowRunCreateWithoutExecution_tracesInput, WorkflowRunUncheckedCreateWithoutExecution_tracesInput>
   }
 
+  export type UserCreateWithoutScraper_execution_tracesInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    password: string
+    role: $Enums.AuthRole
+    default_schedule_tz?: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    password_reset_tokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    website_targets?: WebsiteTargetCreateNestedManyWithoutUserInput
+    workflow_configs?: WorkflowConfigCreateNestedManyWithoutUserInput
+    workflow_runs?: WorkflowRunCreateNestedManyWithoutUserInput
+    user_integrations?: UserIntegrationCreateNestedManyWithoutUserInput
+    extraction_schemas?: ExtractionSchemaCreateNestedManyWithoutUserInput
+    api_keys?: ApiKeyCreateNestedManyWithoutUserInput
+    webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
+    webhook_deliveries?: WebhookDeliveryCreateNestedManyWithoutUserInput
+    job_logs?: JobLogCreateNestedManyWithoutUserInput
+    diagnostics_packages?: DiagnosticsPackageCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    cost_entries?: CostEntryCreateNestedManyWithoutUserInput
+    scraper_versions?: ScraperVersionCreateNestedManyWithoutUserInput
+    scraper_generation_runs?: ScraperGenerationRunCreateNestedManyWithoutUserInput
+    computer_use_steps?: ComputerUseStepCreateNestedManyWithoutUserInput
+    extracted_items?: ExtractedItemCreateNestedManyWithoutUserInput
+    plain_scraped_pages?: PlainScrapedPageCreateNestedManyWithoutUserInput
+    extraction_results?: ExtractionResultCreateNestedManyWithoutUserInput
+    ai_batch_request_items?: AiBatchRequestItemCreateNestedManyWithoutUserInput
+    block_rules?: BlockRuleCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutScraper_execution_tracesInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    password: string
+    role: $Enums.AuthRole
+    default_schedule_tz?: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    password_reset_tokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    website_targets?: WebsiteTargetUncheckedCreateNestedManyWithoutUserInput
+    workflow_configs?: WorkflowConfigUncheckedCreateNestedManyWithoutUserInput
+    workflow_runs?: WorkflowRunUncheckedCreateNestedManyWithoutUserInput
+    user_integrations?: UserIntegrationUncheckedCreateNestedManyWithoutUserInput
+    extraction_schemas?: ExtractionSchemaUncheckedCreateNestedManyWithoutUserInput
+    api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
+    webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
+    webhook_deliveries?: WebhookDeliveryUncheckedCreateNestedManyWithoutUserInput
+    job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
+    diagnostics_packages?: DiagnosticsPackageUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    cost_entries?: CostEntryUncheckedCreateNestedManyWithoutUserInput
+    scraper_versions?: ScraperVersionUncheckedCreateNestedManyWithoutUserInput
+    scraper_generation_runs?: ScraperGenerationRunUncheckedCreateNestedManyWithoutUserInput
+    computer_use_steps?: ComputerUseStepUncheckedCreateNestedManyWithoutUserInput
+    extracted_items?: ExtractedItemUncheckedCreateNestedManyWithoutUserInput
+    plain_scraped_pages?: PlainScrapedPageUncheckedCreateNestedManyWithoutUserInput
+    extraction_results?: ExtractionResultUncheckedCreateNestedManyWithoutUserInput
+    ai_batch_request_items?: AiBatchRequestItemUncheckedCreateNestedManyWithoutUserInput
+    block_rules?: BlockRuleUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutScraper_execution_tracesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutScraper_execution_tracesInput, UserUncheckedCreateWithoutScraper_execution_tracesInput>
+  }
+
   export type WorkflowConfigUpsertWithoutExecution_tracesInput = {
     update: XOR<WorkflowConfigUpdateWithoutExecution_tracesInput, WorkflowConfigUncheckedUpdateWithoutExecution_tracesInput>
     create: XOR<WorkflowConfigCreateWithoutExecution_tracesInput, WorkflowConfigUncheckedCreateWithoutExecution_tracesInput>
@@ -58183,6 +61219,81 @@ export namespace Prisma {
     cost_entries?: CostEntryUncheckedUpdateManyWithoutWorkflow_runNestedInput
   }
 
+  export type UserUpsertWithoutScraper_execution_tracesInput = {
+    update: XOR<UserUpdateWithoutScraper_execution_tracesInput, UserUncheckedUpdateWithoutScraper_execution_tracesInput>
+    create: XOR<UserCreateWithoutScraper_execution_tracesInput, UserUncheckedCreateWithoutScraper_execution_tracesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutScraper_execution_tracesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutScraper_execution_tracesInput, UserUncheckedUpdateWithoutScraper_execution_tracesInput>
+  }
+
+  export type UserUpdateWithoutScraper_execution_tracesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
+    default_schedule_tz?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    password_reset_tokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    website_targets?: WebsiteTargetUpdateManyWithoutUserNestedInput
+    workflow_configs?: WorkflowConfigUpdateManyWithoutUserNestedInput
+    workflow_runs?: WorkflowRunUpdateManyWithoutUserNestedInput
+    user_integrations?: UserIntegrationUpdateManyWithoutUserNestedInput
+    extraction_schemas?: ExtractionSchemaUpdateManyWithoutUserNestedInput
+    api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
+    webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
+    webhook_deliveries?: WebhookDeliveryUpdateManyWithoutUserNestedInput
+    job_logs?: JobLogUpdateManyWithoutUserNestedInput
+    diagnostics_packages?: DiagnosticsPackageUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    cost_entries?: CostEntryUpdateManyWithoutUserNestedInput
+    scraper_versions?: ScraperVersionUpdateManyWithoutUserNestedInput
+    scraper_generation_runs?: ScraperGenerationRunUpdateManyWithoutUserNestedInput
+    computer_use_steps?: ComputerUseStepUpdateManyWithoutUserNestedInput
+    extracted_items?: ExtractedItemUpdateManyWithoutUserNestedInput
+    plain_scraped_pages?: PlainScrapedPageUpdateManyWithoutUserNestedInput
+    extraction_results?: ExtractionResultUpdateManyWithoutUserNestedInput
+    ai_batch_request_items?: AiBatchRequestItemUpdateManyWithoutUserNestedInput
+    block_rules?: BlockRuleUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutScraper_execution_tracesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
+    default_schedule_tz?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    password_reset_tokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    website_targets?: WebsiteTargetUncheckedUpdateManyWithoutUserNestedInput
+    workflow_configs?: WorkflowConfigUncheckedUpdateManyWithoutUserNestedInput
+    workflow_runs?: WorkflowRunUncheckedUpdateManyWithoutUserNestedInput
+    user_integrations?: UserIntegrationUncheckedUpdateManyWithoutUserNestedInput
+    extraction_schemas?: ExtractionSchemaUncheckedUpdateManyWithoutUserNestedInput
+    api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
+    webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
+    webhook_deliveries?: WebhookDeliveryUncheckedUpdateManyWithoutUserNestedInput
+    job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
+    diagnostics_packages?: DiagnosticsPackageUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    cost_entries?: CostEntryUncheckedUpdateManyWithoutUserNestedInput
+    scraper_versions?: ScraperVersionUncheckedUpdateManyWithoutUserNestedInput
+    scraper_generation_runs?: ScraperGenerationRunUncheckedUpdateManyWithoutUserNestedInput
+    computer_use_steps?: ComputerUseStepUncheckedUpdateManyWithoutUserNestedInput
+    extracted_items?: ExtractedItemUncheckedUpdateManyWithoutUserNestedInput
+    plain_scraped_pages?: PlainScrapedPageUncheckedUpdateManyWithoutUserNestedInput
+    extraction_results?: ExtractionResultUncheckedUpdateManyWithoutUserNestedInput
+    ai_batch_request_items?: AiBatchRequestItemUncheckedUpdateManyWithoutUserNestedInput
+    block_rules?: BlockRuleUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type WorkflowConfigCreateWithoutRunsInput = {
     id?: string
     type: $Enums.WorkflowType
@@ -58282,10 +61393,20 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
+    webhook_deliveries?: WebhookDeliveryCreateNestedManyWithoutUserInput
     job_logs?: JobLogCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     cost_entries?: CostEntryCreateNestedManyWithoutUserInput
+    scraper_versions?: ScraperVersionCreateNestedManyWithoutUserInput
+    scraper_generation_runs?: ScraperGenerationRunCreateNestedManyWithoutUserInput
+    computer_use_steps?: ComputerUseStepCreateNestedManyWithoutUserInput
+    scraper_execution_traces?: ScraperExecutionTraceCreateNestedManyWithoutUserInput
+    extracted_items?: ExtractedItemCreateNestedManyWithoutUserInput
+    plain_scraped_pages?: PlainScrapedPageCreateNestedManyWithoutUserInput
+    extraction_results?: ExtractionResultCreateNestedManyWithoutUserInput
+    ai_batch_request_items?: AiBatchRequestItemCreateNestedManyWithoutUserInput
+    block_rules?: BlockRuleCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWorkflow_runsInput = {
@@ -58304,10 +61425,20 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUncheckedCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
+    webhook_deliveries?: WebhookDeliveryUncheckedCreateNestedManyWithoutUserInput
     job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     cost_entries?: CostEntryUncheckedCreateNestedManyWithoutUserInput
+    scraper_versions?: ScraperVersionUncheckedCreateNestedManyWithoutUserInput
+    scraper_generation_runs?: ScraperGenerationRunUncheckedCreateNestedManyWithoutUserInput
+    computer_use_steps?: ComputerUseStepUncheckedCreateNestedManyWithoutUserInput
+    scraper_execution_traces?: ScraperExecutionTraceUncheckedCreateNestedManyWithoutUserInput
+    extracted_items?: ExtractedItemUncheckedCreateNestedManyWithoutUserInput
+    plain_scraped_pages?: PlainScrapedPageUncheckedCreateNestedManyWithoutUserInput
+    extraction_results?: ExtractionResultUncheckedCreateNestedManyWithoutUserInput
+    ai_batch_request_items?: AiBatchRequestItemUncheckedCreateNestedManyWithoutUserInput
+    block_rules?: BlockRuleUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWorkflow_runsInput = {
@@ -58374,6 +61505,7 @@ export namespace Prisma {
     updated_at?: Date | string
     workflow_config: WorkflowConfigCreateNestedOneWithoutVersionsInput
     extraction_schema_version?: ExtractionSchemaVersionCreateNestedOneWithoutScraper_versionsInput
+    user: UserCreateNestedOneWithoutScraper_versionsInput
     active_for_config?: WorkflowConfigCreateNestedOneWithoutActive_versionInput
     produced_by_run?: ScraperGenerationRunCreateNestedOneWithoutProduced_versionInput
   }
@@ -58381,6 +61513,7 @@ export namespace Prisma {
   export type ScraperVersionUncheckedCreateWithoutWorkflow_runsInput = {
     id?: string
     workflow_config_id: string
+    user_id: string
     version: number
     config: JsonNullValueInput | InputJsonValue
     created_by: $Enums.ScraperVersionCreatedBy
@@ -58471,11 +61604,13 @@ export namespace Prisma {
     scraper_generation_run?: ScraperGenerationRunCreateNestedOneWithoutStepsInput
     screenshot_before?: DocumentCreateNestedOneWithoutComputer_use_steps_beforeInput
     screenshot_after?: DocumentCreateNestedOneWithoutComputer_use_steps_afterInput
+    user: UserCreateNestedOneWithoutComputer_use_stepsInput
   }
 
   export type ComputerUseStepUncheckedCreateWithoutWorkflow_runInput = {
     id?: string
     scraper_generation_run_id?: string | null
+    user_id: string
     step_index: number
     action_type: $Enums.ComputerActionType
     action_payload: JsonNullValueInput | InputJsonValue
@@ -58512,7 +61647,7 @@ export namespace Prisma {
     duration_ms?: number | null
     created_at?: Date | string
     updated_at?: Date | string
-    user?: UserCreateNestedOneWithoutJob_logsInput
+    user: UserCreateNestedOneWithoutJob_logsInput
   }
 
   export type JobLogUncheckedCreateWithoutWorkflow_runInput = {
@@ -58523,7 +61658,7 @@ export namespace Prisma {
     status: $Enums.JobStatus
     attempt?: number
     max_attempts?: number | null
-    user_id?: string | null
+    user_id: string
     payload?: NullableJsonNullValueInput | InputJsonValue
     result?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
@@ -58637,11 +61772,13 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     website_target: WebsiteTargetCreateNestedOneWithoutExtracted_itemsInput
+    user: UserCreateNestedOneWithoutExtracted_itemsInput
   }
 
   export type ExtractedItemUncheckedCreateWithoutWorkflow_runInput = {
     id?: string
     website_target_id: string
+    user_id: string
     source_url: string
     external_id?: string | null
     raw_data: JsonNullValueInput | InputJsonValue
@@ -58670,11 +61807,13 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     workflow_config: WorkflowConfigCreateNestedOneWithoutExecution_tracesInput
+    user: UserCreateNestedOneWithoutScraper_execution_tracesInput
   }
 
   export type ScraperExecutionTraceUncheckedCreateWithoutWorkflow_runInput = {
     id?: string
     workflow_config_id: string
+    user_id: string
     steps: JsonNullValueInput | InputJsonValue
     success: boolean
     error_summary?: string | null
@@ -58704,12 +61843,14 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
     created_at?: Date | string
+    user: UserCreateNestedOneWithoutPlain_scraped_pagesInput
     extraction_result?: ExtractionResultCreateNestedOneWithoutPlain_scraped_pageInput
     ai_batch_request_items?: AiBatchRequestItemCreateNestedManyWithoutPlain_scraped_pageInput
   }
 
   export type PlainScrapedPageUncheckedCreateWithoutWorkflow_runInput = {
     id?: string
+    user_id: string
     requested_url: string
     final_url?: string | null
     http_status?: number | null
@@ -58750,11 +61891,13 @@ export namespace Prisma {
     updated_at?: Date | string
     plain_scraped_page?: PlainScrapedPageCreateNestedOneWithoutExtraction_resultInput
     extraction_schema_version?: ExtractionSchemaVersionCreateNestedOneWithoutExtraction_resultsInput
+    user: UserCreateNestedOneWithoutExtraction_resultsInput
   }
 
   export type ExtractionResultUncheckedCreateWithoutWorkflow_runInput = {
     id?: string
     plain_scraped_page_id?: string | null
+    user_id: string
     extraction_schema_version_id?: string | null
     structured_status?: $Enums.ExtractionFormatStatus | null
     structured_data?: NullableJsonNullValueInput | InputJsonValue
@@ -58966,10 +62109,20 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
+    webhook_deliveries?: WebhookDeliveryUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     cost_entries?: CostEntryUpdateManyWithoutUserNestedInput
+    scraper_versions?: ScraperVersionUpdateManyWithoutUserNestedInput
+    scraper_generation_runs?: ScraperGenerationRunUpdateManyWithoutUserNestedInput
+    computer_use_steps?: ComputerUseStepUpdateManyWithoutUserNestedInput
+    scraper_execution_traces?: ScraperExecutionTraceUpdateManyWithoutUserNestedInput
+    extracted_items?: ExtractedItemUpdateManyWithoutUserNestedInput
+    plain_scraped_pages?: PlainScrapedPageUpdateManyWithoutUserNestedInput
+    extraction_results?: ExtractionResultUpdateManyWithoutUserNestedInput
+    ai_batch_request_items?: AiBatchRequestItemUpdateManyWithoutUserNestedInput
+    block_rules?: BlockRuleUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWorkflow_runsInput = {
@@ -58988,10 +62141,20 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUncheckedUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
+    webhook_deliveries?: WebhookDeliveryUncheckedUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     cost_entries?: CostEntryUncheckedUpdateManyWithoutUserNestedInput
+    scraper_versions?: ScraperVersionUncheckedUpdateManyWithoutUserNestedInput
+    scraper_generation_runs?: ScraperGenerationRunUncheckedUpdateManyWithoutUserNestedInput
+    computer_use_steps?: ComputerUseStepUncheckedUpdateManyWithoutUserNestedInput
+    scraper_execution_traces?: ScraperExecutionTraceUncheckedUpdateManyWithoutUserNestedInput
+    extracted_items?: ExtractedItemUncheckedUpdateManyWithoutUserNestedInput
+    plain_scraped_pages?: PlainScrapedPageUncheckedUpdateManyWithoutUserNestedInput
+    extraction_results?: ExtractionResultUncheckedUpdateManyWithoutUserNestedInput
+    ai_batch_request_items?: AiBatchRequestItemUncheckedUpdateManyWithoutUserNestedInput
+    block_rules?: BlockRuleUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WebsiteTargetUpsertWithoutWorkflow_runsInput = {
@@ -59070,6 +62233,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     workflow_config?: WorkflowConfigUpdateOneRequiredWithoutVersionsNestedInput
     extraction_schema_version?: ExtractionSchemaVersionUpdateOneWithoutScraper_versionsNestedInput
+    user?: UserUpdateOneRequiredWithoutScraper_versionsNestedInput
     active_for_config?: WorkflowConfigUpdateOneWithoutActive_versionNestedInput
     produced_by_run?: ScraperGenerationRunUpdateOneWithoutProduced_versionNestedInput
   }
@@ -59077,6 +62241,7 @@ export namespace Prisma {
   export type ScraperVersionUncheckedUpdateWithoutWorkflow_runsInput = {
     id?: StringFieldUpdateOperationsInput | string
     workflow_config_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
     version?: IntFieldUpdateOperationsInput | number
     config?: JsonNullValueInput | InputJsonValue
     created_by?: EnumScraperVersionCreatedByFieldUpdateOperationsInput | $Enums.ScraperVersionCreatedBy
@@ -59311,24 +62476,6 @@ export namespace Prisma {
     data: XOR<PlainScrapedPageUpdateManyMutationInput, PlainScrapedPageUncheckedUpdateManyWithoutWorkflow_runInput>
   }
 
-  export type PlainScrapedPageScalarWhereInput = {
-    AND?: PlainScrapedPageScalarWhereInput | PlainScrapedPageScalarWhereInput[]
-    OR?: PlainScrapedPageScalarWhereInput[]
-    NOT?: PlainScrapedPageScalarWhereInput | PlainScrapedPageScalarWhereInput[]
-    id?: StringFilter<"PlainScrapedPage"> | string
-    workflow_run_id?: StringFilter<"PlainScrapedPage"> | string
-    requested_url?: StringFilter<"PlainScrapedPage"> | string
-    final_url?: StringNullableFilter<"PlainScrapedPage"> | string | null
-    http_status?: IntNullableFilter<"PlainScrapedPage"> | number | null
-    success?: BoolFilter<"PlainScrapedPage"> | boolean
-    raw_html?: StringNullableFilter<"PlainScrapedPage"> | string | null
-    cleaned_content?: StringNullableFilter<"PlainScrapedPage"> | string | null
-    title?: StringNullableFilter<"PlainScrapedPage"> | string | null
-    metadata?: JsonNullableFilter<"PlainScrapedPage">
-    error_message?: StringNullableFilter<"PlainScrapedPage"> | string | null
-    created_at?: DateTimeFilter<"PlainScrapedPage"> | Date | string
-  }
-
   export type ExtractionResultUpsertWithoutWorkflow_runInput = {
     update: XOR<ExtractionResultUpdateWithoutWorkflow_runInput, ExtractionResultUncheckedUpdateWithoutWorkflow_runInput>
     create: XOR<ExtractionResultCreateWithoutWorkflow_runInput, ExtractionResultUncheckedCreateWithoutWorkflow_runInput>
@@ -59356,11 +62503,13 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     plain_scraped_page?: PlainScrapedPageUpdateOneWithoutExtraction_resultNestedInput
     extraction_schema_version?: ExtractionSchemaVersionUpdateOneWithoutExtraction_resultsNestedInput
+    user?: UserUpdateOneRequiredWithoutExtraction_resultsNestedInput
   }
 
   export type ExtractionResultUncheckedUpdateWithoutWorkflow_runInput = {
     id?: StringFieldUpdateOperationsInput | string
     plain_scraped_page_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: StringFieldUpdateOperationsInput | string
     extraction_schema_version_id?: NullableStringFieldUpdateOperationsInput | string | null
     structured_status?: NullableEnumExtractionFormatStatusFieldUpdateOperationsInput | $Enums.ExtractionFormatStatus | null
     structured_data?: NullableJsonNullValueInput | InputJsonValue
@@ -59577,6 +62726,75 @@ export namespace Prisma {
     create: XOR<WorkflowRunCreateWithoutExtracted_itemsInput, WorkflowRunUncheckedCreateWithoutExtracted_itemsInput>
   }
 
+  export type UserCreateWithoutExtracted_itemsInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    password: string
+    role: $Enums.AuthRole
+    default_schedule_tz?: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    password_reset_tokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    website_targets?: WebsiteTargetCreateNestedManyWithoutUserInput
+    workflow_configs?: WorkflowConfigCreateNestedManyWithoutUserInput
+    workflow_runs?: WorkflowRunCreateNestedManyWithoutUserInput
+    user_integrations?: UserIntegrationCreateNestedManyWithoutUserInput
+    extraction_schemas?: ExtractionSchemaCreateNestedManyWithoutUserInput
+    api_keys?: ApiKeyCreateNestedManyWithoutUserInput
+    webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
+    webhook_deliveries?: WebhookDeliveryCreateNestedManyWithoutUserInput
+    job_logs?: JobLogCreateNestedManyWithoutUserInput
+    diagnostics_packages?: DiagnosticsPackageCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    cost_entries?: CostEntryCreateNestedManyWithoutUserInput
+    scraper_versions?: ScraperVersionCreateNestedManyWithoutUserInput
+    scraper_generation_runs?: ScraperGenerationRunCreateNestedManyWithoutUserInput
+    computer_use_steps?: ComputerUseStepCreateNestedManyWithoutUserInput
+    scraper_execution_traces?: ScraperExecutionTraceCreateNestedManyWithoutUserInput
+    plain_scraped_pages?: PlainScrapedPageCreateNestedManyWithoutUserInput
+    extraction_results?: ExtractionResultCreateNestedManyWithoutUserInput
+    ai_batch_request_items?: AiBatchRequestItemCreateNestedManyWithoutUserInput
+    block_rules?: BlockRuleCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutExtracted_itemsInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    password: string
+    role: $Enums.AuthRole
+    default_schedule_tz?: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    password_reset_tokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    website_targets?: WebsiteTargetUncheckedCreateNestedManyWithoutUserInput
+    workflow_configs?: WorkflowConfigUncheckedCreateNestedManyWithoutUserInput
+    workflow_runs?: WorkflowRunUncheckedCreateNestedManyWithoutUserInput
+    user_integrations?: UserIntegrationUncheckedCreateNestedManyWithoutUserInput
+    extraction_schemas?: ExtractionSchemaUncheckedCreateNestedManyWithoutUserInput
+    api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
+    webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
+    webhook_deliveries?: WebhookDeliveryUncheckedCreateNestedManyWithoutUserInput
+    job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
+    diagnostics_packages?: DiagnosticsPackageUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    cost_entries?: CostEntryUncheckedCreateNestedManyWithoutUserInput
+    scraper_versions?: ScraperVersionUncheckedCreateNestedManyWithoutUserInput
+    scraper_generation_runs?: ScraperGenerationRunUncheckedCreateNestedManyWithoutUserInput
+    computer_use_steps?: ComputerUseStepUncheckedCreateNestedManyWithoutUserInput
+    scraper_execution_traces?: ScraperExecutionTraceUncheckedCreateNestedManyWithoutUserInput
+    plain_scraped_pages?: PlainScrapedPageUncheckedCreateNestedManyWithoutUserInput
+    extraction_results?: ExtractionResultUncheckedCreateNestedManyWithoutUserInput
+    ai_batch_request_items?: AiBatchRequestItemUncheckedCreateNestedManyWithoutUserInput
+    block_rules?: BlockRuleUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutExtracted_itemsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutExtracted_itemsInput, UserUncheckedCreateWithoutExtracted_itemsInput>
+  }
+
   export type WebsiteTargetUpsertWithoutExtracted_itemsInput = {
     update: XOR<WebsiteTargetUpdateWithoutExtracted_itemsInput, WebsiteTargetUncheckedUpdateWithoutExtracted_itemsInput>
     create: XOR<WebsiteTargetCreateWithoutExtracted_itemsInput, WebsiteTargetUncheckedCreateWithoutExtracted_itemsInput>
@@ -59727,6 +62945,81 @@ export namespace Prisma {
     cost_entries?: CostEntryUncheckedUpdateManyWithoutWorkflow_runNestedInput
   }
 
+  export type UserUpsertWithoutExtracted_itemsInput = {
+    update: XOR<UserUpdateWithoutExtracted_itemsInput, UserUncheckedUpdateWithoutExtracted_itemsInput>
+    create: XOR<UserCreateWithoutExtracted_itemsInput, UserUncheckedCreateWithoutExtracted_itemsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutExtracted_itemsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutExtracted_itemsInput, UserUncheckedUpdateWithoutExtracted_itemsInput>
+  }
+
+  export type UserUpdateWithoutExtracted_itemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
+    default_schedule_tz?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    password_reset_tokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    website_targets?: WebsiteTargetUpdateManyWithoutUserNestedInput
+    workflow_configs?: WorkflowConfigUpdateManyWithoutUserNestedInput
+    workflow_runs?: WorkflowRunUpdateManyWithoutUserNestedInput
+    user_integrations?: UserIntegrationUpdateManyWithoutUserNestedInput
+    extraction_schemas?: ExtractionSchemaUpdateManyWithoutUserNestedInput
+    api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
+    webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
+    webhook_deliveries?: WebhookDeliveryUpdateManyWithoutUserNestedInput
+    job_logs?: JobLogUpdateManyWithoutUserNestedInput
+    diagnostics_packages?: DiagnosticsPackageUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    cost_entries?: CostEntryUpdateManyWithoutUserNestedInput
+    scraper_versions?: ScraperVersionUpdateManyWithoutUserNestedInput
+    scraper_generation_runs?: ScraperGenerationRunUpdateManyWithoutUserNestedInput
+    computer_use_steps?: ComputerUseStepUpdateManyWithoutUserNestedInput
+    scraper_execution_traces?: ScraperExecutionTraceUpdateManyWithoutUserNestedInput
+    plain_scraped_pages?: PlainScrapedPageUpdateManyWithoutUserNestedInput
+    extraction_results?: ExtractionResultUpdateManyWithoutUserNestedInput
+    ai_batch_request_items?: AiBatchRequestItemUpdateManyWithoutUserNestedInput
+    block_rules?: BlockRuleUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutExtracted_itemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
+    default_schedule_tz?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    password_reset_tokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    website_targets?: WebsiteTargetUncheckedUpdateManyWithoutUserNestedInput
+    workflow_configs?: WorkflowConfigUncheckedUpdateManyWithoutUserNestedInput
+    workflow_runs?: WorkflowRunUncheckedUpdateManyWithoutUserNestedInput
+    user_integrations?: UserIntegrationUncheckedUpdateManyWithoutUserNestedInput
+    extraction_schemas?: ExtractionSchemaUncheckedUpdateManyWithoutUserNestedInput
+    api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
+    webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
+    webhook_deliveries?: WebhookDeliveryUncheckedUpdateManyWithoutUserNestedInput
+    job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
+    diagnostics_packages?: DiagnosticsPackageUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    cost_entries?: CostEntryUncheckedUpdateManyWithoutUserNestedInput
+    scraper_versions?: ScraperVersionUncheckedUpdateManyWithoutUserNestedInput
+    scraper_generation_runs?: ScraperGenerationRunUncheckedUpdateManyWithoutUserNestedInput
+    computer_use_steps?: ComputerUseStepUncheckedUpdateManyWithoutUserNestedInput
+    scraper_execution_traces?: ScraperExecutionTraceUncheckedUpdateManyWithoutUserNestedInput
+    plain_scraped_pages?: PlainScrapedPageUncheckedUpdateManyWithoutUserNestedInput
+    extraction_results?: ExtractionResultUncheckedUpdateManyWithoutUserNestedInput
+    ai_batch_request_items?: AiBatchRequestItemUncheckedUpdateManyWithoutUserNestedInput
+    block_rules?: BlockRuleUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type UserCreateWithoutExtraction_schemasInput = {
     id?: string
     email: string
@@ -59743,10 +63036,20 @@ export namespace Prisma {
     user_integrations?: UserIntegrationCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
+    webhook_deliveries?: WebhookDeliveryCreateNestedManyWithoutUserInput
     job_logs?: JobLogCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     cost_entries?: CostEntryCreateNestedManyWithoutUserInput
+    scraper_versions?: ScraperVersionCreateNestedManyWithoutUserInput
+    scraper_generation_runs?: ScraperGenerationRunCreateNestedManyWithoutUserInput
+    computer_use_steps?: ComputerUseStepCreateNestedManyWithoutUserInput
+    scraper_execution_traces?: ScraperExecutionTraceCreateNestedManyWithoutUserInput
+    extracted_items?: ExtractedItemCreateNestedManyWithoutUserInput
+    plain_scraped_pages?: PlainScrapedPageCreateNestedManyWithoutUserInput
+    extraction_results?: ExtractionResultCreateNestedManyWithoutUserInput
+    ai_batch_request_items?: AiBatchRequestItemCreateNestedManyWithoutUserInput
+    block_rules?: BlockRuleCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutExtraction_schemasInput = {
@@ -59765,10 +63068,20 @@ export namespace Prisma {
     user_integrations?: UserIntegrationUncheckedCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
+    webhook_deliveries?: WebhookDeliveryUncheckedCreateNestedManyWithoutUserInput
     job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     cost_entries?: CostEntryUncheckedCreateNestedManyWithoutUserInput
+    scraper_versions?: ScraperVersionUncheckedCreateNestedManyWithoutUserInput
+    scraper_generation_runs?: ScraperGenerationRunUncheckedCreateNestedManyWithoutUserInput
+    computer_use_steps?: ComputerUseStepUncheckedCreateNestedManyWithoutUserInput
+    scraper_execution_traces?: ScraperExecutionTraceUncheckedCreateNestedManyWithoutUserInput
+    extracted_items?: ExtractedItemUncheckedCreateNestedManyWithoutUserInput
+    plain_scraped_pages?: PlainScrapedPageUncheckedCreateNestedManyWithoutUserInput
+    extraction_results?: ExtractionResultUncheckedCreateNestedManyWithoutUserInput
+    ai_batch_request_items?: AiBatchRequestItemUncheckedCreateNestedManyWithoutUserInput
+    block_rules?: BlockRuleUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutExtraction_schemasInput = {
@@ -59866,10 +63179,20 @@ export namespace Prisma {
     user_integrations?: UserIntegrationUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
+    webhook_deliveries?: WebhookDeliveryUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     cost_entries?: CostEntryUpdateManyWithoutUserNestedInput
+    scraper_versions?: ScraperVersionUpdateManyWithoutUserNestedInput
+    scraper_generation_runs?: ScraperGenerationRunUpdateManyWithoutUserNestedInput
+    computer_use_steps?: ComputerUseStepUpdateManyWithoutUserNestedInput
+    scraper_execution_traces?: ScraperExecutionTraceUpdateManyWithoutUserNestedInput
+    extracted_items?: ExtractedItemUpdateManyWithoutUserNestedInput
+    plain_scraped_pages?: PlainScrapedPageUpdateManyWithoutUserNestedInput
+    extraction_results?: ExtractionResultUpdateManyWithoutUserNestedInput
+    ai_batch_request_items?: AiBatchRequestItemUpdateManyWithoutUserNestedInput
+    block_rules?: BlockRuleUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutExtraction_schemasInput = {
@@ -59888,10 +63211,20 @@ export namespace Prisma {
     user_integrations?: UserIntegrationUncheckedUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
+    webhook_deliveries?: WebhookDeliveryUncheckedUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     cost_entries?: CostEntryUncheckedUpdateManyWithoutUserNestedInput
+    scraper_versions?: ScraperVersionUncheckedUpdateManyWithoutUserNestedInput
+    scraper_generation_runs?: ScraperGenerationRunUncheckedUpdateManyWithoutUserNestedInput
+    computer_use_steps?: ComputerUseStepUncheckedUpdateManyWithoutUserNestedInput
+    scraper_execution_traces?: ScraperExecutionTraceUncheckedUpdateManyWithoutUserNestedInput
+    extracted_items?: ExtractedItemUncheckedUpdateManyWithoutUserNestedInput
+    plain_scraped_pages?: PlainScrapedPageUncheckedUpdateManyWithoutUserNestedInput
+    extraction_results?: ExtractionResultUncheckedUpdateManyWithoutUserNestedInput
+    ai_batch_request_items?: AiBatchRequestItemUncheckedUpdateManyWithoutUserNestedInput
+    block_rules?: BlockRuleUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ExtractionSchemaVersionUpsertWithoutActive_for_schemaInput = {
@@ -60021,6 +63354,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     workflow_config: WorkflowConfigCreateNestedOneWithoutVersionsInput
+    user: UserCreateNestedOneWithoutScraper_versionsInput
     active_for_config?: WorkflowConfigCreateNestedOneWithoutActive_versionInput
     produced_by_run?: ScraperGenerationRunCreateNestedOneWithoutProduced_versionInput
     workflow_runs?: WorkflowRunCreateNestedManyWithoutScraper_versionInput
@@ -60029,6 +63363,7 @@ export namespace Prisma {
   export type ScraperVersionUncheckedCreateWithoutExtraction_schema_versionInput = {
     id?: string
     workflow_config_id: string
+    user_id: string
     version: number
     config: JsonNullValueInput | InputJsonValue
     created_by: $Enums.ScraperVersionCreatedBy
@@ -60252,12 +63587,14 @@ export namespace Prisma {
     updated_at?: Date | string
     workflow_run?: WorkflowRunCreateNestedOneWithoutExtraction_resultInput
     plain_scraped_page?: PlainScrapedPageCreateNestedOneWithoutExtraction_resultInput
+    user: UserCreateNestedOneWithoutExtraction_resultsInput
   }
 
   export type ExtractionResultUncheckedCreateWithoutExtraction_schema_versionInput = {
     id?: string
     workflow_run_id?: string | null
     plain_scraped_page_id?: string | null
+    user_id: string
     structured_status?: $Enums.ExtractionFormatStatus | null
     structured_data?: NullableJsonNullValueInput | InputJsonValue
     structured_raw_ai_output?: NullableJsonNullValueInput | InputJsonValue
@@ -60412,28 +63749,6 @@ export namespace Prisma {
     data: XOR<ExtractionResultUpdateManyMutationInput, ExtractionResultUncheckedUpdateManyWithoutExtraction_schema_versionInput>
   }
 
-  export type ExtractionResultScalarWhereInput = {
-    AND?: ExtractionResultScalarWhereInput | ExtractionResultScalarWhereInput[]
-    OR?: ExtractionResultScalarWhereInput[]
-    NOT?: ExtractionResultScalarWhereInput | ExtractionResultScalarWhereInput[]
-    id?: StringFilter<"ExtractionResult"> | string
-    workflow_run_id?: StringNullableFilter<"ExtractionResult"> | string | null
-    plain_scraped_page_id?: StringNullableFilter<"ExtractionResult"> | string | null
-    extraction_schema_version_id?: StringNullableFilter<"ExtractionResult"> | string | null
-    structured_status?: EnumExtractionFormatStatusNullableFilter<"ExtractionResult"> | $Enums.ExtractionFormatStatus | null
-    structured_data?: JsonNullableFilter<"ExtractionResult">
-    structured_raw_ai_output?: JsonNullableFilter<"ExtractionResult">
-    structured_validation_errors?: JsonNullableFilter<"ExtractionResult">
-    structured_attempts?: IntFilter<"ExtractionResult"> | number
-    markdown_status?: EnumExtractionFormatStatusNullableFilter<"ExtractionResult"> | $Enums.ExtractionFormatStatus | null
-    markdown?: StringNullableFilter<"ExtractionResult"> | string | null
-    markdown_validation_errors?: JsonNullableFilter<"ExtractionResult">
-    generated_ui_html?: StringNullableFilter<"ExtractionResult"> | string | null
-    ai_usage?: JsonNullableFilter<"ExtractionResult">
-    created_at?: DateTimeFilter<"ExtractionResult"> | Date | string
-    updated_at?: DateTimeFilter<"ExtractionResult"> | Date | string
-  }
-
   export type WorkflowRunCreateWithoutPagesInput = {
     id?: string
     type: $Enums.WorkflowType
@@ -60525,6 +63840,75 @@ export namespace Prisma {
     create: XOR<WorkflowRunCreateWithoutPagesInput, WorkflowRunUncheckedCreateWithoutPagesInput>
   }
 
+  export type UserCreateWithoutPlain_scraped_pagesInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    password: string
+    role: $Enums.AuthRole
+    default_schedule_tz?: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    password_reset_tokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    website_targets?: WebsiteTargetCreateNestedManyWithoutUserInput
+    workflow_configs?: WorkflowConfigCreateNestedManyWithoutUserInput
+    workflow_runs?: WorkflowRunCreateNestedManyWithoutUserInput
+    user_integrations?: UserIntegrationCreateNestedManyWithoutUserInput
+    extraction_schemas?: ExtractionSchemaCreateNestedManyWithoutUserInput
+    api_keys?: ApiKeyCreateNestedManyWithoutUserInput
+    webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
+    webhook_deliveries?: WebhookDeliveryCreateNestedManyWithoutUserInput
+    job_logs?: JobLogCreateNestedManyWithoutUserInput
+    diagnostics_packages?: DiagnosticsPackageCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    cost_entries?: CostEntryCreateNestedManyWithoutUserInput
+    scraper_versions?: ScraperVersionCreateNestedManyWithoutUserInput
+    scraper_generation_runs?: ScraperGenerationRunCreateNestedManyWithoutUserInput
+    computer_use_steps?: ComputerUseStepCreateNestedManyWithoutUserInput
+    scraper_execution_traces?: ScraperExecutionTraceCreateNestedManyWithoutUserInput
+    extracted_items?: ExtractedItemCreateNestedManyWithoutUserInput
+    extraction_results?: ExtractionResultCreateNestedManyWithoutUserInput
+    ai_batch_request_items?: AiBatchRequestItemCreateNestedManyWithoutUserInput
+    block_rules?: BlockRuleCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutPlain_scraped_pagesInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    password: string
+    role: $Enums.AuthRole
+    default_schedule_tz?: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    password_reset_tokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    website_targets?: WebsiteTargetUncheckedCreateNestedManyWithoutUserInput
+    workflow_configs?: WorkflowConfigUncheckedCreateNestedManyWithoutUserInput
+    workflow_runs?: WorkflowRunUncheckedCreateNestedManyWithoutUserInput
+    user_integrations?: UserIntegrationUncheckedCreateNestedManyWithoutUserInput
+    extraction_schemas?: ExtractionSchemaUncheckedCreateNestedManyWithoutUserInput
+    api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
+    webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
+    webhook_deliveries?: WebhookDeliveryUncheckedCreateNestedManyWithoutUserInput
+    job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
+    diagnostics_packages?: DiagnosticsPackageUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    cost_entries?: CostEntryUncheckedCreateNestedManyWithoutUserInput
+    scraper_versions?: ScraperVersionUncheckedCreateNestedManyWithoutUserInput
+    scraper_generation_runs?: ScraperGenerationRunUncheckedCreateNestedManyWithoutUserInput
+    computer_use_steps?: ComputerUseStepUncheckedCreateNestedManyWithoutUserInput
+    scraper_execution_traces?: ScraperExecutionTraceUncheckedCreateNestedManyWithoutUserInput
+    extracted_items?: ExtractedItemUncheckedCreateNestedManyWithoutUserInput
+    extraction_results?: ExtractionResultUncheckedCreateNestedManyWithoutUserInput
+    ai_batch_request_items?: AiBatchRequestItemUncheckedCreateNestedManyWithoutUserInput
+    block_rules?: BlockRuleUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutPlain_scraped_pagesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutPlain_scraped_pagesInput, UserUncheckedCreateWithoutPlain_scraped_pagesInput>
+  }
+
   export type ExtractionResultCreateWithoutPlain_scraped_pageInput = {
     id?: string
     structured_status?: $Enums.ExtractionFormatStatus | null
@@ -60541,11 +63925,13 @@ export namespace Prisma {
     updated_at?: Date | string
     workflow_run?: WorkflowRunCreateNestedOneWithoutExtraction_resultInput
     extraction_schema_version?: ExtractionSchemaVersionCreateNestedOneWithoutExtraction_resultsInput
+    user: UserCreateNestedOneWithoutExtraction_resultsInput
   }
 
   export type ExtractionResultUncheckedCreateWithoutPlain_scraped_pageInput = {
     id?: string
     workflow_run_id?: string | null
+    user_id: string
     extraction_schema_version_id?: string | null
     structured_status?: $Enums.ExtractionFormatStatus | null
     structured_data?: NullableJsonNullValueInput | InputJsonValue
@@ -60578,11 +63964,13 @@ export namespace Prisma {
     status?: $Enums.ExtractionFormatStatus | null
     created_at?: Date | string
     ai_batch_job: AiBatchJobCreateNestedOneWithoutItemsInput
+    user: UserCreateNestedOneWithoutAi_batch_request_itemsInput
   }
 
   export type AiBatchRequestItemUncheckedCreateWithoutPlain_scraped_pageInput = {
     id?: string
     ai_batch_job_id: string
+    user_id: string
     custom_id: string
     source_url?: string | null
     content_label?: string | null
@@ -60701,6 +64089,81 @@ export namespace Prisma {
     cost_entries?: CostEntryUncheckedUpdateManyWithoutWorkflow_runNestedInput
   }
 
+  export type UserUpsertWithoutPlain_scraped_pagesInput = {
+    update: XOR<UserUpdateWithoutPlain_scraped_pagesInput, UserUncheckedUpdateWithoutPlain_scraped_pagesInput>
+    create: XOR<UserCreateWithoutPlain_scraped_pagesInput, UserUncheckedCreateWithoutPlain_scraped_pagesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutPlain_scraped_pagesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutPlain_scraped_pagesInput, UserUncheckedUpdateWithoutPlain_scraped_pagesInput>
+  }
+
+  export type UserUpdateWithoutPlain_scraped_pagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
+    default_schedule_tz?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    password_reset_tokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    website_targets?: WebsiteTargetUpdateManyWithoutUserNestedInput
+    workflow_configs?: WorkflowConfigUpdateManyWithoutUserNestedInput
+    workflow_runs?: WorkflowRunUpdateManyWithoutUserNestedInput
+    user_integrations?: UserIntegrationUpdateManyWithoutUserNestedInput
+    extraction_schemas?: ExtractionSchemaUpdateManyWithoutUserNestedInput
+    api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
+    webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
+    webhook_deliveries?: WebhookDeliveryUpdateManyWithoutUserNestedInput
+    job_logs?: JobLogUpdateManyWithoutUserNestedInput
+    diagnostics_packages?: DiagnosticsPackageUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    cost_entries?: CostEntryUpdateManyWithoutUserNestedInput
+    scraper_versions?: ScraperVersionUpdateManyWithoutUserNestedInput
+    scraper_generation_runs?: ScraperGenerationRunUpdateManyWithoutUserNestedInput
+    computer_use_steps?: ComputerUseStepUpdateManyWithoutUserNestedInput
+    scraper_execution_traces?: ScraperExecutionTraceUpdateManyWithoutUserNestedInput
+    extracted_items?: ExtractedItemUpdateManyWithoutUserNestedInput
+    extraction_results?: ExtractionResultUpdateManyWithoutUserNestedInput
+    ai_batch_request_items?: AiBatchRequestItemUpdateManyWithoutUserNestedInput
+    block_rules?: BlockRuleUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutPlain_scraped_pagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
+    default_schedule_tz?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    password_reset_tokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    website_targets?: WebsiteTargetUncheckedUpdateManyWithoutUserNestedInput
+    workflow_configs?: WorkflowConfigUncheckedUpdateManyWithoutUserNestedInput
+    workflow_runs?: WorkflowRunUncheckedUpdateManyWithoutUserNestedInput
+    user_integrations?: UserIntegrationUncheckedUpdateManyWithoutUserNestedInput
+    extraction_schemas?: ExtractionSchemaUncheckedUpdateManyWithoutUserNestedInput
+    api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
+    webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
+    webhook_deliveries?: WebhookDeliveryUncheckedUpdateManyWithoutUserNestedInput
+    job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
+    diagnostics_packages?: DiagnosticsPackageUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    cost_entries?: CostEntryUncheckedUpdateManyWithoutUserNestedInput
+    scraper_versions?: ScraperVersionUncheckedUpdateManyWithoutUserNestedInput
+    scraper_generation_runs?: ScraperGenerationRunUncheckedUpdateManyWithoutUserNestedInput
+    computer_use_steps?: ComputerUseStepUncheckedUpdateManyWithoutUserNestedInput
+    scraper_execution_traces?: ScraperExecutionTraceUncheckedUpdateManyWithoutUserNestedInput
+    extracted_items?: ExtractedItemUncheckedUpdateManyWithoutUserNestedInput
+    extraction_results?: ExtractionResultUncheckedUpdateManyWithoutUserNestedInput
+    ai_batch_request_items?: AiBatchRequestItemUncheckedUpdateManyWithoutUserNestedInput
+    block_rules?: BlockRuleUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type ExtractionResultUpsertWithoutPlain_scraped_pageInput = {
     update: XOR<ExtractionResultUpdateWithoutPlain_scraped_pageInput, ExtractionResultUncheckedUpdateWithoutPlain_scraped_pageInput>
     create: XOR<ExtractionResultCreateWithoutPlain_scraped_pageInput, ExtractionResultUncheckedCreateWithoutPlain_scraped_pageInput>
@@ -60728,11 +64191,13 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     workflow_run?: WorkflowRunUpdateOneWithoutExtraction_resultNestedInput
     extraction_schema_version?: ExtractionSchemaVersionUpdateOneWithoutExtraction_resultsNestedInput
+    user?: UserUpdateOneRequiredWithoutExtraction_resultsNestedInput
   }
 
   export type ExtractionResultUncheckedUpdateWithoutPlain_scraped_pageInput = {
     id?: StringFieldUpdateOperationsInput | string
     workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: StringFieldUpdateOperationsInput | string
     extraction_schema_version_id?: NullableStringFieldUpdateOperationsInput | string | null
     structured_status?: NullableEnumExtractionFormatStatusFieldUpdateOperationsInput | $Enums.ExtractionFormatStatus | null
     structured_data?: NullableJsonNullValueInput | InputJsonValue
@@ -60762,24 +64227,6 @@ export namespace Prisma {
   export type AiBatchRequestItemUpdateManyWithWhereWithoutPlain_scraped_pageInput = {
     where: AiBatchRequestItemScalarWhereInput
     data: XOR<AiBatchRequestItemUpdateManyMutationInput, AiBatchRequestItemUncheckedUpdateManyWithoutPlain_scraped_pageInput>
-  }
-
-  export type AiBatchRequestItemScalarWhereInput = {
-    AND?: AiBatchRequestItemScalarWhereInput | AiBatchRequestItemScalarWhereInput[]
-    OR?: AiBatchRequestItemScalarWhereInput[]
-    NOT?: AiBatchRequestItemScalarWhereInput | AiBatchRequestItemScalarWhereInput[]
-    id?: StringFilter<"AiBatchRequestItem"> | string
-    ai_batch_job_id?: StringFilter<"AiBatchRequestItem"> | string
-    custom_id?: StringFilter<"AiBatchRequestItem"> | string
-    plain_scraped_page_id?: StringNullableFilter<"AiBatchRequestItem"> | string | null
-    source_url?: StringNullableFilter<"AiBatchRequestItem"> | string | null
-    content_label?: StringNullableFilter<"AiBatchRequestItem"> | string | null
-    content?: StringFilter<"AiBatchRequestItem"> | string
-    instructions?: StringNullableFilter<"AiBatchRequestItem"> | string | null
-    wants_markdown?: BoolFilter<"AiBatchRequestItem"> | boolean
-    regex_data?: JsonNullableFilter<"AiBatchRequestItem">
-    status?: EnumExtractionFormatStatusNullableFilter<"AiBatchRequestItem"> | $Enums.ExtractionFormatStatus | null
-    created_at?: DateTimeFilter<"AiBatchRequestItem"> | Date | string
   }
 
   export type WorkflowRunCreateWithoutExtraction_resultInput = {
@@ -60886,12 +64333,14 @@ export namespace Prisma {
     error_message?: string | null
     created_at?: Date | string
     workflow_run: WorkflowRunCreateNestedOneWithoutPagesInput
+    user: UserCreateNestedOneWithoutPlain_scraped_pagesInput
     ai_batch_request_items?: AiBatchRequestItemCreateNestedManyWithoutPlain_scraped_pageInput
   }
 
   export type PlainScrapedPageUncheckedCreateWithoutExtraction_resultInput = {
     id?: string
     workflow_run_id: string
+    user_id: string
     requested_url: string
     final_url?: string | null
     http_status?: number | null
@@ -60937,6 +64386,75 @@ export namespace Prisma {
   export type ExtractionSchemaVersionCreateOrConnectWithoutExtraction_resultsInput = {
     where: ExtractionSchemaVersionWhereUniqueInput
     create: XOR<ExtractionSchemaVersionCreateWithoutExtraction_resultsInput, ExtractionSchemaVersionUncheckedCreateWithoutExtraction_resultsInput>
+  }
+
+  export type UserCreateWithoutExtraction_resultsInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    password: string
+    role: $Enums.AuthRole
+    default_schedule_tz?: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    password_reset_tokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    website_targets?: WebsiteTargetCreateNestedManyWithoutUserInput
+    workflow_configs?: WorkflowConfigCreateNestedManyWithoutUserInput
+    workflow_runs?: WorkflowRunCreateNestedManyWithoutUserInput
+    user_integrations?: UserIntegrationCreateNestedManyWithoutUserInput
+    extraction_schemas?: ExtractionSchemaCreateNestedManyWithoutUserInput
+    api_keys?: ApiKeyCreateNestedManyWithoutUserInput
+    webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
+    webhook_deliveries?: WebhookDeliveryCreateNestedManyWithoutUserInput
+    job_logs?: JobLogCreateNestedManyWithoutUserInput
+    diagnostics_packages?: DiagnosticsPackageCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    cost_entries?: CostEntryCreateNestedManyWithoutUserInput
+    scraper_versions?: ScraperVersionCreateNestedManyWithoutUserInput
+    scraper_generation_runs?: ScraperGenerationRunCreateNestedManyWithoutUserInput
+    computer_use_steps?: ComputerUseStepCreateNestedManyWithoutUserInput
+    scraper_execution_traces?: ScraperExecutionTraceCreateNestedManyWithoutUserInput
+    extracted_items?: ExtractedItemCreateNestedManyWithoutUserInput
+    plain_scraped_pages?: PlainScrapedPageCreateNestedManyWithoutUserInput
+    ai_batch_request_items?: AiBatchRequestItemCreateNestedManyWithoutUserInput
+    block_rules?: BlockRuleCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutExtraction_resultsInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    password: string
+    role: $Enums.AuthRole
+    default_schedule_tz?: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    password_reset_tokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    website_targets?: WebsiteTargetUncheckedCreateNestedManyWithoutUserInput
+    workflow_configs?: WorkflowConfigUncheckedCreateNestedManyWithoutUserInput
+    workflow_runs?: WorkflowRunUncheckedCreateNestedManyWithoutUserInput
+    user_integrations?: UserIntegrationUncheckedCreateNestedManyWithoutUserInput
+    extraction_schemas?: ExtractionSchemaUncheckedCreateNestedManyWithoutUserInput
+    api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
+    webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
+    webhook_deliveries?: WebhookDeliveryUncheckedCreateNestedManyWithoutUserInput
+    job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
+    diagnostics_packages?: DiagnosticsPackageUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    cost_entries?: CostEntryUncheckedCreateNestedManyWithoutUserInput
+    scraper_versions?: ScraperVersionUncheckedCreateNestedManyWithoutUserInput
+    scraper_generation_runs?: ScraperGenerationRunUncheckedCreateNestedManyWithoutUserInput
+    computer_use_steps?: ComputerUseStepUncheckedCreateNestedManyWithoutUserInput
+    scraper_execution_traces?: ScraperExecutionTraceUncheckedCreateNestedManyWithoutUserInput
+    extracted_items?: ExtractedItemUncheckedCreateNestedManyWithoutUserInput
+    plain_scraped_pages?: PlainScrapedPageUncheckedCreateNestedManyWithoutUserInput
+    ai_batch_request_items?: AiBatchRequestItemUncheckedCreateNestedManyWithoutUserInput
+    block_rules?: BlockRuleUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutExtraction_resultsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutExtraction_resultsInput, UserUncheckedCreateWithoutExtraction_resultsInput>
   }
 
   export type WorkflowRunUpsertWithoutExtraction_resultInput = {
@@ -61060,12 +64578,14 @@ export namespace Prisma {
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     workflow_run?: WorkflowRunUpdateOneRequiredWithoutPagesNestedInput
+    user?: UserUpdateOneRequiredWithoutPlain_scraped_pagesNestedInput
     ai_batch_request_items?: AiBatchRequestItemUpdateManyWithoutPlain_scraped_pageNestedInput
   }
 
   export type PlainScrapedPageUncheckedUpdateWithoutExtraction_resultInput = {
     id?: StringFieldUpdateOperationsInput | string
     workflow_run_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
     requested_url?: StringFieldUpdateOperationsInput | string
     final_url?: NullableStringFieldUpdateOperationsInput | string | null
     http_status?: NullableIntFieldUpdateOperationsInput | number | null
@@ -61112,6 +64632,81 @@ export namespace Prisma {
     scraper_versions?: ScraperVersionUncheckedUpdateManyWithoutExtraction_schema_versionNestedInput
     workflow_configs?: WorkflowConfigUncheckedUpdateManyWithoutExtraction_schema_versionNestedInput
     workflow_runs?: WorkflowRunUncheckedUpdateManyWithoutExtraction_schema_versionNestedInput
+  }
+
+  export type UserUpsertWithoutExtraction_resultsInput = {
+    update: XOR<UserUpdateWithoutExtraction_resultsInput, UserUncheckedUpdateWithoutExtraction_resultsInput>
+    create: XOR<UserCreateWithoutExtraction_resultsInput, UserUncheckedCreateWithoutExtraction_resultsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutExtraction_resultsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutExtraction_resultsInput, UserUncheckedUpdateWithoutExtraction_resultsInput>
+  }
+
+  export type UserUpdateWithoutExtraction_resultsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
+    default_schedule_tz?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    password_reset_tokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    website_targets?: WebsiteTargetUpdateManyWithoutUserNestedInput
+    workflow_configs?: WorkflowConfigUpdateManyWithoutUserNestedInput
+    workflow_runs?: WorkflowRunUpdateManyWithoutUserNestedInput
+    user_integrations?: UserIntegrationUpdateManyWithoutUserNestedInput
+    extraction_schemas?: ExtractionSchemaUpdateManyWithoutUserNestedInput
+    api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
+    webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
+    webhook_deliveries?: WebhookDeliveryUpdateManyWithoutUserNestedInput
+    job_logs?: JobLogUpdateManyWithoutUserNestedInput
+    diagnostics_packages?: DiagnosticsPackageUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    cost_entries?: CostEntryUpdateManyWithoutUserNestedInput
+    scraper_versions?: ScraperVersionUpdateManyWithoutUserNestedInput
+    scraper_generation_runs?: ScraperGenerationRunUpdateManyWithoutUserNestedInput
+    computer_use_steps?: ComputerUseStepUpdateManyWithoutUserNestedInput
+    scraper_execution_traces?: ScraperExecutionTraceUpdateManyWithoutUserNestedInput
+    extracted_items?: ExtractedItemUpdateManyWithoutUserNestedInput
+    plain_scraped_pages?: PlainScrapedPageUpdateManyWithoutUserNestedInput
+    ai_batch_request_items?: AiBatchRequestItemUpdateManyWithoutUserNestedInput
+    block_rules?: BlockRuleUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutExtraction_resultsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
+    default_schedule_tz?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    password_reset_tokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    website_targets?: WebsiteTargetUncheckedUpdateManyWithoutUserNestedInput
+    workflow_configs?: WorkflowConfigUncheckedUpdateManyWithoutUserNestedInput
+    workflow_runs?: WorkflowRunUncheckedUpdateManyWithoutUserNestedInput
+    user_integrations?: UserIntegrationUncheckedUpdateManyWithoutUserNestedInput
+    extraction_schemas?: ExtractionSchemaUncheckedUpdateManyWithoutUserNestedInput
+    api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
+    webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
+    webhook_deliveries?: WebhookDeliveryUncheckedUpdateManyWithoutUserNestedInput
+    job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
+    diagnostics_packages?: DiagnosticsPackageUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    cost_entries?: CostEntryUncheckedUpdateManyWithoutUserNestedInput
+    scraper_versions?: ScraperVersionUncheckedUpdateManyWithoutUserNestedInput
+    scraper_generation_runs?: ScraperGenerationRunUncheckedUpdateManyWithoutUserNestedInput
+    computer_use_steps?: ComputerUseStepUncheckedUpdateManyWithoutUserNestedInput
+    scraper_execution_traces?: ScraperExecutionTraceUncheckedUpdateManyWithoutUserNestedInput
+    extracted_items?: ExtractedItemUncheckedUpdateManyWithoutUserNestedInput
+    plain_scraped_pages?: PlainScrapedPageUncheckedUpdateManyWithoutUserNestedInput
+    ai_batch_request_items?: AiBatchRequestItemUncheckedUpdateManyWithoutUserNestedInput
+    block_rules?: BlockRuleUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WorkflowRunCreateWithoutAi_batch_jobInput = {
@@ -61217,10 +64812,12 @@ export namespace Prisma {
     status?: $Enums.ExtractionFormatStatus | null
     created_at?: Date | string
     plain_scraped_page?: PlainScrapedPageCreateNestedOneWithoutAi_batch_request_itemsInput
+    user: UserCreateNestedOneWithoutAi_batch_request_itemsInput
   }
 
   export type AiBatchRequestItemUncheckedCreateWithoutAi_batch_jobInput = {
     id?: string
+    user_id: string
     custom_id: string
     plain_scraped_page_id?: string | null
     source_url?: string | null
@@ -61410,12 +65007,14 @@ export namespace Prisma {
     error_message?: string | null
     created_at?: Date | string
     workflow_run: WorkflowRunCreateNestedOneWithoutPagesInput
+    user: UserCreateNestedOneWithoutPlain_scraped_pagesInput
     extraction_result?: ExtractionResultCreateNestedOneWithoutPlain_scraped_pageInput
   }
 
   export type PlainScrapedPageUncheckedCreateWithoutAi_batch_request_itemsInput = {
     id?: string
     workflow_run_id: string
+    user_id: string
     requested_url: string
     final_url?: string | null
     http_status?: number | null
@@ -61432,6 +65031,75 @@ export namespace Prisma {
   export type PlainScrapedPageCreateOrConnectWithoutAi_batch_request_itemsInput = {
     where: PlainScrapedPageWhereUniqueInput
     create: XOR<PlainScrapedPageCreateWithoutAi_batch_request_itemsInput, PlainScrapedPageUncheckedCreateWithoutAi_batch_request_itemsInput>
+  }
+
+  export type UserCreateWithoutAi_batch_request_itemsInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    password: string
+    role: $Enums.AuthRole
+    default_schedule_tz?: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    password_reset_tokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    website_targets?: WebsiteTargetCreateNestedManyWithoutUserInput
+    workflow_configs?: WorkflowConfigCreateNestedManyWithoutUserInput
+    workflow_runs?: WorkflowRunCreateNestedManyWithoutUserInput
+    user_integrations?: UserIntegrationCreateNestedManyWithoutUserInput
+    extraction_schemas?: ExtractionSchemaCreateNestedManyWithoutUserInput
+    api_keys?: ApiKeyCreateNestedManyWithoutUserInput
+    webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
+    webhook_deliveries?: WebhookDeliveryCreateNestedManyWithoutUserInput
+    job_logs?: JobLogCreateNestedManyWithoutUserInput
+    diagnostics_packages?: DiagnosticsPackageCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    cost_entries?: CostEntryCreateNestedManyWithoutUserInput
+    scraper_versions?: ScraperVersionCreateNestedManyWithoutUserInput
+    scraper_generation_runs?: ScraperGenerationRunCreateNestedManyWithoutUserInput
+    computer_use_steps?: ComputerUseStepCreateNestedManyWithoutUserInput
+    scraper_execution_traces?: ScraperExecutionTraceCreateNestedManyWithoutUserInput
+    extracted_items?: ExtractedItemCreateNestedManyWithoutUserInput
+    plain_scraped_pages?: PlainScrapedPageCreateNestedManyWithoutUserInput
+    extraction_results?: ExtractionResultCreateNestedManyWithoutUserInput
+    block_rules?: BlockRuleCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutAi_batch_request_itemsInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    password: string
+    role: $Enums.AuthRole
+    default_schedule_tz?: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    password_reset_tokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    website_targets?: WebsiteTargetUncheckedCreateNestedManyWithoutUserInput
+    workflow_configs?: WorkflowConfigUncheckedCreateNestedManyWithoutUserInput
+    workflow_runs?: WorkflowRunUncheckedCreateNestedManyWithoutUserInput
+    user_integrations?: UserIntegrationUncheckedCreateNestedManyWithoutUserInput
+    extraction_schemas?: ExtractionSchemaUncheckedCreateNestedManyWithoutUserInput
+    api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
+    webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
+    webhook_deliveries?: WebhookDeliveryUncheckedCreateNestedManyWithoutUserInput
+    job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
+    diagnostics_packages?: DiagnosticsPackageUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    cost_entries?: CostEntryUncheckedCreateNestedManyWithoutUserInput
+    scraper_versions?: ScraperVersionUncheckedCreateNestedManyWithoutUserInput
+    scraper_generation_runs?: ScraperGenerationRunUncheckedCreateNestedManyWithoutUserInput
+    computer_use_steps?: ComputerUseStepUncheckedCreateNestedManyWithoutUserInput
+    scraper_execution_traces?: ScraperExecutionTraceUncheckedCreateNestedManyWithoutUserInput
+    extracted_items?: ExtractedItemUncheckedCreateNestedManyWithoutUserInput
+    plain_scraped_pages?: PlainScrapedPageUncheckedCreateNestedManyWithoutUserInput
+    extraction_results?: ExtractionResultUncheckedCreateNestedManyWithoutUserInput
+    block_rules?: BlockRuleUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutAi_batch_request_itemsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutAi_batch_request_itemsInput, UserUncheckedCreateWithoutAi_batch_request_itemsInput>
   }
 
   export type AiBatchJobUpsertWithoutItemsInput = {
@@ -61505,12 +65173,14 @@ export namespace Prisma {
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     workflow_run?: WorkflowRunUpdateOneRequiredWithoutPagesNestedInput
+    user?: UserUpdateOneRequiredWithoutPlain_scraped_pagesNestedInput
     extraction_result?: ExtractionResultUpdateOneWithoutPlain_scraped_pageNestedInput
   }
 
   export type PlainScrapedPageUncheckedUpdateWithoutAi_batch_request_itemsInput = {
     id?: StringFieldUpdateOperationsInput | string
     workflow_run_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
     requested_url?: StringFieldUpdateOperationsInput | string
     final_url?: NullableStringFieldUpdateOperationsInput | string | null
     http_status?: NullableIntFieldUpdateOperationsInput | number | null
@@ -61522,6 +65192,81 @@ export namespace Prisma {
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     extraction_result?: ExtractionResultUncheckedUpdateOneWithoutPlain_scraped_pageNestedInput
+  }
+
+  export type UserUpsertWithoutAi_batch_request_itemsInput = {
+    update: XOR<UserUpdateWithoutAi_batch_request_itemsInput, UserUncheckedUpdateWithoutAi_batch_request_itemsInput>
+    create: XOR<UserCreateWithoutAi_batch_request_itemsInput, UserUncheckedCreateWithoutAi_batch_request_itemsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutAi_batch_request_itemsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutAi_batch_request_itemsInput, UserUncheckedUpdateWithoutAi_batch_request_itemsInput>
+  }
+
+  export type UserUpdateWithoutAi_batch_request_itemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
+    default_schedule_tz?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    password_reset_tokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    website_targets?: WebsiteTargetUpdateManyWithoutUserNestedInput
+    workflow_configs?: WorkflowConfigUpdateManyWithoutUserNestedInput
+    workflow_runs?: WorkflowRunUpdateManyWithoutUserNestedInput
+    user_integrations?: UserIntegrationUpdateManyWithoutUserNestedInput
+    extraction_schemas?: ExtractionSchemaUpdateManyWithoutUserNestedInput
+    api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
+    webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
+    webhook_deliveries?: WebhookDeliveryUpdateManyWithoutUserNestedInput
+    job_logs?: JobLogUpdateManyWithoutUserNestedInput
+    diagnostics_packages?: DiagnosticsPackageUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    cost_entries?: CostEntryUpdateManyWithoutUserNestedInput
+    scraper_versions?: ScraperVersionUpdateManyWithoutUserNestedInput
+    scraper_generation_runs?: ScraperGenerationRunUpdateManyWithoutUserNestedInput
+    computer_use_steps?: ComputerUseStepUpdateManyWithoutUserNestedInput
+    scraper_execution_traces?: ScraperExecutionTraceUpdateManyWithoutUserNestedInput
+    extracted_items?: ExtractedItemUpdateManyWithoutUserNestedInput
+    plain_scraped_pages?: PlainScrapedPageUpdateManyWithoutUserNestedInput
+    extraction_results?: ExtractionResultUpdateManyWithoutUserNestedInput
+    block_rules?: BlockRuleUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutAi_batch_request_itemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
+    default_schedule_tz?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    password_reset_tokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    website_targets?: WebsiteTargetUncheckedUpdateManyWithoutUserNestedInput
+    workflow_configs?: WorkflowConfigUncheckedUpdateManyWithoutUserNestedInput
+    workflow_runs?: WorkflowRunUncheckedUpdateManyWithoutUserNestedInput
+    user_integrations?: UserIntegrationUncheckedUpdateManyWithoutUserNestedInput
+    extraction_schemas?: ExtractionSchemaUncheckedUpdateManyWithoutUserNestedInput
+    api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
+    webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
+    webhook_deliveries?: WebhookDeliveryUncheckedUpdateManyWithoutUserNestedInput
+    job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
+    diagnostics_packages?: DiagnosticsPackageUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    cost_entries?: CostEntryUncheckedUpdateManyWithoutUserNestedInput
+    scraper_versions?: ScraperVersionUncheckedUpdateManyWithoutUserNestedInput
+    scraper_generation_runs?: ScraperGenerationRunUncheckedUpdateManyWithoutUserNestedInput
+    computer_use_steps?: ComputerUseStepUncheckedUpdateManyWithoutUserNestedInput
+    scraper_execution_traces?: ScraperExecutionTraceUncheckedUpdateManyWithoutUserNestedInput
+    extracted_items?: ExtractedItemUncheckedUpdateManyWithoutUserNestedInput
+    plain_scraped_pages?: PlainScrapedPageUncheckedUpdateManyWithoutUserNestedInput
+    extraction_results?: ExtractionResultUncheckedUpdateManyWithoutUserNestedInput
+    block_rules?: BlockRuleUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WorkflowRunCreateWithoutDiagnostics_packageInput = {
@@ -61715,9 +65460,19 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
+    webhook_deliveries?: WebhookDeliveryCreateNestedManyWithoutUserInput
     job_logs?: JobLogCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     cost_entries?: CostEntryCreateNestedManyWithoutUserInput
+    scraper_versions?: ScraperVersionCreateNestedManyWithoutUserInput
+    scraper_generation_runs?: ScraperGenerationRunCreateNestedManyWithoutUserInput
+    computer_use_steps?: ComputerUseStepCreateNestedManyWithoutUserInput
+    scraper_execution_traces?: ScraperExecutionTraceCreateNestedManyWithoutUserInput
+    extracted_items?: ExtractedItemCreateNestedManyWithoutUserInput
+    plain_scraped_pages?: PlainScrapedPageCreateNestedManyWithoutUserInput
+    extraction_results?: ExtractionResultCreateNestedManyWithoutUserInput
+    ai_batch_request_items?: AiBatchRequestItemCreateNestedManyWithoutUserInput
+    block_rules?: BlockRuleCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutDiagnostics_packagesInput = {
@@ -61737,9 +65492,19 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUncheckedCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
+    webhook_deliveries?: WebhookDeliveryUncheckedCreateNestedManyWithoutUserInput
     job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     cost_entries?: CostEntryUncheckedCreateNestedManyWithoutUserInput
+    scraper_versions?: ScraperVersionUncheckedCreateNestedManyWithoutUserInput
+    scraper_generation_runs?: ScraperGenerationRunUncheckedCreateNestedManyWithoutUserInput
+    computer_use_steps?: ComputerUseStepUncheckedCreateNestedManyWithoutUserInput
+    scraper_execution_traces?: ScraperExecutionTraceUncheckedCreateNestedManyWithoutUserInput
+    extracted_items?: ExtractedItemUncheckedCreateNestedManyWithoutUserInput
+    plain_scraped_pages?: PlainScrapedPageUncheckedCreateNestedManyWithoutUserInput
+    extraction_results?: ExtractionResultUncheckedCreateNestedManyWithoutUserInput
+    ai_batch_request_items?: AiBatchRequestItemUncheckedCreateNestedManyWithoutUserInput
+    block_rules?: BlockRuleUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutDiagnostics_packagesInput = {
@@ -61989,9 +65754,19 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
+    webhook_deliveries?: WebhookDeliveryUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     cost_entries?: CostEntryUpdateManyWithoutUserNestedInput
+    scraper_versions?: ScraperVersionUpdateManyWithoutUserNestedInput
+    scraper_generation_runs?: ScraperGenerationRunUpdateManyWithoutUserNestedInput
+    computer_use_steps?: ComputerUseStepUpdateManyWithoutUserNestedInput
+    scraper_execution_traces?: ScraperExecutionTraceUpdateManyWithoutUserNestedInput
+    extracted_items?: ExtractedItemUpdateManyWithoutUserNestedInput
+    plain_scraped_pages?: PlainScrapedPageUpdateManyWithoutUserNestedInput
+    extraction_results?: ExtractionResultUpdateManyWithoutUserNestedInput
+    ai_batch_request_items?: AiBatchRequestItemUpdateManyWithoutUserNestedInput
+    block_rules?: BlockRuleUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDiagnostics_packagesInput = {
@@ -62011,9 +65786,19 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUncheckedUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
+    webhook_deliveries?: WebhookDeliveryUncheckedUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     cost_entries?: CostEntryUncheckedUpdateManyWithoutUserNestedInput
+    scraper_versions?: ScraperVersionUncheckedUpdateManyWithoutUserNestedInput
+    scraper_generation_runs?: ScraperGenerationRunUncheckedUpdateManyWithoutUserNestedInput
+    computer_use_steps?: ComputerUseStepUncheckedUpdateManyWithoutUserNestedInput
+    scraper_execution_traces?: ScraperExecutionTraceUncheckedUpdateManyWithoutUserNestedInput
+    extracted_items?: ExtractedItemUncheckedUpdateManyWithoutUserNestedInput
+    plain_scraped_pages?: PlainScrapedPageUncheckedUpdateManyWithoutUserNestedInput
+    extraction_results?: ExtractionResultUncheckedUpdateManyWithoutUserNestedInput
+    ai_batch_request_items?: AiBatchRequestItemUncheckedUpdateManyWithoutUserNestedInput
+    block_rules?: BlockRuleUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type DiagnosticsArtifactUpsertWithWhereUniqueWithoutDiagnostics_packageInput = {
@@ -62249,9 +66034,19 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
+    webhook_deliveries?: WebhookDeliveryCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     cost_entries?: CostEntryCreateNestedManyWithoutUserInput
+    scraper_versions?: ScraperVersionCreateNestedManyWithoutUserInput
+    scraper_generation_runs?: ScraperGenerationRunCreateNestedManyWithoutUserInput
+    computer_use_steps?: ComputerUseStepCreateNestedManyWithoutUserInput
+    scraper_execution_traces?: ScraperExecutionTraceCreateNestedManyWithoutUserInput
+    extracted_items?: ExtractedItemCreateNestedManyWithoutUserInput
+    plain_scraped_pages?: PlainScrapedPageCreateNestedManyWithoutUserInput
+    extraction_results?: ExtractionResultCreateNestedManyWithoutUserInput
+    ai_batch_request_items?: AiBatchRequestItemCreateNestedManyWithoutUserInput
+    block_rules?: BlockRuleCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutJob_logsInput = {
@@ -62271,9 +66066,19 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUncheckedCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
+    webhook_deliveries?: WebhookDeliveryUncheckedCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     cost_entries?: CostEntryUncheckedCreateNestedManyWithoutUserInput
+    scraper_versions?: ScraperVersionUncheckedCreateNestedManyWithoutUserInput
+    scraper_generation_runs?: ScraperGenerationRunUncheckedCreateNestedManyWithoutUserInput
+    computer_use_steps?: ComputerUseStepUncheckedCreateNestedManyWithoutUserInput
+    scraper_execution_traces?: ScraperExecutionTraceUncheckedCreateNestedManyWithoutUserInput
+    extracted_items?: ExtractedItemUncheckedCreateNestedManyWithoutUserInput
+    plain_scraped_pages?: PlainScrapedPageUncheckedCreateNestedManyWithoutUserInput
+    extraction_results?: ExtractionResultUncheckedCreateNestedManyWithoutUserInput
+    ai_batch_request_items?: AiBatchRequestItemUncheckedCreateNestedManyWithoutUserInput
+    block_rules?: BlockRuleUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutJob_logsInput = {
@@ -62406,9 +66211,19 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
+    webhook_deliveries?: WebhookDeliveryUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     cost_entries?: CostEntryUpdateManyWithoutUserNestedInput
+    scraper_versions?: ScraperVersionUpdateManyWithoutUserNestedInput
+    scraper_generation_runs?: ScraperGenerationRunUpdateManyWithoutUserNestedInput
+    computer_use_steps?: ComputerUseStepUpdateManyWithoutUserNestedInput
+    scraper_execution_traces?: ScraperExecutionTraceUpdateManyWithoutUserNestedInput
+    extracted_items?: ExtractedItemUpdateManyWithoutUserNestedInput
+    plain_scraped_pages?: PlainScrapedPageUpdateManyWithoutUserNestedInput
+    extraction_results?: ExtractionResultUpdateManyWithoutUserNestedInput
+    ai_batch_request_items?: AiBatchRequestItemUpdateManyWithoutUserNestedInput
+    block_rules?: BlockRuleUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutJob_logsInput = {
@@ -62428,9 +66243,19 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUncheckedUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
+    webhook_deliveries?: WebhookDeliveryUncheckedUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     cost_entries?: CostEntryUncheckedUpdateManyWithoutUserNestedInput
+    scraper_versions?: ScraperVersionUncheckedUpdateManyWithoutUserNestedInput
+    scraper_generation_runs?: ScraperGenerationRunUncheckedUpdateManyWithoutUserNestedInput
+    computer_use_steps?: ComputerUseStepUncheckedUpdateManyWithoutUserNestedInput
+    scraper_execution_traces?: ScraperExecutionTraceUncheckedUpdateManyWithoutUserNestedInput
+    extracted_items?: ExtractedItemUncheckedUpdateManyWithoutUserNestedInput
+    plain_scraped_pages?: PlainScrapedPageUncheckedUpdateManyWithoutUserNestedInput
+    extraction_results?: ExtractionResultUncheckedUpdateManyWithoutUserNestedInput
+    ai_batch_request_items?: AiBatchRequestItemUncheckedUpdateManyWithoutUserNestedInput
+    block_rules?: BlockRuleUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutCost_entriesInput = {
@@ -62450,9 +66275,19 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
+    webhook_deliveries?: WebhookDeliveryCreateNestedManyWithoutUserInput
     job_logs?: JobLogCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    scraper_versions?: ScraperVersionCreateNestedManyWithoutUserInput
+    scraper_generation_runs?: ScraperGenerationRunCreateNestedManyWithoutUserInput
+    computer_use_steps?: ComputerUseStepCreateNestedManyWithoutUserInput
+    scraper_execution_traces?: ScraperExecutionTraceCreateNestedManyWithoutUserInput
+    extracted_items?: ExtractedItemCreateNestedManyWithoutUserInput
+    plain_scraped_pages?: PlainScrapedPageCreateNestedManyWithoutUserInput
+    extraction_results?: ExtractionResultCreateNestedManyWithoutUserInput
+    ai_batch_request_items?: AiBatchRequestItemCreateNestedManyWithoutUserInput
+    block_rules?: BlockRuleCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCost_entriesInput = {
@@ -62472,9 +66307,19 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUncheckedCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
+    webhook_deliveries?: WebhookDeliveryUncheckedCreateNestedManyWithoutUserInput
     job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    scraper_versions?: ScraperVersionUncheckedCreateNestedManyWithoutUserInput
+    scraper_generation_runs?: ScraperGenerationRunUncheckedCreateNestedManyWithoutUserInput
+    computer_use_steps?: ComputerUseStepUncheckedCreateNestedManyWithoutUserInput
+    scraper_execution_traces?: ScraperExecutionTraceUncheckedCreateNestedManyWithoutUserInput
+    extracted_items?: ExtractedItemUncheckedCreateNestedManyWithoutUserInput
+    plain_scraped_pages?: PlainScrapedPageUncheckedCreateNestedManyWithoutUserInput
+    extraction_results?: ExtractionResultUncheckedCreateNestedManyWithoutUserInput
+    ai_batch_request_items?: AiBatchRequestItemUncheckedCreateNestedManyWithoutUserInput
+    block_rules?: BlockRuleUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCost_entriesInput = {
@@ -62601,9 +66446,19 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
+    webhook_deliveries?: WebhookDeliveryUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    scraper_versions?: ScraperVersionUpdateManyWithoutUserNestedInput
+    scraper_generation_runs?: ScraperGenerationRunUpdateManyWithoutUserNestedInput
+    computer_use_steps?: ComputerUseStepUpdateManyWithoutUserNestedInput
+    scraper_execution_traces?: ScraperExecutionTraceUpdateManyWithoutUserNestedInput
+    extracted_items?: ExtractedItemUpdateManyWithoutUserNestedInput
+    plain_scraped_pages?: PlainScrapedPageUpdateManyWithoutUserNestedInput
+    extraction_results?: ExtractionResultUpdateManyWithoutUserNestedInput
+    ai_batch_request_items?: AiBatchRequestItemUpdateManyWithoutUserNestedInput
+    block_rules?: BlockRuleUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCost_entriesInput = {
@@ -62623,9 +66478,19 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUncheckedUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
+    webhook_deliveries?: WebhookDeliveryUncheckedUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    scraper_versions?: ScraperVersionUncheckedUpdateManyWithoutUserNestedInput
+    scraper_generation_runs?: ScraperGenerationRunUncheckedUpdateManyWithoutUserNestedInput
+    computer_use_steps?: ComputerUseStepUncheckedUpdateManyWithoutUserNestedInput
+    scraper_execution_traces?: ScraperExecutionTraceUncheckedUpdateManyWithoutUserNestedInput
+    extracted_items?: ExtractedItemUncheckedUpdateManyWithoutUserNestedInput
+    plain_scraped_pages?: PlainScrapedPageUncheckedUpdateManyWithoutUserNestedInput
+    extraction_results?: ExtractionResultUncheckedUpdateManyWithoutUserNestedInput
+    ai_batch_request_items?: AiBatchRequestItemUncheckedUpdateManyWithoutUserNestedInput
+    block_rules?: BlockRuleUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WorkflowRunUpsertWithoutCost_entriesInput = {
@@ -62963,9 +66828,19 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
+    webhook_deliveries?: WebhookDeliveryCreateNestedManyWithoutUserInput
     job_logs?: JobLogCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageCreateNestedManyWithoutUserInput
     cost_entries?: CostEntryCreateNestedManyWithoutUserInput
+    scraper_versions?: ScraperVersionCreateNestedManyWithoutUserInput
+    scraper_generation_runs?: ScraperGenerationRunCreateNestedManyWithoutUserInput
+    computer_use_steps?: ComputerUseStepCreateNestedManyWithoutUserInput
+    scraper_execution_traces?: ScraperExecutionTraceCreateNestedManyWithoutUserInput
+    extracted_items?: ExtractedItemCreateNestedManyWithoutUserInput
+    plain_scraped_pages?: PlainScrapedPageCreateNestedManyWithoutUserInput
+    extraction_results?: ExtractionResultCreateNestedManyWithoutUserInput
+    ai_batch_request_items?: AiBatchRequestItemCreateNestedManyWithoutUserInput
+    block_rules?: BlockRuleCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -62985,9 +66860,19 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUncheckedCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
+    webhook_deliveries?: WebhookDeliveryUncheckedCreateNestedManyWithoutUserInput
     job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageUncheckedCreateNestedManyWithoutUserInput
     cost_entries?: CostEntryUncheckedCreateNestedManyWithoutUserInput
+    scraper_versions?: ScraperVersionUncheckedCreateNestedManyWithoutUserInput
+    scraper_generation_runs?: ScraperGenerationRunUncheckedCreateNestedManyWithoutUserInput
+    computer_use_steps?: ComputerUseStepUncheckedCreateNestedManyWithoutUserInput
+    scraper_execution_traces?: ScraperExecutionTraceUncheckedCreateNestedManyWithoutUserInput
+    extracted_items?: ExtractedItemUncheckedCreateNestedManyWithoutUserInput
+    plain_scraped_pages?: PlainScrapedPageUncheckedCreateNestedManyWithoutUserInput
+    extraction_results?: ExtractionResultUncheckedCreateNestedManyWithoutUserInput
+    ai_batch_request_items?: AiBatchRequestItemUncheckedCreateNestedManyWithoutUserInput
+    block_rules?: BlockRuleUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -63262,9 +67147,19 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
+    webhook_deliveries?: WebhookDeliveryUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUpdateManyWithoutUserNestedInput
     cost_entries?: CostEntryUpdateManyWithoutUserNestedInput
+    scraper_versions?: ScraperVersionUpdateManyWithoutUserNestedInput
+    scraper_generation_runs?: ScraperGenerationRunUpdateManyWithoutUserNestedInput
+    computer_use_steps?: ComputerUseStepUpdateManyWithoutUserNestedInput
+    scraper_execution_traces?: ScraperExecutionTraceUpdateManyWithoutUserNestedInput
+    extracted_items?: ExtractedItemUpdateManyWithoutUserNestedInput
+    plain_scraped_pages?: PlainScrapedPageUpdateManyWithoutUserNestedInput
+    extraction_results?: ExtractionResultUpdateManyWithoutUserNestedInput
+    ai_batch_request_items?: AiBatchRequestItemUpdateManyWithoutUserNestedInput
+    block_rules?: BlockRuleUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -63284,9 +67179,19 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUncheckedUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
+    webhook_deliveries?: WebhookDeliveryUncheckedUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUncheckedUpdateManyWithoutUserNestedInput
     cost_entries?: CostEntryUncheckedUpdateManyWithoutUserNestedInput
+    scraper_versions?: ScraperVersionUncheckedUpdateManyWithoutUserNestedInput
+    scraper_generation_runs?: ScraperGenerationRunUncheckedUpdateManyWithoutUserNestedInput
+    computer_use_steps?: ComputerUseStepUncheckedUpdateManyWithoutUserNestedInput
+    scraper_execution_traces?: ScraperExecutionTraceUncheckedUpdateManyWithoutUserNestedInput
+    extracted_items?: ExtractedItemUncheckedUpdateManyWithoutUserNestedInput
+    plain_scraped_pages?: PlainScrapedPageUncheckedUpdateManyWithoutUserNestedInput
+    extraction_results?: ExtractionResultUncheckedUpdateManyWithoutUserNestedInput
+    ai_batch_request_items?: AiBatchRequestItemUncheckedUpdateManyWithoutUserNestedInput
+    block_rules?: BlockRuleUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutUser_integrationsInput = {
@@ -63305,10 +67210,20 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
+    webhook_deliveries?: WebhookDeliveryCreateNestedManyWithoutUserInput
     job_logs?: JobLogCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     cost_entries?: CostEntryCreateNestedManyWithoutUserInput
+    scraper_versions?: ScraperVersionCreateNestedManyWithoutUserInput
+    scraper_generation_runs?: ScraperGenerationRunCreateNestedManyWithoutUserInput
+    computer_use_steps?: ComputerUseStepCreateNestedManyWithoutUserInput
+    scraper_execution_traces?: ScraperExecutionTraceCreateNestedManyWithoutUserInput
+    extracted_items?: ExtractedItemCreateNestedManyWithoutUserInput
+    plain_scraped_pages?: PlainScrapedPageCreateNestedManyWithoutUserInput
+    extraction_results?: ExtractionResultCreateNestedManyWithoutUserInput
+    ai_batch_request_items?: AiBatchRequestItemCreateNestedManyWithoutUserInput
+    block_rules?: BlockRuleCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutUser_integrationsInput = {
@@ -63327,10 +67242,20 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUncheckedCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
+    webhook_deliveries?: WebhookDeliveryUncheckedCreateNestedManyWithoutUserInput
     job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
     diagnostics_packages?: DiagnosticsPackageUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     cost_entries?: CostEntryUncheckedCreateNestedManyWithoutUserInput
+    scraper_versions?: ScraperVersionUncheckedCreateNestedManyWithoutUserInput
+    scraper_generation_runs?: ScraperGenerationRunUncheckedCreateNestedManyWithoutUserInput
+    computer_use_steps?: ComputerUseStepUncheckedCreateNestedManyWithoutUserInput
+    scraper_execution_traces?: ScraperExecutionTraceUncheckedCreateNestedManyWithoutUserInput
+    extracted_items?: ExtractedItemUncheckedCreateNestedManyWithoutUserInput
+    plain_scraped_pages?: PlainScrapedPageUncheckedCreateNestedManyWithoutUserInput
+    extraction_results?: ExtractionResultUncheckedCreateNestedManyWithoutUserInput
+    ai_batch_request_items?: AiBatchRequestItemUncheckedCreateNestedManyWithoutUserInput
+    block_rules?: BlockRuleUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutUser_integrationsInput = {
@@ -63365,10 +67290,20 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
+    webhook_deliveries?: WebhookDeliveryUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     cost_entries?: CostEntryUpdateManyWithoutUserNestedInput
+    scraper_versions?: ScraperVersionUpdateManyWithoutUserNestedInput
+    scraper_generation_runs?: ScraperGenerationRunUpdateManyWithoutUserNestedInput
+    computer_use_steps?: ComputerUseStepUpdateManyWithoutUserNestedInput
+    scraper_execution_traces?: ScraperExecutionTraceUpdateManyWithoutUserNestedInput
+    extracted_items?: ExtractedItemUpdateManyWithoutUserNestedInput
+    plain_scraped_pages?: PlainScrapedPageUpdateManyWithoutUserNestedInput
+    extraction_results?: ExtractionResultUpdateManyWithoutUserNestedInput
+    ai_batch_request_items?: AiBatchRequestItemUpdateManyWithoutUserNestedInput
+    block_rules?: BlockRuleUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutUser_integrationsInput = {
@@ -63387,10 +67322,20 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUncheckedUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
+    webhook_deliveries?: WebhookDeliveryUncheckedUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
     diagnostics_packages?: DiagnosticsPackageUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     cost_entries?: CostEntryUncheckedUpdateManyWithoutUserNestedInput
+    scraper_versions?: ScraperVersionUncheckedUpdateManyWithoutUserNestedInput
+    scraper_generation_runs?: ScraperGenerationRunUncheckedUpdateManyWithoutUserNestedInput
+    computer_use_steps?: ComputerUseStepUncheckedUpdateManyWithoutUserNestedInput
+    scraper_execution_traces?: ScraperExecutionTraceUncheckedUpdateManyWithoutUserNestedInput
+    extracted_items?: ExtractedItemUncheckedUpdateManyWithoutUserNestedInput
+    plain_scraped_pages?: PlainScrapedPageUncheckedUpdateManyWithoutUserNestedInput
+    extraction_results?: ExtractionResultUncheckedUpdateManyWithoutUserNestedInput
+    ai_batch_request_items?: AiBatchRequestItemUncheckedUpdateManyWithoutUserNestedInput
+    block_rules?: BlockRuleUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PasswordResetTokenCreateManyUserInput = {
@@ -63529,6 +67474,22 @@ export namespace Prisma {
     updated_at?: Date | string
   }
 
+  export type WebhookDeliveryCreateManyUserInput = {
+    id?: string
+    webhook_endpoint_id: string
+    event_type: $Enums.WebhookEventType
+    workflow_run_id?: string | null
+    is_test?: boolean
+    payload: JsonNullValueInput | InputJsonValue
+    status?: $Enums.WebhookDeliveryStatus
+    http_status_code?: number | null
+    response_body?: string | null
+    error_message?: string | null
+    attempt_number?: number
+    duration_ms?: number | null
+    created_at?: Date | string
+  }
+
   export type JobLogCreateManyUserInput = {
     id?: string
     queue_name: string
@@ -63591,6 +67552,141 @@ export namespace Prisma {
     workflow_run_id?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
+  }
+
+  export type ScraperVersionCreateManyUserInput = {
+    id?: string
+    workflow_config_id: string
+    version: number
+    config: JsonNullValueInput | InputJsonValue
+    created_by: $Enums.ScraperVersionCreatedBy
+    notes?: string | null
+    generation_prompt?: string | null
+    output_formats?: ScraperVersionCreateoutput_formatsInput | $Enums.OutputFormat[]
+    extraction_schema_version_id?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type ScraperGenerationRunCreateManyUserInput = {
+    id?: string
+    website_target_id: string
+    workflow_config_id?: string | null
+    trigger?: $Enums.GenerationTrigger
+    status?: $Enums.GenerationRunStatus
+    prompt?: string | null
+    max_steps?: number | null
+    output_formats?: ScraperGenerationRunCreateoutput_formatsInput | $Enums.OutputFormat[]
+    output_schema?: NullableJsonNullValueInput | InputJsonValue
+    staged_config?: NullableJsonNullValueInput | InputJsonValue
+    produced_version_id?: string | null
+    error_message?: string | null
+    started_at?: Date | string | null
+    finished_at?: Date | string | null
+    duration_ms?: number | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type ComputerUseStepCreateManyUserInput = {
+    id?: string
+    scraper_generation_run_id?: string | null
+    workflow_run_id?: string | null
+    step_index: number
+    action_type: $Enums.ComputerActionType
+    action_payload: JsonNullValueInput | InputJsonValue
+    screenshot_before_id?: string | null
+    screenshot_after_id?: string | null
+    model_reasoning?: string | null
+    created_at?: Date | string
+  }
+
+  export type ScraperExecutionTraceCreateManyUserInput = {
+    id?: string
+    workflow_config_id: string
+    workflow_run_id?: string | null
+    steps: JsonNullValueInput | InputJsonValue
+    success: boolean
+    error_summary?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type ExtractedItemCreateManyUserInput = {
+    id?: string
+    website_target_id: string
+    workflow_run_id?: string | null
+    source_url: string
+    external_id?: string | null
+    raw_data: JsonNullValueInput | InputJsonValue
+    content_hash?: string | null
+    first_seen_at?: Date | string
+    last_seen_at?: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type PlainScrapedPageCreateManyUserInput = {
+    id?: string
+    workflow_run_id: string
+    requested_url: string
+    final_url?: string | null
+    http_status?: number | null
+    success?: boolean
+    raw_html?: string | null
+    cleaned_content?: string | null
+    title?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    error_message?: string | null
+    created_at?: Date | string
+  }
+
+  export type ExtractionResultCreateManyUserInput = {
+    id?: string
+    workflow_run_id?: string | null
+    plain_scraped_page_id?: string | null
+    extraction_schema_version_id?: string | null
+    structured_status?: $Enums.ExtractionFormatStatus | null
+    structured_data?: NullableJsonNullValueInput | InputJsonValue
+    structured_raw_ai_output?: NullableJsonNullValueInput | InputJsonValue
+    structured_validation_errors?: NullableJsonNullValueInput | InputJsonValue
+    structured_attempts?: number
+    markdown_status?: $Enums.ExtractionFormatStatus | null
+    markdown?: string | null
+    markdown_validation_errors?: NullableJsonNullValueInput | InputJsonValue
+    generated_ui_html?: string | null
+    ai_usage?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type AiBatchRequestItemCreateManyUserInput = {
+    id?: string
+    ai_batch_job_id: string
+    custom_id: string
+    plain_scraped_page_id?: string | null
+    source_url?: string | null
+    content_label?: string | null
+    content: string
+    instructions?: string | null
+    wants_markdown?: boolean
+    regex_data?: NullableJsonNullValueInput | InputJsonValue
+    status?: $Enums.ExtractionFormatStatus | null
+    created_at?: Date | string
+  }
+
+  export type BlockRuleCreateManyUserInput = {
+    id?: string
+    website_target_id: string
+    label?: string | null
+    signal: $Enums.BlockSignal
+    source: $Enums.BlockRuleSource
+    pattern: string
+    is_regex?: boolean
+    regex_flags?: string | null
+    position?: number
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type PasswordResetTokenUpdateWithoutUserInput = {
@@ -64049,6 +68145,54 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type WebhookDeliveryUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    event_type?: EnumWebhookEventTypeFieldUpdateOperationsInput | $Enums.WebhookEventType
+    workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
+    is_test?: BoolFieldUpdateOperationsInput | boolean
+    payload?: JsonNullValueInput | InputJsonValue
+    status?: EnumWebhookDeliveryStatusFieldUpdateOperationsInput | $Enums.WebhookDeliveryStatus
+    http_status_code?: NullableIntFieldUpdateOperationsInput | number | null
+    response_body?: NullableStringFieldUpdateOperationsInput | string | null
+    error_message?: NullableStringFieldUpdateOperationsInput | string | null
+    attempt_number?: IntFieldUpdateOperationsInput | number
+    duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    webhook_endpoint?: WebhookEndpointUpdateOneRequiredWithoutDeliveriesNestedInput
+  }
+
+  export type WebhookDeliveryUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    webhook_endpoint_id?: StringFieldUpdateOperationsInput | string
+    event_type?: EnumWebhookEventTypeFieldUpdateOperationsInput | $Enums.WebhookEventType
+    workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
+    is_test?: BoolFieldUpdateOperationsInput | boolean
+    payload?: JsonNullValueInput | InputJsonValue
+    status?: EnumWebhookDeliveryStatusFieldUpdateOperationsInput | $Enums.WebhookDeliveryStatus
+    http_status_code?: NullableIntFieldUpdateOperationsInput | number | null
+    response_body?: NullableStringFieldUpdateOperationsInput | string | null
+    error_message?: NullableStringFieldUpdateOperationsInput | string | null
+    attempt_number?: IntFieldUpdateOperationsInput | number
+    duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WebhookDeliveryUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    webhook_endpoint_id?: StringFieldUpdateOperationsInput | string
+    event_type?: EnumWebhookEventTypeFieldUpdateOperationsInput | $Enums.WebhookEventType
+    workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
+    is_test?: BoolFieldUpdateOperationsInput | boolean
+    payload?: JsonNullValueInput | InputJsonValue
+    status?: EnumWebhookDeliveryStatusFieldUpdateOperationsInput | $Enums.WebhookDeliveryStatus
+    http_status_code?: NullableIntFieldUpdateOperationsInput | number | null
+    response_body?: NullableStringFieldUpdateOperationsInput | string | null
+    error_message?: NullableStringFieldUpdateOperationsInput | string | null
+    attempt_number?: IntFieldUpdateOperationsInput | number
+    duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type JobLogUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     queue_name?: StringFieldUpdateOperationsInput | string
@@ -64243,8 +68387,426 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ScraperVersionUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    version?: IntFieldUpdateOperationsInput | number
+    config?: JsonNullValueInput | InputJsonValue
+    created_by?: EnumScraperVersionCreatedByFieldUpdateOperationsInput | $Enums.ScraperVersionCreatedBy
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    generation_prompt?: NullableStringFieldUpdateOperationsInput | string | null
+    output_formats?: ScraperVersionUpdateoutput_formatsInput | $Enums.OutputFormat[]
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    workflow_config?: WorkflowConfigUpdateOneRequiredWithoutVersionsNestedInput
+    extraction_schema_version?: ExtractionSchemaVersionUpdateOneWithoutScraper_versionsNestedInput
+    active_for_config?: WorkflowConfigUpdateOneWithoutActive_versionNestedInput
+    produced_by_run?: ScraperGenerationRunUpdateOneWithoutProduced_versionNestedInput
+    workflow_runs?: WorkflowRunUpdateManyWithoutScraper_versionNestedInput
+  }
+
+  export type ScraperVersionUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    workflow_config_id?: StringFieldUpdateOperationsInput | string
+    version?: IntFieldUpdateOperationsInput | number
+    config?: JsonNullValueInput | InputJsonValue
+    created_by?: EnumScraperVersionCreatedByFieldUpdateOperationsInput | $Enums.ScraperVersionCreatedBy
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    generation_prompt?: NullableStringFieldUpdateOperationsInput | string | null
+    output_formats?: ScraperVersionUpdateoutput_formatsInput | $Enums.OutputFormat[]
+    extraction_schema_version_id?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    active_for_config?: WorkflowConfigUncheckedUpdateOneWithoutActive_versionNestedInput
+    produced_by_run?: ScraperGenerationRunUncheckedUpdateOneWithoutProduced_versionNestedInput
+    workflow_runs?: WorkflowRunUncheckedUpdateManyWithoutScraper_versionNestedInput
+  }
+
+  export type ScraperVersionUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    workflow_config_id?: StringFieldUpdateOperationsInput | string
+    version?: IntFieldUpdateOperationsInput | number
+    config?: JsonNullValueInput | InputJsonValue
+    created_by?: EnumScraperVersionCreatedByFieldUpdateOperationsInput | $Enums.ScraperVersionCreatedBy
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    generation_prompt?: NullableStringFieldUpdateOperationsInput | string | null
+    output_formats?: ScraperVersionUpdateoutput_formatsInput | $Enums.OutputFormat[]
+    extraction_schema_version_id?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ScraperGenerationRunUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    trigger?: EnumGenerationTriggerFieldUpdateOperationsInput | $Enums.GenerationTrigger
+    status?: EnumGenerationRunStatusFieldUpdateOperationsInput | $Enums.GenerationRunStatus
+    prompt?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
+    output_formats?: ScraperGenerationRunUpdateoutput_formatsInput | $Enums.OutputFormat[]
+    output_schema?: NullableJsonNullValueInput | InputJsonValue
+    staged_config?: NullableJsonNullValueInput | InputJsonValue
+    error_message?: NullableStringFieldUpdateOperationsInput | string | null
+    started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    website_target?: WebsiteTargetUpdateOneRequiredWithoutScraper_generation_runsNestedInput
+    workflow_config?: WorkflowConfigUpdateOneWithoutScraper_generation_runsNestedInput
+    produced_version?: ScraperVersionUpdateOneWithoutProduced_by_runNestedInput
+    steps?: ComputerUseStepUpdateManyWithoutScraper_generation_runNestedInput
+  }
+
+  export type ScraperGenerationRunUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    website_target_id?: StringFieldUpdateOperationsInput | string
+    workflow_config_id?: NullableStringFieldUpdateOperationsInput | string | null
+    trigger?: EnumGenerationTriggerFieldUpdateOperationsInput | $Enums.GenerationTrigger
+    status?: EnumGenerationRunStatusFieldUpdateOperationsInput | $Enums.GenerationRunStatus
+    prompt?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
+    output_formats?: ScraperGenerationRunUpdateoutput_formatsInput | $Enums.OutputFormat[]
+    output_schema?: NullableJsonNullValueInput | InputJsonValue
+    staged_config?: NullableJsonNullValueInput | InputJsonValue
+    produced_version_id?: NullableStringFieldUpdateOperationsInput | string | null
+    error_message?: NullableStringFieldUpdateOperationsInput | string | null
+    started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    steps?: ComputerUseStepUncheckedUpdateManyWithoutScraper_generation_runNestedInput
+  }
+
+  export type ScraperGenerationRunUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    website_target_id?: StringFieldUpdateOperationsInput | string
+    workflow_config_id?: NullableStringFieldUpdateOperationsInput | string | null
+    trigger?: EnumGenerationTriggerFieldUpdateOperationsInput | $Enums.GenerationTrigger
+    status?: EnumGenerationRunStatusFieldUpdateOperationsInput | $Enums.GenerationRunStatus
+    prompt?: NullableStringFieldUpdateOperationsInput | string | null
+    max_steps?: NullableIntFieldUpdateOperationsInput | number | null
+    output_formats?: ScraperGenerationRunUpdateoutput_formatsInput | $Enums.OutputFormat[]
+    output_schema?: NullableJsonNullValueInput | InputJsonValue
+    staged_config?: NullableJsonNullValueInput | InputJsonValue
+    produced_version_id?: NullableStringFieldUpdateOperationsInput | string | null
+    error_message?: NullableStringFieldUpdateOperationsInput | string | null
+    started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ComputerUseStepUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    step_index?: IntFieldUpdateOperationsInput | number
+    action_type?: EnumComputerActionTypeFieldUpdateOperationsInput | $Enums.ComputerActionType
+    action_payload?: JsonNullValueInput | InputJsonValue
+    model_reasoning?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    scraper_generation_run?: ScraperGenerationRunUpdateOneWithoutStepsNestedInput
+    workflow_run?: WorkflowRunUpdateOneWithoutStepsNestedInput
+    screenshot_before?: DocumentUpdateOneWithoutComputer_use_steps_beforeNestedInput
+    screenshot_after?: DocumentUpdateOneWithoutComputer_use_steps_afterNestedInput
+  }
+
+  export type ComputerUseStepUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    scraper_generation_run_id?: NullableStringFieldUpdateOperationsInput | string | null
+    workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
+    step_index?: IntFieldUpdateOperationsInput | number
+    action_type?: EnumComputerActionTypeFieldUpdateOperationsInput | $Enums.ComputerActionType
+    action_payload?: JsonNullValueInput | InputJsonValue
+    screenshot_before_id?: NullableStringFieldUpdateOperationsInput | string | null
+    screenshot_after_id?: NullableStringFieldUpdateOperationsInput | string | null
+    model_reasoning?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ComputerUseStepUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    scraper_generation_run_id?: NullableStringFieldUpdateOperationsInput | string | null
+    workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
+    step_index?: IntFieldUpdateOperationsInput | number
+    action_type?: EnumComputerActionTypeFieldUpdateOperationsInput | $Enums.ComputerActionType
+    action_payload?: JsonNullValueInput | InputJsonValue
+    screenshot_before_id?: NullableStringFieldUpdateOperationsInput | string | null
+    screenshot_after_id?: NullableStringFieldUpdateOperationsInput | string | null
+    model_reasoning?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ScraperExecutionTraceUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    steps?: JsonNullValueInput | InputJsonValue
+    success?: BoolFieldUpdateOperationsInput | boolean
+    error_summary?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    workflow_config?: WorkflowConfigUpdateOneRequiredWithoutExecution_tracesNestedInput
+    workflow_run?: WorkflowRunUpdateOneWithoutExecution_tracesNestedInput
+  }
+
+  export type ScraperExecutionTraceUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    workflow_config_id?: StringFieldUpdateOperationsInput | string
+    workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
+    steps?: JsonNullValueInput | InputJsonValue
+    success?: BoolFieldUpdateOperationsInput | boolean
+    error_summary?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ScraperExecutionTraceUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    workflow_config_id?: StringFieldUpdateOperationsInput | string
+    workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
+    steps?: JsonNullValueInput | InputJsonValue
+    success?: BoolFieldUpdateOperationsInput | boolean
+    error_summary?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExtractedItemUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    source_url?: StringFieldUpdateOperationsInput | string
+    external_id?: NullableStringFieldUpdateOperationsInput | string | null
+    raw_data?: JsonNullValueInput | InputJsonValue
+    content_hash?: NullableStringFieldUpdateOperationsInput | string | null
+    first_seen_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    last_seen_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    website_target?: WebsiteTargetUpdateOneRequiredWithoutExtracted_itemsNestedInput
+    workflow_run?: WorkflowRunUpdateOneWithoutExtracted_itemsNestedInput
+  }
+
+  export type ExtractedItemUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    website_target_id?: StringFieldUpdateOperationsInput | string
+    workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
+    source_url?: StringFieldUpdateOperationsInput | string
+    external_id?: NullableStringFieldUpdateOperationsInput | string | null
+    raw_data?: JsonNullValueInput | InputJsonValue
+    content_hash?: NullableStringFieldUpdateOperationsInput | string | null
+    first_seen_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    last_seen_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExtractedItemUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    website_target_id?: StringFieldUpdateOperationsInput | string
+    workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
+    source_url?: StringFieldUpdateOperationsInput | string
+    external_id?: NullableStringFieldUpdateOperationsInput | string | null
+    raw_data?: JsonNullValueInput | InputJsonValue
+    content_hash?: NullableStringFieldUpdateOperationsInput | string | null
+    first_seen_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    last_seen_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PlainScrapedPageUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    requested_url?: StringFieldUpdateOperationsInput | string
+    final_url?: NullableStringFieldUpdateOperationsInput | string | null
+    http_status?: NullableIntFieldUpdateOperationsInput | number | null
+    success?: BoolFieldUpdateOperationsInput | boolean
+    raw_html?: NullableStringFieldUpdateOperationsInput | string | null
+    cleaned_content?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    error_message?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    workflow_run?: WorkflowRunUpdateOneRequiredWithoutPagesNestedInput
+    extraction_result?: ExtractionResultUpdateOneWithoutPlain_scraped_pageNestedInput
+    ai_batch_request_items?: AiBatchRequestItemUpdateManyWithoutPlain_scraped_pageNestedInput
+  }
+
+  export type PlainScrapedPageUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    workflow_run_id?: StringFieldUpdateOperationsInput | string
+    requested_url?: StringFieldUpdateOperationsInput | string
+    final_url?: NullableStringFieldUpdateOperationsInput | string | null
+    http_status?: NullableIntFieldUpdateOperationsInput | number | null
+    success?: BoolFieldUpdateOperationsInput | boolean
+    raw_html?: NullableStringFieldUpdateOperationsInput | string | null
+    cleaned_content?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    error_message?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    extraction_result?: ExtractionResultUncheckedUpdateOneWithoutPlain_scraped_pageNestedInput
+    ai_batch_request_items?: AiBatchRequestItemUncheckedUpdateManyWithoutPlain_scraped_pageNestedInput
+  }
+
+  export type PlainScrapedPageUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    workflow_run_id?: StringFieldUpdateOperationsInput | string
+    requested_url?: StringFieldUpdateOperationsInput | string
+    final_url?: NullableStringFieldUpdateOperationsInput | string | null
+    http_status?: NullableIntFieldUpdateOperationsInput | number | null
+    success?: BoolFieldUpdateOperationsInput | boolean
+    raw_html?: NullableStringFieldUpdateOperationsInput | string | null
+    cleaned_content?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    error_message?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExtractionResultUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    structured_status?: NullableEnumExtractionFormatStatusFieldUpdateOperationsInput | $Enums.ExtractionFormatStatus | null
+    structured_data?: NullableJsonNullValueInput | InputJsonValue
+    structured_raw_ai_output?: NullableJsonNullValueInput | InputJsonValue
+    structured_validation_errors?: NullableJsonNullValueInput | InputJsonValue
+    structured_attempts?: IntFieldUpdateOperationsInput | number
+    markdown_status?: NullableEnumExtractionFormatStatusFieldUpdateOperationsInput | $Enums.ExtractionFormatStatus | null
+    markdown?: NullableStringFieldUpdateOperationsInput | string | null
+    markdown_validation_errors?: NullableJsonNullValueInput | InputJsonValue
+    generated_ui_html?: NullableStringFieldUpdateOperationsInput | string | null
+    ai_usage?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    workflow_run?: WorkflowRunUpdateOneWithoutExtraction_resultNestedInput
+    plain_scraped_page?: PlainScrapedPageUpdateOneWithoutExtraction_resultNestedInput
+    extraction_schema_version?: ExtractionSchemaVersionUpdateOneWithoutExtraction_resultsNestedInput
+  }
+
+  export type ExtractionResultUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
+    plain_scraped_page_id?: NullableStringFieldUpdateOperationsInput | string | null
+    extraction_schema_version_id?: NullableStringFieldUpdateOperationsInput | string | null
+    structured_status?: NullableEnumExtractionFormatStatusFieldUpdateOperationsInput | $Enums.ExtractionFormatStatus | null
+    structured_data?: NullableJsonNullValueInput | InputJsonValue
+    structured_raw_ai_output?: NullableJsonNullValueInput | InputJsonValue
+    structured_validation_errors?: NullableJsonNullValueInput | InputJsonValue
+    structured_attempts?: IntFieldUpdateOperationsInput | number
+    markdown_status?: NullableEnumExtractionFormatStatusFieldUpdateOperationsInput | $Enums.ExtractionFormatStatus | null
+    markdown?: NullableStringFieldUpdateOperationsInput | string | null
+    markdown_validation_errors?: NullableJsonNullValueInput | InputJsonValue
+    generated_ui_html?: NullableStringFieldUpdateOperationsInput | string | null
+    ai_usage?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExtractionResultUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
+    plain_scraped_page_id?: NullableStringFieldUpdateOperationsInput | string | null
+    extraction_schema_version_id?: NullableStringFieldUpdateOperationsInput | string | null
+    structured_status?: NullableEnumExtractionFormatStatusFieldUpdateOperationsInput | $Enums.ExtractionFormatStatus | null
+    structured_data?: NullableJsonNullValueInput | InputJsonValue
+    structured_raw_ai_output?: NullableJsonNullValueInput | InputJsonValue
+    structured_validation_errors?: NullableJsonNullValueInput | InputJsonValue
+    structured_attempts?: IntFieldUpdateOperationsInput | number
+    markdown_status?: NullableEnumExtractionFormatStatusFieldUpdateOperationsInput | $Enums.ExtractionFormatStatus | null
+    markdown?: NullableStringFieldUpdateOperationsInput | string | null
+    markdown_validation_errors?: NullableJsonNullValueInput | InputJsonValue
+    generated_ui_html?: NullableStringFieldUpdateOperationsInput | string | null
+    ai_usage?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AiBatchRequestItemUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    custom_id?: StringFieldUpdateOperationsInput | string
+    source_url?: NullableStringFieldUpdateOperationsInput | string | null
+    content_label?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: StringFieldUpdateOperationsInput | string
+    instructions?: NullableStringFieldUpdateOperationsInput | string | null
+    wants_markdown?: BoolFieldUpdateOperationsInput | boolean
+    regex_data?: NullableJsonNullValueInput | InputJsonValue
+    status?: NullableEnumExtractionFormatStatusFieldUpdateOperationsInput | $Enums.ExtractionFormatStatus | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ai_batch_job?: AiBatchJobUpdateOneRequiredWithoutItemsNestedInput
+    plain_scraped_page?: PlainScrapedPageUpdateOneWithoutAi_batch_request_itemsNestedInput
+  }
+
+  export type AiBatchRequestItemUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ai_batch_job_id?: StringFieldUpdateOperationsInput | string
+    custom_id?: StringFieldUpdateOperationsInput | string
+    plain_scraped_page_id?: NullableStringFieldUpdateOperationsInput | string | null
+    source_url?: NullableStringFieldUpdateOperationsInput | string | null
+    content_label?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: StringFieldUpdateOperationsInput | string
+    instructions?: NullableStringFieldUpdateOperationsInput | string | null
+    wants_markdown?: BoolFieldUpdateOperationsInput | boolean
+    regex_data?: NullableJsonNullValueInput | InputJsonValue
+    status?: NullableEnumExtractionFormatStatusFieldUpdateOperationsInput | $Enums.ExtractionFormatStatus | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AiBatchRequestItemUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ai_batch_job_id?: StringFieldUpdateOperationsInput | string
+    custom_id?: StringFieldUpdateOperationsInput | string
+    plain_scraped_page_id?: NullableStringFieldUpdateOperationsInput | string | null
+    source_url?: NullableStringFieldUpdateOperationsInput | string | null
+    content_label?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: StringFieldUpdateOperationsInput | string
+    instructions?: NullableStringFieldUpdateOperationsInput | string | null
+    wants_markdown?: BoolFieldUpdateOperationsInput | boolean
+    regex_data?: NullableJsonNullValueInput | InputJsonValue
+    status?: NullableEnumExtractionFormatStatusFieldUpdateOperationsInput | $Enums.ExtractionFormatStatus | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BlockRuleUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: NullableStringFieldUpdateOperationsInput | string | null
+    signal?: EnumBlockSignalFieldUpdateOperationsInput | $Enums.BlockSignal
+    source?: EnumBlockRuleSourceFieldUpdateOperationsInput | $Enums.BlockRuleSource
+    pattern?: StringFieldUpdateOperationsInput | string
+    is_regex?: BoolFieldUpdateOperationsInput | boolean
+    regex_flags?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    website_target?: WebsiteTargetUpdateOneRequiredWithoutBlock_rulesNestedInput
+  }
+
+  export type BlockRuleUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    website_target_id?: StringFieldUpdateOperationsInput | string
+    label?: NullableStringFieldUpdateOperationsInput | string | null
+    signal?: EnumBlockSignalFieldUpdateOperationsInput | $Enums.BlockSignal
+    source?: EnumBlockRuleSourceFieldUpdateOperationsInput | $Enums.BlockRuleSource
+    pattern?: StringFieldUpdateOperationsInput | string
+    is_regex?: BoolFieldUpdateOperationsInput | boolean
+    regex_flags?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BlockRuleUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    website_target_id?: StringFieldUpdateOperationsInput | string
+    label?: NullableStringFieldUpdateOperationsInput | string | null
+    signal?: EnumBlockSignalFieldUpdateOperationsInput | $Enums.BlockSignal
+    source?: EnumBlockRuleSourceFieldUpdateOperationsInput | $Enums.BlockRuleSource
+    pattern?: StringFieldUpdateOperationsInput | string
+    is_regex?: BoolFieldUpdateOperationsInput | boolean
+    regex_flags?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type WebhookDeliveryCreateManyWebhook_endpointInput = {
     id?: string
+    user_id: string
     event_type: $Enums.WebhookEventType
     workflow_run_id?: string | null
     is_test?: boolean
@@ -64271,10 +68833,12 @@ export namespace Prisma {
     attempt_number?: IntFieldUpdateOperationsInput | number
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutWebhook_deliveriesNestedInput
   }
 
   export type WebhookDeliveryUncheckedUpdateWithoutWebhook_endpointInput = {
     id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
     event_type?: EnumWebhookEventTypeFieldUpdateOperationsInput | $Enums.WebhookEventType
     workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
     is_test?: BoolFieldUpdateOperationsInput | boolean
@@ -64290,6 +68854,7 @@ export namespace Prisma {
 
   export type WebhookDeliveryUncheckedUpdateManyWithoutWebhook_endpointInput = {
     id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
     event_type?: EnumWebhookEventTypeFieldUpdateOperationsInput | $Enums.WebhookEventType
     workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
     is_test?: BoolFieldUpdateOperationsInput | boolean
@@ -64307,6 +68872,7 @@ export namespace Prisma {
     id?: string
     scraper_generation_run_id?: string | null
     workflow_run_id?: string | null
+    user_id: string
     step_index: number
     action_type: $Enums.ComputerActionType
     action_payload: JsonNullValueInput | InputJsonValue
@@ -64319,6 +68885,7 @@ export namespace Prisma {
     id?: string
     scraper_generation_run_id?: string | null
     workflow_run_id?: string | null
+    user_id: string
     step_index: number
     action_type: $Enums.ComputerActionType
     action_payload: JsonNullValueInput | InputJsonValue
@@ -64370,12 +68937,14 @@ export namespace Prisma {
     scraper_generation_run?: ScraperGenerationRunUpdateOneWithoutStepsNestedInput
     workflow_run?: WorkflowRunUpdateOneWithoutStepsNestedInput
     screenshot_after?: DocumentUpdateOneWithoutComputer_use_steps_afterNestedInput
+    user?: UserUpdateOneRequiredWithoutComputer_use_stepsNestedInput
   }
 
   export type ComputerUseStepUncheckedUpdateWithoutScreenshot_beforeInput = {
     id?: StringFieldUpdateOperationsInput | string
     scraper_generation_run_id?: NullableStringFieldUpdateOperationsInput | string | null
     workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: StringFieldUpdateOperationsInput | string
     step_index?: IntFieldUpdateOperationsInput | number
     action_type?: EnumComputerActionTypeFieldUpdateOperationsInput | $Enums.ComputerActionType
     action_payload?: JsonNullValueInput | InputJsonValue
@@ -64388,6 +68957,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     scraper_generation_run_id?: NullableStringFieldUpdateOperationsInput | string | null
     workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: StringFieldUpdateOperationsInput | string
     step_index?: IntFieldUpdateOperationsInput | number
     action_type?: EnumComputerActionTypeFieldUpdateOperationsInput | $Enums.ComputerActionType
     action_payload?: JsonNullValueInput | InputJsonValue
@@ -64406,12 +68976,14 @@ export namespace Prisma {
     scraper_generation_run?: ScraperGenerationRunUpdateOneWithoutStepsNestedInput
     workflow_run?: WorkflowRunUpdateOneWithoutStepsNestedInput
     screenshot_before?: DocumentUpdateOneWithoutComputer_use_steps_beforeNestedInput
+    user?: UserUpdateOneRequiredWithoutComputer_use_stepsNestedInput
   }
 
   export type ComputerUseStepUncheckedUpdateWithoutScreenshot_afterInput = {
     id?: StringFieldUpdateOperationsInput | string
     scraper_generation_run_id?: NullableStringFieldUpdateOperationsInput | string | null
     workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: StringFieldUpdateOperationsInput | string
     step_index?: IntFieldUpdateOperationsInput | number
     action_type?: EnumComputerActionTypeFieldUpdateOperationsInput | $Enums.ComputerActionType
     action_payload?: JsonNullValueInput | InputJsonValue
@@ -64424,6 +68996,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     scraper_generation_run_id?: NullableStringFieldUpdateOperationsInput | string | null
     workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: StringFieldUpdateOperationsInput | string
     step_index?: IntFieldUpdateOperationsInput | number
     action_type?: EnumComputerActionTypeFieldUpdateOperationsInput | $Enums.ComputerActionType
     action_payload?: JsonNullValueInput | InputJsonValue
@@ -64587,6 +69160,7 @@ export namespace Prisma {
   export type ScraperGenerationRunCreateManyWebsite_targetInput = {
     id?: string
     workflow_config_id?: string | null
+    user_id: string
     trigger?: $Enums.GenerationTrigger
     status?: $Enums.GenerationRunStatus
     prompt?: string | null
@@ -64638,6 +69212,7 @@ export namespace Prisma {
 
   export type BlockRuleCreateManyWebsite_targetInput = {
     id?: string
+    user_id: string
     label?: string | null
     signal: $Enums.BlockSignal
     source: $Enums.BlockRuleSource
@@ -64665,6 +69240,7 @@ export namespace Prisma {
   export type ExtractedItemCreateManyWebsite_targetInput = {
     id?: string
     workflow_run_id?: string | null
+    user_id: string
     source_url: string
     external_id?: string | null
     raw_data: JsonNullValueInput | InputJsonValue
@@ -64803,12 +69379,14 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     workflow_config?: WorkflowConfigUpdateOneWithoutScraper_generation_runsNestedInput
     produced_version?: ScraperVersionUpdateOneWithoutProduced_by_runNestedInput
+    user?: UserUpdateOneRequiredWithoutScraper_generation_runsNestedInput
     steps?: ComputerUseStepUpdateManyWithoutScraper_generation_runNestedInput
   }
 
   export type ScraperGenerationRunUncheckedUpdateWithoutWebsite_targetInput = {
     id?: StringFieldUpdateOperationsInput | string
     workflow_config_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: StringFieldUpdateOperationsInput | string
     trigger?: EnumGenerationTriggerFieldUpdateOperationsInput | $Enums.GenerationTrigger
     status?: EnumGenerationRunStatusFieldUpdateOperationsInput | $Enums.GenerationRunStatus
     prompt?: NullableStringFieldUpdateOperationsInput | string | null
@@ -64829,6 +69407,7 @@ export namespace Prisma {
   export type ScraperGenerationRunUncheckedUpdateManyWithoutWebsite_targetInput = {
     id?: StringFieldUpdateOperationsInput | string
     workflow_config_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: StringFieldUpdateOperationsInput | string
     trigger?: EnumGenerationTriggerFieldUpdateOperationsInput | $Enums.GenerationTrigger
     status?: EnumGenerationRunStatusFieldUpdateOperationsInput | $Enums.GenerationRunStatus
     prompt?: NullableStringFieldUpdateOperationsInput | string | null
@@ -64975,10 +69554,12 @@ export namespace Prisma {
     position?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutBlock_rulesNestedInput
   }
 
   export type BlockRuleUncheckedUpdateWithoutWebsite_targetInput = {
     id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
     label?: NullableStringFieldUpdateOperationsInput | string | null
     signal?: EnumBlockSignalFieldUpdateOperationsInput | $Enums.BlockSignal
     source?: EnumBlockRuleSourceFieldUpdateOperationsInput | $Enums.BlockRuleSource
@@ -64992,6 +69573,7 @@ export namespace Prisma {
 
   export type BlockRuleUncheckedUpdateManyWithoutWebsite_targetInput = {
     id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
     label?: NullableStringFieldUpdateOperationsInput | string | null
     signal?: EnumBlockSignalFieldUpdateOperationsInput | $Enums.BlockSignal
     source?: EnumBlockRuleSourceFieldUpdateOperationsInput | $Enums.BlockRuleSource
@@ -65053,11 +69635,13 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     workflow_run?: WorkflowRunUpdateOneWithoutExtracted_itemsNestedInput
+    user?: UserUpdateOneRequiredWithoutExtracted_itemsNestedInput
   }
 
   export type ExtractedItemUncheckedUpdateWithoutWebsite_targetInput = {
     id?: StringFieldUpdateOperationsInput | string
     workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: StringFieldUpdateOperationsInput | string
     source_url?: StringFieldUpdateOperationsInput | string
     external_id?: NullableStringFieldUpdateOperationsInput | string | null
     raw_data?: JsonNullValueInput | InputJsonValue
@@ -65071,6 +69655,7 @@ export namespace Prisma {
   export type ExtractedItemUncheckedUpdateManyWithoutWebsite_targetInput = {
     id?: StringFieldUpdateOperationsInput | string
     workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: StringFieldUpdateOperationsInput | string
     source_url?: StringFieldUpdateOperationsInput | string
     external_id?: NullableStringFieldUpdateOperationsInput | string | null
     raw_data?: JsonNullValueInput | InputJsonValue
@@ -65116,6 +69701,7 @@ export namespace Prisma {
 
   export type ScraperVersionCreateManyWorkflow_configInput = {
     id?: string
+    user_id: string
     version: number
     config: JsonNullValueInput | InputJsonValue
     created_by: $Enums.ScraperVersionCreatedBy
@@ -65130,6 +69716,7 @@ export namespace Prisma {
   export type ScraperExecutionTraceCreateManyWorkflow_configInput = {
     id?: string
     workflow_run_id?: string | null
+    user_id: string
     steps: JsonNullValueInput | InputJsonValue
     success: boolean
     error_summary?: string | null
@@ -65140,6 +69727,7 @@ export namespace Prisma {
   export type ScraperGenerationRunCreateManyWorkflow_configInput = {
     id?: string
     website_target_id: string
+    user_id: string
     trigger?: $Enums.GenerationTrigger
     status?: $Enums.GenerationRunStatus
     prompt?: string | null
@@ -65318,6 +69906,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     extraction_schema_version?: ExtractionSchemaVersionUpdateOneWithoutScraper_versionsNestedInput
+    user?: UserUpdateOneRequiredWithoutScraper_versionsNestedInput
     active_for_config?: WorkflowConfigUpdateOneWithoutActive_versionNestedInput
     produced_by_run?: ScraperGenerationRunUpdateOneWithoutProduced_versionNestedInput
     workflow_runs?: WorkflowRunUpdateManyWithoutScraper_versionNestedInput
@@ -65325,6 +69914,7 @@ export namespace Prisma {
 
   export type ScraperVersionUncheckedUpdateWithoutWorkflow_configInput = {
     id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
     version?: IntFieldUpdateOperationsInput | number
     config?: JsonNullValueInput | InputJsonValue
     created_by?: EnumScraperVersionCreatedByFieldUpdateOperationsInput | $Enums.ScraperVersionCreatedBy
@@ -65341,6 +69931,7 @@ export namespace Prisma {
 
   export type ScraperVersionUncheckedUpdateManyWithoutWorkflow_configInput = {
     id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
     version?: IntFieldUpdateOperationsInput | number
     config?: JsonNullValueInput | InputJsonValue
     created_by?: EnumScraperVersionCreatedByFieldUpdateOperationsInput | $Enums.ScraperVersionCreatedBy
@@ -65360,11 +69951,13 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     workflow_run?: WorkflowRunUpdateOneWithoutExecution_tracesNestedInput
+    user?: UserUpdateOneRequiredWithoutScraper_execution_tracesNestedInput
   }
 
   export type ScraperExecutionTraceUncheckedUpdateWithoutWorkflow_configInput = {
     id?: StringFieldUpdateOperationsInput | string
     workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: StringFieldUpdateOperationsInput | string
     steps?: JsonNullValueInput | InputJsonValue
     success?: BoolFieldUpdateOperationsInput | boolean
     error_summary?: NullableStringFieldUpdateOperationsInput | string | null
@@ -65375,6 +69968,7 @@ export namespace Prisma {
   export type ScraperExecutionTraceUncheckedUpdateManyWithoutWorkflow_configInput = {
     id?: StringFieldUpdateOperationsInput | string
     workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: StringFieldUpdateOperationsInput | string
     steps?: JsonNullValueInput | InputJsonValue
     success?: BoolFieldUpdateOperationsInput | boolean
     error_summary?: NullableStringFieldUpdateOperationsInput | string | null
@@ -65399,12 +69993,14 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     website_target?: WebsiteTargetUpdateOneRequiredWithoutScraper_generation_runsNestedInput
     produced_version?: ScraperVersionUpdateOneWithoutProduced_by_runNestedInput
+    user?: UserUpdateOneRequiredWithoutScraper_generation_runsNestedInput
     steps?: ComputerUseStepUpdateManyWithoutScraper_generation_runNestedInput
   }
 
   export type ScraperGenerationRunUncheckedUpdateWithoutWorkflow_configInput = {
     id?: StringFieldUpdateOperationsInput | string
     website_target_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
     trigger?: EnumGenerationTriggerFieldUpdateOperationsInput | $Enums.GenerationTrigger
     status?: EnumGenerationRunStatusFieldUpdateOperationsInput | $Enums.GenerationRunStatus
     prompt?: NullableStringFieldUpdateOperationsInput | string | null
@@ -65425,6 +70021,7 @@ export namespace Prisma {
   export type ScraperGenerationRunUncheckedUpdateManyWithoutWorkflow_configInput = {
     id?: StringFieldUpdateOperationsInput | string
     website_target_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
     trigger?: EnumGenerationTriggerFieldUpdateOperationsInput | $Enums.GenerationTrigger
     status?: EnumGenerationRunStatusFieldUpdateOperationsInput | $Enums.GenerationRunStatus
     prompt?: NullableStringFieldUpdateOperationsInput | string | null
@@ -65542,6 +70139,7 @@ export namespace Prisma {
   export type ComputerUseStepCreateManyScraper_generation_runInput = {
     id?: string
     workflow_run_id?: string | null
+    user_id: string
     step_index: number
     action_type: $Enums.ComputerActionType
     action_payload: JsonNullValueInput | InputJsonValue
@@ -65561,11 +70159,13 @@ export namespace Prisma {
     workflow_run?: WorkflowRunUpdateOneWithoutStepsNestedInput
     screenshot_before?: DocumentUpdateOneWithoutComputer_use_steps_beforeNestedInput
     screenshot_after?: DocumentUpdateOneWithoutComputer_use_steps_afterNestedInput
+    user?: UserUpdateOneRequiredWithoutComputer_use_stepsNestedInput
   }
 
   export type ComputerUseStepUncheckedUpdateWithoutScraper_generation_runInput = {
     id?: StringFieldUpdateOperationsInput | string
     workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: StringFieldUpdateOperationsInput | string
     step_index?: IntFieldUpdateOperationsInput | number
     action_type?: EnumComputerActionTypeFieldUpdateOperationsInput | $Enums.ComputerActionType
     action_payload?: JsonNullValueInput | InputJsonValue
@@ -65578,6 +70178,7 @@ export namespace Prisma {
   export type ComputerUseStepUncheckedUpdateManyWithoutScraper_generation_runInput = {
     id?: StringFieldUpdateOperationsInput | string
     workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: StringFieldUpdateOperationsInput | string
     step_index?: IntFieldUpdateOperationsInput | number
     action_type?: EnumComputerActionTypeFieldUpdateOperationsInput | $Enums.ComputerActionType
     action_payload?: JsonNullValueInput | InputJsonValue
@@ -65742,6 +70343,7 @@ export namespace Prisma {
   export type ComputerUseStepCreateManyWorkflow_runInput = {
     id?: string
     scraper_generation_run_id?: string | null
+    user_id: string
     step_index: number
     action_type: $Enums.ComputerActionType
     action_payload: JsonNullValueInput | InputJsonValue
@@ -65759,7 +70361,7 @@ export namespace Prisma {
     status: $Enums.JobStatus
     attempt?: number
     max_attempts?: number | null
-    user_id?: string | null
+    user_id: string
     payload?: NullableJsonNullValueInput | InputJsonValue
     result?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
@@ -65787,6 +70389,7 @@ export namespace Prisma {
   export type ExtractedItemCreateManyWorkflow_runInput = {
     id?: string
     website_target_id: string
+    user_id: string
     source_url: string
     external_id?: string | null
     raw_data: JsonNullValueInput | InputJsonValue
@@ -65800,6 +70403,7 @@ export namespace Prisma {
   export type ScraperExecutionTraceCreateManyWorkflow_runInput = {
     id?: string
     workflow_config_id: string
+    user_id: string
     steps: JsonNullValueInput | InputJsonValue
     success: boolean
     error_summary?: string | null
@@ -65809,6 +70413,7 @@ export namespace Prisma {
 
   export type PlainScrapedPageCreateManyWorkflow_runInput = {
     id?: string
+    user_id: string
     requested_url: string
     final_url?: string | null
     http_status?: number | null
@@ -65843,11 +70448,13 @@ export namespace Prisma {
     scraper_generation_run?: ScraperGenerationRunUpdateOneWithoutStepsNestedInput
     screenshot_before?: DocumentUpdateOneWithoutComputer_use_steps_beforeNestedInput
     screenshot_after?: DocumentUpdateOneWithoutComputer_use_steps_afterNestedInput
+    user?: UserUpdateOneRequiredWithoutComputer_use_stepsNestedInput
   }
 
   export type ComputerUseStepUncheckedUpdateWithoutWorkflow_runInput = {
     id?: StringFieldUpdateOperationsInput | string
     scraper_generation_run_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: StringFieldUpdateOperationsInput | string
     step_index?: IntFieldUpdateOperationsInput | number
     action_type?: EnumComputerActionTypeFieldUpdateOperationsInput | $Enums.ComputerActionType
     action_payload?: JsonNullValueInput | InputJsonValue
@@ -65860,6 +70467,7 @@ export namespace Prisma {
   export type ComputerUseStepUncheckedUpdateManyWithoutWorkflow_runInput = {
     id?: StringFieldUpdateOperationsInput | string
     scraper_generation_run_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: StringFieldUpdateOperationsInput | string
     step_index?: IntFieldUpdateOperationsInput | number
     action_type?: EnumComputerActionTypeFieldUpdateOperationsInput | $Enums.ComputerActionType
     action_payload?: JsonNullValueInput | InputJsonValue
@@ -65886,7 +70494,7 @@ export namespace Prisma {
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneWithoutJob_logsNestedInput
+    user?: UserUpdateOneRequiredWithoutJob_logsNestedInput
   }
 
   export type JobLogUncheckedUpdateWithoutWorkflow_runInput = {
@@ -65897,7 +70505,7 @@ export namespace Prisma {
     status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
     attempt?: IntFieldUpdateOperationsInput | number
     max_attempts?: NullableIntFieldUpdateOperationsInput | number | null
-    user_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: StringFieldUpdateOperationsInput | string
     payload?: NullableJsonNullValueInput | InputJsonValue
     result?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
@@ -65917,7 +70525,7 @@ export namespace Prisma {
     status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
     attempt?: IntFieldUpdateOperationsInput | number
     max_attempts?: NullableIntFieldUpdateOperationsInput | number | null
-    user_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: StringFieldUpdateOperationsInput | string
     payload?: NullableJsonNullValueInput | InputJsonValue
     result?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
@@ -65979,11 +70587,13 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     website_target?: WebsiteTargetUpdateOneRequiredWithoutExtracted_itemsNestedInput
+    user?: UserUpdateOneRequiredWithoutExtracted_itemsNestedInput
   }
 
   export type ExtractedItemUncheckedUpdateWithoutWorkflow_runInput = {
     id?: StringFieldUpdateOperationsInput | string
     website_target_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
     source_url?: StringFieldUpdateOperationsInput | string
     external_id?: NullableStringFieldUpdateOperationsInput | string | null
     raw_data?: JsonNullValueInput | InputJsonValue
@@ -65997,6 +70607,7 @@ export namespace Prisma {
   export type ExtractedItemUncheckedUpdateManyWithoutWorkflow_runInput = {
     id?: StringFieldUpdateOperationsInput | string
     website_target_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
     source_url?: StringFieldUpdateOperationsInput | string
     external_id?: NullableStringFieldUpdateOperationsInput | string | null
     raw_data?: JsonNullValueInput | InputJsonValue
@@ -66015,11 +70626,13 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     workflow_config?: WorkflowConfigUpdateOneRequiredWithoutExecution_tracesNestedInput
+    user?: UserUpdateOneRequiredWithoutScraper_execution_tracesNestedInput
   }
 
   export type ScraperExecutionTraceUncheckedUpdateWithoutWorkflow_runInput = {
     id?: StringFieldUpdateOperationsInput | string
     workflow_config_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
     steps?: JsonNullValueInput | InputJsonValue
     success?: BoolFieldUpdateOperationsInput | boolean
     error_summary?: NullableStringFieldUpdateOperationsInput | string | null
@@ -66030,6 +70643,7 @@ export namespace Prisma {
   export type ScraperExecutionTraceUncheckedUpdateManyWithoutWorkflow_runInput = {
     id?: StringFieldUpdateOperationsInput | string
     workflow_config_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
     steps?: JsonNullValueInput | InputJsonValue
     success?: BoolFieldUpdateOperationsInput | boolean
     error_summary?: NullableStringFieldUpdateOperationsInput | string | null
@@ -66049,12 +70663,14 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutPlain_scraped_pagesNestedInput
     extraction_result?: ExtractionResultUpdateOneWithoutPlain_scraped_pageNestedInput
     ai_batch_request_items?: AiBatchRequestItemUpdateManyWithoutPlain_scraped_pageNestedInput
   }
 
   export type PlainScrapedPageUncheckedUpdateWithoutWorkflow_runInput = {
     id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
     requested_url?: StringFieldUpdateOperationsInput | string
     final_url?: NullableStringFieldUpdateOperationsInput | string | null
     http_status?: NullableIntFieldUpdateOperationsInput | number | null
@@ -66071,6 +70687,7 @@ export namespace Prisma {
 
   export type PlainScrapedPageUncheckedUpdateManyWithoutWorkflow_runInput = {
     id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
     requested_url?: StringFieldUpdateOperationsInput | string
     final_url?: NullableStringFieldUpdateOperationsInput | string | null
     http_status?: NullableIntFieldUpdateOperationsInput | number | null
@@ -66160,6 +70777,7 @@ export namespace Prisma {
   export type ScraperVersionCreateManyExtraction_schema_versionInput = {
     id?: string
     workflow_config_id: string
+    user_id: string
     version: number
     config: JsonNullValueInput | InputJsonValue
     created_by: $Enums.ScraperVersionCreatedBy
@@ -66240,6 +70858,7 @@ export namespace Prisma {
     id?: string
     workflow_run_id?: string | null
     plain_scraped_page_id?: string | null
+    user_id: string
     structured_status?: $Enums.ExtractionFormatStatus | null
     structured_data?: NullableJsonNullValueInput | InputJsonValue
     structured_raw_ai_output?: NullableJsonNullValueInput | InputJsonValue
@@ -66265,6 +70884,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     workflow_config?: WorkflowConfigUpdateOneRequiredWithoutVersionsNestedInput
+    user?: UserUpdateOneRequiredWithoutScraper_versionsNestedInput
     active_for_config?: WorkflowConfigUpdateOneWithoutActive_versionNestedInput
     produced_by_run?: ScraperGenerationRunUpdateOneWithoutProduced_versionNestedInput
     workflow_runs?: WorkflowRunUpdateManyWithoutScraper_versionNestedInput
@@ -66273,6 +70893,7 @@ export namespace Prisma {
   export type ScraperVersionUncheckedUpdateWithoutExtraction_schema_versionInput = {
     id?: StringFieldUpdateOperationsInput | string
     workflow_config_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
     version?: IntFieldUpdateOperationsInput | number
     config?: JsonNullValueInput | InputJsonValue
     created_by?: EnumScraperVersionCreatedByFieldUpdateOperationsInput | $Enums.ScraperVersionCreatedBy
@@ -66289,6 +70910,7 @@ export namespace Prisma {
   export type ScraperVersionUncheckedUpdateManyWithoutExtraction_schema_versionInput = {
     id?: StringFieldUpdateOperationsInput | string
     workflow_config_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
     version?: IntFieldUpdateOperationsInput | number
     config?: JsonNullValueInput | InputJsonValue
     created_by?: EnumScraperVersionCreatedByFieldUpdateOperationsInput | $Enums.ScraperVersionCreatedBy
@@ -66545,12 +71167,14 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     workflow_run?: WorkflowRunUpdateOneWithoutExtraction_resultNestedInput
     plain_scraped_page?: PlainScrapedPageUpdateOneWithoutExtraction_resultNestedInput
+    user?: UserUpdateOneRequiredWithoutExtraction_resultsNestedInput
   }
 
   export type ExtractionResultUncheckedUpdateWithoutExtraction_schema_versionInput = {
     id?: StringFieldUpdateOperationsInput | string
     workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
     plain_scraped_page_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: StringFieldUpdateOperationsInput | string
     structured_status?: NullableEnumExtractionFormatStatusFieldUpdateOperationsInput | $Enums.ExtractionFormatStatus | null
     structured_data?: NullableJsonNullValueInput | InputJsonValue
     structured_raw_ai_output?: NullableJsonNullValueInput | InputJsonValue
@@ -66569,6 +71193,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
     plain_scraped_page_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: StringFieldUpdateOperationsInput | string
     structured_status?: NullableEnumExtractionFormatStatusFieldUpdateOperationsInput | $Enums.ExtractionFormatStatus | null
     structured_data?: NullableJsonNullValueInput | InputJsonValue
     structured_raw_ai_output?: NullableJsonNullValueInput | InputJsonValue
@@ -66586,6 +71211,7 @@ export namespace Prisma {
   export type AiBatchRequestItemCreateManyPlain_scraped_pageInput = {
     id?: string
     ai_batch_job_id: string
+    user_id: string
     custom_id: string
     source_url?: string | null
     content_label?: string | null
@@ -66609,11 +71235,13 @@ export namespace Prisma {
     status?: NullableEnumExtractionFormatStatusFieldUpdateOperationsInput | $Enums.ExtractionFormatStatus | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     ai_batch_job?: AiBatchJobUpdateOneRequiredWithoutItemsNestedInput
+    user?: UserUpdateOneRequiredWithoutAi_batch_request_itemsNestedInput
   }
 
   export type AiBatchRequestItemUncheckedUpdateWithoutPlain_scraped_pageInput = {
     id?: StringFieldUpdateOperationsInput | string
     ai_batch_job_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
     custom_id?: StringFieldUpdateOperationsInput | string
     source_url?: NullableStringFieldUpdateOperationsInput | string | null
     content_label?: NullableStringFieldUpdateOperationsInput | string | null
@@ -66628,6 +71256,7 @@ export namespace Prisma {
   export type AiBatchRequestItemUncheckedUpdateManyWithoutPlain_scraped_pageInput = {
     id?: StringFieldUpdateOperationsInput | string
     ai_batch_job_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
     custom_id?: StringFieldUpdateOperationsInput | string
     source_url?: NullableStringFieldUpdateOperationsInput | string | null
     content_label?: NullableStringFieldUpdateOperationsInput | string | null
@@ -66641,6 +71270,7 @@ export namespace Prisma {
 
   export type AiBatchRequestItemCreateManyAi_batch_jobInput = {
     id?: string
+    user_id: string
     custom_id: string
     plain_scraped_page_id?: string | null
     source_url?: string | null
@@ -66665,10 +71295,12 @@ export namespace Prisma {
     status?: NullableEnumExtractionFormatStatusFieldUpdateOperationsInput | $Enums.ExtractionFormatStatus | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     plain_scraped_page?: PlainScrapedPageUpdateOneWithoutAi_batch_request_itemsNestedInput
+    user?: UserUpdateOneRequiredWithoutAi_batch_request_itemsNestedInput
   }
 
   export type AiBatchRequestItemUncheckedUpdateWithoutAi_batch_jobInput = {
     id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
     custom_id?: StringFieldUpdateOperationsInput | string
     plain_scraped_page_id?: NullableStringFieldUpdateOperationsInput | string | null
     source_url?: NullableStringFieldUpdateOperationsInput | string | null
@@ -66683,6 +71315,7 @@ export namespace Prisma {
 
   export type AiBatchRequestItemUncheckedUpdateManyWithoutAi_batch_jobInput = {
     id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
     custom_id?: StringFieldUpdateOperationsInput | string
     plain_scraped_page_id?: NullableStringFieldUpdateOperationsInput | string | null
     source_url?: NullableStringFieldUpdateOperationsInput | string | null

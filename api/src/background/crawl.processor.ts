@@ -298,6 +298,7 @@ export class CrawlProcessor extends WorkerHost implements OnModuleInit {
           create: {
             website_target_id: run.website_target_id!,
             workflow_run_id: workflowRunId,
+            user_id: run.user_id,
             source_url: item.source_url,
             external_id: externalId,
             raw_data: raw as Prisma.InputJsonValue,
@@ -322,6 +323,7 @@ export class CrawlProcessor extends WorkerHost implements OnModuleInit {
         data: {
           workflow_config_id: workflowConfig.id,
           workflow_run_id: workflowRunId,
+          user_id: run.user_id,
           steps: crawlResult.steps as Prisma.InputJsonValue,
           success: crawlResult.success,
           error_summary: crawlResult.errorSummary ?? null,
@@ -400,6 +402,7 @@ export class CrawlProcessor extends WorkerHost implements OnModuleInit {
 
         await this.extractionService.persist(extractionOutcome, {
           workflowRunId,
+          userId: run.user_id,
           extractionSchemaVersionId: run.extraction_schema_version_id,
         });
       }

@@ -263,10 +263,20 @@ model User {
   extraction_schemas    ExtractionSchema[]
   api_keys              ApiKey[]
   webhook_endpoints     WebhookEndpoint[]
+  webhook_deliveries    WebhookDelivery[]
   job_logs              JobLog[]
   diagnostics_packages  DiagnosticsPackage[]
   notifications         Notification[]
   cost_entries          CostEntry[]
+  scraper_versions          ScraperVersion[]
+  scraper_generation_runs   ScraperGenerationRun[]
+  computer_use_steps        ComputerUseStep[]
+  scraper_execution_traces  ScraperExecutionTrace[]
+  extracted_items           ExtractedItem[]
+  plain_scraped_pages       PlainScrapedPage[]
+  extraction_results        ExtractionResult[]
+  ai_batch_request_items    AiBatchRequestItem[]
+  block_rules               BlockRule[]
 
   @@index([email])
   @@index([phone])
@@ -333,6 +343,7 @@ model WebhookEndpoint {
 model WebhookDelivery {
   id                  String                @id @default(uuid())
   webhook_endpoint_id String
+  user_id             String
   event_type          WebhookEventType
   // Plain string, no FK — delivery history must survive WorkflowRun pruning/deletion.
   workflow_run_id     String?
@@ -347,10 +358,12 @@ model WebhookDelivery {
   created_at          DateTime              @default(now())
 
   webhook_endpoint WebhookEndpoint @relation(fields: [webhook_endpoint_id], references: [id], onDelete: Cascade)
+  user             User            @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@index([webhook_endpoint_id])
   @@index([webhook_endpoint_id, created_at])
   @@index([status])
+  @@index([user_id])
   @@map("webhook_deliveries")
 }
 
@@ -405,6 +418,7 @@ model WebsiteTarget {
 model BlockRule {
   id                String          @id @default(uuid())
   website_target_id String
+  user_id           String
   label             String?
   signal            BlockSignal
   source            BlockRuleSource
@@ -416,8 +430,10 @@ model BlockRule {
   updated_at        DateTime        @updatedAt
 
   website_target WebsiteTarget @relation(fields: [website_target_id], references: [id], onDelete: Cascade)
+  user           User          @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@index([website_target_id])
+  @@index([user_id])
   @@map("block_rules")
 }
 
@@ -507,6 +523,7 @@ model ScraperGenerationRun {
   id                  String              @id @default(uuid())
   website_target_id   String
   workflow_config_id  String?
+  user_id             String
   trigger             GenerationTrigger   @default(MANUAL)
   status              GenerationRunStatus @default(QUEUED)
   prompt              String?
@@ -525,12 +542,14 @@ model ScraperGenerationRun {
   website_target   WebsiteTarget   @relation(fields: [website_target_id], references: [id], onDelete: Cascade)
   workflow_config  WorkflowConfig? @relation(fields: [workflow_config_id], references: [id], onDelete: SetNull)
   produced_version ScraperVersion? @relation("ProducedVersion", fields: [produced_version_id], references: [id], onDelete: SetNull)
+  user             User            @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   steps ComputerUseStep[]
 
   @@index([website_target_id])
   @@index([workflow_config_id])
   @@index([status])
+  @@index([user_id])
   @@map("scraper_generation_runs")
 }
 
@@ -540,6 +559,7 @@ model ComputerUseStep {
   id                        String             @id @default(uuid())
   scraper_generation_run_id String?
   workflow_run_id           String?
+  user_id                   String
   step_index                Int
   action_type               ComputerActionType
   action_payload            Json
@@ -552,17 +572,20 @@ model ComputerUseStep {
   workflow_run           WorkflowRun?          @relation(fields: [workflow_run_id], references: [id], onDelete: Cascade)
   screenshot_before      Document?             @relation("ComputerUseStepScreenshotBefore", fields: [screenshot_before_id], references: [id], onDelete: SetNull)
   screenshot_after       Document?             @relation("ComputerUseStepScreenshotAfter", fields: [screenshot_after_id], references: [id], onDelete: SetNull)
+  user                   User                  @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@index([scraper_generation_run_id])
   @@index([scraper_generation_run_id, step_index])
   @@index([workflow_run_id])
   @@index([workflow_run_id, step_index])
+  @@index([user_id])
   @@map("computer_use_steps")
 }
 
 model ScraperVersion {
   id                 String                  @id @default(uuid())
   workflow_config_id String
+  user_id            String
   version            Int
   // Fixed/reusable scraper configuration or sequence of scraper steps (Computer-Use-generated
   // or CSS-selector-based) produced from generation_prompt. Opaque to Prisma by design.
@@ -585,6 +608,7 @@ model ScraperVersion {
 
   workflow_config           WorkflowConfig           @relation("ScraperVersions", fields: [workflow_config_id], references: [id], onDelete: Cascade)
   extraction_schema_version ExtractionSchemaVersion? @relation(fields: [extraction_schema_version_id], references: [id], onDelete: SetNull)
+  user                      User                     @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   active_for_config WorkflowConfig?       @relation("ActiveVersion")
   produced_by_run   ScraperGenerationRun? @relation("ProducedVersion")
@@ -592,6 +616,7 @@ model ScraperVersion {
 
   @@unique([workflow_config_id, version])
   @@index([extraction_schema_version_id])
+  @@index([user_id])
   @@map("scraper_versions")
 }
 
@@ -599,6 +624,7 @@ model ScraperExecutionTrace {
   id                 String   @id @default(uuid())
   workflow_config_id String
   workflow_run_id    String?
+  user_id            String
   steps              Json
   success            Boolean
   error_summary      String?
@@ -607,8 +633,10 @@ model ScraperExecutionTrace {
 
   workflow_config WorkflowConfig @relation(fields: [workflow_config_id], references: [id], onDelete: Cascade)
   workflow_run    WorkflowRun?   @relation(fields: [workflow_run_id], references: [id], onDelete: SetNull)
+  user            User           @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@index([workflow_config_id])
+  @@index([user_id])
   @@map("scraper_execution_traces")
 }
 
@@ -709,6 +737,7 @@ model ExtractedItem {
   id                String   @id @default(uuid())
   website_target_id String
   workflow_run_id   String?
+  user_id           String
   source_url        String
   external_id       String?
   raw_data          Json
@@ -720,9 +749,11 @@ model ExtractedItem {
 
   website_target WebsiteTarget @relation(fields: [website_target_id], references: [id], onDelete: Cascade)
   workflow_run   WorkflowRun?  @relation(fields: [workflow_run_id], references: [id], onDelete: SetNull)
+  user           User          @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@unique([website_target_id, source_url])
   @@index([workflow_run_id])
+  @@index([user_id])
   @@map("extracted_items")
 }
 
@@ -784,6 +815,7 @@ model ExtractionSchemaVersion {
 model PlainScrapedPage {
   id              String   @id @default(uuid())
   workflow_run_id String
+  user_id         String
   requested_url   String
   final_url       String?
   http_status     Int?
@@ -796,6 +828,7 @@ model PlainScrapedPage {
   created_at      DateTime @default(now())
 
   workflow_run      WorkflowRun       @relation(fields: [workflow_run_id], references: [id], onDelete: Cascade)
+  user              User              @relation(fields: [user_id], references: [id], onDelete: Cascade)
   // Populated when the parent run's extraction_scope is PER_URL (one result per page).
   extraction_result ExtractionResult?
 
@@ -804,6 +837,7 @@ model PlainScrapedPage {
   ai_batch_request_items AiBatchRequestItem[]
 
   @@index([workflow_run_id])
+  @@index([user_id])
   @@map("plain_scraped_pages")
 }
 
@@ -821,6 +855,7 @@ model ExtractionResult {
 
   workflow_run_id       String? @unique
   plain_scraped_page_id String? @unique
+  user_id               String
 
   // The exact schema version this result was validated against (STRUCTURED_JSON only).
   extraction_schema_version_id String?
@@ -846,8 +881,10 @@ model ExtractionResult {
   workflow_run              WorkflowRun?             @relation(fields: [workflow_run_id], references: [id], onDelete: Cascade)
   plain_scraped_page        PlainScrapedPage?        @relation(fields: [plain_scraped_page_id], references: [id], onDelete: Cascade)
   extraction_schema_version ExtractionSchemaVersion? @relation(fields: [extraction_schema_version_id], references: [id], onDelete: SetNull)
+  user                      User                     @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@index([extraction_schema_version_id])
+  @@index([user_id])
   @@map("extraction_results")
 }
 
@@ -891,6 +928,7 @@ model AiBatchJob {
 model AiBatchRequestItem {
   id              String @id @default(uuid())
   ai_batch_job_id String
+  user_id         String
   // Matches the "custom_id" of the corresponding line in the OpenAI batch request/response file.
   custom_id       String
 
@@ -912,8 +950,10 @@ model AiBatchRequestItem {
 
   ai_batch_job       AiBatchJob        @relation(fields: [ai_batch_job_id], references: [id], onDelete: Cascade)
   plain_scraped_page PlainScrapedPage? @relation(fields: [plain_scraped_page_id], references: [id], onDelete: Cascade)
+  user               User              @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@unique([ai_batch_job_id, custom_id])
+  @@index([user_id])
   @@map("ai_batch_request_items")
 }
 
@@ -971,7 +1011,7 @@ model JobLog {
   attempt         Int       @default(0)
   max_attempts    Int?
   workflow_run_id String?
-  user_id         String?
+  user_id         String
   payload         Json?
   result          Json?
   error_message   String?
@@ -983,7 +1023,7 @@ model JobLog {
   updated_at      DateTime  @updatedAt
 
   workflow_run WorkflowRun? @relation(fields: [workflow_run_id], references: [id], onDelete: SetNull)
-  user         User?        @relation(fields: [user_id], references: [id], onDelete: SetNull)
+  user         User         @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@index([queue_name])
   @@index([job_id])

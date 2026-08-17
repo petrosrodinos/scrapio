@@ -7,10 +7,27 @@
  */
 export const REGEX_PRESETS: Record<string, string> = {
   email: '[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}',
-  // Heuristic: a digit (or +) followed by 7+ digit/space/separator chars and a
-  // trailing digit. Matches most formatted phone numbers while skipping short
-  // numbers like page counters or years.
-  phone: '\\+?\\d[\\d\\s\\-.()]{7,}\\d',
+  // Two alternatives, matched against raw HTML:
+  //  1. `tel:` links — high-confidence context, so digits are matched loosely
+  //     (capture group 1 strips the "tel:" prefix from the result).
+  //  2. Grouped phone-shaped text: a 1-4 digit leading group (country/area
+  //     code) followed by 2-3 more digit groups, each introduced by its own
+  //     separator, with the whole thing required to contain at least one
+  //     "+", "(", ")" or "-" (not just bare spaces). That combination is
+  //     what keeps this from matching the digit/space soup that fills raw
+  //     HTML — SVG `viewBox`/`d` values (e.g. "0 0 24 24"), decimal
+  //     coordinate pairs (e.g. "6.92474 18.1137"), bare asset hashes/version
+  //     numbers (e.g. "13971731025"), and space-separated dimension lists
+  //     (e.g. "640 750 828 1080") all fail it — none have the required
+  //     separator structure, or they use only plain spaces between groups.
+  //     A `(?<!\d)`/`(?!\d)` guard also stops it from grabbing a slice out of
+  //     the middle of an unrelated longer digit run. It's still a heuristic:
+  //     dash-separated dates (e.g. "2026-08-17") can slip through, and a
+  //     parenthesized area code glued directly to an unformatted trailing
+  //     block (e.g. "(030) 6941234567") won't match — deliberate trade-offs
+  //     to avoid the false positives above.
+  phone:
+    'tel:\\s*(\\+?[\\d\\s\\-.()]{7,}\\d)|(?<!\\d)(?=[\\d\\s()+-]{0,24}?[()+-])\\+?\\(?\\d{1,4}\\)?(?:[\\s\\-]{1,2}\\(?\\d{2,4}\\)?){2,3}(?!\\d)',
   url: 'https?:\\/\\/[^\\s"\'<>]+',
 };
 

@@ -289,6 +289,7 @@ export class BrowserAgentProcessor extends WorkerHost {
 
       await this.extractionService.persist(extractionOutcome, {
         workflowRunId,
+        userId: run.user_id,
         extractionSchemaVersionId: run.extraction_schema_version_id,
       });
 

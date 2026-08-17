@@ -168,6 +168,7 @@ export class BrowserAgentOrchestratorService {
         const step = await this.prisma.computerUseStep.create({
           data: {
             workflow_run_id: workflowRunId,
+            user_id: run.user_id,
             step_index: stepIndex,
             action_type: mapActionType(action.action),
             action_payload: (action.action === 'done'

@@ -151,6 +151,7 @@ export class PlainScrapeProcessor extends WorkerHost {
         const page = await this.prisma.plainScrapedPage.create({
           data: {
             workflow_run_id: workflowRunId,
+            user_id: run.user_id,
             requested_url: url,
             final_url: fetched.finalUrl,
             http_status: fetched.httpStatus,
@@ -186,6 +187,7 @@ export class PlainScrapeProcessor extends WorkerHost {
 
           await this.extractionService.persist(outcome, {
             plainScrapedPageId: page.id,
+            userId: run.user_id,
             extractionSchemaVersionId: run.extraction_schema_version_id,
           });
         }
@@ -282,6 +284,7 @@ export class PlainScrapeProcessor extends WorkerHost {
 
           await this.extractionService.persist(outcome, {
             workflowRunId,
+            userId: run.user_id,
             extractionSchemaVersionId: run.extraction_schema_version_id,
           });
         }

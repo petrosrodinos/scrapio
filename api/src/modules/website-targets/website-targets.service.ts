@@ -114,6 +114,7 @@ export class WebsiteTargetsService {
             create: block_rules.map((rule, index) => ({
               ...rule,
               position: index,
+              user_id: authUser.id,
             })),
           },
         }),
@@ -136,6 +137,7 @@ export class WebsiteTargetsService {
             create: block_rules.map((rule, index) => ({
               ...rule,
               position: index,
+              user_id: authUser.id,
             })),
           },
         }),

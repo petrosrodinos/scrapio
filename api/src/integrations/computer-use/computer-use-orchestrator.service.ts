@@ -275,6 +275,7 @@ export class ComputerUseOrchestratorService {
         const step = await this.prisma.computerUseStep.create({
           data: {
             scraper_generation_run_id: generationRunId,
+            user_id: run.website_target.user_id,
             step_index: stepIndex,
             action_type: mapActionType(action.action),
             action_payload: (action.action === 'done' ||

@@ -123,6 +123,7 @@ export class ExtractionService {
     target: {
       workflowRunId?: string | null;
       plainScrapedPageId?: string | null;
+      userId: string;
       extractionSchemaVersionId?: string | null;
     },
   ): Promise<ExtractionResult> {
@@ -152,6 +153,7 @@ export class ExtractionService {
       create: {
         workflow_run_id: target.workflowRunId ?? null,
         plain_scraped_page_id: target.plainScrapedPageId ?? null,
+        user_id: target.userId,
         ...payload,
       },
       update: payload,
@@ -292,6 +294,7 @@ export class ExtractionService {
       await tx.aiBatchRequestItem.createMany({
         data: prepared.map(({ item, customId, regexData }) => ({
           ai_batch_job_id: aiBatchJob.id,
+          user_id: target.userId,
           custom_id: customId,
           plain_scraped_page_id: item.plainScrapedPageId ?? null,
           source_url: item.sourceUrl ?? null,
@@ -431,6 +434,7 @@ export class ExtractionService {
       await this.persist(outcome, {
         workflowRunId: item.plain_scraped_page_id ? null : aiBatchJob.workflow_run_id,
         plainScrapedPageId: item.plain_scraped_page_id,
+        userId: aiBatchJob.workflow_run.user_id,
         extractionSchemaVersionId: aiBatchJob.workflow_run.extraction_schema_version_id,
       });
 

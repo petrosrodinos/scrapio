@@ -93,6 +93,7 @@ export class ScraperFailureHandlerService {
           params.websiteTargetId,
           params.workflowConfig.id,
           GenerationTrigger.SELF_HEAL,
+          params.userId,
           selfHealPrompt,
         );
       }

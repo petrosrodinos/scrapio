@@ -150,6 +150,7 @@ export class ScrapersService {
       const version = await tx.scraperVersion.create({
         data: {
           workflow_config_id: scraper.id,
+          user_id: authUser.id,
           version: 1,
           config: dto.config as Prisma.InputJsonValue,
           created_by: ScraperVersionCreatedBy.USER,
@@ -192,6 +193,7 @@ export class ScrapersService {
       const version = await tx.scraperVersion.create({
         data: {
           workflow_config_id: scraperId,
+          user_id: authUser.id,
           version: (latest?.version ?? 0) + 1,
           config: (dto.config ?? {}) as Prisma.InputJsonValue,
           notes: dto.notes,
@@ -295,6 +297,7 @@ export class ScrapersService {
       const newVersion = await tx.scraperVersion.create({
         data: {
           workflow_config_id: id,
+          user_id: authUser.id,
           version: (latest?.version ?? 0) + 1,
           config: {
             ...((activeVersion?.config as Record<string, unknown>) ?? {}),
