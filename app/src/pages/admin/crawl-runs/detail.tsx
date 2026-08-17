@@ -22,8 +22,6 @@ import {
 } from "@/features/crawl-runs/interfaces/crawl-runs.interfaces";
 import { JobStatusChip } from "./components/job-status-chip";
 import type { JobStatus } from "@/features/jobs/interfaces/jobs.interfaces";
-import { RoleTypes } from "@/features/user/interfaces/user.interface";
-import { useAuthStore } from "@/stores/auth";
 import { formatDateTime } from "@/lib/date";
 import { formatDuration } from "@/lib/duration";
 
@@ -38,11 +36,6 @@ export default function CrawlRunDetailPage() {
   const navigate = useNavigate();
   const stopConfirm = useOverlayState();
   const deleteConfirm = useOverlayState();
-  const { role } = useAuthStore();
-  const canViewDiagnostics =
-    role === RoleTypes.ADMIN ||
-    role === RoleTypes.SUPER_ADMIN ||
-    role === RoleTypes.SUPPORT;
 
   const { data: run, isPending } = useCrawlRun(id!);
   const rerun = useRerunCrawlRun();
@@ -146,7 +139,7 @@ export default function CrawlRunDetailPage() {
               <Accordion.Panel>
                 <Accordion.Body>
                   <div className="flex flex-col gap-4 pb-4">
-                    {canViewDiagnostics && run.diagnostics_package ? (
+                    {run.diagnostics_package ? (
                       <button
                         className="text-sm text-accent hover:underline self-start"
                         onClick={() =>

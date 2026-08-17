@@ -21,7 +21,7 @@ export class DiagnosticsService {
     query: DiagnosticsQueryType,
   ): Promise<PaginatedResult<any>> {
     const where: Prisma.DiagnosticsPackageWhereInput = {
-      ...diagnosticsUserWhere(authUser),
+      ...diagnosticsUserWhere(authUser, query.user_id),
       ...(query.scraper_id && { workflow_config_id: query.scraper_id }),
       ...(query.crawl_run_id && { workflow_run_id: query.crawl_run_id }),
       ...(query.date_from || query.date_to

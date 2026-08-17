@@ -28,8 +28,9 @@ export interface DiagnosticsArtifact extends DiagnosticsArtifactSummary {
 
 export interface DiagnosticsPackage {
   id: string;
-  crawl_run_id: string;
-  scraper_id: string;
+  workflow_run_id: string;
+  workflow_config_id: string;
+  user_id: string | null;
   mode: DiagnosticsMode;
   url: string;
   worker_id: string | null;
@@ -43,8 +44,8 @@ export interface DiagnosticsPackage {
   failure_reason: string | null;
   exception: string | null;
   created_at: string;
-  scraper?: { name: string };
-  crawl_run?: { website_target_id: string; status: string };
+  workflow_config?: { name: string };
+  workflow_run?: { website_target_id: string | null; status: string };
   artifacts: DiagnosticsArtifactSummary[];
 }
 
@@ -57,6 +58,7 @@ export interface DiagnosticsListQuery {
   limit?: number;
   scraper_id?: string;
   crawl_run_id?: string;
+  user_id?: string;
   date_from?: string;
   date_to?: string;
 }

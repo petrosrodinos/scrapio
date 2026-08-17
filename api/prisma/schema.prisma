@@ -253,6 +253,7 @@ model User {
   api_keys              ApiKey[]
   webhook_endpoints     WebhookEndpoint[]
   job_logs              JobLog[]
+  diagnostics_packages  DiagnosticsPackage[]
 
   @@index([email])
   @@index([phone])
@@ -903,6 +904,7 @@ model DiagnosticsPackage {
   id                 String          @id @default(uuid())
   workflow_run_id    String          @unique
   workflow_config_id String
+  user_id            String?
   mode               DiagnosticsMode
   url                String
   worker_id          String?
@@ -919,9 +921,11 @@ model DiagnosticsPackage {
 
   workflow_run    WorkflowRun           @relation(fields: [workflow_run_id], references: [id], onDelete: Cascade)
   workflow_config WorkflowConfig        @relation(fields: [workflow_config_id], references: [id], onDelete: Cascade)
+  user            User?                 @relation(fields: [user_id], references: [id], onDelete: SetNull)
   artifacts       DiagnosticsArtifact[]
 
   @@index([workflow_config_id])
+  @@index([user_id])
   @@map("diagnostics_packages")
 }
 

@@ -11,6 +11,7 @@ export const DiagnosticsQuerySchema = z.object({
     .transform((v) => (v ? Math.min(parseInt(v, 10), 100) : 20)),
   scraper_id: z.string().uuid().optional(),
   crawl_run_id: z.string().uuid().optional(),
+  user_id: z.string().uuid().optional(),
   date_from: z
     .string()
     .datetime()

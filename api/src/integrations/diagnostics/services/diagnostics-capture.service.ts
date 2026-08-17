@@ -261,6 +261,7 @@ export class DiagnosticsCaptureService {
       data: {
         workflow_run_id: ctx.workflowRunId,
         workflow_config_id: ctx.workflowConfigId,
+        user_id: ctx.userId,
         mode: ctx.mode as DiagnosticsMode,
         url: ctx.url,
         worker_id: ctx.workerId ?? null,

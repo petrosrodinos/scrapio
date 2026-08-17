@@ -453,6 +453,7 @@ exports.Prisma.DiagnosticsPackageScalarFieldEnum = {
   id: 'id',
   workflow_run_id: 'workflow_run_id',
   workflow_config_id: 'workflow_config_id',
+  user_id: 'user_id',
   mode: 'mode',
   url: 'url',
   worker_id: 'worker_id',

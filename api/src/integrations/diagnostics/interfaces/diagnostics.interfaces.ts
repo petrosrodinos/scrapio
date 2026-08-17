@@ -3,6 +3,7 @@ import { DiagnosticsMode } from 'generated/prisma';
 export interface DiagnosticsRunContext {
   workflowRunId: string;
   workflowConfigId: string;
+  userId: string;
   scraperVersion?: number;
   url: string;
   mode: DiagnosticsMode | string;

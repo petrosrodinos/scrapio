@@ -117,6 +117,13 @@ class DiagnosticsPackageListItem {
   })
   workflow_config_id: string;
 
+  @ApiPropertyOptional({
+    nullable: true,
+    description: 'Id of the user this package belongs to',
+    example: 'b4a3c2d1-e0f9-4a8b-9c7d-6e5f4a3b2c1d',
+  })
+  user_id: string | null;
+
   @ApiProperty({
     enum: DiagnosticsMode,
     description: 'Capture mode used when this package was recorded',
@@ -227,7 +234,7 @@ class DiagnosticsPackageDetail extends OmitType(DiagnosticsPackageListItem, [
 @ApiBearerAuth()
 @Controller('diagnostics')
 @UseGuards(JwtGuard, RolesGuard)
-@Roles(AuthRole.ADMIN, AuthRole.SUPPORT)
+@Roles(AuthRole.USER, AuthRole.ADMIN, AuthRole.SUPPORT)
 export class DiagnosticsController {
   constructor(private readonly diagnosticsService: DiagnosticsService) {}
 
@@ -257,6 +264,12 @@ export class DiagnosticsController {
     required: false,
     type: String,
     description: 'Filter by crawl run (workflow run) id',
+  })
+  @ApiQuery({
+    name: 'user_id',
+    required: false,
+    type: String,
+    description: 'Filter by user id (admin/support only)',
   })
   @ApiQuery({
     name: 'date_from',

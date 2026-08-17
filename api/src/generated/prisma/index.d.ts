@@ -3640,6 +3640,7 @@ export namespace Prisma {
     api_keys: number
     webhook_endpoints: number
     job_logs: number
+    diagnostics_packages: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3652,6 +3653,7 @@ export namespace Prisma {
     api_keys?: boolean | UserCountOutputTypeCountApi_keysArgs
     webhook_endpoints?: boolean | UserCountOutputTypeCountWebhook_endpointsArgs
     job_logs?: boolean | UserCountOutputTypeCountJob_logsArgs
+    diagnostics_packages?: boolean | UserCountOutputTypeCountDiagnostics_packagesArgs
   }
 
   // Custom InputTypes
@@ -3726,6 +3728,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountJob_logsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: JobLogWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountDiagnostics_packagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DiagnosticsPackageWhereInput
   }
 
 
@@ -4482,6 +4491,7 @@ export namespace Prisma {
     api_keys?: boolean | User$api_keysArgs<ExtArgs>
     webhook_endpoints?: boolean | User$webhook_endpointsArgs<ExtArgs>
     job_logs?: boolean | User$job_logsArgs<ExtArgs>
+    diagnostics_packages?: boolean | User$diagnostics_packagesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -4529,6 +4539,7 @@ export namespace Prisma {
     api_keys?: boolean | User$api_keysArgs<ExtArgs>
     webhook_endpoints?: boolean | User$webhook_endpointsArgs<ExtArgs>
     job_logs?: boolean | User$job_logsArgs<ExtArgs>
+    diagnostics_packages?: boolean | User$diagnostics_packagesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -4546,6 +4557,7 @@ export namespace Prisma {
       api_keys: Prisma.$ApiKeyPayload<ExtArgs>[]
       webhook_endpoints: Prisma.$WebhookEndpointPayload<ExtArgs>[]
       job_logs: Prisma.$JobLogPayload<ExtArgs>[]
+      diagnostics_packages: Prisma.$DiagnosticsPackagePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -4959,6 +4971,7 @@ export namespace Prisma {
     api_keys<T extends User$api_keysArgs<ExtArgs> = {}>(args?: Subset<T, User$api_keysArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ApiKeyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     webhook_endpoints<T extends User$webhook_endpointsArgs<ExtArgs> = {}>(args?: Subset<T, User$webhook_endpointsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WebhookEndpointPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     job_logs<T extends User$job_logsArgs<ExtArgs> = {}>(args?: Subset<T, User$job_logsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JobLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    diagnostics_packages<T extends User$diagnostics_packagesArgs<ExtArgs> = {}>(args?: Subset<T, User$diagnostics_packagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DiagnosticsPackagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5597,6 +5610,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: JobLogScalarFieldEnum | JobLogScalarFieldEnum[]
+  }
+
+  /**
+   * User.diagnostics_packages
+   */
+  export type User$diagnostics_packagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DiagnosticsPackage
+     */
+    select?: DiagnosticsPackageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DiagnosticsPackage
+     */
+    omit?: DiagnosticsPackageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DiagnosticsPackageInclude<ExtArgs> | null
+    where?: DiagnosticsPackageWhereInput
+    orderBy?: DiagnosticsPackageOrderByWithRelationInput | DiagnosticsPackageOrderByWithRelationInput[]
+    cursor?: DiagnosticsPackageWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DiagnosticsPackageScalarFieldEnum | DiagnosticsPackageScalarFieldEnum[]
   }
 
   /**
@@ -30848,6 +30885,7 @@ export namespace Prisma {
     id: string | null
     workflow_run_id: string | null
     workflow_config_id: string | null
+    user_id: string | null
     mode: $Enums.DiagnosticsMode | null
     url: string | null
     worker_id: string | null
@@ -30867,6 +30905,7 @@ export namespace Prisma {
     id: string | null
     workflow_run_id: string | null
     workflow_config_id: string | null
+    user_id: string | null
     mode: $Enums.DiagnosticsMode | null
     url: string | null
     worker_id: string | null
@@ -30886,6 +30925,7 @@ export namespace Prisma {
     id: number
     workflow_run_id: number
     workflow_config_id: number
+    user_id: number
     mode: number
     url: number
     worker_id: number
@@ -30919,6 +30959,7 @@ export namespace Prisma {
     id?: true
     workflow_run_id?: true
     workflow_config_id?: true
+    user_id?: true
     mode?: true
     url?: true
     worker_id?: true
@@ -30938,6 +30979,7 @@ export namespace Prisma {
     id?: true
     workflow_run_id?: true
     workflow_config_id?: true
+    user_id?: true
     mode?: true
     url?: true
     worker_id?: true
@@ -30957,6 +30999,7 @@ export namespace Prisma {
     id?: true
     workflow_run_id?: true
     workflow_config_id?: true
+    user_id?: true
     mode?: true
     url?: true
     worker_id?: true
@@ -31063,6 +31106,7 @@ export namespace Prisma {
     id: string
     workflow_run_id: string
     workflow_config_id: string
+    user_id: string | null
     mode: $Enums.DiagnosticsMode
     url: string
     worker_id: string | null
@@ -31101,6 +31145,7 @@ export namespace Prisma {
     id?: boolean
     workflow_run_id?: boolean
     workflow_config_id?: boolean
+    user_id?: boolean
     mode?: boolean
     url?: boolean
     worker_id?: boolean
@@ -31116,6 +31161,7 @@ export namespace Prisma {
     created_at?: boolean
     workflow_run?: boolean | WorkflowRunDefaultArgs<ExtArgs>
     workflow_config?: boolean | WorkflowConfigDefaultArgs<ExtArgs>
+    user?: boolean | DiagnosticsPackage$userArgs<ExtArgs>
     artifacts?: boolean | DiagnosticsPackage$artifactsArgs<ExtArgs>
     _count?: boolean | DiagnosticsPackageCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["diagnosticsPackage"]>
@@ -31124,6 +31170,7 @@ export namespace Prisma {
     id?: boolean
     workflow_run_id?: boolean
     workflow_config_id?: boolean
+    user_id?: boolean
     mode?: boolean
     url?: boolean
     worker_id?: boolean
@@ -31139,12 +31186,14 @@ export namespace Prisma {
     created_at?: boolean
     workflow_run?: boolean | WorkflowRunDefaultArgs<ExtArgs>
     workflow_config?: boolean | WorkflowConfigDefaultArgs<ExtArgs>
+    user?: boolean | DiagnosticsPackage$userArgs<ExtArgs>
   }, ExtArgs["result"]["diagnosticsPackage"]>
 
   export type DiagnosticsPackageSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     workflow_run_id?: boolean
     workflow_config_id?: boolean
+    user_id?: boolean
     mode?: boolean
     url?: boolean
     worker_id?: boolean
@@ -31160,12 +31209,14 @@ export namespace Prisma {
     created_at?: boolean
     workflow_run?: boolean | WorkflowRunDefaultArgs<ExtArgs>
     workflow_config?: boolean | WorkflowConfigDefaultArgs<ExtArgs>
+    user?: boolean | DiagnosticsPackage$userArgs<ExtArgs>
   }, ExtArgs["result"]["diagnosticsPackage"]>
 
   export type DiagnosticsPackageSelectScalar = {
     id?: boolean
     workflow_run_id?: boolean
     workflow_config_id?: boolean
+    user_id?: boolean
     mode?: boolean
     url?: boolean
     worker_id?: boolean
@@ -31181,20 +31232,23 @@ export namespace Prisma {
     created_at?: boolean
   }
 
-  export type DiagnosticsPackageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "workflow_run_id" | "workflow_config_id" | "mode" | "url" | "worker_id" | "browser_version" | "playwright_version" | "scraper_version" | "retry_number" | "started_at" | "finished_at" | "duration_ms" | "failure_reason" | "exception" | "created_at", ExtArgs["result"]["diagnosticsPackage"]>
+  export type DiagnosticsPackageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "workflow_run_id" | "workflow_config_id" | "user_id" | "mode" | "url" | "worker_id" | "browser_version" | "playwright_version" | "scraper_version" | "retry_number" | "started_at" | "finished_at" | "duration_ms" | "failure_reason" | "exception" | "created_at", ExtArgs["result"]["diagnosticsPackage"]>
   export type DiagnosticsPackageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workflow_run?: boolean | WorkflowRunDefaultArgs<ExtArgs>
     workflow_config?: boolean | WorkflowConfigDefaultArgs<ExtArgs>
+    user?: boolean | DiagnosticsPackage$userArgs<ExtArgs>
     artifacts?: boolean | DiagnosticsPackage$artifactsArgs<ExtArgs>
     _count?: boolean | DiagnosticsPackageCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type DiagnosticsPackageIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workflow_run?: boolean | WorkflowRunDefaultArgs<ExtArgs>
     workflow_config?: boolean | WorkflowConfigDefaultArgs<ExtArgs>
+    user?: boolean | DiagnosticsPackage$userArgs<ExtArgs>
   }
   export type DiagnosticsPackageIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workflow_run?: boolean | WorkflowRunDefaultArgs<ExtArgs>
     workflow_config?: boolean | WorkflowConfigDefaultArgs<ExtArgs>
+    user?: boolean | DiagnosticsPackage$userArgs<ExtArgs>
   }
 
   export type $DiagnosticsPackagePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -31202,12 +31256,14 @@ export namespace Prisma {
     objects: {
       workflow_run: Prisma.$WorkflowRunPayload<ExtArgs>
       workflow_config: Prisma.$WorkflowConfigPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs> | null
       artifacts: Prisma.$DiagnosticsArtifactPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       workflow_run_id: string
       workflow_config_id: string
+      user_id: string | null
       mode: $Enums.DiagnosticsMode
       url: string
       worker_id: string | null
@@ -31617,6 +31673,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     workflow_run<T extends WorkflowRunDefaultArgs<ExtArgs> = {}>(args?: Subset<T, WorkflowRunDefaultArgs<ExtArgs>>): Prisma__WorkflowRunClient<$Result.GetResult<Prisma.$WorkflowRunPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     workflow_config<T extends WorkflowConfigDefaultArgs<ExtArgs> = {}>(args?: Subset<T, WorkflowConfigDefaultArgs<ExtArgs>>): Prisma__WorkflowConfigClient<$Result.GetResult<Prisma.$WorkflowConfigPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends DiagnosticsPackage$userArgs<ExtArgs> = {}>(args?: Subset<T, DiagnosticsPackage$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     artifacts<T extends DiagnosticsPackage$artifactsArgs<ExtArgs> = {}>(args?: Subset<T, DiagnosticsPackage$artifactsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DiagnosticsArtifactPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -31650,6 +31707,7 @@ export namespace Prisma {
     readonly id: FieldRef<"DiagnosticsPackage", 'String'>
     readonly workflow_run_id: FieldRef<"DiagnosticsPackage", 'String'>
     readonly workflow_config_id: FieldRef<"DiagnosticsPackage", 'String'>
+    readonly user_id: FieldRef<"DiagnosticsPackage", 'String'>
     readonly mode: FieldRef<"DiagnosticsPackage", 'DiagnosticsMode'>
     readonly url: FieldRef<"DiagnosticsPackage", 'String'>
     readonly worker_id: FieldRef<"DiagnosticsPackage", 'String'>
@@ -32056,6 +32114,25 @@ export namespace Prisma {
      * Limit how many DiagnosticsPackages to delete.
      */
     limit?: number
+  }
+
+  /**
+   * DiagnosticsPackage.user
+   */
+  export type DiagnosticsPackage$userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
   }
 
   /**
@@ -38416,6 +38493,7 @@ export namespace Prisma {
     id: 'id',
     workflow_run_id: 'workflow_run_id',
     workflow_config_id: 'workflow_config_id',
+    user_id: 'user_id',
     mode: 'mode',
     url: 'url',
     worker_id: 'worker_id',
@@ -39054,6 +39132,7 @@ export namespace Prisma {
     api_keys?: ApiKeyListRelationFilter
     webhook_endpoints?: WebhookEndpointListRelationFilter
     job_logs?: JobLogListRelationFilter
+    diagnostics_packages?: DiagnosticsPackageListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -39074,6 +39153,7 @@ export namespace Prisma {
     api_keys?: ApiKeyOrderByRelationAggregateInput
     webhook_endpoints?: WebhookEndpointOrderByRelationAggregateInput
     job_logs?: JobLogOrderByRelationAggregateInput
+    diagnostics_packages?: DiagnosticsPackageOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -39097,6 +39177,7 @@ export namespace Prisma {
     api_keys?: ApiKeyListRelationFilter
     webhook_endpoints?: WebhookEndpointListRelationFilter
     job_logs?: JobLogListRelationFilter
+    diagnostics_packages?: DiagnosticsPackageListRelationFilter
   }, "id" | "email" | "phone">
 
   export type UserOrderByWithAggregationInput = {
@@ -41228,6 +41309,7 @@ export namespace Prisma {
     id?: StringFilter<"DiagnosticsPackage"> | string
     workflow_run_id?: StringFilter<"DiagnosticsPackage"> | string
     workflow_config_id?: StringFilter<"DiagnosticsPackage"> | string
+    user_id?: StringNullableFilter<"DiagnosticsPackage"> | string | null
     mode?: EnumDiagnosticsModeFilter<"DiagnosticsPackage"> | $Enums.DiagnosticsMode
     url?: StringFilter<"DiagnosticsPackage"> | string
     worker_id?: StringNullableFilter<"DiagnosticsPackage"> | string | null
@@ -41243,6 +41325,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"DiagnosticsPackage"> | Date | string
     workflow_run?: XOR<WorkflowRunScalarRelationFilter, WorkflowRunWhereInput>
     workflow_config?: XOR<WorkflowConfigScalarRelationFilter, WorkflowConfigWhereInput>
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     artifacts?: DiagnosticsArtifactListRelationFilter
   }
 
@@ -41250,6 +41333,7 @@ export namespace Prisma {
     id?: SortOrder
     workflow_run_id?: SortOrder
     workflow_config_id?: SortOrder
+    user_id?: SortOrderInput | SortOrder
     mode?: SortOrder
     url?: SortOrder
     worker_id?: SortOrderInput | SortOrder
@@ -41265,6 +41349,7 @@ export namespace Prisma {
     created_at?: SortOrder
     workflow_run?: WorkflowRunOrderByWithRelationInput
     workflow_config?: WorkflowConfigOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
     artifacts?: DiagnosticsArtifactOrderByRelationAggregateInput
   }
 
@@ -41275,6 +41360,7 @@ export namespace Prisma {
     OR?: DiagnosticsPackageWhereInput[]
     NOT?: DiagnosticsPackageWhereInput | DiagnosticsPackageWhereInput[]
     workflow_config_id?: StringFilter<"DiagnosticsPackage"> | string
+    user_id?: StringNullableFilter<"DiagnosticsPackage"> | string | null
     mode?: EnumDiagnosticsModeFilter<"DiagnosticsPackage"> | $Enums.DiagnosticsMode
     url?: StringFilter<"DiagnosticsPackage"> | string
     worker_id?: StringNullableFilter<"DiagnosticsPackage"> | string | null
@@ -41290,6 +41376,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"DiagnosticsPackage"> | Date | string
     workflow_run?: XOR<WorkflowRunScalarRelationFilter, WorkflowRunWhereInput>
     workflow_config?: XOR<WorkflowConfigScalarRelationFilter, WorkflowConfigWhereInput>
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     artifacts?: DiagnosticsArtifactListRelationFilter
   }, "id" | "workflow_run_id">
 
@@ -41297,6 +41384,7 @@ export namespace Prisma {
     id?: SortOrder
     workflow_run_id?: SortOrder
     workflow_config_id?: SortOrder
+    user_id?: SortOrderInput | SortOrder
     mode?: SortOrder
     url?: SortOrder
     worker_id?: SortOrderInput | SortOrder
@@ -41324,6 +41412,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"DiagnosticsPackage"> | string
     workflow_run_id?: StringWithAggregatesFilter<"DiagnosticsPackage"> | string
     workflow_config_id?: StringWithAggregatesFilter<"DiagnosticsPackage"> | string
+    user_id?: StringNullableWithAggregatesFilter<"DiagnosticsPackage"> | string | null
     mode?: EnumDiagnosticsModeWithAggregatesFilter<"DiagnosticsPackage"> | $Enums.DiagnosticsMode
     url?: StringWithAggregatesFilter<"DiagnosticsPackage"> | string
     worker_id?: StringNullableWithAggregatesFilter<"DiagnosticsPackage"> | string | null
@@ -41810,6 +41899,7 @@ export namespace Prisma {
     api_keys?: ApiKeyCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
     job_logs?: JobLogCreateNestedManyWithoutUserInput
+    diagnostics_packages?: DiagnosticsPackageCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -41830,6 +41920,7 @@ export namespace Prisma {
     api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
     job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
+    diagnostics_packages?: DiagnosticsPackageUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -41850,6 +41941,7 @@ export namespace Prisma {
     api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUpdateManyWithoutUserNestedInput
+    diagnostics_packages?: DiagnosticsPackageUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -41870,6 +41962,7 @@ export namespace Prisma {
     api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
+    diagnostics_packages?: DiagnosticsPackageUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -44261,6 +44354,7 @@ export namespace Prisma {
     created_at?: Date | string
     workflow_run: WorkflowRunCreateNestedOneWithoutDiagnostics_packageInput
     workflow_config: WorkflowConfigCreateNestedOneWithoutDiagnostics_packagesInput
+    user?: UserCreateNestedOneWithoutDiagnostics_packagesInput
     artifacts?: DiagnosticsArtifactCreateNestedManyWithoutDiagnostics_packageInput
   }
 
@@ -44268,6 +44362,7 @@ export namespace Prisma {
     id?: string
     workflow_run_id: string
     workflow_config_id: string
+    user_id?: string | null
     mode: $Enums.DiagnosticsMode
     url: string
     worker_id?: string | null
@@ -44301,6 +44396,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     workflow_run?: WorkflowRunUpdateOneRequiredWithoutDiagnostics_packageNestedInput
     workflow_config?: WorkflowConfigUpdateOneRequiredWithoutDiagnostics_packagesNestedInput
+    user?: UserUpdateOneWithoutDiagnostics_packagesNestedInput
     artifacts?: DiagnosticsArtifactUpdateManyWithoutDiagnostics_packageNestedInput
   }
 
@@ -44308,6 +44404,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     workflow_run_id?: StringFieldUpdateOperationsInput | string
     workflow_config_id?: StringFieldUpdateOperationsInput | string
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
     mode?: EnumDiagnosticsModeFieldUpdateOperationsInput | $Enums.DiagnosticsMode
     url?: StringFieldUpdateOperationsInput | string
     worker_id?: NullableStringFieldUpdateOperationsInput | string | null
@@ -44328,6 +44425,7 @@ export namespace Prisma {
     id?: string
     workflow_run_id: string
     workflow_config_id: string
+    user_id?: string | null
     mode: $Enums.DiagnosticsMode
     url: string
     worker_id?: string | null
@@ -44364,6 +44462,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     workflow_run_id?: StringFieldUpdateOperationsInput | string
     workflow_config_id?: StringFieldUpdateOperationsInput | string
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
     mode?: EnumDiagnosticsModeFieldUpdateOperationsInput | $Enums.DiagnosticsMode
     url?: StringFieldUpdateOperationsInput | string
     worker_id?: NullableStringFieldUpdateOperationsInput | string | null
@@ -44985,6 +45084,12 @@ export namespace Prisma {
     none?: JobLogWhereInput
   }
 
+  export type DiagnosticsPackageListRelationFilter = {
+    every?: DiagnosticsPackageWhereInput
+    some?: DiagnosticsPackageWhereInput
+    none?: DiagnosticsPackageWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -45023,6 +45128,10 @@ export namespace Prisma {
   }
 
   export type JobLogOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type DiagnosticsPackageOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -45882,21 +45991,11 @@ export namespace Prisma {
     none?: ScraperExecutionTraceWhereInput
   }
 
-  export type DiagnosticsPackageListRelationFilter = {
-    every?: DiagnosticsPackageWhereInput
-    some?: DiagnosticsPackageWhereInput
-    none?: DiagnosticsPackageWhereInput
-  }
-
   export type ScraperVersionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type ScraperExecutionTraceOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type DiagnosticsPackageOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -46959,6 +47058,11 @@ export namespace Prisma {
     created_at?: SortOrder
   }
 
+  export type UserNullableScalarRelationFilter = {
+    is?: UserWhereInput | null
+    isNot?: UserWhereInput | null
+  }
+
   export type DiagnosticsArtifactListRelationFilter = {
     every?: DiagnosticsArtifactWhereInput
     some?: DiagnosticsArtifactWhereInput
@@ -46973,6 +47077,7 @@ export namespace Prisma {
     id?: SortOrder
     workflow_run_id?: SortOrder
     workflow_config_id?: SortOrder
+    user_id?: SortOrder
     mode?: SortOrder
     url?: SortOrder
     worker_id?: SortOrder
@@ -46998,6 +47103,7 @@ export namespace Prisma {
     id?: SortOrder
     workflow_run_id?: SortOrder
     workflow_config_id?: SortOrder
+    user_id?: SortOrder
     mode?: SortOrder
     url?: SortOrder
     worker_id?: SortOrder
@@ -47017,6 +47123,7 @@ export namespace Prisma {
     id?: SortOrder
     workflow_run_id?: SortOrder
     workflow_config_id?: SortOrder
+    user_id?: SortOrder
     mode?: SortOrder
     url?: SortOrder
     worker_id?: SortOrder
@@ -47103,11 +47210,6 @@ export namespace Prisma {
     in?: $Enums.JobStatus[] | ListEnumJobStatusFieldRefInput<$PrismaModel>
     notIn?: $Enums.JobStatus[] | ListEnumJobStatusFieldRefInput<$PrismaModel>
     not?: NestedEnumJobStatusFilter<$PrismaModel> | $Enums.JobStatus
-  }
-
-  export type UserNullableScalarRelationFilter = {
-    is?: UserWhereInput | null
-    isNot?: UserWhereInput | null
   }
 
   export type JobLogCountOrderByAggregateInput = {
@@ -47475,6 +47577,13 @@ export namespace Prisma {
     connect?: JobLogWhereUniqueInput | JobLogWhereUniqueInput[]
   }
 
+  export type DiagnosticsPackageCreateNestedManyWithoutUserInput = {
+    create?: XOR<DiagnosticsPackageCreateWithoutUserInput, DiagnosticsPackageUncheckedCreateWithoutUserInput> | DiagnosticsPackageCreateWithoutUserInput[] | DiagnosticsPackageUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DiagnosticsPackageCreateOrConnectWithoutUserInput | DiagnosticsPackageCreateOrConnectWithoutUserInput[]
+    createMany?: DiagnosticsPackageCreateManyUserInputEnvelope
+    connect?: DiagnosticsPackageWhereUniqueInput | DiagnosticsPackageWhereUniqueInput[]
+  }
+
   export type PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<PasswordResetTokenCreateWithoutUserInput, PasswordResetTokenUncheckedCreateWithoutUserInput> | PasswordResetTokenCreateWithoutUserInput[] | PasswordResetTokenUncheckedCreateWithoutUserInput[]
     connectOrCreate?: PasswordResetTokenCreateOrConnectWithoutUserInput | PasswordResetTokenCreateOrConnectWithoutUserInput[]
@@ -47536,6 +47645,13 @@ export namespace Prisma {
     connectOrCreate?: JobLogCreateOrConnectWithoutUserInput | JobLogCreateOrConnectWithoutUserInput[]
     createMany?: JobLogCreateManyUserInputEnvelope
     connect?: JobLogWhereUniqueInput | JobLogWhereUniqueInput[]
+  }
+
+  export type DiagnosticsPackageUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<DiagnosticsPackageCreateWithoutUserInput, DiagnosticsPackageUncheckedCreateWithoutUserInput> | DiagnosticsPackageCreateWithoutUserInput[] | DiagnosticsPackageUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DiagnosticsPackageCreateOrConnectWithoutUserInput | DiagnosticsPackageCreateOrConnectWithoutUserInput[]
+    createMany?: DiagnosticsPackageCreateManyUserInputEnvelope
+    connect?: DiagnosticsPackageWhereUniqueInput | DiagnosticsPackageWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -47680,6 +47796,20 @@ export namespace Prisma {
     deleteMany?: JobLogScalarWhereInput | JobLogScalarWhereInput[]
   }
 
+  export type DiagnosticsPackageUpdateManyWithoutUserNestedInput = {
+    create?: XOR<DiagnosticsPackageCreateWithoutUserInput, DiagnosticsPackageUncheckedCreateWithoutUserInput> | DiagnosticsPackageCreateWithoutUserInput[] | DiagnosticsPackageUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DiagnosticsPackageCreateOrConnectWithoutUserInput | DiagnosticsPackageCreateOrConnectWithoutUserInput[]
+    upsert?: DiagnosticsPackageUpsertWithWhereUniqueWithoutUserInput | DiagnosticsPackageUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: DiagnosticsPackageCreateManyUserInputEnvelope
+    set?: DiagnosticsPackageWhereUniqueInput | DiagnosticsPackageWhereUniqueInput[]
+    disconnect?: DiagnosticsPackageWhereUniqueInput | DiagnosticsPackageWhereUniqueInput[]
+    delete?: DiagnosticsPackageWhereUniqueInput | DiagnosticsPackageWhereUniqueInput[]
+    connect?: DiagnosticsPackageWhereUniqueInput | DiagnosticsPackageWhereUniqueInput[]
+    update?: DiagnosticsPackageUpdateWithWhereUniqueWithoutUserInput | DiagnosticsPackageUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: DiagnosticsPackageUpdateManyWithWhereWithoutUserInput | DiagnosticsPackageUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: DiagnosticsPackageScalarWhereInput | DiagnosticsPackageScalarWhereInput[]
+  }
+
   export type PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<PasswordResetTokenCreateWithoutUserInput, PasswordResetTokenUncheckedCreateWithoutUserInput> | PasswordResetTokenCreateWithoutUserInput[] | PasswordResetTokenUncheckedCreateWithoutUserInput[]
     connectOrCreate?: PasswordResetTokenCreateOrConnectWithoutUserInput | PasswordResetTokenCreateOrConnectWithoutUserInput[]
@@ -47804,6 +47934,20 @@ export namespace Prisma {
     update?: JobLogUpdateWithWhereUniqueWithoutUserInput | JobLogUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: JobLogUpdateManyWithWhereWithoutUserInput | JobLogUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: JobLogScalarWhereInput | JobLogScalarWhereInput[]
+  }
+
+  export type DiagnosticsPackageUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<DiagnosticsPackageCreateWithoutUserInput, DiagnosticsPackageUncheckedCreateWithoutUserInput> | DiagnosticsPackageCreateWithoutUserInput[] | DiagnosticsPackageUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DiagnosticsPackageCreateOrConnectWithoutUserInput | DiagnosticsPackageCreateOrConnectWithoutUserInput[]
+    upsert?: DiagnosticsPackageUpsertWithWhereUniqueWithoutUserInput | DiagnosticsPackageUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: DiagnosticsPackageCreateManyUserInputEnvelope
+    set?: DiagnosticsPackageWhereUniqueInput | DiagnosticsPackageWhereUniqueInput[]
+    disconnect?: DiagnosticsPackageWhereUniqueInput | DiagnosticsPackageWhereUniqueInput[]
+    delete?: DiagnosticsPackageWhereUniqueInput | DiagnosticsPackageWhereUniqueInput[]
+    connect?: DiagnosticsPackageWhereUniqueInput | DiagnosticsPackageWhereUniqueInput[]
+    update?: DiagnosticsPackageUpdateWithWhereUniqueWithoutUserInput | DiagnosticsPackageUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: DiagnosticsPackageUpdateManyWithWhereWithoutUserInput | DiagnosticsPackageUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: DiagnosticsPackageScalarWhereInput | DiagnosticsPackageScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutPassword_reset_tokensInput = {
@@ -50103,6 +50247,12 @@ export namespace Prisma {
     connect?: WorkflowConfigWhereUniqueInput
   }
 
+  export type UserCreateNestedOneWithoutDiagnostics_packagesInput = {
+    create?: XOR<UserCreateWithoutDiagnostics_packagesInput, UserUncheckedCreateWithoutDiagnostics_packagesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutDiagnostics_packagesInput
+    connect?: UserWhereUniqueInput
+  }
+
   export type DiagnosticsArtifactCreateNestedManyWithoutDiagnostics_packageInput = {
     create?: XOR<DiagnosticsArtifactCreateWithoutDiagnostics_packageInput, DiagnosticsArtifactUncheckedCreateWithoutDiagnostics_packageInput> | DiagnosticsArtifactCreateWithoutDiagnostics_packageInput[] | DiagnosticsArtifactUncheckedCreateWithoutDiagnostics_packageInput[]
     connectOrCreate?: DiagnosticsArtifactCreateOrConnectWithoutDiagnostics_packageInput | DiagnosticsArtifactCreateOrConnectWithoutDiagnostics_packageInput[]
@@ -50131,6 +50281,16 @@ export namespace Prisma {
     upsert?: WorkflowConfigUpsertWithoutDiagnostics_packagesInput
     connect?: WorkflowConfigWhereUniqueInput
     update?: XOR<XOR<WorkflowConfigUpdateToOneWithWhereWithoutDiagnostics_packagesInput, WorkflowConfigUpdateWithoutDiagnostics_packagesInput>, WorkflowConfigUncheckedUpdateWithoutDiagnostics_packagesInput>
+  }
+
+  export type UserUpdateOneWithoutDiagnostics_packagesNestedInput = {
+    create?: XOR<UserCreateWithoutDiagnostics_packagesInput, UserUncheckedCreateWithoutDiagnostics_packagesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutDiagnostics_packagesInput
+    upsert?: UserUpsertWithoutDiagnostics_packagesInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutDiagnostics_packagesInput, UserUpdateWithoutDiagnostics_packagesInput>, UserUncheckedUpdateWithoutDiagnostics_packagesInput>
   }
 
   export type DiagnosticsArtifactUpdateManyWithoutDiagnostics_packageNestedInput = {
@@ -51457,6 +51617,56 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type DiagnosticsPackageCreateWithoutUserInput = {
+    id?: string
+    mode: $Enums.DiagnosticsMode
+    url: string
+    worker_id?: string | null
+    browser_version?: string | null
+    playwright_version?: string | null
+    scraper_version?: number | null
+    retry_number?: number | null
+    started_at: Date | string
+    finished_at: Date | string
+    duration_ms: number
+    failure_reason?: string | null
+    exception?: string | null
+    created_at?: Date | string
+    workflow_run: WorkflowRunCreateNestedOneWithoutDiagnostics_packageInput
+    workflow_config: WorkflowConfigCreateNestedOneWithoutDiagnostics_packagesInput
+    artifacts?: DiagnosticsArtifactCreateNestedManyWithoutDiagnostics_packageInput
+  }
+
+  export type DiagnosticsPackageUncheckedCreateWithoutUserInput = {
+    id?: string
+    workflow_run_id: string
+    workflow_config_id: string
+    mode: $Enums.DiagnosticsMode
+    url: string
+    worker_id?: string | null
+    browser_version?: string | null
+    playwright_version?: string | null
+    scraper_version?: number | null
+    retry_number?: number | null
+    started_at: Date | string
+    finished_at: Date | string
+    duration_ms: number
+    failure_reason?: string | null
+    exception?: string | null
+    created_at?: Date | string
+    artifacts?: DiagnosticsArtifactUncheckedCreateNestedManyWithoutDiagnostics_packageInput
+  }
+
+  export type DiagnosticsPackageCreateOrConnectWithoutUserInput = {
+    where: DiagnosticsPackageWhereUniqueInput
+    create: XOR<DiagnosticsPackageCreateWithoutUserInput, DiagnosticsPackageUncheckedCreateWithoutUserInput>
+  }
+
+  export type DiagnosticsPackageCreateManyUserInputEnvelope = {
+    data: DiagnosticsPackageCreateManyUserInput | DiagnosticsPackageCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type PasswordResetTokenUpsertWithWhereUniqueWithoutUserInput = {
     where: PasswordResetTokenWhereUniqueInput
     update: XOR<PasswordResetTokenUpdateWithoutUserInput, PasswordResetTokenUncheckedUpdateWithoutUserInput>
@@ -51793,6 +52003,45 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"JobLog"> | Date | string
   }
 
+  export type DiagnosticsPackageUpsertWithWhereUniqueWithoutUserInput = {
+    where: DiagnosticsPackageWhereUniqueInput
+    update: XOR<DiagnosticsPackageUpdateWithoutUserInput, DiagnosticsPackageUncheckedUpdateWithoutUserInput>
+    create: XOR<DiagnosticsPackageCreateWithoutUserInput, DiagnosticsPackageUncheckedCreateWithoutUserInput>
+  }
+
+  export type DiagnosticsPackageUpdateWithWhereUniqueWithoutUserInput = {
+    where: DiagnosticsPackageWhereUniqueInput
+    data: XOR<DiagnosticsPackageUpdateWithoutUserInput, DiagnosticsPackageUncheckedUpdateWithoutUserInput>
+  }
+
+  export type DiagnosticsPackageUpdateManyWithWhereWithoutUserInput = {
+    where: DiagnosticsPackageScalarWhereInput
+    data: XOR<DiagnosticsPackageUpdateManyMutationInput, DiagnosticsPackageUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type DiagnosticsPackageScalarWhereInput = {
+    AND?: DiagnosticsPackageScalarWhereInput | DiagnosticsPackageScalarWhereInput[]
+    OR?: DiagnosticsPackageScalarWhereInput[]
+    NOT?: DiagnosticsPackageScalarWhereInput | DiagnosticsPackageScalarWhereInput[]
+    id?: StringFilter<"DiagnosticsPackage"> | string
+    workflow_run_id?: StringFilter<"DiagnosticsPackage"> | string
+    workflow_config_id?: StringFilter<"DiagnosticsPackage"> | string
+    user_id?: StringNullableFilter<"DiagnosticsPackage"> | string | null
+    mode?: EnumDiagnosticsModeFilter<"DiagnosticsPackage"> | $Enums.DiagnosticsMode
+    url?: StringFilter<"DiagnosticsPackage"> | string
+    worker_id?: StringNullableFilter<"DiagnosticsPackage"> | string | null
+    browser_version?: StringNullableFilter<"DiagnosticsPackage"> | string | null
+    playwright_version?: StringNullableFilter<"DiagnosticsPackage"> | string | null
+    scraper_version?: IntNullableFilter<"DiagnosticsPackage"> | number | null
+    retry_number?: IntNullableFilter<"DiagnosticsPackage"> | number | null
+    started_at?: DateTimeFilter<"DiagnosticsPackage"> | Date | string
+    finished_at?: DateTimeFilter<"DiagnosticsPackage"> | Date | string
+    duration_ms?: IntFilter<"DiagnosticsPackage"> | number
+    failure_reason?: StringNullableFilter<"DiagnosticsPackage"> | string | null
+    exception?: StringNullableFilter<"DiagnosticsPackage"> | string | null
+    created_at?: DateTimeFilter<"DiagnosticsPackage"> | Date | string
+  }
+
   export type UserCreateWithoutPassword_reset_tokensInput = {
     id?: string
     email: string
@@ -51810,6 +52059,7 @@ export namespace Prisma {
     api_keys?: ApiKeyCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
     job_logs?: JobLogCreateNestedManyWithoutUserInput
+    diagnostics_packages?: DiagnosticsPackageCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPassword_reset_tokensInput = {
@@ -51829,6 +52079,7 @@ export namespace Prisma {
     api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
     job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
+    diagnostics_packages?: DiagnosticsPackageUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPassword_reset_tokensInput = {
@@ -51864,6 +52115,7 @@ export namespace Prisma {
     api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUpdateManyWithoutUserNestedInput
+    diagnostics_packages?: DiagnosticsPackageUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPassword_reset_tokensInput = {
@@ -51883,6 +52135,7 @@ export namespace Prisma {
     api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
+    diagnostics_packages?: DiagnosticsPackageUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutApi_keysInput = {
@@ -51902,6 +52155,7 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
     job_logs?: JobLogCreateNestedManyWithoutUserInput
+    diagnostics_packages?: DiagnosticsPackageCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutApi_keysInput = {
@@ -51921,6 +52175,7 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUncheckedCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
     job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
+    diagnostics_packages?: DiagnosticsPackageUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutApi_keysInput = {
@@ -51956,6 +52211,7 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUpdateManyWithoutUserNestedInput
+    diagnostics_packages?: DiagnosticsPackageUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutApi_keysInput = {
@@ -51975,6 +52231,7 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUncheckedUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
+    diagnostics_packages?: DiagnosticsPackageUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutWebhook_endpointsInput = {
@@ -51994,6 +52251,7 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyCreateNestedManyWithoutUserInput
     job_logs?: JobLogCreateNestedManyWithoutUserInput
+    diagnostics_packages?: DiagnosticsPackageCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWebhook_endpointsInput = {
@@ -52013,6 +52271,7 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUncheckedCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
     job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
+    diagnostics_packages?: DiagnosticsPackageUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWebhook_endpointsInput = {
@@ -52088,6 +52347,7 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUpdateManyWithoutUserNestedInput
+    diagnostics_packages?: DiagnosticsPackageUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWebhook_endpointsInput = {
@@ -52107,6 +52367,7 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUncheckedUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
+    diagnostics_packages?: DiagnosticsPackageUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WebhookDeliveryUpsertWithWhereUniqueWithoutWebhook_endpointInput = {
@@ -52455,6 +52716,7 @@ export namespace Prisma {
     api_keys?: ApiKeyCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
     job_logs?: JobLogCreateNestedManyWithoutUserInput
+    diagnostics_packages?: DiagnosticsPackageCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWebsite_targetsInput = {
@@ -52474,6 +52736,7 @@ export namespace Prisma {
     api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
     job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
+    diagnostics_packages?: DiagnosticsPackageUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWebsite_targetsInput = {
@@ -52847,6 +53110,7 @@ export namespace Prisma {
     api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUpdateManyWithoutUserNestedInput
+    diagnostics_packages?: DiagnosticsPackageUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWebsite_targetsInput = {
@@ -52866,6 +53130,7 @@ export namespace Prisma {
     api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
+    diagnostics_packages?: DiagnosticsPackageUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WorkflowConfigUpsertWithWhereUniqueWithoutWebsite_targetInput = {
@@ -53154,6 +53419,7 @@ export namespace Prisma {
     api_keys?: ApiKeyCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
     job_logs?: JobLogCreateNestedManyWithoutUserInput
+    diagnostics_packages?: DiagnosticsPackageCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWorkflow_configsInput = {
@@ -53173,6 +53439,7 @@ export namespace Prisma {
     api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
     job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
+    diagnostics_packages?: DiagnosticsPackageUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWorkflow_configsInput = {
@@ -53559,12 +53826,14 @@ export namespace Prisma {
     exception?: string | null
     created_at?: Date | string
     workflow_run: WorkflowRunCreateNestedOneWithoutDiagnostics_packageInput
+    user?: UserCreateNestedOneWithoutDiagnostics_packagesInput
     artifacts?: DiagnosticsArtifactCreateNestedManyWithoutDiagnostics_packageInput
   }
 
   export type DiagnosticsPackageUncheckedCreateWithoutWorkflow_configInput = {
     id?: string
     workflow_run_id: string
+    user_id?: string | null
     mode: $Enums.DiagnosticsMode
     url: string
     worker_id?: string | null
@@ -53619,6 +53888,7 @@ export namespace Prisma {
     api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUpdateManyWithoutUserNestedInput
+    diagnostics_packages?: DiagnosticsPackageUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWorkflow_configsInput = {
@@ -53638,6 +53908,7 @@ export namespace Prisma {
     api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
+    diagnostics_packages?: DiagnosticsPackageUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WebsiteTargetUpsertWithoutWorkflow_configsInput = {
@@ -53896,28 +54167,6 @@ export namespace Prisma {
   export type DiagnosticsPackageUpdateManyWithWhereWithoutWorkflow_configInput = {
     where: DiagnosticsPackageScalarWhereInput
     data: XOR<DiagnosticsPackageUpdateManyMutationInput, DiagnosticsPackageUncheckedUpdateManyWithoutWorkflow_configInput>
-  }
-
-  export type DiagnosticsPackageScalarWhereInput = {
-    AND?: DiagnosticsPackageScalarWhereInput | DiagnosticsPackageScalarWhereInput[]
-    OR?: DiagnosticsPackageScalarWhereInput[]
-    NOT?: DiagnosticsPackageScalarWhereInput | DiagnosticsPackageScalarWhereInput[]
-    id?: StringFilter<"DiagnosticsPackage"> | string
-    workflow_run_id?: StringFilter<"DiagnosticsPackage"> | string
-    workflow_config_id?: StringFilter<"DiagnosticsPackage"> | string
-    mode?: EnumDiagnosticsModeFilter<"DiagnosticsPackage"> | $Enums.DiagnosticsMode
-    url?: StringFilter<"DiagnosticsPackage"> | string
-    worker_id?: StringNullableFilter<"DiagnosticsPackage"> | string | null
-    browser_version?: StringNullableFilter<"DiagnosticsPackage"> | string | null
-    playwright_version?: StringNullableFilter<"DiagnosticsPackage"> | string | null
-    scraper_version?: IntNullableFilter<"DiagnosticsPackage"> | number | null
-    retry_number?: IntNullableFilter<"DiagnosticsPackage"> | number | null
-    started_at?: DateTimeFilter<"DiagnosticsPackage"> | Date | string
-    finished_at?: DateTimeFilter<"DiagnosticsPackage"> | Date | string
-    duration_ms?: IntFilter<"DiagnosticsPackage"> | number
-    failure_reason?: StringNullableFilter<"DiagnosticsPackage"> | string | null
-    exception?: StringNullableFilter<"DiagnosticsPackage"> | string | null
-    created_at?: DateTimeFilter<"DiagnosticsPackage"> | Date | string
   }
 
   export type WebsiteTargetCreateWithoutScraper_generation_runsInput = {
@@ -55816,6 +56065,7 @@ export namespace Prisma {
     api_keys?: ApiKeyCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
     job_logs?: JobLogCreateNestedManyWithoutUserInput
+    diagnostics_packages?: DiagnosticsPackageCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWorkflow_runsInput = {
@@ -55835,6 +56085,7 @@ export namespace Prisma {
     api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
     job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
+    diagnostics_packages?: DiagnosticsPackageUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWorkflow_runsInput = {
@@ -56122,12 +56373,14 @@ export namespace Prisma {
     exception?: string | null
     created_at?: Date | string
     workflow_config: WorkflowConfigCreateNestedOneWithoutDiagnostics_packagesInput
+    user?: UserCreateNestedOneWithoutDiagnostics_packagesInput
     artifacts?: DiagnosticsArtifactCreateNestedManyWithoutDiagnostics_packageInput
   }
 
   export type DiagnosticsPackageUncheckedCreateWithoutWorkflow_runInput = {
     id?: string
     workflow_config_id: string
+    user_id?: string | null
     mode: $Enums.DiagnosticsMode
     url: string
     worker_id?: string | null
@@ -56454,6 +56707,7 @@ export namespace Prisma {
     api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUpdateManyWithoutUserNestedInput
+    diagnostics_packages?: DiagnosticsPackageUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWorkflow_runsInput = {
@@ -56473,6 +56727,7 @@ export namespace Prisma {
     api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
+    diagnostics_packages?: DiagnosticsPackageUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WebsiteTargetUpsertWithoutWorkflow_runsInput = {
@@ -56720,12 +56975,14 @@ export namespace Prisma {
     exception?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     workflow_config?: WorkflowConfigUpdateOneRequiredWithoutDiagnostics_packagesNestedInput
+    user?: UserUpdateOneWithoutDiagnostics_packagesNestedInput
     artifacts?: DiagnosticsArtifactUpdateManyWithoutDiagnostics_packageNestedInput
   }
 
   export type DiagnosticsPackageUncheckedUpdateWithoutWorkflow_runInput = {
     id?: StringFieldUpdateOperationsInput | string
     workflow_config_id?: StringFieldUpdateOperationsInput | string
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
     mode?: EnumDiagnosticsModeFieldUpdateOperationsInput | $Enums.DiagnosticsMode
     url?: StringFieldUpdateOperationsInput | string
     worker_id?: NullableStringFieldUpdateOperationsInput | string | null
@@ -57201,6 +57458,7 @@ export namespace Prisma {
     api_keys?: ApiKeyCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
     job_logs?: JobLogCreateNestedManyWithoutUserInput
+    diagnostics_packages?: DiagnosticsPackageCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutExtraction_schemasInput = {
@@ -57220,6 +57478,7 @@ export namespace Prisma {
     api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
     job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
+    diagnostics_packages?: DiagnosticsPackageUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutExtraction_schemasInput = {
@@ -57318,6 +57577,7 @@ export namespace Prisma {
     api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUpdateManyWithoutUserNestedInput
+    diagnostics_packages?: DiagnosticsPackageUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutExtraction_schemasInput = {
@@ -57337,6 +57597,7 @@ export namespace Prisma {
     api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
+    diagnostics_packages?: DiagnosticsPackageUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ExtractionSchemaVersionUpsertWithoutActive_for_schemaInput = {
@@ -59120,6 +59381,51 @@ export namespace Prisma {
     create: XOR<WorkflowConfigCreateWithoutDiagnostics_packagesInput, WorkflowConfigUncheckedCreateWithoutDiagnostics_packagesInput>
   }
 
+  export type UserCreateWithoutDiagnostics_packagesInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    password: string
+    role: $Enums.AuthRole
+    default_schedule_tz?: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    password_reset_tokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    website_targets?: WebsiteTargetCreateNestedManyWithoutUserInput
+    workflow_configs?: WorkflowConfigCreateNestedManyWithoutUserInput
+    workflow_runs?: WorkflowRunCreateNestedManyWithoutUserInput
+    user_integrations?: UserIntegrationCreateNestedManyWithoutUserInput
+    extraction_schemas?: ExtractionSchemaCreateNestedManyWithoutUserInput
+    api_keys?: ApiKeyCreateNestedManyWithoutUserInput
+    webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
+    job_logs?: JobLogCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutDiagnostics_packagesInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    password: string
+    role: $Enums.AuthRole
+    default_schedule_tz?: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    password_reset_tokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    website_targets?: WebsiteTargetUncheckedCreateNestedManyWithoutUserInput
+    workflow_configs?: WorkflowConfigUncheckedCreateNestedManyWithoutUserInput
+    workflow_runs?: WorkflowRunUncheckedCreateNestedManyWithoutUserInput
+    user_integrations?: UserIntegrationUncheckedCreateNestedManyWithoutUserInput
+    extraction_schemas?: ExtractionSchemaUncheckedCreateNestedManyWithoutUserInput
+    api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
+    webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
+    job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutDiagnostics_packagesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutDiagnostics_packagesInput, UserUncheckedCreateWithoutDiagnostics_packagesInput>
+  }
+
   export type DiagnosticsArtifactCreateWithoutDiagnostics_packageInput = {
     id?: string
     kind: $Enums.DiagnosticsArtifactKind
@@ -59332,6 +59638,57 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutWorkflow_configNestedInput
   }
 
+  export type UserUpsertWithoutDiagnostics_packagesInput = {
+    update: XOR<UserUpdateWithoutDiagnostics_packagesInput, UserUncheckedUpdateWithoutDiagnostics_packagesInput>
+    create: XOR<UserCreateWithoutDiagnostics_packagesInput, UserUncheckedCreateWithoutDiagnostics_packagesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutDiagnostics_packagesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutDiagnostics_packagesInput, UserUncheckedUpdateWithoutDiagnostics_packagesInput>
+  }
+
+  export type UserUpdateWithoutDiagnostics_packagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
+    default_schedule_tz?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    password_reset_tokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    website_targets?: WebsiteTargetUpdateManyWithoutUserNestedInput
+    workflow_configs?: WorkflowConfigUpdateManyWithoutUserNestedInput
+    workflow_runs?: WorkflowRunUpdateManyWithoutUserNestedInput
+    user_integrations?: UserIntegrationUpdateManyWithoutUserNestedInput
+    extraction_schemas?: ExtractionSchemaUpdateManyWithoutUserNestedInput
+    api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
+    webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
+    job_logs?: JobLogUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutDiagnostics_packagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
+    default_schedule_tz?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    password_reset_tokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    website_targets?: WebsiteTargetUncheckedUpdateManyWithoutUserNestedInput
+    workflow_configs?: WorkflowConfigUncheckedUpdateManyWithoutUserNestedInput
+    workflow_runs?: WorkflowRunUncheckedUpdateManyWithoutUserNestedInput
+    user_integrations?: UserIntegrationUncheckedUpdateManyWithoutUserNestedInput
+    extraction_schemas?: ExtractionSchemaUncheckedUpdateManyWithoutUserNestedInput
+    api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
+    webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
+    job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type DiagnosticsArtifactUpsertWithWhereUniqueWithoutDiagnostics_packageInput = {
     where: DiagnosticsArtifactWhereUniqueInput
     update: XOR<DiagnosticsArtifactUpdateWithoutDiagnostics_packageInput, DiagnosticsArtifactUncheckedUpdateWithoutDiagnostics_packageInput>
@@ -59378,12 +59735,14 @@ export namespace Prisma {
     created_at?: Date | string
     workflow_run: WorkflowRunCreateNestedOneWithoutDiagnostics_packageInput
     workflow_config: WorkflowConfigCreateNestedOneWithoutDiagnostics_packagesInput
+    user?: UserCreateNestedOneWithoutDiagnostics_packagesInput
   }
 
   export type DiagnosticsPackageUncheckedCreateWithoutArtifactsInput = {
     id?: string
     workflow_run_id: string
     workflow_config_id: string
+    user_id?: string | null
     mode: $Enums.DiagnosticsMode
     url: string
     worker_id?: string | null
@@ -59432,12 +59791,14 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     workflow_run?: WorkflowRunUpdateOneRequiredWithoutDiagnostics_packageNestedInput
     workflow_config?: WorkflowConfigUpdateOneRequiredWithoutDiagnostics_packagesNestedInput
+    user?: UserUpdateOneWithoutDiagnostics_packagesNestedInput
   }
 
   export type DiagnosticsPackageUncheckedUpdateWithoutArtifactsInput = {
     id?: StringFieldUpdateOperationsInput | string
     workflow_run_id?: StringFieldUpdateOperationsInput | string
     workflow_config_id?: StringFieldUpdateOperationsInput | string
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
     mode?: EnumDiagnosticsModeFieldUpdateOperationsInput | $Enums.DiagnosticsMode
     url?: StringFieldUpdateOperationsInput | string
     worker_id?: NullableStringFieldUpdateOperationsInput | string | null
@@ -59559,6 +59920,7 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
+    diagnostics_packages?: DiagnosticsPackageCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutJob_logsInput = {
@@ -59578,6 +59940,7 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUncheckedCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
+    diagnostics_packages?: DiagnosticsPackageUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutJob_logsInput = {
@@ -59708,6 +60071,7 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
+    diagnostics_packages?: DiagnosticsPackageUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutJob_logsInput = {
@@ -59727,6 +60091,7 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUncheckedUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
+    diagnostics_packages?: DiagnosticsPackageUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WebsiteTargetCreateWithoutNotificationsInput = {
@@ -60202,6 +60567,7 @@ export namespace Prisma {
     api_keys?: ApiKeyCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
     job_logs?: JobLogCreateNestedManyWithoutUserInput
+    diagnostics_packages?: DiagnosticsPackageCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutUser_integrationsInput = {
@@ -60221,6 +60587,7 @@ export namespace Prisma {
     api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
     job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
+    diagnostics_packages?: DiagnosticsPackageUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutUser_integrationsInput = {
@@ -60256,6 +60623,7 @@ export namespace Prisma {
     api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUpdateManyWithoutUserNestedInput
+    diagnostics_packages?: DiagnosticsPackageUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutUser_integrationsInput = {
@@ -60275,6 +60643,7 @@ export namespace Prisma {
     api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
     job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
+    diagnostics_packages?: DiagnosticsPackageUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PasswordResetTokenCreateManyUserInput = {
@@ -60431,6 +60800,25 @@ export namespace Prisma {
     duration_ms?: number | null
     created_at?: Date | string
     updated_at?: Date | string
+  }
+
+  export type DiagnosticsPackageCreateManyUserInput = {
+    id?: string
+    workflow_run_id: string
+    workflow_config_id: string
+    mode: $Enums.DiagnosticsMode
+    url: string
+    worker_id?: string | null
+    browser_version?: string | null
+    playwright_version?: string | null
+    scraper_version?: number | null
+    retry_number?: number | null
+    started_at: Date | string
+    finished_at: Date | string
+    duration_ms: number
+    failure_reason?: string | null
+    exception?: string | null
+    created_at?: Date | string
   }
 
   export type PasswordResetTokenUpdateWithoutUserInput = {
@@ -60945,6 +61333,65 @@ export namespace Prisma {
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DiagnosticsPackageUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    mode?: EnumDiagnosticsModeFieldUpdateOperationsInput | $Enums.DiagnosticsMode
+    url?: StringFieldUpdateOperationsInput | string
+    worker_id?: NullableStringFieldUpdateOperationsInput | string | null
+    browser_version?: NullableStringFieldUpdateOperationsInput | string | null
+    playwright_version?: NullableStringFieldUpdateOperationsInput | string | null
+    scraper_version?: NullableIntFieldUpdateOperationsInput | number | null
+    retry_number?: NullableIntFieldUpdateOperationsInput | number | null
+    started_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    finished_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    duration_ms?: IntFieldUpdateOperationsInput | number
+    failure_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    exception?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    workflow_run?: WorkflowRunUpdateOneRequiredWithoutDiagnostics_packageNestedInput
+    workflow_config?: WorkflowConfigUpdateOneRequiredWithoutDiagnostics_packagesNestedInput
+    artifacts?: DiagnosticsArtifactUpdateManyWithoutDiagnostics_packageNestedInput
+  }
+
+  export type DiagnosticsPackageUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    workflow_run_id?: StringFieldUpdateOperationsInput | string
+    workflow_config_id?: StringFieldUpdateOperationsInput | string
+    mode?: EnumDiagnosticsModeFieldUpdateOperationsInput | $Enums.DiagnosticsMode
+    url?: StringFieldUpdateOperationsInput | string
+    worker_id?: NullableStringFieldUpdateOperationsInput | string | null
+    browser_version?: NullableStringFieldUpdateOperationsInput | string | null
+    playwright_version?: NullableStringFieldUpdateOperationsInput | string | null
+    scraper_version?: NullableIntFieldUpdateOperationsInput | number | null
+    retry_number?: NullableIntFieldUpdateOperationsInput | number | null
+    started_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    finished_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    duration_ms?: IntFieldUpdateOperationsInput | number
+    failure_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    exception?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    artifacts?: DiagnosticsArtifactUncheckedUpdateManyWithoutDiagnostics_packageNestedInput
+  }
+
+  export type DiagnosticsPackageUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    workflow_run_id?: StringFieldUpdateOperationsInput | string
+    workflow_config_id?: StringFieldUpdateOperationsInput | string
+    mode?: EnumDiagnosticsModeFieldUpdateOperationsInput | $Enums.DiagnosticsMode
+    url?: StringFieldUpdateOperationsInput | string
+    worker_id?: NullableStringFieldUpdateOperationsInput | string | null
+    browser_version?: NullableStringFieldUpdateOperationsInput | string | null
+    playwright_version?: NullableStringFieldUpdateOperationsInput | string | null
+    scraper_version?: NullableIntFieldUpdateOperationsInput | number | null
+    retry_number?: NullableIntFieldUpdateOperationsInput | number | null
+    started_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    finished_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    duration_ms?: IntFieldUpdateOperationsInput | number
+    failure_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    exception?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type WebhookDeliveryCreateManyWebhook_endpointInput = {
@@ -61867,6 +62314,7 @@ export namespace Prisma {
   export type DiagnosticsPackageCreateManyWorkflow_configInput = {
     id?: string
     workflow_run_id: string
+    user_id?: string | null
     mode: $Enums.DiagnosticsMode
     url: string
     worker_id?: string | null
@@ -62185,12 +62633,14 @@ export namespace Prisma {
     exception?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     workflow_run?: WorkflowRunUpdateOneRequiredWithoutDiagnostics_packageNestedInput
+    user?: UserUpdateOneWithoutDiagnostics_packagesNestedInput
     artifacts?: DiagnosticsArtifactUpdateManyWithoutDiagnostics_packageNestedInput
   }
 
   export type DiagnosticsPackageUncheckedUpdateWithoutWorkflow_configInput = {
     id?: StringFieldUpdateOperationsInput | string
     workflow_run_id?: StringFieldUpdateOperationsInput | string
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
     mode?: EnumDiagnosticsModeFieldUpdateOperationsInput | $Enums.DiagnosticsMode
     url?: StringFieldUpdateOperationsInput | string
     worker_id?: NullableStringFieldUpdateOperationsInput | string | null
@@ -62210,6 +62660,7 @@ export namespace Prisma {
   export type DiagnosticsPackageUncheckedUpdateManyWithoutWorkflow_configInput = {
     id?: StringFieldUpdateOperationsInput | string
     workflow_run_id?: StringFieldUpdateOperationsInput | string
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
     mode?: EnumDiagnosticsModeFieldUpdateOperationsInput | $Enums.DiagnosticsMode
     url?: StringFieldUpdateOperationsInput | string
     worker_id?: NullableStringFieldUpdateOperationsInput | string | null

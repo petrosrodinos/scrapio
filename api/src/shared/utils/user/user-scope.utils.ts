@@ -55,10 +55,7 @@ export function diagnosticsUserWhere(
   queryUserId?: string,
 ): Prisma.DiagnosticsPackageWhereInput {
   const scopeId = resolveScopeUserId(authUser, queryUserId);
-  if (!scopeId) {
-    return {};
-  }
-  return { workflow_config: { user_id: scopeId } };
+  return scopeId ? { user_id: scopeId } : {};
 }
 
 export function jobLogUserWhere(

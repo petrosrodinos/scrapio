@@ -203,6 +203,7 @@ export class CrawlProcessor extends WorkerHost implements OnModuleInit {
       const diagnosticsCtx: DiagnosticsRunContext = {
         workflowRunId,
         workflowConfigId: workflowConfig.id,
+        userId: run.user_id,
         scraperVersion: activeVersion.version,
         url: config.start_url,
         mode: workflowConfig.diagnostics_mode ?? 'PRODUCTION',
