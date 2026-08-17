@@ -8,6 +8,8 @@ import {
     AIGenerateObjectResponse,
     AIGenerateOptions,
     AIGenerateTextResponse,
+    AiModels,
+    AiProviders,
     AIStreamTextOptions,
 } from '../interfaces/ai.interface';
 import { AiConfig } from '../utils/ai.config';
@@ -29,6 +31,7 @@ export class AiService {
 
     async generateTextForUser(
         userId: string,
+        category: CostCategory,
         options: Omit<AIGenerateOptions, 'provider' | 'model' | 'apiKey'>,
     ): Promise<AIGenerateTextResponse> {
         const resolved = await this.resolveDefaultAiOptions(userId);
@@ -38,7 +41,7 @@ export class AiService {
         });
 
         if (result.usage) {
-            this.recordAiCost(userId, resolved, result.usage);
+            this.recordAiCost(userId, category, resolved, result.usage);
         }
 
         return result;
@@ -46,6 +49,7 @@ export class AiService {
 
     async generateTextWithSchemaForUser<T = unknown>(
         userId: string,
+        category: CostCategory,
         options: Omit<AIGenerateOptions, 'provider' | 'model' | 'apiKey'>,
     ): Promise<AIGenerateObjectResponse<T>> {
         const resolved = await this.resolveDefaultAiOptions(userId);
@@ -57,13 +61,13 @@ export class AiService {
             });
 
             if (result.usage) {
-                this.recordAiCost(userId, resolved, result.usage);
+                this.recordAiCost(userId, category, resolved, result.usage);
             }
 
             return result;
         } catch (error) {
             if (error instanceof AiGenerationError && error.usage) {
-                this.recordAiCost(userId, resolved, error.usage);
+                this.recordAiCost(userId, category, resolved, error.usage);
             }
             throw error;
         }
@@ -71,13 +75,14 @@ export class AiService {
 
     private recordAiCost(
         userId: string,
+        category: CostCategory,
         resolved: { provider: string; model: string },
         usage: { totalCost: number; inputTokens: number; outputTokens: number },
     ): void {
         setImmediate(() => {
             this.costsService.record({
                 userId,
-                category: CostCategory.AI,
+                category,
                 amount: usage.totalCost,
                 provider: resolved.provider,
                 model: resolved.model,
@@ -259,18 +264,46 @@ export class AiService {
             apiKey = openai.apiKey;
         }
 
-        return this.embedText(text, apiKey);
+        const { embedding, tokens } = await this.embedTextWithUsage(text, apiKey);
+
+        setImmediate(() => {
+            const cost = calculateAiCost({
+                provider: AiProviders.openai,
+                model: AiModels.openai.textEmbedding3Small,
+                inputTokens: tokens,
+                outputTokens: 0,
+            });
+
+            this.costsService.record({
+                userId,
+                category: CostCategory.EMBEDDING,
+                amount: cost.totalCost,
+                provider: AiProviders.openai,
+                model: AiModels.openai.textEmbedding3Small,
+                metadata: { input_tokens: tokens },
+            });
+        });
+
+        return embedding;
     }
 
     async embedText(text: string, apiKey: string): Promise<number[]> {
+        const { embedding } = await this.embedTextWithUsage(text, apiKey);
+        return embedding;
+    }
+
+    private async embedTextWithUsage(
+        text: string,
+        apiKey: string,
+    ): Promise<{ embedding: number[]; tokens: number }> {
         const embeddingModel = createOpenAI({ apiKey }).embedding(
-            'text-embedding-3-small',
+            AiModels.openai.textEmbedding3Small,
         );
-        const { embedding } = await embed({
+        const { embedding, usage } = await embed({
             model: embeddingModel,
             value: text,
         });
-        return embedding;
+        return { embedding, tokens: usage.tokens };
     }
 
     private async resolveDefaultAiOptions(userId: string) {

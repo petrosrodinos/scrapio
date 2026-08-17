@@ -285,7 +285,7 @@ export class BrowserAgentOrchestratorService {
 
         this.costsService.record({
           userId,
-          category: CostCategory.COMPUTER_USE,
+          category: CostCategory.BROWSER_AGENT_RUN,
           amount: cost.totalCost,
           provider: AiProviders.anthropic,
           model,

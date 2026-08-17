@@ -11,7 +11,7 @@ export class CostEntryItem {
   @ApiProperty({
     enum: CostCategory,
     description: 'Cost category',
-    example: CostCategory.AI,
+    example: CostCategory.STRUCTURED_EXTRACTION,
   })
   category: CostCategory;
 
@@ -53,7 +53,7 @@ export class CostSummaryByCategoryEntity {
   @ApiProperty({
     enum: CostCategory,
     description: 'Cost category',
-    example: CostCategory.AI,
+    example: CostCategory.STRUCTURED_EXTRACTION,
   })
   category: CostCategory;
 

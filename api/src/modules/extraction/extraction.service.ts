@@ -3,6 +3,7 @@ import {
   AiBatchJob,
   AiBatchJobStatus,
   AiBatchRequestItem,
+  CostCategory,
   ExtractionFormatStatus,
   ExtractionResult,
   IntegrationType,
@@ -525,6 +526,7 @@ export class ExtractionService {
       try {
         const { response, usage } = await this.aiService.generateTextWithSchemaForUser(
           request.userId,
+          CostCategory.STRUCTURED_EXTRACTION,
           {
             prompt,
             system: STRUCTURED_EXTRACTION_SYSTEM_PROMPT,
@@ -609,10 +611,14 @@ export class ExtractionService {
 
     for (let attempt = 1; attempt <= MAX_MARKDOWN_ATTEMPTS; attempt++) {
       try {
-        const { response, usage } = await this.aiService.generateTextForUser(request.userId, {
-          prompt,
-          system: MARKDOWN_NORMALIZATION_SYSTEM_PROMPT,
-        });
+        const { response, usage } = await this.aiService.generateTextForUser(
+          request.userId,
+          CostCategory.MARKDOWN_GENERATION,
+          {
+            prompt,
+            system: MARKDOWN_NORMALIZATION_SYSTEM_PROMPT,
+          },
+        );
 
         if (usage) {
           usageLog.push({ stage: 'markdown', attempt, usage });

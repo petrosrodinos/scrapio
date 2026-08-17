@@ -1,6 +1,9 @@
 export const CostCategories = {
-  AI: "AI",
-  COMPUTER_USE: "COMPUTER_USE",
+  STRUCTURED_EXTRACTION: "STRUCTURED_EXTRACTION",
+  MARKDOWN_GENERATION: "MARKDOWN_GENERATION",
+  EMBEDDING: "EMBEDDING",
+  BROWSER_AGENT_RUN: "BROWSER_AGENT_RUN",
+  SCRAPER_GENERATION: "SCRAPER_GENERATION",
 } as const;
 
 export type CostCategory = (typeof CostCategories)[keyof typeof CostCategories];

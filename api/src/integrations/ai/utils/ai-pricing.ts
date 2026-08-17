@@ -7,6 +7,8 @@ export const AiPricing = {
         [AiModels.openai.gpt4Turbo]: { input: 0.00001, output: 0.00003 },
         [AiModels.openai.gpt4]: { input: 0.000012, output: 0.00004 },
         [AiModels.openai.gpt35Turbo]: { input: 0.0000015, output: 0.000002 },
+        // Embedding models have no output tokens.
+        [AiModels.openai.textEmbedding3Small]: { input: 0.00000002, output: 0 },
     },
 
     [AiProviders.deepseek]: {

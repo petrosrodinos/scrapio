@@ -234,10 +234,14 @@ enum ComputerUseModel {
   DEEPSEEK_REASONER
 }
 
-// Extend with new categories as future cost sources (storage, third-party APIs, etc.) come online.
+// One value per billable AI operation, not per provider — extend with new values as future cost
+// sources (storage, third-party APIs, etc.) come online.
 enum CostCategory {
-  AI
-  COMPUTER_USE
+  STRUCTURED_EXTRACTION // AI generates structured JSON matching an extraction schema
+  MARKDOWN_GENERATION // AI normalizes scraped content into a Markdown document
+  EMBEDDING // AI generates vector embeddings for search indexing
+  BROWSER_AGENT_RUN // Computer-use agent autonomously navigates a page to collect findings
+  SCRAPER_GENERATION // Computer-use agent builds/verifies a scraper config during generation
 }
 
 model User {

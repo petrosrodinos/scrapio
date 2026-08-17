@@ -81,7 +81,10 @@ async function backfillExtractionResultCosts() {
         await prisma.costEntry.create({
           data: {
             user_id: row.user_id,
-            category: 'AI',
+            category:
+              entry.stage === 'markdown'
+                ? 'MARKDOWN_GENERATION'
+                : 'STRUCTURED_EXTRACTION',
             amount: entry.usage.totalCost,
             currency: 'USD',
             workflow_run_id: row.workflow_run_id,
@@ -182,7 +185,7 @@ async function backfillBrowserAgentCosts() {
       const existing = await prisma.costEntry.findFirst({
         where: {
           workflow_run_id: run.id,
-          category: 'COMPUTER_USE',
+          category: 'BROWSER_AGENT_RUN',
         },
         select: { id: true },
       });
@@ -207,7 +210,7 @@ async function backfillBrowserAgentCosts() {
       await prisma.costEntry.create({
         data: {
           user_id: run.user_id,
-          category: 'COMPUTER_USE',
+          category: 'BROWSER_AGENT_RUN',
           provider: AiProviders.anthropic,
           model,
           amount: cost.totalCost,

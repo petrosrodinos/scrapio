@@ -609,7 +609,7 @@ export class ComputerUseOrchestratorService {
 
         this.costsService.record({
           userId,
-          category: CostCategory.COMPUTER_USE,
+          category: CostCategory.SCRAPER_GENERATION,
           amount: cost.totalCost,
           provider: AiProviders.anthropic,
           model,

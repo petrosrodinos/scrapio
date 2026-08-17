@@ -762,8 +762,11 @@ exports.JobStatus = exports.$Enums.JobStatus = {
 };
 
 exports.CostCategory = exports.$Enums.CostCategory = {
-  AI: 'AI',
-  COMPUTER_USE: 'COMPUTER_USE'
+  STRUCTURED_EXTRACTION: 'STRUCTURED_EXTRACTION',
+  MARKDOWN_GENERATION: 'MARKDOWN_GENERATION',
+  EMBEDDING: 'EMBEDDING',
+  BROWSER_AGENT_RUN: 'BROWSER_AGENT_RUN',
+  SCRAPER_GENERATION: 'SCRAPER_GENERATION'
 };
 
 exports.NotificationType = exports.$Enums.NotificationType = {

@@ -3,9 +3,12 @@ import { CostCategoryFilterOptions } from "@/config/constants/dropdowns/costs/co
 import { getDropdownOptionLabel } from "@/lib/dropdown-option-label.utils";
 import { CostCategories, type CostCategory } from "@/features/costs/interfaces/costs.interfaces";
 
-const categoryColor: Record<CostCategory, "accent" | "default"> = {
-  [CostCategories.AI]: "accent",
-  [CostCategories.COMPUTER_USE]: "default",
+const categoryColor: Record<CostCategory, "accent" | "default" | "success" | "warning" | "danger"> = {
+  [CostCategories.STRUCTURED_EXTRACTION]: "accent",
+  [CostCategories.MARKDOWN_GENERATION]: "success",
+  [CostCategories.EMBEDDING]: "default",
+  [CostCategories.BROWSER_AGENT_RUN]: "warning",
+  [CostCategories.SCRAPER_GENERATION]: "danger",
 };
 
 interface CostCategoryChipProps {

@@ -108,6 +108,7 @@ export const AiModels = {
         gpt4Turbo: 'gpt-4-turbo',
         gpt4: 'gpt-4',
         gpt35Turbo: 'gpt-3.5-turbo',
+        textEmbedding3Small: 'text-embedding-3-small',
     },
     anthropic: {
         claudeOpus48: 'claude-opus-4-8',
