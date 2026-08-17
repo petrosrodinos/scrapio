@@ -66,8 +66,5 @@ export function jobLogUserWhere(
   queryUserId?: string,
 ): Prisma.JobLogWhereInput {
   const scopeId = resolveScopeUserId(authUser, queryUserId);
-  if (!scopeId) {
-    return {};
-  }
-  return { workflow_run: { user_id: scopeId } };
+  return scopeId ? { user_id: scopeId } : {};
 }

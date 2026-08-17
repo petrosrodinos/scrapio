@@ -22,8 +22,10 @@ import GenerationRunsListPage from "@/pages/admin/generation-runs";
 import GenerationRunDetailPage from "@/pages/admin/generation-runs/detail";
 import CrawlRunsListPage from "@/pages/admin/crawl-runs";
 import CrawlRunDetailPage from "@/pages/admin/crawl-runs/detail";
-import JobsListPage from "@/pages/admin/jobs";
-import JobDetailPage from "@/pages/admin/jobs/detail";
+import AdminJobsListPage from "@/pages/admin/jobs";
+import AdminJobDetailPage from "@/pages/admin/jobs/detail";
+import UserJobsListPage from "@/pages/jobs";
+import UserJobDetailPage from "@/pages/jobs/detail";
 import DiagnosticsListPage from "@/pages/admin/diagnostics";
 import DiagnosticsDetailPage from "@/pages/admin/diagnostics/detail";
 import CrawlerConfigPage from "@/pages/admin/crawler-config";
@@ -71,14 +73,16 @@ export default function AppRoutes() {
         <Route path={`${Routes.generationRuns.list}/:id`} element={<GenerationRunDetailPage />} />
         <Route path={Routes.crawlRuns.list} element={<CrawlRunsListPage />} />
         <Route path={`${Routes.crawlRuns.list}/:id`} element={<CrawlRunDetailPage />} />
+        <Route path={Routes.jobs.list} element={<UserJobsListPage />} />
+        <Route path={`${Routes.jobs.list}/:id`} element={<UserJobDetailPage />} />
         <Route path={Routes.integrations.list} element={<IntegrationsPage />} />
         <Route path={Routes.apiKeys.list} element={<ApiKeysPage />} />
         <Route path={Routes.webhooks.list} element={<WebhooksPage />} />
         <Route element={<AdminOnlyRoute />}>
           <Route path={Routes.diagnostics.list} element={<DiagnosticsListPage />} />
           <Route path={`${Routes.diagnostics.list}/:id`} element={<DiagnosticsDetailPage />} />
-          <Route path={Routes.admin.jobs.list} element={<JobsListPage />} />
-          <Route path={`${Routes.admin.jobs.list}/:id`} element={<JobDetailPage />} />
+          <Route path={Routes.admin.jobs.list} element={<AdminJobsListPage />} />
+          <Route path={`${Routes.admin.jobs.list}/:id`} element={<AdminJobDetailPage />} />
           <Route path={Routes.admin.crawlerConfig} element={<CrawlerConfigPage />} />
           <Route path={Routes.admin.notifications} element={<NotificationsListPage />} />
           <Route path={Routes.admin.health} element={<AdminHealthPage />} />

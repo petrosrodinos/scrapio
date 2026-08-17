@@ -3639,6 +3639,7 @@ export namespace Prisma {
     extraction_schemas: number
     api_keys: number
     webhook_endpoints: number
+    job_logs: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3650,6 +3651,7 @@ export namespace Prisma {
     extraction_schemas?: boolean | UserCountOutputTypeCountExtraction_schemasArgs
     api_keys?: boolean | UserCountOutputTypeCountApi_keysArgs
     webhook_endpoints?: boolean | UserCountOutputTypeCountWebhook_endpointsArgs
+    job_logs?: boolean | UserCountOutputTypeCountJob_logsArgs
   }
 
   // Custom InputTypes
@@ -3717,6 +3719,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountWebhook_endpointsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: WebhookEndpointWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountJob_logsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: JobLogWhereInput
   }
 
 
@@ -4472,6 +4481,7 @@ export namespace Prisma {
     extraction_schemas?: boolean | User$extraction_schemasArgs<ExtArgs>
     api_keys?: boolean | User$api_keysArgs<ExtArgs>
     webhook_endpoints?: boolean | User$webhook_endpointsArgs<ExtArgs>
+    job_logs?: boolean | User$job_logsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -4518,6 +4528,7 @@ export namespace Prisma {
     extraction_schemas?: boolean | User$extraction_schemasArgs<ExtArgs>
     api_keys?: boolean | User$api_keysArgs<ExtArgs>
     webhook_endpoints?: boolean | User$webhook_endpointsArgs<ExtArgs>
+    job_logs?: boolean | User$job_logsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -4534,6 +4545,7 @@ export namespace Prisma {
       extraction_schemas: Prisma.$ExtractionSchemaPayload<ExtArgs>[]
       api_keys: Prisma.$ApiKeyPayload<ExtArgs>[]
       webhook_endpoints: Prisma.$WebhookEndpointPayload<ExtArgs>[]
+      job_logs: Prisma.$JobLogPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -4946,6 +4958,7 @@ export namespace Prisma {
     extraction_schemas<T extends User$extraction_schemasArgs<ExtArgs> = {}>(args?: Subset<T, User$extraction_schemasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExtractionSchemaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     api_keys<T extends User$api_keysArgs<ExtArgs> = {}>(args?: Subset<T, User$api_keysArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ApiKeyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     webhook_endpoints<T extends User$webhook_endpointsArgs<ExtArgs> = {}>(args?: Subset<T, User$webhook_endpointsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WebhookEndpointPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    job_logs<T extends User$job_logsArgs<ExtArgs> = {}>(args?: Subset<T, User$job_logsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JobLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5560,6 +5573,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: WebhookEndpointScalarFieldEnum | WebhookEndpointScalarFieldEnum[]
+  }
+
+  /**
+   * User.job_logs
+   */
+  export type User$job_logsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JobLog
+     */
+    select?: JobLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the JobLog
+     */
+    omit?: JobLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JobLogInclude<ExtArgs> | null
+    where?: JobLogWhereInput
+    orderBy?: JobLogOrderByWithRelationInput | JobLogOrderByWithRelationInput[]
+    cursor?: JobLogWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: JobLogScalarFieldEnum | JobLogScalarFieldEnum[]
   }
 
   /**
@@ -33215,6 +33252,7 @@ export namespace Prisma {
     attempt: number | null
     max_attempts: number | null
     workflow_run_id: string | null
+    user_id: string | null
     error_message: string | null
     stack_trace: string | null
     started_at: Date | null
@@ -33233,6 +33271,7 @@ export namespace Prisma {
     attempt: number | null
     max_attempts: number | null
     workflow_run_id: string | null
+    user_id: string | null
     error_message: string | null
     stack_trace: string | null
     started_at: Date | null
@@ -33251,6 +33290,7 @@ export namespace Prisma {
     attempt: number
     max_attempts: number
     workflow_run_id: number
+    user_id: number
     payload: number
     result: number
     error_message: number
@@ -33285,6 +33325,7 @@ export namespace Prisma {
     attempt?: true
     max_attempts?: true
     workflow_run_id?: true
+    user_id?: true
     error_message?: true
     stack_trace?: true
     started_at?: true
@@ -33303,6 +33344,7 @@ export namespace Prisma {
     attempt?: true
     max_attempts?: true
     workflow_run_id?: true
+    user_id?: true
     error_message?: true
     stack_trace?: true
     started_at?: true
@@ -33321,6 +33363,7 @@ export namespace Prisma {
     attempt?: true
     max_attempts?: true
     workflow_run_id?: true
+    user_id?: true
     payload?: true
     result?: true
     error_message?: true
@@ -33428,6 +33471,7 @@ export namespace Prisma {
     attempt: number
     max_attempts: number | null
     workflow_run_id: string | null
+    user_id: string | null
     payload: JsonValue | null
     result: JsonValue | null
     error_message: string | null
@@ -33467,6 +33511,7 @@ export namespace Prisma {
     attempt?: boolean
     max_attempts?: boolean
     workflow_run_id?: boolean
+    user_id?: boolean
     payload?: boolean
     result?: boolean
     error_message?: boolean
@@ -33477,6 +33522,7 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     workflow_run?: boolean | JobLog$workflow_runArgs<ExtArgs>
+    user?: boolean | JobLog$userArgs<ExtArgs>
   }, ExtArgs["result"]["jobLog"]>
 
   export type JobLogSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -33488,6 +33534,7 @@ export namespace Prisma {
     attempt?: boolean
     max_attempts?: boolean
     workflow_run_id?: boolean
+    user_id?: boolean
     payload?: boolean
     result?: boolean
     error_message?: boolean
@@ -33498,6 +33545,7 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     workflow_run?: boolean | JobLog$workflow_runArgs<ExtArgs>
+    user?: boolean | JobLog$userArgs<ExtArgs>
   }, ExtArgs["result"]["jobLog"]>
 
   export type JobLogSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -33509,6 +33557,7 @@ export namespace Prisma {
     attempt?: boolean
     max_attempts?: boolean
     workflow_run_id?: boolean
+    user_id?: boolean
     payload?: boolean
     result?: boolean
     error_message?: boolean
@@ -33519,6 +33568,7 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     workflow_run?: boolean | JobLog$workflow_runArgs<ExtArgs>
+    user?: boolean | JobLog$userArgs<ExtArgs>
   }, ExtArgs["result"]["jobLog"]>
 
   export type JobLogSelectScalar = {
@@ -33530,6 +33580,7 @@ export namespace Prisma {
     attempt?: boolean
     max_attempts?: boolean
     workflow_run_id?: boolean
+    user_id?: boolean
     payload?: boolean
     result?: boolean
     error_message?: boolean
@@ -33541,21 +33592,25 @@ export namespace Prisma {
     updated_at?: boolean
   }
 
-  export type JobLogOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "queue_name" | "job_id" | "job_name" | "status" | "attempt" | "max_attempts" | "workflow_run_id" | "payload" | "result" | "error_message" | "stack_trace" | "started_at" | "finished_at" | "duration_ms" | "created_at" | "updated_at", ExtArgs["result"]["jobLog"]>
+  export type JobLogOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "queue_name" | "job_id" | "job_name" | "status" | "attempt" | "max_attempts" | "workflow_run_id" | "user_id" | "payload" | "result" | "error_message" | "stack_trace" | "started_at" | "finished_at" | "duration_ms" | "created_at" | "updated_at", ExtArgs["result"]["jobLog"]>
   export type JobLogInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workflow_run?: boolean | JobLog$workflow_runArgs<ExtArgs>
+    user?: boolean | JobLog$userArgs<ExtArgs>
   }
   export type JobLogIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workflow_run?: boolean | JobLog$workflow_runArgs<ExtArgs>
+    user?: boolean | JobLog$userArgs<ExtArgs>
   }
   export type JobLogIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workflow_run?: boolean | JobLog$workflow_runArgs<ExtArgs>
+    user?: boolean | JobLog$userArgs<ExtArgs>
   }
 
   export type $JobLogPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "JobLog"
     objects: {
       workflow_run: Prisma.$WorkflowRunPayload<ExtArgs> | null
+      user: Prisma.$UserPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -33566,6 +33621,7 @@ export namespace Prisma {
       attempt: number
       max_attempts: number | null
       workflow_run_id: string | null
+      user_id: string | null
       payload: Prisma.JsonValue | null
       result: Prisma.JsonValue | null
       error_message: string | null
@@ -33970,6 +34026,7 @@ export namespace Prisma {
   export interface Prisma__JobLogClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     workflow_run<T extends JobLog$workflow_runArgs<ExtArgs> = {}>(args?: Subset<T, JobLog$workflow_runArgs<ExtArgs>>): Prisma__WorkflowRunClient<$Result.GetResult<Prisma.$WorkflowRunPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    user<T extends JobLog$userArgs<ExtArgs> = {}>(args?: Subset<T, JobLog$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -34007,6 +34064,7 @@ export namespace Prisma {
     readonly attempt: FieldRef<"JobLog", 'Int'>
     readonly max_attempts: FieldRef<"JobLog", 'Int'>
     readonly workflow_run_id: FieldRef<"JobLog", 'String'>
+    readonly user_id: FieldRef<"JobLog", 'String'>
     readonly payload: FieldRef<"JobLog", 'Json'>
     readonly result: FieldRef<"JobLog", 'Json'>
     readonly error_message: FieldRef<"JobLog", 'String'>
@@ -34428,6 +34486,25 @@ export namespace Prisma {
      */
     include?: WorkflowRunInclude<ExtArgs> | null
     where?: WorkflowRunWhereInput
+  }
+
+  /**
+   * JobLog.user
+   */
+  export type JobLog$userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
   }
 
   /**
@@ -38379,6 +38456,7 @@ export namespace Prisma {
     attempt: 'attempt',
     max_attempts: 'max_attempts',
     workflow_run_id: 'workflow_run_id',
+    user_id: 'user_id',
     payload: 'payload',
     result: 'result',
     error_message: 'error_message',
@@ -38975,6 +39053,7 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaListRelationFilter
     api_keys?: ApiKeyListRelationFilter
     webhook_endpoints?: WebhookEndpointListRelationFilter
+    job_logs?: JobLogListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -38994,6 +39073,7 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaOrderByRelationAggregateInput
     api_keys?: ApiKeyOrderByRelationAggregateInput
     webhook_endpoints?: WebhookEndpointOrderByRelationAggregateInput
+    job_logs?: JobLogOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -39016,6 +39096,7 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaListRelationFilter
     api_keys?: ApiKeyListRelationFilter
     webhook_endpoints?: WebhookEndpointListRelationFilter
+    job_logs?: JobLogListRelationFilter
   }, "id" | "email" | "phone">
 
   export type UserOrderByWithAggregationInput = {
@@ -41337,6 +41418,7 @@ export namespace Prisma {
     attempt?: IntFilter<"JobLog"> | number
     max_attempts?: IntNullableFilter<"JobLog"> | number | null
     workflow_run_id?: StringNullableFilter<"JobLog"> | string | null
+    user_id?: StringNullableFilter<"JobLog"> | string | null
     payload?: JsonNullableFilter<"JobLog">
     result?: JsonNullableFilter<"JobLog">
     error_message?: StringNullableFilter<"JobLog"> | string | null
@@ -41347,6 +41429,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"JobLog"> | Date | string
     updated_at?: DateTimeFilter<"JobLog"> | Date | string
     workflow_run?: XOR<WorkflowRunNullableScalarRelationFilter, WorkflowRunWhereInput> | null
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }
 
   export type JobLogOrderByWithRelationInput = {
@@ -41358,6 +41441,7 @@ export namespace Prisma {
     attempt?: SortOrder
     max_attempts?: SortOrderInput | SortOrder
     workflow_run_id?: SortOrderInput | SortOrder
+    user_id?: SortOrderInput | SortOrder
     payload?: SortOrderInput | SortOrder
     result?: SortOrderInput | SortOrder
     error_message?: SortOrderInput | SortOrder
@@ -41368,6 +41452,7 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     workflow_run?: WorkflowRunOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
   }
 
   export type JobLogWhereUniqueInput = Prisma.AtLeast<{
@@ -41382,6 +41467,7 @@ export namespace Prisma {
     attempt?: IntFilter<"JobLog"> | number
     max_attempts?: IntNullableFilter<"JobLog"> | number | null
     workflow_run_id?: StringNullableFilter<"JobLog"> | string | null
+    user_id?: StringNullableFilter<"JobLog"> | string | null
     payload?: JsonNullableFilter<"JobLog">
     result?: JsonNullableFilter<"JobLog">
     error_message?: StringNullableFilter<"JobLog"> | string | null
@@ -41392,6 +41478,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"JobLog"> | Date | string
     updated_at?: DateTimeFilter<"JobLog"> | Date | string
     workflow_run?: XOR<WorkflowRunNullableScalarRelationFilter, WorkflowRunWhereInput> | null
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }, "id">
 
   export type JobLogOrderByWithAggregationInput = {
@@ -41403,6 +41490,7 @@ export namespace Prisma {
     attempt?: SortOrder
     max_attempts?: SortOrderInput | SortOrder
     workflow_run_id?: SortOrderInput | SortOrder
+    user_id?: SortOrderInput | SortOrder
     payload?: SortOrderInput | SortOrder
     result?: SortOrderInput | SortOrder
     error_message?: SortOrderInput | SortOrder
@@ -41431,6 +41519,7 @@ export namespace Prisma {
     attempt?: IntWithAggregatesFilter<"JobLog"> | number
     max_attempts?: IntNullableWithAggregatesFilter<"JobLog"> | number | null
     workflow_run_id?: StringNullableWithAggregatesFilter<"JobLog"> | string | null
+    user_id?: StringNullableWithAggregatesFilter<"JobLog"> | string | null
     payload?: JsonNullableWithAggregatesFilter<"JobLog">
     result?: JsonNullableWithAggregatesFilter<"JobLog">
     error_message?: StringNullableWithAggregatesFilter<"JobLog"> | string | null
@@ -41720,6 +41809,7 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
+    job_logs?: JobLogCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -41739,6 +41829,7 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUncheckedCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
+    job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -41758,6 +41849,7 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
+    job_logs?: JobLogUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -41777,6 +41869,7 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUncheckedUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
+    job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -44373,6 +44466,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     workflow_run?: WorkflowRunCreateNestedOneWithoutJob_logsInput
+    user?: UserCreateNestedOneWithoutJob_logsInput
   }
 
   export type JobLogUncheckedCreateInput = {
@@ -44384,6 +44478,7 @@ export namespace Prisma {
     attempt?: number
     max_attempts?: number | null
     workflow_run_id?: string | null
+    user_id?: string | null
     payload?: NullableJsonNullValueInput | InputJsonValue
     result?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
@@ -44413,6 +44508,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     workflow_run?: WorkflowRunUpdateOneWithoutJob_logsNestedInput
+    user?: UserUpdateOneWithoutJob_logsNestedInput
   }
 
   export type JobLogUncheckedUpdateInput = {
@@ -44424,6 +44520,7 @@ export namespace Prisma {
     attempt?: IntFieldUpdateOperationsInput | number
     max_attempts?: NullableIntFieldUpdateOperationsInput | number | null
     workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
     payload?: NullableJsonNullValueInput | InputJsonValue
     result?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
@@ -44444,6 +44541,7 @@ export namespace Prisma {
     attempt?: number
     max_attempts?: number | null
     workflow_run_id?: string | null
+    user_id?: string | null
     payload?: NullableJsonNullValueInput | InputJsonValue
     result?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
@@ -44483,6 +44581,7 @@ export namespace Prisma {
     attempt?: IntFieldUpdateOperationsInput | number
     max_attempts?: NullableIntFieldUpdateOperationsInput | number | null
     workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
     payload?: NullableJsonNullValueInput | InputJsonValue
     result?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
@@ -44880,6 +44979,12 @@ export namespace Prisma {
     none?: WebhookEndpointWhereInput
   }
 
+  export type JobLogListRelationFilter = {
+    every?: JobLogWhereInput
+    some?: JobLogWhereInput
+    none?: JobLogWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -44914,6 +45019,10 @@ export namespace Prisma {
   }
 
   export type WebhookEndpointOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type JobLogOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -46276,12 +46385,6 @@ export namespace Prisma {
     not?: NestedEnumExtractionScopeNullableFilter<$PrismaModel> | $Enums.ExtractionScope | null
   }
 
-  export type JobLogListRelationFilter = {
-    every?: JobLogWhereInput
-    some?: JobLogWhereInput
-    none?: JobLogWhereInput
-  }
-
   export type DiagnosticsPackageNullableScalarRelationFilter = {
     is?: DiagnosticsPackageWhereInput | null
     isNot?: DiagnosticsPackageWhereInput | null
@@ -46301,10 +46404,6 @@ export namespace Prisma {
   export type AiBatchJobNullableScalarRelationFilter = {
     is?: AiBatchJobWhereInput | null
     isNot?: AiBatchJobWhereInput | null
-  }
-
-  export type JobLogOrderByRelationAggregateInput = {
-    _count?: SortOrder
   }
 
   export type PlainScrapedPageOrderByRelationAggregateInput = {
@@ -47006,6 +47105,11 @@ export namespace Prisma {
     not?: NestedEnumJobStatusFilter<$PrismaModel> | $Enums.JobStatus
   }
 
+  export type UserNullableScalarRelationFilter = {
+    is?: UserWhereInput | null
+    isNot?: UserWhereInput | null
+  }
+
   export type JobLogCountOrderByAggregateInput = {
     id?: SortOrder
     queue_name?: SortOrder
@@ -47015,6 +47119,7 @@ export namespace Prisma {
     attempt?: SortOrder
     max_attempts?: SortOrder
     workflow_run_id?: SortOrder
+    user_id?: SortOrder
     payload?: SortOrder
     result?: SortOrder
     error_message?: SortOrder
@@ -47041,6 +47146,7 @@ export namespace Prisma {
     attempt?: SortOrder
     max_attempts?: SortOrder
     workflow_run_id?: SortOrder
+    user_id?: SortOrder
     error_message?: SortOrder
     stack_trace?: SortOrder
     started_at?: SortOrder
@@ -47059,6 +47165,7 @@ export namespace Prisma {
     attempt?: SortOrder
     max_attempts?: SortOrder
     workflow_run_id?: SortOrder
+    user_id?: SortOrder
     error_message?: SortOrder
     stack_trace?: SortOrder
     started_at?: SortOrder
@@ -47361,6 +47468,13 @@ export namespace Prisma {
     connect?: WebhookEndpointWhereUniqueInput | WebhookEndpointWhereUniqueInput[]
   }
 
+  export type JobLogCreateNestedManyWithoutUserInput = {
+    create?: XOR<JobLogCreateWithoutUserInput, JobLogUncheckedCreateWithoutUserInput> | JobLogCreateWithoutUserInput[] | JobLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: JobLogCreateOrConnectWithoutUserInput | JobLogCreateOrConnectWithoutUserInput[]
+    createMany?: JobLogCreateManyUserInputEnvelope
+    connect?: JobLogWhereUniqueInput | JobLogWhereUniqueInput[]
+  }
+
   export type PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<PasswordResetTokenCreateWithoutUserInput, PasswordResetTokenUncheckedCreateWithoutUserInput> | PasswordResetTokenCreateWithoutUserInput[] | PasswordResetTokenUncheckedCreateWithoutUserInput[]
     connectOrCreate?: PasswordResetTokenCreateOrConnectWithoutUserInput | PasswordResetTokenCreateOrConnectWithoutUserInput[]
@@ -47415,6 +47529,13 @@ export namespace Prisma {
     connectOrCreate?: WebhookEndpointCreateOrConnectWithoutUserInput | WebhookEndpointCreateOrConnectWithoutUserInput[]
     createMany?: WebhookEndpointCreateManyUserInputEnvelope
     connect?: WebhookEndpointWhereUniqueInput | WebhookEndpointWhereUniqueInput[]
+  }
+
+  export type JobLogUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<JobLogCreateWithoutUserInput, JobLogUncheckedCreateWithoutUserInput> | JobLogCreateWithoutUserInput[] | JobLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: JobLogCreateOrConnectWithoutUserInput | JobLogCreateOrConnectWithoutUserInput[]
+    createMany?: JobLogCreateManyUserInputEnvelope
+    connect?: JobLogWhereUniqueInput | JobLogWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -47545,6 +47666,20 @@ export namespace Prisma {
     deleteMany?: WebhookEndpointScalarWhereInput | WebhookEndpointScalarWhereInput[]
   }
 
+  export type JobLogUpdateManyWithoutUserNestedInput = {
+    create?: XOR<JobLogCreateWithoutUserInput, JobLogUncheckedCreateWithoutUserInput> | JobLogCreateWithoutUserInput[] | JobLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: JobLogCreateOrConnectWithoutUserInput | JobLogCreateOrConnectWithoutUserInput[]
+    upsert?: JobLogUpsertWithWhereUniqueWithoutUserInput | JobLogUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: JobLogCreateManyUserInputEnvelope
+    set?: JobLogWhereUniqueInput | JobLogWhereUniqueInput[]
+    disconnect?: JobLogWhereUniqueInput | JobLogWhereUniqueInput[]
+    delete?: JobLogWhereUniqueInput | JobLogWhereUniqueInput[]
+    connect?: JobLogWhereUniqueInput | JobLogWhereUniqueInput[]
+    update?: JobLogUpdateWithWhereUniqueWithoutUserInput | JobLogUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: JobLogUpdateManyWithWhereWithoutUserInput | JobLogUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: JobLogScalarWhereInput | JobLogScalarWhereInput[]
+  }
+
   export type PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<PasswordResetTokenCreateWithoutUserInput, PasswordResetTokenUncheckedCreateWithoutUserInput> | PasswordResetTokenCreateWithoutUserInput[] | PasswordResetTokenUncheckedCreateWithoutUserInput[]
     connectOrCreate?: PasswordResetTokenCreateOrConnectWithoutUserInput | PasswordResetTokenCreateOrConnectWithoutUserInput[]
@@ -47655,6 +47790,20 @@ export namespace Prisma {
     update?: WebhookEndpointUpdateWithWhereUniqueWithoutUserInput | WebhookEndpointUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: WebhookEndpointUpdateManyWithWhereWithoutUserInput | WebhookEndpointUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: WebhookEndpointScalarWhereInput | WebhookEndpointScalarWhereInput[]
+  }
+
+  export type JobLogUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<JobLogCreateWithoutUserInput, JobLogUncheckedCreateWithoutUserInput> | JobLogCreateWithoutUserInput[] | JobLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: JobLogCreateOrConnectWithoutUserInput | JobLogCreateOrConnectWithoutUserInput[]
+    upsert?: JobLogUpsertWithWhereUniqueWithoutUserInput | JobLogUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: JobLogCreateManyUserInputEnvelope
+    set?: JobLogWhereUniqueInput | JobLogWhereUniqueInput[]
+    disconnect?: JobLogWhereUniqueInput | JobLogWhereUniqueInput[]
+    delete?: JobLogWhereUniqueInput | JobLogWhereUniqueInput[]
+    connect?: JobLogWhereUniqueInput | JobLogWhereUniqueInput[]
+    update?: JobLogUpdateWithWhereUniqueWithoutUserInput | JobLogUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: JobLogUpdateManyWithWhereWithoutUserInput | JobLogUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: JobLogScalarWhereInput | JobLogScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutPassword_reset_tokensInput = {
@@ -50036,6 +50185,12 @@ export namespace Prisma {
     connect?: WorkflowRunWhereUniqueInput
   }
 
+  export type UserCreateNestedOneWithoutJob_logsInput = {
+    create?: XOR<UserCreateWithoutJob_logsInput, UserUncheckedCreateWithoutJob_logsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutJob_logsInput
+    connect?: UserWhereUniqueInput
+  }
+
   export type EnumJobStatusFieldUpdateOperationsInput = {
     set?: $Enums.JobStatus
   }
@@ -50048,6 +50203,16 @@ export namespace Prisma {
     delete?: WorkflowRunWhereInput | boolean
     connect?: WorkflowRunWhereUniqueInput
     update?: XOR<XOR<WorkflowRunUpdateToOneWithWhereWithoutJob_logsInput, WorkflowRunUpdateWithoutJob_logsInput>, WorkflowRunUncheckedUpdateWithoutJob_logsInput>
+  }
+
+  export type UserUpdateOneWithoutJob_logsNestedInput = {
+    create?: XOR<UserCreateWithoutJob_logsInput, UserUncheckedCreateWithoutJob_logsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutJob_logsInput
+    upsert?: UserUpsertWithoutJob_logsInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutJob_logsInput, UserUpdateWithoutJob_logsInput>, UserUncheckedUpdateWithoutJob_logsInput>
   }
 
   export type WebsiteTargetCreateNestedOneWithoutNotificationsInput = {
@@ -51242,6 +51407,56 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type JobLogCreateWithoutUserInput = {
+    id?: string
+    queue_name: string
+    job_id?: string | null
+    job_name?: string | null
+    status: $Enums.JobStatus
+    attempt?: number
+    max_attempts?: number | null
+    payload?: NullableJsonNullValueInput | InputJsonValue
+    result?: NullableJsonNullValueInput | InputJsonValue
+    error_message?: string | null
+    stack_trace?: string | null
+    started_at?: Date | string | null
+    finished_at?: Date | string | null
+    duration_ms?: number | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    workflow_run?: WorkflowRunCreateNestedOneWithoutJob_logsInput
+  }
+
+  export type JobLogUncheckedCreateWithoutUserInput = {
+    id?: string
+    queue_name: string
+    job_id?: string | null
+    job_name?: string | null
+    status: $Enums.JobStatus
+    attempt?: number
+    max_attempts?: number | null
+    workflow_run_id?: string | null
+    payload?: NullableJsonNullValueInput | InputJsonValue
+    result?: NullableJsonNullValueInput | InputJsonValue
+    error_message?: string | null
+    stack_trace?: string | null
+    started_at?: Date | string | null
+    finished_at?: Date | string | null
+    duration_ms?: number | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type JobLogCreateOrConnectWithoutUserInput = {
+    where: JobLogWhereUniqueInput
+    create: XOR<JobLogCreateWithoutUserInput, JobLogUncheckedCreateWithoutUserInput>
+  }
+
+  export type JobLogCreateManyUserInputEnvelope = {
+    data: JobLogCreateManyUserInput | JobLogCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type PasswordResetTokenUpsertWithWhereUniqueWithoutUserInput = {
     where: PasswordResetTokenWhereUniqueInput
     update: XOR<PasswordResetTokenUpdateWithoutUserInput, PasswordResetTokenUncheckedUpdateWithoutUserInput>
@@ -51538,6 +51753,46 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"WebhookEndpoint"> | Date | string
   }
 
+  export type JobLogUpsertWithWhereUniqueWithoutUserInput = {
+    where: JobLogWhereUniqueInput
+    update: XOR<JobLogUpdateWithoutUserInput, JobLogUncheckedUpdateWithoutUserInput>
+    create: XOR<JobLogCreateWithoutUserInput, JobLogUncheckedCreateWithoutUserInput>
+  }
+
+  export type JobLogUpdateWithWhereUniqueWithoutUserInput = {
+    where: JobLogWhereUniqueInput
+    data: XOR<JobLogUpdateWithoutUserInput, JobLogUncheckedUpdateWithoutUserInput>
+  }
+
+  export type JobLogUpdateManyWithWhereWithoutUserInput = {
+    where: JobLogScalarWhereInput
+    data: XOR<JobLogUpdateManyMutationInput, JobLogUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type JobLogScalarWhereInput = {
+    AND?: JobLogScalarWhereInput | JobLogScalarWhereInput[]
+    OR?: JobLogScalarWhereInput[]
+    NOT?: JobLogScalarWhereInput | JobLogScalarWhereInput[]
+    id?: StringFilter<"JobLog"> | string
+    queue_name?: StringFilter<"JobLog"> | string
+    job_id?: StringNullableFilter<"JobLog"> | string | null
+    job_name?: StringNullableFilter<"JobLog"> | string | null
+    status?: EnumJobStatusFilter<"JobLog"> | $Enums.JobStatus
+    attempt?: IntFilter<"JobLog"> | number
+    max_attempts?: IntNullableFilter<"JobLog"> | number | null
+    workflow_run_id?: StringNullableFilter<"JobLog"> | string | null
+    user_id?: StringNullableFilter<"JobLog"> | string | null
+    payload?: JsonNullableFilter<"JobLog">
+    result?: JsonNullableFilter<"JobLog">
+    error_message?: StringNullableFilter<"JobLog"> | string | null
+    stack_trace?: StringNullableFilter<"JobLog"> | string | null
+    started_at?: DateTimeNullableFilter<"JobLog"> | Date | string | null
+    finished_at?: DateTimeNullableFilter<"JobLog"> | Date | string | null
+    duration_ms?: IntNullableFilter<"JobLog"> | number | null
+    created_at?: DateTimeFilter<"JobLog"> | Date | string
+    updated_at?: DateTimeFilter<"JobLog"> | Date | string
+  }
+
   export type UserCreateWithoutPassword_reset_tokensInput = {
     id?: string
     email: string
@@ -51554,6 +51809,7 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
+    job_logs?: JobLogCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPassword_reset_tokensInput = {
@@ -51572,6 +51828,7 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUncheckedCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
+    job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPassword_reset_tokensInput = {
@@ -51606,6 +51863,7 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
+    job_logs?: JobLogUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPassword_reset_tokensInput = {
@@ -51624,6 +51882,7 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUncheckedUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
+    job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutApi_keysInput = {
@@ -51642,6 +51901,7 @@ export namespace Prisma {
     user_integrations?: UserIntegrationCreateNestedManyWithoutUserInput
     extraction_schemas?: ExtractionSchemaCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
+    job_logs?: JobLogCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutApi_keysInput = {
@@ -51660,6 +51920,7 @@ export namespace Prisma {
     user_integrations?: UserIntegrationUncheckedCreateNestedManyWithoutUserInput
     extraction_schemas?: ExtractionSchemaUncheckedCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
+    job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutApi_keysInput = {
@@ -51694,6 +51955,7 @@ export namespace Prisma {
     user_integrations?: UserIntegrationUpdateManyWithoutUserNestedInput
     extraction_schemas?: ExtractionSchemaUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
+    job_logs?: JobLogUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutApi_keysInput = {
@@ -51712,6 +51974,7 @@ export namespace Prisma {
     user_integrations?: UserIntegrationUncheckedUpdateManyWithoutUserNestedInput
     extraction_schemas?: ExtractionSchemaUncheckedUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
+    job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutWebhook_endpointsInput = {
@@ -51730,6 +51993,7 @@ export namespace Prisma {
     user_integrations?: UserIntegrationCreateNestedManyWithoutUserInput
     extraction_schemas?: ExtractionSchemaCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyCreateNestedManyWithoutUserInput
+    job_logs?: JobLogCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWebhook_endpointsInput = {
@@ -51748,6 +52012,7 @@ export namespace Prisma {
     user_integrations?: UserIntegrationUncheckedCreateNestedManyWithoutUserInput
     extraction_schemas?: ExtractionSchemaUncheckedCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
+    job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWebhook_endpointsInput = {
@@ -51822,6 +52087,7 @@ export namespace Prisma {
     user_integrations?: UserIntegrationUpdateManyWithoutUserNestedInput
     extraction_schemas?: ExtractionSchemaUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
+    job_logs?: JobLogUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWebhook_endpointsInput = {
@@ -51840,6 +52106,7 @@ export namespace Prisma {
     user_integrations?: UserIntegrationUncheckedUpdateManyWithoutUserNestedInput
     extraction_schemas?: ExtractionSchemaUncheckedUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
+    job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WebhookDeliveryUpsertWithWhereUniqueWithoutWebhook_endpointInput = {
@@ -52187,6 +52454,7 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
+    job_logs?: JobLogCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWebsite_targetsInput = {
@@ -52205,6 +52473,7 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUncheckedCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
+    job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWebsite_targetsInput = {
@@ -52577,6 +52846,7 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
+    job_logs?: JobLogUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWebsite_targetsInput = {
@@ -52595,6 +52865,7 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUncheckedUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
+    job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WorkflowConfigUpsertWithWhereUniqueWithoutWebsite_targetInput = {
@@ -52882,6 +53153,7 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
+    job_logs?: JobLogCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWorkflow_configsInput = {
@@ -52900,6 +53172,7 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUncheckedCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
+    job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWorkflow_configsInput = {
@@ -53345,6 +53618,7 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
+    job_logs?: JobLogUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWorkflow_configsInput = {
@@ -53363,6 +53637,7 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUncheckedUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
+    job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WebsiteTargetUpsertWithoutWorkflow_configsInput = {
@@ -55540,6 +55815,7 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
+    job_logs?: JobLogCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWorkflow_runsInput = {
@@ -55558,6 +55834,7 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUncheckedCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
+    job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWorkflow_runsInput = {
@@ -55762,6 +56039,7 @@ export namespace Prisma {
     duration_ms?: number | null
     created_at?: Date | string
     updated_at?: Date | string
+    user?: UserCreateNestedOneWithoutJob_logsInput
   }
 
   export type JobLogUncheckedCreateWithoutWorkflow_runInput = {
@@ -55772,6 +56050,7 @@ export namespace Prisma {
     status: $Enums.JobStatus
     attempt?: number
     max_attempts?: number | null
+    user_id?: string | null
     payload?: NullableJsonNullValueInput | InputJsonValue
     result?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
@@ -56174,6 +56453,7 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
+    job_logs?: JobLogUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWorkflow_runsInput = {
@@ -56192,6 +56472,7 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUncheckedUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
+    job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WebsiteTargetUpsertWithoutWorkflow_runsInput = {
@@ -56394,29 +56675,6 @@ export namespace Prisma {
   export type JobLogUpdateManyWithWhereWithoutWorkflow_runInput = {
     where: JobLogScalarWhereInput
     data: XOR<JobLogUpdateManyMutationInput, JobLogUncheckedUpdateManyWithoutWorkflow_runInput>
-  }
-
-  export type JobLogScalarWhereInput = {
-    AND?: JobLogScalarWhereInput | JobLogScalarWhereInput[]
-    OR?: JobLogScalarWhereInput[]
-    NOT?: JobLogScalarWhereInput | JobLogScalarWhereInput[]
-    id?: StringFilter<"JobLog"> | string
-    queue_name?: StringFilter<"JobLog"> | string
-    job_id?: StringNullableFilter<"JobLog"> | string | null
-    job_name?: StringNullableFilter<"JobLog"> | string | null
-    status?: EnumJobStatusFilter<"JobLog"> | $Enums.JobStatus
-    attempt?: IntFilter<"JobLog"> | number
-    max_attempts?: IntNullableFilter<"JobLog"> | number | null
-    workflow_run_id?: StringNullableFilter<"JobLog"> | string | null
-    payload?: JsonNullableFilter<"JobLog">
-    result?: JsonNullableFilter<"JobLog">
-    error_message?: StringNullableFilter<"JobLog"> | string | null
-    stack_trace?: StringNullableFilter<"JobLog"> | string | null
-    started_at?: DateTimeNullableFilter<"JobLog"> | Date | string | null
-    finished_at?: DateTimeNullableFilter<"JobLog"> | Date | string | null
-    duration_ms?: IntNullableFilter<"JobLog"> | number | null
-    created_at?: DateTimeFilter<"JobLog"> | Date | string
-    updated_at?: DateTimeFilter<"JobLog"> | Date | string
   }
 
   export type NotificationUpsertWithWhereUniqueWithoutWorkflow_runInput = {
@@ -56942,6 +57200,7 @@ export namespace Prisma {
     user_integrations?: UserIntegrationCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
+    job_logs?: JobLogCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutExtraction_schemasInput = {
@@ -56960,6 +57219,7 @@ export namespace Prisma {
     user_integrations?: UserIntegrationUncheckedCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
+    job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutExtraction_schemasInput = {
@@ -57057,6 +57317,7 @@ export namespace Prisma {
     user_integrations?: UserIntegrationUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
+    job_logs?: JobLogUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutExtraction_schemasInput = {
@@ -57075,6 +57336,7 @@ export namespace Prisma {
     user_integrations?: UserIntegrationUncheckedUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
+    job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ExtractionSchemaVersionUpsertWithoutActive_for_schemaInput = {
@@ -59280,6 +59542,49 @@ export namespace Prisma {
     create: XOR<WorkflowRunCreateWithoutJob_logsInput, WorkflowRunUncheckedCreateWithoutJob_logsInput>
   }
 
+  export type UserCreateWithoutJob_logsInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    password: string
+    role: $Enums.AuthRole
+    default_schedule_tz?: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    password_reset_tokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    website_targets?: WebsiteTargetCreateNestedManyWithoutUserInput
+    workflow_configs?: WorkflowConfigCreateNestedManyWithoutUserInput
+    workflow_runs?: WorkflowRunCreateNestedManyWithoutUserInput
+    user_integrations?: UserIntegrationCreateNestedManyWithoutUserInput
+    extraction_schemas?: ExtractionSchemaCreateNestedManyWithoutUserInput
+    api_keys?: ApiKeyCreateNestedManyWithoutUserInput
+    webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutJob_logsInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    password: string
+    role: $Enums.AuthRole
+    default_schedule_tz?: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    password_reset_tokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    website_targets?: WebsiteTargetUncheckedCreateNestedManyWithoutUserInput
+    workflow_configs?: WorkflowConfigUncheckedCreateNestedManyWithoutUserInput
+    workflow_runs?: WorkflowRunUncheckedCreateNestedManyWithoutUserInput
+    user_integrations?: UserIntegrationUncheckedCreateNestedManyWithoutUserInput
+    extraction_schemas?: ExtractionSchemaUncheckedCreateNestedManyWithoutUserInput
+    api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
+    webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutJob_logsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutJob_logsInput, UserUncheckedCreateWithoutJob_logsInput>
+  }
+
   export type WorkflowRunUpsertWithoutJob_logsInput = {
     update: XOR<WorkflowRunUpdateWithoutJob_logsInput, WorkflowRunUncheckedUpdateWithoutJob_logsInput>
     create: XOR<WorkflowRunCreateWithoutJob_logsInput, WorkflowRunUncheckedCreateWithoutJob_logsInput>
@@ -59373,6 +59678,55 @@ export namespace Prisma {
     pages?: PlainScrapedPageUncheckedUpdateManyWithoutWorkflow_runNestedInput
     extraction_result?: ExtractionResultUncheckedUpdateOneWithoutWorkflow_runNestedInput
     ai_batch_job?: AiBatchJobUncheckedUpdateOneWithoutWorkflow_runNestedInput
+  }
+
+  export type UserUpsertWithoutJob_logsInput = {
+    update: XOR<UserUpdateWithoutJob_logsInput, UserUncheckedUpdateWithoutJob_logsInput>
+    create: XOR<UserCreateWithoutJob_logsInput, UserUncheckedCreateWithoutJob_logsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutJob_logsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutJob_logsInput, UserUncheckedUpdateWithoutJob_logsInput>
+  }
+
+  export type UserUpdateWithoutJob_logsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
+    default_schedule_tz?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    password_reset_tokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    website_targets?: WebsiteTargetUpdateManyWithoutUserNestedInput
+    workflow_configs?: WorkflowConfigUpdateManyWithoutUserNestedInput
+    workflow_runs?: WorkflowRunUpdateManyWithoutUserNestedInput
+    user_integrations?: UserIntegrationUpdateManyWithoutUserNestedInput
+    extraction_schemas?: ExtractionSchemaUpdateManyWithoutUserNestedInput
+    api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
+    webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutJob_logsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumAuthRoleFieldUpdateOperationsInput | $Enums.AuthRole
+    default_schedule_tz?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    password_reset_tokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    website_targets?: WebsiteTargetUncheckedUpdateManyWithoutUserNestedInput
+    workflow_configs?: WorkflowConfigUncheckedUpdateManyWithoutUserNestedInput
+    workflow_runs?: WorkflowRunUncheckedUpdateManyWithoutUserNestedInput
+    user_integrations?: UserIntegrationUncheckedUpdateManyWithoutUserNestedInput
+    extraction_schemas?: ExtractionSchemaUncheckedUpdateManyWithoutUserNestedInput
+    api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
+    webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WebsiteTargetCreateWithoutNotificationsInput = {
@@ -59847,6 +60201,7 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointCreateNestedManyWithoutUserInput
+    job_logs?: JobLogCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutUser_integrationsInput = {
@@ -59865,6 +60220,7 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUncheckedCreateNestedManyWithoutUserInput
     api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
     webhook_endpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutUserInput
+    job_logs?: JobLogUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutUser_integrationsInput = {
@@ -59899,6 +60255,7 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUpdateManyWithoutUserNestedInput
+    job_logs?: JobLogUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutUser_integrationsInput = {
@@ -59917,6 +60274,7 @@ export namespace Prisma {
     extraction_schemas?: ExtractionSchemaUncheckedUpdateManyWithoutUserNestedInput
     api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
     webhook_endpoints?: WebhookEndpointUncheckedUpdateManyWithoutUserNestedInput
+    job_logs?: JobLogUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PasswordResetTokenCreateManyUserInput = {
@@ -60051,6 +60409,26 @@ export namespace Prisma {
     subscribed_events?: WebhookEndpointCreatesubscribed_eventsInput | $Enums.WebhookEventType[]
     is_active?: boolean
     last_triggered_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type JobLogCreateManyUserInput = {
+    id?: string
+    queue_name: string
+    job_id?: string | null
+    job_name?: string | null
+    status: $Enums.JobStatus
+    attempt?: number
+    max_attempts?: number | null
+    workflow_run_id?: string | null
+    payload?: NullableJsonNullValueInput | InputJsonValue
+    result?: NullableJsonNullValueInput | InputJsonValue
+    error_message?: string | null
+    stack_trace?: string | null
+    started_at?: Date | string | null
+    finished_at?: Date | string | null
+    duration_ms?: number | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -60505,6 +60883,66 @@ export namespace Prisma {
     subscribed_events?: WebhookEndpointUpdatesubscribed_eventsInput | $Enums.WebhookEventType[]
     is_active?: BoolFieldUpdateOperationsInput | boolean
     last_triggered_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type JobLogUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    queue_name?: StringFieldUpdateOperationsInput | string
+    job_id?: NullableStringFieldUpdateOperationsInput | string | null
+    job_name?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
+    attempt?: IntFieldUpdateOperationsInput | number
+    max_attempts?: NullableIntFieldUpdateOperationsInput | number | null
+    payload?: NullableJsonNullValueInput | InputJsonValue
+    result?: NullableJsonNullValueInput | InputJsonValue
+    error_message?: NullableStringFieldUpdateOperationsInput | string | null
+    stack_trace?: NullableStringFieldUpdateOperationsInput | string | null
+    started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    workflow_run?: WorkflowRunUpdateOneWithoutJob_logsNestedInput
+  }
+
+  export type JobLogUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    queue_name?: StringFieldUpdateOperationsInput | string
+    job_id?: NullableStringFieldUpdateOperationsInput | string | null
+    job_name?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
+    attempt?: IntFieldUpdateOperationsInput | number
+    max_attempts?: NullableIntFieldUpdateOperationsInput | number | null
+    workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
+    payload?: NullableJsonNullValueInput | InputJsonValue
+    result?: NullableJsonNullValueInput | InputJsonValue
+    error_message?: NullableStringFieldUpdateOperationsInput | string | null
+    stack_trace?: NullableStringFieldUpdateOperationsInput | string | null
+    started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type JobLogUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    queue_name?: StringFieldUpdateOperationsInput | string
+    job_id?: NullableStringFieldUpdateOperationsInput | string | null
+    job_name?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
+    attempt?: IntFieldUpdateOperationsInput | number
+    max_attempts?: NullableIntFieldUpdateOperationsInput | number | null
+    workflow_run_id?: NullableStringFieldUpdateOperationsInput | string | null
+    payload?: NullableJsonNullValueInput | InputJsonValue
+    result?: NullableJsonNullValueInput | InputJsonValue
+    error_message?: NullableStringFieldUpdateOperationsInput | string | null
+    stack_trace?: NullableStringFieldUpdateOperationsInput | string | null
+    started_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    finished_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -62005,6 +62443,7 @@ export namespace Prisma {
     status: $Enums.JobStatus
     attempt?: number
     max_attempts?: number | null
+    user_id?: string | null
     payload?: NullableJsonNullValueInput | InputJsonValue
     result?: NullableJsonNullValueInput | InputJsonValue
     error_message?: string | null
@@ -62118,6 +62557,7 @@ export namespace Prisma {
     duration_ms?: NullableIntFieldUpdateOperationsInput | number | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneWithoutJob_logsNestedInput
   }
 
   export type JobLogUncheckedUpdateWithoutWorkflow_runInput = {
@@ -62128,6 +62568,7 @@ export namespace Prisma {
     status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
     attempt?: IntFieldUpdateOperationsInput | number
     max_attempts?: NullableIntFieldUpdateOperationsInput | number | null
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
     payload?: NullableJsonNullValueInput | InputJsonValue
     result?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null
@@ -62147,6 +62588,7 @@ export namespace Prisma {
     status?: EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
     attempt?: IntFieldUpdateOperationsInput | number
     max_attempts?: NullableIntFieldUpdateOperationsInput | number | null
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
     payload?: NullableJsonNullValueInput | InputJsonValue
     result?: NullableJsonNullValueInput | InputJsonValue
     error_message?: NullableStringFieldUpdateOperationsInput | string | null

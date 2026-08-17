@@ -32,7 +32,7 @@ import { JobLog } from './entities/job-log.entity';
 @ApiBearerAuth()
 @Controller('jobs')
 @UseGuards(JwtGuard, RolesGuard)
-@Roles(AuthRole.ADMIN, AuthRole.SUPPORT)
+@Roles(AuthRole.USER, AuthRole.ADMIN, AuthRole.SUPPORT)
 export class JobsController {
   constructor(private readonly jobsService: JobsService) {}
 
@@ -43,6 +43,7 @@ export class JobsController {
   @ApiQuery({ name: 'limit', required: false, type: Number })
   @ApiQuery({ name: 'status', required: false, enum: JobStatus })
   @ApiQuery({ name: 'queue_name', required: false, type: String })
+  @ApiQuery({ name: 'user_id', required: false, type: String })
   @ApiQuery({ name: 'date_from', required: false, type: String })
   @ApiQuery({ name: 'date_to', required: false, type: String })
   findAll(
@@ -53,7 +54,7 @@ export class JobsController {
   }
 
   @Post('bulk-delete')
-  @Roles(AuthRole.ADMIN)
+  @Roles(AuthRole.USER, AuthRole.ADMIN)
   @ApiOperation({ summary: 'Delete multiple job logs' })
   @ApiResponse({ status: 200, description: 'Job logs deleted' })
   @ApiResponse({ status: 400, description: 'One or more jobs are active' })
@@ -74,7 +75,7 @@ export class JobsController {
   }
 
   @Post(':id/retry')
-  @Roles(AuthRole.ADMIN)
+  @Roles(AuthRole.USER, AuthRole.ADMIN)
   @ApiOperation({ summary: 'Retry a failed or completed job' })
   @ApiResponse({ status: 200, type: JobLog })
   @ApiResponse({ status: 400, description: 'Job log has no payload to retry' })
@@ -84,7 +85,7 @@ export class JobsController {
   }
 
   @Post(':id/stop')
-  @Roles(AuthRole.ADMIN)
+  @Roles(AuthRole.USER, AuthRole.ADMIN)
   @ApiOperation({ summary: 'Stop a queued or running job' })
   @ApiResponse({ status: 200, type: JobLog })
   @ApiResponse({ status: 400, description: 'Job is not stoppable' })
@@ -94,7 +95,7 @@ export class JobsController {
   }
 
   @Delete(':id')
-  @Roles(AuthRole.ADMIN)
+  @Roles(AuthRole.USER, AuthRole.ADMIN)
   @ApiOperation({ summary: 'Delete a job log' })
   @ApiResponse({ status: 200, description: 'Deleted' })
   @ApiResponse({ status: 400, description: 'Job is still active' })

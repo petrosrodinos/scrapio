@@ -78,6 +78,7 @@ export class BrowserAgentProcessor extends WorkerHost {
       jobLogId,
       attempt,
       startedAt,
+      run.user_id,
     );
 
     const claimed = await this.prisma.workflowRun.updateMany({
@@ -454,6 +455,7 @@ export class BrowserAgentProcessor extends WorkerHost {
     jobLogId: string | undefined,
     attempt: number,
     startedAt: Date,
+    userId: string,
   ): Promise<string> {
     if (jobLogId) {
       await this.prisma.jobLog.update({
@@ -481,6 +483,7 @@ export class BrowserAgentProcessor extends WorkerHost {
         attempt,
         max_attempts: job.opts.attempts ?? null,
         workflow_run_id: workflowRunId,
+        user_id: userId,
         payload: job.data as object,
         started_at: startedAt,
       },

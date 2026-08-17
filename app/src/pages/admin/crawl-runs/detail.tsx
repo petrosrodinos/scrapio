@@ -489,7 +489,7 @@ export default function CrawlRunDetailPage() {
                       {jobLogs.map((job) => (
                         <button
                           key={job.id}
-                          onClick={() => navigate(Routes.admin.jobs.detail(job.id))}
+                          onClick={() => navigate(Routes.jobs.detail(job.id))}
                           className="flex items-center justify-between gap-3 rounded-lg border border-border p-3 text-left hover:border-accent/50 transition-colors"
                         >
                           <div className="flex flex-col gap-0.5">

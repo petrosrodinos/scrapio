@@ -18,7 +18,8 @@ export interface JobLog {
   status: JobStatus;
   attempt: number;
   max_attempts: number | null;
-  crawl_run_id: string | null;
+  workflow_run_id: string | null;
+  user_id: string | null;
   payload: Record<string, unknown> | null;
   result: Record<string, unknown> | null;
   error_message: string | null;
@@ -35,6 +36,7 @@ export interface JobLogListQuery {
   limit?: number;
   status?: JobStatus;
   queue_name?: string;
+  user_id?: string;
   date_from?: string;
   date_to?: string;
 }

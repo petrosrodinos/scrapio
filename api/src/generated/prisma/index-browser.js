@@ -487,6 +487,7 @@ exports.Prisma.JobLogScalarFieldEnum = {
   attempt: 'attempt',
   max_attempts: 'max_attempts',
   workflow_run_id: 'workflow_run_id',
+  user_id: 'user_id',
   payload: 'payload',
   result: 'result',
   error_message: 'error_message',

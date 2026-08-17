@@ -252,6 +252,7 @@ model User {
   extraction_schemas    ExtractionSchema[]
   api_keys              ApiKey[]
   webhook_endpoints     WebhookEndpoint[]
+  job_logs              JobLog[]
 
   @@index([email])
   @@index([phone])
@@ -949,6 +950,7 @@ model JobLog {
   attempt         Int       @default(0)
   max_attempts    Int?
   workflow_run_id String?
+  user_id         String?
   payload         Json?
   result          Json?
   error_message   String?
@@ -960,11 +962,13 @@ model JobLog {
   updated_at      DateTime  @updatedAt
 
   workflow_run WorkflowRun? @relation(fields: [workflow_run_id], references: [id], onDelete: SetNull)
+  user         User?        @relation(fields: [user_id], references: [id], onDelete: SetNull)
 
   @@index([queue_name])
   @@index([job_id])
   @@index([status])
   @@index([workflow_run_id])
+  @@index([user_id])
   @@index([created_at])
   @@map("job_logs")
 }

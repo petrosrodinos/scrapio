@@ -145,6 +145,7 @@ export class CrawlProcessor extends WorkerHost implements OnModuleInit {
       jobLogId,
       attempt,
       startedAt,
+      run.user_id,
     );
 
     const claimed = await this.prisma.workflowRun.updateMany({
@@ -678,6 +679,7 @@ export class CrawlProcessor extends WorkerHost implements OnModuleInit {
     jobLogId: string | undefined,
     attempt: number,
     startedAt: Date,
+    userId: string,
   ): Promise<string> {
     if (jobLogId) {
       await this.prisma.jobLog.update({
@@ -705,6 +707,7 @@ export class CrawlProcessor extends WorkerHost implements OnModuleInit {
         attempt,
         max_attempts: job.opts.attempts ?? null,
         workflow_run_id: workflowRunId,
+        user_id: userId,
         payload: job.data as object,
         started_at: startedAt,
       },

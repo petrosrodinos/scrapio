@@ -27,6 +27,9 @@ export class JobLog {
   workflow_run_id: string | null;
 
   @ApiProperty({ nullable: true })
+  user_id: string | null;
+
+  @ApiProperty({ nullable: true })
   payload: Record<string, unknown> | null;
 
   @ApiProperty({ nullable: true })

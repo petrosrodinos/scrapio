@@ -53,7 +53,7 @@ export class JobsService {
     query: JobLogQueryType,
   ): Promise<PaginatedResult<any>> {
     const where: Prisma.JobLogWhereInput = {
-      ...jobLogUserWhere(authUser),
+      ...jobLogUserWhere(authUser, query.user_id),
       ...(query.status && { status: query.status }),
       ...(query.queue_name && { queue_name: query.queue_name }),
       ...(query.date_from || query.date_to

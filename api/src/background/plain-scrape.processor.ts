@@ -73,7 +73,14 @@ export class PlainScrapeProcessor extends WorkerHost {
 
     const attempt = job.attemptsMade + 1;
     const startedAt = new Date();
-    const logId = await this.markJobActive(job, workflowRunId, jobLogId, attempt, startedAt);
+    const logId = await this.markJobActive(
+      job,
+      workflowRunId,
+      jobLogId,
+      attempt,
+      startedAt,
+      run.user_id,
+    );
 
     const claimed = await this.prisma.workflowRun.updateMany({
       where: { id: workflowRunId, status: RunStatus.QUEUED },
@@ -408,6 +415,7 @@ export class PlainScrapeProcessor extends WorkerHost {
     jobLogId: string | undefined,
     attempt: number,
     startedAt: Date,
+    userId: string,
   ): Promise<string> {
     if (jobLogId) {
       await this.prisma.jobLog.update({
@@ -435,6 +443,7 @@ export class PlainScrapeProcessor extends WorkerHost {
         attempt,
         max_attempts: job.opts.attempts ?? null,
         workflow_run_id: workflowRunId,
+        user_id: userId,
         payload: job.data as object,
         started_at: startedAt,
       },

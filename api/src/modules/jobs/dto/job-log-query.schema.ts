@@ -12,6 +12,7 @@ export const JobLogQuerySchema = z.object({
     .transform((v) => (v ? Math.min(parseInt(v, 10), 100) : 20)),
   status: z.nativeEnum(JobStatus).optional(),
   queue_name: z.string().optional(),
+  user_id: z.string().uuid().optional(),
   date_from: z
     .string()
     .datetime()

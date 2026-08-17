@@ -19,6 +19,7 @@ export const ApiRoutes = {
     },
     users: {
         prefix: "/users",
+        list: "/users",
         me: "/users/me",
         crawlScheduleTimezones: "/users/crawl-schedule-timezones",
     },

@@ -29,6 +29,13 @@ export class UsersService {
     return CRAWL_SCHEDULE_TIMEZONES;
   }
 
+  async findAll() {
+    return this.prisma.user.findMany({
+      select: { id: true, email: true },
+      orderBy: { email: 'asc' },
+    });
+  }
+
   async getProfile(authUser: AuthUser) {
     const user = await this.prisma.user.findUnique({
       where: { id: authUser.id },

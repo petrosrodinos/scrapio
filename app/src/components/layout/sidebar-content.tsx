@@ -39,6 +39,7 @@ const scraperNavItems = [
   { label: 'Generation', icon: Sparkles, href: Routes.generationRuns.list, end: false },
   { label: 'Browser Agent', icon: Bot, href: Routes.browserAgent.list, end: false },
   { label: 'Crawl Runs', icon: Play, href: Routes.crawlRuns.list, end: false },
+  { label: 'Jobs', icon: Wrench, href: Routes.jobs.list, end: false },
   { label: 'Integrations', icon: Plug, href: Routes.integrations.list, end: false },
 ];
 

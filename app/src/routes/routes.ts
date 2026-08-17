@@ -43,6 +43,10 @@ export const Routes = {
         list: "/crawl-runs",
         detail: (id: string) => `/crawl-runs/${id}`,
     },
+    jobs: {
+        list: "/jobs",
+        detail: (id: string) => `/jobs/${id}`,
+    },
     diagnostics: {
         list: "/diagnostics",
         detail: (id: string) => `/diagnostics/${id}`,
@@ -58,8 +62,8 @@ export const Routes = {
     },
     admin: {
         jobs: {
-            list: "/jobs",
-            detail: (id: string) => `/jobs/${id}`,
+            list: "/admin/jobs",
+            detail: (id: string) => `/admin/jobs/${id}`,
         },
         crawlerConfig: "/crawler-config",
         notifications: "/notifications",
