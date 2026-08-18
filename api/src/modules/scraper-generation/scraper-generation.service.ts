@@ -33,6 +33,7 @@ import { RetryGenerationRunDto } from './dto/retry-generation-run.dto';
 import { GenerationRunQueryType } from './dto/generation-run-query.schema';
 import { getOutputSchemaDefinitionError } from './dto/output-schema.schema';
 import { PaginatedResult } from './interfaces/generation-run.interface';
+import { OutputSchemaDefinition } from './interfaces/output-schema.interface';
 import { IntegrationCredentialResolverService } from '@/integrations/credentials/services/integration-credential-resolver.service';
 import { ScreenshotStorageService } from '@/integrations/computer-use/services/screenshot-storage.service';
 
@@ -239,7 +240,7 @@ export class ScraperGenerationService {
     const nextSchema =
       dto.output_schema !== undefined
         ? dto.output_schema
-        : ((run.output_schema as Record<string, unknown> | null) ?? undefined);
+        : ((run.output_schema as OutputSchemaDefinition | null) ?? undefined);
 
     if (dto.output_formats !== undefined || dto.output_schema !== undefined) {
       this.validateOutputConfig(
@@ -750,7 +751,7 @@ export class ScraperGenerationService {
 
   private validateOutputConfig(
     outputFormats: OutputFormat[],
-    outputSchema?: Record<string, unknown>,
+    outputSchema?: OutputSchemaDefinition,
   ): void {
     if (!outputFormats?.length) {
       return;

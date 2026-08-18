@@ -14,6 +14,10 @@ import {
   ValidateIf,
 } from 'class-validator';
 import { OutputFormat } from 'generated/prisma';
+import {
+  OutputSchemaDefinition,
+  RegexPresets,
+} from '../interfaces/output-schema.interface';
 
 export class CreateGenerationRunDto {
   @ApiProperty({ description: 'Website target to generate/fix a scraper for' })
@@ -63,19 +67,23 @@ export class CreateGenerationRunDto {
 
   @ApiProperty({
     required: false,
+    additionalProperties: true,
     description:
-      'App-level output schema definition. Required when STRUCTURED_JSON is included in output_formats.',
+      `App-level output schema definition. Required when STRUCTURED_JSON is included in output_formats. Each field maps to a primitive type ("string", "number", "integer", "boolean", or their "[]" array forms), a string/number enum (["a", "b"] / [1, 2]), a nested object ({ ... }), an object array ([{ ... }]), or a rich descriptor ({ type, description?, required?, nullable?, enum?, pattern?, flags?, minimum?, maximum?, minLength?, maxLength?, items?, properties? }). For "regex"-typed fields, "pattern" accepts a built-in preset name (${Object.values(RegexPresets).join(', ')}) or a raw regex source string.`,
     example: {
       title: 'string',
       price: 'number',
       status: ['for_sale', 'sold', 'pending'],
       rating: [1, 2, 3, 4, 5],
       features: 'string[]',
+      email: { type: 'regex', pattern: RegexPresets.EMAIL },
+      phone: { type: 'regex', pattern: RegexPresets.PHONE },
+      listing_url: { type: 'regex', pattern: RegexPresets.URL },
     },
   })
   @ValidateIf((dto) => dto.output_formats?.includes(OutputFormat.STRUCTURED_JSON))
   @IsObject()
-  output_schema?: Record<string, unknown>;
+  output_schema?: OutputSchemaDefinition;
 
   @ApiProperty({
     description:

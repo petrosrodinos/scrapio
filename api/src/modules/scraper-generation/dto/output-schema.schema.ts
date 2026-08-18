@@ -1,27 +1,16 @@
 import { z } from 'zod';
 import { resolveRegexPattern } from '@/shared/constants/regex-presets.constants';
+import {
+  DescriptorBaseTypes,
+  OutputSchemaDefinition,
+  PrimitiveSchemaTypes,
+} from '../interfaces/output-schema.interface';
 
-const PRIMITIVE_SCHEMA_TYPES = [
-  'string',
-  'number',
-  'integer',
-  'boolean',
-  'string[]',
-  'number[]',
-  'boolean[]',
-] as const;
+const PRIMITIVE_SCHEMA_TYPES = Object.values(PrimitiveSchemaTypes);
 
 const PRIMITIVE_SCHEMA_TYPE_SET = new Set<string>(PRIMITIVE_SCHEMA_TYPES);
 
-const DESCRIPTOR_BASE_TYPES = [
-  'string',
-  'number',
-  'integer',
-  'boolean',
-  'object',
-  'array',
-  'regex',
-] as const;
+const DESCRIPTOR_BASE_TYPES = Object.values(DescriptorBaseTypes);
 
 const DESCRIPTOR_BASE_TYPE_SET = new Set<string>(DESCRIPTOR_BASE_TYPES);
 
@@ -319,7 +308,7 @@ export function getOutputSchemaDefinitionError(
   );
 }
 
-export const outputSchemaDefinitionSchema = z
+export const outputSchemaDefinitionSchema: z.ZodType<OutputSchemaDefinition> = z
   .record(z.unknown())
   .superRefine((value, ctx) => {
     const error = getOutputSchemaDefinitionError(value);
@@ -329,4 +318,4 @@ export const outputSchemaDefinitionSchema = z
         message: error,
       });
     }
-  });
+  }) as z.ZodType<OutputSchemaDefinition>;

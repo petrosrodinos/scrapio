@@ -13,6 +13,7 @@ import {
   ValidateIf,
 } from 'class-validator';
 import { OutputFormat } from 'generated/prisma';
+import { OutputSchemaDefinition } from '../interfaces/output-schema.interface';
 
 export class UpdateGenerationRunDto {
   @ApiProperty({
@@ -53,16 +54,18 @@ export class UpdateGenerationRunDto {
   @ApiProperty({
     required: false,
     nullable: true,
+    additionalProperties: true,
     description:
-      'App-level output schema definition. Required when STRUCTURED_JSON is selected.',
+      'App-level output schema definition. Required when STRUCTURED_JSON is selected. Null clears the schema. Omit to leave unchanged. See CreateGenerationRunDto.output_schema for the accepted shapes.',
   })
   @IsOptional()
   @ValidateIf((_, value) => value !== null)
   @IsObject()
-  output_schema?: Record<string, unknown> | null;
+  output_schema?: OutputSchemaDefinition | null;
 
   @ApiProperty({
     required: false,
+    additionalProperties: true,
     description:
       'Staged scraper config pending review. Only allowed when status is AWAITING_REVIEW.',
   })

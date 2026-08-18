@@ -34,3 +34,18 @@ export const REGEX_PRESETS: Record<string, string> = {
 export function resolveRegexPattern(pattern: string): string {
   return REGEX_PRESETS[pattern.toLowerCase().trim()] ?? pattern;
 }
+
+export const RegexPresets = {
+  EMAIL: 'email',
+  PHONE: 'phone',
+  URL: 'url',
+} as const;
+
+export type RegexPreset = (typeof RegexPresets)[keyof typeof RegexPresets];
+
+export function isBuiltInRegexPreset(pattern: string): pattern is RegexPreset {
+  return Object.prototype.hasOwnProperty.call(
+    REGEX_PRESETS,
+    pattern.toLowerCase().trim(),
+  );
+}

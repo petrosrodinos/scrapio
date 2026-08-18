@@ -5,6 +5,7 @@ import {
   OutputFormat,
 } from 'generated/prisma';
 import { ComputerUseStep } from './computer-use-step.entity';
+import { OutputSchemaDefinition } from '../interfaces/output-schema.interface';
 
 export class ScraperGenerationRun {
   @ApiProperty({ example: '123e4567-e89b-12d3-a456-426614174000' })
@@ -50,11 +51,12 @@ export class ScraperGenerationRun {
 
   @ApiProperty({
     nullable: true,
+    additionalProperties: true,
     description:
       'App-level output schema definition this run was generated against. Dynamic/polymorphic JSON shape (see CreateGenerationRunDto.output_schema); only present when STRUCTURED_JSON is included in output_formats.',
     example: { title: 'string', price: 'number' },
   })
-  output_schema: Record<string, unknown> | null;
+  output_schema: OutputSchemaDefinition | null;
 
   @ApiProperty({
     nullable: true,
