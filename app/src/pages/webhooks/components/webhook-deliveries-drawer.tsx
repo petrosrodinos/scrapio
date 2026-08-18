@@ -55,18 +55,16 @@ export function WebhookDeliveriesDrawer({ state, endpoint }: WebhookDeliveriesDr
   return (
     <Drawer state={state}>
       <Drawer.Backdrop isDismissable>
-        <Drawer.Content placement="right">
-          <Drawer.Dialog className="w-[min(42rem,100%)] max-w-2xl sm:w-[min(42rem,100%)]">
-            <Drawer.Header>
+        <Drawer.Content placement="right" className="h-full">
+          <Drawer.Dialog className="flex h-full max-h-dvh w-[min(42rem,100%)] max-w-2xl flex-col overflow-hidden sm:w-[min(42rem,100%)]">
+            <Drawer.Header className="shrink-0">
               <Drawer.Heading>Delivery history</Drawer.Heading>
               <Drawer.CloseTrigger />
             </Drawer.Header>
-            <Drawer.Body className="flex flex-col gap-4">
-              <p className="text-sm text-muted truncate" title={endpoint?.url}>
-                {endpoint?.url}
-              </p>
+            <Drawer.Body className="flex min-h-0 flex-1 flex-col gap-4 overflow-hidden">
+              <p className="shrink-0 break-all text-sm text-muted">{endpoint?.url}</p>
 
-              <div className="flex flex-wrap gap-2">
+              <div className="flex shrink-0 flex-wrap gap-2">
                 <Select
                   aria-label="Filter by status"
                   selectedKey={status}
@@ -109,36 +107,40 @@ export function WebhookDeliveriesDrawer({ state, endpoint }: WebhookDeliveriesDr
               </div>
 
               {isPending ? (
-                <TableSkeleton rows={6} columns={5} />
+                <div className="min-h-0 flex-1 overflow-y-auto">
+                  <TableSkeleton rows={6} columns={4} />
+                </div>
               ) : deliveries.length === 0 ? (
                 <div className="rounded-xl border border-border bg-surface p-8 text-center text-sm text-muted">
                   No delivery attempts yet.
                 </div>
               ) : (
-                <div className="rounded-xl border border-border bg-surface overflow-hidden">
-                  <Table>
-                    <Table.ScrollContainer>
-                      <Table.Content aria-label="Webhook deliveries">
+                <div className="min-h-0 flex-1 overflow-hidden rounded-xl border border-border bg-surface">
+                  <Table className="h-full">
+                    <Table.ScrollContainer className="h-full max-h-full min-h-0 overflow-auto">
+                      <Table.Content aria-label="Webhook deliveries" className="w-full">
                         <Table.Header>
                           <Table.Column isRowHeader>Event</Table.Column>
                           <Table.Column>Status</Table.Column>
                           <Table.Column>Attempt</Table.Column>
                           <Table.Column>Duration</Table.Column>
-                          <Table.Column>Sent</Table.Column>
                         </Table.Header>
                         <Table.Body>
                           {deliveries.map((delivery) => (
                             <Table.Row key={delivery.id} id={delivery.id}>
                               <Table.Cell>
-                                <div className="flex flex-col gap-0.5">
-                                  <span className="text-sm">{delivery.event_type}</span>
+                                <div className="flex min-w-0 flex-col gap-0.5">
+                                  <span className="text-sm break-words">{delivery.event_type}</span>
+                                  <span className="text-xs text-muted">
+                                    {formatDateTime(delivery.created_at)}
+                                  </span>
                                   {delivery.is_test ? (
                                     <span className="text-xs text-muted">Test event</span>
                                   ) : null}
                                 </div>
                               </Table.Cell>
                               <Table.Cell>
-                                <div className="flex flex-col gap-0.5">
+                                <div className="flex min-w-0 flex-col gap-0.5">
                                   <Chip color={statusColor[delivery.status]} size="sm" variant="soft">
                                     <Chip.Label>
                                       {delivery.status}
@@ -148,18 +150,18 @@ export function WebhookDeliveriesDrawer({ state, endpoint }: WebhookDeliveriesDr
                                     </Chip.Label>
                                   </Chip>
                                   {delivery.error_message ? (
-                                    <span
-                                      className="text-xs text-danger truncate max-w-[220px]"
-                                      title={delivery.error_message}
-                                    >
+                                    <span className="text-xs text-danger break-words">
                                       {delivery.error_message}
                                     </span>
                                   ) : null}
                                 </div>
                               </Table.Cell>
-                              <Table.Cell>{delivery.attempt_number}</Table.Cell>
-                              <Table.Cell>{formatDuration(delivery.duration_ms)}</Table.Cell>
-                              <Table.Cell>{formatDateTime(delivery.created_at)}</Table.Cell>
+                              <Table.Cell className="whitespace-nowrap">
+                                {delivery.attempt_number}
+                              </Table.Cell>
+                              <Table.Cell className="whitespace-nowrap">
+                                {formatDuration(delivery.duration_ms)}
+                              </Table.Cell>
                             </Table.Row>
                           ))}
                         </Table.Body>
@@ -170,7 +172,7 @@ export function WebhookDeliveriesDrawer({ state, endpoint }: WebhookDeliveriesDr
               )}
 
               {pagination && pagination.total_pages > 1 && (
-                <Pagination>
+                <Pagination className="shrink-0">
                   <Pagination.Content>
                     <Pagination.Item>
                       <Pagination.Previous

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Checkbox, FieldError } from "@heroui/react";
+import { Button, Checkbox, FieldError } from "@heroui/react";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { WebhookEventCatalogEntry, WebhookEventType } from "@/features/webhooks/interfaces/webhooks.interfaces";
@@ -32,6 +32,10 @@ export function EventCatalogPicker({
 }: EventCatalogPickerProps) {
   const [expandedPayloads, setExpandedPayloads] = useState<Set<string>>(() => new Set());
 
+  const allEventTypes = catalog.map((entry) => entry.event_type);
+  const allSelected =
+    allEventTypes.length > 0 && allEventTypes.every((eventType) => value.includes(eventType));
+
   const togglePayload = (eventType: string) => {
     setExpandedPayloads((current) => {
       const next = new Set(current);
@@ -46,11 +50,22 @@ export function EventCatalogPicker({
 
   return (
     <div className="flex flex-col gap-2">
-      <div className="flex flex-col gap-0.5">
-        <span className="text-sm font-medium text-foreground">Events</span>
-        <span className="text-xs text-muted">
-          Choose which events this endpoint should receive.
-        </span>
+      <div className="flex items-start justify-between gap-3">
+        <div className="flex flex-col gap-0.5">
+          <span className="text-sm font-medium text-foreground">Events</span>
+          <span className="text-xs text-muted">
+            Choose which events this endpoint should receive.
+          </span>
+        </div>
+        <Button
+          type="button"
+          variant="secondary"
+          size="sm"
+          isDisabled={isDisabled || catalog.length === 0}
+          onPress={() => onChange(allSelected ? [] : allEventTypes)}
+        >
+          {allSelected ? "Deselect all" : "Select all"}
+        </Button>
       </div>
 
       <div className="flex max-h-[min(24rem,40vh)] flex-col gap-2 overflow-y-auto pe-1">

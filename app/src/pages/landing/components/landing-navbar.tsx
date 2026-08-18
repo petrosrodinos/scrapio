@@ -1,10 +1,10 @@
 import type { FC } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@heroui/react";
-import { Terminal, Sun, Moon } from "lucide-react";
+import { Sun, Moon } from "lucide-react";
+import { AppLogo } from "@/components/ui/app-logo";
 import { Routes } from "@/routes/routes";
 import { useThemeContext } from "@/components/providers/theme-provider";
-import { environments } from "@/config/environments";
 import { useAuthStore } from "@/stores/auth";
 
 export const LandingNavbar: FC = () => {
@@ -15,14 +15,13 @@ export const LandingNavbar: FC = () => {
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-md">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <div className="flex items-center gap-2">
-          <span className="flex h-7 w-7 items-center justify-center rounded-md bg-accent-soft text-accent">
-            <Terminal className="h-4 w-4" />
-          </span>
-          <span className="landing-display text-[15px] font-semibold tracking-tight text-foreground">
-            {environments.APP_NAME}
-          </span>
-        </div>
+        <Link to={Routes.landing.root} className="flex items-center">
+          <AppLogo
+            showWordmark
+            markClassName="h-7 w-7"
+            wordmarkClassName="landing-display text-[15px]"
+          />
+        </Link>
 
         <nav className="flex items-center gap-1.5 sm:gap-3">
           <button

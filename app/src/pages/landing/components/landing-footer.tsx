@@ -1,9 +1,9 @@
 import type { FC } from "react";
 import { Link } from "react-router-dom";
-import { Terminal } from "lucide-react";
 import { Routes } from "@/routes/routes";
 import { environments } from "@/config/environments";
 import { useAuthStore } from "@/stores/auth";
+import { AppLogo } from "@/components/ui/app-logo";
 
 export const LandingFooter: FC = () => {
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
@@ -12,9 +12,7 @@ export const LandingFooter: FC = () => {
     <footer className="border-t border-border px-6 py-10">
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 sm:flex-row">
         <div className="flex items-center gap-2">
-          <span className="flex h-6 w-6 items-center justify-center rounded-md bg-accent-soft text-accent">
-            <Terminal className="h-3.5 w-3.5" />
-          </span>
+          <AppLogo markClassName="h-6 w-6" />
           <div>
             <p className="landing-display text-sm font-semibold text-foreground">
               {environments.APP_NAME}
