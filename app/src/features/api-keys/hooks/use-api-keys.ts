@@ -5,6 +5,7 @@ import {
   getApiKeys,
   updateApiKey,
   revokeApiKey,
+  deleteApiKey,
 } from "../services/api-keys.services";
 import type { CreateApiKeyPayload, UpdateApiKeyPayload } from "../interfaces/api-keys.interfaces";
 
@@ -65,6 +66,25 @@ export const useRevokeApiKey = () => {
     onError: (error: Error) => {
       toast({
         title: "Could not revoke API key",
+        description: error.message,
+        variant: "error",
+      });
+    },
+  });
+};
+
+export const useDeleteApiKey = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (id: string) => deleteApiKey(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["api-keys"] });
+      toast({ title: "API key deleted", duration: 2000, variant: "success" });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Could not delete API key",
         description: error.message,
         variant: "error",
       });

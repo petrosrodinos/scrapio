@@ -36,8 +36,16 @@ export const updateApiKey = async (id: string, payload: UpdateApiKeyPayload): Pr
 
 export const revokeApiKey = async (id: string): Promise<void> => {
   try {
-    await axiosInstance.delete(ApiRoutes.apiKeys.detail(id));
+    await axiosInstance.post(ApiRoutes.apiKeys.revoke(id));
   } catch (error) {
     throw new Error("Failed to revoke API key. Please try again.");
+  }
+};
+
+export const deleteApiKey = async (id: string): Promise<void> => {
+  try {
+    await axiosInstance.delete(ApiRoutes.apiKeys.detail(id));
+  } catch (error) {
+    throw new Error("Failed to delete API key. Please try again.");
   }
 };

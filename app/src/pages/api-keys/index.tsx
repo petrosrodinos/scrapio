@@ -12,7 +12,7 @@ import {
   Switch,
   useOverlayState,
 } from "@heroui/react";
-import { KeyRound, Pencil, Trash2 } from "lucide-react";
+import { Ban, KeyRound, Pencil, Trash2 } from "lucide-react";
 import { TableSkeleton } from "@/components/ui/table-skeleton";
 import { ConfirmationDialog } from "@/components/ui/confirmation-dialog";
 import { ActionButtonWithPending } from "@/components/ui/action-button-with-pending";
@@ -23,6 +23,7 @@ import {
   useCreateApiKey,
   useUpdateApiKey,
   useRevokeApiKey,
+  useDeleteApiKey,
 } from "@/features/api-keys/hooks/use-api-keys";
 import type { ApiKey } from "@/features/api-keys/interfaces/api-keys.interfaces";
 import type { CreateApiKeyFormValues } from "@/features/api-keys/validation-schemas/api-keys.schema";
@@ -93,15 +94,18 @@ export default function ApiKeysPage() {
   const revealModal = useOverlayState();
   const renameModal = useOverlayState();
   const revokeConfirm = useOverlayState();
+  const deleteConfirm = useOverlayState();
 
   const [revealedKey, setRevealedKey] = useState<string | null>(null);
   const [renamingKey, setRenamingKey] = useState<ApiKey | null>(null);
   const [revokingKeyId, setRevokingKeyId] = useState<string | null>(null);
+  const [deletingKeyId, setDeletingKeyId] = useState<string | null>(null);
 
   const { data: apiKeys = [], isPending } = useApiKeys();
   const createApiKey = useCreateApiKey();
   const updateApiKey = useUpdateApiKey();
   const revokeApiKey = useRevokeApiKey();
+  const deleteApiKey = useDeleteApiKey();
 
   const handleCreate = async (values: CreateApiKeyFormValues) => {
     const created = await createApiKey.mutateAsync({
@@ -172,40 +176,52 @@ export default function ApiKeysPage() {
                   </p>
                 </div>
 
-                {!isRevoked ? (
-                  <div className="flex shrink-0 items-center gap-3">
-                    <Switch
-                      isSelected={key.is_active}
-                      isDisabled={updateApiKey.isPending}
-                      onChange={(isSelected) => handleToggleActive(key, isSelected)}
-                    >
-                      <Switch.Control>
-                        <Switch.Thumb />
-                      </Switch.Control>
-                      <Switch.Content>Enabled</Switch.Content>
-                    </Switch>
-                    <Button
-                      variant="secondary"
-                      onPress={() => {
-                        setRenamingKey(key);
-                        renameModal.open();
-                      }}
-                    >
-                      <Pencil className="h-4 w-4" />
-                      Rename
-                    </Button>
-                    <Button
-                      variant="danger-soft"
-                      onPress={() => {
-                        setRevokingKeyId(key.id);
-                        revokeConfirm.open();
-                      }}
-                    >
-                      <Trash2 className="h-4 w-4" />
-                      Revoke
-                    </Button>
-                  </div>
-                ) : null}
+                <div className="flex shrink-0 items-center gap-3">
+                  {!isRevoked ? (
+                    <>
+                      <Switch
+                        isSelected={key.is_active}
+                        isDisabled={updateApiKey.isPending}
+                        onChange={(isSelected) => handleToggleActive(key, isSelected)}
+                      >
+                        <Switch.Control>
+                          <Switch.Thumb />
+                        </Switch.Control>
+                        <Switch.Content>Enabled</Switch.Content>
+                      </Switch>
+                      <Button
+                        variant="secondary"
+                        onPress={() => {
+                          setRenamingKey(key);
+                          renameModal.open();
+                        }}
+                      >
+                        <Pencil className="h-4 w-4" />
+                        Rename
+                      </Button>
+                      <Button
+                        variant="danger-soft"
+                        onPress={() => {
+                          setRevokingKeyId(key.id);
+                          revokeConfirm.open();
+                        }}
+                      >
+                        <Ban className="h-4 w-4" />
+                        Revoke
+                      </Button>
+                    </>
+                  ) : null}
+                  <Button
+                    variant="danger-soft"
+                    onPress={() => {
+                      setDeletingKeyId(key.id);
+                      deleteConfirm.open();
+                    }}
+                  >
+                    <Trash2 className="h-4 w-4" />
+                    Delete
+                  </Button>
+                </div>
               </section>
             );
           })}
@@ -277,6 +293,19 @@ export default function ApiKeysPage() {
           setRevokingKeyId(null);
         }}
         isPending={revokeApiKey.isPending}
+      />
+
+      <ConfirmationDialog
+        state={deleteConfirm}
+        title="Delete API key?"
+        description="This permanently removes the key. If it's still active, anything using it will immediately lose access. This cannot be undone."
+        confirmLabel="Delete"
+        onConfirm={async () => {
+          if (!deletingKeyId) return;
+          await deleteApiKey.mutateAsync(deletingKeyId);
+          setDeletingKeyId(null);
+        }}
+        isPending={deleteApiKey.isPending}
       />
     </div>
   );

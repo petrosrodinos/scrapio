@@ -51,12 +51,23 @@ export class ApiKeysController {
     return this.apiKeysService.update(authUser, id, dto);
   }
 
-  @Delete(':id')
-  @ApiOperation({ summary: 'Revoke an API key' })
+  @Post(':id/revoke')
+  @ApiOperation({
+    summary: 'Revoke an API key (disables it permanently but keeps it listed for audit history)',
+  })
   @ApiParam({ name: 'id', description: 'API key ID' })
   @ApiResponse({ status: 200, description: 'API key revoked' })
   @ApiResponse({ status: 404, description: 'API key not found' })
   revoke(@CurrentUser() authUser: AuthUser, @Param('id') id: string) {
     return this.apiKeysService.revoke(authUser, id);
+  }
+
+  @Delete(':id')
+  @ApiOperation({ summary: 'Permanently delete an API key' })
+  @ApiParam({ name: 'id', description: 'API key ID' })
+  @ApiResponse({ status: 200, description: 'API key deleted' })
+  @ApiResponse({ status: 404, description: 'API key not found' })
+  remove(@CurrentUser() authUser: AuthUser, @Param('id') id: string) {
+    return this.apiKeysService.remove(authUser, id);
   }
 }

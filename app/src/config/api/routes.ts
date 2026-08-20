@@ -120,6 +120,7 @@ export const ApiRoutes = {
     apiKeys: {
         list: "/api-keys",
         detail: (id: string) => `/api-keys/${id}`,
+        revoke: (id: string) => `/api-keys/${id}/revoke`,
     },
     webhooks: {
         list: "/webhooks",

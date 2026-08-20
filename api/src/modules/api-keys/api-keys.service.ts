@@ -75,6 +75,12 @@ export class ApiKeysService {
     return { message: 'API key revoked successfully' };
   }
 
+  async remove(authUser: AuthUser, id: string): Promise<{ message: string }> {
+    const existing = await this.ensureOwned(authUser, id);
+    await this.prisma.apiKey.delete({ where: { id: existing.id } });
+    return { message: 'API key deleted successfully' };
+  }
+
   private async ensureOwned(authUser: AuthUser, id: string): Promise<ApiKey> {
     const key = await this.prisma.apiKey.findFirst({
       where: { id, user_id: authUser.id },
