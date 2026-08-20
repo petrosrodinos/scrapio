@@ -42,6 +42,7 @@ export function SendTestEventModal({ state, endpoint, onClose }: SendTestEventMo
   const handleClose = () => {
     setEventType(null);
     setResult(null);
+    state.close();
     onClose();
   };
 
