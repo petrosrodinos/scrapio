@@ -97,6 +97,20 @@ export class WebhooksController {
     return this.webhooksService.findDeliveries(authUser, id, query);
   }
 
+  @Post(':id/deliveries/:deliveryId/resend')
+  @ApiOperation({ summary: 'Resend a webhook delivery attempt using its original payload' })
+  @ApiParam({ name: 'id', description: 'Webhook endpoint ID' })
+  @ApiParam({ name: 'deliveryId', description: 'Webhook delivery ID' })
+  @ApiResponse({ status: 201, type: WebhookDeliveryEntity })
+  @ApiResponse({ status: 404, description: 'Webhook endpoint or delivery not found' })
+  resendDelivery(
+    @CurrentUser() authUser: AuthUser,
+    @Param('id') id: string,
+    @Param('deliveryId') deliveryId: string,
+  ) {
+    return this.webhooksService.resendDelivery(authUser, id, deliveryId);
+  }
+
   @Post(':id/test')
   @ApiOperation({ summary: 'Send a synthetic test event to a webhook endpoint' })
   @ApiParam({ name: 'id', description: 'Webhook endpoint ID' })

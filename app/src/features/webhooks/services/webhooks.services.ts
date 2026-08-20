@@ -80,6 +80,20 @@ export const getWebhookDeliveries = async (
   }
 };
 
+export const resendWebhookDelivery = async (
+  id: string,
+  deliveryId: string,
+): Promise<WebhookDelivery> => {
+  try {
+    const response = await axiosInstance.post<WebhookDelivery>(
+      ApiRoutes.webhooks.resendDelivery(id, deliveryId),
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error("Failed to resend webhook delivery. Please try again.");
+  }
+};
+
 export const sendTestWebhookEvent = async (
   id: string,
   eventType: WebhookEventType,

@@ -6,6 +6,7 @@ import {
   getWebhookDeliveries,
   getWebhookEndpoints,
   getWebhookEventCatalog,
+  resendWebhookDelivery,
   sendTestWebhookEvent,
   updateWebhookEndpoint,
 } from "../services/webhooks.services";
@@ -94,6 +95,26 @@ export const useWebhookDeliveries = (id: string, query: WebhookDeliveryListQuery
     queryKey: ["webhooks", id, "deliveries", query],
     queryFn: () => getWebhookDeliveries(id, query),
     enabled: !!id,
+  });
+};
+
+export const useResendWebhookDelivery = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ id, deliveryId }: { id: string; deliveryId: string }) =>
+      resendWebhookDelivery(id, deliveryId),
+    onSuccess: (_data, { id }) => {
+      queryClient.invalidateQueries({ queryKey: ["webhooks", id, "deliveries"] });
+      toast({ title: "Delivery resent", duration: 2000, variant: "success" });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Could not resend delivery",
+        description: error.message,
+        variant: "error",
+      });
+    },
   });
 };
 

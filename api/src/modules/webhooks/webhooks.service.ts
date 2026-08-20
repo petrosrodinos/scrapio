@@ -138,6 +138,32 @@ export class WebhooksService {
     return delivery as unknown as WebhookDeliveryEntity;
   }
 
+  async resendDelivery(
+    authUser: AuthUser,
+    endpointId: string,
+    deliveryId: string,
+  ): Promise<WebhookDeliveryEntity> {
+    const endpoint = await this.ensureOwned(authUser, endpointId);
+
+    const original = await this.prisma.webhookDelivery.findFirst({
+      where: { id: deliveryId, webhook_endpoint_id: endpoint.id },
+    });
+    if (!original) {
+      throw new NotFoundException('Webhook delivery not found');
+    }
+
+    const { delivery } = await this.delivery.deliverOnce({
+      endpoint,
+      eventType: original.event_type,
+      payload: original.payload as object,
+      attemptNumber: original.attempt_number + 1,
+      workflowRunId: original.workflow_run_id,
+      isTest: original.is_test,
+    });
+
+    return delivery as unknown as WebhookDeliveryEntity;
+  }
+
   private async ensureOwned(authUser: AuthUser, id: string): Promise<WebhookEndpoint> {
     const endpoint = await this.prisma.webhookEndpoint.findFirst({
       where: { id, user_id: authUser.id },
