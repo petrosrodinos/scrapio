@@ -15,6 +15,7 @@ import {
 import { Ban, KeyRound, Pencil, Trash2 } from "lucide-react";
 import { TableSkeleton } from "@/components/ui/table-skeleton";
 import { ConfirmationDialog } from "@/components/ui/confirmation-dialog";
+import { TableRowActionsMenu, type TableRowAction } from "@/components/ui/table-row-actions-menu";
 import { ActionButtonWithPending } from "@/components/ui/action-button-with-pending";
 import { CreateApiKeyForm } from "./components/create-api-key-form";
 import { RevealApiKeyModal } from "./components/reveal-api-key-modal";
@@ -48,6 +49,19 @@ function getStatus(key: ApiKey): {
 function formatDate(value: string | null): string {
   if (!value) return "Never";
   return new Date(value).toLocaleString();
+}
+
+function getApiKeyActions(key: ApiKey): TableRowAction[] {
+  const actions: TableRowAction[] = [];
+
+  if (!key.revoked_at) {
+    actions.push({ id: "rename", label: "Rename", icon: Pencil });
+    actions.push({ id: "revoke", label: "Revoke", variant: "warning", icon: Ban });
+  }
+
+  actions.push({ id: "delete", label: "Delete", variant: "danger", icon: Trash2 });
+
+  return actions;
 }
 
 function RenameApiKeyForm({
@@ -128,6 +142,19 @@ export default function ApiKeysPage() {
     updateApiKey.mutate({ id: key.id, payload: { is_active: isActive } });
   };
 
+  const handleKeyAction = (key: ApiKey, actionId: string) => {
+    if (actionId === "rename") {
+      setRenamingKey(key);
+      renameModal.open();
+    } else if (actionId === "revoke") {
+      setRevokingKeyId(key.id);
+      revokeConfirm.open();
+    } else if (actionId === "delete") {
+      setDeletingKeyId(key.id);
+      deleteConfirm.open();
+    }
+  };
+
   return (
     <div className="flex flex-col gap-6 min-w-0">
       <div className="flex items-start justify-between gap-3">
@@ -178,49 +205,22 @@ export default function ApiKeysPage() {
 
                 <div className="flex shrink-0 items-center gap-3">
                   {!isRevoked ? (
-                    <>
-                      <Switch
-                        isSelected={key.is_active}
-                        isDisabled={updateApiKey.isPending}
-                        onChange={(isSelected) => handleToggleActive(key, isSelected)}
-                      >
-                        <Switch.Control>
-                          <Switch.Thumb />
-                        </Switch.Control>
-                        <Switch.Content>Enabled</Switch.Content>
-                      </Switch>
-                      <Button
-                        variant="secondary"
-                        onPress={() => {
-                          setRenamingKey(key);
-                          renameModal.open();
-                        }}
-                      >
-                        <Pencil className="h-4 w-4" />
-                        Rename
-                      </Button>
-                      <Button
-                        variant="danger-soft"
-                        onPress={() => {
-                          setRevokingKeyId(key.id);
-                          revokeConfirm.open();
-                        }}
-                      >
-                        <Ban className="h-4 w-4" />
-                        Revoke
-                      </Button>
-                    </>
+                    <Switch
+                      isSelected={key.is_active}
+                      isDisabled={updateApiKey.isPending}
+                      onChange={(isSelected) => handleToggleActive(key, isSelected)}
+                    >
+                      <Switch.Control>
+                        <Switch.Thumb />
+                      </Switch.Control>
+                      <Switch.Content>Enabled</Switch.Content>
+                    </Switch>
                   ) : null}
-                  <Button
-                    variant="danger-soft"
-                    onPress={() => {
-                      setDeletingKeyId(key.id);
-                      deleteConfirm.open();
-                    }}
-                  >
-                    <Trash2 className="h-4 w-4" />
-                    Delete
-                  </Button>
+                  <TableRowActionsMenu
+                    actions={getApiKeyActions(key)}
+                    onAction={(actionId) => handleKeyAction(key, actionId)}
+                    ariaLabel={`Actions for API key ${key.name}`}
+                  />
                 </div>
               </section>
             );
