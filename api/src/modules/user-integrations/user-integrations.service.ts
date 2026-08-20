@@ -2,6 +2,7 @@ import {
   BadRequestException,
   ConflictException,
   Injectable,
+  Logger,
   NotFoundException,
 } from '@nestjs/common';
 import { PrismaService } from '@/core/databases/prisma/prisma.service';
@@ -32,6 +33,8 @@ const AI_INTEGRATION_TYPES: IntegrationType[] = [
 
 @Injectable()
 export class UserIntegrationsService {
+  private readonly logger = new Logger(UserIntegrationsService.name);
+
   constructor(
     private readonly prisma: PrismaService,
     private readonly credentialEncryption: CredentialEncryptionService,
@@ -385,9 +388,20 @@ export class UserIntegrationsService {
     created_at: Date;
     updated_at: Date;
   }): UserIntegrationResponse {
-    const credentials = this.credentialEncryption.decrypt(
-      integration.credentials_encrypted,
-    );
+    let apiKeyMasked: string | null = null;
+    let credentialsInvalid = false;
+
+    try {
+      const credentials = this.credentialEncryption.decrypt(
+        integration.credentials_encrypted,
+      );
+      apiKeyMasked = maskApiKey(credentials.api_key);
+    } catch (error) {
+      credentialsInvalid = true;
+      this.logger.error(
+        `Failed to decrypt credentials for user integration ${integration.id}: ${(error as Error).message}`,
+      );
+    }
 
     return {
       id: integration.id,
@@ -395,7 +409,8 @@ export class UserIntegrationsService {
       integration_type: integration.integration_type,
       computer_use_model: integration.computer_use_model,
       ai_model: integration.ai_model,
-      api_key_masked: maskApiKey(credentials.api_key),
+      api_key_masked: apiKeyMasked,
+      credentials_invalid: credentialsInvalid,
       is_active: integration.is_active,
       is_default: integration.is_default,
       metadata: (integration.metadata as Record<string, unknown> | null) ?? null,

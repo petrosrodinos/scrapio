@@ -18,7 +18,8 @@ export interface UserIntegrationResponse {
   integration_type: IntegrationType;
   computer_use_model: ComputerUseModel | null;
   ai_model: ComputerUseModel | null;
-  api_key_masked: string;
+  api_key_masked: string | null;
+  credentials_invalid: boolean;
   is_active: boolean;
   is_default: boolean;
   metadata: Record<string, unknown> | null;

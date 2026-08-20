@@ -157,6 +157,11 @@ export default function IntegrationsPage() {
                         Default AI
                       </Chip>
                     ) : null}
+                    {connected?.credentials_invalid ? (
+                      <Chip size="sm" color="danger">
+                        Reconnect required
+                      </Chip>
+                    ) : null}
                     <Chip size="sm" variant={connected ? "primary" : "secondary"}>
                       {connected ? "Connected" : "Not connected"}
                     </Chip>
@@ -169,7 +174,12 @@ export default function IntegrationsPage() {
 
                 {connected ? (
                   <div className="text-sm text-muted flex flex-col gap-1">
-                    <span>Key: {connected.api_key_masked}</span>
+                    <span>
+                      Key:{" "}
+                      {connected.credentials_invalid
+                        ? "Unable to read stored credentials — reconnect this integration"
+                        : connected.api_key_masked}
+                    </span>
                     {computerUseLabel ? <span>Computer use: {computerUseLabel}</span> : null}
                     {aiLabel ? <span>AI model: {aiLabel}</span> : null}
                   </div>

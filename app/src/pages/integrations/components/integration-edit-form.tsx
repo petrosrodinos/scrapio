@@ -49,7 +49,11 @@ export function IntegrationEditForm({
         <PasswordInput
           id="integration-edit-api-key"
           {...register("api_key")}
-          placeholder={`Leave blank to keep ${userIntegration.api_key_masked}`}
+          placeholder={
+            userIntegration.credentials_invalid
+              ? "Enter a new API key to reconnect"
+              : `Leave blank to keep ${userIntegration.api_key_masked}`
+          }
           disabled={isPending}
         />
         {errors.api_key && <FieldError>{errors.api_key.message}</FieldError>}

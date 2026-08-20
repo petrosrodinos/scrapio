@@ -17,8 +17,11 @@ export class UserIntegration {
   @ApiProperty({ enum: ComputerUseModel, nullable: true, description: 'Configured AI model, if applicable' })
   ai_model: ComputerUseModel | null;
 
-  @ApiProperty({ description: 'Masked API key. The raw credential is never returned after it is stored.', example: 'sk-...xxxx' })
-  api_key_masked: string;
+  @ApiProperty({ description: 'Masked API key. The raw credential is never returned after it is stored. Null when the stored credentials could not be decrypted.', nullable: true, example: 'sk-...xxxx' })
+  api_key_masked: string | null;
+
+  @ApiProperty({ description: 'True when the stored credentials could not be decrypted (e.g. after an encryption key rotation). Reconnect the integration to clear this.', example: false })
+  credentials_invalid: boolean;
 
   @ApiProperty({ description: 'Whether the integration is currently enabled', example: true })
   is_active: boolean;
