@@ -1,5 +1,6 @@
 import type { FC } from "react";
 import { Modal, Tabs, type useOverlayState } from "@heroui/react";
+import { CopyButton } from "@/components/ui/copy-button";
 import { JsonCodeBlock } from "@/components/ui/json-code-block";
 import type { WebhookDelivery } from "@/features/webhooks/interfaces/webhooks.interfaces";
 
@@ -21,6 +22,9 @@ export const WebhookDeliveryPayloadModal: FC<WebhookDeliveryPayloadModalProps> =
   state,
   delivery,
 }) => {
+  const requestJson = delivery ? JSON.stringify(delivery.payload, null, 2) : "";
+  const responseJson = delivery ? formatResponseBody(delivery.response_body) : "";
+
   return (
     <Modal state={state}>
       <Modal.Backdrop isDismissable>
@@ -45,17 +49,17 @@ export const WebhookDeliveryPayloadModal: FC<WebhookDeliveryPayloadModalProps> =
                       </Tabs.Tab>
                     </Tabs.List>
                   </Tabs.ListContainer>
-                  <Tabs.Panel id="request" className="pt-3">
-                    <JsonCodeBlock
-                      json={JSON.stringify(delivery.payload, null, 2)}
-                      maxHeightClassName="max-h-[60vh]"
-                    />
+                  <Tabs.Panel id="request" className="flex flex-col gap-2 pt-3">
+                    <div className="flex justify-end">
+                      <CopyButton value={requestJson} ariaLabel="Copy request payload" />
+                    </div>
+                    <JsonCodeBlock json={requestJson} maxHeightClassName="max-h-[60vh]" />
                   </Tabs.Panel>
-                  <Tabs.Panel id="response" className="pt-3">
-                    <JsonCodeBlock
-                      json={formatResponseBody(delivery.response_body)}
-                      maxHeightClassName="max-h-[60vh]"
-                    />
+                  <Tabs.Panel id="response" className="flex flex-col gap-2 pt-3">
+                    <div className="flex justify-end">
+                      <CopyButton value={responseJson} ariaLabel="Copy response body" />
+                    </div>
+                    <JsonCodeBlock json={responseJson} maxHeightClassName="max-h-[60vh]" />
                   </Tabs.Panel>
                 </Tabs>
               ) : null}
